@@ -1,0 +1,19 @@
+package automation.PestRoutes.Controller;
+
+import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_SubscriptionTab;
+import automation.PestRoutes.Utilities.BaseClass;
+
+import org.testng.annotations.Test;
+public class AddSubscription extends BaseClass {
+	
+	CustomerViewDialog_SubscriptionTab subscription;
+	
+	
+	@Test
+	public void validateSubscription() throws Exception {
+		subscription = new CustomerViewDialog_SubscriptionTab();
+		subscription.clickNewSubscriptionButton();
+		subscription.selectServiceType(getQuarterlyData("quarterly"));
+	}
+
+}

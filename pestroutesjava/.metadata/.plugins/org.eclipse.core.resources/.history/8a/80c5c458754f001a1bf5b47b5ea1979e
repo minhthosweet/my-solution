@@ -1,0 +1,5 @@
+package automation.PestRoutes.PageObject.CustomerOverview;
+
+public class CustomerViewDialog_InvoicesTab {
+
+}

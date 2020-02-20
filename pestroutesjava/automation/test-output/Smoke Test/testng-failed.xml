@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Failed suite [Smoke Test]" guice-stage="DEVELOPMENT">
+  <test thread-count="5" name="Demo(failed)">
+    <classes>
+      <class name="automation.PestRoutes.Controller.CreateNewCustomer">
+        <methods>
+          <include name="CreateCustomer"/>
+          <include name="beforeTest"/>
+          <include name="afterTest"/>
+        </methods>
+      </class> <!-- automation.PestRoutes.Controller.CreateNewCustomer -->
+    </classes>
+  </test> <!-- Demo(failed) -->
+</suite> <!-- Failed suite [Smoke Test] -->

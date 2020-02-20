@@ -1,0 +1,53 @@
+package automation.PestRoutes.Controller;
+
+import automation.PestRoutes.PageObject.Header;
+import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_Header;
+import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_SubscriptionTab;
+import automation.PestRoutes.Utilities.BaseClass;
+
+import static org.testng.Assert.assertTrue;
+
+import org.testng.annotations.Test;
+public class AddSubscription extends BaseClass {
+	
+	CustomerViewDialog_SubscriptionTab subscription;
+	CustomerViewDialog_Header customerDialogHeader;
+	Header header;
+	
+	
+	@Test
+	public void validateSubscription() throws Exception {
+		subscription = new CustomerViewDialog_SubscriptionTab();
+		customerDialogHeader = new CustomerViewDialog_Header();
+		header = new Header();
+		header.Search_A_Customer(getData("userID"));
+		customerDialogHeader.NavigateTo(customerDialogHeader.subscriptionTabInDialog);
+		subscription.clickNewSubscriptionButton();
+		subscription.selectServiceType(getQuarterlyData("quarterly"));
+		subscription.setCustomDate(getQuarterlyData("customDate"));
+		String[] prefferedDay = {getQuarterlyData("monday"), getQuarterlyData("tuesday"),
+				getQuarterlyData("wednesday"), getQuarterlyData("thursday"), getQuarterlyData("friday"),
+				getQuarterlyData("saturday"),getQuarterlyData("sunday")};
+		
+		System.out.println(prefferedDay.length);
+		for(int i = 0; i == prefferedDay.length; i++) {
+			subscription.selectPreferredDayOption(prefferedDay[i]);
+			String[] actualUpComingDates = {subscription.getUpcomingAppt(subscription.firstUpcomingAppointment),
+					subscription.getUpcomingAppt(subscription.secondUpcomingAppointment),
+					subscription.getUpcomingAppt(subscription.thirdUpcomingAppointment),
+					subscription.getUpcomingAppt(subscription.fourthUpcomingAppointment),
+					subscription.getUpcomingAppt(subscription.fifthUpcomingAppointment)};
+			String[] expectedUpComingDates = {getQuarterlyData("customDate"), getQuarterlyData("first"+prefferedDay[i]),
+					getQuarterlyData("second"+prefferedDay[i]), getQuarterlyData("third"+prefferedDay[i]),
+					getQuarterlyData("fourth"+prefferedDay[i])};
+			
+			for(int j = 0; j <5; j++) {
+				System.out.println(actualUpComingDates[j]);
+				System.out.println(expectedUpComingDates[j]);
+				assertTrue(actualUpComingDates[j].contains(expectedUpComingDates[j]));
+			}
+		}
+		
+	}
+
+}

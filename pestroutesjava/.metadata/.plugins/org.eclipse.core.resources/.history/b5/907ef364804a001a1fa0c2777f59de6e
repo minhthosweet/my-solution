@@ -1,0 +1,109 @@
+package automation.PestRoutes.Utilities;
+
+import java.io.File;
+import java.util.Random;
+
+import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.By;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.Select;
+
+import automation.PestRoutes.Utilities.Driver.GetWebDriver;
+
+public class Utilities {
+	static WebDriver driver = GetWebDriver.getInstance();;
+	private static final String CHAR_LIST = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+
+	public static void selectValueFromDropDownByIndex(WebDriver driver, String needXpath, String needValue) {
+		Select dropdown = new Select(driver.findElement(By.xpath(needXpath)));
+		dropdown.selectByVisibleText(needValue);
+	}
+
+	public static void takeSnapShot(WebDriver webdriver, String fileWithPath) throws Exception {
+
+		TakesScreenshot scrShot = ((TakesScreenshot) webdriver);
+		File SrcFile = scrShot.getScreenshotAs(OutputType.FILE);
+		File DestFile = new File(fileWithPath);
+		FileUtils.copyFile(SrcFile, DestFile);
+
+	}
+
+	public String generateRandomString() {
+		int randomStringLength = 8;
+		StringBuffer randStr = new StringBuffer();
+		for (int i = 0; i < randomStringLength; i++) {
+			int number = getRandomNumber();
+			char ch = CHAR_LIST.charAt(number);
+			randStr.append(ch);
+		}
+		return randStr.toString();
+	}
+
+	private int getRandomNumber() {
+		int randomInt = 0;
+		Random randomGenerator = new Random();
+		randomInt = randomGenerator.nextInt(CHAR_LIST.length());
+		if (randomInt - 1 == -1) {
+			return randomInt;
+		} else {
+			return randomInt - 1;
+		}
+	}
+
+	public static String getElementTextValue(String needAttribute, ElementType Attribute_Type) {
+		String attribute;
+		switch (Attribute_Type) {
+		case XPath:
+			attribute = driver.findElement(By.xpath(needAttribute)).getText();
+			break;
+		case ID:
+			attribute = driver.findElement(By.id(needAttribute)).getText();
+			break;
+		case ClassName:
+			attribute = driver.findElement(By.className(needAttribute)).getText();
+			break;
+		case LinkText:
+			attribute = driver.findElement(By.linkText(needAttribute)).getText();
+			break;
+		default:
+			attribute = driver.findElement(By.xpath(needAttribute)).getText();
+			break;
+		}
+		return attribute;
+	}
+
+	public static void clickElement(String needAttribute, ElementType Attribute_Type) {
+		WebElement attribute;
+		switch (Attribute_Type) {
+		case XPath:
+			attribute = driver.findElement(By.xpath(needAttribute));
+			attribute.click();
+			break;
+		case ID:
+			attribute = driver.findElement(By.id(needAttribute));
+			attribute.click();
+			break;
+		case ClassName:
+			attribute = driver.findElement(By.className(needAttribute));
+			attribute.click();
+			break;
+		case LinkText:
+			attribute = driver.findElement(By.linkText(needAttribute));
+			attribute.click();
+			break;
+		default:
+			attribute = driver.findElement(By.xpath(needAttribute));
+			attribute.click();
+			break;
+		}
+
+	}
+
+	public enum ElementType {
+		XPath, ID, ClassName, PartialLink, LinkText
+	}
+
+}
