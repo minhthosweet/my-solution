@@ -42,9 +42,13 @@ public class Invoicing extends BaseClass {
 
 	// New Invoice
 	private String newInvoice = "//li[contains(@class,'createNewInvoice(20316);') and contains(text(),'+ New Invoice')]";
-	private String service = "//form[@id=\"newInvoiceParams\"]/select";
-	private String service2 = "//select[@id=\"newInvoiceParams\"]/select/option[21]";
-
+	private String serviceSelect = "//form[@id=\"newInvoiceParams\"]/select";
+	private String service = "//select[@id=\"newInvoiceParams\"]/select/option[21]";
+	private String create = "//span[contains(@class,'ui-button-text') and contains(text(),'Create')]";
+	private String Charges = "Charges";
+	private String TicketInfo = "TicketInfo";
+	private String InvoicePayments = "Payments";
+	
 	@Test
 	public void CustomerInvoicing() throws Exception {
 		// Login
@@ -57,6 +61,7 @@ public class Invoicing extends BaseClass {
 		assertInvoices();
 		paymentOptions();
 		newInvoice();
+		manageInvoices();
 
 		System.out.println("Customer Invoicing TC passed");
 	}
@@ -123,8 +128,18 @@ public class Invoicing extends BaseClass {
 	public void newInvoice() {
 		Utilities.clickElement(newInvoice, ElementType.XPath);
 		Utilities.waitUntileElementIsVisible(invImplementation.invoiceAmount("222"));
+		Utilities.waitUntileElementIsVisible(serviceSelect);
+		Utilities.clickElement(serviceSelect, ElementType.XPath);
 		Utilities.waitUntileElementIsVisible(service);
 		Utilities.clickElement(service, ElementType.XPath);
+		Utilities.waitUntileElementIsVisible(create);
+		Utilities.clickElement(create, ElementType.XPath);
+	}
+	
+	public void manageInvoices() {
+		Reporter.status(Charges, invImplementation.getCharges(), "Charges tab visible on the UI");
+		Reporter.status(TicketInfo, invImplementation.getTicketInfo(), "Ticket Info TC passed");
+		Reporter.status(InvoicePayments, invImplementation.getInvoicePayments(), "Payments visible on the UI");
 	}
 
 }

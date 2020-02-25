@@ -38,11 +38,34 @@ public class InvoiceImplementation {
 	
 	//Invoice Amount
 	private String invoiceAmount = "//form[@id=\"newInvoiceParams\"]/input[2]";
+	private String Charges = "//h3[contains(@class,'bluGradientBG') and contains(text(),'Charges')]";
+	private String TicketInfo = "//h3[contains(@class,'bluGradientBG') and contains(text(),'Ticket Info')]";	
+	private String InvoicePayments = "//h3[contains(@class,'bluGradientBG') and contains(text(),'Payments')]";
+	private String ChargeAmount = "//*[@id=\"serviceTicket\"]/div[2]/input";
 	
 	// Getter Methods
 	public String getPaymentFlags() {		
 		Utilities.waitUntileElementIsVisible(PaymentFlags);
 		return Utilities.getElementTextValue(PaymentFlags, ElementType.XPath);
+	}
+
+
+
+	public String getInvoicePayments() {
+		Utilities.waitUntileElementIsVisible(InvoicePayments);
+		return Utilities.getElementTextValue(InvoicePayments, ElementType.XPath);
+	}
+	
+
+	public String getCharges() {
+		Utilities.waitUntileElementIsVisible(Charges);
+		return Utilities.getElementTextValue(Charges, ElementType.XPath);
+	}
+	
+
+	public String getTicketInfo() {
+		Utilities.waitUntileElementIsVisible(TicketInfo);
+		return Utilities.getElementTextValue(TicketInfo, ElementType.XPath);
 	}
 
 	public String getOfficePayment() {
