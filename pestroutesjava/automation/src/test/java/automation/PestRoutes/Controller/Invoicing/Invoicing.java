@@ -85,6 +85,7 @@ public class Invoicing extends BaseClass {
 
 	private void paymentOptions() throws InterruptedException {
 		mainHeader.clickElementLanding();
+		
 		String amount = invImplementation.insertPaymentAmount("900.00");
 
 		Reporter.status(cashpayment, invImplementation.getCashPayment(), "Cash Payment Visible");
@@ -140,6 +141,7 @@ public class Invoicing extends BaseClass {
 		Reporter.status(Charges, invImplementation.getCharges(), "Charges tab visible on the UI");
 		Reporter.status(TicketInfo, invImplementation.getTicketInfo(), "Ticket Info TC passed");
 		Reporter.status(InvoicePayments, invImplementation.getInvoicePayments(), "Payments visible on the UI");
+		
 	}
 
 }
