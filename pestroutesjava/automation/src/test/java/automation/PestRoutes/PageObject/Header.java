@@ -16,7 +16,7 @@ public class Header {
 	public String newCustomerTab = "New Customer";
 	public String calender = "//div[@id='guestNav']/div[2]/input";
 	public String date = "//a[@class= 'ui-state-default ui-state-highlight']/parent::td/following-sibling::td[2]";
-	public String schedulingTab = "Scheduling";
+	public String schedulingTab = "Scheduling"; 
 	public String customersTab = "Customers";
 	public String billingTab = "Billing";
 	public String reportingTab = "Reporting";
