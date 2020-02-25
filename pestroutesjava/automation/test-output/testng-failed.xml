@@ -3,13 +3,13 @@
 <suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="automation.PestRoutes.Controller.CustomerCreation.CreateNewCustomer">
+      <class name="automation.PestRoutes.Controller.BackendTest.BackEndValidation">
         <methods>
-          <include name="CreateCustomer"/>
-          <include name="beforeTest"/>
-          <include name="afterTest"/>
+          <include name="tearDown"/>
+          <include name="setUp"/>
+          <include name="validateBackEnd"/>
         </methods>
-      </class> <!-- automation.PestRoutes.Controller.CustomerCreation.CreateNewCustomer -->
+      </class> <!-- automation.PestRoutes.Controller.BackendTest.BackEndValidation -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->
