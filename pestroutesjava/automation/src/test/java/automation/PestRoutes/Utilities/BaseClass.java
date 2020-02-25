@@ -34,7 +34,7 @@ public class BaseClass extends AppData {
 //			driver = new InternetExplorerDriver();
 //		}
 
-		WebDriverManager.chromedriver().setup();
+		//WebDriverManager.chromedriver().setup();
 //		ChromeOptions options = new ChromeOptions();
 //		options.addArguments("--incognito");
 //		DesiredCapabilities capabilities = DesiredCapabilities.htmlUnit();

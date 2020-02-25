@@ -9,6 +9,8 @@ public class GetWebDriver {
 
 	public static WebDriver getInstance() {
 		if(driver == null) {
+			System.setProperty("webdriver.chrome.driver",
+					"C:\\Users\\AbdulAarbi\\Documents\\GitHub\\tests\\pestroutesjava\\automation\\src\\test\\java\\automation\\PestRoutes\\Utilities\\Driver\\chromedriver.exe");
 			driver = new ChromeDriver();
 		}
 		return driver;
