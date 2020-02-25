@@ -1,22 +1,20 @@
 package automation.PestRoutes.PageObject;
 
-<<<<<<< HEAD
 
-=======
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
->>>>>>> Updated Invoicing and New - Chemical Appointment
 import automation.PestRoutes.Utilities.FindElement;
 import automation.PestRoutes.Utilities.FindElement.InputType;
 import automation.PestRoutes.Utilities.Utilities;
 import automation.PestRoutes.Utilities.Utilities.ElementType;;
 
 public class Header {
+	
 	public String newCustomerTab = "New Customer";
 	public String calender = "//div[@id='guestNav']/div[2]/input";
 	public String date = "//a[@class= 'ui-state-default ui-state-highlight']/parent::td/following-sibling::td[2]";
-	public String schedulingTab = "Scheduling"; 
+	public String schedulingTab = "Scheduling";
 	public String customersTab = "Customers";
 	public String billingTab = "Billing";
 	public String reportingTab = "Reporting";
@@ -24,8 +22,6 @@ public class Header {
 	public String adminTab = "Admin";
 	public String SearchField = "//input[@id='customerSearch']";
 	public String FirstSearchResult = "//ul[@id='ui-id-15']/li[1]";
-<<<<<<< HEAD
-=======
 	public String invoices = "Invoices";
 	public String addPayment = "//h3[text() = 'Payments']/following-sibling::div";
 	public String Cash = "//div[@class='wallet']//*[text()='Cash']\n";
@@ -41,21 +37,18 @@ public class Header {
 	
 	public String prev = "//span[contains(@class,'ui-icon ui-icon-circle-triangle-w') and contains(text(),'Prev')]";
 	public String dateSelected = "//span[contains(@class,'ui-datepicker-month') and contains(text(),'January')]";
-	
->>>>>>> Updated Invoicing and New - Chemical Appointment
-	
 	public void NavigateTo(String chooseTabFromConst) {
 		Utilities.clickElement("//a[text() = '"+chooseTabFromConst+"']", ElementType.XPath);
 	}
 	
 	public void Search_A_Customer(String needCustomerFullName) throws Exception {
+		Thread.sleep(3000);
 		Utilities.waitUntileElementIsVisible(SearchField);
 		FindElement.elementByAttribute(SearchField, InputType.XPath).sendKeys(needCustomerFullName);
+		Thread.sleep(3000);
 		Utilities.clickElement(FirstSearchResult, ElementType.XPath);
 	}
 
-<<<<<<< HEAD
-=======
 	public void clickElementLanding() throws InterruptedException {
 		Utilities.clickElement(addPayment, ElementType.XPath);
 		Utilities.clickElement(Cash, ElementType.XPath);
@@ -91,5 +84,4 @@ public class Header {
 		return date1 + " @ " + time1 + " CST ";
 
 	}
->>>>>>> Updated Invoicing and New - Chemical Appointment
 }
