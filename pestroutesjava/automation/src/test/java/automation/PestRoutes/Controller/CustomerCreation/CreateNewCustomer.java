@@ -25,7 +25,7 @@ public class CreateNewCustomer extends BaseClass{
 	
 	@Test
 	public void CreateCustomer() throws Exception {
-		String fName = "automation36";
+		String fName = "automation37";
 		String lName = "newTest20";
 		dialog = new CustomerViewDialog_Header();
 		customer = new CreateCustomerDIalog();
