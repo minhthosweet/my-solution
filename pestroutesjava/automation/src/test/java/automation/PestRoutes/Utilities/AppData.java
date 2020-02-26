@@ -4,9 +4,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.net.URL;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Properties;
 
 public class AppData {
@@ -22,11 +19,6 @@ public class AppData {
 			ClassLoader classLoader = new AppData().getClass().getClassLoader();
 			 
 	        File file = new File(classLoader.getResource(needFile).getFile());
-			// InputStream location =
-			// getClass().getResourceAsStream("application.properties");
-//			File location = new File(
-//					"C:\\Users\\AbdulAarbi\\Desktop\\pestroutesjava\\automation\\src\\test\\java\\automation\\PestRoutes\\Utilities\\Data\\application.properties");
-//			// FileReader fileData = new FileReader(location);
 			FileInputStream fileData = new FileInputStream(file);
 
 			properties.load(fileData);
@@ -44,9 +36,7 @@ public class AppData {
 	}
 
 	public static void addData(String needKey, String needValue, String needFile) throws Exception {
-		//ClassLoader classLoader = new AppData().getClass().getClassLoader();
 		File location = new File(System.getProperty("user.dir") + "/src/test/resources/"+needFile);
-        //File file = new File(classLoader.getResource("application.properties").getFile());
 		FileInputStream in = new FileInputStream(location);
 		Properties props = new Properties();
 		props.load(in);
