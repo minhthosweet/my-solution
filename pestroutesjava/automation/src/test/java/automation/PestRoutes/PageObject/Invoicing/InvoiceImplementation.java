@@ -10,29 +10,30 @@ public class InvoiceImplementation {
 	private String invoiceAccountSummaryClick = "//ul[@id=\"invoiceGroupListContainer\"]/ul/li";
 
 	// Invoice Amount
-	private String newInvoice = "//form[@id=\"newInvoiceParams\"]/input[2]";
-	private String serviceSelect = "//form[@id=\"newInvoiceParams\"]/select";
+	private String newInvoice = "//form[@id=\"newInvoiceParams\"]//input[@type=\"number\"]";
+	private String serviceSelect = "//form[@id=\"newInvoiceParams\"]//select[@name = \"serviceID\"]";
 	private String service = "//form[@id=\"newInvoiceParams\"]/select/option[21]";
 	private String create = "//span[contains(@class,'ui-button-text') and contains(text(),'Create')]";
 
 	// Assertion Invoice Values
-	private String invoiceCost = "//div[@id=\"serviceTicket\"]/div[3]/div[4]/div";
-	private String totalValueCharges = "//div[@id=\"invoiceDetails\"]/div[2]/div/div/div[2]/div[2]/div[6]";
-	private String totalPaymentCharges = "//div[@id=\"invoiceDetails\"]/div[3]/div/div[2]/div[6]";
+	private String invoiceCost = "//div[@id=\"serviceTicket\"]//div[contains (text(), '@ $5,000.00')]";
+	private String totalValueCharges = "//div[@id=\"invoiceDetails\"]//div[@class = 'ticketTotal totalBoxValue']";
+	private String totalPaymentCharges = "//div[@id=\"invoiceDetails\"]//div[@class=\"ticketTotal totalBoxValue balanceBox\"]";
 
 	// Payment Status
-	private String initialPaymentStatus = "//ul[@id=\"invoiceGroupListContainer\"]/ul/li/div[2]/div[2]";
-	private String paymentBalance = "//div[contains(@id,'SubStatus') and contains(text(),'$5,450.00')]";
+	//Do not have any other XPath for initialPaymentStatus
+	private String initialPaymentStatus = "//ul[@id=\"invoiceGroupListContainer\"]/ul/li[1]/div[2]/div[2]";
+	private String paymentBalance = "//form[@id = \"singlePaymentForm\"]//div[@id = \"SubStatus\"]";
 
 	// Cash tab
-	private String partialPaymentAmount = "//*[@id=\"singlePaymentForm\"]/div[4]/div[1]/input[1]";
-	private String confirmPartialPymtAmt = "//form[@id=\"singlePaymentForm\"]/div[4]/div[1]/input[2]";
-	private String custPaymentNotes = "//form[@id=\"singlePaymentForm\"]/div[4]/div[1]/textarea";
-	private String recordPayment = "//form[@id=\"singlePaymentForm\"]/div[4]/div[1]/div[5]";
+	private String partialPaymentAmount = "//input[@name = \"amount\"]";
+	private String confirmPartialPymtAmt = "//input[@name = \"confirmCashAmount\"]";
+	private String custPaymentNotes = "//textarea[@name = \"customerNotes2\"]";
+	private String recordPayment = "//form[@id=\"singlePaymentForm\"]//div[contains (text(), 'Record Payment')]";
 
 	// Payment Result
 	private String successfulCharge = "//h2[contains(@class,'bold aCenter clr font24') and contains(text(),'Successfully Charged Cash!')]";
-	private String successfulChargeAmount = "//form[@id=\"singlePaymentForm\"]/div/h2[2]";
+	private String successfulChargeAmount = "//form[@id=\"singlePaymentForm\"]//h2[@class=\"bold aCenter clr\"]";
 
 	// Getter Methods
 
