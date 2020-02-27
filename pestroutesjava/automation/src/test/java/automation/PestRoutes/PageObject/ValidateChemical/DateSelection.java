@@ -1,4 +1,4 @@
-package chemincalValidation.AppointmentUnit;
+package automation.PestRoutes.PageObject.ValidateChemical;
 
 import automation.PestRoutes.PageObject.Header;
 import automation.PestRoutes.Utilities.Utilities;
