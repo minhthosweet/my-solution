@@ -45,10 +45,12 @@ public class InvoicingTab extends BaseClass {
 		assertFullCharge();
 	}
 
+	// Searches for a customer
 	private void searchCustomer() throws Exception {
 		mainHeader.Search_A_Customer(getData("userID", generalData));
 	}
 
+	// Add a new invoice to the customer
 	private void addNewInvoice() throws InterruptedException {
 		routesTab.NavigateTo(routesTab.invoicesTabInDialog);
 		invoiceRoutesTab.clickAddPayment();
@@ -59,15 +61,18 @@ public class InvoicingTab extends BaseClass {
 
 	}
 
+	// Calculates initial cost
 	private Integer InitialCost() {
 		return invImplementation.getInvoiceCost();
 	}
 
+	// Keeps checking balance
 	private void reducingBalance() {
 		invoiceRoutesTab.clickAddPartialPayments();
 		invoiceHeader.navigate(invoiceHeader.cash);
 	}
 
+	// Initial Assert - UNPAID
 	private void assertInitialCharge() {
 		Reporter.status(Integer.toString(InitialCost() + Integer.parseInt(treatmentAmount)),
 				Integer.toString(invImplementation.getTotalValueCharges()), "Values match");
@@ -76,6 +81,7 @@ public class InvoicingTab extends BaseClass {
 		Reporter.status("UNPAID", invImplementation.checkPaymentStatus(), "The payment status is UNPAID");
 	}
 
+	// Assert - Partial payment
 	private void assertPartialCharge(Integer pAmount, Integer cAmount) {
 		invImplementation.insertPaymentAmount(Integer.toString(pAmount), Integer.toString(cAmount));
 		invImplementation.clickrecordPayment();
@@ -85,6 +91,7 @@ public class InvoicingTab extends BaseClass {
 		invImplementation.InvoiceAccountSummaryClick();
 	}
 
+	// Assert - Full Payment
 	private void assertFullCharge() {
 		invImplementation.insertPaymentAmount(Integer.toString(invImplementation.getPaymentBalance()),
 				Integer.toString(invImplementation.getPaymentBalance()));

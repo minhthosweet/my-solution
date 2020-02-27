@@ -32,11 +32,9 @@ public class DateSelection {
 		Utilities.clickElement(appointment, ElementType.XPath);
 		Utilities.waitUntileElementIsVisible(customerCard);
 		Utilities.clickElement(customerCard, ElementType.XPath);
-		Thread.sleep(5000);
 		Utilities.waitUntileElementIsVisible(info);
 		Utilities.clickElement(info, ElementType.XPath);
 		Utilities.waitUntileElementIsVisible(unitType);
-		Thread.sleep(3000);
 		Utilities.clickElement(unitType, ElementType.XPath);
 		Utilities.waitUntileElementIsVisible(multiUnit);
 		Utilities.clickElement(multiUnit, ElementType.XPath);

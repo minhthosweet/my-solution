@@ -45,7 +45,7 @@ public class Header {
 		Thread.sleep(3000);
 		Utilities.waitUntileElementIsVisible(SearchField);
 		FindElement.elementByAttribute(SearchField, InputType.XPath).sendKeys(needCustomerFullName);
-		Thread.sleep(3000);
+		Thread.sleep(2000);
 		Utilities.clickElement(FirstSearchResult, ElementType.XPath);
 	}
 
