@@ -29,7 +29,5 @@ public class Header {
 		FindElement.elementByAttribute(SearchField, InputType.XPath).sendKeys(needCustomerFullName);
 		Thread.sleep(2000);
 		Utilities.clickElement(FirstSearchResult, ElementType.XPath);
-	}
-
-	
+	}	
 }
