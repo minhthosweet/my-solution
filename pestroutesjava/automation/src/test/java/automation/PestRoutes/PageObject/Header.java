@@ -31,4 +31,5 @@ public class Header {
 		Utilities.clickElement(FirstSearchResult, ElementType.XPath);
 	}
 
+	
 }
