@@ -20,6 +20,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import automation.PestRoutes.Utilities.Driver.GetWebDriver;
 
+
 public class Utilities {
 	static WebDriver driver = GetWebDriver.getInstance();;
 	private static final String CHAR_LIST = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
@@ -148,5 +149,12 @@ public class Utilities {
 	public enum ElementType {
 		XPath, ID, ClassName, PartialLink, LinkText
 	}
+	
+	public static int removeSpecialChars(String needAttribute) {
+		String cases = getElementTextValue(needAttribute, ElementType.XPath);
 
+		int result = Integer.parseInt(cases.replaceAll("[@ $,.]", ""));
+				
+		return result/100;
+	}
 }
