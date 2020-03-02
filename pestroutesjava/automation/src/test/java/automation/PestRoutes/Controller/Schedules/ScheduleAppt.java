@@ -7,6 +7,7 @@ import automation.PestRoutes.PageObject.CustomerOverview.CustomerviewDialog_Appo
 import automation.PestRoutes.PageObject.RoutePage.RoutePage;
 import automation.PestRoutes.PageObject.RoutePage.SchedulingAppointmentDialog;
 import automation.PestRoutes.PageObject.Scheduling.SchedulingTab;
+import automation.PestRoutes.Utilities.AssertException;
 import automation.PestRoutes.Utilities.BaseClass;
 import automation.PestRoutes.Utilities.FindElement;
 import automation.PestRoutes.Utilities.Reporter;
@@ -14,6 +15,8 @@ import automation.PestRoutes.Utilities.Utilities;
 import automation.PestRoutes.Utilities.FindElement.InputType;
 
 import static org.testng.Assert.assertTrue;
+
+import java.util.List;
 
 import org.openqa.selenium.WebElement;
 
@@ -33,6 +36,7 @@ public class ScheduleAppt extends BaseClass {
 	SchedulingAppointmentDialog confirmAppt;
 	RoutePage route;
 	Header mainHeader;
+	public List list = null;
 
 	@Test
 	public void createSchedule() throws Exception {
@@ -48,6 +52,7 @@ public class ScheduleAppt extends BaseClass {
 		addAppointment();
 		addChemical();
 		verifyChemical();
+		AssertException.asserFailure(list);
 
 	}
 
@@ -60,6 +65,7 @@ public class ScheduleAppt extends BaseClass {
 
 	private void addAppointment() throws Exception {
 		mainHeader.Search_A_Customer(getData("userID", generalData));
+		
 		overviewHeader.ClickScheduleButton();
 		int totalCount = Utilities.getElementCount(routes);
 		String routesCount = Integer.toString(totalCount);
@@ -109,12 +115,12 @@ public class ScheduleAppt extends BaseClass {
 		String actualArea = appointmentTab.getTreatedArea();
 		String actualPest = appointmentTab.getTreatedPests();
 
-		assertTrue(actualProductUsed.contains(product));
-		Reporter.status(product, actualProductUsed, "Verify added chemicals");
-		assertTrue(actualArea.contains(targetArea));
-		Reporter.status(targetArea, actualArea, "Verify added chemicals");
-		assertTrue(actualPest.contains(targetIssue));
-		Reporter.status(targetIssue, actualPest, "Verify added chemicals");
+		list = AssertException.result(product, actualProductUsed, "Product Validation");
+		Reporter.status("Product ",product, actualProductUsed, "Add Chemicals To An Appointment");
+		list = AssertException.result(targetArea, actualArea, "Target Area Validation");
+		Reporter.status("Target Area ",targetArea, actualArea, "Add Chemicals To An Appointment");
+		Reporter.status("Target Issue ",targetIssue, actualPest, "Add Chemicals To An Appointment");
+		list = AssertException.result(targetIssue, actualPest, "Target Issue Validation");
 	}
 
 }

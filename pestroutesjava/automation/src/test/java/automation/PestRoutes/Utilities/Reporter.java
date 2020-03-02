@@ -21,11 +21,12 @@ public class Reporter {
 		return test;
 	}
 	
-	public static void status(String expectedResult, String actualResult, String testName) {
-		if(expectedResult.contains(actualResult)) {
-			getInstance(testName).log(Status.PASS, "Actual result  => "+ actualResult+ " matched with expected result  => " +expectedResult);
+	public static void status(String testStep, String expectedResult, String actualResult, String testName) {
+		
+		if(actualResult.contains(expectedResult)) {
+			getInstance(testName).log(Status.PASS, "Validate "+testStep+ "=> Actual result  => "+ actualResult+ " matched with expected result  => " +expectedResult);
 		} else {
-			getInstance(testName).log(Status.FAIL, "Actual result  => "+ actualResult+ " did not match with expected result  => " +expectedResult);
+			getInstance(testName).log(Status.FAIL, "Validate "+testStep+ "=> Actual result  => "+ actualResult+ " did not match with expected result  => " +expectedResult);
 		}
 		
 	}
