@@ -74,19 +74,19 @@ public class InvoicingTab extends BaseClass {
 
 	// Initial Assert - UNPAID
 	private void assertInitialCharge() {
-		Reporter.status(Integer.toString(InitialCost() + Integer.parseInt(treatmentAmount)),
-				Integer.toString(invImplementation.getTotalValueCharges()), "Values match");
-		Reporter.status(Integer.toString(InitialCost() + Integer.parseInt(treatmentAmount)),
+		Reporter.status(" Treatment Amount",Integer.toString(InitialCost() + Integer.parseInt(treatmentAmount)),
+				Integer.toString(invImplementation.getTotalValueCharges()), "Invoicing");
+		Reporter.status("",Integer.toString(InitialCost() + Integer.parseInt(treatmentAmount)),
 				Integer.toString(invImplementation.getTotalValuePayments()), "Values match");
-		Reporter.status("UNPAID", invImplementation.checkPaymentStatus(), "The payment status is UNPAID");
+		Reporter.status("","UNPAID", invImplementation.checkPaymentStatus(), "The payment status is UNPAID");
 	}
 
 	// Assert - Partial payment
 	private void assertPartialCharge(Integer pAmount, Integer cAmount) {
 		invImplementation.insertPaymentAmount(Integer.toString(pAmount), Integer.toString(cAmount));
 		invImplementation.clickrecordPayment();
-		Reporter.status(successfulPartialCharge, invImplementation.getSuccessfulChargeAmount(), "Charged successfully");
-		Reporter.status("PARTIALLY PAID", invImplementation.checkPaymentStatus(),
+		Reporter.status("",successfulPartialCharge, invImplementation.getSuccessfulChargeAmount(), "Charged successfully");
+		Reporter.status("","PARTIALLY PAID", invImplementation.checkPaymentStatus(),
 				"The payment status is PARTIALLY PAID");
 		invImplementation.InvoiceAccountSummaryClick();
 	}
@@ -96,8 +96,8 @@ public class InvoicingTab extends BaseClass {
 		invImplementation.insertPaymentAmount(Integer.toString(invImplementation.getPaymentBalance()),
 				Integer.toString(invImplementation.getPaymentBalance()));
 		invImplementation.clickrecordPayment();
-		Reporter.status(successfulFullCharge, invImplementation.getSuccessfulChargeAmount(), "Charged successfully");
-		Reporter.status("FULLY PAID", invImplementation.checkPaymentStatus(), "The payment status is FULLY PAID");
+		Reporter.status("",successfulFullCharge, invImplementation.getSuccessfulChargeAmount(), "Charged successfully");
+		Reporter.status("","FULLY PAID", invImplementation.checkPaymentStatus(), "The payment status is FULLY PAID");
 		invImplementation.InvoiceAccountSummaryClick();
 	}
 

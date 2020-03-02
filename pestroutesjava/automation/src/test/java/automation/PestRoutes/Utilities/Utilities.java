@@ -4,9 +4,8 @@ import java.io.File;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Random;
-
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.OutputType;
@@ -23,7 +22,6 @@ import automation.PestRoutes.Utilities.Driver.GetWebDriver;
 
 public class Utilities {
 	static WebDriver driver = GetWebDriver.getInstance();;
-	private static final String CHAR_LIST = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
 
 	public static void selectValueFromDropDownByValue(String needXpath, String needValue) {
 		Select dropdown = new Select(driver.findElement(By.xpath(needXpath)));
@@ -46,26 +44,8 @@ public class Utilities {
 		actions.perform();
 	}
 
-	public static String generateRandomString() {
-		int randomStringLength = 8;
-		StringBuffer randStr = new StringBuffer();
-		for (int i = 0; i < randomStringLength; i++) {
-			int number = getRandomNumber();
-			char ch = CHAR_LIST.charAt(number);
-			randStr.append(ch);
-		}
-		return randStr.toString();
-	}
-
-	private static int getRandomNumber() {
-		int randomInt = 0;
-		Random randomGenerator = new Random();
-		randomInt = randomGenerator.nextInt(CHAR_LIST.length());
-		if (randomInt - 1 == -1) {
-			return randomInt;
-		} else {
-			return randomInt - 1;
-		}
+	public static String generateRandomString(int needLength) {
+		return RandomStringUtils.random(needLength, true, true);
 	}
 	
 	public static Date currentDate(String needFormat) {

@@ -3,12 +3,11 @@ package automation.PestRoutes.Controller.Subscriptions;
 import automation.PestRoutes.PageObject.Header;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_Header;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_SubscriptionTab;
+import automation.PestRoutes.Utilities.AssertException;
 import automation.PestRoutes.Utilities.BaseClass;
 import automation.PestRoutes.Utilities.Reporter;
 
-import static org.testng.Assert.assertTrue;
-
-import java.io.IOException;
+import java.util.List;
 
 import org.testng.annotations.Test;
 
@@ -17,6 +16,7 @@ public class AddSubscription extends BaseClass {
 	CustomerViewDialog_SubscriptionTab subscription = new CustomerViewDialog_SubscriptionTab();
 	CustomerViewDialog_Header customerDialogHeader;
 	Header header;
+	public List list = null;
 
 	private String ticketItem = "bed";
 	private String initialQuote = "120.00";
@@ -30,6 +30,7 @@ public class AddSubscription extends BaseClass {
 		validatePreferredDayAppt();
 		validateInitialInvoice();
 		validateRecurringInvoice();
+		AssertException.asserFailure(list);
 
 	}
 
@@ -72,12 +73,13 @@ public class AddSubscription extends BaseClass {
 			for (int j = 0; j < daySlot.length; j++) {
 				System.out.println(actualUpComingDates[j]);
 				System.out.println(expectedUpComingDates[j]);
-				// assertTrue(actualUpComingDates[j].contains(expectedUpComingDates[j]));
-				Reporter.status(expectedUpComingDates[j], actualUpComingDates[j],
-						"Validate subscription by " + prefferedDay[i] + daySlot[j]);
+				list = AssertException.result(expectedUpComingDates[j], actualUpComingDates[j], "Validate subscription by " + prefferedDay[i] + daySlot[j]);
+				Reporter.status( prefferedDay[i] + daySlot[j], expectedUpComingDates[j], actualUpComingDates[j],
+						"Subscription ");
 
 			}
 		}
+		
 	}
 
 	public void validateInitialInvoice() {
@@ -94,11 +96,12 @@ public class AddSubscription extends BaseClass {
 		double subTotal = finalInitialQuote + ticketAmount - finalInitialDiscount;
 		String expectedSubTotal = Double.toString(subTotal);
 		String actual_InitialSubTotal = Double.toString(actualInitialSubtotal);
-		Reporter.status(expectedSubTotal, actual_InitialSubTotal, "Initial invoice sub total validation");
+		Reporter.status("Initial invoice sub total validation ",expectedSubTotal, actual_InitialSubTotal, "Subscription Initial Invoice SubTotal");
 		double total = subTotal + initialTax;
 		String expectedInitialTotal = Double.toString(total);
 		String actualInitialTotal = Double.toString(initialTotal);
-		Reporter.status(expectedInitialTotal, actualInitialTotal, "Initial invoice total validation");
+		list = AssertException.result(expectedInitialTotal, actualInitialTotal, "Initial invoice total validation");
+		Reporter.status("Initial invoice total validation ", expectedInitialTotal, actualInitialTotal, "Subscrition");
 	}
 
 	public void validateRecurringInvoice() throws Exception {
@@ -113,11 +116,12 @@ public class AddSubscription extends BaseClass {
 		double subTotal = serviceAmount + ticketAmount;
 		String expectedSubTotal = Double.toString(subTotal);
 		String actual_ServiceSubTotal = Double.toString(actualServiceSubtotal);
-		Reporter.status(expectedSubTotal, actual_ServiceSubTotal, "Service invoice sub total validation");
+		Reporter.status("Service invoice sub total validation ",expectedSubTotal, actual_ServiceSubTotal, "Subscription");
 		double total = subTotal + serviceTax;
 		String expectedServiceTotal = Double.toString(total);
 		String actualServiceTotal = Double.toString(serviceTotal);
-		Reporter.status(expectedServiceTotal, actualServiceTotal, "Service invoice total validation");
+		list = AssertException.result(expectedServiceTotal, actualServiceTotal, "Service invoice total validation");
+		Reporter.status("Service invoice total validation ",expectedServiceTotal, actualServiceTotal, "Subscription");
 	}
 
 }

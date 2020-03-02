@@ -1,18 +1,22 @@
 package automation.PestRoutes.Utilities;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
-import org.testng.annotations.AfterClass;
 
+import org.openqa.selenium.WebDriver;
+import org.testng.Assert;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
+
 import automation.PestRoutes.Controller.Login.SignIn;
 import automation.PestRoutes.Utilities.Driver.GetWebDriver;
-import org.openqa.selenium.WebDriver;
 
 public class BaseClass extends AppData {
 
 	WebDriver driver = GetWebDriver.getInstance();
 	SignIn signInPage;
+	
 
 	// @Parameters("browser")
 	@BeforeClass
@@ -37,8 +41,8 @@ public class BaseClass extends AppData {
 
 	public void afterTest() {
 		Reporter.flushReport();
-
+		
 		driver.close();
-
 	}
+
 }
