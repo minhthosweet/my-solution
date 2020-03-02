@@ -37,9 +37,12 @@ public class CreateCustomerDIalog {
 	public String countryDropDown = "//select[@name= 'countryID']";
 	public String taxPercentageInputField = "//input[@name= 'taxRate']";
 	public String divisionDropDown = "//select[@name= 'divisionID']";
+	public String info = "//a[text()= 'Info']";
+	public String clickSave = "//button[@id='globalCustomerSaveButton']//span[text()='Save']";
 	
 	//**********Functions**********
 	
+
 	/******************************************************************************************************************
 	 * Actions
 	 * Below methods perform click/select on an object
@@ -49,9 +52,7 @@ public class CreateCustomerDIalog {
 		Utilities.selectValueFromDropDownByValue(propertyTypeDropDown, needPropertyType);
 	}
 	
-	public void selectUnit(String needUnit) {
-		Utilities.selectValueFromDropDownByValue(unitTypeDropDown, needUnit);
-	}
+
 	
 	public void selectSource(String needSource) {
 		Utilities.selectValueFromDropDownByValue(selectSourceDropDown, needSource);
@@ -163,7 +164,10 @@ public class CreateCustomerDIalog {
 		FindElement.elementByAttribute(taxPercentageInputField, InputType.XPath).sendKeys(needTaxPercentage);
 	}
 	
-	
+	public void clickInfo() {
+		Utilities.waitUntileElementIsVisible(info);
+		Utilities.clickElement(info, ElementType.XPath);
+	}
 	/******************************************************************************************************************
 	 * Getter methods
 	 * Below methods get text value from an object
@@ -174,6 +178,9 @@ public class CreateCustomerDIalog {
 	public String getNewCustTitle() {
 		return Utilities.getElementTextValue(newCustTitle, ElementType.XPath);
 	}
+	
+
+
 	
 	
 	
