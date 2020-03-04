@@ -11,6 +11,8 @@
 				name="automation.PestRoutes.Controller.Subscriptions.AddSubscription" />
 				<class
 				name="automation.PestRoutes.Controller.Invoicing.InvoicingTab" />
+				<class
+				name="automation.PestRoutes.Controller.Schedules.ScheduleAppt" />
 		</classes>
 
 	</test>

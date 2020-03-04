@@ -45,7 +45,7 @@ public class CreateNewCustomer extends BaseClass{
 		String customerNameInHeader = overview.getCustomerNameFromHeader();
 		System.out.println("Customer Name found is "+customerNameInHeader);
 		list = AssertException.result(fName,customerNameInHeader, "Validate Customer Creation");
-		Reporter.status("Created customer ", customerNameInHeader, fName, "Customer creation");
+		Reporter.status("Created customer ", fName, customerNameInHeader, "Customer creation");
 		String id = overview.getCustomerIDFromHeader();
 		String newId = id.replaceAll("[^a-zA-Z0-9]+","");
 		System.out.println(newId);
