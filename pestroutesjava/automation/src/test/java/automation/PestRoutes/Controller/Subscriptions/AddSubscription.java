@@ -16,14 +16,14 @@ public class AddSubscription extends BaseClass {
 	CustomerViewDialog_SubscriptionTab subscription = new CustomerViewDialog_SubscriptionTab();
 	CustomerViewDialog_Header customerDialogHeader;
 	Header header;
-	public List list = null;
+	public List list;
 
 	private String ticketItem = "bed";
 	private String initialQuote = "120.00";
 	private String initialDiscount = "20.00";
 	private String recurringInvoice = "89.00";
 
-	@Test
+	@Test(groups = "Smoke")
 	public void validateSubscription() throws Exception {
 
 		startSubscription();
@@ -107,7 +107,7 @@ public class AddSubscription extends BaseClass {
 	public void validateRecurringInvoice() throws Exception {
 		subscription.setServiceQuote(getData("quarterly", quarterlyPreferredDayData), initialQuote);
 		subscription.selectAdditionalItem_ToRecurringInvoice(ticketItem);
-		double serviceAmount = Double.parseDouble(recurringInvoice);
+		double serviceAmount = Double.parseDouble(initialQuote);
 		double ticketAmount = subscription.getRecurringService_NewTicketItemPrice(ticketItem);
 		double actualServiceSubtotal = subscription.getRecurringSubTotal();
 		double serviceTax = subscription.getRecurringTax();

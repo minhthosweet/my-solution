@@ -4,11 +4,11 @@ import static org.testng.Assert.assertTrue;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AssertException {
+public class AssertException{
 	
-	
+	private static List list = new ArrayList<String>();
 	public static List<String> result(String expected, String actual, String testName){
-		List list = new ArrayList<String>();
+		
 		try{
 			assertTrue(actual.contains(expected));
 		}catch(AssertionError e) {

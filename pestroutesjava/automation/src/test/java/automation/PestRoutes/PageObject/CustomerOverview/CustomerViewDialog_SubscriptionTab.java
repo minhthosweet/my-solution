@@ -186,7 +186,7 @@ public class CustomerViewDialog_SubscriptionTab {
 	 * Getter methods
 	 * Below methods get string value of given object
 	 */
-	public String getUpcomingAppt(String chooseAppt) {
+	public String getUpcomingAppt(String chooseAppt) throws Exception {
 		Utilities.waitUntileElementIsVisible(chooseAppt);
 		return Utilities.getElementTextValue(chooseAppt, ElementType.XPath);
 	}

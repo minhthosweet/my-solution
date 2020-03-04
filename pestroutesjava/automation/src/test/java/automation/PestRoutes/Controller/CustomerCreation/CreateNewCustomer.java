@@ -25,9 +25,9 @@ public class CreateNewCustomer extends BaseClass{
 	CustomerViewDialog_Header dialog;
 	CustomerViewDialog_OverviewTab overview;
 	Header header;
-	public List list = null;
+	public List list;
 	
-	@Test
+	@Test(groups = "Smoke")
 	public void CreateCustomer() throws Exception {
 		
 		String fName = Utilities.generateRandomString(7);
