@@ -18,6 +18,7 @@ public class CustomerViewDialog_Header {
 	public String unitsTabInDialog = "Units";
 	public String equipmentTabInDialog = "Equipment";
 	public String adminTabInDialog = "Admin";
+	public String structuresTabInDialog = "Structures";
 	public String scheduleButtonInDialog = "//span[text()='Schedule']";
 	public String tranferButtonInDialog = "//span[text()='Transfer']";
 	public String closeButton = "//div[@id= 'customerWindow']/following-sibling::div//span[text()='Close']";

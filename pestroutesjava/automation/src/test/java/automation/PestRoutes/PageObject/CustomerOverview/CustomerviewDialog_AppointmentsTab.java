@@ -24,6 +24,11 @@ public class CustomerviewDialog_AppointmentsTab {
 	// Unit Products
 	public String unitName = "//div[@id=\"appointmentContainor\"]//div[@style = 'fonts-size:11px; float:left; margin-left:5px;']";
 
+	// Structure Products Page
+	private String structureName = "//div[@id=\"appointmentContainor\"]//div[contains (text(), 'Structure:')]";
+	public String structureNameObject = "//h3[text() = 'Structure Inspected']/parent::div//div[@class='left bold']";
+	public String areaStructureTreated = "//div[contains (text(), 'Target Areas:')]/following-sibling::div[1]";
+	public String issuesStrutureTreated = "//div[contains (text(), 'Target Issues:')]/following-sibling::div[1]";
 	// **********Functions**********
 
 	/*
@@ -38,6 +43,23 @@ public class CustomerviewDialog_AppointmentsTab {
 						+ "')]");
 		Utilities.clickElement("//span[text()='Pending']/parent::div/preceding-sibling::div[contains (text(), '"
 				+ needServiceName + "')]", ElementType.XPath);
+	}
+
+	// Need to add proper xpath for clickScheduledStructuredServices,
+	// clickSubScheduledStructuredServices
+
+	public void clickScheduledStructuredService(String needStructureName) {
+		Utilities.clickElement("//ul[@id=\"structuresMenuList\"]//span[text()='" + needStructureName + "']",
+				ElementType.XPath);
+	}
+
+	public void clickSubScheduledStructuredService(String needStructureName, String needSubStructureName) {
+		Utilities.clickElement("//ul[@id=\"structuresMenuList\"]//span[text()='" + needStructureName + "']",
+				ElementType.XPath);
+		Utilities.waitUntileElementIsVisible(
+				"//ul[@id=\"structuresMenuList\"]//span[text() = '" + needSubStructureName + "']");
+		Utilities.clickElement("//ul[@id=\"structuresMenuList\"]//span[text() = '" + needSubStructureName + "']",
+				ElementType.XPath);
 	}
 
 	public void clickStatusButton() {
@@ -123,6 +145,27 @@ public class CustomerviewDialog_AppointmentsTab {
 	public String getUnitPestsTreated() {
 		Utilities.waitUntileElementIsVisible(pestsUnitTreated);
 		return Utilities.getElementTextValue(pestsUnitTreated, ElementType.XPath);
+	}
+
+	// Structure Methods(Structure Products Object
+	public String getStructureChemicalName() {
+		Utilities.waitUntileElementIsVisible(structureNameObject);
+		return Utilities.getElementTextValue(structureNameObject, ElementType.XPath);
+	}
+
+	public void clickStructureName() {
+		Utilities.waitUntileElementIsVisible(structureName);
+		Utilities.clickElement(structureName, ElementType.XPath);
+	}
+
+	public String getStructureAreaTreated() {
+		Utilities.waitUntileElementIsVisible(areaStructureTreated);
+		return Utilities.getElementTextValue(areaStructureTreated, ElementType.XPath);
+	}
+
+	public String getStructureIssuesTreated() {
+		Utilities.waitUntileElementIsVisible(issuesStrutureTreated);
+		return Utilities.getElementTextValue(issuesStrutureTreated, ElementType.XPath);
 	}
 
 }
