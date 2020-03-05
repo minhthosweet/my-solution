@@ -18,6 +18,7 @@ public class StructuresTab {
 	// Structures tab in Appointment Card
 	private String structuresTab = "//ul[@id='appointmentTabs']//a[text()='Structures']";
 
+	
 	// click appointment card
 	private String clickScheduledCustomer = "//div[@id='routesView']//div[@class='appointmentCustomer bBox pending']";
 	private String clickAppointmentCard = "//div[@id='appointmentOptions']//p[text()='Appointment Card']";
