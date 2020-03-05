@@ -2,14 +2,21 @@
 
 <suite name="Smoke Test">
 
-	<test name="Demo">
+	<test name="Functional">
 
 		<classes>
-
-			<class name="automation.PestRoutes.Controller.CreateNewCustomer"/>
-
+				<class
+				name="automation.PestRoutes.Controller.CustomerCreation.CreateNewCustomer" />
+				<class
+				name="automation.PestRoutes.Controller.Subscriptions.AddSubscription" />
+				<class
+				name="automation.PestRoutes.Controller.Invoicing.InvoicingTab" />
+				<class
+				name="automation.PestRoutes.Controller.Schedules.ScheduleAppt" />
 		</classes>
 
 	</test>
+		
+
 
 </suite>

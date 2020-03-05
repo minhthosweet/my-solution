@@ -3,6 +3,7 @@ package automation.PestRoutes.Utilities.Driver;
 import org.apache.commons.lang3.SystemUtils;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 
 public class GetWebDriver {
 	
@@ -17,8 +18,9 @@ public class GetWebDriver {
 				System.setProperty("webdriver.chrome.driver",
 						"src/test/java/automation/PestRoutes/Utilities/Driver/chromedriver.exe");
 			}
-
-			driver = new ChromeDriver();
+			ChromeOptions options = new ChromeOptions();
+			options.addArguments("--headless", "--disable-gpu", "--window-size=1920,1200","--ignore-certificate-errors");
+			driver = new ChromeDriver(options);
 		}
 		return driver;
 	}

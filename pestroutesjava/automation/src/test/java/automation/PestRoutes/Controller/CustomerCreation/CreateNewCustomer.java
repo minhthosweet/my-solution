@@ -25,9 +25,9 @@ public class CreateNewCustomer extends BaseClass{
 	CustomerViewDialog_Header dialog;
 	CustomerViewDialog_OverviewTab overview;
 	Header header;
-	public List list = null;
+	public List list;
 	
-	@Test
+	@Test(groups = "Smoke")
 	public void CreateCustomer() throws Exception {
 		
 		String fName = Utilities.generateRandomString(7);
@@ -45,7 +45,7 @@ public class CreateNewCustomer extends BaseClass{
 		String customerNameInHeader = overview.getCustomerNameFromHeader();
 		System.out.println("Customer Name found is "+customerNameInHeader);
 		list = AssertException.result(fName,customerNameInHeader, "Validate Customer Creation");
-		Reporter.status("Created customer ", customerNameInHeader, fName, "Customer creation");
+		Reporter.status("Created customer ", fName, customerNameInHeader, "Customer creation");
 		String id = overview.getCustomerIDFromHeader();
 		String newId = id.replaceAll("[^a-zA-Z0-9]+","");
 		System.out.println(newId);

@@ -48,7 +48,7 @@ public class ScheduleAppt extends BaseClass {
 	CustomerViewDialog_OverviewTab customerViewTab;
 	UnitsTab unitsTab;
 
-	public List list = null;
+	public List list;
 
 
 	@Test
@@ -138,12 +138,12 @@ public class ScheduleAppt extends BaseClass {
 		String actualUnitArea = appointmentTab.getUnitAreaTreated();
 		String actualUnitPest = appointmentTab.getUnitPestsTreated();
 		String actualUnitProductUsed = appointmentTab.getUnitChemicalName();
-		assertTrue(actualUnitProductUsed.contains(product));
-		Reporter.status(product, actualUnitProductUsed, "Verify added chemicals");
-		assertTrue(actualUnitArea.contains(targetArea));
-		Reporter.status(targetArea, actualUnitArea, "Verify added chemicals");
-		assertTrue(actualUnitPest.contains(targetIssue));
-		Reporter.status(targetIssue, actualUnitPest, "Verify added chemicals");
+		list = AssertException.result(product, actualUnitProductUsed, "Validate multiUnit product");
+		Reporter.status("Product for multiUnit",product, actualUnitProductUsed, "Add Chemicals To An Appointment");
+		list = AssertException.result(targetArea, actualUnitArea, "Validate multiUnit target area");
+		Reporter.status("target are for multiUnit",targetArea, actualUnitArea, "Add Chemicals To An Appointment");
+		list = AssertException.result(targetIssue, actualUnitPest, "Validate multiUnit target issue");
+		Reporter.status("target issue for multiUnit",targetIssue, actualUnitPest, "Add Chemicals To An Appointment");
 
 	}
 

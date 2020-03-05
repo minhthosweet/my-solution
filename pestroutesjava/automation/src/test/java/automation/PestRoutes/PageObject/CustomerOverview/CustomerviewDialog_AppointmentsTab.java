@@ -22,10 +22,10 @@ public class CustomerviewDialog_AppointmentsTab {
 	public String saveAndCompleteButton_InCompletingApptDialog = "//span[text() = 'Save and Complete']";
 
 	// Unit Products
-	public String unitName = "//div[@id=\"appointmentContainor\"]//div[@style = 'fonts-size:11px; float:left; margin-left:5px;']";
+	public String unitName = "//div[@id='appointmentContainor']//div[@style = 'fonts-size:11px; float:left; margin-left:5px;']";
 
 	// Structure Products Page
-	private String structureName = "//div[@id=\"appointmentContainor\"]//div[contains (text(), 'Structure:')]";
+	private String structureName = "//div[@id='appointmentContainor']//div[contains (text(), 'Structure:')]";
 	public String structureNameObject = "//h3[text() = 'Structure Inspected']/parent::div//div[@class='left bold']";
 	public String areaStructureTreated = "//div[contains (text(), 'Target Areas:')]/following-sibling::div[1]";
 	public String issuesStrutureTreated = "//div[contains (text(), 'Target Issues:')]/following-sibling::div[1]";
@@ -49,16 +49,16 @@ public class CustomerviewDialog_AppointmentsTab {
 	// clickSubScheduledStructuredServices
 
 	public void clickScheduledStructuredService(String needStructureName) {
-		Utilities.clickElement("//ul[@id=\"structuresMenuList\"]//span[text()='" + needStructureName + "']",
+		Utilities.clickElement("//ul[@id='structuresMenuList']//span[text()='" + needStructureName + "']",
 				ElementType.XPath);
 	}
 
 	public void clickSubScheduledStructuredService(String needStructureName, String needSubStructureName) {
-		Utilities.clickElement("//ul[@id=\"structuresMenuList\"]//span[text()='" + needStructureName + "']",
+		Utilities.clickElement("//ul[@id='structuresMenuList']//span[text()='" + needStructureName + "']",
 				ElementType.XPath);
 		Utilities.waitUntileElementIsVisible(
-				"//ul[@id=\"structuresMenuList\"]//span[text() = '" + needSubStructureName + "']");
-		Utilities.clickElement("//ul[@id=\"structuresMenuList\"]//span[text() = '" + needSubStructureName + "']",
+				"//ul[@id='structuresMenuList']//span[text() = '" + needSubStructureName + "']");
+		Utilities.clickElement("//ul[@id='structuresMenuList']//span[text() = '" + needSubStructureName + "']",
 				ElementType.XPath);
 	}
 

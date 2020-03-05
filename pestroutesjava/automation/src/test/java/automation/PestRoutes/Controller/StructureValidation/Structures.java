@@ -20,7 +20,6 @@ import automation.PestRoutes.Utilities.AssertException;
 import automation.PestRoutes.Utilities.BaseClass;
 import automation.PestRoutes.Utilities.Reporter;
 import automation.PestRoutes.Utilities.Utilities;
-import automation.PestRoutes.Utilities.Utilities.ElementType;
 import automation.PestRoutes.Utilities.Driver.GetWebDriver;
 
 public class Structures extends BaseClass {

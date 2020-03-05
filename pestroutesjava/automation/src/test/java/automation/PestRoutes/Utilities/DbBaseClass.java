@@ -42,13 +42,18 @@ public class DbBaseClass extends AppData{
 	    	session.setConfig(config);
 	    	session.connect();
 	    	System.out.println("Connected");
-	    	session.setPortForwardingL(lport, rhost, rport);
-	        //System.out.println("localhost:"+assinged_port+" -> "+rhost+":"+rport);
+	    	int assinged_port = session.setPortForwardingL(lport, rhost, rport);
+	    	if (session.isConnected()) {
+	    		System.out.println("connected");
+	    	}
+	        System.out.println("localhost:"+assinged_port+" -> "+rhost+":"+rport);
 	    	System.out.println("Port Forwarded");
 	    	
 	    	//mysql database connectivity
             Class.forName(driverName);
+            System.out.println("Url"+url);
             conn = DriverManager.getConnection(url);
+            
             System.out.println ("Database connection established");
             System.out.println("DONE");
 	    }catch(Exception e){
