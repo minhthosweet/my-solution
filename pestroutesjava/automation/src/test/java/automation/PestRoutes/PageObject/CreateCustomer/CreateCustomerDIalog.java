@@ -51,9 +51,9 @@ public class CreateCustomerDIalog {
 	public void selectProperty(String needPropertyType) {
 		Utilities.selectValueFromDropDownByValue(propertyTypeDropDown, needPropertyType);
 	}
-	
-
-	
+	public void selectUnit(String needUnit) {
+        Utilities.selectValueFromDropDownByValue(unitTypeDropDown, needUnit);
+    }
 	public void selectSource(String needSource) {
 		Utilities.selectValueFromDropDownByValue(selectSourceDropDown, needSource);
 	}

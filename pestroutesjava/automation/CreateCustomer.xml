@@ -1,0 +1,14 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+
+<suite name="Create customer">
+
+	<test name="Functional">
+
+		<classes>
+				<class
+				name="automation.PestRoutes.Controller.CustomerCreation.CreateNewCustomer" />
+		</classes>
+
+	</test>
+		
+</suite>
