@@ -8,6 +8,8 @@ import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import com.aventstack.extentreports.ExtentTest;
+
 import automation.PestRoutes.PageObject.Header;
 import automation.PestRoutes.PageObject.CreateCustomer.CreateCustomerDIalog;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_Header;
@@ -20,7 +22,7 @@ import automation.PestRoutes.Utilities.Driver.GetWebDriver;
 
 
 public class CreateNewCustomer extends BaseClass{
-	WebDriver driver = GetWebDriver.getInstance();
+	static ExtentTest test;
 	CreateCustomerDIalog customer;
 	CustomerViewDialog_Header dialog;
 	CustomerViewDialog_OverviewTab overview;
@@ -30,6 +32,7 @@ public class CreateNewCustomer extends BaseClass{
 	@Test(groups = "Smoke")
 	public void CreateCustomer() throws Exception {
 		
+		String expectedAlert = "Required: You must fill in the customer's last name or company name!";
 		String fName = Utilities.generateRandomString(7);
 		String lName = Utilities.generateRandomString(6);
 		dialog = new CustomerViewDialog_Header();
@@ -38,8 +41,13 @@ public class CreateNewCustomer extends BaseClass{
 		header = new Header();
 		header.NavigateTo(header.newCustomerTab);
 		customer.setFirstName(fName);
-		customer.setLastName(lName);
 		customer.selectUnit("Multi Unit");
+		dialog.ClickSaveButton();
+		String alert = Utilities.getAlertText();
+		list = AssertException.result(expectedAlert,alert, "Validate required field");
+		Reporter.status("required field while creating customer ", expectedAlert, alert, "Customer creation");
+		Utilities.acceptAlert();
+		customer.setLastName(lName);
 		dialog.ClickSaveButton();
 		Utilities.waitUntileElementIsVisible(overview.overviewTab_Address);
 		String customerNameInHeader = overview.getCustomerNameFromHeader();
@@ -51,7 +59,6 @@ public class CreateNewCustomer extends BaseClass{
 		System.out.println(newId);
 		addData("userID", newId, generalData);
 		AssertException.asserFailure(list);
-		
 	}
 
 }

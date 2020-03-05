@@ -14,7 +14,7 @@ public class UnitsTab {
 	public String availableUnit = "//*[@id=\"unitsPanel\"]//div[@class=\"historyType aLeft\"]";
 	public String unitType = "//select[@id=\"isMultiUnit\"]";
 	public String saveTopRight = "//div[@id=\"customerCardUnitWrapper\"]//span[@class =\"saveItem grayButton right\"]";
-	public String unitsSchedule = "//a[@id=\"ui-id-65\"]";
+	public String unitsSchedule = "//ul[@id='appointmentTabs']//a[text()='Units']";
 	public String unitsScheduleApt = "//div[@id=\"s2id_appointmentUnits\"]/ul";
 	public String addUnitsSchApt = "//div[@id=\"s2id_appointmentUnits\"]/i[2]";
 

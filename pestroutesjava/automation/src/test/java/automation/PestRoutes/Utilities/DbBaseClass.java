@@ -3,6 +3,8 @@ package automation.PestRoutes.Utilities;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+import com.jcraft.jsch.Channel;
+import com.jcraft.jsch.ChannelExec;
 import com.jcraft.jsch.JSch;
 import com.jcraft.jsch.Session;
 import java.sql.Connection;
@@ -31,6 +33,7 @@ public class DbBaseClass extends AppData{
 	    //String url = "jdbc:mysql://127.0.0.1:"+lport;
 	    String url = "jdbc:mysql://127.0.0.1:5656/pestdemo?" + "user="+dbuserName+"&password="+dbpassword;
 	    String driverName="com.mysql.cj.jdbc.Driver";
+	    String command1="ls -ltr";
 		
 	    try{
 	    	//Set StrictHostKeyChecking property to no to avoid UnknownHostKey issue
@@ -41,6 +44,8 @@ public class DbBaseClass extends AppData{
 	    	session.setPassword(sshPassword);
 	    	session.setConfig(config);
 	    	session.connect();
+	    	Channel channel=session.openChannel("exec");
+	        ((ChannelExec)channel).setCommand(command1);
 	    	System.out.println("Connected");
 	    	int assinged_port = session.setPortForwardingL(lport, rhost, rport);
 	    	if (session.isConnected()) {

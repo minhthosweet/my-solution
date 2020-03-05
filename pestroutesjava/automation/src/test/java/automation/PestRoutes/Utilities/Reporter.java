@@ -21,12 +21,21 @@ public class Reporter {
 		return test;
 	}
 	
+//	public static void startReport() {
+//		htmlReport = new ExtentHtmlReporter("Results.html");
+//		htmlReport.setAppendExisting(true);
+//		extent = new ExtentReports();
+//		extent.attachReporter(htmlReport);
+//	}
+	
 	public static void status(String testStep, String expectedResult, String actualResult, String testName) {
-		
+		test = extent.createTest(testName);
 		if(actualResult.contains(expectedResult)) {
 			getInstance(testName).log(Status.PASS, "Validate "+testStep+ "=> Actual result  => "+ actualResult+ " matched with expected result  => " +expectedResult);
+			//test.log(Status.PASS, "Validate "+testStep+ "=> Actual result  => "+ actualResult+ " matched with expected result  => " +expectedResult);
 		} else {
 			getInstance(testName).log(Status.FAIL, "Validate "+testStep+ "=> Actual result  => "+ actualResult+ " did not match with expected result  => " +expectedResult);
+			//test.log(Status.PASS, "Validate "+testStep+ "=> Actual result  => "+ actualResult+ " matched with expected result  => " +expectedResult);
 		}
 		
 	}

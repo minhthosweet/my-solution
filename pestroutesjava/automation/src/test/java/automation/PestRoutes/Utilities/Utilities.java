@@ -23,6 +23,13 @@ import automation.PestRoutes.Utilities.Driver.GetWebDriver;
 public class Utilities {
 	static WebDriver driver = GetWebDriver.getInstance();;
 
+	public static String getAlertText() {
+		return driver.switchTo().alert().getText();
+	}
+	public static void acceptAlert() {
+		driver.switchTo().alert().accept();
+	}
+	
 	public static void selectValueFromDropDownByValue(String needXpath, String needValue) {
 		Select dropdown = new Select(driver.findElement(By.xpath(needXpath)));
 		dropdown.selectByVisibleText(needValue);
