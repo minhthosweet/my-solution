@@ -115,5 +115,14 @@ public class PreferencesPage {
 		return FindElement.elementByAttribute("//div[contains (text(), '"+needText+"')]", InputType.XPath);
 	}
 
+	// Product types Objects
+	public String productsText = "//li[text() = 'Products']";
 
+	// Product Select
+	public void navigateToProductsPage() {
+		Utilities.scrollToElement(serviceRelatedNav);
+		Utilities.clickElement(serviceRelatedNav, ElementType.XPath);
+		Utilities.waitUntileElementIsVisible(productsText);
+		Utilities.clickElement(productsText, ElementType.XPath);
+	}
 }
