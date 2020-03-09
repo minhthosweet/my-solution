@@ -11,6 +11,10 @@ public class PreferencesPage {
 	//Admin page objects
 	public String serviceRelatedNav = "//h2[@id='service']";
 	
+	//Equipment types objects
+	public String equipmentTypesText = "//li[text() = 'Equipment Types']";
+	
+	
 	
 	//Service types objects
 	public String serviceTypesText = "//li[text() = 'Service Types']";
@@ -41,6 +45,12 @@ public class PreferencesPage {
 	 * Actions
 	 * Below methods perform actions such as selecting from drop drown or click an object
 	 */
+	public void navigateTo(String needMenuArea, String needPage) {
+		Utilities.scrollToElement(needMenuArea);
+		Utilities.clickElement(needMenuArea, ElementType.XPath);
+		Utilities.waitUntileElementIsVisible(needPage);
+		Utilities.clickElement(needPage, ElementType.XPath);
+	}
 	public void navigateToServiceTypePage() {
 		Utilities.scrollToElement(serviceRelatedNav);
 		Utilities.clickElement(serviceRelatedNav, ElementType.XPath);

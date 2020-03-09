@@ -1,6 +1,8 @@
 package automation.PestRoutes.Utilities;
 
 import static org.testng.Assert.assertTrue;
+import static org.testng.Assert.fail;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,8 +21,10 @@ public class AssertException{
 	
 	public static void asserFailure(List needListName) {
 		if (needListName.size()>0) {
+			System.out.println(needListName.size());
 			throw new AssertionError();
-	}
+			
+		}
 	}
 
 }

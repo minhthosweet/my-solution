@@ -11,7 +11,6 @@ import automation.PestRoutes.Utilities.DbBaseClass;
 
 public class BackEndValidation extends DbBaseClass{
 	
-	private Connection connection;
 	private static Statement statement;
 	private static ResultSet result;
 	
@@ -29,7 +28,7 @@ public class BackEndValidation extends DbBaseClass{
 	 */
 	@Test
 	public void validateBackEnd() throws SQLException {
-		statement = connection.createStatement();
+		statement = conn.createStatement();
 		result = statement.executeQuery(validateChemical);
 		System.out.println(result);
 	}

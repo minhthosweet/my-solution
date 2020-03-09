@@ -11,12 +11,16 @@ import java.util.List;
 
 import org.testng.annotations.Test;
 
+import com.aventstack.extentreports.ExtentReports;
+import com.aventstack.extentreports.ExtentTest;
+
 public class AddSubscription extends BaseClass {
 
 	CustomerViewDialog_SubscriptionTab subscription = new CustomerViewDialog_SubscriptionTab();
 	CustomerViewDialog_Header customerDialogHeader;
 	Header header;
-	public List list;
+	ExtentTest test;
+	//public List list;
 
 	private String ticketItem = "bed";
 	private String initialQuote = "120.00";
@@ -45,6 +49,7 @@ public class AddSubscription extends BaseClass {
 	}
 
 	public void validatePreferredDayAppt() throws Exception {
+		
 		String[] prefferedDay = { getData("monday", quarterlyPreferredDayData), getData("tuesday", quarterlyPreferredDayData),
 				getData("wednesday", quarterlyPreferredDayData), getData("thursday", quarterlyPreferredDayData), 
 				getData("friday", quarterlyPreferredDayData),getData("saturday", quarterlyPreferredDayData), 
@@ -73,7 +78,7 @@ public class AddSubscription extends BaseClass {
 			for (int j = 0; j < daySlot.length; j++) {
 				System.out.println(actualUpComingDates[j]);
 				System.out.println(expectedUpComingDates[j]);
-				list = AssertException.result(expectedUpComingDates[j], actualUpComingDates[j], "Validate subscription by " + prefferedDay[i] + daySlot[j]);
+				super.list.add(AssertException.result(expectedUpComingDates[j], actualUpComingDates[j], "Validate subscription by " + prefferedDay[i] + daySlot[j]));
 				Reporter.status( prefferedDay[i] + daySlot[j], expectedUpComingDates[j], actualUpComingDates[j],
 						"Subscription ");
 
@@ -100,7 +105,7 @@ public class AddSubscription extends BaseClass {
 		double total = subTotal + initialTax;
 		String expectedInitialTotal = Double.toString(total);
 		String actualInitialTotal = Double.toString(initialTotal);
-		list = AssertException.result(expectedInitialTotal, actualInitialTotal, "Initial invoice total validation");
+		super.list.add(AssertException.result(expectedInitialTotal, actualInitialTotal, "Initial invoice total validation"));
 		Reporter.status("Initial invoice total validation ", expectedInitialTotal, actualInitialTotal, "Subscrition");
 	}
 
@@ -120,7 +125,7 @@ public class AddSubscription extends BaseClass {
 		double total = subTotal + serviceTax;
 		String expectedServiceTotal = Double.toString(total);
 		String actualServiceTotal = Double.toString(serviceTotal);
-		list = AssertException.result(expectedServiceTotal, actualServiceTotal, "Service invoice total validation");
+		super.list.add(AssertException.result(expectedServiceTotal, actualServiceTotal, "Service invoice total validation"));
 		Reporter.status("Service invoice total validation ",expectedServiceTotal, actualServiceTotal, "Subscription");
 	}
 

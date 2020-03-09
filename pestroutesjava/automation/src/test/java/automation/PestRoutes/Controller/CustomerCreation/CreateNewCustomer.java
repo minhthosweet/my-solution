@@ -44,7 +44,7 @@ public class CreateNewCustomer extends BaseClass{
 		customer.selectUnit("Multi Unit");
 		dialog.ClickSaveButton();
 		String alert = Utilities.getAlertText();
-		list = AssertException.result(expectedAlert,alert, "Validate required field");
+		super.list.add(AssertException.result(expectedAlert,alert, "Validate required field"));
 		Reporter.status("required field while creating customer ", expectedAlert, alert, "Customer creation");
 		Utilities.acceptAlert();
 		customer.setLastName(lName);
@@ -52,7 +52,7 @@ public class CreateNewCustomer extends BaseClass{
 		Utilities.waitUntileElementIsVisible(overview.overviewTab_Address);
 		String customerNameInHeader = overview.getCustomerNameFromHeader();
 		System.out.println("Customer Name found is "+customerNameInHeader);
-		list = AssertException.result(fName,customerNameInHeader, "Validate Customer Creation");
+		super.list.add(AssertException.result(fName,customerNameInHeader, "Validate Customer Creation"));
 		Reporter.status("Created customer ", fName, customerNameInHeader, "Customer creation");
 		String id = overview.getCustomerIDFromHeader();
 		String newId = id.replaceAll("[^a-zA-Z0-9]+","");

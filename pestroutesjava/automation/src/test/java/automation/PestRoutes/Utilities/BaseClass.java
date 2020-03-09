@@ -1,5 +1,7 @@
 package automation.PestRoutes.Utilities;
 
+import static org.testng.Assert.fail;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +25,7 @@ import automation.PestRoutes.Utilities.Driver.GetWebDriver;
 public class BaseClass extends AppData {
 
 	WebDriver driver = GetWebDriver.getInstance();
-	//List list = new ArrayList<String>();
+	public List list = new ArrayList<String>();
 	SignIn signInPage;
 	
 	
@@ -47,13 +49,13 @@ public class BaseClass extends AppData {
 
 	}
 
-	@AfterSuite
+	@AfterSuite(alwaysRun = true)
 
 	public void afterTest() {
-		Reporter.flushReport();
-		
+		//Reporter.flushReport();
+		System.out.println(list);
 		driver.close();
-		//AssertException.asserFailure(list);
+		
+		
 	}
-
 }
