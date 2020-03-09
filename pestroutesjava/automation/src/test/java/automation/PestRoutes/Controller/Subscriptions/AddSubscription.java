@@ -7,6 +7,7 @@ import automation.PestRoutes.Utilities.AssertException;
 import automation.PestRoutes.Utilities.BaseClass;
 import automation.PestRoutes.Utilities.Reporter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.testng.annotations.Test;
@@ -20,6 +21,7 @@ public class AddSubscription extends BaseClass {
 	CustomerViewDialog_Header customerDialogHeader;
 	Header header;
 	ExtentTest test;
+	List list = new ArrayList<String>();
 	//public List list;
 
 	private String ticketItem = "bed";
@@ -78,7 +80,7 @@ public class AddSubscription extends BaseClass {
 			for (int j = 0; j < daySlot.length; j++) {
 				System.out.println(actualUpComingDates[j]);
 				System.out.println(expectedUpComingDates[j]);
-				super.list.add(AssertException.result(expectedUpComingDates[j], actualUpComingDates[j], "Validate subscription by " + prefferedDay[i] + daySlot[j]));
+				list.add(AssertException.result(expectedUpComingDates[j], actualUpComingDates[j], "Validate subscription by " + prefferedDay[i] + daySlot[j]));
 				Reporter.status( prefferedDay[i] + daySlot[j], expectedUpComingDates[j], actualUpComingDates[j],
 						"Subscription ");
 
@@ -105,7 +107,7 @@ public class AddSubscription extends BaseClass {
 		double total = subTotal + initialTax;
 		String expectedInitialTotal = Double.toString(total);
 		String actualInitialTotal = Double.toString(initialTotal);
-		super.list.add(AssertException.result(expectedInitialTotal, actualInitialTotal, "Initial invoice total validation"));
+		list.add(AssertException.result(expectedInitialTotal, actualInitialTotal, "Initial invoice total validation"));
 		Reporter.status("Initial invoice total validation ", expectedInitialTotal, actualInitialTotal, "Subscrition");
 	}
 
@@ -125,7 +127,7 @@ public class AddSubscription extends BaseClass {
 		double total = subTotal + serviceTax;
 		String expectedServiceTotal = Double.toString(total);
 		String actualServiceTotal = Double.toString(serviceTotal);
-		super.list.add(AssertException.result(expectedServiceTotal, actualServiceTotal, "Service invoice total validation"));
+		list.add(AssertException.result(expectedServiceTotal, actualServiceTotal, "Service invoice total validation"));
 		Reporter.status("Service invoice total validation ",expectedServiceTotal, actualServiceTotal, "Subscription");
 	}
 

@@ -6,9 +6,8 @@ import static org.testng.Assert.fail;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AssertException{
-	
-	private static List list = new ArrayList<String>();
+public class AssertException {
+	public static List list = new ArrayList<String>();
 	public static List<String> result(String expected, String actual, String testName){
 		
 		try{
@@ -22,6 +21,7 @@ public class AssertException{
 	public static void asserFailure(List needListName) {
 		if (needListName.size()>0) {
 			System.out.println(needListName.size());
+			System.out.println(needListName);
 			throw new AssertionError();
 			
 		}

@@ -1,4 +1,4 @@
-package automation.PestRoutes.Controller.Admin;
+package automation.PestRoutes.Controller.Admin.Preferences;
 
 public class Trigger {
 	private String triggerType = "Renewal";
