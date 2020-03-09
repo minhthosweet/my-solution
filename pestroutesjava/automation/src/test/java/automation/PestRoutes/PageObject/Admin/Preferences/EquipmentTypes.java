@@ -1,4 +1,4 @@
-package automation.PestRoutes.PageObject.Admin;
+package automation.PestRoutes.PageObject.Admin.Preferences;
 
 import automation.PestRoutes.Utilities.FindElement;
 import automation.PestRoutes.Utilities.Utilities;

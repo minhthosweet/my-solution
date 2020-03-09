@@ -25,7 +25,6 @@ import automation.PestRoutes.Utilities.Driver.GetWebDriver;
 public class BaseClass extends AppData {
 
 	WebDriver driver = GetWebDriver.getInstance();
-	public List list = new ArrayList<String>();
 	SignIn signInPage;
 	
 	
@@ -52,8 +51,7 @@ public class BaseClass extends AppData {
 	@AfterSuite(alwaysRun = true)
 
 	public void afterTest() {
-		//Reporter.flushReport();
-		System.out.println(list);
+		Reporter.flushReport();
 		driver.close();
 		
 		

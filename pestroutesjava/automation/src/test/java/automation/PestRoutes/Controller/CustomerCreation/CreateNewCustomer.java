@@ -2,6 +2,7 @@ package automation.PestRoutes.Controller.CustomerCreation;
 
 import static org.testng.Assert.assertTrue;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.openqa.selenium.WebDriver;
@@ -18,7 +19,6 @@ import automation.PestRoutes.Utilities.AssertException;
 import automation.PestRoutes.Utilities.BaseClass;
 import automation.PestRoutes.Utilities.Reporter;
 import automation.PestRoutes.Utilities.Utilities;
-import automation.PestRoutes.Utilities.Driver.GetWebDriver;
 
 
 public class CreateNewCustomer extends BaseClass{
@@ -27,8 +27,10 @@ public class CreateNewCustomer extends BaseClass{
 	CustomerViewDialog_Header dialog;
 	CustomerViewDialog_OverviewTab overview;
 	Header header;
-	public List list;
+	List list = new ArrayList<String>();
 	
+	
+	@SuppressWarnings("unchecked")
 	@Test(groups = "Smoke")
 	public void CreateCustomer() throws Exception {
 		
@@ -44,7 +46,7 @@ public class CreateNewCustomer extends BaseClass{
 		customer.selectUnit("Multi Unit");
 		dialog.ClickSaveButton();
 		String alert = Utilities.getAlertText();
-		super.list.add(AssertException.result(expectedAlert,alert, "Validate required field"));
+		list.add(AssertException.result(expectedAlert,alert, "Validate required field"));
 		Reporter.status("required field while creating customer ", expectedAlert, alert, "Customer creation");
 		Utilities.acceptAlert();
 		customer.setLastName(lName);
@@ -52,12 +54,13 @@ public class CreateNewCustomer extends BaseClass{
 		Utilities.waitUntileElementIsVisible(overview.overviewTab_Address);
 		String customerNameInHeader = overview.getCustomerNameFromHeader();
 		System.out.println("Customer Name found is "+customerNameInHeader);
-		super.list.add(AssertException.result(fName,customerNameInHeader, "Validate Customer Creation"));
+		list.add(AssertException.result(fName,customerNameInHeader, "Validate Customer Creation"));
 		Reporter.status("Created customer ", fName, customerNameInHeader, "Customer creation");
 		String id = overview.getCustomerIDFromHeader();
 		String newId = id.replaceAll("[^a-zA-Z0-9]+","");
 		System.out.println(newId);
 		addData("userID", newId, generalData);
+		//System.out.println(list);
 		AssertException.asserFailure(list);
 	}
 
