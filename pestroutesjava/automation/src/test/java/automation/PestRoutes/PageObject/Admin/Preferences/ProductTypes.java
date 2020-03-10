@@ -1,11 +1,11 @@
-package automation.PestRoutes.PageObject.AddRemove_Chemical_Inventory;
+package automation.PestRoutes.PageObject.Admin.Preferences;
 
 import automation.PestRoutes.Utilities.FindElement;
 import automation.PestRoutes.Utilities.Utilities;
 import automation.PestRoutes.Utilities.FindElement.InputType;
 import automation.PestRoutes.Utilities.Utilities.ElementType;
 
-public class CreatingProduct_Admin {
+public class ProductTypes {
 	// add Product
 	public String addProduct = "//div[text() = '+ Product']";
 
@@ -31,7 +31,7 @@ public class CreatingProduct_Admin {
 	public String addTargetArea = "//div[text()='Target Areas']/following-sibling::div//i[2]";
 	public String targetIssue = "//div[text()='Target Issues']/following-sibling::div//input";
 	public String addTargetIssue = "//div[text()='Target Issues']/following-sibling::div//i[2]";
-	
+
 	// Meausrement Units
 	public String cubicCentimete = "Cubic Centimete (Volume)";
 	public String cups = "Cups (Volume)";
@@ -73,8 +73,8 @@ public class CreatingProduct_Admin {
 	// Sentricon Bait Options
 	public String yes = "Yes";
 	public String no = "No";
-	
-	//Chemical Type
+
+	// Chemical Type
 	public String chemical = "Chemical";
 	public String nonChemical = "Non-Chemical";
 
@@ -159,21 +159,39 @@ public class CreatingProduct_Admin {
 		Utilities.clickElement("//select[@placeholder='application method']/option[text()='" + appMethod + "']",
 				ElementType.XPath);
 	}
-	
+
 	public void chemicalType(String chemicalOption) {
 		Utilities.clickElement(isChemicalType, ElementType.XPath);
 		Utilities.clickElement("//select[@placeholder='type']/option[text()='" + chemicalOption + "']",
 				ElementType.XPath);
 	}
-	
+
 	public void setTargetArea() {
 		Utilities.clickElement(targetAreas, ElementType.XPath);
 		Utilities.clickElement(addTargetArea, ElementType.XPath);
 	}
-	
-	
+
 	public void setTargetIssues() {
 		Utilities.clickElement(targetIssue, ElementType.XPath);
 		Utilities.clickElement(addTargetIssue, ElementType.XPath);
 	}
+
+	public String getProductName(String setProductName) {
+		Utilities.waitUntileElementIsVisible(
+				"//div[@id='newPreferenceBody']//div[contains(text(),'" + setProductName + "')]");
+		return Utilities
+				.getElementTextValue("//div[@id='newPreferenceBody']//div[contains(text(),'" + setProductName + "')]",
+						ElementType.XPath)
+				.substring(0, 4);
+	}
+
+	public String getProductLabel(String setProductLabel) {
+		Utilities.waitUntileElementIsVisible(
+				"//div[@id='newPreferenceBody']//div[contains(text(),'" + setProductLabel + "')]");
+		return Utilities
+				.getElementTextValue("//div[@id='newPreferenceBody']//div[contains(text(),'" + setProductLabel + "')]",
+						ElementType.XPath)
+				.substring(0, 4);
+	}
+
 }

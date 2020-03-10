@@ -1,9 +1,6 @@
 package automation.PestRoutes.PageObject.Admin.Preferences;
 
-import org.openqa.selenium.WebElement;
 
-import automation.PestRoutes.Utilities.FindElement;
-import automation.PestRoutes.Utilities.FindElement.InputType;
 import automation.PestRoutes.Utilities.Utilities;
 import automation.PestRoutes.Utilities.Utilities.ElementType;
 
@@ -24,6 +21,7 @@ public class PreferencesPage {
 	public String applicationMethodsText = "//li[text() = 'Application Methods']";
 	public String serviceTypesText = "//li[text() = 'Service Types']";
 	public String equipmentTypesText = "//li[text() = 'Equipment Types']";
+	public String productsText = "//li[text() = 'Products']";
 	
 	
 	//Mobile navigation
