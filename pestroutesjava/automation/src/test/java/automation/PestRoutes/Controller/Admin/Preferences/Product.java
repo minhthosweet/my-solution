@@ -30,6 +30,8 @@ public class Product extends BaseClass {
 	public void validateProduct() {
 		createProduct();
 		assertCreatedProduct();
+		editProductUnit();
+		productUnit_edit_assert();
 	}
 
 	public void createProduct() {
@@ -41,13 +43,13 @@ public class Product extends BaseClass {
 		productAdmin.enterProductLabel(productLabel);
 		serviceTypes.selectFromDropdown(serviceTypes.globalDropDown, "Specific to this office");
 		serviceTypes.selectFromDropdown(serviceTypes.visibilityDropDown, "Visible");
-		productAdmin.setConcentratedUnit(productAdmin.fluidOunces);
+		productAdmin.setUnit(productAdmin.concentratedUnit_placeHolder, productAdmin.fluidOunces);
 		productAdmin.setDefaultDilution("10%");
-		productAdmin.setDilutedUnit(productAdmin.fluidOunces);
+		productAdmin.setUnit(productAdmin.dilutedUnit_placeHolder, productAdmin.fluidOunces);
 		productAdmin.setMeasurementType(productAdmin.volume);
 		productAdmin.setManufacturer(Utilities.generateRandomString(4));
 		productAdmin.setSentriconBait(productAdmin.no);
-		productAdmin.setInventoryUnit(productAdmin.fluidOunces);
+		productAdmin.setUnit(productAdmin.inventoryUnit_placeHolder, productAdmin.fluidOunces);
 		productAdmin.setNumerator("75", productAdmin.fluidOunces);
 		productAdmin.setDenominator("25", productAdmin.fluidOunces);
 		productAdmin.setApplicationMethod("Aerosol");
@@ -68,6 +70,43 @@ public class Product extends BaseClass {
 		String expectedProductLabel = productLabel;
 		String actualProductLabel = productAdmin.getProductLabel(productLabel);
 		list.add(AssertException.result(expectedProductLabel, actualProductLabel, "Validate Product Label"));
+	}
+
+	private void editProductUnit() {
+		header.NavigateTo(header.adminTab);
+		adminMainPage.navigateTo(adminMainPage.preferences);
+		preferences.navigateTo(preferences.serviceRelatedNav, preferences.productsText);
+		serviceTypes.setSearch(productName);
+		productAdmin.clickEdit(productName);
+		productAdmin.setUnit(productAdmin.concentratedUnit_placeHolder, productAdmin.inches);
+		productAdmin.setUnit(productAdmin.dilutedUnit_placeHolder, productAdmin.inches);
+		productAdmin.setUnit(productAdmin.inventoryUnit_placeHolder, productAdmin.inches);
+		productAdmin.setNumerator("50", productAdmin.inches);
+		productAdmin.setDenominator("50", productAdmin.inches);
+		serviceTypes.clickSave();
+	}
+
+	private void productUnit_edit_assert() {
+		String expectedMixRatio = "50";
+		String expectedProductUnit = "Grams(Weight)";
+		productAdmin.clickEdit(productName);
+		productAdmin.setUnit(productAdmin.concentratedUnit_placeHolder, productAdmin.grams);
+		productAdmin.setUnit(productAdmin.dilutedUnit_placeHolder, productAdmin.grams);
+		productAdmin.setUnit(productAdmin.inventoryUnit_placeHolder, productAdmin.grams);
+		productAdmin.setNumerator("50", productAdmin.grams);
+		productAdmin.setDenominator("50", productAdmin.grams);
+		serviceTypes.clickSave();
+		productAdmin.clickEdit(productName);
+		String actualConcentratedProductUnit = productAdmin.getUnitData(productAdmin.concentratedUnit_placeHolder);
+		String actualInventoryProductUnit = productAdmin.getUnitData(productAdmin.inventoryUnit_placeHolder);
+		String actualDilutedProductUnit = productAdmin.getUnitData(productAdmin.dilutedUnit_placeHolder);
+		String actualNumeratorMixRatio = productAdmin.getNumeratorValue();
+		String actualDenominatorMiXRatio = productAdmin.getDenominatorValue();
+		list.add(AssertException.result(expectedProductUnit, actualConcentratedProductUnit, "Validate Conc Unit"));
+		list.add(AssertException.result(expectedProductUnit, actualInventoryProductUnit, "Validate Inventory Unit"));
+		list.add(AssertException.result(expectedProductUnit, actualDilutedProductUnit, "Validate Diluted Unit"));
+		list.add(AssertException.result(expectedMixRatio, actualDenominatorMiXRatio, "Validate Denominator Mix Ratio"));
+		list.add(AssertException.result(expectedMixRatio, actualNumeratorMixRatio, "Validate Numerator Mix Ratio"));
 	}
 
 }

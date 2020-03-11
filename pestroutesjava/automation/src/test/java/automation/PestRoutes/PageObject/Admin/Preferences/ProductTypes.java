@@ -1,7 +1,12 @@
 package automation.PestRoutes.PageObject.Admin.Preferences;
 
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+
 import automation.PestRoutes.Utilities.FindElement;
 import automation.PestRoutes.Utilities.Utilities;
+import automation.PestRoutes.Utilities.Driver.GetWebDriver;
 import automation.PestRoutes.Utilities.FindElement.InputType;
 import automation.PestRoutes.Utilities.Utilities.ElementType;
 
@@ -78,6 +83,19 @@ public class ProductTypes {
 	public String chemical = "Chemical";
 	public String nonChemical = "Non-Chemical";
 
+	// Placeholdernames
+	public String concentratedUnit_placeHolder = "concentrated unit";
+	public String dilutedUnit_placeHolder = "diluted unit";
+	public String inventoryUnit_placeHolder = "inventory unit";
+
+	// Edit Product
+	public void clickEdit(String productName) {
+		Utilities.waitUntileElementIsVisible(
+				"//input[@value='" + productName + "']/following-sibling::div[text()='edit']");
+		Utilities.clickElement("//input[@value='" + productName + "']/following-sibling::div[text()='edit']",
+				ElementType.XPath);
+	}
+
 	public void clickAddProductButton() {
 		Utilities.waitUntileElementIsVisible(addProduct);
 		Utilities.clickElement(addProduct, ElementType.XPath);
@@ -96,15 +114,9 @@ public class ProductTypes {
 
 	// Setter methods for Unit
 	// Product Values
-	public void setConcentratedUnit(String concentratedUnits) {
+	public void setUnit(String placeHolderName, String units) {
 		Utilities.clickElement(concentratedUnit, ElementType.XPath);
-		Utilities.clickElement("//select[@placeholder='concentrated unit']//option[text()='" + concentratedUnits + "']",
-				ElementType.XPath);
-	}
-
-	public void setInventoryUnit(String inventoryUnits) {
-		Utilities.clickElement(inventoryUnit, ElementType.XPath);
-		Utilities.clickElement("//select[@placeholder='inventory unit']//option[text()='" + inventoryUnits + "']",
+		Utilities.clickElement("//select[@placeholder='" + placeHolderName + "']//option[text()='" + units + "']",
 				ElementType.XPath);
 	}
 
@@ -112,12 +124,6 @@ public class ProductTypes {
 		FindElement.elementByAttribute(defaultDilution, InputType.XPath).clear();
 		FindElement.elementByAttribute(defaultDilution, InputType.XPath).sendKeys(defaultDilutionsQuantity);
 
-	}
-
-	public void setDilutedUnit(String dilutedUnits) {
-		Utilities.clickElement(dilutedUnit, ElementType.XPath);
-		Utilities.clickElement("//select[@placeholder='diluted unit']//option[text()='" + dilutedUnits + "']",
-				ElementType.XPath);
 	}
 
 	public void setMeasurementType(String unit) {
@@ -192,6 +198,19 @@ public class ProductTypes {
 				.getElementTextValue("//div[@id='newPreferenceBody']//div[contains(text(),'" + setProductLabel + "')]",
 						ElementType.XPath)
 				.substring(0, 4);
+	}
+
+	public String getUnitData(String placeHolderName) {
+		return Utilities.getElementTextValue(
+				"//select[@placeholder='" + placeHolderName + "']//option[@selected='selected']", ElementType.XPath);
+	}
+
+	public String getNumeratorValue() {
+		return Utilities.getAttributeValue(mixRatioNumerator, "value");
+	}
+
+	public String getDenominatorValue() {
+		return Utilities.getAttributeValue(mixRatioDenominator, "value");
 	}
 
 }
