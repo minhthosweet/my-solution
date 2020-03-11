@@ -6,6 +6,9 @@ import static org.testng.Assert.fail;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.openqa.selenium.WebElement;
+import org.testng.Assert;
+
 public class AssertException {
 	public static List list = new ArrayList<String>();
 	public static List<String> result(String expected, String actual, String testName){
@@ -14,6 +17,17 @@ public class AssertException {
 			assertTrue(actual.contains(expected));
 		}catch(AssertionError e) {
 			list.add(testName + ":" + e.getMessage());
+		}
+		return list;
+	}
+	
+	public static List<String> conditionResult(WebElement element){
+		try {
+			if(element==null) {
+				Assert.fail();
+			}
+		}catch(AssertionError e) {
+			list.add(e.getMessage());
 		}
 		return list;
 	}

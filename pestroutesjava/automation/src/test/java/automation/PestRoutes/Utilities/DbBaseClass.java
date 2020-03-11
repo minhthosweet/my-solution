@@ -2,10 +2,6 @@ package automation.PestRoutes.Utilities;
 
 import java.sql.DriverManager;
 import java.sql.SQLException;
-
-import com.jcraft.jsch.Channel;
-import com.jcraft.jsch.ChannelExec;
-import com.jcraft.jsch.JSch;
 import com.jcraft.jsch.Session;
 import java.sql.Connection;
 import org.testng.annotations.AfterClass;

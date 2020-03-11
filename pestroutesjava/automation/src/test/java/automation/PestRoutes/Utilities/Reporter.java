@@ -1,5 +1,7 @@
 package automation.PestRoutes.Utilities;
 
+import org.openqa.selenium.WebElement;
+
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.Status;
@@ -29,6 +31,14 @@ public class Reporter {
 			getInstance(testName).log(Status.FAIL, "Validate "+testStep+ "=> Actual result  => "+ actualResult+ " did not match with expected result  => " +expectedResult);
 		}
 		
+	}
+	
+	public static void conditionStatus(WebElement needElement, String testStep, String testName) {
+		if(needElement.isDisplayed()) {
+			getInstance(testName).log(Status.PASS, "Validate "+testStep+ "=> " + needElement + " Displayed");
+		} else {
+			getInstance(testName).log(Status.FAIL, "Validate "+testStep+ "=> " + needElement + " did not displayed");
+		}
 	}
 	
 	public static void flushReport() {

@@ -28,10 +28,10 @@ import org.openqa.selenium.WebElement;
 
 
 public class ScheduleAppt extends BaseClass {
-	private String routes = "//div[@class = 'route actualRoute route1 ']";
+	public String routes = "//div[@class = 'route actualRoute route1 ']";
 	private String serviceType = "Roach";
-	private String serviceAreaProvided = "Exterior Only";
-	private String pestTreaded = "Bat";
+	public String serviceAreaProvided = "Exterior Only";
+	public String pestTreaded = "Bat";
 	private String product = "000 NEW";
 	private String applicationMethod = "Direct Spray";
 	private String targetIssue = "Bat";
@@ -53,7 +53,7 @@ public class ScheduleAppt extends BaseClass {
 
 	@Test
 	public void createSchedule() throws Exception {
-
+		String userID = getData("userID", generalData);
 		mainHeader = new Header();
 		route = new RoutePage();
 		overviewHeader = new CustomerViewDialog_Header();
@@ -65,7 +65,7 @@ public class ScheduleAppt extends BaseClass {
 
 		changeToMultiUnit();
 		addRoute();
-		addAppointment();
+		addAppointment(userID,serviceType, "08:30");
 		addChemicalInUnitTab();
 		addChemical();
 		verifyChemicalinUnit();
@@ -84,23 +84,24 @@ public class ScheduleAppt extends BaseClass {
 		unitsTab.setupUnit("Harold", "3", "62534");
 	}
 
-	private void addRoute() {
+	public void addRoute() throws Exception {
 		mainHeader.NavigateTo(mainHeader.schedulingTab);
+		scheduleDay.addScheduleDateToProperties();
 		scheduleDay.clickScheduleDay();
 		route.addGroup();
 		route.clickButton(route.addRoutesButton);
 		route.addRoutesByQuantity("1");
 	}
 
-	private void addAppointment() throws Exception {
-		mainHeader.Search_A_Customer(getData("userID", generalData));
+	public void addAppointment(String needUserID, String needServieType, String needTimeSlot) throws Exception {
+		mainHeader.Search_A_Customer(needUserID);
 		
 		overviewHeader.ClickScheduleButton();
 		int totalCount = Utilities.getElementCount(routes);
 		String routesCount = Integer.toString(totalCount);
 		System.out.println(routesCount);
-		route.scheduleAppointment(routesCount, "08:30");
-		confirmAppt.selectServiceType(serviceType);
+		route.scheduleAppointment(routesCount, needTimeSlot);
+		confirmAppt.selectServiceType(needServieType);
 		confirmAppt.selectInteriorNeededOption(serviceAreaProvided);
 		confirmAppt.selectTargetPestsOption(pestTreaded);
 	}

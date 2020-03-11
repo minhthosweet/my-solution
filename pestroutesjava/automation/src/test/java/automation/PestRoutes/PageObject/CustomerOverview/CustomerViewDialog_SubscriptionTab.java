@@ -12,11 +12,15 @@ public class CustomerViewDialog_SubscriptionTab {
 	//********************Objects in subscription tab********************
 	//***Sales Info/Billing Options objects***
 	public String newSubscriptionButton = "//div[text()=  '+ New Subscription']";
-	public String salesR3pDropdown = "//h3[text()=  'Sales Info']/following-sibling::select[@name='creditTo']";
+	public String salesRepDropdown = "//h3[text()=  'Sales Info']/following-sibling::select[@name='creditTo']";
 	public String second_SalesRepDropdown = "//h3[text()=  'Sales Info']/following-sibling::select[@name='creditTo3']";
 	public String sourceDropdown = "//h3[text()=  'Sales Info']/following-sibling::select[@name='sourceID']";
+	public String soldDateField = "//input[@name='subDateAdded']";
 	public String contractLengthDropdown = "//h3[text()=  'Sales Info']/following-sibling::select[@name='agreementLength']";
 	public String expirationDateInputField = "//input[@name='expirationDate']";
+	public String renewalDateField = "//input[@name='renewalDate']";
+	public String setRenewalDateDropdown = "//select[@name='setRenewalDateOn']";
+	public String renewalFrequencyDropdown = "//select[@name='renewalFrequency']";
 	public String pO_NumberInputField = "//input[@name='poNumber']";
 	public String notesInputField = "//textarea[@name='subNotes']";
 	public String netBillingDaysInputField = "//input[@name='netBillingDaysDisplay']";
@@ -68,7 +72,7 @@ public class CustomerViewDialog_SubscriptionTab {
 	}
 	
 	public void selectSalesRep(String needSalesRap) {
-		Utilities.selectValueFromDropDownByValue(salesR3pDropdown, needSalesRap);
+		Utilities.selectValueFromDropDownByValue(salesRepDropdown, needSalesRap);
 	}
 	
 	public void selectSalesRep2(String needSalesRap) {
@@ -83,11 +87,23 @@ public class CustomerViewDialog_SubscriptionTab {
 		Utilities.selectValueFromDropDownByValue(contractLengthDropdown, needContractLength);
 	}
 	
+	public void selectSetRenewalDate(String needOption) {
+		Utilities.waitUntileElementIsVisible(setRenewalDateDropdown);
+		Utilities.selectValueFromDropDownByValue(setRenewalDateDropdown, needOption);
+	}
+	
+	public void selectRenewalFrequency(String needOption) {
+		Utilities.waitUntileElementIsVisible(renewalFrequencyDropdown);
+		Utilities.selectValueFromDropDownByValue(renewalFrequencyDropdown, needOption);
+	}
+	
 	public void selectBillingFrequency(String needBillingFrequency) {
 		Utilities.selectValueFromDropDownByValue(billingFrequencyDropdown, needBillingFrequency);
 	}
 	
-	public void selectServiceType(String needServiceType) {
+	public void selectServiceType(String needServiceType) throws Exception {
+		Thread.sleep(800);
+		Utilities.waitUntileElementIsVisible(serviceTypeDropdown);
 		Utilities.selectValueFromDropDownByValue(serviceTypeDropdown, needServiceType);
 	}
 	
@@ -147,8 +163,17 @@ public class CustomerViewDialog_SubscriptionTab {
 	 * Setter methods
 	 * Below methods insert values in the object input field
 	 */
+	
+	public void setSoldDate(String needSoldDate) {
+		FindElement.elementByAttribute(soldDateField, InputType.XPath).sendKeys(needSoldDate);
+	}
+	
 	public void setExpDate(String needExpDate) {
 		FindElement.elementByAttribute(expirationDateInputField, InputType.XPath).sendKeys(needExpDate);
+	}
+	
+	public void setRenewalDate(String needDate) {
+		FindElement.elementByAttribute(renewalDateField, InputType.XPath).sendKeys(needDate);
 	}
 	
 	public void set_PO_Number(String needPoNum) {
@@ -186,6 +211,10 @@ public class CustomerViewDialog_SubscriptionTab {
 	 * Getter methods
 	 * Below methods get string value of given object
 	 */
+	public String getRenewalDate() {
+		Utilities.waitUntileElementIsVisible(renewalDateField);
+		return Utilities.getAttributeValue(renewalDateField, "value");
+	}
 	public String getUpcomingAppt(String chooseAppt) throws Exception {
 		Utilities.waitUntileElementIsVisible(chooseAppt);
 		return Utilities.getElementTextValue(chooseAppt, ElementType.XPath);

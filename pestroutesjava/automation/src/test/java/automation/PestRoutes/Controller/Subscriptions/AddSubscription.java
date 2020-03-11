@@ -103,12 +103,12 @@ public class AddSubscription extends BaseClass {
 		double subTotal = finalInitialQuote + ticketAmount - finalInitialDiscount;
 		String expectedSubTotal = Double.toString(subTotal);
 		String actual_InitialSubTotal = Double.toString(actualInitialSubtotal);
-		Reporter.status("Initial invoice sub total validation ",expectedSubTotal, actual_InitialSubTotal, "Subscription Initial Invoice SubTotal");
+		Reporter.status("Initial invoice sub total validation ",expectedSubTotal, actual_InitialSubTotal, "Subscription invoice validation");
 		double total = subTotal + initialTax;
 		String expectedInitialTotal = Double.toString(total);
 		String actualInitialTotal = Double.toString(initialTotal);
 		list.add(AssertException.result(expectedInitialTotal, actualInitialTotal, "Initial invoice total validation"));
-		Reporter.status("Initial invoice total validation ", expectedInitialTotal, actualInitialTotal, "Subscrition");
+		Reporter.status("Initial invoice total validation ", expectedInitialTotal, actualInitialTotal, "Subscription invoice validation");
 	}
 
 	public void validateRecurringInvoice() throws Exception {
@@ -123,12 +123,12 @@ public class AddSubscription extends BaseClass {
 		double subTotal = serviceAmount + ticketAmount;
 		String expectedSubTotal = Double.toString(subTotal);
 		String actual_ServiceSubTotal = Double.toString(actualServiceSubtotal);
-		Reporter.status("Service invoice sub total validation ",expectedSubTotal, actual_ServiceSubTotal, "Subscription");
+		Reporter.status("Service invoice sub total validation ",expectedSubTotal, actual_ServiceSubTotal, "Subscription invoice validation");
 		double total = subTotal + serviceTax;
 		String expectedServiceTotal = Double.toString(total);
 		String actualServiceTotal = Double.toString(serviceTotal);
 		list.add(AssertException.result(expectedServiceTotal, actualServiceTotal, "Service invoice total validation"));
-		Reporter.status("Service invoice total validation ",expectedServiceTotal, actualServiceTotal, "Subscription");
+		Reporter.status("Service invoice total validation ",expectedServiceTotal, actualServiceTotal, "Subscription invoice validation");
 	}
 
 }

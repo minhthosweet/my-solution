@@ -66,6 +66,10 @@ public class Utilities {
 		return driver.findElements(By.xpath(needXpath)).size();
 	}
 	
+	public static String getAttributeValue(String needXpath, String needAttribute) {
+		return driver.findElement(By.xpath(needXpath)).getAttribute(needAttribute);
+	}
+	
 	public static void waitUntileElementIsVisible(String needXpath) {
 		WebDriverWait wait = new WebDriverWait(driver, 50);
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(needXpath)));

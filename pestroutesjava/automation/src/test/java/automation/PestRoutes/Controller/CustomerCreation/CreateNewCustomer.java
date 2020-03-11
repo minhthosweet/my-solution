@@ -47,7 +47,7 @@ public class CreateNewCustomer extends BaseClass{
 		dialog.ClickSaveButton();
 		String alert = Utilities.getAlertText();
 		list.add(AssertException.result(expectedAlert,alert, "Validate required field"));
-		Reporter.status("required field while creating customer ", expectedAlert, alert, "Customer creation");
+		//Reporter.status("required field while creating customer ", expectedAlert, alert, "Customer creation");
 		Utilities.acceptAlert();
 		customer.setLastName(lName);
 		dialog.ClickSaveButton();
@@ -55,7 +55,7 @@ public class CreateNewCustomer extends BaseClass{
 		String customerNameInHeader = overview.getCustomerNameFromHeader();
 		System.out.println("Customer Name found is "+customerNameInHeader);
 		list.add(AssertException.result(fName,customerNameInHeader, "Validate Customer Creation"));
-		Reporter.status("Created customer ", fName, customerNameInHeader, "Customer creation");
+		//Reporter.status("Created customer ", fName, customerNameInHeader, "Customer creation");
 		String id = overview.getCustomerIDFromHeader();
 		String newId = id.replaceAll("[^a-zA-Z0-9]+","");
 		System.out.println(newId);

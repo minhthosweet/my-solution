@@ -46,7 +46,7 @@
 		<ul id='nav-mobile' class='right hide-on-med-and-down nav-right'>
 			<li>
                 <a href='#!'>
-                    <span class='label suite-start-time blue darken-3'>Mar 9, 2020 10:23:15 AM</span>
+                    <span class='label suite-start-time blue darken-3'>Mar 11, 2020 12:16:34 PM</span>
 				</a>
 			</li>
 			<li>
@@ -122,10 +122,10 @@
 					<canvas id='parent-analysis' width='100' height='80'></canvas>
 				</div>
 				<div class='block text-small'>
-					<span class='tooltipped' data-position='top' data-tooltip='64.706%'><span class='strong'>11</span> test(s) passed</span>
+					<span class='tooltipped' data-position='top' data-tooltip='66.667%'><span class='strong'>12</span> test(s) passed</span>
 				</div>
 				<div class='block text-small'>
-					<span class='strong tooltipped' data-position='top' data-tooltip='35.294%'>6</span> test(s) failed, <span class='strong tooltipped' data-position='top' data-tooltip='0%'>0</span> others
+					<span class='strong tooltipped' data-position='top' data-tooltip='33.333%'>6</span> test(s) failed, <span class='strong tooltipped' data-position='top' data-tooltip='0%'>0</span> others
 				</div>
 			</div>
 		</div>
@@ -137,10 +137,10 @@
 					<canvas id='child-analysis' width='100' height='80'></canvas>
 				</div>
 				<div class='block text-small'>
-					<span class='tooltipped' data-position='top' data-tooltip='92.593%'><span class='strong'>275</span> step(s) passed</span>
+					<span class='tooltipped' data-position='top' data-tooltip='92.691%'><span class='strong'>279</span> step(s) passed</span>
 				</div>
 				<div class='block text-small'>
-					<span class='strong tooltipped' data-position='top' data-tooltip='7.407%'>22</span> step(s) failed, <span class='strong tooltipped' data-position='top' data-tooltip='0%'>0</span> others
+					<span class='strong tooltipped' data-position='top' data-tooltip='7.309%'>22</span> step(s) failed, <span class='strong tooltipped' data-position='top' data-tooltip='0%'>0</span> others
 				</div>
 			</div>
 		</div>
@@ -2104,7 +2104,7 @@
 <div class='test-time-info'>
 	<span class='label start-time'>Mar 9, 2020 10:23:15 AM</span>
 	<span class='label end-time'>Mar 9, 2020 10:23:18 AM</span>
-	<span class='label time-taken grey lighten-1 white-text'>0h 0m 3s+42ms</span>
+	<span class='label time-taken grey lighten-1 white-text'>0h 0m 3s+0ms</span>
 </div>
 	<div class='test-steps'>
 		<table class='bordered table-results'>
@@ -2119,12 +2119,61 @@
 				<tr class='log' status='pass'>
 					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
 					<td class='timestamp'>10:23:15 AM</td>
-					<td class='step-details'>Validate required field while creating customer => Actual result  => Required: You must fill in the customer's last name or company name! matched with expected result  => Required: You must fill in the customer's last name or company name!</td>
+					<td class='step-details'>Validate required field while creating customer =&gt; Actual result =&gt; Required: You must fill in the customer's last name or company name! matched with expected result =&gt; Required: You must fill in the customer's last name or company name!</td>
 				</tr>
 				<tr class='log' status='pass'>
 					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
 					<td class='timestamp'>10:23:18 AM</td>
-					<td class='step-details'>Validate Created customer => Actual result  => [20570]   XlIWJ4o VuUpLJ Frozen Account matched with expected result  => XlIWJ4o</td>
+					<td class='step-details'>Validate Created customer =&gt; Actual result =&gt; [20570] XlIWJ4o VuUpLJ Frozen Account matched with expected result =&gt; XlIWJ4o</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+					</div>
+				</li>
+				
+				
+				<li class='test displayed active  pass' status='pass' bdd='false' test-id='18'>
+					<div class='test-heading'>
+						<span class='test-name'>Renewal in subscription</span>
+						<span class='test-time'>Mar 11, 2020 12:16:34 PM</span>
+						<span class='test-status right pass'>pass</span>
+					</div>
+					<div class='test-content hide'>
+<div class='test-time-info'>
+	<span class='label start-time'>Mar 11, 2020 12:16:34 PM</span>
+	<span class='label end-time'>Mar 11, 2020 12:17:01 PM</span>
+	<span class='label time-taken grey lighten-1 white-text'>0h 0m 26s+694ms</span>
+</div>
+	<div class='test-steps'>
+		<table class='bordered table-results'>
+			<thead>
+				<tr>
+					<th>Status</th>
+					<th>Timestamp</th>
+					<th>Details</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>12:16:34 PM</td>
+					<td class='step-details'>Validate renewal date field=> [[ChromeDriver: chrome on WINDOWS (304c517a418810a6eccdd1059230845d)] -> xpath: //input[@name='renewalDate']] Displayed</td>
+				</tr>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>12:16:34 PM</td>
+					<td class='step-details'>Validate Set renewal date field=> [[ChromeDriver: chrome on WINDOWS (304c517a418810a6eccdd1059230845d)] -> xpath: //select[@name='setRenewalDateOn']] Displayed</td>
+				</tr>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>12:16:34 PM</td>
+					<td class='step-details'>Validate Renewal date field=> [[ChromeDriver: chrome on WINDOWS (304c517a418810a6eccdd1059230845d)] -> xpath: //select[@name='renewalFrequency']] Displayed</td>
+				</tr>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>12:17:01 PM</td>
+					<td class='step-details'>Validate if renewal date is posted=> Actual result  => 3/12/2021 matched with expected result  => 3/12/2021</td>
 				</tr>
 			</tbody>
 		</table>
@@ -2166,31 +2215,31 @@
 			<div class='col s2'>
 				<div class='card-panel r'>
 					Tests
-					<div class='panel-lead'>17</div>
+					<div class='panel-lead'>18</div>
 				</div>
 			</div>
 			<div class='col s2'>
 				<div class='card-panel r'>
 					Steps
-					<div class='panel-lead'>297</div>
+					<div class='panel-lead'>301</div>
 				</div>
 			</div>
 			<div class='col s2'>
 				<div class='card-panel r'>
 					Start
-					<div class='panel-lead'>Mar 9, 2020 10:23:15 AM</div>
+					<div class='panel-lead'>Mar 11, 2020 12:16:34 PM</div>
 				</div>
 			</div>
 			<div class='col s2'>
 				<div class='card-panel r'>
 			 		End
-			 		<div class='panel-lead'>Mar 9, 2020 10:23:19 AM</div>
+			 		<div class='panel-lead'>Mar 11, 2020 12:17:01 PM</div>
 				</div>
 			</div>
 			<div class='col s2'>
 				<div class='card-panel r'>
 					Time Taken
-					<div class='panel-lead'>0h 0m 3s+414ms</div>
+					<div class='panel-lead'>0h 0m 27s+41ms</div>
 				</div>
 			</div>
 		</div>
@@ -2203,7 +2252,7 @@
 
 		<script>
 			var statusGroup = {
-				passParent: 11,
+				passParent: 12,
 				failParent: 6,
 				fatalParent: 0,
 				errorParent: 0,
@@ -2211,7 +2260,7 @@
 				skipParent: 0,
 				exceptionsParent: 6,
 				
-				passChild: 275,
+				passChild: 279,
 				failChild: 22,
 				fatalChild: 0,
 				errorChild: 0,
