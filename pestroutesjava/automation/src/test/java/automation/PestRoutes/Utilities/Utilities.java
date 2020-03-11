@@ -4,6 +4,8 @@ import java.io.File;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Random;
+
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.openqa.selenium.By;
@@ -53,6 +55,11 @@ public class Utilities {
 
 	public static String generateRandomString(int needLength) {
 		return RandomStringUtils.random(needLength, true, true);
+	}
+	
+	public static double generateRandomInteger(int needLength) {
+		double m = (double) Math.pow(10, needLength - 1);
+	    return m + new Random().nextInt((int) (9 * m));
 	}
 	
 	public static Date currentDate(String needFormat) {

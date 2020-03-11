@@ -1,11 +1,16 @@
-package automation.PestRoutes.PageObject.AddRemove_Chemical_Inventory;
+package automation.PestRoutes.PageObject.Admin.Preferences;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
 import automation.PestRoutes.Utilities.FindElement;
 import automation.PestRoutes.Utilities.Utilities;
+import automation.PestRoutes.Utilities.Driver.GetWebDriver;
 import automation.PestRoutes.Utilities.FindElement.InputType;
 import automation.PestRoutes.Utilities.Utilities.ElementType;
 
-public class CreatingProduct_Admin {
+public class ProductTypes {
 	// add Product
 	public String addProduct = "//div[text() = '+ Product']";
 
@@ -31,7 +36,7 @@ public class CreatingProduct_Admin {
 	public String addTargetArea = "//div[text()='Target Areas']/following-sibling::div//i[2]";
 	public String targetIssue = "//div[text()='Target Issues']/following-sibling::div//input";
 	public String addTargetIssue = "//div[text()='Target Issues']/following-sibling::div//i[2]";
-	
+
 	// Meausrement Units
 	public String cubicCentimete = "Cubic Centimete (Volume)";
 	public String cups = "Cups (Volume)";
@@ -73,10 +78,23 @@ public class CreatingProduct_Admin {
 	// Sentricon Bait Options
 	public String yes = "Yes";
 	public String no = "No";
-	
-	//Chemical Type
+
+	// Chemical Type
 	public String chemical = "Chemical";
 	public String nonChemical = "Non-Chemical";
+
+	// Placeholdernames
+	public String concentratedUnit_placeHolder = "concentrated unit";
+	public String dilutedUnit_placeHolder = "diluted unit";
+	public String inventoryUnit_placeHolder = "inventory unit";
+
+	// Edit Product
+	public void clickEdit(String productName) {
+		Utilities.waitUntileElementIsVisible(
+				"//input[@value='" + productName + "']/following-sibling::div[text()='edit']");
+		Utilities.clickElement("//input[@value='" + productName + "']/following-sibling::div[text()='edit']",
+				ElementType.XPath);
+	}
 
 	public void clickAddProductButton() {
 		Utilities.waitUntileElementIsVisible(addProduct);
@@ -96,15 +114,9 @@ public class CreatingProduct_Admin {
 
 	// Setter methods for Unit
 	// Product Values
-	public void setConcentratedUnit(String concentratedUnits) {
+	public void setUnit(String placeHolderName, String units) {
 		Utilities.clickElement(concentratedUnit, ElementType.XPath);
-		Utilities.clickElement("//select[@placeholder='concentrated unit']//option[text()='" + concentratedUnits + "']",
-				ElementType.XPath);
-	}
-
-	public void setInventoryUnit(String inventoryUnits) {
-		Utilities.clickElement(inventoryUnit, ElementType.XPath);
-		Utilities.clickElement("//select[@placeholder='inventory unit']//option[text()='" + inventoryUnits + "']",
+		Utilities.clickElement("//select[@placeholder='" + placeHolderName + "']//option[text()='" + units + "']",
 				ElementType.XPath);
 	}
 
@@ -112,12 +124,6 @@ public class CreatingProduct_Admin {
 		FindElement.elementByAttribute(defaultDilution, InputType.XPath).clear();
 		FindElement.elementByAttribute(defaultDilution, InputType.XPath).sendKeys(defaultDilutionsQuantity);
 
-	}
-
-	public void setDilutedUnit(String dilutedUnits) {
-		Utilities.clickElement(dilutedUnit, ElementType.XPath);
-		Utilities.clickElement("//select[@placeholder='diluted unit']//option[text()='" + dilutedUnits + "']",
-				ElementType.XPath);
 	}
 
 	public void setMeasurementType(String unit) {
@@ -159,21 +165,52 @@ public class CreatingProduct_Admin {
 		Utilities.clickElement("//select[@placeholder='application method']/option[text()='" + appMethod + "']",
 				ElementType.XPath);
 	}
-	
+
 	public void chemicalType(String chemicalOption) {
 		Utilities.clickElement(isChemicalType, ElementType.XPath);
 		Utilities.clickElement("//select[@placeholder='type']/option[text()='" + chemicalOption + "']",
 				ElementType.XPath);
 	}
-	
+
 	public void setTargetArea() {
 		Utilities.clickElement(targetAreas, ElementType.XPath);
 		Utilities.clickElement(addTargetArea, ElementType.XPath);
 	}
-	
-	
+
 	public void setTargetIssues() {
 		Utilities.clickElement(targetIssue, ElementType.XPath);
 		Utilities.clickElement(addTargetIssue, ElementType.XPath);
 	}
+
+	public String getProductName(String setProductName) {
+		Utilities.waitUntileElementIsVisible(
+				"//div[@id='newPreferenceBody']//div[contains(text(),'" + setProductName + "')]");
+		return Utilities
+				.getElementTextValue("//div[@id='newPreferenceBody']//div[contains(text(),'" + setProductName + "')]",
+						ElementType.XPath)
+				.substring(0, 4);
+	}
+
+	public String getProductLabel(String setProductLabel) {
+		Utilities.waitUntileElementIsVisible(
+				"//div[@id='newPreferenceBody']//div[contains(text(),'" + setProductLabel + "')]");
+		return Utilities
+				.getElementTextValue("//div[@id='newPreferenceBody']//div[contains(text(),'" + setProductLabel + "')]",
+						ElementType.XPath)
+				.substring(0, 4);
+	}
+
+	public String getUnitData(String placeHolderName) {
+		return Utilities.getElementTextValue(
+				"//select[@placeholder='" + placeHolderName + "']//option[@selected='selected']", ElementType.XPath);
+	}
+
+	public String getNumeratorValue() {
+		return Utilities.getAttributeValue(mixRatioNumerator, "value");
+	}
+
+	public String getDenominatorValue() {
+		return Utilities.getAttributeValue(mixRatioDenominator, "value");
+	}
+
 }
