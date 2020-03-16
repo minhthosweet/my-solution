@@ -34,7 +34,7 @@ public class BaseClass extends AppData {
 
 	public void beforeTest() throws IOException {
 
-		String url = getData("url",generalData);
+		String url = getData("pronBetaUrl",generalData);
 		String userName = getData("userName", generalData);
 		String password = getData("password", generalData);
 

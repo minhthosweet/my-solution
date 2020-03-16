@@ -18,6 +18,7 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.annotations.Test;
 
 import automation.PestRoutes.Utilities.Driver.GetWebDriver;
 
@@ -62,11 +63,11 @@ public class Utilities {
 	    return m + new Random().nextInt((int) (9 * m));
 	}
 	
-	public static Date currentDate(String needFormat) {
+	public static String currentDate(String needFormat) {
 		DateFormat dateFormat = new SimpleDateFormat(needFormat);
         Date date = new Date();
-        System.out.println(dateFormat.format(date));
-        return date;
+        String date1 = dateFormat.format(date);
+        return date1;
 	}
 	
 	public static int getElementCount(String needXpath) {

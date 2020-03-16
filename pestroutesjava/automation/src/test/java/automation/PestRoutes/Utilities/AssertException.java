@@ -5,6 +5,8 @@ import static org.testng.Assert.fail;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
@@ -33,6 +35,7 @@ public class AssertException {
 	}
 	
 	public static void asserFailure(List needListName) {
+		//list.removeIf(Objects::isNull);
 		if (needListName.size()>0) {
 			System.out.println(needListName.size());
 			System.out.println(needListName);

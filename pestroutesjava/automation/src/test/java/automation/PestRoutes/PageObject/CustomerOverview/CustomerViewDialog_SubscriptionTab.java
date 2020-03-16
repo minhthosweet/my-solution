@@ -1,5 +1,7 @@
 package automation.PestRoutes.PageObject.CustomerOverview;
 
+import java.util.Date;
+
 import org.openqa.selenium.WebElement;
 
 import automation.PestRoutes.Utilities.FindElement;
@@ -10,6 +12,14 @@ import automation.PestRoutes.Utilities.Utilities.ElementType;
 public class CustomerViewDialog_SubscriptionTab {
 	
 	//********************Objects in subscription tab********************
+	//Status fields
+	public String statusText = "//div[@id='subStatusBox']//div[@id='SubStatus']";
+	public String deActivateButton = "//div[@id='subStatusBox']/span[@id='SubStatusAction']";
+	public String cencellationCategoryDropdown_cancelSubscriptionDialog = "//select[@id='cancelSubCategory']";
+	public String cancelNotesInputField = "//textarea[@id='cancelSubNotes']";
+	public String freezeSubscriptionButton = "//span[text()='Freeze Subscription']";
+	public String cancelButton_cancelSubscriptionDialog = "//span[text()='Freeze Subscription']/parent::button/preceding-sibling::button[1]/span[text()='Cancel']";
+	
 	//***Sales Info/Billing Options objects***
 	public String newSubscriptionButton = "//div[text()=  '+ New Subscription']";
 	public String salesRepDropdown = "//h3[text()=  'Sales Info']/following-sibling::select[@name='creditTo']";
@@ -69,6 +79,25 @@ public class CustomerViewDialog_SubscriptionTab {
 	 */
 	public void clickNewSubscriptionButton() {
 		Utilities.clickElement(newSubscriptionButton, ElementType.XPath);
+	}
+	
+	public void clickDeActivateButton() {
+		Utilities.waitUntileElementIsVisible(deActivateButton);
+		Utilities.clickElement(deActivateButton, ElementType.XPath);
+	}
+	
+	public void clickFreezeSubscriptionButton() {
+		Utilities.waitUntileElementIsVisible(freezeSubscriptionButton);
+		Utilities.clickElement(freezeSubscriptionButton, ElementType.XPath);
+	}
+	
+	public void clickCancelButton_CancenSubscriptionDialog() {
+		Utilities.clickElement(cancelButton_cancelSubscriptionDialog, ElementType.XPath);
+	}
+	
+	public void selectCancellationCategory(String needCategory) {
+		Utilities.waitUntileElementIsVisible(cencellationCategoryDropdown_cancelSubscriptionDialog);
+		Utilities.selectValueFromDropDownByValue(cencellationCategoryDropdown_cancelSubscriptionDialog, needCategory);
 	}
 	
 	public void selectSalesRep(String needSalesRap) {
@@ -164,6 +193,9 @@ public class CustomerViewDialog_SubscriptionTab {
 	 * Below methods insert values in the object input field
 	 */
 	
+	public void setCancelSubscriptionNotes(String needNotes) {
+		FindElement.elementByAttribute(cancelNotesInputField, InputType.XPath).sendKeys(needNotes);
+	}
 	public void setSoldDate(String needSoldDate) {
 		FindElement.elementByAttribute(soldDateField, InputType.XPath).sendKeys(needSoldDate);
 	}
@@ -173,6 +205,7 @@ public class CustomerViewDialog_SubscriptionTab {
 	}
 	
 	public void setRenewalDate(String needDate) {
+		FindElement.elementByAttribute(renewalDateField, InputType.XPath).clear();
 		FindElement.elementByAttribute(renewalDateField, InputType.XPath).sendKeys(needDate);
 	}
 	
@@ -211,6 +244,11 @@ public class CustomerViewDialog_SubscriptionTab {
 	 * Getter methods
 	 * Below methods get string value of given object
 	 */
+	
+	public String getStatusText() {
+		Utilities.waitUntileElementIsVisible(statusText);
+		return Utilities.getElementTextValue(statusText, ElementType.XPath);
+	}
 	public String getRenewalDate() {
 		Utilities.waitUntileElementIsVisible(renewalDateField);
 		return Utilities.getAttributeValue(renewalDateField, "value");

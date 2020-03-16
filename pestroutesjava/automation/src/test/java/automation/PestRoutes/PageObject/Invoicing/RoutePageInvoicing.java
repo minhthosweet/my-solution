@@ -26,7 +26,7 @@ public class RoutePageInvoicing {
 	}
 
 	public void clickAddPayment() {
-
+		Utilities.waitUntileElementIsVisible(addPayment);
 		Utilities.clickElement(addPayment, ElementType.XPath);
 	}
 

@@ -21,6 +21,8 @@ public class RoutePage {
 	//Had to use the below XPath as there are multiple Save buttons on the UI page
 	public String saveButton = "//body[@id=\"daysPage\"]/div[32]/div[3]/div/button[2]/span";
 	public void clickButton(String chooseButton) {
+		Utilities.waitUntileElementIsVisible(chooseButton);
+		Utilities.scrollToElement(chooseButton);
 		Utilities.clickElement(chooseButton, ElementType.XPath);
 	}
 
@@ -62,6 +64,7 @@ public class RoutePage {
 
 	public void addGroup() {
 		try {
+			Thread.sleep(300);
 			//WebElement testGroupname = FindElement.elementByAttribute(groupName, InputType.XPath);
 			if (Utilities.getElementCount(groupName)==0) {
 				Utilities.clickElement(addGroup, ElementType.XPath);
@@ -72,6 +75,8 @@ public class RoutePage {
 				Utilities.clickElement(groupTemplateName, ElementType.XPath);
 				Utilities.waitUntileElementIsVisible(saveButton);
 				Utilities.clickElement(saveButton, ElementType.XPath);
+			} else {
+				Utilities.clickElement(groupName, ElementType.XPath);
 			}
 		} catch (Exception e) {
 			System.out.println("Exception is == " + e.getMessage());

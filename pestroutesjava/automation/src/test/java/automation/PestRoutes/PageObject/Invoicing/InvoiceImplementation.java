@@ -6,6 +6,7 @@ import automation.PestRoutes.Utilities.Utilities;
 import automation.PestRoutes.Utilities.Utilities.ElementType;
 
 public class InvoiceImplementation {
+
 	// Values on Invoicing Landing Page
 	private String invoiceAccountSummaryClick = "//ul[@id=\"invoiceGroupListContainer\"]/ul/li";
 
@@ -24,10 +25,16 @@ public class InvoiceImplementation {
 	//Do not have any other XPath for initialPaymentStatus
 	private String initialPaymentStatus = "//ul[@id=\"invoiceGroupListContainer\"]/ul/li[1]/div[2]/div[2]";
 	private String paymentBalance = "//form[@id = \"singlePaymentForm\"]//div[@id = \"SubStatus\"]";
-
+	
+	//Distribution Details
+	public String limitedToCustomer = "//span[text()='Any Customer']";
+	public String limitedToSubscription = "//span[text()='Any Subscription']";
+	public String applyToFirst = "//span[text()='Any Invoice']";
+	public String paymentWarning = "//div[text()='Prepayment Amount: ']/following-sibling::div[2]";
+	public String renewalDateField = "//div[text()='Renewal Date: ']/following-sibling::input[@name = 'renewalDate']";
 	// Cash tab
-	private String partialPaymentAmount = "//input[@name = \"amount\"]";
-	private String confirmPartialPymtAmt = "//input[@name = \"confirmCashAmount\"]";
+	private String paymentAmountField = "//div[text() = 'Payment Amount:']/following-sibling::input[@name = 'amount']";
+	private String confirmPymtAmtField = "//input[@name = 'confirmCashAmount']";
 	private String custPaymentNotes = "//textarea[@name = \"customerNotes2\"]";
 	private String recordPayment = "//form[@id=\"singlePaymentForm\"]//div[contains (text(), 'Record Payment')]";
 
@@ -68,6 +75,10 @@ public class InvoiceImplementation {
 	public int getPaymentBalance() {
 		return Utilities.removeSpecialChars(paymentBalance);
 	}
+	
+	public String getPaymentWarning() {
+		return Utilities.getElementTextValue(paymentWarning, ElementType.XPath);
+	}
 
 	// Setter
 
@@ -84,14 +95,19 @@ public class InvoiceImplementation {
 	}
 
 	public void insertPaymentAmount(String pAmount, String cAmount) {
-		Utilities.waitUntileElementIsVisible(partialPaymentAmount);
-		FindElement.elementByAttribute(partialPaymentAmount, InputType.XPath).clear();
-		FindElement.elementByAttribute(partialPaymentAmount, InputType.XPath).sendKeys(pAmount);
-		Utilities.waitUntileElementIsVisible(confirmPartialPymtAmt);
-		FindElement.elementByAttribute(confirmPartialPymtAmt, InputType.XPath).sendKeys(cAmount);
+		Utilities.waitUntileElementIsVisible(paymentAmountField);
+		FindElement.elementByAttribute(paymentAmountField, InputType.XPath).clear();
+		FindElement.elementByAttribute(paymentAmountField, InputType.XPath).sendKeys(pAmount);
+		Utilities.waitUntileElementIsVisible(confirmPymtAmtField);
+		FindElement.elementByAttribute(confirmPymtAmtField, InputType.XPath).sendKeys(cAmount);
 		Utilities.waitUntileElementIsVisible(custPaymentNotes);
 		FindElement.elementByAttribute(custPaymentNotes, InputType.XPath).sendKeys("This is just a test");
 
+	}
+	
+	public void setLimitedToSubscription() {
+		Utilities.clickElement(limitedToSubscription, ElementType.XPath);
+		Utilities.clickElement("//label[text()='Pest Renewal Subscription Invoices ']", ElementType.XPath);
 	}
 
 	public void clickrecordPayment() {
