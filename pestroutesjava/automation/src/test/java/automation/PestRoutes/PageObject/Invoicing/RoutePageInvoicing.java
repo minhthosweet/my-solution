@@ -15,10 +15,6 @@ public class RoutePageInvoicing {
 
 	// Setter
 
-	public void NavigateTo(String chooseTabFromConst) {
-		Utilities.clickElement("//a[text() = '" + chooseTabFromConst + "']", ElementType.XPath);
-	}
-
 	public void clickAddNewInvoice(String needTab) {
 		Utilities.clickElement("//li[contains(@class,'shortItem') and contains(text(),'" + needTab + "')]",
 				ElementType.XPath);
@@ -26,7 +22,7 @@ public class RoutePageInvoicing {
 	}
 
 	public void clickAddPayment() {
-
+		Utilities.waitUntileElementIsVisible(addPayment);
 		Utilities.clickElement(addPayment, ElementType.XPath);
 	}
 
