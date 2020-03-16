@@ -35,7 +35,7 @@ public class CustomerViewDialog_Admin {
 		Utilities.clickElement(accountStatusChange, ElementType.XPath);
 		Utilities.clickElement(clickCancelCatogory, ElementType.XPath);
 		clickCancellationCategory();
-		cancellationCategory();
+		cancellationCategory(2);
 		selectCancelCustomerOptions(cancelCustomerOption);
 		cancellationNotes();
 		clickFreezeAccount();
@@ -60,8 +60,8 @@ public class CustomerViewDialog_Admin {
 		Utilities.clickElement(clickCancelCatogory, ElementType.XPath);
 	}
 
-	public void cancellationCategory() {
-		selectValueFromDropDownByIndex("//select[@id='cancelCategory']", 2);
+	public void cancellationCategory(int indexOfCancellationType) {
+		selectValueFromDropDownByIndex("//select[@id='cancelCategory']", indexOfCancellationType);
 	}
 
 	public static void selectValueFromDropDownByIndex(String needXpath, Integer needIndex) {
