@@ -85,20 +85,4 @@ public class CustomerViewDialog_Admin {
 		Utilities.clickElement(clickFreeze, ElementType.XPath);
 	}
 
-	public String getActualDate() {
-		Utilities.scrollToElement("//span[text() = '" + PDTDate() + " CDT']/parent::div/parent::li//h4/parent::div[1]");
-		String text = driver
-				.findElement(
-						By.xpath("//span[text() = '" + PDTDate() + " CDT']/parent::div/parent::li//h4/parent::div[1]"))
-				.getText();
-		return text;
-	}
-
-	public String PDTDate() {
-		Date date = new Date();
-		DateFormat formatter = new SimpleDateFormat("yyyy-mm-dd HH:mm:ss");
-		formatter.setTimeZone(TimeZone.getTimeZone("PST"));
-		String strDate = formatter.format(date).toLowerCase();
-		return strDate;
-	}
 }
