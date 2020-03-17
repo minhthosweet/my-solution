@@ -37,6 +37,7 @@ public class Inventory extends BaseClass {
 		assertProductAvailability();
 	}
 
+	//Search Product
 	public void searchProduct() {
 		header.NavigateTo(header.reportingTab);
 		reportingMainPage.navigateTo(reportingMainPage.inventory);
@@ -46,6 +47,7 @@ public class Inventory extends BaseClass {
 		inventory.updateInventory();
 	}
 
+	//Assert added fluid
 	public void addAssertFluid() {
 		inventory.inventoryChange(addedStockValue);
 		inventory.inventoryChangeOption(inventory.inventoryChangeAdd, productName);

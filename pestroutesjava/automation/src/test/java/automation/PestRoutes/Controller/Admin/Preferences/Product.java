@@ -34,6 +34,7 @@ public class Product extends BaseClass {
 		productUnit_edit_assert();
 	}
 
+	//Create product
 	public void createProduct() {
 		header.NavigateTo(header.adminTab);
 		adminMainPage.navigateTo(adminMainPage.preferences);
@@ -59,6 +60,7 @@ public class Product extends BaseClass {
 		serviceTypes.clickSave();
 	}
 
+	//Assert the product created
 	private void assertCreatedProduct() {
 		header.NavigateTo(header.adminTab);
 		adminMainPage.navigateTo(adminMainPage.preferences);
@@ -72,6 +74,7 @@ public class Product extends BaseClass {
 		list.add(AssertException.result(expectedProductLabel, actualProductLabel, "Validate Product Label"));
 	}
 
+	//Edit Product
 	private void editProductUnit() {
 		header.NavigateTo(header.adminTab);
 		adminMainPage.navigateTo(adminMainPage.preferences);
@@ -86,6 +89,7 @@ public class Product extends BaseClass {
 		serviceTypes.clickSave();
 	}
 
+	//Assert Another Edit
 	private void productUnit_edit_assert() {
 		String expectedMixRatio = "50";
 		String expectedProductUnit = "Grams(Weight)";
