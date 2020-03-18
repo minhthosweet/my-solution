@@ -8,7 +8,6 @@ import automation.PestRoutes.PageObject.Admin.AdminMainPage;
 import automation.PestRoutes.PageObject.Admin.Preferences.PreferencesPage;
 import automation.PestRoutes.PageObject.Admin.Preferences.ServiceTypes;
 import automation.PestRoutes.Utilities.BaseClass;
-import automation.PestRoutes.Utilities.Reporter;
 
 public class Service extends BaseClass{
 	Header header;

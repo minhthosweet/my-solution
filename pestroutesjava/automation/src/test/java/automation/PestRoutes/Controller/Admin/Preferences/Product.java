@@ -15,7 +15,6 @@ import automation.PestRoutes.Utilities.Utilities;
 
 public class Product extends BaseClass {
 
-	// WebDriver driver = GetWebDriver.getInstance();
 	Header header = new Header();
 	AdminMainPage adminMainPage = new AdminMainPage();
 	PreferencesPage preferences = new PreferencesPage();

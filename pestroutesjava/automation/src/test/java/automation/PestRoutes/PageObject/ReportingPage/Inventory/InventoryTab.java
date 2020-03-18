@@ -48,8 +48,6 @@ public class InventoryTab {
 	public void selectVisibility(String visibilityType) {
 		Utilities.waitUntileElementIsVisible(visibility);
 		Utilities.clickElement(visibility, ElementType.XPath);
-		// Utilities.scrollToElement("//select[@name =
-		// 'chemicalVisibilityFilter']/option[text() = '" + visibilityType + "']");
 		Utilities.waitUntileElementIsVisible(clickUpdateInventory);
 		Utilities.clickElement("//select[@name = 'chemicalVisibilityFilter']/option[text() = '" + visibilityType + "']",
 				ElementType.XPath);

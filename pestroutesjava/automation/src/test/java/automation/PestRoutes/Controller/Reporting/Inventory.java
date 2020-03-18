@@ -63,7 +63,6 @@ public class Inventory extends BaseClass {
 		Double updatedExpectedValue = Double.parseDouble(addedStockValue) + Double.parseDouble(updatedStockValue);
 		list.add(AssertException.result(Double.toString(updatedExpectedValue), inventory.getInStockValue(productName),
 				"Validate Inserted Stock Value"));
-		System.out.println("TC pass");
 	}
 
 	public void removeAssertFluid_Alert() {
@@ -76,14 +75,12 @@ public class Inventory extends BaseClass {
 		inventory.updateInventory();
 		list.add(AssertException.result(updatedStockValue, inventory.getInStockValue(productName),
 				"Validate Inserted Stock Value"));
-		System.out.println("final TC pass");
 	}
 
 	public void removeEntireStock() {
 		inventory.inventoryChangeOption(inventory.inventoryChangeRemove, productName);
 		inventory.inventoryChange_Inventory(removedStockvalue, productName);
 		inventory.updateInventory();
-		System.out.println("Entire TC passed");
 	}
 	
 	public void assertProductAvailability() {
