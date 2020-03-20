@@ -53,6 +53,25 @@ public class TriggerRules {
 	public String additionalActionTypeDropDown = "//div[text()='+ Action']/following-sibling::div/div[2]//select[@name='eventObserverID']";
 	public String additionalMessageTypeDropDown = "//div[text()='+ Action']/following-sibling::div/div[2]//select[@data-observeritemtype='renewalMessageType']";
 	
+	//Trigger Type Objects
+	public String sendEmail = "Send Email";
+	public String sendSnailMail = "Send Snail Mail";
+	public String sendVoice = "Send Voice";
+	public String sendSMS = "Send SMS";
+	public String webHook = "Webhook";
+	
+	//Trigger Message Types
+	public String customMessage = "Custom Message";
+	public String renewalNotice = "Renewal Notice";
+	
+	//Trigger ignore Contact Preferences Types
+	public String ignoreContactPrefsTypes_Yes = "Yes";
+	public String ignoreContactPrefsTypes_No = "No";
+	
+	//Renewal Link Dropdown
+	public String renewalLinkDropdown_Include = "Include";
+	public String renewalLinkDropdown_Exclude = "Exclude";
+	
 	//Trigger Actions
 	public void navigateToTriggerRules() {
 		Utilities.waitUntileElementIsVisible(triggerRulesText);

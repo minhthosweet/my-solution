@@ -10,6 +10,7 @@ import automation.PestRoutes.PageObject.ReportingPage.ReportingMainPage;
 import automation.PestRoutes.PageObject.ReportingPage.Inventory.InventoryTab;
 import automation.PestRoutes.Utilities.AssertException;
 import automation.PestRoutes.Utilities.BaseClass;
+import automation.PestRoutes.Utilities.Reporter;
 import automation.PestRoutes.Utilities.Utilities;
 
 public class Inventory extends BaseClass {
@@ -52,8 +53,10 @@ public class Inventory extends BaseClass {
 		inventory.inventoryChange(addedStockValue);
 		inventory.inventoryChangeOption(inventory.inventoryChangeAdd, productName);
 		inventory.updateInventory();
+		if(AssertException.result(addedStockValue, inventory.getInStockValue(productName), "Validate Added Stock Value").size()>0) {
 		list.add(AssertException.result(addedStockValue, inventory.getInStockValue(productName),
 				"Validate Added Stock Value"));
+		}
 	}
 
 	public void insertAssertFluid() {
@@ -61,8 +64,10 @@ public class Inventory extends BaseClass {
 		inventory.inventoryChangeOption(inventory.inventoryChangeUpdate, productName);
 		inventory.updateInventory();
 		Double updatedExpectedValue = Double.parseDouble(addedStockValue) + Double.parseDouble(updatedStockValue);
+		if(AssertException.result(Double.toString(updatedExpectedValue), inventory.getInStockValue(productName), "Validate Inserted Stock Value").size()>0) {
 		list.add(AssertException.result(Double.toString(updatedExpectedValue), inventory.getInStockValue(productName),
 				"Validate Inserted Stock Value"));
+		}
 	}
 
 	public void removeAssertFluid_Alert() {
@@ -73,8 +78,11 @@ public class Inventory extends BaseClass {
 		inventory.inventoryChange_Inventory(removedStockvalue, productName);
 		inventory.inventoryChangeOption(inventory.inventoryChangeRemove, productName);
 		inventory.updateInventory();
+		if(AssertException.result(updatedStockValue, inventory.getInStockValue(productName), "Validate Inserted Stock Value").size()>0) {
 		list.add(AssertException.result(updatedStockValue, inventory.getInStockValue(productName),
 				"Validate Inserted Stock Value"));
+		}
+		Reporter.status("Validate Inserted Stock Value", updatedStockValue, inventory.getInStockValue(productName), "Removed Fluid");
 	}
 
 	public void removeEntireStock() {

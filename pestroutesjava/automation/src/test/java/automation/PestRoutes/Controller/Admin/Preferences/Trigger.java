@@ -17,8 +17,18 @@ public class Trigger extends BaseClass {
 	InventoryTab inventory = new InventoryTab();
 
 	private String typeOfTrigger = "Renewal";
-	private String descriptionTrigger = Utilities.generateRandomString(8);
-
+	private String descriptionTrigger = "trigger_renewal_email_snailmail";
+	private String setStartDate_negativeScenario = "01/01/2020";
+	private String beforeAfter_Dropdown = "Before Expiration Date";
+	private String accountStatus_Dropdown = "Any";
+	private String multiUnit_Dropdown = "Include Multi Unit Properties";
+	private String hasInitialService_Dropdown = "Any";
+	private String prefersPaper_Dropdown = "All";
+	private String daysBeforeAfter_Dropdown = Double.toString(Utilities.generateRandomInteger(1));
+	private String subscriptionStatus_Dropdown = "Any";
+	private String propertyType_Dropdown = "All Properties";
+	private String hasEmail_Dropdown = "All";
+	
 	@Test
 	public void createRenewalRule() throws Exception {
 		createTrigger();
@@ -34,9 +44,9 @@ public class Trigger extends BaseClass {
 		triggerAdmin.clickAddTrigerButton();
 		triggerAdmin.setDescription(descriptionTrigger);
 		//Negative Scenario
-		triggerAdmin.setStartDate("01/01/2020");
+		triggerAdmin.setStartDate(setStartDate_negativeScenario);
 		triggerAdmin.selectDropdown(triggerAdmin.triggerTypeDropdown, typeOfTrigger);
-		triggerAdmin.setEndDate("03/17/2020");
+		triggerAdmin.setEndDate(Utilities.currentDate("MM/dd/yyyy"));
 		triggerAdmin.clickSaveButton();
 		System.out.println(inventory.removeAlertText());
 		inventory.removeAlertAccept();
@@ -46,16 +56,15 @@ public class Trigger extends BaseClass {
 		inventory.removeAlertAccept();
 		//Positive Scenario
 		triggerAdmin.setEndDate(GetDate.addOneYearToDate(Utilities.currentDate("MM/dd/yyyy")));
-		triggerAdmin.selectDropdown(triggerAdmin.before_AfterDropdown, "Before Expiration Date");
-		triggerAdmin.selectDropdown(triggerAdmin.accountStatusDropdown, "Any");
-		triggerAdmin.selectDropdown(triggerAdmin.multiUnitDropdown, "Include Multi Unit Properties");
-		triggerAdmin.selectDropdown(triggerAdmin.hasInitialServiceDropdown, "Any");
-		triggerAdmin.selectDropdown(triggerAdmin.prefersPaperDropdown, "All");
-		triggerAdmin.setDaysBefore_After("5");
-		triggerAdmin.selectDropdown(triggerAdmin.subscriptionStatusDropdown, "Any");
-		triggerAdmin.selectDropdown(triggerAdmin.propertyTypeDropdown, "All Properties");
-		triggerAdmin.selectDropdown(triggerAdmin.hasEmailDropdown, "All");
-		triggerAdmin.clickAddActionButton();
+		triggerAdmin.selectDropdown(triggerAdmin.before_AfterDropdown, beforeAfter_Dropdown);
+		triggerAdmin.selectDropdown(triggerAdmin.accountStatusDropdown, accountStatus_Dropdown);
+		triggerAdmin.selectDropdown(triggerAdmin.multiUnitDropdown, multiUnit_Dropdown);
+		triggerAdmin.selectDropdown(triggerAdmin.hasInitialServiceDropdown, hasInitialService_Dropdown);
+		triggerAdmin.selectDropdown(triggerAdmin.prefersPaperDropdown, prefersPaper_Dropdown);
+		triggerAdmin.setDaysBefore_After(daysBeforeAfter_Dropdown);
+		triggerAdmin.selectDropdown(triggerAdmin.subscriptionStatusDropdown, subscriptionStatus_Dropdown);
+		triggerAdmin.selectDropdown(triggerAdmin.propertyTypeDropdown, propertyType_Dropdown);
+		triggerAdmin.selectDropdown(triggerAdmin.hasEmailDropdown, hasEmail_Dropdown);
 		triggerAdmin.clickSaveButton();
 	}
 
@@ -72,16 +81,16 @@ public class Trigger extends BaseClass {
 	public void createAction() throws InterruptedException {
 		//First Action with Send Email
 		triggerAdmin.clickAddActionButton();
-		triggerAdmin.selectDropdown(triggerAdmin.actionTypeDropDown, "Send Email");
-		triggerAdmin.selectDropdown(triggerAdmin.messageTypeDropDown, "Renewal Notice");
-		triggerAdmin.selectDropdown(triggerAdmin.ignoreContactPrefsDropDown, "No");
+		triggerAdmin.selectDropdown(triggerAdmin.actionTypeDropDown, triggerAdmin.sendEmail);
+		triggerAdmin.selectDropdown(triggerAdmin.messageTypeDropDown, triggerAdmin.renewalNotice);
+		triggerAdmin.selectDropdown(triggerAdmin.ignoreContactPrefsDropDown, triggerAdmin.ignoreContactPrefsTypes_No);
 		triggerAdmin.enterSubjectText(Utilities.generateRandomString(5));
-		triggerAdmin.selectDropdown(triggerAdmin.renewalLinkDropDown, "Include");
+		triggerAdmin.selectDropdown(triggerAdmin.renewalLinkDropDown, triggerAdmin.renewalLinkDropdown_Include);
 		triggerAdmin.clickAddActionButton();
 		//Second Action with Snail Mail
-		triggerAdmin.selectDropdown(triggerAdmin.additionalActionTypeDropDown, "Send Snail Mail");
+		triggerAdmin.selectDropdown(triggerAdmin.additionalActionTypeDropDown, triggerAdmin.sendSnailMail);
 		Thread.sleep(3000);
-		triggerAdmin.selectDropdown(triggerAdmin.additionalMessageTypeDropDown, "Renewal Notice");
+		triggerAdmin.selectDropdown(triggerAdmin.additionalMessageTypeDropDown, triggerAdmin.renewalNotice);
 		triggerAdmin.clickSaveButton();
 	}
 }
