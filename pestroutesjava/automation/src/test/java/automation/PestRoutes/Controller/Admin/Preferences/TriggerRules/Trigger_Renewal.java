@@ -13,12 +13,12 @@ import automation.PestRoutes.Utilities.Utilities;
 
 public class Trigger_Renewal extends BaseClass {
 
-	Header header = new Header();
-	AdminMainPage adminMainPage = new AdminMainPage();
+	Header header;
+	AdminMainPage adminMainPage;
 	TriggerRules triggerAdmin = new TriggerRules();
-	InventoryTab inventory = new InventoryTab();
-	RenewalTab renewalTab = new RenewalTab();
-	Actions actions = new Actions();
+	InventoryTab inventory;
+	RenewalTab renewalTab;
+	Actions actions;
 
 	private String descriptionTrigger = "trigger_renewal_email_snailmail";
 	private String setStartDate_negativeScenario = "01/01/2020";
@@ -41,6 +41,11 @@ public class Trigger_Renewal extends BaseClass {
 
 	// Create Renewal Trigger
 	public void createTrigger_Renewal() throws Exception {
+		header = new Header();
+		adminMainPage = new AdminMainPage();
+		inventory = new InventoryTab();
+		renewalTab = new RenewalTab();
+		actions = new Actions();
 		header.NavigateTo(header.adminTab);
 		adminMainPage.navigateTo(adminMainPage.preferences);
 		triggerAdmin.navigateToTriggerRules();
@@ -75,6 +80,8 @@ public class Trigger_Renewal extends BaseClass {
 
 	// Search Renewal Trigger
 	public void searchTrigger_Renewal() {
+		header = new Header();
+		adminMainPage = new AdminMainPage();
 		header.NavigateTo(header.adminTab);
 		adminMainPage.navigateTo(adminMainPage.preferences);
 		triggerAdmin.navigateToTriggerRules();
@@ -85,6 +92,7 @@ public class Trigger_Renewal extends BaseClass {
 	// Create Renewal Trigger Action
 	public void createAction_Renewal() throws InterruptedException {
 		// First Action with Send Email
+		actions = new Actions();
 		actions.clickAddActionButton();
 		triggerAdmin.selectDropdown(actions.actionTypeDropDown, actions.sendEmail);
 		triggerAdmin.selectDropdown(actions.messageTypeDropDown, actions.renewalNotice);

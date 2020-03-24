@@ -14,12 +14,12 @@ import automation.PestRoutes.Utilities.Utilities;
 
 public class Trigger_AR extends BaseClass {
 
-	Header header = new Header();
-	AdminMainPage adminMainPage = new AdminMainPage();
+	Header header;
+	AdminMainPage adminMainPage;
 	TriggerRules triggerAdmin = new TriggerRules();
-	RenewalTab renewalTab = new RenewalTab();
+	RenewalTab renewalTab;
 	Actions actions = new Actions();
-	ARTab ar = new ARTab();
+	ARTab ar;
 
 	private String descriptionTrigger = "trigger_ar_createinvoices";
 	private String age_PastDueDropDownValue = "Age";
@@ -40,6 +40,10 @@ public class Trigger_AR extends BaseClass {
 
 	// Create AR Trigger
 	public void createTrigger_AR() throws InterruptedException, Exception {
+		header = new Header();
+		adminMainPage = new AdminMainPage();
+		renewalTab = new RenewalTab();
+		ar = new ARTab();
 		header.NavigateTo(header.adminTab);
 		adminMainPage.navigateTo(adminMainPage.preferences);
 		triggerAdmin.navigateToTriggerRules();
@@ -61,6 +65,8 @@ public class Trigger_AR extends BaseClass {
 
 	// Search AR Trigger
 	public void searchTrigger_AR() {
+		header = new Header();
+		adminMainPage = new AdminMainPage();
 		header.NavigateTo(header.adminTab);
 		adminMainPage.navigateTo(adminMainPage.preferences);
 		triggerAdmin.navigateToTriggerRules();
