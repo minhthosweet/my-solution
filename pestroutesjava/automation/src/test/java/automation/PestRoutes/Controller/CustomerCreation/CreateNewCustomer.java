@@ -28,11 +28,15 @@ public class CreateNewCustomer extends BaseClass {
 	Header header;
 	List list = new ArrayList<String>();
 
-	@SuppressWarnings("unchecked")
+	
 	@Test(groups = "createCustomer")
 	public void CreateCustomer() throws Exception {
 
 		String expectedAlert = "Required: You must fill in the customer's last name or company name!";
+		String streetAddress = "4500 W Eldorado Pkwy STE 3200";
+		String city = "Wylie";
+		String zipcode = "75098";
+		String expectedAddress = streetAddress + " " + city +", TX " + zipcode;
 		String fName = Utilities.generateRandomString(7);
 		String lName = Utilities.generateRandomString(6);
 		dialog = new CustomerViewDialog_Header();
@@ -44,29 +48,32 @@ public class CreateNewCustomer extends BaseClass {
 		customer.selectUnit("Multi Unit");
 		dialog.ClickSaveButton();
 		String alert = Utilities.getAlertText();
-		if (AssertException.result(expectedAlert, alert, "Validate required field").size() > 0) {
-			list.add(AssertException.result(expectedAlert, alert, "Validate required field"));
-		}
-		//list.add(AssertException.result(expectedAlert, alert, "Validate required field"));
-		Reporter.status("required field while creating customer ", expectedAlert, alert, "Customer creation");
+		result(expectedAlert, alert, "required field while creating customer ", "Customer creation");
 		Utilities.acceptAlert();
 		customer.setLastName(lName);
+		customer.setAddress(streetAddress);
+		customer.setZipCode(zipcode);
+		customer.setCity(city);
 		dialog.ClickSaveButton();
 		Utilities.waitUntileElementIsVisible(overview.overviewTab_Address);
 		String customerNameInHeader = overview.getCustomerNameFromHeader();
 		System.out.println("Customer Name found is " + customerNameInHeader);
-		if (AssertException.result(fName, customerNameInHeader, "Validate Customer Creation").size() > 0) {
-			list.add(AssertException.result(fName, customerNameInHeader, "Validate Customer Creation"));
-		}
-		//list.add(AssertException.result(fName, customerNameInHeader, "Validate Customer Creation"));
-
-		Reporter.status("Created customer ", fName, customerNameInHeader, "Customer creation");
+		String actualAddress = overview.getAddress();
+		result(fName, customerNameInHeader, "Created customer ", "Customer creation");
+		result(expectedAddress, actualAddress, "customer address", "Customer creation");
 		String id = overview.getCustomerIDFromHeader();
 		String newId = id.replaceAll("[^a-zA-Z0-9]+", "");
 		System.out.println(newId);
 		addData("userID", newId, generalData);
 		addData("customerName", fName + " " + lName, generalData);
 		AssertException.asserFailure(list);
+	}
+	@SuppressWarnings("unchecked")
+	private void result(String expected, String actual, String stepName, String testName) {
+		if(AssertException.result(expected, actual, stepName).size()>0) {
+			list.add(AssertException.result(expected, actual, stepName));
+		}
+		Reporter.status(stepName,expected, actual, testName);
 	}
 
 }

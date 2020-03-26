@@ -64,9 +64,7 @@ public class AccountStatus extends BaseClass {
 		statusChange.getAccountStatus();
 		String expectedStatus = "status: [Frozen] was changed to [Active]";
 		String actualStatus = statusChange.getAccountStatus().substring(16, 57);
-		list = AssertException.result("status: [Frozen] was changed to [Active]", actualStatus, "Frozen Status");
-		Reporter.status("Activate Status", expectedStatus, actualStatus, "Frozen Status");
-		list.add(AssertException.result(expectedStatus, actualStatus, "Validate Active Status"));
+		result(expectedStatus, actualStatus, "Activate Status ", "Account Status validation");
 	}
 
 	// Change the account to Frozen and assert
@@ -77,9 +75,15 @@ public class AccountStatus extends BaseClass {
 		statusChange.getAccountStatus();
 		String expectedStatus = "status: [Active] was changed to [Frozen]";
 		String actualStatus = statusChange.getAccountStatus().substring(16, 57);
-		list = AssertException.result(expectedStatus, actualStatus, "Frozen Status");
-		Reporter.status("Activate Status", expectedStatus, actualStatus, "Frozen Status");
-		list.add(AssertException.result(expectedStatus, actualStatus, "Validate Frozen Status"));
+		result(expectedStatus, actualStatus, "Frozen Status ", "Account Status validation");
+	}
+	
+	@SuppressWarnings("unchecked")
+	private void result(String expected, String actual, String stepName, String testName) {
+		if(AssertException.result(expected, actual, stepName).size()>0) {
+			list.add(AssertException.result(expected, actual, stepName));
+		}
+		Reporter.status(stepName,expected, actual, testName);
 	}
 
 }

@@ -7,7 +7,14 @@ public class CustomerViewDialog_OverviewTab {
 	public String overviewTab_Address = "//h3[contains (text(),  'Account Overview')]/div";
 	public String customerNameInDialogHeader = "//span[@id='ui-id-11']";
 	public String customerID_InDialogHeader = "//span[@id='ui-id-11']/span[1]";
-	
+	public String customerSinceValue = "//div[text()='Customer Since']/following-sibling::div";
+	public String contractRemainingValue = "//div[text()='Contract Remaining']/following-sibling::div";
+	public String lastCompletedValue = "//div[text()='Last Completed']/following-sibling::div";
+	public String nextServiceValue = "//div[text()='Next Service']/following-sibling::div";
+	public String recentReServiceValue = "//div[text()='Recent Re-services']/following-sibling::div";
+	public String accountBalanceValue = "//div[text()='Account Balance']/following-sibling::div";
+	public String accountAgeValue = "//div[text()='Account Age']/following-sibling::div";
+	public String aR_TurnOverValue = "//div[text()='A/R Turnover']/following-sibling::div";
 	
 	/*
 	 * Getter methods
@@ -20,6 +27,10 @@ public class CustomerViewDialog_OverviewTab {
 	
 	public String getCustomerIDFromHeader() {
 		return Utilities.getElementTextValue(customerID_InDialogHeader, ElementType.XPath);
+	}
+	
+	public String getAddress() {
+		return Utilities.getElementTextValue(overviewTab_Address, ElementType.XPath);
 	}
 
 }
