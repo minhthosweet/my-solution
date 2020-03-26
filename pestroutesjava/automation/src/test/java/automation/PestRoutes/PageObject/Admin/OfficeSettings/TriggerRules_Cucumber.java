@@ -35,7 +35,7 @@ public class TriggerRules_Cucumber {
 		triggerAdmin.setStartDate(startDate);
 		triggerAdmin.selectDropdown(triggerAdmin.triggerTypeDropdown, typeOfTrigger);
 		triggerAdmin.setEndDate(Utilities.currentDate("MM/dd/yyyy"));
-		actions.clickSaveButton();
+		triggerAdmin.clickSaveButton();
 	}
 
 	@And("update with positive scenarios")
@@ -43,7 +43,7 @@ public class TriggerRules_Cucumber {
 		System.out.println(inventory.removeAlertText());
 		inventory.removeAlertAccept();
 		triggerAdmin.setStartDate(Utilities.currentDate("MM/dd/yyyy"));
-		actions.clickSaveButton();
+		triggerAdmin.clickSaveButton();
 		System.out.println(inventory.removeAlertText());
 		inventory.removeAlertAccept();
 		triggerAdmin.setEndDate(GetDate.addOneYearToDate(Utilities.currentDate("MM/dd/yyyy")));
@@ -68,7 +68,7 @@ public class TriggerRules_Cucumber {
 
 	@And("set hasInitialService_Dropdown to Any")
 	public void set_hasInitialService_Dropdown_to_Any() {
-		triggerAdmin.selectDropdown(renewalTab.hasInitialServiceDropdown, "Any");
+		triggerAdmin.selectDropdown(renewalTab.hasInitialService_Renewal, "Any");
 
 	}
 
@@ -104,7 +104,7 @@ public class TriggerRules_Cucumber {
 
 	@And("I click save button")
 	public void i_click_save_button() {
-		actions.clickSaveButton();
+		triggerAdmin.clickSaveButton();
 	}
 
 	@And("I search for the trigger")

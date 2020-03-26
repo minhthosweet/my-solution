@@ -11,7 +11,7 @@ public class TriggerRules {
 	public String searchTrigger = "//input[@id='triggerSearch']";
 
 	// Trigger Types
-	public String triigerType_AR = "AR";
+	public String triggerType_AR = "AR";
 	public String triggerType_Renewal = "Renewal";
 	public String triggerType_Reminders = "Reminders";
 	public String triggerType_SubscriptionStatus = "Subscription Status";
@@ -39,6 +39,15 @@ public class TriggerRules {
 	public String endDateInputField = "//input[@name='endDate']";
 	public String isActiveDropdown = "//select[@name='active']";
 
+	//Save Button
+	public String saveButton = "//div[@id='triggerRulesTable']//span[text()='save']";
+
+	public void clickSaveButton() {
+		Utilities.scrollToElement(addTriggerButton);
+		Utilities.waitUntileElementIsVisible(saveButton);
+		Utilities.clickElement(saveButton, ElementType.XPath);
+	}
+	
 	// Trigger Filter Actions
 	public void navigateToTriggerRules() {
 		Utilities.waitUntileElementIsVisible(triggerRulesText);

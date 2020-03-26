@@ -22,7 +22,6 @@ public class RenewalTab {
 	public String excludeDivisionDropdown = "//label[text()='Exclude Divisions']/parent::div[@class='col-6']/following-sibling::div//select[@name='filterItemValue']";
 	public String includeRegionsDropdown = "//label[text()='Include Regions']/parent::div[@class='col-6']/following-sibling::div//select[@name='filterItemValue']";
 	public String excludeRegionsDropdown = "//label[text()='Exclude Regions']/parent::div[@class='col-6']/following-sibling::div//select[@name='filterItemValue']";
-	public String hasInitialServiceDropdown = "//label[text()='Has Initial Service']/parent::div[@class='col-6']/following-sibling::div//select[@name='filterItemValue']";
 	public String hasEmailDropdown = "//label[text()='Has Email']/parent::div[@class='col-6']/following-sibling::div//select[@name='filterItemValue']";
 	public String prefersPaperDropdown = "//label[text()='Prefers Paper']/parent::div[@class='col-6']/following-sibling::div//select[@name='filterItemValue']";
 	public String minRenewalAmountInputField = "//label[text()='Min Renewal Amount']/parent::div[@class='col-6']/following-sibling::div//input[@name='filterItemValue']";
@@ -34,6 +33,12 @@ public class RenewalTab {
 	public String multiUnit_Dropdown_Exclude = "Exclude Multi Unit Properties";
 	public String multiUnit_Dropdown_Only = "Only Multi Unit Properties";
 
+	// Has Initial Service ObjectsRenewal
+	public String hasInitialService_Renewal = "//select[@data-ruleitemtype='hasInitialService']";
+	public String hasInitialService_Any_Renewal = "Any";
+	public String hasInitialService_initialServiceNotCompleted_Renewal = "Initial Service not Completed";
+	public String hasInitialService_CompletedInitialService_Renewal = "Completed Initial Service";
+	
 	public void setDaysBefore_After(String needDays) {
 		FindElement.elementByAttribute(daysBefore_AfterInputField, InputType.XPath).sendKeys(needDays);
 	}
