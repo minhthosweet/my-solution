@@ -3,6 +3,7 @@ package automation.PestRoutes.PageObject.Admin.OfficeSettings.TriggerTypes;
 import automation.PestRoutes.Utilities.FindElement;
 import automation.PestRoutes.Utilities.Utilities;
 import automation.PestRoutes.Utilities.FindElement.InputType;
+import automation.PestRoutes.Utilities.Utilities.ElementType;
 
 public class ARTab {
 
@@ -19,18 +20,58 @@ public class ARTab {
 	public String propertyType_ResidentialOnly = "Residential Only";
 	public String propertyType_CommercialOnly = "Commercial Only";
 
+	// Identifiers for already created actions
+	public String SMSAction_actual = "//div[text()='Send SMS']";
+	public String createInvoiceAction_actual = "//div[text()='Send SMS']";
+	public String voiceAction_actual = "//div[text()='Send SMS']";
+	public String emailAction_actual = "//div[text()='Send SMS']";
+	public String snailMailAction_actual = "//div[text()='Send SMS']";
+	public String collectionsStageAction_actual = "//div[text()='Send SMS']";
+	public String ARMAction_actual = "//div[text()='Send SMS']";
+
+	// Getters: get actual text value for action created(used for assertions)
+	public String getEmailActionTextValue() {
+		return Utilities.getElementTextValue(emailAction_actual, ElementType.XPath);
+	}
+
+	public String getSMSActionTextValue() {
+		return Utilities.getElementTextValue(SMSAction_actual, ElementType.XPath);
+	}
+
+	public String getVoiceActionTextValue() {
+		return Utilities.getElementTextValue(voiceAction_actual, ElementType.XPath);
+	}
+	
+	public String getCreateInvoiceActionTextValue() {
+		return Utilities.getElementTextValue(createInvoiceAction_actual, ElementType.XPath);
+	}
+
+	public String getSnailMailActionTextValue() {
+		return Utilities.getElementTextValue(snailMailAction_actual, ElementType.XPath);
+	}
+	
+	public String getCollectionsStageActionTextValue() {
+		return Utilities.getElementTextValue(collectionsStageAction_actual, ElementType.XPath);
+	}
+	
+	public String getARMStageActionTextValue() {
+		return Utilities.getElementTextValue(ARMAction_actual, ElementType.XPath);
+	}
+	
 	public void setAge_PastDueDays_InputField(String setDays) {
 		FindElement.elementByAttribute(age_PastDueDays_InputField, InputType.XPath).sendKeys(setDays);
 	}
 
 	public void setMinimum_Balance(String minimumBalance) {
 		Utilities.waitUntileElementIsVisible(minimum_Balance);
-		FindElement.elementByAttribute(minimum_Balance, InputType.XPath).sendKeys(minimumBalance);;
+		FindElement.elementByAttribute(minimum_Balance, InputType.XPath).sendKeys(minimumBalance);
+		;
 	}
 
 	public void setMaximum_Balance(String maximumBalance) {
 		Utilities.waitUntileElementIsVisible(maximum_Balance);
-		FindElement.elementByAttribute(maximum_Balance, InputType.XPath).sendKeys(maximumBalance);;
+		FindElement.elementByAttribute(maximum_Balance, InputType.XPath).sendKeys(maximumBalance);
+		;
 	}
 
 }

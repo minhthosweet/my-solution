@@ -1,5 +1,8 @@
 package automation.PestRoutes.Controller.Admin.Preferences.TriggerRules;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.testng.annotations.Test;
 import automation.PestRoutes.PageObject.Header;
 import automation.PestRoutes.PageObject.Admin.AdminMainPage;
@@ -7,8 +10,10 @@ import automation.PestRoutes.PageObject.Admin.OfficeSettings.Actions;
 import automation.PestRoutes.PageObject.Admin.OfficeSettings.TriggerRules;
 import automation.PestRoutes.PageObject.Admin.OfficeSettings.TriggerTypes.RenewalTab;
 import automation.PestRoutes.PageObject.ReportingPage.Inventory.InventoryTab;
+import automation.PestRoutes.Utilities.AssertException;
 import automation.PestRoutes.Utilities.BaseClass;
 import automation.PestRoutes.Utilities.GetDate;
+import automation.PestRoutes.Utilities.Reporter;
 import automation.PestRoutes.Utilities.Utilities;
 
 public class Trigger_Renewal extends BaseClass {
@@ -29,6 +34,7 @@ public class Trigger_Renewal extends BaseClass {
 	private String subscriptionStatus_Dropdown = "Any";
 	private String propertyType_Dropdown = "All Properties";
 	private String hasEmail_Dropdown = "All";
+	public List list = new ArrayList<String>();
 
 	@Test
 	public void createRenewalRule() throws Exception {
@@ -86,6 +92,7 @@ public class Trigger_Renewal extends BaseClass {
 		adminMainPage.navigateTo(adminMainPage.preferences);
 		triggerAdmin.navigateToTriggerRules();
 		triggerAdmin.searchTrigger(descriptionTrigger);
+		result(descriptionTrigger, triggerAdmin.getDescriptionText(), "customer address", "Reminder creation");
 		triggerAdmin.clickEditTrigger(descriptionTrigger);
 	}
 
@@ -109,5 +116,13 @@ public class Trigger_Renewal extends BaseClass {
 		Thread.sleep(3000);
 		triggerAdmin.selectDropdown(actions.snailMail_messageType, actions.renewalNotice);
 		triggerAdmin.clickSaveButton();
+	}
+
+	@SuppressWarnings("unchecked")
+	private void result(String expected, String actual, String stepName, String testName) {
+		if (AssertException.result(expected, actual, stepName).size() > 0) {
+			list.add(AssertException.result(expected, actual, stepName));
+		}
+		Reporter.status(stepName, expected, actual, testName);
 	}
 }

@@ -1,5 +1,8 @@
 package automation.PestRoutes.Controller.Admin.Preferences.TriggerRules;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.testng.annotations.Test;
 
 import automation.PestRoutes.PageObject.Header;
@@ -8,8 +11,10 @@ import automation.PestRoutes.PageObject.Admin.OfficeSettings.Actions;
 import automation.PestRoutes.PageObject.Admin.OfficeSettings.TriggerRules;
 import automation.PestRoutes.PageObject.Admin.OfficeSettings.TriggerTypes.ARTab;
 import automation.PestRoutes.PageObject.Admin.OfficeSettings.TriggerTypes.RenewalTab;
+import automation.PestRoutes.Utilities.AssertException;
 import automation.PestRoutes.Utilities.BaseClass;
 import automation.PestRoutes.Utilities.GetDate;
+import automation.PestRoutes.Utilities.Reporter;
 import automation.PestRoutes.Utilities.Utilities;
 
 public class Trigger_AR extends BaseClass {
@@ -29,6 +34,7 @@ public class Trigger_AR extends BaseClass {
 	private String valueType_DropDownValue = "Percentage";
 	private String value_createInvoice_Action = Double.toString(Utilities.generateRandomInteger(2));
 	private String serviceType_createInvoice_Action = "Misc Service";
+	public List list = new ArrayList<String>();
 
 	@Test
 	public void createRenewalRule() throws Exception {
@@ -44,12 +50,15 @@ public class Trigger_AR extends BaseClass {
 		searchTrigger_AR();
 		snailMailAction_AR();
 		searchTrigger_AR();
-		/*Add custom requires a custom flag. Method available for later use for Dev
-		addFlagsAction_AR();
-		searchTrigger_AR();*/
+		/*
+		 * Add custom requires a custom flag. Method available for later use for Dev
+		 * addFlagsAction_AR(); searchTrigger_AR();
+		*/ 
 		setCollectionsStageAction_AR();
 		searchTrigger_AR();
 		sendToARMAction_AR();
+		searchTrigger_AR();
+		assertActions_Reminder();
 	}
 
 	// Create AR Trigger
@@ -85,6 +94,7 @@ public class Trigger_AR extends BaseClass {
 		adminMainPage.navigateTo(adminMainPage.preferences);
 		triggerAdmin.navigateToTriggerRules();
 		triggerAdmin.searchTrigger(descriptionTrigger);
+		result(descriptionTrigger, triggerAdmin.getDescriptionText(), "customer address", "Reminder creation");
 		triggerAdmin.clickEditTrigger(descriptionTrigger);
 	}
 
@@ -155,7 +165,7 @@ public class Trigger_AR extends BaseClass {
 	public void addFlagsAction_AR() {
 		actions.clickAddActionButton();
 		triggerAdmin.selectDropdown(actions.actionTypeDropDown, actions.addFlagsMessageType_Action);
-		//triggerAdmin.clickSaveButton();
+		// triggerAdmin.clickSaveButton();
 	}
 
 	// Create set collections stage AR Action
@@ -166,10 +176,32 @@ public class Trigger_AR extends BaseClass {
 		triggerAdmin.selectDropdown(actions.collectionsStage_Stage, actions.stage_Sent);
 		triggerAdmin.clickSaveButton();
 	}
+
 	// Create Send to ARM AR Action
-		public void sendToARMAction_AR() {
-			actions.clickAddActionButton();
-			triggerAdmin.selectDropdown(actions.actionTypeDropDown, actions.sendTOARMMessageType_Action);
-			triggerAdmin.clickSaveButton();
+	public void sendToARMAction_AR() {
+		actions.clickAddActionButton();
+		triggerAdmin.selectDropdown(actions.actionTypeDropDown, actions.sendTOARMMessageType_Action);
+		triggerAdmin.clickSaveButton();
+	}
+
+	// Assert all created actions
+	public void assertActions_Reminder() {
+		actions = new Actions();
+		ar = new ARTab();
+		result(actions.EmailMessageType_Action, ar.getEmailActionTextValue(), "Email Action", "Action creation");
+		result(actions.sendSMSMessageType_Action, ar.getSMSActionTextValue(), "SMS Action", "Action creation");
+		result(actions.sendVoiceMessageType_Action, ar.getVoiceActionTextValue(), "Voice Action", "Action creation");
+		result(actions.createInvoicesMessageType_Action, ar.getCreateInvoiceActionTextValue(), "Create Invoice Action", "Action creation");
+		result(actions.snailMailMessageType_Action, ar.getSnailMailActionTextValue(), "Snail Mail Action", "Action creation");
+		result(actions.setCollectionsStageMessageType_Action, ar.getCollectionsStageActionTextValue(), "Collections Stage Action", "Action creation");
+		result(actions.sendTOARMMessageType_Action, ar.getARMStageActionTextValue(), "ARM Action", "Action creation");
+	}
+
+	@SuppressWarnings("unchecked")
+	private void result(String expected, String actual, String stepName, String testName) {
+		if (AssertException.result(expected, actual, stepName).size() > 0) {
+			list.add(AssertException.result(expected, actual, stepName));
 		}
+		Reporter.status(stepName, expected, actual, testName);
+	}
 }
