@@ -75,6 +75,7 @@ public class Utilities {
 	}
 	
 	public static String getAttributeValue(String needXpath, String needAttribute) {
+		waitUntileElementIsVisible(needXpath);
 		return driver.findElement(By.xpath(needXpath)).getAttribute(needAttribute);
 	}
 	

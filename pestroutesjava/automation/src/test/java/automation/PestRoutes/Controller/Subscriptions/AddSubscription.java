@@ -6,13 +6,14 @@ import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_Subs
 import automation.PestRoutes.Utilities.AssertException;
 import automation.PestRoutes.Utilities.BaseClass;
 import automation.PestRoutes.Utilities.Reporter;
+import automation.PestRoutes.Utilities.Utilities;
+import automation.PestRoutes.Utilities.Utilities.ElementType;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.testng.annotations.Test;
-
-import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
 
 public class AddSubscription extends BaseClass {
@@ -22,12 +23,10 @@ public class AddSubscription extends BaseClass {
 	Header header;
 	ExtentTest test;
 	List list = new ArrayList<String>();
-	//public List list;
 
 	private String ticketItem = "bed";
 	private String initialQuote = "120.00";
 	private String initialDiscount = "20.00";
-	private String recurringInvoice = "89.00";
 
 	@Test(groups = "Smoke")
 	public void validateSubscription() throws Exception {
@@ -36,6 +35,8 @@ public class AddSubscription extends BaseClass {
 		validatePreferredDayAppt();
 		validateInitialInvoice();
 		validateRecurringInvoice();
+		validateBillingFrequencyByMonthly();
+		validateBillingFrequencyByAnnually();
 		AssertException.asserFailure(list);
 
 	}
@@ -43,7 +44,7 @@ public class AddSubscription extends BaseClass {
 	public void startSubscription() throws Exception {
 		customerDialogHeader = new CustomerViewDialog_Header();
 		header = new Header();
-		header.Search_A_Customer(getData("userID", generalData));
+		header.Search_A_Customer(getData("customerName", generalData));
 		customerDialogHeader.NavigateTo(customerDialogHeader.subscriptionTabInDialog);
 		subscription.clickNewSubscriptionButton();
 		subscription.selectServiceType(getData("quarterly", quarterlyPreferredDayData));
@@ -80,9 +81,7 @@ public class AddSubscription extends BaseClass {
 			for (int j = 0; j < daySlot.length; j++) {
 				System.out.println(actualUpComingDates[j]);
 				System.out.println(expectedUpComingDates[j]);
-				list.add(AssertException.result(expectedUpComingDates[j], actualUpComingDates[j], "Validate subscription by " + prefferedDay[i] + daySlot[j]));
-				Reporter.status( prefferedDay[i] + daySlot[j], expectedUpComingDates[j], actualUpComingDates[j],
-						"Subscription ");
+				result(expectedUpComingDates[j], actualUpComingDates[j], prefferedDay[i] + daySlot[j], "Subscription");
 
 			}
 		}
@@ -103,12 +102,11 @@ public class AddSubscription extends BaseClass {
 		double subTotal = finalInitialQuote + ticketAmount - finalInitialDiscount;
 		String expectedSubTotal = Double.toString(subTotal);
 		String actual_InitialSubTotal = Double.toString(actualInitialSubtotal);
-		Reporter.status("Initial invoice sub total validation ",expectedSubTotal, actual_InitialSubTotal, "Subscription invoice validation");
+		Reporter.status("Initial invoice sub total validation ",expectedSubTotal, actual_InitialSubTotal, "Subscription");
 		double total = subTotal + initialTax;
 		String expectedInitialTotal = Double.toString(total);
 		String actualInitialTotal = Double.toString(initialTotal);
-		list.add(AssertException.result(expectedInitialTotal, actualInitialTotal, "Initial invoice total validation"));
-		Reporter.status("Initial invoice total validation ", expectedInitialTotal, actualInitialTotal, "Subscription invoice validation");
+		result(expectedInitialTotal, actualInitialTotal, "Initial invoice total validation ", "Subscription");
 	}
 
 	public void validateRecurringInvoice() throws Exception {
@@ -123,12 +121,48 @@ public class AddSubscription extends BaseClass {
 		double subTotal = serviceAmount + ticketAmount;
 		String expectedSubTotal = Double.toString(subTotal);
 		String actual_ServiceSubTotal = Double.toString(actualServiceSubtotal);
-		Reporter.status("Service invoice sub total validation ",expectedSubTotal, actual_ServiceSubTotal, "Subscription invoice validation");
+		Reporter.status("Service invoice sub total validation ",expectedSubTotal, actual_ServiceSubTotal, "Subscription");
 		double total = subTotal + serviceTax;
 		String expectedServiceTotal = Double.toString(total);
 		String actualServiceTotal = Double.toString(serviceTotal);
-		list.add(AssertException.result(expectedServiceTotal, actualServiceTotal, "Service invoice total validation"));
-		Reporter.status("Service invoice total validation ",expectedServiceTotal, actualServiceTotal, "Subscription invoice validation");
+		result(expectedServiceTotal, actualServiceTotal, "Service invoice total validation ", "Subscription");
+	}
+	
+	public void validateBillingFrequencyByMonthly() throws Exception {
+		String monthlyFrequecyServiceQuote = "60";
+		String monthlyFrequencyItemAmount = "1.00";
+		insertServiceQuoteByBillingFrequency("Monthly", monthlyFrequecyServiceQuote, monthlyFrequencyItemAmount);
+		double monthlyFrequencyQuote = Double.parseDouble(monthlyFrequecyServiceQuote);
+		double monthlyFrequencyItemQuote = Double.parseDouble(monthlyFrequencyItemAmount);
+		String expectedCustomProduction = Double.toString((monthlyFrequencyQuote + monthlyFrequencyItemQuote)*2);
+		String actualCustomProduction = subscription.getCustomProductionValue();
+		result(expectedCustomProduction, actualCustomProduction, "Monthly Custom production ", "Subscription");
+	}
+	
+	public void validateBillingFrequencyByAnnually() throws Exception {
+		String annuallyFrequecyServiceQuote = "720";
+		String annuallyFrequencyItemAmount = "12";
+		insertServiceQuoteByBillingFrequency("Annually", annuallyFrequecyServiceQuote, annuallyFrequencyItemAmount);
+		double annuallyFrequencyQuote = Double.parseDouble(annuallyFrequecyServiceQuote);
+		double annuallyFrequencyItemQuote = Double.parseDouble(annuallyFrequencyItemAmount);
+		String expectedCustomProduction = Double.toString((annuallyFrequencyQuote/6) + (annuallyFrequencyItemQuote/6));
+		String actualCustomProduction = subscription.getCustomProductionValue();
+		result(expectedCustomProduction, actualCustomProduction, "Annually custom production ", "Subscription");
+	}
+	
+	
+	private void insertServiceQuoteByBillingFrequency(String needFrequency, String needServiceQuote, String needItemAmount) throws Exception {
+		subscription.selectBillingFrequency(needFrequency);
+		subscription.setServiceQuote(getData("quarterly", quarterlyPreferredDayData), needServiceQuote);
+		subscription.setAdditionalItemAmount(ticketItem, needItemAmount);
+		Utilities.clickElement(subscription.recurringSubTotalValue, ElementType.XPath);
+	}
+	
+	private void result(String expected, String actual, String stepName, String testName) {
+		if(AssertException.result(expected, actual, stepName).size()>0) {
+			list.add(AssertException.result(expected, actual, stepName));
+		}
+		Reporter.status(stepName,expected, actual, testName);
 	}
 
 }

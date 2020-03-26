@@ -63,6 +63,8 @@ public class RoutePage {
 	}
 
 	public void addGroup() {
+		String groupXpath = "//h3[text()= 'TestRoutes']/parent::div";
+		String group = "groupButton";
 		try {
 			Thread.sleep(300);
 			//WebElement testGroupname = FindElement.elementByAttribute(groupName, InputType.XPath);
@@ -75,7 +77,7 @@ public class RoutePage {
 				Utilities.clickElement(groupTemplateName, ElementType.XPath);
 				Utilities.waitUntileElementIsVisible(saveButton);
 				Utilities.clickElement(saveButton, ElementType.XPath);
-			} else {
+			} else if(Utilities.getAttributeValue(groupXpath, "class").equalsIgnoreCase(group)) {
 				Utilities.clickElement(groupName, ElementType.XPath);
 			}
 		} catch (Exception e) {

@@ -34,7 +34,7 @@ public class InvoiceImplementation {
 	public String renewalDateField = "//div[text()='Renewal Date: ']/following-sibling::input[@name = 'renewalDate']";
 	// Cash tab
 	private String paymentAmountField = "//div[text() = 'Payment Amount:']/following-sibling::input[@name = 'amount']";
-	private String confirmPymtAmtField = "//input[@name = 'confirmCashAmount']";
+	public String confirmPymtAmtField = "//input[@name = 'confirmCashAmount']";
 	private String custPaymentNotes = "//textarea[@name = \"customerNotes2\"]";
 	private String recordPayment = "//form[@id=\"singlePaymentForm\"]//div[contains (text(), 'Record Payment')]";
 
@@ -107,7 +107,7 @@ public class InvoiceImplementation {
 	
 	public void setLimitedToSubscription() {
 		Utilities.clickElement(limitedToSubscription, ElementType.XPath);
-		Utilities.clickElement("//label[text()='Pest Renewal Subscription Invoices ']", ElementType.XPath);
+		Utilities.clickElement("//label[contains (text(), 'Pest Renewal Subscription Invoices')]", ElementType.XPath);
 	}
 
 	public void clickrecordPayment() {

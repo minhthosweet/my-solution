@@ -2,6 +2,7 @@ package automation.PestRoutes.PageObject.CustomerOverview;
 
 import java.util.Date;
 
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 
 import automation.PestRoutes.Utilities.FindElement;
@@ -66,7 +67,6 @@ public class CustomerViewDialog_SubscriptionTab {
 	public String initialTotalValue = "//div[@id='initialTicket']//div[@class='ticketSummary']/div[6]";
 	//***Recurring invoice template objects***
 	public String recurringInvoice_AddTicketItemButton = "//h3[text()='Recurring Invoice Template']/following-sibling::div[text()='+ Add Ticket Item']";
-	public String recurringInvoiceInputField = "//div[text()='Invoice']/following-sibling::input";
 	public String recurringSubTotalValue="//div[@id='recurringServices']//div[@class='ticketSummary']/div[2]";
 	public String recurringTaxValue = "//div[@id='recurringServices']//div[@class='ticketSummary']/div[4]";
 	public String recurringTotalValue = "//div[@id='recurringServices']//div[@class='ticketSummary']/div[6]";
@@ -205,7 +205,7 @@ public class CustomerViewDialog_SubscriptionTab {
 	}
 	
 	public void setRenewalDate(String needDate) {
-		FindElement.elementByAttribute(renewalDateField, InputType.XPath).clear();
+		FindElement.elementByAttribute(renewalDateField, InputType.XPath).sendKeys(Keys.CONTROL,"a");
 		FindElement.elementByAttribute(renewalDateField, InputType.XPath).sendKeys(needDate);
 	}
 	
@@ -226,18 +226,22 @@ public class CustomerViewDialog_SubscriptionTab {
 	}
 	
 	public void setInitialServiceQuote(String needAmount) {
-		FindElement.elementByAttribute(initialQuoteInputField, InputType.XPath).clear();
+		FindElement.elementByAttribute(initialQuoteInputField, InputType.XPath).sendKeys(Keys.CONTROL,"a");
 		FindElement.elementByAttribute(initialQuoteInputField, InputType.XPath).sendKeys(needAmount);
 	}
 	
 	public void setInitialServiceDiscount(String needAmount) {
-		FindElement.elementByAttribute(initialDiscountInputField, InputType.XPath).clear();
+		FindElement.elementByAttribute(initialDiscountInputField, InputType.XPath).sendKeys(Keys.CONTROL,"a");
 		FindElement.elementByAttribute(initialDiscountInputField, InputType.XPath).sendKeys(needAmount);
 	}
 	
 	public void setServiceQuote(String needService, String needAmount) {
-		FindElement.elementByAttribute("//div[text()= '"+needService+"']/following-sibling::input", InputType.XPath).clear();
+		FindElement.elementByAttribute("//div[text()= '"+needService+"']/following-sibling::input", InputType.XPath).sendKeys(Keys.CONTROL,"a");
 		FindElement.elementByAttribute("//div[text()= '"+needService+"']/following-sibling::input", InputType.XPath).sendKeys(needAmount);
+	}
+	public void setAdditionalItemAmount(String needItemName, String needAmount) {
+		FindElement.elementByAttribute("//h3[text()='Recurring Invoice Template']/following-sibling::div/div[text()='"+needItemName+"']/following-sibling::input", InputType.XPath).sendKeys(Keys.CONTROL,"a");
+		FindElement.elementByAttribute("//h3[text()='Recurring Invoice Template']/following-sibling::div/div[text()='"+needItemName+"']/following-sibling::input", InputType.XPath).sendKeys(needAmount);
 	}
 
 	/*
@@ -291,6 +295,13 @@ public class CustomerViewDialog_SubscriptionTab {
 		String val = elm.getAttribute("value");
 		double attributeValue = Double.parseDouble(val);
 		return attributeValue;
+	}
+	
+	public String getCustomProductionValue() {
+		WebElement elm = FindElement.elementByAttribute
+				("//span[text()='Custom Production']/following-sibling::input[@name='productionValue']", InputType.XPath);
+		String value = elm.getAttribute("value");
+		return value;
 	}
 	
 	public double getRecurringSubTotal() {

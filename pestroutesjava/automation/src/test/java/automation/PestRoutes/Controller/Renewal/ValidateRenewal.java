@@ -28,6 +28,7 @@ import automation.PestRoutes.Utilities.FindElement.InputType;
 import automation.PestRoutes.Utilities.GetDate;
 import automation.PestRoutes.Utilities.Reporter;
 import automation.PestRoutes.Utilities.Utilities;
+import automation.PestRoutes.Utilities.Utilities.ElementType;
 
 public class ValidateRenewal extends BaseClass{
 	
@@ -52,13 +53,15 @@ public class ValidateRenewal extends BaseClass{
 	public void test() throws Exception {
 		renewalFieldsValidation();
 		createRenewalSubscription();
-		scheduleSubscription("9:30");
+		scheduleSubscription("06:30");
 		completeSchedulesService();
 		validateRenewalDate();
-		freezeSubscription();
+		//freezeSubscription();
+		addPayment();
+		validateActivationOfSubscription();
 		AssertException.asserFailure(list);
 	}
-	
+
 	public void renewalFieldsValidation() throws Exception {
 		header = new Header();
 		customerDialogHeader = new CustomerViewDialog_Header();
@@ -67,32 +70,38 @@ public class ValidateRenewal extends BaseClass{
 		subscription.clickNewSubscriptionButton();
 		subscription.selectServiceType(serviceType);
 		WebElement renewalDateField = FindElement.elementByAttribute(subscription.renewalDateField, InputType.XPath);
-		list.add(AssertException.conditionResult(renewalDateField));
+		if (AssertException.conditionResult(renewalDateField).size()>0) {
+			list.add(AssertException.conditionResult(renewalDateField));
+		}
 		Reporter.conditionStatus(renewalDateField, "renewal date field", "Renewal in subscription");
 		WebElement setRenewalDate = FindElement.elementByAttribute(subscription.setRenewalDateDropdown, InputType.XPath);
-		list.add(AssertException.conditionResult(setRenewalDate));
+		if(AssertException.conditionResult(setRenewalDate).size()>0) {
+			list.add(AssertException.conditionResult(setRenewalDate));
+		}
 		Reporter.conditionStatus(setRenewalDate, "Set renewal date field", "Renewal in subscription");
 		WebElement renewalFrequencyField = FindElement.elementByAttribute(subscription.renewalFrequencyDropdown, InputType.XPath);
-		list.add(AssertException.conditionResult(renewalFrequencyField));
+		if(AssertException.conditionResult(renewalFrequencyField).size()>0) {
+			list.add(AssertException.conditionResult(renewalFrequencyField));
+		}
 		Reporter.conditionStatus(renewalFrequencyField, "Renewal date field", "Renewal in subscription");
 
 		
 	}
 	
 	public void createRenewalSubscription() throws Exception {
-		appt = new ScheduleAppt();
-		header = new Header();
-		scheduleDay = new SchedulingTab();
-		route = new RoutePage();
-		overviewHeader = new CustomerViewDialog_Header();
-		appointmentTab = new CustomerviewDialog_AppointmentsTab();
-		confirmAppt = new SchedulingAppointmentDialog();
 		customerDialogHeader = new CustomerViewDialog_Header();
 		subscription.selectSetRenewalDate("On Initial Service Completion");
 		subscription.selectRenewalFrequency("Annually");
 		customerDialogHeader.ClickSaveButton();
 	}
 	public void scheduleSubscription(String needTimeSlot) throws Exception {
+		header = new Header();
+		route = new RoutePage();
+		appt = new ScheduleAppt();
+		scheduleDay = new SchedulingTab();
+		confirmAppt = new SchedulingAppointmentDialog();
+		overviewHeader = new CustomerViewDialog_Header();
+		
 		header.NavigateTo(header.schedulingTab);
 		scheduleDay.addScheduleDateToProperties();
 		scheduleDay.clickScheduleDay();
@@ -112,6 +121,9 @@ public class ValidateRenewal extends BaseClass{
 		confirmAppt.clickScheduleButton();
 	}
 	public void completeSchedulesService() throws Exception {
+		header = new Header();
+		overviewHeader = new CustomerViewDialog_Header();
+		appointmentTab = new CustomerviewDialog_AppointmentsTab();
 		header.Search_A_Customer(getData("customerName", generalData));
 		overviewHeader.NavigateTo(overviewHeader.appointmentsTabInDialog);
 		appointmentTab.clickScheduledService(serviceType);
@@ -119,63 +131,84 @@ public class ValidateRenewal extends BaseClass{
 		appointmentTab.clickSaveAndCompleteButton();
 	}
 	public void validateRenewalDate() throws Exception {
+		header = new Header();
+		overviewHeader = new CustomerViewDialog_Header();
 		header.Search_A_Customer(getData("userID", generalData));
 		overviewHeader.NavigateTo(overviewHeader.subscriptionTabInDialog);
 		String expectedRenewalDate = GetDate.addOneYearToDate(getData("scheduleDate", generalData));
 		String renewalDate = subscription.getRenewalDate();
 		Reporter.status("if renewal date is posted", expectedRenewalDate, renewalDate, "Renewal in subscription");
-		list.add(AssertException.result(expectedRenewalDate, renewalDate, "Renewal in subscription"));
-		
+		if(AssertException.result(expectedRenewalDate, renewalDate, "Renewal in subscription").size()>0) {
+			list.add(AssertException.result(expectedRenewalDate, renewalDate, "Renewal in subscription"));
+		}
 	}
 	
 	public String freezeSubscription() throws Exception {
-		invoicing = new RoutePageInvoicing();
-		invHeader = new Invoice_Header();
-		paymentPage = new InvoiceImplementation();
 		overviewHeader = new CustomerViewDialog_Header();
 		header = new Header();
-		System.out.println(currentDate);
-		subscription.setServiceQuote(serviceType, "200");
-		subscription.setRenewalDate(currentDate);
-		subscription.selectBillingFrequency("Renewal");
-		double val = subscription.getRecurringTotal();
-		String total = value.format(val);
-		System.out.println(total);
-		overviewHeader.ClickSaveButton();
+		customerDialogHeader = new CustomerViewDialog_Header();
+		customerDialogHeader.NavigateTo(customerDialogHeader.subscriptionTabInDialog);
 		subscription.clickDeActivateButton();
 		subscription.selectCancellationCategory("Moved");
 		subscription.setCancelSubscriptionNotes("Testing");
 		subscription.clickFreezeSubscriptionButton();
+		System.out.println(currentDate);
+		subscription.setServiceQuote(serviceType, "200");
+		Thread.sleep(500);
+		subscription.selectBillingFrequency("Renewal");
+		Thread.sleep(500);
+		subscription.setRenewalDate(currentDate);
+		double val = subscription.getRecurringTotal();
+		String total = value.format(val);
+		System.out.println(total);
+		overviewHeader.ClickSaveButton();
 		return total;
 	}
 	public void addPayment() throws Exception {
+		invHeader = new Invoice_Header();
+		invoicing = new RoutePageInvoicing();
+		paymentPage = new InvoiceImplementation();
+		overviewHeader = new CustomerViewDialog_Header();
+		header = new Header();
+		header.Search_A_Customer(getData("userID", generalData));
 		String total = freezeSubscription();
 		overviewHeader.NavigateTo(overviewHeader.invoicesTabInDialog);
 		invoicing.clickAddPayment();
 		invHeader.navigate(invHeader.cash);
 		paymentPage.setLimitedToSubscription();
+		Utilities.clickElement(paymentPage.confirmPymtAmtField, ElementType.XPath);
 		String paymentWarning = paymentPage.getPaymentWarning();
-		list.add(AssertException.result(expectedWarning, paymentWarning, "Validate warning"));
+		if(AssertException.result(expectedWarning, paymentWarning, "Validate warning").size()>0) {
+			list.add(AssertException.result(expectedWarning, paymentWarning, "Validate warning"));
+		}
 		Reporter.status("payment warning to renew subscription", expectedWarning, paymentWarning, "Renewal in subscription");
 		paymentPage.insertPaymentAmount(total, total);
 		String expectedRenewalDateAttributeValue = "display: block;";
 		String renewalDateAttributeValue = Utilities.getAttributeValue(paymentPage.renewalDateField, "style");
-		list.add(AssertException.result(expectedRenewalDateAttributeValue, renewalDateAttributeValue, "Validate warning"));
+		if(AssertException.result(expectedRenewalDateAttributeValue, renewalDateAttributeValue, "Validate warning").size()>0) {
+			list.add(AssertException.result(expectedRenewalDateAttributeValue, renewalDateAttributeValue, "Validate warning"));
+		}
 		Reporter.status("if renewal date is checked", expectedRenewalDateAttributeValue, renewalDateAttributeValue, "Renewal in subscription");
 		paymentPage.clickrecordPayment();
 	}
 	public void validateActivationOfSubscription() throws Exception {
+		header = new Header();
+		overviewHeader = new CustomerViewDialog_Header();
 		String expectedRenewalDate = GetDate.addOneYearToDate(currentDate);
 		header.Search_A_Customer(getData("customerName", generalData));
 		overviewHeader.NavigateTo(overviewHeader.subscriptionTabInDialog);
 		String renewalDate = subscription.getRenewalDate();
-		list.add(AssertException.result(expectedRenewalDate, renewalDate, "Validate renewal"));
+		if(AssertException.result(expectedRenewalDate, renewalDate, "Validate renewal").size()>0) {
+			list.add(AssertException.result(expectedRenewalDate, renewalDate, "Validate renewal"));
+		}
+		
 		Reporter.status("if renewal changed after full payment", expectedRenewalDate, renewalDate, "Renewal in subscription");
 		String expectedStatus = "Active";
 		String actualStatus = subscription.getStatusText();
-		list.add(AssertException.result(expectedStatus, actualStatus, "Validate subscription status"));
+		if(AssertException.result(expectedStatus, actualStatus, "Validate subscription status").size()>0) {
+			list.add(AssertException.result(expectedStatus, actualStatus, "Validate subscription status"));
+		}
 		Reporter.status("if status gets activate", expectedStatus, actualStatus, "Renewal in subscription");
-		
 	}
 
 }
