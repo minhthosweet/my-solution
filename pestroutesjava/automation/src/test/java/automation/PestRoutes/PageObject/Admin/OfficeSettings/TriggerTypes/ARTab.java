@@ -22,12 +22,12 @@ public class ARTab {
 
 	// Identifiers for already created actions
 	public String SMSAction_actual = "//div[text()='Send SMS']";
-	public String createInvoiceAction_actual = "//div[text()='Send SMS']";
-	public String voiceAction_actual = "//div[text()='Send SMS']";
-	public String emailAction_actual = "//div[text()='Send SMS']";
-	public String snailMailAction_actual = "//div[text()='Send SMS']";
-	public String collectionsStageAction_actual = "//div[text()='Send SMS']";
-	public String ARMAction_actual = "//div[text()='Send SMS']";
+	public String createInvoiceAction_actual = "//div[text()='Create Invoices']";
+	public String voiceAction_actual = "//div[text()='Send Voice']";
+	public String emailAction_actual = "//div[text()='Send Email']";
+	public String snailMailAction_actual = "//div[text()='Send Snail Mail']";
+	public String collectionsStageAction_actual = "//div[text()='Set Collections Stage']";
+	public String ARMAction_actual = "//div[text()='Send to ARM']";
 
 	// Getters: get actual text value for action created(used for assertions)
 	public String getEmailActionTextValue() {
@@ -41,7 +41,7 @@ public class ARTab {
 	public String getVoiceActionTextValue() {
 		return Utilities.getElementTextValue(voiceAction_actual, ElementType.XPath);
 	}
-	
+
 	public String getCreateInvoiceActionTextValue() {
 		return Utilities.getElementTextValue(createInvoiceAction_actual, ElementType.XPath);
 	}
@@ -49,15 +49,15 @@ public class ARTab {
 	public String getSnailMailActionTextValue() {
 		return Utilities.getElementTextValue(snailMailAction_actual, ElementType.XPath);
 	}
-	
+
 	public String getCollectionsStageActionTextValue() {
 		return Utilities.getElementTextValue(collectionsStageAction_actual, ElementType.XPath);
 	}
-	
+
 	public String getARMStageActionTextValue() {
 		return Utilities.getElementTextValue(ARMAction_actual, ElementType.XPath);
 	}
-	
+
 	public void setAge_PastDueDays_InputField(String setDays) {
 		FindElement.elementByAttribute(age_PastDueDays_InputField, InputType.XPath).sendKeys(setDays);
 	}

@@ -27,7 +27,7 @@ public class Trigger_Reminder extends BaseClass {
 	ARTab ar;
 	Actions actions;
 
-	private String descriptionTrigger = "trigger_reminder_all_reminders";
+	private String descriptionTrigger = "trigger_reminder_all_actions";
 	private String numberOfDays_Before_Reminder = Double.toString(Utilities.generateRandomInteger(1));
 	public List list = new ArrayList<String>();
 
@@ -78,7 +78,8 @@ public class Trigger_Reminder extends BaseClass {
 		adminMainPage.navigateTo(adminMainPage.preferences);
 		triggerAdmin.navigateToTriggerRules();
 		triggerAdmin.searchTrigger(descriptionTrigger);
-		result(descriptionTrigger, triggerAdmin.getDescriptionText(), "customer address", "Reminder creation");
+		result(descriptionTrigger, triggerAdmin.getDescriptionText(descriptionTrigger), "Reminder Trigger Rule",
+				"Reminder creation");
 		triggerAdmin.clickEditTrigger(descriptionTrigger);
 	}
 

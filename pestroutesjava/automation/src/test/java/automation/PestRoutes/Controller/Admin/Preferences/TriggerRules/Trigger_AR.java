@@ -53,7 +53,7 @@ public class Trigger_AR extends BaseClass {
 		/*
 		 * Add custom requires a custom flag. Method available for later use for Dev
 		 * addFlagsAction_AR(); searchTrigger_AR();
-		*/ 
+		 */
 		setCollectionsStageAction_AR();
 		searchTrigger_AR();
 		sendToARMAction_AR();
@@ -94,7 +94,8 @@ public class Trigger_AR extends BaseClass {
 		adminMainPage.navigateTo(adminMainPage.preferences);
 		triggerAdmin.navigateToTriggerRules();
 		triggerAdmin.searchTrigger(descriptionTrigger);
-		result(descriptionTrigger, triggerAdmin.getDescriptionText(), "customer address", "Reminder creation");
+		result(descriptionTrigger, triggerAdmin.getDescriptionText(descriptionTrigger), "AR Trigger Rule",
+				"AR creation");
 		triggerAdmin.clickEditTrigger(descriptionTrigger);
 	}
 
@@ -191,9 +192,12 @@ public class Trigger_AR extends BaseClass {
 		result(actions.EmailMessageType_Action, ar.getEmailActionTextValue(), "Email Action", "Action creation");
 		result(actions.sendSMSMessageType_Action, ar.getSMSActionTextValue(), "SMS Action", "Action creation");
 		result(actions.sendVoiceMessageType_Action, ar.getVoiceActionTextValue(), "Voice Action", "Action creation");
-		result(actions.createInvoicesMessageType_Action, ar.getCreateInvoiceActionTextValue(), "Create Invoice Action", "Action creation");
-		result(actions.snailMailMessageType_Action, ar.getSnailMailActionTextValue(), "Snail Mail Action", "Action creation");
-		result(actions.setCollectionsStageMessageType_Action, ar.getCollectionsStageActionTextValue(), "Collections Stage Action", "Action creation");
+		result(actions.createInvoicesMessageType_Action, ar.getCreateInvoiceActionTextValue(), "Create Invoice Action",
+				"Action creation");
+		result(actions.snailMailMessageType_Action, ar.getSnailMailActionTextValue(), "Snail Mail Action",
+				"Action creation");
+		result(actions.setCollectionsStageMessageType_Action, ar.getCollectionsStageActionTextValue(),
+				"Collections Stage Action", "Action creation");
 		result(actions.sendTOARMMessageType_Action, ar.getARMStageActionTextValue(), "ARM Action", "Action creation");
 	}
 
