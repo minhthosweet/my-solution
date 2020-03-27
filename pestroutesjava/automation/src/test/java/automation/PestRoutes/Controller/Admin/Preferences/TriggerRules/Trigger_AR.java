@@ -189,16 +189,16 @@ public class Trigger_AR extends BaseClass {
 	public void assertActions_Reminder() {
 		actions = new Actions();
 		ar = new ARTab();
-		result(actions.EmailMessageType_Action, ar.getEmailActionTextValue(), "Email Action", "Action creation");
-		result(actions.sendSMSMessageType_Action, ar.getSMSActionTextValue(), "SMS Action", "Action creation");
-		result(actions.sendVoiceMessageType_Action, ar.getVoiceActionTextValue(), "Voice Action", "Action creation");
+		result(actions.EmailMessageType_Action, ar.getEmailActionTextValue(), "Email Action", "AR Trigger Rule");
+		result(actions.sendSMSMessageType_Action, ar.getSMSActionTextValue(), "SMS Action", "AR Trigger Rule");
+		result(actions.sendVoiceMessageType_Action, ar.getVoiceActionTextValue(), "Voice Action", "AR Trigger Rule");
 		result(actions.createInvoicesMessageType_Action, ar.getCreateInvoiceActionTextValue(), "Create Invoice Action",
-				"Action creation");
+				"AR Trigger Rule");
 		result(actions.snailMailMessageType_Action, ar.getSnailMailActionTextValue(), "Snail Mail Action",
-				"Action creation");
+				"AR Trigger Rule");
 		result(actions.setCollectionsStageMessageType_Action, ar.getCollectionsStageActionTextValue(),
-				"Collections Stage Action", "Action creation");
-		result(actions.sendTOARMMessageType_Action, ar.getARMStageActionTextValue(), "ARM Action", "Action creation");
+				"Collections Stage Action", "AR Trigger Rule");
+		result(actions.sendTOARMMessageType_Action, ar.getARMStageActionTextValue(), "ARM Action", "AR Trigger Rule");
 	}
 
 	@SuppressWarnings("unchecked")

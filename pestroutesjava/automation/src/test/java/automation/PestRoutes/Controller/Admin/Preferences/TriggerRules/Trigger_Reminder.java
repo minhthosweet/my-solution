@@ -128,9 +128,11 @@ public class Trigger_Reminder extends BaseClass {
 	public void assertActions_Reminder() {
 		actions = new Actions();
 		reminder = new ReminderTab();
-		result(actions.sendEmailReminder, reminder.getEmailActionTextValue(), "Email Reminder", "Action creation");
-		result(actions.sendSMSReminder, reminder.getSMSActionTextValue(), "SMS Reminder", "Action creation");
-		result(actions.sendVoiceReminder, reminder.getVoiceActionTextValue(), "Voice Reminder", "Action creation");
+		result(actions.sendEmailReminder, reminder.getEmailActionTextValue(), "Email Reminder",
+				"Reminder Trigger Rule");
+		result(actions.sendSMSReminder, reminder.getSMSActionTextValue(), "SMS Reminder", "Reminder Trigger Rule");
+		result(actions.sendVoiceReminder, reminder.getVoiceActionTextValue(), "Voice Reminder",
+				"Reminder Trigger Rule");
 
 	}
 

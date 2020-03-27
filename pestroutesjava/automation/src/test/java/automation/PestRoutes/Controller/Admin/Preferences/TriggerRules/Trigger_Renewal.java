@@ -143,11 +143,11 @@ public class Trigger_Renewal extends BaseClass {
 		actions = new Actions();
 		ar = new ARTab();
 		renewalTab = new RenewalTab();
-		result(actions.EmailMessageType_Action, ar.getEmailActionTextValue(), "Email Action", "Action creation");
+		result(actions.EmailMessageType_Action, ar.getEmailActionTextValue(), "Email Action", "Renewal Trigger Rule");
 		result(actions.snailMailMessageType_Action, ar.getSnailMailActionTextValue(), "Snail Mail Action",
-				"Action creation");
+				"Renewal Trigger Rule");
 		result(actions.webhookMessageType_Action, renewalTab.getWebhookActionTextValue(), "Webhook Action",
-				"Action creation");
+				"Renewal Trigger Rule");
 	}
 
 	@SuppressWarnings("unchecked")
