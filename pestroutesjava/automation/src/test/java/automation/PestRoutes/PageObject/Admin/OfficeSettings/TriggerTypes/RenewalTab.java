@@ -3,6 +3,7 @@ package automation.PestRoutes.PageObject.Admin.OfficeSettings.TriggerTypes;
 import automation.PestRoutes.Utilities.FindElement;
 import automation.PestRoutes.Utilities.Utilities;
 import automation.PestRoutes.Utilities.FindElement.InputType;
+import automation.PestRoutes.Utilities.Utilities.ElementType;
 
 public class RenewalTab {
 	// Renewal objects
@@ -27,6 +28,8 @@ public class RenewalTab {
 	public String minRenewalAmountInputField = "//label[text()='Min Renewal Amount']/parent::div[@class='col-6']/following-sibling::div//input[@name='filterItemValue']";
 	public String maxRenewalAmountInputField = "//label[text()='Max Renewal Amount']/parent::div[@class='col-6']/following-sibling::div//input[@name='filterItemValue']";
 	public String cancelButton = "//div[@id='triggerRulesTable']//span[text()='cancel']";
+	// Identifiers for already created actions
+	public String WebhookAction_actual = "//div[text()='Webhook']";
 
 	// Multi Unit DropDown Objects
 	public String multiUnit_Dropdown_Include = "Include Multi Unit Properties";
@@ -38,7 +41,7 @@ public class RenewalTab {
 	public String hasInitialService_Any_Renewal = "Any";
 	public String hasInitialService_initialServiceNotCompleted_Renewal = "Initial Service not Completed";
 	public String hasInitialService_CompletedInitialService_Renewal = "Completed Initial Service";
-	
+
 	public void setDaysBefore_After(String needDays) {
 		FindElement.elementByAttribute(daysBefore_AfterInputField, InputType.XPath).sendKeys(needDays);
 	}
@@ -50,6 +53,11 @@ public class RenewalTab {
 	public void setMaxRenewalAmount(String needAmount) {
 		Utilities.waitUntileElementIsVisible(maxRenewalAmountInputField);
 		FindElement.elementByAttribute(maxRenewalAmountInputField, InputType.XPath).sendKeys(needAmount);
+	}
+
+	// Getters: get actual text value for action created(used for assertions)
+	public String getWebhookActionTextValue() {
+		return Utilities.getElementTextValue(WebhookAction_actual, ElementType.XPath);
 	}
 
 }

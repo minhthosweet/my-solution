@@ -39,18 +39,15 @@ public class TriggerRules {
 	public String endDateInputField = "//input[@name='endDate']";
 	public String isActiveDropdown = "//select[@name='active']";
 
-	//Save Button
+	// Save Button
 	public String saveButton = "//div[@id='triggerRulesTable']//span[text()='save']";
-
-	//Description xpath from search field
-	public String descriptionOnLandingPage = "//div[@id= 'triggerRulesHeader']/following-sibling::div//div[text()='trigger_reminder_all_reminders']";
 
 	public void clickSaveButton() {
 		Utilities.scrollToElement(addTriggerButton);
 		Utilities.waitUntileElementIsVisible(saveButton);
 		Utilities.clickElement(saveButton, ElementType.XPath);
 	}
-	
+
 	// Trigger Filter Actions
 	public void navigateToTriggerRules() {
 		Utilities.waitUntileElementIsVisible(triggerRulesText);
@@ -75,11 +72,13 @@ public class TriggerRules {
 		Utilities.selectValueFromDropDownByValue(needObject, needTextValue);
 	}
 
-	//Get Description text value from Landing page
-	public String getDescriptionText() {
-		return Utilities.getElementTextValue(descriptionOnLandingPage, ElementType.XPath);
+	// Get Description text value from Landing page
+	public String getDescriptionText(String descriptionSet) {
+		return Utilities.getElementTextValue(
+				"//div[@id= 'triggerRulesHeader']/following-sibling::div//div[text()='" + descriptionSet + "']",
+				ElementType.XPath);
 	}
-	
+
 	// Setter methods
 	public void setDescription(String needDescription) {
 		FindElement.elementByAttribute(descriptionInputField, InputType.XPath).sendKeys(needDescription);

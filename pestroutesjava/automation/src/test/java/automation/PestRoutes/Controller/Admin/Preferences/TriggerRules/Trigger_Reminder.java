@@ -27,7 +27,7 @@ public class Trigger_Reminder extends BaseClass {
 	ARTab ar;
 	Actions actions;
 
-	private String descriptionTrigger = "trigger_reminder_all_reminders";
+	private String descriptionTrigger = "trigger_reminder_all_actions";
 	private String numberOfDays_Before_Reminder = Double.toString(Utilities.generateRandomInteger(1));
 	public List list = new ArrayList<String>();
 
@@ -78,7 +78,8 @@ public class Trigger_Reminder extends BaseClass {
 		adminMainPage.navigateTo(adminMainPage.preferences);
 		triggerAdmin.navigateToTriggerRules();
 		triggerAdmin.searchTrigger(descriptionTrigger);
-		result(descriptionTrigger, triggerAdmin.getDescriptionText(), "customer address", "Reminder creation");
+		result(descriptionTrigger, triggerAdmin.getDescriptionText(descriptionTrigger), "Reminder Trigger Rule",
+				"Reminder creation");
 		triggerAdmin.clickEditTrigger(descriptionTrigger);
 	}
 
@@ -127,9 +128,11 @@ public class Trigger_Reminder extends BaseClass {
 	public void assertActions_Reminder() {
 		actions = new Actions();
 		reminder = new ReminderTab();
-		result(actions.sendEmailReminder, reminder.getEmailActionTextValue(), "Email Reminder", "Action creation");
-		result(actions.sendSMSReminder, reminder.getSMSActionTextValue(), "SMS Reminder", "Action creation");
-		result(actions.sendVoiceReminder, reminder.getVoiceActionTextValue(), "Voice Reminder", "Action creation");
+		result(actions.sendEmailReminder, reminder.getEmailActionTextValue(), "Email Reminder",
+				"Reminder Trigger Rule");
+		result(actions.sendSMSReminder, reminder.getSMSActionTextValue(), "SMS Reminder", "Reminder Trigger Rule");
+		result(actions.sendVoiceReminder, reminder.getVoiceActionTextValue(), "Voice Reminder",
+				"Reminder Trigger Rule");
 
 	}
 

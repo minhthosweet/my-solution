@@ -8,6 +8,7 @@ import automation.PestRoutes.PageObject.Header;
 import automation.PestRoutes.PageObject.Admin.AdminMainPage;
 import automation.PestRoutes.PageObject.Admin.OfficeSettings.Actions;
 import automation.PestRoutes.PageObject.Admin.OfficeSettings.TriggerRules;
+import automation.PestRoutes.PageObject.Admin.OfficeSettings.TriggerTypes.ARTab;
 import automation.PestRoutes.PageObject.Admin.OfficeSettings.TriggerTypes.RenewalTab;
 import automation.PestRoutes.PageObject.ReportingPage.Inventory.InventoryTab;
 import automation.PestRoutes.Utilities.AssertException;
@@ -24,8 +25,9 @@ public class Trigger_Renewal extends BaseClass {
 	InventoryTab inventory;
 	RenewalTab renewalTab;
 	Actions actions;
+	ARTab ar;
 
-	private String descriptionTrigger = "trigger_renewal_email_snailmail";
+	private String descriptionTrigger = "trigger_renewal_all_actions";
 	private String setStartDate_negativeScenario = "01/01/2020";
 	private String before_AfterDropdownValue = "Before Expiration Date";
 	private String accountStatus_Dropdown = "Any";
@@ -43,6 +45,10 @@ public class Trigger_Renewal extends BaseClass {
 		emailAction_Renewal();
 		searchTrigger_Renewal();
 		snailMailAction_Renewal();
+		searchTrigger_Renewal();
+		webhookAction_Renewal();
+		searchTrigger_Renewal();
+		assertActions_Renewal();
 	}
 
 	// Create Renewal Trigger
@@ -92,7 +98,8 @@ public class Trigger_Renewal extends BaseClass {
 		adminMainPage.navigateTo(adminMainPage.preferences);
 		triggerAdmin.navigateToTriggerRules();
 		triggerAdmin.searchTrigger(descriptionTrigger);
-		result(descriptionTrigger, triggerAdmin.getDescriptionText(), "customer address", "Reminder creation");
+		result(descriptionTrigger, triggerAdmin.getDescriptionText(descriptionTrigger), "Renewal Trigger Rule",
+				"Renewal creation");
 		triggerAdmin.clickEditTrigger(descriptionTrigger);
 	}
 
@@ -105,17 +112,42 @@ public class Trigger_Renewal extends BaseClass {
 		triggerAdmin.selectDropdown(actions.ignoreContactPrefsDropDown, actions.ignoreContactPrefsTypes_No);
 		actions.enterSubjectText(Utilities.generateRandomString(5));
 		triggerAdmin.selectDropdown(actions.renewalLinkDropDown, actions.renewalLinkDropdown_Include);
-		actions.clickAddActionButton();
+		triggerAdmin.clickSaveButton();
 	}
 
 	// Create Action with Snail Mail
 	public void snailMailAction_Renewal() throws InterruptedException {
 		actions = new Actions();
 		actions.clickAddActionButton();
-		triggerAdmin.selectDropdown(actions.additionalActionTypeDropDown, actions.snailMailMessageType_Action);
+		triggerAdmin.selectDropdown(actions.actionTypeDropDown, actions.snailMailMessageType_Action);
 		Thread.sleep(3000);
 		triggerAdmin.selectDropdown(actions.snailMail_messageType, actions.renewalNotice);
 		triggerAdmin.clickSaveButton();
+	}
+
+	// Create Action with Webhook
+	public void webhookAction_Renewal() throws InterruptedException {
+		actions = new Actions();
+		actions.clickAddActionButton();
+		triggerAdmin.selectDropdown(actions.actionTypeDropDown, actions.webhookMessageType_Action);
+		triggerAdmin.selectDropdown(actions.webhook_MethodType, actions.webhookMethod_GET);
+		triggerAdmin.selectDropdown(actions.webhook_MethodType, actions.webhookMethod_POST);
+		actions.messageInWebhook(actions.URLMessage_Wehbook, actions.getPlaceHolders());
+		actions.messageInWebhook(actions.requestHeaderMessage_Webhook, actions.getPlaceHolders());
+		actions.messageInWebhook(actions.requestBodyMessage_Webhook, actions.getPlaceHolders());
+		triggerAdmin.clickSaveButton();
+	}
+
+	// Assert all created actions
+	public void assertActions_Renewal() {
+		actions = new Actions();
+		ar = new ARTab();
+		renewalTab = new RenewalTab();
+		result(actions.EmailMessageType_Action, ar.getEmailActionTextValue(), "Email Action", "Renewal Trigger Rule");
+		result(actions.snailMailMessageType_Action, ar.getSnailMailActionTextValue(), "Snail Mail Action",
+				"Renewal Trigger Rule");
+		result(actions.webhookMessageType_Action, renewalTab.getWebhookActionTextValue(), "Webhook Action",
+				"Renewal Trigger Rule");
 	}
 
 	@SuppressWarnings("unchecked")

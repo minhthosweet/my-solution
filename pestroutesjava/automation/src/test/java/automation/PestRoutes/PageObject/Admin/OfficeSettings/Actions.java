@@ -6,8 +6,8 @@ import automation.PestRoutes.Utilities.FindElement.InputType;
 import automation.PestRoutes.Utilities.Utilities.ElementType;
 
 public class Actions {
+	// Add Actions
 	public String addActionButton = "//div[text()='+ Action']";
-	public String additionalActionTypeDropDown = "//div[text()='+ Action']/following-sibling::div/div[2]//select[@name='eventObserverID']";
 
 	// Action Type Objects
 	public String EmailMessageType_Action = "Send Email";
@@ -20,7 +20,7 @@ public class Actions {
 	public String addFlagsMessageType_Action = "Add Flags";
 	public String setCollectionsStageMessageType_Action = "Set Collections Stage";
 	public String sendTOARMMessageType_Action = "Send to ARM";
-
+	public String webhookMessageType_Action = "Webhook";
 	// Reminders
 	public String sendEmailReminder = "Send Email Reminder";
 	public String sendSMSReminder = "Send SMS Reminder";
@@ -64,6 +64,15 @@ public class Actions {
 	public String emailType_newEmailMessage = "New Email Message";
 	public String emailType_emailStatement = "Email Statement";
 
+	// Webhook Objects
+	public String webhook_MethodType = "//select[@data-observeritemtype='method']";
+	public String webhookMethod_POST = "HTTP POST";
+	public String webhookMethod_GET = "HTTP GET";
+	// Webhook message types
+	public String URLMessage_Wehbook = "URL";
+	public String requestHeaderMessage_Webhook = "Request Header";
+	public String requestBodyMessage_Webhook = "Request Body";
+
 	// Message Renewal
 	public String messageTypeDropDown = "//select[@data-observeritemtype = 'renewalMessageType']";
 	public String renewalLinkDropDown = "//select[@data-observeritemtype='renewalLink']";
@@ -95,10 +104,6 @@ public class Actions {
 	public String stage_Sent = "Sent";
 	public String stage_sentToARM = "Sent to ARM";
 
-	public void setCollectionsStage() {
-		Utilities.clickElement(collectionsStage_Stage, ElementType.XPath);
-	}
-
 	// Trigger Message Types
 	public String customMessage = "Custom Message";
 	public String renewalNotice = "Renewal Notice";
@@ -110,6 +115,7 @@ public class Actions {
 	public String placeHolderItem2 = "//div[@id='customerMessagePlaceholders']/div[3]";
 	public String placeHolderItem3 = "//div[@id='customerMessagePlaceholders']/div[4]";
 	public String placeHolderItemText;
+	public String hidePlaceHolders = "//div[text()='Hide Placeholders']";
 
 	// Actions
 	public void clickAddActionButton() {
@@ -120,6 +126,10 @@ public class Actions {
 	public void setValue_Action(String valueOfAction) {
 		Utilities.waitUntileElementIsVisible(value_Action);
 		FindElement.elementByAttribute(value_Action, InputType.XPath).sendKeys(valueOfAction);
+	}
+
+	public void setCollectionsStage() {
+		Utilities.clickElement(collectionsStage_Stage, ElementType.XPath);
 	}
 
 	// Write Messages type 1
@@ -140,27 +150,39 @@ public class Actions {
 	// Set email title
 	public void setEmailTitle(String emailTitle) {
 		FindElement.elementByAttribute(email_Title, InputType.XPath).sendKeys(emailTitle);
-		;
 	}
 
 	// To get placeholders
 	public String getPlaceHolders() {
+		Utilities.waitUntileElementIsVisible(facebookImage);
 		Utilities.scrollToElement(facebookImage);
+		Utilities.waitUntileElementIsVisible(showPlaceHolders);
 		Utilities.clickElement(showPlaceHolders, ElementType.XPath);
 		Utilities.waitUntileElementIsVisible(placeHolderItem1);
 		placeHolderItemText = Utilities.getElementTextValue(placeHolderItem1, ElementType.XPath) + " "
 				+ Utilities.getElementTextValue(placeHolderItem2, ElementType.XPath) + " "
 				+ Utilities.getElementTextValue(placeHolderItem3, ElementType.XPath);
+		Utilities.waitUntileElementIsVisible(hidePlaceHolders);
+		Utilities.clickElement(hidePlaceHolders, ElementType.XPath);
 		return placeHolderItemText;
 	}
 
-	//Enter Subject
+	// Enter Subject
 	public void enterSubjectText(String actionSubjectText) {
 		FindElement.elementByAttribute(subjectText, InputType.XPath).sendKeys(actionSubjectText);
 	}
-	
-	//Remove trigger
+
+	// Message for Webhook
+	public void messageInWebhook(String webHookMessageType, String placeHolderMessage) {
+		FindElement.elementByAttribute("//label[text()='" + webHookMessageType + "']/following-sibling::div/textarea",
+				InputType.XPath).sendKeys(placeHolderMessage);
+	}
+
+	// Remove trigger
 	public void removeAction(String ActionType) {
-		Utilities.clickElement("//option[@selected and text()='"+ActionType+"']/parent::select/parent::div/parent::div/following-sibling::div[text()='Remove']", ElementType.XPath);
+		Utilities.clickElement(
+				"//option[@selected and text()='" + ActionType
+						+ "']/parent::select/parent::div/parent::div/following-sibling::div[text()='Remove']",
+				ElementType.XPath);
 	}
 }
