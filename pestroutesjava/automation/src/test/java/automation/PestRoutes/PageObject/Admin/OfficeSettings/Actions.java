@@ -25,7 +25,12 @@ public class Actions {
 	public String sendEmailReminder = "Send Email Reminder";
 	public String sendSMSReminder = "Send SMS Reminder";
 	public String sendVoiceReminder = "Send Voice Reminder";
-
+	// Subscription Status
+	public String sendEmployeeEmail_SubscriptionStatus = "Send Employee Email";
+	public String addAlert_SubscriptionStatus = "Add Alert";
+	public String addTask_SubscriptionStatus = "Add Task";
+	public String sendEmployeeSMS_SubscriptionStatus = "Send Employee SMS";
+	public String sendEmployeeVoice_SubscriptionStatus = "Send Employee Voice";
 	// Action Filter Objects
 	public String actionTypeDropDown = "//select[@name = 'eventObserverID']";
 
@@ -44,18 +49,19 @@ public class Actions {
 	public String customSMS_Reminder = "Custom Text Message";
 	public String standardReminderSMS_Reminder = "Standard Reminder Text Message";
 
-	// Voice Type
+	// Voice Type Objects
 	public String voiceType = "//label[text()='Voice Type']/following-sibling::div";
 	public String voiceType_newMessage = "New Message";
 	public String voiceType_pre_recorded_Message = "Pre-recorded Message";
 	// Voice Type Message
 	public String message_VoiceAction = "//label[text()='Voice Type']/parent::div/following-sibling::div/following-sibling::div//textarea";
-	// Reminder Voice Type Objects
 	public String voiceType_Reminder = "//label[text()='Voice Type']/following-sibling::div/select[@id='observerItem']";
+	public String voiceType_SubscriptionStatus = "//option[@selected and text()='Send Employee Voice']/parent::select/parent::div/parent::div/parent::div/following::div/following::div//select[@data-observeritemtype='messageType']";
+	public String preRecordedMessage_Message_SubscriptionStatus = "//option[@selected and text()='Send Employee Voice']/parent::select/parent::div/parent::div/parent::div/following::div//select[@data-observeritemtype='recordedMessages']";
 	public String customReminderVoice_Reminder = "Custom Voice Message";
 	public String standardReminderVoice_Reminder = "Standard Reminder Voice Message";
-	public String newMessageVoice_AR = "New Message";
-	public String prerRecordedMessageVoice_Reminder = "Pre-recorded Message";
+	public String newMessage_Voice = "New Message";
+	public String preRecordedMessageVoice_Reminder = "Pre-recorded Message";
 	public String preRecordedMessage_Message_Reminder = "//option[text()='Pre-recorded Message']/parent::select/parent::div/parent::div/following-sibling::div//select[@id]";
 
 	// Email Objects
@@ -104,6 +110,13 @@ public class Actions {
 	public String stage_Sent = "Sent";
 	public String stage_sentToARM = "Sent to ARM";
 
+	// Send Employee Email Objects
+	public String emailTitlesendEmployeeEmail_SubscriptionStatus = "//option[@selected and text()='Send Employee Email']/ancestor::div[@class='row']/following-sibling::div//input[@data-ruleitemtype='title']";
+	public String emailsSendEmployeeEmail_SubscriptionStatus = "//input[@data-ruleitemtype='sendToEmails']";
+
+	// Add Task Objects
+	public String daysTillDue_addTask = "//label[text()='Days Till Due']/following-sibling::div//input[@data-observeritemtype='daysDue']";
+
 	// Trigger Message Types
 	public String customMessage = "Custom Message";
 	public String renewalNotice = "Renewal Notice";
@@ -143,7 +156,7 @@ public class Actions {
 	// Write Messages type 2
 	public void setMessageinAction_Type2(String messageType, String placeholderMessage) {
 		FindElement.elementByAttribute("//option[@selected and text()='" + messageType
-				+ "']/parent::select/parent::div/parent::div/parent::div/following-sibling::div//ul/following-sibling::div",
+				+ "']/parent::select/parent::div/parent::div/parent::div/following-sibling::div//ul/following-sibling::div[@role]",
 				InputType.XPath).sendKeys(placeholderMessage);
 	}
 
@@ -165,6 +178,31 @@ public class Actions {
 		Utilities.waitUntileElementIsVisible(hidePlaceHolders);
 		Utilities.clickElement(hidePlaceHolders, ElementType.XPath);
 		return placeHolderItemText;
+	}
+
+	// Set email title in send employee email for Subscription Status trigger rule
+	public void setEmailTitle_SubscriptionStatus(String emailTitle) {
+		FindElement.elementByAttribute(emailTitlesendEmployeeEmail_SubscriptionStatus, InputType.XPath)
+				.sendKeys(emailTitle);
+	}
+
+	// Set email address in send employee email for Subscription Status trigger rule
+	public void setEmailAddress_SubscriptionStatus(String emailAddress) {
+		FindElement.elementByAttribute(emailsSendEmployeeEmail_SubscriptionStatus, InputType.XPath)
+				.sendKeys(emailAddress);
+	}
+
+	// Set phone number in Send Employee SMS/Voice
+	public void setEmployeePhoneNumber_SubscriptionStatus(String actionType, String phoneNumber) {
+		FindElement.elementByAttribute(
+				"//option[@selected and text()='" + actionType
+						+ "']//ancestor::div/following-sibling::div//input[@data-ruleitemtype='sendToPhones']",
+				InputType.XPath).sendKeys(phoneNumber);
+	}
+
+	// Set days till due in add task for Subscription Status trigger rule
+	public void setDaysTillDueAddTask_SubscriptionStatus(String days) {
+		FindElement.elementByAttribute(daysTillDue_addTask, InputType.XPath).sendKeys(days);
 	}
 
 	// Enter Subject

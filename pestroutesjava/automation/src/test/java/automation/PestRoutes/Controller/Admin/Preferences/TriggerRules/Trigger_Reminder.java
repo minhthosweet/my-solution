@@ -116,7 +116,7 @@ public class Trigger_Reminder extends BaseClass {
 		triggerAdmin.selectDropdown(actions.actionTypeDropDown, actions.sendVoiceReminder);
 		triggerAdmin.selectDropdown(actions.ignoreContactPrefsDropDown, actions.ignoreContactPrefsTypes_No);
 		triggerAdmin.selectDropdown(actions.voiceType_Reminder, actions.standardReminderVoice_Reminder);
-		triggerAdmin.selectDropdown(actions.voiceType_Reminder, actions.prerRecordedMessageVoice_Reminder);
+		triggerAdmin.selectDropdown(actions.voiceType_Reminder, actions.preRecordedMessageVoice_Reminder);
 		triggerAdmin.selectDropdown(actions.preRecordedMessage_Message_Reminder, "Pest Promotion");
 		triggerAdmin.selectDropdown(actions.voiceType_Reminder, actions.standardReminderVoice_Reminder);
 		triggerAdmin.selectDropdown(actions.voiceType_Reminder, actions.customReminderVoice_Reminder);

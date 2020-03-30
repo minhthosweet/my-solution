@@ -69,6 +69,7 @@ public class TriggerRules {
 	}
 
 	public void selectDropdown(String needObject, String needTextValue) {
+		Utilities.waitUntileElementIsVisible(needObject);
 		Utilities.selectValueFromDropDownByValue(needObject, needTextValue);
 	}
 

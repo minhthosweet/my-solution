@@ -139,7 +139,7 @@ public class TriggerRules_Cucumber {
 
 	@And("I select Snail Mail")
 	public void i_select_Snail_Mail() {
-		triggerAdmin.selectDropdown(actions.additionalActionTypeDropDown, "Send Snail Mail");
+		triggerAdmin.selectDropdown(actions.actionTypeDropDown, "Send Snail Mail");
 		
 	}
 	

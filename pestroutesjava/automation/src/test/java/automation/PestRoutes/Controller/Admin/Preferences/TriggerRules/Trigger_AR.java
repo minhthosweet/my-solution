@@ -123,9 +123,9 @@ public class Trigger_AR extends BaseClass {
 		actions.clickAddActionButton();
 		triggerAdmin.selectDropdown(actions.actionTypeDropDown, actions.sendVoiceMessageType_Action);
 		triggerAdmin.selectDropdown(actions.ignoreContactPrefsDropDown, actions.ignoreContactPrefsTypes_No);
-		triggerAdmin.selectDropdown(actions.voiceType_Reminder, actions.prerRecordedMessageVoice_Reminder);
+		triggerAdmin.selectDropdown(actions.voiceType_Reminder, actions.preRecordedMessageVoice_Reminder);
 		triggerAdmin.selectDropdown(actions.preRecordedMessage_Message_Reminder, "Pest Promotion");
-		triggerAdmin.selectDropdown(actions.voiceType_Reminder, actions.newMessageVoice_AR);
+		triggerAdmin.selectDropdown(actions.voiceType_Reminder, actions.newMessage_Voice);
 		actions.setMessageinAction_Type1(actions.sendVoiceMessageType_Action, actions.getPlaceHolders());
 		triggerAdmin.clickSaveButton();
 	}
@@ -166,7 +166,7 @@ public class Trigger_AR extends BaseClass {
 	public void addFlagsAction_AR() {
 		actions.clickAddActionButton();
 		triggerAdmin.selectDropdown(actions.actionTypeDropDown, actions.addFlagsMessageType_Action);
-		// triggerAdmin.clickSaveButton();
+		triggerAdmin.clickSaveButton();
 	}
 
 	// Create set collections stage AR Action
