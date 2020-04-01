@@ -8,6 +8,7 @@ import automation.PestRoutes.PageObject.Admin.AdminMainPage;
 import automation.PestRoutes.PageObject.Admin.OfficeSettings.Actions;
 import automation.PestRoutes.PageObject.Admin.OfficeSettings.TriggerRules;
 import automation.PestRoutes.PageObject.Admin.OfficeSettings.TriggerTypes.ARTab;
+import automation.PestRoutes.PageObject.Admin.OfficeSettings.TriggerTypes.ReminderTab;
 import automation.PestRoutes.PageObject.Admin.OfficeSettings.TriggerTypes.RenewalTab;
 import automation.PestRoutes.PageObject.Admin.OfficeSettings.TriggerTypes.SubscriptionStatusTab;
 import automation.PestRoutes.Utilities.AssertException;
@@ -16,74 +17,77 @@ import automation.PestRoutes.Utilities.GetDate;
 import automation.PestRoutes.Utilities.Reporter;
 import automation.PestRoutes.Utilities.Utilities;
 
-public class Trigger_SubscriptionStatus extends BaseClass {
+public class Trigger_AppointmentStatus extends BaseClass {
 	Header header;
 	AdminMainPage adminMainPage;
 	TriggerRules triggerAdmin = new TriggerRules();
 	RenewalTab renewalTab;
 	Actions actions = new Actions();
+	ReminderTab reminder;
 	ARTab ar;
 	SubscriptionStatusTab subscriptionStatus;
-	private String descriptionTrigger = "trigger_subscriptionStatus_all_actions";
+	private String descriptionTrigger = "trigger_appointmentStatus_all_actions";
 	public List list = new ArrayList<String>();
 	private String phoneNumber = "9999999999";
 
 	@Test
-	public void createSubscriptionStatus() throws InterruptedException, Exception {
-		createTrigger_SubscriptionStatus();
-		searchTrigger_subscriptionStatus();
-		SMSAction_SubscriptionStatus();
-		searchTrigger_subscriptionStatus();
-		voiceAction_SubscriptionStatus();
-		searchTrigger_subscriptionStatus();
-		emailAction_SubscriptionStatus();
-		searchTrigger_subscriptionStatus();
-		snailMailAction_SubscriptionStatus();
-		searchTrigger_subscriptionStatus();
-		webhookAction_SubscriptionStatus();
-		searchTrigger_subscriptionStatus();
-		sendEmployeeEmail_SubscriptionStatus();
-		searchTrigger_subscriptionStatus();
-		addAlert_SubscriptionStatus();
-		searchTrigger_subscriptionStatus();
-		addTask_SubscriptionStatus();
-		searchTrigger_subscriptionStatus();
-		sendEmployeeSMS_SubscriptionStatus();
-		searchTrigger_subscriptionStatus();
-		sendEmployeeVoice_SubscriptionStatus();
-		searchTrigger_subscriptionStatus();
-		assertActions_SubscriptionStatus();
+	public void createAppointmentStatus() throws InterruptedException, Exception {
+		createTrigger_AppointmentStatus();
+		searchTrigger_appointmentStatus();
+		SMSAction_AppointmentStatus();
+		searchTrigger_appointmentStatus();
+		voiceAction_AppointmentStatus();
+		searchTrigger_appointmentStatus();
+		emailAction_AppointmentStatus();
+		searchTrigger_appointmentStatus();
+		snailMailAction_AppointmentStatus();
+		searchTrigger_appointmentStatus();
+		webhookAction_AppointmentStatus();
+		searchTrigger_appointmentStatus();
+		sendEmployeeEmail_AppointmentStatus();
+		searchTrigger_appointmentStatus();
+		addAlert_AppointmentStatus();
+		searchTrigger_appointmentStatus();
+		addTask_AppointmentStatus();
+		searchTrigger_appointmentStatus();
+		sendEmployeeSMS_AppointmentStatus();
+		searchTrigger_appointmentStatus();
+		sendEmployeeVoice_AppointmentStatus();
+		searchTrigger_appointmentStatus();
+		assertActions_AppointmentStatus();
 	}
 
-	public void createTrigger_SubscriptionStatus() throws Exception {
+	public void createTrigger_AppointmentStatus() throws Exception {
 		header = new Header();
 		adminMainPage = new AdminMainPage();
 		renewalTab = new RenewalTab();
 		subscriptionStatus = new SubscriptionStatusTab();
 		ar = new ARTab();
+		reminder = new ReminderTab();
 		header.NavigateTo(header.adminTab);
 		adminMainPage.navigateTo(adminMainPage.preferences);
 		triggerAdmin.navigateToTriggerRules();
 		triggerAdmin.clickAddTrigerButton();
 		triggerAdmin.setStartDate(Utilities.currentDate("MM/dd/yyyy"));
+		triggerAdmin.selectDropdown(triggerAdmin.activeType, triggerAdmin.activeType_NotActive);
+		triggerAdmin.selectDropdown(triggerAdmin.activeType, triggerAdmin.activeType_Active);
 		triggerAdmin.setEndDate(GetDate.addOneYearToDate(Utilities.currentDate("MM/dd/yyyy")));
 		triggerAdmin.setDescription(descriptionTrigger);
-		triggerAdmin.selectDropdown(triggerAdmin.triggerTypeDropdown, triggerAdmin.triggerType_SubscriptionStatus);
+		triggerAdmin.selectDropdown(triggerAdmin.triggerTypeDropdown, triggerAdmin.triggerType_AppointmentStatus);
 		triggerAdmin.selectDropdown(triggerAdmin.globalType, triggerAdmin.global_SpecificToThisOffice);
-		triggerAdmin.selectDropdown(triggerAdmin.activeType, triggerAdmin.activeType_Active);
 		triggerAdmin.selectDropdown(subscriptionStatus.whenToTrigger,
 				subscriptionStatus.whenToTrigger_triggerAfterTime);
 		triggerAdmin.selectDropdown(subscriptionStatus.whenToTrigger, subscriptionStatus.whenToTrigger_triggerOnSave);
-		triggerAdmin.selectDropdown(renewalTab.multiUnitDropdown, renewalTab.multiUnit_Dropdown_Include);
-		triggerAdmin.selectDropdown(renewalTab.hasInitialService_Renewal, renewalTab.hasInitialService_Any_Renewal);
-		triggerAdmin.selectDropdown(subscriptionStatus.statusChangedTo, subscriptionStatus.statusChangedTo_Frozen);
-		triggerAdmin.selectDropdown(subscriptionStatus.statusChangedTo, subscriptionStatus.statusChangedTo_Any);
-		triggerAdmin.selectDropdown(renewalTab.propertyTypeDropdown, ar.propertyType_AllProperties);
+		triggerAdmin.selectDropdown(subscriptionStatus.statusChangedTo, subscriptionStatus.statusChangedTo_Pending);
+		triggerAdmin.selectDropdown(subscriptionStatus.statusChangedTo, subscriptionStatus.statusChangedTo_Complete);
+		triggerAdmin.selectDropdown(reminder.hasInitialServiceDropdown_Reminder,
+				reminder.hasInitialService_Any_Reminder);
+		
 		triggerAdmin.clickSaveButton();
 	}
 
-	// Search Subscription Status Trigger
-	public void searchTrigger_subscriptionStatus() {
+	// Search Appointment Status Trigger
+	public void searchTrigger_appointmentStatus() {
 		header = new Header();
 		adminMainPage = new AdminMainPage();
 		header.NavigateTo(header.adminTab);
@@ -91,12 +95,12 @@ public class Trigger_SubscriptionStatus extends BaseClass {
 		triggerAdmin.navigateToTriggerRules();
 		triggerAdmin.searchTrigger(descriptionTrigger);
 		result(descriptionTrigger, triggerAdmin.getDescriptionText(descriptionTrigger), "Search Customer",
-				"Subscription Status Creation");
+				"Appointment Status Creation");
 		triggerAdmin.clickEditTrigger(descriptionTrigger);
 	}
 
 	// Create a SMS action
-	public void SMSAction_SubscriptionStatus() throws InterruptedException {
+	public void SMSAction_AppointmentStatus() throws InterruptedException {
 		actions.clickAddActionButton();
 		triggerAdmin.selectDropdown(actions.actionTypeDropDown, actions.sendVoiceMessageType_Action);
 		Thread.sleep(3000);
@@ -107,8 +111,8 @@ public class Trigger_SubscriptionStatus extends BaseClass {
 		triggerAdmin.clickSaveButton();
 	}
 
-	// Create Voice Subscription Status action
-	public void voiceAction_SubscriptionStatus() {
+	// Create Voice Appointment Status action
+	public void voiceAction_AppointmentStatus() {
 		actions.clickAddActionButton();
 		triggerAdmin.selectDropdown(actions.actionTypeDropDown, actions.sendVoiceMessageType_Action);
 		triggerAdmin.selectDropdown(actions.ignoreContactPrefsDropDown, actions.ignoreContactPrefsTypes_No);
@@ -119,8 +123,8 @@ public class Trigger_SubscriptionStatus extends BaseClass {
 		triggerAdmin.clickSaveButton();
 	}
 
-	// Create Email Subscription Status Action
-	public void emailAction_SubscriptionStatus() {
+	// Create Email Appointment Status Action
+	public void emailAction_AppointmentStatus() {
 		actions.clickAddActionButton();
 		triggerAdmin.selectDropdown(actions.actionTypeDropDown, actions.EmailMessageType_Action);
 		triggerAdmin.selectDropdown(actions.ignoreContactPrefsDropDown, actions.ignoreContactPrefsTypes_No);
@@ -129,8 +133,8 @@ public class Trigger_SubscriptionStatus extends BaseClass {
 		triggerAdmin.clickSaveButton();
 	}
 
-	// Create SnailMail Subscription Status Action
-	public void snailMailAction_SubscriptionStatus() {
+	// Create SnailMail Appointment Status Action
+	public void snailMailAction_AppointmentStatus() {
 		actions.clickAddActionButton();
 		triggerAdmin.selectDropdown(actions.actionTypeDropDown, actions.snailMailMessageType_Action);
 		actions.setMessageinAction_Type2(actions.snailMailMessageType_Action, actions.getPlaceHolders());
@@ -138,7 +142,7 @@ public class Trigger_SubscriptionStatus extends BaseClass {
 	}
 
 	// Create Action with Webhook
-	public void webhookAction_SubscriptionStatus() {
+	public void webhookAction_AppointmentStatus() {
 		actions.clickAddActionButton();
 		triggerAdmin.selectDropdown(actions.actionTypeDropDown, actions.webhookMessageType_Action);
 		triggerAdmin.selectDropdown(actions.webhook_MethodType, actions.webhookMethod_GET);
@@ -150,7 +154,7 @@ public class Trigger_SubscriptionStatus extends BaseClass {
 	}
 
 	// Create Action with Send Employee Email
-	public void sendEmployeeEmail_SubscriptionStatus() {
+	public void sendEmployeeEmail_AppointmentStatus() {
 		actions.clickAddActionButton();
 		triggerAdmin.selectDropdown(actions.actionTypeDropDown, actions.sendEmployeeEmail_SubscriptionStatus);
 		actions.setEmailTitle_SubscriptionStatus(Utilities.generateRandomString(5));
@@ -160,7 +164,7 @@ public class Trigger_SubscriptionStatus extends BaseClass {
 	}
 
 	// Create Action with Add Alert
-	public void addAlert_SubscriptionStatus() {
+	public void addAlert_AppointmentStatus() {
 		actions.clickAddActionButton();
 		triggerAdmin.selectDropdown(actions.actionTypeDropDown, actions.addAlert_SubscriptionStatus);
 		actions.setMessageinAction_Type1(actions.addAlert_SubscriptionStatus, actions.getPlaceHolders());
@@ -168,7 +172,7 @@ public class Trigger_SubscriptionStatus extends BaseClass {
 	}
 
 	// Create Action with Add Task
-	public void addTask_SubscriptionStatus() {
+	public void addTask_AppointmentStatus() {
 		actions.clickAddActionButton();
 		triggerAdmin.selectDropdown(actions.actionTypeDropDown, actions.addTask_SubscriptionStatus);
 		actions.setDaysTillDueAddTask_SubscriptionStatus(Double.toString(Utilities.generateRandomInteger(1)));
@@ -177,7 +181,7 @@ public class Trigger_SubscriptionStatus extends BaseClass {
 	}
 
 	// Create Action Send Employee SMS
-	public void sendEmployeeSMS_SubscriptionStatus() {
+	public void sendEmployeeSMS_AppointmentStatus() {
 		actions.clickAddActionButton();
 		triggerAdmin.selectDropdown(actions.actionTypeDropDown, actions.sendEmployeeSMS_SubscriptionStatus);
 		actions.setEmployeePhoneNumber_SubscriptionStatus(actions.sendEmployeeSMS_SubscriptionStatus, phoneNumber);
@@ -186,7 +190,7 @@ public class Trigger_SubscriptionStatus extends BaseClass {
 	}
 
 	// Create Action Send Employee Voice
-	public void sendEmployeeVoice_SubscriptionStatus() {
+	public void sendEmployeeVoice_AppointmentStatus() {
 		actions.clickAddActionButton();
 		triggerAdmin.selectDropdown(actions.actionTypeDropDown, actions.sendEmployeeVoice_SubscriptionStatus);
 		actions.setEmployeePhoneNumber_SubscriptionStatus(actions.sendEmployeeVoice_SubscriptionStatus, phoneNumber);
@@ -198,30 +202,30 @@ public class Trigger_SubscriptionStatus extends BaseClass {
 	}
 
 	// Assert all created actions
-	public void assertActions_SubscriptionStatus() {
+	public void assertActions_AppointmentStatus() {
 		ar = new ARTab();
 		renewalTab = new RenewalTab();
 		subscriptionStatus = new SubscriptionStatusTab();
 		result(actions.sendSMSMessageType_Action, ar.getSMSActionTextValue(), "SMS Action",
-				"Subscription Status Creation");
+				"Appointment Status Creation");
 		result(actions.sendVoiceMessageType_Action, ar.getVoiceActionTextValue(), "Voice Action",
-				"Subscription Status Creation");
+				"Appointment Status Creation");
 		result(actions.EmailMessageType_Action, ar.getEmailActionTextValue(), "Email Action",
-				"Subscription Status Creation");
+				"Appointment Status Creation");
 		result(actions.webhookMessageType_Action, renewalTab.getWebhookActionTextValue(), "Webhook Action",
-				"Subscription Status Creation");
+				"Appointment Status Creation");
 		result(actions.snailMailMessageType_Action, ar.getSnailMailActionTextValue(), "Snail Mail Action",
-				"Subscription Status Creation");
+				"Appointment Status Creation");
 		result(actions.sendEmployeeEmail_SubscriptionStatus, subscriptionStatus.getSendEmployeeEmailActionTextValue(),
-				"Send Employee Email Action", "Subscription Status Creation");
+				"Send Employee Email Action", "Appointment Status Creation");
 		result(actions.addAlert_SubscriptionStatus, subscriptionStatus.getAddAlertActionTextValue(), "Add Alert Action",
-				"Subscription Status Creation");
+				"Appointment Status Creation");
 		result(actions.addTask_SubscriptionStatus, subscriptionStatus.getAddTaskActionTextValue(), "Add Task Action",
-				"Subscription Status Creation");
+				"Appointment Status Creation");
 		result(actions.sendEmployeeSMS_SubscriptionStatus, subscriptionStatus.getSendEmploeeSMSActionTextValue(),
-				"Send Employee SMS Action", "Subscription Status Creation");
+				"Send Employee SMS Action", "Appointment Status Creation");
 		result(actions.sendEmployeeVoice_SubscriptionStatus, subscriptionStatus.getSendEmployeeVoiceActionTextValue(),
-				"Send Employee Voice Action", "Subscription Status Creation");
+				"Send Employee Voice Action", "Appointment Status Creation");
 
 	}
 

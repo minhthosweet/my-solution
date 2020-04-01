@@ -5,7 +5,7 @@ import automation.PestRoutes.Utilities.Utilities.ElementType;
 
 public class SubscriptionStatusTab {
 	// Subscription Status Filter Objects
-	public String whenToTrigger = "//label[text()='When To Trigger']/ancestor::div[@class='col-6']/following-sibling::div/select[@name='filterItemValue']";
+	public String whenToTrigger = "//label[contains(text(),'When') and contains(text(),'Trigger')]/ancestor::div[@class='col-6']/following-sibling::div/select[@name='filterItemValue']";
 	public String statusChangedTo = "//label[text()='Status Changed To']/ancestor::div[@class='col-6']/following-sibling::div/select[@name='filterItemValue']";
 
 	// When to Trigger Objects
@@ -16,6 +16,12 @@ public class SubscriptionStatusTab {
 	public String statusChangedTo_Any = "Any";
 	public String statusChangedTo_Active = "Active";
 	public String statusChangedTo_Frozen = "Frozen";
+	public String statusChangedTo_Scheduled = "Scheduled";
+	public String statusChangedTo_Pending = "Pending";
+	public String statusChangedTo_Complete = "Complete";
+	public String statusChangedTo_Cancelled = "Cancelled";
+	public String statusChangedTo_Rescheduled = "Rescheduled";
+	public String statusChangedTo_notServiced = "Not Serviced";
 
 	// Identifiers for already created actions
 	public String sendEmployeeEmail_actual = "//div[text()='Send Employee Email']";
