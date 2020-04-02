@@ -12,6 +12,7 @@ import automation.PestRoutes.PageObject.Admin.OfficeSettings.TriggerRules;
 import automation.PestRoutes.PageObject.Admin.OfficeSettings.TriggerTypes.ARTab;
 import automation.PestRoutes.PageObject.Admin.OfficeSettings.TriggerTypes.ReminderTab;
 import automation.PestRoutes.PageObject.Admin.OfficeSettings.TriggerTypes.RenewalTab;
+import automation.PestRoutes.PageObject.Admin.OfficeSettings.TriggerTypes.SubscriptionStatusTab;
 import automation.PestRoutes.Utilities.AssertException;
 import automation.PestRoutes.Utilities.BaseClass;
 import automation.PestRoutes.Utilities.GetDate;
@@ -26,6 +27,7 @@ public class Trigger_Reminder extends BaseClass {
 	RenewalTab renewalTab;
 	ARTab ar;
 	Actions actions;
+	SubscriptionStatusTab subscriptionStatus;
 
 	private String descriptionTrigger = "trigger_reminder_all_actions";
 	private String numberOfDays_Before_Reminder = Double.toString(Utilities.generateRandomInteger(1));
@@ -52,16 +54,19 @@ public class Trigger_Reminder extends BaseClass {
 		renewalTab = new RenewalTab();
 		ar = new ARTab();
 		actions = new Actions();
+		subscriptionStatus = new SubscriptionStatusTab();
 		header.NavigateTo(header.adminTab);
 		adminMainPage.navigateTo(adminMainPage.preferences);
 		triggerAdmin.navigateToTriggerRules();
 		triggerAdmin.clickAddTrigerButton();
-		triggerAdmin.selectDropdown(triggerAdmin.triggerTypeDropdown, triggerAdmin.triggerType_Reminders);
 		triggerAdmin.setStartDate(Utilities.currentDate("MM/dd/yyyy"));
 		triggerAdmin.setEndDate(GetDate.addOneYearToDate(Utilities.currentDate("MM/dd/yyyy")));
 		triggerAdmin.setDescription(descriptionTrigger);
+		triggerAdmin.selectDropdown(triggerAdmin.triggerTypeDropdown, triggerAdmin.triggerType_Reminders);
 		triggerAdmin.selectDropdown(triggerAdmin.globalType, triggerAdmin.global_SpecificToThisOffice);
 		triggerAdmin.selectDropdown(triggerAdmin.activeType, triggerAdmin.activeType_Active);
+		triggerAdmin.selectDropdown(subscriptionStatus.whenToTrigger, reminder.triggerOnCheckIn_whenToTrigger);
+		triggerAdmin.selectDropdown(subscriptionStatus.whenToTrigger, reminder.triggerDaysBefore_whenToTrigger);
 		reminder.setdaysBefore_Reminder(numberOfDays_Before_Reminder);
 		triggerAdmin.selectDropdown(renewalTab.propertyTypeDropdown, ar.propertyType_AllProperties);
 		triggerAdmin.selectDropdown(renewalTab.multiUnitDropdown, renewalTab.multiUnit_Dropdown_Include);
@@ -78,8 +83,8 @@ public class Trigger_Reminder extends BaseClass {
 		adminMainPage.navigateTo(adminMainPage.preferences);
 		triggerAdmin.navigateToTriggerRules();
 		triggerAdmin.searchTrigger(descriptionTrigger);
-		result(descriptionTrigger, triggerAdmin.getDescriptionText(descriptionTrigger), "Reminder Trigger Rule",
-				"Reminder creation");
+		result(descriptionTrigger, triggerAdmin.getDescriptionText(descriptionTrigger), "Reminder Creation",
+				"Reminder Trigger Rule");
 		triggerAdmin.clickEditTrigger(descriptionTrigger);
 	}
 

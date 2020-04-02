@@ -9,6 +9,10 @@ public class ReminderTab {
 
 	public String daysBefore_Reminder = "//input[@data-ruleitemtype='reminderDayOffset']";
 
+	//When to trigger Objects
+	public String triggerDaysBefore_whenToTrigger = "Trigger Days Before";
+	public String triggerOnCheckIn_whenToTrigger = "Trigger on Check-In";
+	
 	// Identifiers for already created actions
 	public String emailAction_actual = "//div[text()='Send Email Reminder']";
 	public String voiceAction_actual = "//div[text()='Send Voice Reminder']";
