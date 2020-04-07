@@ -110,14 +110,6 @@ public class CreateLeads extends BaseClass{
 		}
 		Reporter.status(stepName,expected, actual, testName);
 	}
-	
-//	private double calculation(String needTaxElement, String needTicketItemElement,
-//			String needFirstValue, String needSecondValue) {
-//		String tax = leads.getValueOfAnElement(needTaxElement);
-//		double itemValue = Double.parseDouble(leads.getValueOfAnElementByAttribute(needTicketItemElement));
-//		double newTax = Double.parseDouble(tax.replace("$", ""));
-//		
-//	}
 
 
 }
