@@ -24,7 +24,7 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
-public class CreateNewCustomer extends AppData{
+public class CreateNewCustomer extends BaseClass{
 	static ExtentTest test;
 	CreateCustomerDIalog customer;
 	CustomerViewDialog_Header dialog;
@@ -38,8 +38,16 @@ public class CreateNewCustomer extends AppData{
 	String streetAddress = "4500 W Eldorado Pkwy STE 3200";
 	String city = "McKinney";
 	String zipcode = "75070";
-
 	
+	@Test
+	public void createCustomer() throws Exception {
+		createCustomerWithOutRequiredField();
+		validateRequiredFieldError();
+		createCustomerWithAddress();
+		validateCreatedCustomerNameAndAddress();
+		validateIfFailureExist();
+		
+	}
 	
 	@When ("I create customer without required last name field")
 	public void createCustomerWithOutRequiredField() {

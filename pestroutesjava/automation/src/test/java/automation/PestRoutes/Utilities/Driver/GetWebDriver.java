@@ -19,19 +19,19 @@ public class GetWebDriver {
 						"src/test/java/automation/PestRoutes/Utilities/Driver/chromedriver");
 				driver = new ChromeDriver();
 				driver.manage().window().maximize();
-
 				driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 			} else if(SystemUtils.IS_OS_WINDOWS) {
 				System.setProperty("webdriver.chrome.driver",
 						"src/test/java/automation/PestRoutes/Utilities/Driver/chromedriver.exe");
 				driver = new ChromeDriver();
 				driver.manage().window().maximize();
-
 				driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 			} else if(SystemUtils.IS_OS_LINUX) {
 				ChromeOptions options = new ChromeOptions();
 				options.addArguments("--headless", "--disable-gpu", "--window-size=1920,1200","--ignore-certificate-errors");
 				driver = new ChromeDriver(options);
+				driver.manage().window().maximize();
+				driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 			}
 		}
 		return driver;

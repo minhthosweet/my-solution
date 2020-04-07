@@ -12,31 +12,27 @@ import automation.PestRoutes.Utilities.Driver.GetWebDriver;
 
 public class BaseClass extends AppData {
 
-	WebDriver driver = GetWebDriver.getInstance();
+	WebDriver driver;
 	SignIn signInPage;
 	
 	
 
 	// @Parameters("browser")
-	//@BeforeSuite
+	@BeforeSuite
 
 	public void beforeTest() throws IOException {
-
+		driver = GetWebDriver.getInstance();
 		String url = getData("pronBetaUrl",generalData);
 		String userName = getData("userName", generalData);
 		String password = getData("password", generalData);
 
 		driver.get(url);
-
-		driver.manage().window().maximize();
-
-		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 		signInPage = new SignIn();
 		signInPage.login(userName, password);
 
 	}
 
-	//@AfterSuite(alwaysRun = true)
+	@AfterSuite(alwaysRun = true)
 
 	public void afterTest() {
 		Reporter.flushReport();
