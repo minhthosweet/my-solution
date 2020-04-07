@@ -8,6 +8,7 @@ import java.util.Random;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.OutputType;
@@ -31,6 +32,10 @@ public class Utilities {
 	}
 	public static void acceptAlert() {
 		driver.switchTo().alert().accept();
+	}
+	
+	public static Alert alertPopUp() {
+		return driver.switchTo().alert();
 	}
 	
 	public static void selectValueFromDropDownByValue(String needXpath, String needValue) {

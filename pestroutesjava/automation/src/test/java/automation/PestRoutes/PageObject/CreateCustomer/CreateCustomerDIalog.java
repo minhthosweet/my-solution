@@ -1,5 +1,7 @@
 package automation.PestRoutes.PageObject.CreateCustomer;
 
+import org.openqa.selenium.Keys;
+
 import automation.PestRoutes.Utilities.FindElement;
 import automation.PestRoutes.Utilities.Utilities;
 import automation.PestRoutes.Utilities.FindElement.InputType;
@@ -157,6 +159,7 @@ public class CreateCustomerDIalog {
 	}
 	
 	public void setCity(String needCity) {
+		FindElement.elementByAttribute(cityInputField, InputType.XPath).sendKeys(Keys.CONTROL,"a");
 		FindElement.elementByAttribute(cityInputField, InputType.XPath).sendKeys(needCity);
 	}
 	
