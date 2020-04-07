@@ -8,6 +8,8 @@ import automation.PestRoutes.Utilities.BaseClass;
 import automation.PestRoutes.Utilities.Reporter;
 import automation.PestRoutes.Utilities.Utilities;
 import automation.PestRoutes.Utilities.Utilities.ElementType;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -40,7 +42,7 @@ public class AddSubscription extends BaseClass {
 		AssertException.asserFailure(list);
 
 	}
-
+	@When("I start a regular subscription")
 	public void startSubscription() throws Exception {
 		customerDialogHeader = new CustomerViewDialog_Header();
 		header = new Header();
@@ -50,7 +52,7 @@ public class AddSubscription extends BaseClass {
 		subscription.selectServiceType(getData("quarterly", quarterlyPreferredDayData));
 		subscription.setCustomDate(getData("customDate", quarterlyPreferredDayData));
 	}
-
+	@Then("I validate upcoming appointments per each day")
 	public void validatePreferredDayAppt() throws Exception {
 		
 		String[] prefferedDay = { getData("monday", quarterlyPreferredDayData), getData("tuesday", quarterlyPreferredDayData),
@@ -87,7 +89,7 @@ public class AddSubscription extends BaseClass {
 		}
 		
 	}
-
+	@Then("I validate initial invoice")
 	public void validateInitialInvoice() {
 		subscription.setInitialServiceQuote(initialQuote);
 		subscription.setInitialServiceDiscount(initialDiscount);
@@ -108,7 +110,7 @@ public class AddSubscription extends BaseClass {
 		String actualInitialTotal = Double.toString(initialTotal);
 		result(expectedInitialTotal, actualInitialTotal, "Initial invoice total validation ", "Subscription");
 	}
-
+	@Then("I validate recurring invoice")
 	public void validateRecurringInvoice() throws Exception {
 		subscription.setServiceQuote(getData("quarterly", quarterlyPreferredDayData), initialQuote);
 		subscription.selectAdditionalItem_ToRecurringInvoice(ticketItem);
@@ -127,7 +129,7 @@ public class AddSubscription extends BaseClass {
 		String actualServiceTotal = Double.toString(serviceTotal);
 		result(expectedServiceTotal, actualServiceTotal, "Service invoice total validation ", "Subscription");
 	}
-	
+	@Then("I validate billing frequency by month")
 	public void validateBillingFrequencyByMonthly() throws Exception {
 		String monthlyFrequecyServiceQuote = "60";
 		String monthlyFrequencyItemAmount = "1.00";
@@ -138,7 +140,7 @@ public class AddSubscription extends BaseClass {
 		String actualCustomProduction = subscription.getCustomProductionValue();
 		result(expectedCustomProduction, actualCustomProduction, "Monthly Custom production ", "Subscription");
 	}
-	
+	@Then("I validate billing frequency by annually")
 	public void validateBillingFrequencyByAnnually() throws Exception {
 		String annuallyFrequecyServiceQuote = "720";
 		String annuallyFrequencyItemAmount = "12";
@@ -150,7 +152,6 @@ public class AddSubscription extends BaseClass {
 		result(expectedCustomProduction, actualCustomProduction, "Annually custom production ", "Subscription");
 	}
 	
-	
 	private void insertServiceQuoteByBillingFrequency(String needFrequency, String needServiceQuote, String needItemAmount) throws Exception {
 		subscription.selectBillingFrequency(needFrequency);
 		subscription.setServiceQuote(getData("quarterly", quarterlyPreferredDayData), needServiceQuote);
@@ -158,6 +159,7 @@ public class AddSubscription extends BaseClass {
 		Utilities.clickElement(subscription.recurringSubTotalValue, ElementType.XPath);
 	}
 	
+	@SuppressWarnings("unchecked")
 	private void result(String expected, String actual, String stepName, String testName) {
 		if(AssertException.result(expected, actual, stepName).size()>0) {
 			list.add(AssertException.result(expected, actual, stepName));

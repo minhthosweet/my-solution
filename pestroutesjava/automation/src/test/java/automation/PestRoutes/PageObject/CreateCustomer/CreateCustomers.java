@@ -36,13 +36,13 @@ public class CreateCustomers extends AppData {
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 	}
 
-	@When("username is {string} and password is {string}")
-	public void username_is_and_password_is(String userName, String password) {
-
-		signInPage = new SignIn();
-		signInPage.login(userName, password);
-
-	}
+//	@When("username is {string} and password is {string}")
+//	public void username_is_and_password_is(String userName, String password) {
+//
+//		signInPage = new SignIn();
+//		signInPage.login(userName, password);
+//
+//	}
 
 	@Given("I want to login to the application using URL : {string} using mind and matter")
 	public void i_want_to_login_to_the_application_using_URL_using_mind_and_matter(String url) {

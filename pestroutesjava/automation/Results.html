@@ -46,7 +46,7 @@
 		<ul id='nav-mobile' class='right hide-on-med-and-down nav-right'>
 			<li>
                 <a href='#!'>
-                    <span class='label suite-start-time blue darken-3'>Mar 26, 2020 02:34:58 PM</span>
+                    <span class='label suite-start-time blue darken-3'>Apr 6, 2020 01:07:59 PM</span>
 				</a>
 			</li>
 			<li>
@@ -72,6 +72,7 @@
 				</a>
 				<ul id='tests-toggle' class='dropdown-content'>
 											<li status='pass'><a href='#!'>Pass <i class='material-icons green-text'>check_circle</i></a></li>
+						<li status='fail'><a href='#!'>Fail <i class='material-icons red-text'>cancel</i></a></li>
 					<li class='divider'></li>
 					<li status='clear' clear='true'><a href='#!'>Clear Filters <i class='material-icons'>clear</i></a></li>
 				</ul>
@@ -122,10 +123,10 @@
 					<canvas id='parent-analysis' width='100' height='80'></canvas>
 				</div>
 				<div class='block text-small'>
-					<span class='tooltipped' data-position='top' data-tooltip='50%'><span class='strong'>1</span> test(s) passed</span>
+					<span class='tooltipped' data-position='top' data-tooltip='84.211%'><span class='strong'>16</span> test(s) passed</span>
 				</div>
 				<div class='block text-small'>
-					<span class='strong tooltipped' data-position='top' data-tooltip='50%'>1</span> test(s) failed, <span class='strong tooltipped' data-position='top' data-tooltip='0%'>0</span> others
+					<span class='strong tooltipped' data-position='top' data-tooltip='15.789%'>3</span> test(s) failed, <span class='strong tooltipped' data-position='top' data-tooltip='0%'>0</span> others
 				</div>
 			</div>
 		</div>
@@ -137,10 +138,10 @@
 					<canvas id='child-analysis' width='100' height='80'></canvas>
 				</div>
 				<div class='block text-small'>
-					<span class='tooltipped' data-position='top' data-tooltip='93.103%'><span class='strong'>54</span> step(s) passed</span>
+					<span class='tooltipped' data-position='top' data-tooltip='93.333%'><span class='strong'>126</span> step(s) passed</span>
 				</div>
 				<div class='block text-small'>
-					<span class='strong tooltipped' data-position='top' data-tooltip='6.897%'>4</span> step(s) failed, <span class='strong tooltipped' data-position='top' data-tooltip='0%'>0</span> others
+					<span class='strong tooltipped' data-position='top' data-tooltip='6.667%'>9</span> step(s) failed, <span class='strong tooltipped' data-position='top' data-tooltip='0%'>0</span> others
 				</div>
 			</div>
 		</div>
@@ -155,17 +156,17 @@
 			<ul id='test-collection' class='test-collection'>
 				
 				
-				<li class='test displayed active  fail' status='fail' bdd='false' test-id='1'>
+				<li class='test displayed active  pass' status='pass' bdd='false' test-id='1'>
 					<div class='test-heading'>
-						<span class='test-name'>Subscription</span>
-						<span class='test-time'>Mar 26, 2020 12:22:50 PM</span>
-						<span class='test-status right fail'>fail</span>
+						<span class='test-name'>Customer creation</span>
+						<span class='test-time'>Apr 5, 2020 04:04:26 PM</span>
+						<span class='test-status right pass'>pass</span>
 					</div>
 					<div class='test-content hide'>
 <div class='test-time-info'>
-	<span class='label start-time'>Mar 26, 2020 12:22:50 PM</span>
-	<span class='label end-time'>Mar 26, 2020 12:22:56 PM</span>
-	<span class='label time-taken grey lighten-1 white-text'>0h 0m 6s+0ms</span>
+	<span class='label start-time'>Apr 5, 2020 04:04:26 PM</span>
+	<span class='label end-time'>Apr 5, 2020 04:04:26 PM</span>
+	<span class='label time-taken grey lighten-1 white-text'>0h 0m 0s+0ms</span>
 </div>
 	<div class='test-steps'>
 		<table class='bordered table-results'>
@@ -179,278 +180,8 @@
 			<tbody>
 				<tr class='log' status='pass'>
 					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-					<td class='timestamp'>12:22:50 PM</td>
-					<td class='step-details'>Validate Monday first slot=&gt; Actual result =&gt; 2/1/20 matched with expected result =&gt; 2/1/20</td>
-				</tr>
-				<tr class='log' status='pass'>
-					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-					<td class='timestamp'>12:22:50 PM</td>
-					<td class='step-details'>Validate Monday 2nd slot=&gt; Actual result =&gt; 3/2/20 matched with expected result =&gt; 3/2/20</td>
-				</tr>
-				<tr class='log' status='pass'>
-					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-					<td class='timestamp'>12:22:50 PM</td>
-					<td class='step-details'>Validate Monday 3rd slot=&gt; Actual result =&gt; 5/4/20 matched with expected result =&gt; 5/4/20</td>
-				</tr>
-				<tr class='log' status='pass'>
-					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-					<td class='timestamp'>12:22:50 PM</td>
-					<td class='step-details'>Validate Monday 4th slot=&gt; Actual result =&gt; 7/6/20 matched with expected result =&gt; 7/6/20</td>
-				</tr>
-				<tr class='log' status='pass'>
-					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-					<td class='timestamp'>12:22:50 PM</td>
-					<td class='step-details'>Validate Monday 5th slot=&gt; Actual result =&gt; 9/7/20 matched with expected result =&gt; 9/7/20</td>
-				</tr>
-				<tr class='log' status='pass'>
-					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-					<td class='timestamp'>12:22:50 PM</td>
-					<td class='step-details'>Validate Monday6th slot=&gt; Actual result =&gt; 11/9/20 matched with expected result =&gt; 11/9/20</td>
-				</tr>
-				<tr class='log' status='pass'>
-					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-					<td class='timestamp'>12:22:50 PM</td>
-					<td class='step-details'>Validate Monday 7th slot=&gt; Actual result =&gt; 1/11/21 matched with expected result =&gt; 1/11/21</td>
-				</tr>
-				<tr class='log' status='pass'>
-					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-					<td class='timestamp'>12:22:51 PM</td>
-					<td class='step-details'>Validate Tuesday first slot=&gt; Actual result =&gt; 2/1/20 matched with expected result =&gt; 2/1/20</td>
-				</tr>
-				<tr class='log' status='pass'>
-					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-					<td class='timestamp'>12:22:51 PM</td>
-					<td class='step-details'>Validate Tuesday 2nd slot=&gt; Actual result =&gt; 3/3/20 matched with expected result =&gt; 3/3/20</td>
-				</tr>
-				<tr class='log' status='pass'>
-					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-					<td class='timestamp'>12:22:51 PM</td>
-					<td class='step-details'>Validate Tuesday 3rd slot=&gt; Actual result =&gt; 5/5/20 matched with expected result =&gt; 5/5/20</td>
-				</tr>
-				<tr class='log' status='pass'>
-					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-					<td class='timestamp'>12:22:51 PM</td>
-					<td class='step-details'>Validate Tuesday 4th slot=&gt; Actual result =&gt; 7/7/20 matched with expected result =&gt; 7/7/20</td>
-				</tr>
-				<tr class='log' status='pass'>
-					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-					<td class='timestamp'>12:22:51 PM</td>
-					<td class='step-details'>Validate Tuesday 5th slot=&gt; Actual result =&gt; 9/8/20 matched with expected result =&gt; 9/8/20</td>
-				</tr>
-				<tr class='log' status='pass'>
-					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-					<td class='timestamp'>12:22:51 PM</td>
-					<td class='step-details'>Validate Tuesday6th slot=&gt; Actual result =&gt; 11/10/20 matched with expected result =&gt; 11/10/20</td>
-				</tr>
-				<tr class='log' status='pass'>
-					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-					<td class='timestamp'>12:22:51 PM</td>
-					<td class='step-details'>Validate Tuesday 7th slot=&gt; Actual result =&gt; 1/12/21 matched with expected result =&gt; 1/12/21</td>
-				</tr>
-				<tr class='log' status='pass'>
-					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-					<td class='timestamp'>12:22:51 PM</td>
-					<td class='step-details'>Validate Wednesday first slot=&gt; Actual result =&gt; 2/1/20 matched with expected result =&gt; 2/1/20</td>
-				</tr>
-				<tr class='log' status='pass'>
-					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-					<td class='timestamp'>12:22:51 PM</td>
-					<td class='step-details'>Validate Wednesday 2nd slot=&gt; Actual result =&gt; 3/4/20 matched with expected result =&gt; 3/4/20</td>
-				</tr>
-				<tr class='log' status='pass'>
-					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-					<td class='timestamp'>12:22:51 PM</td>
-					<td class='step-details'>Validate Wednesday 3rd slot=&gt; Actual result =&gt; 5/6/20 matched with expected result =&gt; 5/6/20</td>
-				</tr>
-				<tr class='log' status='pass'>
-					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-					<td class='timestamp'>12:22:51 PM</td>
-					<td class='step-details'>Validate Wednesday 4th slot=&gt; Actual result =&gt; 7/8/20 matched with expected result =&gt; 7/8/20</td>
-				</tr>
-				<tr class='log' status='pass'>
-					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-					<td class='timestamp'>12:22:51 PM</td>
-					<td class='step-details'>Validate Wednesday 5th slot=&gt; Actual result =&gt; 9/9/20 matched with expected result =&gt; 9/9/20</td>
-				</tr>
-				<tr class='log' status='pass'>
-					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-					<td class='timestamp'>12:22:51 PM</td>
-					<td class='step-details'>Validate Wednesday6th slot=&gt; Actual result =&gt; 11/11/20 matched with expected result =&gt; 11/11/20</td>
-				</tr>
-				<tr class='log' status='pass'>
-					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-					<td class='timestamp'>12:22:51 PM</td>
-					<td class='step-details'>Validate Wednesday 7th slot=&gt; Actual result =&gt; 1/13/21 matched with expected result =&gt; 1/13/21</td>
-				</tr>
-				<tr class='log' status='pass'>
-					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-					<td class='timestamp'>12:22:52 PM</td>
-					<td class='step-details'>Validate Thursday first slot=&gt; Actual result =&gt; 2/1/20 matched with expected result =&gt; 2/1/20</td>
-				</tr>
-				<tr class='log' status='pass'>
-					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-					<td class='timestamp'>12:22:52 PM</td>
-					<td class='step-details'>Validate Thursday 2nd slot=&gt; Actual result =&gt; 2/27/20 matched with expected result =&gt; 2/27/20</td>
-				</tr>
-				<tr class='log' status='pass'>
-					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-					<td class='timestamp'>12:22:52 PM</td>
-					<td class='step-details'>Validate Thursday 3rd slot=&gt; Actual result =&gt; 4/30/20 matched with expected result =&gt; 4/30/20</td>
-				</tr>
-				<tr class='log' status='pass'>
-					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-					<td class='timestamp'>12:22:52 PM</td>
-					<td class='step-details'>Validate Thursday 4th slot=&gt; Actual result =&gt; 7/2/20 matched with expected result =&gt; 7/2/20</td>
-				</tr>
-				<tr class='log' status='pass'>
-					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-					<td class='timestamp'>12:22:52 PM</td>
-					<td class='step-details'>Validate Thursday 5th slot=&gt; Actual result =&gt; 9/3/20 matched with expected result =&gt; 9/3/20</td>
-				</tr>
-				<tr class='log' status='pass'>
-					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-					<td class='timestamp'>12:22:52 PM</td>
-					<td class='step-details'>Validate Thursday6th slot=&gt; Actual result =&gt; 11/5/20 matched with expected result =&gt; 11/5/20</td>
-				</tr>
-				<tr class='log' status='pass'>
-					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-					<td class='timestamp'>12:22:52 PM</td>
-					<td class='step-details'>Validate Thursday 7th slot=&gt; Actual result =&gt; 1/7/21 matched with expected result =&gt; 1/7/21</td>
-				</tr>
-				<tr class='log' status='pass'>
-					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-					<td class='timestamp'>12:22:52 PM</td>
-					<td class='step-details'>Validate Friday first slot=&gt; Actual result =&gt; 2/1/20 matched with expected result =&gt; 2/1/20</td>
-				</tr>
-				<tr class='log' status='pass'>
-					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-					<td class='timestamp'>12:22:52 PM</td>
-					<td class='step-details'>Validate Friday 2nd slot=&gt; Actual result =&gt; 2/28/20 matched with expected result =&gt; 2/28/20</td>
-				</tr>
-				<tr class='log' status='pass'>
-					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-					<td class='timestamp'>12:22:52 PM</td>
-					<td class='step-details'>Validate Friday 3rd slot=&gt; Actual result =&gt; 5/1/20 matched with expected result =&gt; 5/1/20</td>
-				</tr>
-				<tr class='log' status='pass'>
-					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-					<td class='timestamp'>12:22:52 PM</td>
-					<td class='step-details'>Validate Friday 4th slot=&gt; Actual result =&gt; 7/3/20 matched with expected result =&gt; 7/3/20</td>
-				</tr>
-				<tr class='log' status='pass'>
-					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-					<td class='timestamp'>12:22:52 PM</td>
-					<td class='step-details'>Validate Friday 5th slot=&gt; Actual result =&gt; 9/4/20 matched with expected result =&gt; 9/4/20</td>
-				</tr>
-				<tr class='log' status='pass'>
-					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-					<td class='timestamp'>12:22:52 PM</td>
-					<td class='step-details'>Validate Friday6th slot=&gt; Actual result =&gt; 11/6/20 matched with expected result =&gt; 11/6/20</td>
-				</tr>
-				<tr class='log' status='pass'>
-					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-					<td class='timestamp'>12:22:52 PM</td>
-					<td class='step-details'>Validate Friday 7th slot=&gt; Actual result =&gt; 1/8/21 matched with expected result =&gt; 1/8/21</td>
-				</tr>
-				<tr class='log' status='pass'>
-					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-					<td class='timestamp'>12:22:53 PM</td>
-					<td class='step-details'>Validate Saturday first slot=&gt; Actual result =&gt; 2/1/20 matched with expected result =&gt; 2/1/20</td>
-				</tr>
-				<tr class='log' status='pass'>
-					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-					<td class='timestamp'>12:22:53 PM</td>
-					<td class='step-details'>Validate Saturday 2nd slot=&gt; Actual result =&gt; 2/29/20 matched with expected result =&gt; 2/29/20</td>
-				</tr>
-				<tr class='log' status='pass'>
-					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-					<td class='timestamp'>12:22:53 PM</td>
-					<td class='step-details'>Validate Saturday 3rd slot=&gt; Actual result =&gt; 5/2/20 matched with expected result =&gt; 5/2/20</td>
-				</tr>
-				<tr class='log' status='pass'>
-					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-					<td class='timestamp'>12:22:53 PM</td>
-					<td class='step-details'>Validate Saturday 4th slot=&gt; Actual result =&gt; 7/4/20 matched with expected result =&gt; 7/4/20</td>
-				</tr>
-				<tr class='log' status='pass'>
-					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-					<td class='timestamp'>12:22:53 PM</td>
-					<td class='step-details'>Validate Saturday 5th slot=&gt; Actual result =&gt; 9/5/20 matched with expected result =&gt; 9/5/20</td>
-				</tr>
-				<tr class='log' status='pass'>
-					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-					<td class='timestamp'>12:22:53 PM</td>
-					<td class='step-details'>Validate Saturday6th slot=&gt; Actual result =&gt; 11/7/20 matched with expected result =&gt; 11/7/20</td>
-				</tr>
-				<tr class='log' status='pass'>
-					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-					<td class='timestamp'>12:22:53 PM</td>
-					<td class='step-details'>Validate Saturday 7th slot=&gt; Actual result =&gt; 1/9/21 matched with expected result =&gt; 1/9/21</td>
-				</tr>
-				<tr class='log' status='pass'>
-					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-					<td class='timestamp'>12:22:53 PM</td>
-					<td class='step-details'>Validate Sunday first slot=&gt; Actual result =&gt; 2/1/20 matched with expected result =&gt; 2/1/20</td>
-				</tr>
-				<tr class='log' status='pass'>
-					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-					<td class='timestamp'>12:22:53 PM</td>
-					<td class='step-details'>Validate Sunday 2nd slot=&gt; Actual result =&gt; 3/1/20 matched with expected result =&gt; 3/1/20</td>
-				</tr>
-				<tr class='log' status='pass'>
-					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-					<td class='timestamp'>12:22:53 PM</td>
-					<td class='step-details'>Validate Sunday 3rd slot=&gt; Actual result =&gt; 5/3/20 matched with expected result =&gt; 5/3/20</td>
-				</tr>
-				<tr class='log' status='fail'>
-					<td class='status fail' title='fail' alt='fail'><i class='material-icons'>cancel</i></td>
-					<td class='timestamp'>12:22:53 PM</td>
-					<td class='step-details'>Validate Sunday 4th slot=&gt; Actual result =&gt; 7/5/20 did not match with expected result =&gt; 6/28/20</td>
-				</tr>
-				<tr class='log' status='fail'>
-					<td class='status fail' title='fail' alt='fail'><i class='material-icons'>cancel</i></td>
-					<td class='timestamp'>12:22:53 PM</td>
-					<td class='step-details'>Validate Sunday 5th slot=&gt; Actual result =&gt; 9/6/20 did not match with expected result =&gt; 8/30/20</td>
-				</tr>
-				<tr class='log' status='fail'>
-					<td class='status fail' title='fail' alt='fail'><i class='material-icons'>cancel</i></td>
-					<td class='timestamp'>12:22:53 PM</td>
-					<td class='step-details'>Validate Sunday6th slot=&gt; Actual result =&gt; 11/8/20 did not match with expected result =&gt; 11/1/20</td>
-				</tr>
-				<tr class='log' status='fail'>
-					<td class='status fail' title='fail' alt='fail'><i class='material-icons'>cancel</i></td>
-					<td class='timestamp'>12:22:53 PM</td>
-					<td class='step-details'>Validate Sunday 7th slot=&gt; Actual result =&gt; 1/10/21 did not match with expected result =&gt; 1/3/21</td>
-				</tr>
-				<tr class='log' status='pass'>
-					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-					<td class='timestamp'>12:22:54 PM</td>
-					<td class='step-details'>Validate Initial invoice sub total validation =&gt; Actual result =&gt; 102.09 matched with expected result =&gt; 102.09</td>
-				</tr>
-				<tr class='log' status='pass'>
-					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-					<td class='timestamp'>12:22:54 PM</td>
-					<td class='step-details'>Validate Initial invoice total validation =&gt; Actual result =&gt; 110.51 matched with expected result =&gt; 110.51</td>
-				</tr>
-				<tr class='log' status='pass'>
-					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-					<td class='timestamp'>12:22:55 PM</td>
-					<td class='step-details'>Validate Service invoice sub total validation =&gt; Actual result =&gt; 122.09 matched with expected result =&gt; 122.09</td>
-				</tr>
-				<tr class='log' status='pass'>
-					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-					<td class='timestamp'>12:22:55 PM</td>
-					<td class='step-details'>Validate Service invoice total validation =&gt; Actual result =&gt; 132.16 matched with expected result =&gt; 132.16</td>
-				</tr>
-				<tr class='log' status='pass'>
-					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-					<td class='timestamp'>12:22:55 PM</td>
-					<td class='step-details'>Validate Monthly Custom production =&gt; Actual result =&gt; 122.00 matched with expected result =&gt; 122.0</td>
-				</tr>
-				<tr class='log' status='pass'>
-					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-					<td class='timestamp'>12:22:56 PM</td>
-					<td class='step-details'>Validate Annually custom production =&gt; Actual result =&gt; 122.00 matched with expected result =&gt; 122.0</td>
+					<td class='timestamp'>4:04:26 PM</td>
+					<td class='step-details'>Validate required field while creating customer =&gt; Actual result =&gt; Required: You must fill in the customer's last name or company name! matched with expected result =&gt; Required: You must fill in the customer's last name or company name!</td>
 				</tr>
 			</tbody>
 		</table>
@@ -459,17 +190,51 @@
 				</li>
 				
 				
-				<li class='test displayed active  pass' status='pass' bdd='false' test-id='2'>
+				<li class='test displayed active  fail' status='fail' bdd='false' test-id='2'>
 					<div class='test-heading'>
 						<span class='test-name'>Customer creation</span>
-						<span class='test-time'>Mar 26, 2020 02:34:59 PM</span>
+						<span class='test-time'>Apr 5, 2020 04:28:13 PM</span>
+						<span class='test-status right fail'>fail</span>
+					</div>
+					<div class='test-content hide'>
+<div class='test-time-info'>
+	<span class='label start-time'>Apr 5, 2020 04:28:13 PM</span>
+	<span class='label end-time'>Apr 5, 2020 04:28:13 PM</span>
+	<span class='label time-taken grey lighten-1 white-text'>0h 0m 0s+0ms</span>
+</div>
+	<div class='test-steps'>
+		<table class='bordered table-results'>
+			<thead>
+				<tr>
+					<th>Status</th>
+					<th>Timestamp</th>
+					<th>Details</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr class='log' status='fail'>
+					<td class='status fail' title='fail' alt='fail'><i class='material-icons'>cancel</i></td>
+					<td class='timestamp'>4:28:13 PM</td>
+					<td class='step-details'>Validate required field while creating customer =&gt; Actual result =&gt; Required: You must fill in the customer's last name or company name! did not match with expected result =&gt; bla</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+					</div>
+				</li>
+				
+				
+				<li class='test displayed active  pass' status='pass' bdd='false' test-id='3'>
+					<div class='test-heading'>
+						<span class='test-name'>Customer creation</span>
+						<span class='test-time'>Apr 5, 2020 04:30:59 PM</span>
 						<span class='test-status right pass'>pass</span>
 					</div>
 					<div class='test-content hide'>
 <div class='test-time-info'>
-	<span class='label start-time'>Mar 26, 2020 02:34:59 PM</span>
-	<span class='label end-time'>Mar 26, 2020 02:35:02 PM</span>
-	<span class='label time-taken grey lighten-1 white-text'>0h 0m 3s+631ms</span>
+	<span class='label start-time'>Apr 5, 2020 04:30:59 PM</span>
+	<span class='label end-time'>Apr 5, 2020 04:30:59 PM</span>
+	<span class='label time-taken grey lighten-1 white-text'>0h 0m 0s+0ms</span>
 </div>
 	<div class='test-steps'>
 		<table class='bordered table-results'>
@@ -483,18 +248,1132 @@
 			<tbody>
 				<tr class='log' status='pass'>
 					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-					<td class='timestamp'>2:34:59 PM</td>
-					<td class='step-details'>Validate required field while creating customer => Actual result  => Required: You must fill in the customer's last name or company name! matched with expected result  => Required: You must fill in the customer's last name or company name!</td>
+					<td class='timestamp'>4:30:59 PM</td>
+					<td class='step-details'>Validate required field while creating customer =&gt; Actual result =&gt; Required: You must fill in the customer's last name or company name! matched with expected result =&gt; Required: You must fill in the customer's last name or company name!</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+					</div>
+				</li>
+				
+				
+				<li class='test displayed active  pass' status='pass' bdd='false' test-id='4'>
+					<div class='test-heading'>
+						<span class='test-name'>Customer creation</span>
+						<span class='test-time'>Apr 5, 2020 04:35:50 PM</span>
+						<span class='test-status right pass'>pass</span>
+					</div>
+					<div class='test-content hide'>
+<div class='test-time-info'>
+	<span class='label start-time'>Apr 5, 2020 04:35:50 PM</span>
+	<span class='label end-time'>Apr 5, 2020 04:36:15 PM</span>
+	<span class='label time-taken grey lighten-1 white-text'>0h 0m 25s+0ms</span>
+</div>
+	<div class='test-steps'>
+		<table class='bordered table-results'>
+			<thead>
+				<tr>
+					<th>Status</th>
+					<th>Timestamp</th>
+					<th>Details</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>4:35:50 PM</td>
+					<td class='step-details'>Validate required field while creating customer =&gt; Actual result =&gt; Required: You must fill in the customer's last name or company name! matched with expected result =&gt; Required: You must fill in the customer's last name or company name!</td>
 				</tr>
 				<tr class='log' status='pass'>
 					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-					<td class='timestamp'>2:35:02 PM</td>
-					<td class='step-details'>Validate Created customer => Actual result  => [20241]   ted7YyV QvphfY Frozen Account matched with expected result  => ted7YyV</td>
+					<td class='timestamp'>4:36:15 PM</td>
+					<td class='step-details'>Validate Created customer =&gt; Actual result =&gt; [20249] hNmyULe 0SvzSa Frozen Account matched with expected result =&gt; hNmyULe</td>
 				</tr>
 				<tr class='log' status='pass'>
 					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-					<td class='timestamp'>2:35:02 PM</td>
-					<td class='step-details'>Validate customer address=> Actual result  => 4500 W Eldorado Pkwy STE 3200 Wylie, TX 75098 matched with expected result  => 4500 W Eldorado Pkwy STE 3200 Wylie, TX 75098</td>
+					<td class='timestamp'>4:36:15 PM</td>
+					<td class='step-details'>Validate customer address=&gt; Actual result =&gt; 4500 W Eldorado Pkwy STE 3200 McKinney, TX 75070 matched with expected result =&gt; 4500 W Eldorado Pkwy STE 3200 McKinney, TX 75070</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+					</div>
+				</li>
+				
+				
+				<li class='test displayed active  pass' status='pass' bdd='false' test-id='5'>
+					<div class='test-heading'>
+						<span class='test-name'>Customer creation</span>
+						<span class='test-time'>Apr 5, 2020 05:12:15 PM</span>
+						<span class='test-status right pass'>pass</span>
+					</div>
+					<div class='test-content hide'>
+<div class='test-time-info'>
+	<span class='label start-time'>Apr 5, 2020 05:12:15 PM</span>
+	<span class='label end-time'>Apr 5, 2020 05:12:19 PM</span>
+	<span class='label time-taken grey lighten-1 white-text'>0h 0m 4s+0ms</span>
+</div>
+	<div class='test-steps'>
+		<table class='bordered table-results'>
+			<thead>
+				<tr>
+					<th>Status</th>
+					<th>Timestamp</th>
+					<th>Details</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>5:12:15 PM</td>
+					<td class='step-details'>Validate required field while creating customer =&gt; Actual result =&gt; Required: You must fill in the customer's last name or company name! matched with expected result =&gt; Required: You must fill in the customer's last name or company name!</td>
+				</tr>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>5:12:19 PM</td>
+					<td class='step-details'>Validate Created customer =&gt; Actual result =&gt; [20250] 77EsZcy SDBdiu Frozen Account matched with expected result =&gt; 77EsZcy</td>
+				</tr>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>5:12:19 PM</td>
+					<td class='step-details'>Validate customer address=&gt; Actual result =&gt; 4500 W Eldorado Pkwy STE 3200 McKinney, TX 75070 matched with expected result =&gt; 4500 W Eldorado Pkwy STE 3200 McKinney, TX 75070</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+					</div>
+				</li>
+				
+				
+				<li class='test displayed active  pass' status='pass' bdd='false' test-id='6'>
+					<div class='test-heading'>
+						<span class='test-name'>Customer creation</span>
+						<span class='test-time'>Apr 5, 2020 05:13:46 PM</span>
+						<span class='test-status right pass'>pass</span>
+					</div>
+					<div class='test-content hide'>
+<div class='test-time-info'>
+	<span class='label start-time'>Apr 5, 2020 05:13:46 PM</span>
+	<span class='label end-time'>Apr 5, 2020 05:13:46 PM</span>
+	<span class='label time-taken grey lighten-1 white-text'>0h 0m 0s+0ms</span>
+</div>
+	<div class='test-steps'>
+		<table class='bordered table-results'>
+			<thead>
+				<tr>
+					<th>Status</th>
+					<th>Timestamp</th>
+					<th>Details</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>5:13:46 PM</td>
+					<td class='step-details'>Validate required field while creating customer =&gt; Actual result =&gt; Required: You must fill in the customer's last name or company name! matched with expected result =&gt; Required: You must fill in the customer's last name or company name!</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+					</div>
+				</li>
+				
+				
+				<li class='test displayed active  pass' status='pass' bdd='false' test-id='7'>
+					<div class='test-heading'>
+						<span class='test-name'>Customer creation</span>
+						<span class='test-time'>Apr 5, 2020 05:15:59 PM</span>
+						<span class='test-status right pass'>pass</span>
+					</div>
+					<div class='test-content hide'>
+<div class='test-time-info'>
+	<span class='label start-time'>Apr 5, 2020 05:15:59 PM</span>
+	<span class='label end-time'>Apr 5, 2020 05:15:59 PM</span>
+	<span class='label time-taken grey lighten-1 white-text'>0h 0m 0s+0ms</span>
+</div>
+	<div class='test-steps'>
+		<table class='bordered table-results'>
+			<thead>
+				<tr>
+					<th>Status</th>
+					<th>Timestamp</th>
+					<th>Details</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>5:15:59 PM</td>
+					<td class='step-details'>Validate required field while creating customer =&gt; Actual result =&gt; Required: You must fill in the customer's last name or company name! matched with expected result =&gt; Required: You must fill in the customer's last name or company name!</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+					</div>
+				</li>
+				
+				
+				<li class='test displayed active  pass' status='pass' bdd='false' test-id='8'>
+					<div class='test-heading'>
+						<span class='test-name'>Customer creation</span>
+						<span class='test-time'>Apr 5, 2020 05:16:53 PM</span>
+						<span class='test-status right pass'>pass</span>
+					</div>
+					<div class='test-content hide'>
+<div class='test-time-info'>
+	<span class='label start-time'>Apr 5, 2020 05:16:53 PM</span>
+	<span class='label end-time'>Apr 5, 2020 05:16:53 PM</span>
+	<span class='label time-taken grey lighten-1 white-text'>0h 0m 0s+0ms</span>
+</div>
+	<div class='test-steps'>
+		<table class='bordered table-results'>
+			<thead>
+				<tr>
+					<th>Status</th>
+					<th>Timestamp</th>
+					<th>Details</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>5:16:53 PM</td>
+					<td class='step-details'>Validate required field while creating customer =&gt; Actual result =&gt; Required: You must fill in the customer's last name or company name! matched with expected result =&gt; Required: You must fill in the customer's last name or company name!</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+					</div>
+				</li>
+				
+				
+				<li class='test displayed active  pass' status='pass' bdd='false' test-id='9'>
+					<div class='test-heading'>
+						<span class='test-name'>Customer creation</span>
+						<span class='test-time'>Apr 5, 2020 05:18:45 PM</span>
+						<span class='test-status right pass'>pass</span>
+					</div>
+					<div class='test-content hide'>
+<div class='test-time-info'>
+	<span class='label start-time'>Apr 5, 2020 05:18:45 PM</span>
+	<span class='label end-time'>Apr 5, 2020 05:18:50 PM</span>
+	<span class='label time-taken grey lighten-1 white-text'>0h 0m 5s+0ms</span>
+</div>
+	<div class='test-steps'>
+		<table class='bordered table-results'>
+			<thead>
+				<tr>
+					<th>Status</th>
+					<th>Timestamp</th>
+					<th>Details</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>5:18:45 PM</td>
+					<td class='step-details'>Validate required field while creating customer =&gt; Actual result =&gt; Required: You must fill in the customer's last name or company name! matched with expected result =&gt; Required: You must fill in the customer's last name or company name!</td>
+				</tr>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>5:18:50 PM</td>
+					<td class='step-details'>Validate Created customer name =&gt; Actual result =&gt; [20251] qIrjdMq WnminI Frozen Account matched with expected result =&gt; qIrjdMq</td>
+				</tr>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>5:18:50 PM</td>
+					<td class='step-details'>Validate Created customer address=&gt; Actual result =&gt; 4500 W Eldorado Pkwy STE 3200 McKinney, TX 75070 matched with expected result =&gt; 4500 W Eldorado Pkwy STE 3200 McKinney, TX 75070</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+					</div>
+				</li>
+				
+				
+				<li class='test displayed active  pass' status='pass' bdd='false' test-id='10'>
+					<div class='test-heading'>
+						<span class='test-name'>Customer creation</span>
+						<span class='test-time'>Apr 5, 2020 05:20:16 PM</span>
+						<span class='test-status right pass'>pass</span>
+					</div>
+					<div class='test-content hide'>
+<div class='test-time-info'>
+	<span class='label start-time'>Apr 5, 2020 05:20:16 PM</span>
+	<span class='label end-time'>Apr 5, 2020 05:20:19 PM</span>
+	<span class='label time-taken grey lighten-1 white-text'>0h 0m 3s+0ms</span>
+</div>
+	<div class='test-steps'>
+		<table class='bordered table-results'>
+			<thead>
+				<tr>
+					<th>Status</th>
+					<th>Timestamp</th>
+					<th>Details</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>5:20:16 PM</td>
+					<td class='step-details'>Validate required field while creating customer =&gt; Actual result =&gt; Required: You must fill in the customer's last name or company name! matched with expected result =&gt; Required: You must fill in the customer's last name or company name!</td>
+				</tr>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>5:20:19 PM</td>
+					<td class='step-details'>Validate Created customer name =&gt; Actual result =&gt; [20252] Cg9OS7Q UKP5vL Frozen Account matched with expected result =&gt; Cg9OS7Q</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+					</div>
+				</li>
+				
+				
+				<li class='test displayed active  pass' status='pass' bdd='false' test-id='11'>
+					<div class='test-heading'>
+						<span class='test-name'>Customer creation</span>
+						<span class='test-time'>Apr 5, 2020 07:02:23 PM</span>
+						<span class='test-status right pass'>pass</span>
+					</div>
+					<div class='test-content hide'>
+<div class='test-time-info'>
+	<span class='label start-time'>Apr 5, 2020 07:02:23 PM</span>
+	<span class='label end-time'>Apr 5, 2020 07:02:26 PM</span>
+	<span class='label time-taken grey lighten-1 white-text'>0h 0m 3s+0ms</span>
+</div>
+	<div class='test-steps'>
+		<table class='bordered table-results'>
+			<thead>
+				<tr>
+					<th>Status</th>
+					<th>Timestamp</th>
+					<th>Details</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>7:02:23 PM</td>
+					<td class='step-details'>Validate required field while creating customer =&gt; Actual result =&gt; Required: You must fill in the customer's last name or company name! matched with expected result =&gt; Required: You must fill in the customer's last name or company name!</td>
+				</tr>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>7:02:26 PM</td>
+					<td class='step-details'>Validate Created customer name =&gt; Actual result =&gt; [20253] e0GSAyg bl2aAs Frozen Account matched with expected result =&gt; e0GSAyg</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+					</div>
+				</li>
+				
+				
+				<li class='test displayed active  pass' status='pass' bdd='false' test-id='12'>
+					<div class='test-heading'>
+						<span class='test-name'>Customer creation</span>
+						<span class='test-time'>Apr 5, 2020 07:08:16 PM</span>
+						<span class='test-status right pass'>pass</span>
+					</div>
+					<div class='test-content hide'>
+<div class='test-time-info'>
+	<span class='label start-time'>Apr 5, 2020 07:08:16 PM</span>
+	<span class='label end-time'>Apr 5, 2020 07:08:20 PM</span>
+	<span class='label time-taken grey lighten-1 white-text'>0h 0m 4s+0ms</span>
+</div>
+	<div class='test-steps'>
+		<table class='bordered table-results'>
+			<thead>
+				<tr>
+					<th>Status</th>
+					<th>Timestamp</th>
+					<th>Details</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>7:08:16 PM</td>
+					<td class='step-details'>Validate required field while creating customer =&gt; Actual result =&gt; Required: You must fill in the customer's last name or company name! matched with expected result =&gt; Required: You must fill in the customer's last name or company name!</td>
+				</tr>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>7:08:20 PM</td>
+					<td class='step-details'>Validate Created customer name =&gt; Actual result =&gt; [20254] jzeybKe LZxOlw Frozen Account matched with expected result =&gt; jzeybKe</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+					</div>
+				</li>
+				
+				
+				<li class='test displayed active  pass' status='pass' bdd='false' test-id='13'>
+					<div class='test-heading'>
+						<span class='test-name'>Customer creation</span>
+						<span class='test-time'>Apr 5, 2020 07:55:46 PM</span>
+						<span class='test-status right pass'>pass</span>
+					</div>
+					<div class='test-content hide'>
+<div class='test-time-info'>
+	<span class='label start-time'>Apr 5, 2020 07:55:46 PM</span>
+	<span class='label end-time'>Apr 5, 2020 07:55:49 PM</span>
+	<span class='label time-taken grey lighten-1 white-text'>0h 0m 3s+0ms</span>
+</div>
+	<div class='test-steps'>
+		<table class='bordered table-results'>
+			<thead>
+				<tr>
+					<th>Status</th>
+					<th>Timestamp</th>
+					<th>Details</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>7:55:46 PM</td>
+					<td class='step-details'>Validate required field while creating customer =&gt; Actual result =&gt; Required: You must fill in the customer's last name or company name! matched with expected result =&gt; Required: You must fill in the customer's last name or company name!</td>
+				</tr>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>7:55:49 PM</td>
+					<td class='step-details'>Validate Created customer name =&gt; Actual result =&gt; [20255] tqTI4lF AKZQS8 Frozen Account matched with expected result =&gt; tqTI4lF</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+					</div>
+				</li>
+				
+				
+				<li class='test displayed active  pass' status='pass' bdd='false' test-id='14'>
+					<div class='test-heading'>
+						<span class='test-name'>Customer creation</span>
+						<span class='test-time'>Apr 6, 2020 08:02:07 AM</span>
+						<span class='test-status right pass'>pass</span>
+					</div>
+					<div class='test-content hide'>
+<div class='test-time-info'>
+	<span class='label start-time'>Apr 6, 2020 08:02:07 AM</span>
+	<span class='label end-time'>Apr 6, 2020 08:02:11 AM</span>
+	<span class='label time-taken grey lighten-1 white-text'>0h 0m 4s+0ms</span>
+</div>
+	<div class='test-steps'>
+		<table class='bordered table-results'>
+			<thead>
+				<tr>
+					<th>Status</th>
+					<th>Timestamp</th>
+					<th>Details</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>8:02:07 AM</td>
+					<td class='step-details'>Validate required field while creating customer =&gt; Actual result =&gt; Required: You must fill in the customer's last name or company name! matched with expected result =&gt; Required: You must fill in the customer's last name or company name!</td>
+				</tr>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>8:02:11 AM</td>
+					<td class='step-details'>Validate Created customer name =&gt; Actual result =&gt; [20256] 27FVzbd tu0CNL Frozen Account matched with expected result =&gt; 27FVzbd</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+					</div>
+				</li>
+				
+				
+				<li class='test displayed active  pass' status='pass' bdd='false' test-id='15'>
+					<div class='test-heading'>
+						<span class='test-name'>Customer creation</span>
+						<span class='test-time'>Apr 6, 2020 08:12:25 AM</span>
+						<span class='test-status right pass'>pass</span>
+					</div>
+					<div class='test-content hide'>
+<div class='test-time-info'>
+	<span class='label start-time'>Apr 6, 2020 08:12:25 AM</span>
+	<span class='label end-time'>Apr 6, 2020 08:12:28 AM</span>
+	<span class='label time-taken grey lighten-1 white-text'>0h 0m 3s+0ms</span>
+</div>
+	<div class='test-steps'>
+		<table class='bordered table-results'>
+			<thead>
+				<tr>
+					<th>Status</th>
+					<th>Timestamp</th>
+					<th>Details</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>8:12:25 AM</td>
+					<td class='step-details'>Validate required field while creating customer =&gt; Actual result =&gt; Required: You must fill in the customer's last name or company name! matched with expected result =&gt; Required: You must fill in the customer's last name or company name!</td>
+				</tr>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>8:12:28 AM</td>
+					<td class='step-details'>Validate Created customer name =&gt; Actual result =&gt; [20257] HoY7gIV hbLTKM Frozen Account matched with expected result =&gt; HoY7gIV</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+					</div>
+				</li>
+				
+				
+				<li class='test displayed active  pass' status='pass' bdd='false' test-id='16'>
+					<div class='test-heading'>
+						<span class='test-name'>Customer creation</span>
+						<span class='test-time'>Apr 6, 2020 08:22:27 AM</span>
+						<span class='test-status right pass'>pass</span>
+					</div>
+					<div class='test-content hide'>
+<div class='test-time-info'>
+	<span class='label start-time'>Apr 6, 2020 08:22:27 AM</span>
+	<span class='label end-time'>Apr 6, 2020 08:22:36 AM</span>
+	<span class='label time-taken grey lighten-1 white-text'>0h 0m 9s+0ms</span>
+</div>
+	<div class='test-steps'>
+		<table class='bordered table-results'>
+			<thead>
+				<tr>
+					<th>Status</th>
+					<th>Timestamp</th>
+					<th>Details</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>8:22:27 AM</td>
+					<td class='step-details'>Validate required field while creating customer =&gt; Actual result =&gt; Required: You must fill in the customer's last name or company name! matched with expected result =&gt; Required: You must fill in the customer's last name or company name!</td>
+				</tr>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>8:22:30 AM</td>
+					<td class='step-details'>Validate Created customer name =&gt; Actual result =&gt; [20258] YBCVcuX vFQ2x9 Frozen Account matched with expected result =&gt; YBCVcuX</td>
+				</tr>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>8:22:31 AM</td>
+					<td class='step-details'>Validate required field while creating customer =&gt; Actual result =&gt; Required: You must fill in the customer's last name or company name! matched with expected result =&gt; Required: You must fill in the customer's last name or company name!</td>
+				</tr>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>8:22:36 AM</td>
+					<td class='step-details'>Validate Created customer name =&gt; Actual result =&gt; [20259] avvDGzl qYHDWj Frozen Account matched with expected result =&gt; avvDGzl</td>
+				</tr>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>8:22:36 AM</td>
+					<td class='step-details'>Validate Created customer address=&gt; Actual result =&gt; 4500 W Eldorado Pkwy STE 3200 McKinney, TX 75070 matched with expected result =&gt; 4500 W Eldorado Pkwy STE 3200 McKinney, TX 75070</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+					</div>
+				</li>
+				
+				
+				<li class='test displayed active  pass' status='pass' bdd='false' test-id='17'>
+					<div class='test-heading'>
+						<span class='test-name'>Customer creation</span>
+						<span class='test-time'>Apr 6, 2020 08:32:09 AM</span>
+						<span class='test-status right pass'>pass</span>
+					</div>
+					<div class='test-content hide'>
+<div class='test-time-info'>
+	<span class='label start-time'>Apr 6, 2020 08:32:09 AM</span>
+	<span class='label end-time'>Apr 6, 2020 08:32:20 AM</span>
+	<span class='label time-taken grey lighten-1 white-text'>0h 0m 11s+0ms</span>
+</div>
+	<div class='test-steps'>
+		<table class='bordered table-results'>
+			<thead>
+				<tr>
+					<th>Status</th>
+					<th>Timestamp</th>
+					<th>Details</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>8:32:09 AM</td>
+					<td class='step-details'>Validate required field while creating customer =&gt; Actual result =&gt; Required: You must fill in the customer's last name or company name! matched with expected result =&gt; Required: You must fill in the customer's last name or company name!</td>
+				</tr>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>8:32:12 AM</td>
+					<td class='step-details'>Validate Created customer name =&gt; Actual result =&gt; [20260] Y8w2N8i CQM44M Frozen Account matched with expected result =&gt; Y8w2N8i</td>
+				</tr>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>8:32:14 AM</td>
+					<td class='step-details'>Validate required field while creating customer =&gt; Actual result =&gt; Required: You must fill in the customer's last name or company name! matched with expected result =&gt; Required: You must fill in the customer's last name or company name!</td>
+				</tr>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>8:32:20 AM</td>
+					<td class='step-details'>Validate Created customer name =&gt; Actual result =&gt; [20261] k9YYaeb Fo3W5k Frozen Account matched with expected result =&gt; k9YYaeb</td>
+				</tr>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>8:32:20 AM</td>
+					<td class='step-details'>Validate Created customer address=&gt; Actual result =&gt; 4500 W Eldorado Pkwy STE 3200 McKinney, TX 75070 matched with expected result =&gt; 4500 W Eldorado Pkwy STE 3200 McKinney, TX 75070</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+					</div>
+				</li>
+				
+				
+				<li class='test displayed active  fail' status='fail' bdd='false' test-id='18'>
+					<div class='test-heading'>
+						<span class='test-name'>Subscription</span>
+						<span class='test-time'>Apr 6, 2020 09:09:19 AM</span>
+						<span class='test-status right fail'>fail</span>
+					</div>
+					<div class='test-content hide'>
+<div class='test-time-info'>
+	<span class='label start-time'>Apr 6, 2020 09:09:19 AM</span>
+	<span class='label end-time'>Apr 6, 2020 09:09:23 AM</span>
+	<span class='label time-taken grey lighten-1 white-text'>0h 0m 4s+0ms</span>
+</div>
+	<div class='test-steps'>
+		<table class='bordered table-results'>
+			<thead>
+				<tr>
+					<th>Status</th>
+					<th>Timestamp</th>
+					<th>Details</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>9:09:19 AM</td>
+					<td class='step-details'>Validate Monday first slot=&gt; Actual result =&gt; 2/1/20 matched with expected result =&gt; 2/1/20</td>
+				</tr>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>9:09:19 AM</td>
+					<td class='step-details'>Validate Monday 2nd slot=&gt; Actual result =&gt; 3/2/20 matched with expected result =&gt; 3/2/20</td>
+				</tr>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>9:09:19 AM</td>
+					<td class='step-details'>Validate Monday 3rd slot=&gt; Actual result =&gt; 5/4/20 matched with expected result =&gt; 5/4/20</td>
+				</tr>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>9:09:19 AM</td>
+					<td class='step-details'>Validate Monday 4th slot=&gt; Actual result =&gt; 7/6/20 matched with expected result =&gt; 7/6/20</td>
+				</tr>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>9:09:19 AM</td>
+					<td class='step-details'>Validate Monday 5th slot=&gt; Actual result =&gt; 9/7/20 matched with expected result =&gt; 9/7/20</td>
+				</tr>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>9:09:19 AM</td>
+					<td class='step-details'>Validate Monday6th slot=&gt; Actual result =&gt; 11/9/20 matched with expected result =&gt; 11/9/20</td>
+				</tr>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>9:09:19 AM</td>
+					<td class='step-details'>Validate Monday 7th slot=&gt; Actual result =&gt; 1/11/21 matched with expected result =&gt; 1/11/21</td>
+				</tr>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>9:09:20 AM</td>
+					<td class='step-details'>Validate Tuesday first slot=&gt; Actual result =&gt; 2/1/20 matched with expected result =&gt; 2/1/20</td>
+				</tr>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>9:09:20 AM</td>
+					<td class='step-details'>Validate Tuesday 2nd slot=&gt; Actual result =&gt; 3/3/20 matched with expected result =&gt; 3/3/20</td>
+				</tr>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>9:09:20 AM</td>
+					<td class='step-details'>Validate Tuesday 3rd slot=&gt; Actual result =&gt; 5/5/20 matched with expected result =&gt; 5/5/20</td>
+				</tr>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>9:09:20 AM</td>
+					<td class='step-details'>Validate Tuesday 4th slot=&gt; Actual result =&gt; 7/7/20 matched with expected result =&gt; 7/7/20</td>
+				</tr>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>9:09:20 AM</td>
+					<td class='step-details'>Validate Tuesday 5th slot=&gt; Actual result =&gt; 9/8/20 matched with expected result =&gt; 9/8/20</td>
+				</tr>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>9:09:20 AM</td>
+					<td class='step-details'>Validate Tuesday6th slot=&gt; Actual result =&gt; 11/10/20 matched with expected result =&gt; 11/10/20</td>
+				</tr>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>9:09:20 AM</td>
+					<td class='step-details'>Validate Tuesday 7th slot=&gt; Actual result =&gt; 1/12/21 matched with expected result =&gt; 1/12/21</td>
+				</tr>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>9:09:21 AM</td>
+					<td class='step-details'>Validate Wednesday first slot=&gt; Actual result =&gt; 2/1/20 matched with expected result =&gt; 2/1/20</td>
+				</tr>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>9:09:21 AM</td>
+					<td class='step-details'>Validate Wednesday 2nd slot=&gt; Actual result =&gt; 3/4/20 matched with expected result =&gt; 3/4/20</td>
+				</tr>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>9:09:21 AM</td>
+					<td class='step-details'>Validate Wednesday 3rd slot=&gt; Actual result =&gt; 5/6/20 matched with expected result =&gt; 5/6/20</td>
+				</tr>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>9:09:21 AM</td>
+					<td class='step-details'>Validate Wednesday 4th slot=&gt; Actual result =&gt; 7/8/20 matched with expected result =&gt; 7/8/20</td>
+				</tr>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>9:09:21 AM</td>
+					<td class='step-details'>Validate Wednesday 5th slot=&gt; Actual result =&gt; 9/9/20 matched with expected result =&gt; 9/9/20</td>
+				</tr>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>9:09:21 AM</td>
+					<td class='step-details'>Validate Wednesday6th slot=&gt; Actual result =&gt; 11/11/20 matched with expected result =&gt; 11/11/20</td>
+				</tr>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>9:09:21 AM</td>
+					<td class='step-details'>Validate Wednesday 7th slot=&gt; Actual result =&gt; 1/13/21 matched with expected result =&gt; 1/13/21</td>
+				</tr>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>9:09:21 AM</td>
+					<td class='step-details'>Validate Thursday first slot=&gt; Actual result =&gt; 2/1/20 matched with expected result =&gt; 2/1/20</td>
+				</tr>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>9:09:21 AM</td>
+					<td class='step-details'>Validate Thursday 2nd slot=&gt; Actual result =&gt; 2/27/20 matched with expected result =&gt; 2/27/20</td>
+				</tr>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>9:09:21 AM</td>
+					<td class='step-details'>Validate Thursday 3rd slot=&gt; Actual result =&gt; 4/30/20 matched with expected result =&gt; 4/30/20</td>
+				</tr>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>9:09:21 AM</td>
+					<td class='step-details'>Validate Thursday 4th slot=&gt; Actual result =&gt; 7/2/20 matched with expected result =&gt; 7/2/20</td>
+				</tr>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>9:09:21 AM</td>
+					<td class='step-details'>Validate Thursday 5th slot=&gt; Actual result =&gt; 9/3/20 matched with expected result =&gt; 9/3/20</td>
+				</tr>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>9:09:21 AM</td>
+					<td class='step-details'>Validate Thursday6th slot=&gt; Actual result =&gt; 11/5/20 matched with expected result =&gt; 11/5/20</td>
+				</tr>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>9:09:21 AM</td>
+					<td class='step-details'>Validate Thursday 7th slot=&gt; Actual result =&gt; 1/7/21 matched with expected result =&gt; 1/7/21</td>
+				</tr>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>9:09:22 AM</td>
+					<td class='step-details'>Validate Friday first slot=&gt; Actual result =&gt; 2/1/20 matched with expected result =&gt; 2/1/20</td>
+				</tr>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>9:09:22 AM</td>
+					<td class='step-details'>Validate Friday 2nd slot=&gt; Actual result =&gt; 2/28/20 matched with expected result =&gt; 2/28/20</td>
+				</tr>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>9:09:22 AM</td>
+					<td class='step-details'>Validate Friday 3rd slot=&gt; Actual result =&gt; 5/1/20 matched with expected result =&gt; 5/1/20</td>
+				</tr>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>9:09:22 AM</td>
+					<td class='step-details'>Validate Friday 4th slot=&gt; Actual result =&gt; 7/3/20 matched with expected result =&gt; 7/3/20</td>
+				</tr>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>9:09:22 AM</td>
+					<td class='step-details'>Validate Friday 5th slot=&gt; Actual result =&gt; 9/4/20 matched with expected result =&gt; 9/4/20</td>
+				</tr>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>9:09:22 AM</td>
+					<td class='step-details'>Validate Friday6th slot=&gt; Actual result =&gt; 11/6/20 matched with expected result =&gt; 11/6/20</td>
+				</tr>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>9:09:22 AM</td>
+					<td class='step-details'>Validate Friday 7th slot=&gt; Actual result =&gt; 1/8/21 matched with expected result =&gt; 1/8/21</td>
+				</tr>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>9:09:22 AM</td>
+					<td class='step-details'>Validate Saturday first slot=&gt; Actual result =&gt; 2/1/20 matched with expected result =&gt; 2/1/20</td>
+				</tr>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>9:09:22 AM</td>
+					<td class='step-details'>Validate Saturday 2nd slot=&gt; Actual result =&gt; 2/29/20 matched with expected result =&gt; 2/29/20</td>
+				</tr>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>9:09:22 AM</td>
+					<td class='step-details'>Validate Saturday 3rd slot=&gt; Actual result =&gt; 5/2/20 matched with expected result =&gt; 5/2/20</td>
+				</tr>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>9:09:22 AM</td>
+					<td class='step-details'>Validate Saturday 4th slot=&gt; Actual result =&gt; 7/4/20 matched with expected result =&gt; 7/4/20</td>
+				</tr>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>9:09:22 AM</td>
+					<td class='step-details'>Validate Saturday 5th slot=&gt; Actual result =&gt; 9/5/20 matched with expected result =&gt; 9/5/20</td>
+				</tr>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>9:09:22 AM</td>
+					<td class='step-details'>Validate Saturday6th slot=&gt; Actual result =&gt; 11/7/20 matched with expected result =&gt; 11/7/20</td>
+				</tr>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>9:09:22 AM</td>
+					<td class='step-details'>Validate Saturday 7th slot=&gt; Actual result =&gt; 1/9/21 matched with expected result =&gt; 1/9/21</td>
+				</tr>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>9:09:23 AM</td>
+					<td class='step-details'>Validate Sunday first slot=&gt; Actual result =&gt; 2/1/20 matched with expected result =&gt; 2/1/20</td>
+				</tr>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>9:09:23 AM</td>
+					<td class='step-details'>Validate Sunday 2nd slot=&gt; Actual result =&gt; 3/1/20 matched with expected result =&gt; 3/1/20</td>
+				</tr>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>9:09:23 AM</td>
+					<td class='step-details'>Validate Sunday 3rd slot=&gt; Actual result =&gt; 5/3/20 matched with expected result =&gt; 5/3/20</td>
+				</tr>
+				<tr class='log' status='fail'>
+					<td class='status fail' title='fail' alt='fail'><i class='material-icons'>cancel</i></td>
+					<td class='timestamp'>9:09:23 AM</td>
+					<td class='step-details'>Validate Sunday 4th slot=&gt; Actual result =&gt; 7/5/20 did not match with expected result =&gt; 6/28/20</td>
+				</tr>
+				<tr class='log' status='fail'>
+					<td class='status fail' title='fail' alt='fail'><i class='material-icons'>cancel</i></td>
+					<td class='timestamp'>9:09:23 AM</td>
+					<td class='step-details'>Validate Sunday 5th slot=&gt; Actual result =&gt; 9/6/20 did not match with expected result =&gt; 8/30/20</td>
+				</tr>
+				<tr class='log' status='fail'>
+					<td class='status fail' title='fail' alt='fail'><i class='material-icons'>cancel</i></td>
+					<td class='timestamp'>9:09:23 AM</td>
+					<td class='step-details'>Validate Sunday6th slot=&gt; Actual result =&gt; 11/8/20 did not match with expected result =&gt; 11/1/20</td>
+				</tr>
+				<tr class='log' status='fail'>
+					<td class='status fail' title='fail' alt='fail'><i class='material-icons'>cancel</i></td>
+					<td class='timestamp'>9:09:23 AM</td>
+					<td class='step-details'>Validate Sunday 7th slot=&gt; Actual result =&gt; 1/10/21 did not match with expected result =&gt; 1/3/21</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+					</div>
+				</li>
+				
+				
+				<li class='test displayed active  fail' status='fail' bdd='false' test-id='19'>
+					<div class='test-heading'>
+						<span class='test-name'>Subscription</span>
+						<span class='test-time'>Apr 6, 2020 01:07:59 PM</span>
+						<span class='test-status right fail'>fail</span>
+					</div>
+					<div class='test-content hide'>
+<div class='test-time-info'>
+	<span class='label start-time'>Apr 6, 2020 01:07:59 PM</span>
+	<span class='label end-time'>Apr 6, 2020 01:08:02 PM</span>
+	<span class='label time-taken grey lighten-1 white-text'>0h 0m 3s+111ms</span>
+</div>
+	<div class='test-steps'>
+		<table class='bordered table-results'>
+			<thead>
+				<tr>
+					<th>Status</th>
+					<th>Timestamp</th>
+					<th>Details</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>1:07:59 PM</td>
+					<td class='step-details'>Validate Monday first slot=> Actual result  => 2/1/20 matched with expected result  => 2/1/20</td>
+				</tr>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>1:07:59 PM</td>
+					<td class='step-details'>Validate Monday 2nd slot=> Actual result  => 3/2/20 matched with expected result  => 3/2/20</td>
+				</tr>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>1:07:59 PM</td>
+					<td class='step-details'>Validate Monday 3rd slot=> Actual result  => 5/4/20 matched with expected result  => 5/4/20</td>
+				</tr>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>1:07:59 PM</td>
+					<td class='step-details'>Validate Monday 4th slot=> Actual result  => 7/6/20 matched with expected result  => 7/6/20</td>
+				</tr>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>1:07:59 PM</td>
+					<td class='step-details'>Validate Monday 5th slot=> Actual result  => 9/7/20 matched with expected result  => 9/7/20</td>
+				</tr>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>1:07:59 PM</td>
+					<td class='step-details'>Validate Monday6th slot=> Actual result  => 11/9/20 matched with expected result  => 11/9/20</td>
+				</tr>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>1:07:59 PM</td>
+					<td class='step-details'>Validate Monday 7th slot=> Actual result  => 1/11/21 matched with expected result  => 1/11/21</td>
+				</tr>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>1:08:00 PM</td>
+					<td class='step-details'>Validate Tuesday first slot=> Actual result  => 2/1/20 matched with expected result  => 2/1/20</td>
+				</tr>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>1:08:00 PM</td>
+					<td class='step-details'>Validate Tuesday 2nd slot=> Actual result  => 3/3/20 matched with expected result  => 3/3/20</td>
+				</tr>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>1:08:00 PM</td>
+					<td class='step-details'>Validate Tuesday 3rd slot=> Actual result  => 5/5/20 matched with expected result  => 5/5/20</td>
+				</tr>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>1:08:00 PM</td>
+					<td class='step-details'>Validate Tuesday 4th slot=> Actual result  => 7/7/20 matched with expected result  => 7/7/20</td>
+				</tr>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>1:08:00 PM</td>
+					<td class='step-details'>Validate Tuesday 5th slot=> Actual result  => 9/8/20 matched with expected result  => 9/8/20</td>
+				</tr>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>1:08:00 PM</td>
+					<td class='step-details'>Validate Tuesday6th slot=> Actual result  => 11/10/20 matched with expected result  => 11/10/20</td>
+				</tr>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>1:08:00 PM</td>
+					<td class='step-details'>Validate Tuesday 7th slot=> Actual result  => 1/12/21 matched with expected result  => 1/12/21</td>
+				</tr>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>1:08:00 PM</td>
+					<td class='step-details'>Validate Wednesday first slot=> Actual result  => 2/1/20 matched with expected result  => 2/1/20</td>
+				</tr>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>1:08:00 PM</td>
+					<td class='step-details'>Validate Wednesday 2nd slot=> Actual result  => 3/4/20 matched with expected result  => 3/4/20</td>
+				</tr>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>1:08:00 PM</td>
+					<td class='step-details'>Validate Wednesday 3rd slot=> Actual result  => 5/6/20 matched with expected result  => 5/6/20</td>
+				</tr>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>1:08:00 PM</td>
+					<td class='step-details'>Validate Wednesday 4th slot=> Actual result  => 7/8/20 matched with expected result  => 7/8/20</td>
+				</tr>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>1:08:00 PM</td>
+					<td class='step-details'>Validate Wednesday 5th slot=> Actual result  => 9/9/20 matched with expected result  => 9/9/20</td>
+				</tr>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>1:08:00 PM</td>
+					<td class='step-details'>Validate Wednesday6th slot=> Actual result  => 11/11/20 matched with expected result  => 11/11/20</td>
+				</tr>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>1:08:00 PM</td>
+					<td class='step-details'>Validate Wednesday 7th slot=> Actual result  => 1/13/21 matched with expected result  => 1/13/21</td>
+				</tr>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>1:08:01 PM</td>
+					<td class='step-details'>Validate Thursday first slot=> Actual result  => 2/1/20 matched with expected result  => 2/1/20</td>
+				</tr>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>1:08:01 PM</td>
+					<td class='step-details'>Validate Thursday 2nd slot=> Actual result  => 2/27/20 matched with expected result  => 2/27/20</td>
+				</tr>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>1:08:01 PM</td>
+					<td class='step-details'>Validate Thursday 3rd slot=> Actual result  => 4/30/20 matched with expected result  => 4/30/20</td>
+				</tr>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>1:08:01 PM</td>
+					<td class='step-details'>Validate Thursday 4th slot=> Actual result  => 7/2/20 matched with expected result  => 7/2/20</td>
+				</tr>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>1:08:01 PM</td>
+					<td class='step-details'>Validate Thursday 5th slot=> Actual result  => 9/3/20 matched with expected result  => 9/3/20</td>
+				</tr>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>1:08:01 PM</td>
+					<td class='step-details'>Validate Thursday6th slot=> Actual result  => 11/5/20 matched with expected result  => 11/5/20</td>
+				</tr>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>1:08:01 PM</td>
+					<td class='step-details'>Validate Thursday 7th slot=> Actual result  => 1/7/21 matched with expected result  => 1/7/21</td>
+				</tr>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>1:08:01 PM</td>
+					<td class='step-details'>Validate Friday first slot=> Actual result  => 2/1/20 matched with expected result  => 2/1/20</td>
+				</tr>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>1:08:01 PM</td>
+					<td class='step-details'>Validate Friday 2nd slot=> Actual result  => 2/28/20 matched with expected result  => 2/28/20</td>
+				</tr>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>1:08:01 PM</td>
+					<td class='step-details'>Validate Friday 3rd slot=> Actual result  => 5/1/20 matched with expected result  => 5/1/20</td>
+				</tr>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>1:08:01 PM</td>
+					<td class='step-details'>Validate Friday 4th slot=> Actual result  => 7/3/20 matched with expected result  => 7/3/20</td>
+				</tr>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>1:08:01 PM</td>
+					<td class='step-details'>Validate Friday 5th slot=> Actual result  => 9/4/20 matched with expected result  => 9/4/20</td>
+				</tr>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>1:08:01 PM</td>
+					<td class='step-details'>Validate Friday6th slot=> Actual result  => 11/6/20 matched with expected result  => 11/6/20</td>
+				</tr>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>1:08:01 PM</td>
+					<td class='step-details'>Validate Friday 7th slot=> Actual result  => 1/8/21 matched with expected result  => 1/8/21</td>
+				</tr>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>1:08:02 PM</td>
+					<td class='step-details'>Validate Saturday first slot=> Actual result  => 2/1/20 matched with expected result  => 2/1/20</td>
+				</tr>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>1:08:02 PM</td>
+					<td class='step-details'>Validate Saturday 2nd slot=> Actual result  => 2/29/20 matched with expected result  => 2/29/20</td>
+				</tr>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>1:08:02 PM</td>
+					<td class='step-details'>Validate Saturday 3rd slot=> Actual result  => 5/2/20 matched with expected result  => 5/2/20</td>
+				</tr>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>1:08:02 PM</td>
+					<td class='step-details'>Validate Saturday 4th slot=> Actual result  => 7/4/20 matched with expected result  => 7/4/20</td>
+				</tr>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>1:08:02 PM</td>
+					<td class='step-details'>Validate Saturday 5th slot=> Actual result  => 9/5/20 matched with expected result  => 9/5/20</td>
+				</tr>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>1:08:02 PM</td>
+					<td class='step-details'>Validate Saturday6th slot=> Actual result  => 11/7/20 matched with expected result  => 11/7/20</td>
+				</tr>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>1:08:02 PM</td>
+					<td class='step-details'>Validate Saturday 7th slot=> Actual result  => 1/9/21 matched with expected result  => 1/9/21</td>
+				</tr>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>1:08:02 PM</td>
+					<td class='step-details'>Validate Sunday first slot=> Actual result  => 2/1/20 matched with expected result  => 2/1/20</td>
+				</tr>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>1:08:02 PM</td>
+					<td class='step-details'>Validate Sunday 2nd slot=> Actual result  => 3/1/20 matched with expected result  => 3/1/20</td>
+				</tr>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>1:08:02 PM</td>
+					<td class='step-details'>Validate Sunday 3rd slot=> Actual result  => 5/3/20 matched with expected result  => 5/3/20</td>
+				</tr>
+				<tr class='log' status='fail'>
+					<td class='status fail' title='fail' alt='fail'><i class='material-icons'>cancel</i></td>
+					<td class='timestamp'>1:08:02 PM</td>
+					<td class='step-details'>Validate Sunday 4th slot=> Actual result  => 7/5/20 did not match with expected result  => 6/28/20</td>
+				</tr>
+				<tr class='log' status='fail'>
+					<td class='status fail' title='fail' alt='fail'><i class='material-icons'>cancel</i></td>
+					<td class='timestamp'>1:08:02 PM</td>
+					<td class='step-details'>Validate Sunday 5th slot=> Actual result  => 9/6/20 did not match with expected result  => 8/30/20</td>
+				</tr>
+				<tr class='log' status='fail'>
+					<td class='status fail' title='fail' alt='fail'><i class='material-icons'>cancel</i></td>
+					<td class='timestamp'>1:08:02 PM</td>
+					<td class='step-details'>Validate Sunday6th slot=> Actual result  => 11/8/20 did not match with expected result  => 11/1/20</td>
+				</tr>
+				<tr class='log' status='fail'>
+					<td class='status fail' title='fail' alt='fail'><i class='material-icons'>cancel</i></td>
+					<td class='timestamp'>1:08:02 PM</td>
+					<td class='step-details'>Validate Sunday 7th slot=> Actual result  => 1/10/21 did not match with expected result  => 1/3/21</td>
 				</tr>
 			</tbody>
 		</table>
@@ -536,31 +1415,31 @@
 			<div class='col s2'>
 				<div class='card-panel r'>
 					Tests
-					<div class='panel-lead'>2</div>
+					<div class='panel-lead'>19</div>
 				</div>
 			</div>
 			<div class='col s2'>
 				<div class='card-panel r'>
 					Steps
-					<div class='panel-lead'>58</div>
+					<div class='panel-lead'>135</div>
 				</div>
 			</div>
 			<div class='col s2'>
 				<div class='card-panel r'>
 					Start
-					<div class='panel-lead'>Mar 26, 2020 02:34:58 PM</div>
+					<div class='panel-lead'>Apr 6, 2020 01:07:59 PM</div>
 				</div>
 			</div>
 			<div class='col s2'>
 				<div class='card-panel r'>
 			 		End
-			 		<div class='panel-lead'>Mar 26, 2020 02:35:02 PM</div>
+			 		<div class='panel-lead'>Apr 6, 2020 01:08:35 PM</div>
 				</div>
 			</div>
 			<div class='col s2'>
 				<div class='card-panel r'>
 					Time Taken
-					<div class='panel-lead'>0h 0m 3s+893ms</div>
+					<div class='panel-lead'>0h 0m 35s+516ms</div>
 				</div>
 			</div>
 		</div>
@@ -573,22 +1452,22 @@
 
 		<script>
 			var statusGroup = {
-				passParent: 1,
-				failParent: 1,
+				passParent: 16,
+				failParent: 3,
 				fatalParent: 0,
 				errorParent: 0,
 				warningParent: 0,
 				skipParent: 0,
-				exceptionsParent: 1,
+				exceptionsParent: 3,
 				
-				passChild: 54,
-				failChild: 4,
+				passChild: 126,
+				failChild: 9,
 				fatalChild: 0,
 				errorChild: 0,
 				warningChild: 0,
 				skipChild: 0,
 				infoChild: 0,
-				exceptionsChild: 4,
+				exceptionsChild: 9,
 				
 				passGrandChild: 0,
 				failGrandChild: 0,
