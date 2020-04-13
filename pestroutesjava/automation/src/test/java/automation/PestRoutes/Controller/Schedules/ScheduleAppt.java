@@ -15,6 +15,7 @@ import automation.PestRoutes.Utilities.Reporter;
 import automation.PestRoutes.Utilities.Utilities;
 import java.io.IOException;
 import java.util.List;
+import static org.testng.Assert.assertTrue;
 
 public class ScheduleAppt extends BaseClass {
 	public String routes = "//div[@class = 'route actualRoute route1 ']";
