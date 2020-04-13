@@ -9,6 +9,7 @@ import automation.PestRoutes.PageObject.Admin.OfficeSettings.Actions;
 import automation.PestRoutes.PageObject.Admin.OfficeSettings.TriggerRules;
 import automation.PestRoutes.PageObject.Admin.OfficeSettings.TriggerTypes.ARTab;
 import automation.PestRoutes.PageObject.Admin.OfficeSettings.TriggerTypes.RenewalTab;
+import automation.PestRoutes.PageObject.Admin.OfficeSettings.TriggerTypes.SubscriptionDueForServiceTab;
 import automation.PestRoutes.PageObject.Admin.OfficeSettings.TriggerTypes.SubscriptionStatusTab;
 import automation.PestRoutes.Utilities.AssertException;
 import automation.PestRoutes.Utilities.BaseClass;
@@ -31,7 +32,7 @@ public class Trigger_SubscriptionDueForService extends BaseClass {
 	private String days_before_afterDueDate_InputField_Value = Double.toString(Utilities.generateRandomInteger(1));
 
 	@Test
-	public void createSubscriptionStatus() throws Exception {
+	public void createSubscriptionDueForService() throws Exception {
 		createTrigger_SubscriptionDueForService();
 		searchTrigger_subscriptionDueForService();
 		SMSAction_SubscriptionDueForService();

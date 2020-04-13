@@ -31,7 +31,7 @@ public class Trigger_AppointmentStatus extends BaseClass {
 	private String phoneNumber = "9999999999";
 
 	@Test
-	public void createAppointmentStatus() throws InterruptedException, Exception {
+	public void createAppointmentStatusRule() throws InterruptedException, Exception {
 		createTrigger_AppointmentStatus();
 		searchTrigger_appointmentStatus();
 		SMSAction_AppointmentStatus();

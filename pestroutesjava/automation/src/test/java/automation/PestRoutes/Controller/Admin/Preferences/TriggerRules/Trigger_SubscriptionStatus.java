@@ -29,7 +29,7 @@ public class Trigger_SubscriptionStatus extends BaseClass {
 	private String phoneNumber = "9999999999";
 
 	@Test
-	public void createSubscriptionStatus() throws InterruptedException, Exception {
+	public void createSubscriptionStatusRule() throws InterruptedException, Exception {
 		createTrigger_SubscriptionStatus();
 		searchTrigger_subscriptionStatus();
 		SMSAction_SubscriptionStatus();

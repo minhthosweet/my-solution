@@ -30,7 +30,7 @@ public class Trigger_CustomerStatus extends BaseClass {
 	public List list = new ArrayList<String>();
 
 	@Test
-	public void createRenewalRule() throws Exception {
+	public void createCustomerStatusRule() throws Exception {
 		createTrigger_CustomerStatus();
 		searchTrigger_appointmentStatus();
 		SMSAction_CustomerStatus();
