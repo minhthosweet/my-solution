@@ -37,7 +37,6 @@ public class CreateNewCustomer extends BaseClass {
 	String streetAddress = "4500 W Eldorado Pkwy STE 3200";
 	String city = "McKinney";
 	String zipcode = "75070";
-	public String phoneNumber = "(660)853-7186";
 
 	@Test
 	public void createCustomer() throws Exception {
@@ -82,7 +81,7 @@ public class CreateNewCustomer extends BaseClass {
 		customer.setAddress(streetAddress);
 		customer.setZipCode(zipcode);
 		customer.setCity(city);
-		customer.setCellPhone(phoneNumber);
+		customer.setCellPhone(getData("phoneNumber",generalData));
 		customer.clickSmsCheckBox();
 		dialog.ClickSaveButton();
 		alertCondition();
@@ -100,7 +99,7 @@ public class CreateNewCustomer extends BaseClass {
 		customer.setFirstName(fName);
 		customer.setLastName(lName);
 		customer.selectUnit("Multi Unit");
-		customer.setCellPhone(phoneNumber);
+		customer.setCellPhone(getData("phoneNumber",generalData));
 		customer.clickSmsCheckBox();
 		dialog.ClickSaveButton();
 		captureUserIdAndFullName();

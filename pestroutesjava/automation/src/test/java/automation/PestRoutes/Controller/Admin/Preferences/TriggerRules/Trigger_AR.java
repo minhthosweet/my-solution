@@ -59,6 +59,7 @@ public class Trigger_AR extends BaseClass {
 		sendToARMAction_AR();
 		searchTrigger_AR();
 		assertActions_Reminder();
+		validateIfFailureExist();
 	}
 
 	// Create AR Trigger
@@ -207,5 +208,9 @@ public class Trigger_AR extends BaseClass {
 			list.add(AssertException.result(expected, actual, stepName));
 		}
 		Reporter.status(stepName, expected, actual, testName);
+	}
+
+	public void validateIfFailureExist() {
+		AssertException.asserFailure(list);
 	}
 }

@@ -49,6 +49,7 @@ public class Trigger_Renewal extends BaseClass {
 		webhookAction_Renewal();
 		searchTrigger_Renewal();
 		assertActions_Renewal();
+		validateIfFailureExist();
 	}
 
 	// Create Renewal Trigger
@@ -156,5 +157,9 @@ public class Trigger_Renewal extends BaseClass {
 			list.add(AssertException.result(expected, actual, stepName));
 		}
 		Reporter.status(stepName, expected, actual, testName);
+	}
+
+	public void validateIfFailureExist() {
+		AssertException.asserFailure(list);
 	}
 }

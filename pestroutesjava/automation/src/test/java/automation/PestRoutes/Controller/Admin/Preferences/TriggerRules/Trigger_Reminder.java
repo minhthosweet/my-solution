@@ -67,7 +67,7 @@ public class Trigger_Reminder extends BaseClass {
 		scheduleAppointments();
 		hitTriggerReminderQuery_daysBefore();
 		assertLog();
-
+		validateIfFailureExist();
 	}
 
 	// Create Reminder Trigger
@@ -211,14 +211,13 @@ public class Trigger_Reminder extends BaseClass {
 	public void assertLog() throws IOException, Exception {
 		header = new Header();
 		reminder = new ReminderTab();
-		createCustomer = new CreateNewCustomer();
 		header.Search_A_Customer(getData("userID", generalData));
 		overviewHeader = new CustomerViewDialog_Header();
 		overviewHeader.NavigateTo(overviewHeader.notesTabInDialog);
 		result(editAlertNote_Text, reminder.getAlertText_Notes(), "Edit Note Alert", "Reminder Trigger Rule");
 		result(SMSMAppointmentReminderNote, reminder.SMSConfirmationNote(), "SMS Notification Affirmative",
 				"Reminder Trigger Rule");
-		result(sentToPhoneNumber, reminder.getNumberReminderSentTo(createCustomer.phoneNumber),
+		result(sentToPhoneNumber, reminder.getNumberReminderSentTo(getData("phoneNumber", generalData)),
 				"Number SMS Sent from Confirmation", "Reminder Trigger Rule");
 
 	}
@@ -229,5 +228,9 @@ public class Trigger_Reminder extends BaseClass {
 			list.add(AssertException.result(expected, actual, stepName));
 		}
 		Reporter.status(stepName, expected, actual, testName);
+	}
+
+	public void validateIfFailureExist() {
+		AssertException.asserFailure(list);
 	}
 }
