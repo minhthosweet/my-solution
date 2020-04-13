@@ -20,6 +20,12 @@ public class CustomerviewDialog_AppointmentsTab {
 	public String cancelButton_InCompletingApptDialog = "//div[@id='completeAppointment']/following-sibling::div//span[text() = 'Cancel']";
 	public String saveButton_InCompletingApptDialog = "//div[@id='completeAppointment']/following-sibling::div//span[text() = 'Save']";
 	public String saveAndCompleteButton_InCompletingApptDialog = "//span[text() = 'Save and Complete']";
+	public String subscriptionType_schedulinTab = "//h3[contains(text(),'Scheduling')]/parent::div//child::select[@name='subscriptionID']";
+	public String serviceNotes_Complete = "//textarea[@name='serviceNotes']";
+
+	// Subscription objects
+	public String createNewSubscription_Scheduling = "Create New Subscription";
+	public String standAloneService_Scheduling = "Stand-Alone Service or Reservice";
 
 	// Unit Products
 	public String unitName = "//div[@id='appointmentContainor']//div[@style = 'fonts-size:11px; float:left; margin-left:5px;']";
@@ -35,18 +41,12 @@ public class CustomerviewDialog_AppointmentsTab {
 	 * Action Methods Below function will click or select objects from drop down
 	 */
 	public void clickScheduledService(String needServiceName) {
-//		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-//        Date date = new Date();
-//        System.out.println(dateFormat.format(date));
 		Utilities.waitUntileElementIsVisible(
 				"//span[text()='Pending']/parent::div/preceding-sibling::div[contains (text(), '" + needServiceName
 						+ "')]");
 		Utilities.clickElement("//span[text()='Pending']/parent::div/preceding-sibling::div[contains (text(), '"
 				+ needServiceName + "')]", ElementType.XPath);
 	}
-
-	// Need to add proper xpath for clickScheduledStructuredServices,
-	// clickSubScheduledStructuredServices
 
 	public void clickScheduledStructuredService(String needStructureName) {
 		Utilities.clickElement("//ul[@id='structuresMenuList']//span[text()='" + needStructureName + "']",
@@ -97,6 +97,7 @@ public class CustomerviewDialog_AppointmentsTab {
 	}
 
 	public void clickSaveAndCompleteButton() {
+		Utilities.waitUntileElementIsVisible(serviceNotes_Complete);
 		Utilities.clickElement(saveAndCompleteButton_InCompletingApptDialog, ElementType.XPath);
 	}
 
@@ -169,5 +170,3 @@ public class CustomerviewDialog_AppointmentsTab {
 	}
 
 }
-
-
