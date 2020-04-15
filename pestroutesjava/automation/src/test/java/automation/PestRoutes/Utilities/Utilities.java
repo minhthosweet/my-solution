@@ -8,9 +8,11 @@ import java.util.Random;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.apache.commons.lang3.SystemUtils;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
@@ -21,6 +23,7 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.Test;
 
+import automation.PestRoutes.Utilities.FindElement.InputType;
 import automation.PestRoutes.Utilities.Driver.GetWebDriver;
 
 
@@ -150,16 +153,27 @@ public class Utilities {
 	public static void closeBrowser() {
 		driver.close();
 	}
-
-	public enum ElementType {
-		XPath, ID, ClassName, PartialLink, LinkText
-	}
 	
+	public static void highLight(String needElement) {
+		if (SystemUtils.IS_OS_MAC_OSX) {
+			JavascriptExecutor js = (JavascriptExecutor)driver;
+			js.executeScript("arguments[0].value = '';", needElement);
+//			FindElement.elementByAttribute(needElement, InputType.XPath).sendKeys(Keys.chord(Keys.COMMAND, "a"));
+		} else if (SystemUtils.IS_OS_WINDOWS) {
+			FindElement.elementByAttribute(needElement, InputType.XPath).sendKeys(Keys.CONTROL, "a");
+		}
+
+	}
+
 	public static int removeSpecialChars(String needAttribute) {
 		String cases = getElementTextValue(needAttribute, ElementType.XPath);
 
 		int result = Integer.parseInt(cases.replaceAll("[@ $,.]", ""));
 				
 		return result/100;
+	}
+	
+	public enum ElementType {
+		XPath, ID, ClassName, PartialLink, LinkText
 	}
 }

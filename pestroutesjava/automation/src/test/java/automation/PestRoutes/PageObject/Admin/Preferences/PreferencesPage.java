@@ -32,7 +32,10 @@ public class PreferencesPage {
 	 * Below methods perform actions such as selecting from drop drown or click an object
 	 */
 	public void navigateTo(String needMenuArea, String needPage) {
+		Utilities.clickElement("//h2[@id='office']", ElementType.XPath);
+		Utilities.waitUntileElementIsVisible(needMenuArea);
 		Utilities.scrollToElement(needMenuArea);
+		Utilities.waitUntileElementIsVisible(needMenuArea);
 		Utilities.clickElement(needMenuArea, ElementType.XPath);
 		Utilities.waitUntileElementIsVisible(needPage);
 		Utilities.clickElement(needPage, ElementType.XPath);

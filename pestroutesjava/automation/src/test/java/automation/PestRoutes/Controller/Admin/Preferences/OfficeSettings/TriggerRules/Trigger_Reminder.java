@@ -1,4 +1,4 @@
-package automation.PestRoutes.Controller.Admin.Preferences.TriggerRules;
+package automation.PestRoutes.Controller.Admin.Preferences.OfficeSettings.TriggerRules;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -44,8 +44,6 @@ public class Trigger_Reminder extends BaseClass {
 	private String numberOfDays_Before_Reminder = Double.toString(Utilities.generateRandomInteger(1));
 	public List list = new ArrayList<String>();
 	private String daysBefore_Trigger = "1";
-	private String startDate = Utilities.currentDate("MM/dd/yyyy");
-	private String endDate = "04/16/2020";
 	private String serviceType = "Roaches";
 	private String editAlertNote_Text = "Sorry, this note is not editable.";
 	private String SMSMAppointmentReminderNote = "SMS Appointment Reminder";
@@ -83,7 +81,7 @@ public class Trigger_Reminder extends BaseClass {
 		adminMainPage.navigateTo(adminMainPage.preferences);
 		triggerAdmin.navigateToTriggerRules();
 		triggerAdmin.clickAddTrigerButton();
-		triggerAdmin.setStartDate(Utilities.currentDate("MM/dd/yyyy"));
+		triggerAdmin.setStartDate(GetDate.minusOneWeekToDate(Utilities.currentDate("MM/dd/yyyy")));
 		triggerAdmin.setEndDate(GetDate.addOneYearToDate(Utilities.currentDate("MM/dd/yyyy")));
 		triggerAdmin.setDescription(descriptionTrigger);
 		triggerAdmin.selectDropdown(triggerAdmin.triggerTypeDropdown, triggerAdmin.triggerType_Reminders);
@@ -165,12 +163,10 @@ public class Trigger_Reminder extends BaseClass {
 
 	}
 
-	public void editTrigger_Reminder_DaysBefore() throws InterruptedException {
+	public void editTrigger_Reminder_DaysBefore() throws Exception {
 		reminder = new ReminderTab();
 		subscriptionStatus = new SubscriptionStatusTab();
-		triggerAdmin.selectDropdown(subscriptionStatus.whenToTrigger, reminder.triggerDaysBefore_whenToTrigger);
-		triggerAdmin.setStartDate(startDate);
-		triggerAdmin.setEndDate(endDate);
+		triggerAdmin.setEndDate(GetDate.addOneYearToDate(Utilities.currentDate("MM/dd/yyyy")));
 		reminder.setdaysBefore_Reminder(daysBefore_Trigger);
 		triggerAdmin.clickSaveButton();
 	}

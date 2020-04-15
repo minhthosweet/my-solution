@@ -42,6 +42,16 @@ public class RenewalTab {
 	public String hasInitialService_initialServiceNotCompleted_Renewal = "Initial Service not Completed";
 	public String hasInitialService_CompletedInitialService_Renewal = "Completed Initial Service";
 
+	// Before After Filters for Renewals
+	public String beforeAfter_beforeExpirationDate = "Before Expiration Date";
+	public String beforeAfter_afterExpirationDate = "After Expiration Date";
+	public String beforeAfter_beforeDueDate = "Before Due Date";
+	public String beforeAfter_afterDueDate = "After Due Date";
+	public String beforeAfter_beforeNextBillingDate = "Before Next Billing Date";
+	public String beforeAfter_afterNextBillingDate = "After Next Billing Date";
+	public String beforeAfter_beforeRenewalDate = "Before Renewal Date";
+	public String beforeAfter_afterRenewalDate = "After Renewal Date";
+
 	public void setDaysBefore_After(String needDays) {
 		FindElement.elementByAttribute(daysBefore_AfterInputField, InputType.XPath).sendKeys(needDays);
 	}

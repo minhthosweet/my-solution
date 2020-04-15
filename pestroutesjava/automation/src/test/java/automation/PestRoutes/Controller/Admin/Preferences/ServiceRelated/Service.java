@@ -1,4 +1,4 @@
-package automation.PestRoutes.Controller.Admin.Preferences;
+package automation.PestRoutes.Controller.Admin.Preferences.ServiceRelated;
 
 import org.openqa.selenium.WebElement;
 import org.testng.annotations.Test;
@@ -9,33 +9,30 @@ import automation.PestRoutes.PageObject.Admin.Preferences.PreferencesPage;
 import automation.PestRoutes.PageObject.Admin.Preferences.ServiceTypes;
 import automation.PestRoutes.Utilities.BaseClass;
 
-public class Service extends BaseClass{
+public class Service extends BaseClass {
 	Header header;
 	AdminMainPage admin;
 	PreferencesPage preferences;
 	ServiceTypes service;
-	
+
 	@Test
-	
 	public void workWithService() throws Exception {
-		//Utilities.navigateToUrl(getData("betaUrl", generalData));
+		// Utilities.navigateToUrl(getData("betaUrl", generalData));
 		navigateToServiceType();
 		searchService(getData("serviceDescription", generalData));
 		try {
 			service = new ServiceTypes();
 			WebElement elm = service.getDescription(getData("serviceDescription", generalData));
-			if(elm.isDisplayed()) {
+			if (elm.isDisplayed()) {
 				editService(getData("serviceDescription", generalData));
+
 			}
-			
-		} catch(Exception e){
-			
-			
-		} finally {
+		} catch (Exception e) {
+			System.out.println("Exception Caught");
 			addServiceType();
 		}
 	}
-	
+
 	public void navigateToServiceType() {
 		admin = new AdminMainPage();
 		header = new Header();
@@ -45,10 +42,12 @@ public class Service extends BaseClass{
 		admin.navigateTo(admin.preferences);
 		preferences.navigateTo(preferences.serviceRelatedNav, preferences.serviceTypesText);
 	}
+
 	public void searchService(String needServiceDescription) {
 		service = new ServiceTypes();
 		service.setSearch(needServiceDescription);
 	}
+
 	public void addServiceType() throws Exception {
 		service = new ServiceTypes();
 		service.clickAddServiceButton();
@@ -70,13 +69,11 @@ public class Service extends BaseClass{
 		service.setMinInitialCharge("0.00");
 		service.clickSave();
 	}
-	
+
 	public void editService(String needDescription) {
 		service = new ServiceTypes();
 		service.clickEditButton(needDescription);
 		service.selectFromDropdown(service.setRenewalDateDropDown, "On Initial Service Completion");
 		service.clickSave();
 	}
-	
-
 }

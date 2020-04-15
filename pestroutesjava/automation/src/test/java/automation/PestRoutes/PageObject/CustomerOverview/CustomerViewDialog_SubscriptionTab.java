@@ -2,6 +2,7 @@ package automation.PestRoutes.PageObject.CustomerOverview;
 
 import java.util.Date;
 
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 
@@ -226,7 +227,8 @@ public class CustomerViewDialog_SubscriptionTab {
 	}
 	
 	public void setInitialServiceQuote(String needAmount) {
-		FindElement.elementByAttribute(initialQuoteInputField, InputType.XPath).sendKeys(Keys.CONTROL,"a");
+		Utilities.highLight(initialQuoteInputField);
+//		FindElement.elementByAttribute(initialQuoteInputField, InputType.XPath).sendKeys(Keys.DELETE.toString());
 		FindElement.elementByAttribute(initialQuoteInputField, InputType.XPath).sendKeys(needAmount);
 	}
 	

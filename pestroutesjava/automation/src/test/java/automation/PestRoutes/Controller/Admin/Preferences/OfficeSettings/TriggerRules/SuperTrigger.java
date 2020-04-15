@@ -1,4 +1,4 @@
-package automation.PestRoutes.Controller.Admin.Preferences.TriggerRules;
+package automation.PestRoutes.Controller.Admin.Preferences.OfficeSettings.TriggerRules;
 
 import org.testng.annotations.Test;
 

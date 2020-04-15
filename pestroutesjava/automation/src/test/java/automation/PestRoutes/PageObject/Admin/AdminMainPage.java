@@ -14,6 +14,7 @@ public class AdminMainPage {
 	
 	
 	public void navigateTo(String needTab) {
+		Utilities.waitUntileElementIsVisible("//p[text() = '"+needTab+"']");
 		Utilities.clickElement("//p[text() = '"+needTab+"']", ElementType.XPath);
 	}
 
