@@ -5,6 +5,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -17,6 +18,7 @@ import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
@@ -26,21 +28,21 @@ import org.testng.annotations.Test;
 import automation.PestRoutes.Utilities.FindElement.InputType;
 import automation.PestRoutes.Utilities.Driver.GetWebDriver;
 
-
 public class Utilities {
 	static WebDriver driver = GetWebDriver.getInstance();;
 
 	public static String getAlertText() {
 		return driver.switchTo().alert().getText();
 	}
+
 	public static void acceptAlert() {
 		driver.switchTo().alert().accept();
 	}
-	
+
 	public static Alert alertPopUp() {
 		return driver.switchTo().alert();
 	}
-	
+
 	public static void selectValueFromDropDownByValue(String needXpath, String needValue) {
 		Select dropdown = new Select(driver.findElement(By.xpath(needXpath)));
 		dropdown.selectByVisibleText(needValue);
@@ -54,7 +56,7 @@ public class Utilities {
 		FileUtils.copyFile(SrcFile, DestFile);
 
 	}
-	
+
 	public static void scrollToElement(String needXpath) {
 		WebElement element = driver.findElement(By.xpath(needXpath));
 		Actions actions = new Actions(driver);
@@ -65,36 +67,36 @@ public class Utilities {
 	public static String generateRandomString(int needLength) {
 		return RandomStringUtils.random(needLength, true, true);
 	}
-	
+
 	public static double generateRandomInteger(int needLength) {
 		double m = (double) Math.pow(10, needLength - 1);
-	    return m + new Random().nextInt((int) (9 * m));
+		return m + new Random().nextInt((int) (9 * m));
 	}
-	
+
 	public static String currentDate(String needFormat) {
 		DateFormat dateFormat = new SimpleDateFormat(needFormat);
-        Date date = new Date();
-        String date1 = dateFormat.format(date);
-        return date1;
+		Date date = new Date();
+		String date1 = dateFormat.format(date);
+		return date1;
 	}
-	
+
 	public static int getElementCount(String needXpath) {
 		return driver.findElements(By.xpath(needXpath)).size();
 	}
-	
+
 	public static String getAttributeValue(String needXpath, String needAttribute) {
 		waitUntileElementIsVisible(needXpath);
 		return driver.findElement(By.xpath(needXpath)).getAttribute(needAttribute);
 	}
-	
+
 	public static void waitUntileElementIsVisible(String needXpath) {
 		WebDriverWait wait = new WebDriverWait(driver, 50);
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(needXpath)));
 	}
-	
+
 	public static void javaScriptClick(String needID) {
 		WebElement element = driver.findElement(By.id(needID));
-		JavascriptExecutor executor = (JavascriptExecutor)driver;
+		JavascriptExecutor executor = (JavascriptExecutor) driver;
 		executor.executeScript("arguments[0].click();", element);
 	}
 
@@ -145,11 +147,11 @@ public class Utilities {
 			break;
 		}
 	}
-	
+
 	public static void navigateToUrl(String needURL) {
 		driver.get(needURL);
 	}
-	
+
 	public static void closeBrowser() {
 		driver.close();
 	}
@@ -169,8 +171,8 @@ public class Utilities {
 		String cases = getElementTextValue(needAttribute, ElementType.XPath);
 
 		int result = Integer.parseInt(cases.replaceAll("[@ $,.]", ""));
-				
-		return result/100;
+
+		return result / 100;
 	}
 	
 	public enum ElementType {
