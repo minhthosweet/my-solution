@@ -64,4 +64,15 @@ public class GetDate {
 		return formattedDate;
 
 	}
+	
+	public static String minusOneDayToDate(String needDate) throws Exception {
+		String input = needDate;
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/dd/uuuu");
+		LocalDate localDate = LocalDate.parse(input, formatter);
+		LocalDate yearLater = localDate.minusDays(1);
+		String formattedDate = yearLater.format(DateTimeFormatter.ofPattern("M/dd/yyyy"));
+		System.out.println(formattedDate);
+		return formattedDate;
+
+	}
 }

@@ -210,6 +210,7 @@ public class Trigger_Reminder extends BaseClass {
 		header.Search_A_Customer(getData("userID", generalData));
 		overviewHeader = new CustomerViewDialog_Header();
 		overviewHeader.NavigateTo(overviewHeader.notesTabInDialog);
+		overviewHeader.clickCustomerContactsInNotesTab();
 		result(editAlertNote_Text, reminder.getAlertText_Notes(), "Edit Note Alert", "Reminder Trigger Rule");
 		result(SMSMAppointmentReminderNote, reminder.SMSConfirmationNote(), "SMS Notification Affirmative",
 				"Reminder Trigger Rule");

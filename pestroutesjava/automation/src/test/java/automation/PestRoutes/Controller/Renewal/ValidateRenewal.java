@@ -92,7 +92,6 @@ public class ValidateRenewal extends BaseClass{
 		customerDialogHeader = new CustomerViewDialog_Header();
 		subscription.selectSetRenewalDate("On Initial Service Completion");
 		subscription.selectRenewalFrequency("Annually");
-		subscription.setExpDate(GetDate.addOneDayToDate(Utilities.currentDate("MM/dd/yyyy")));
 		customerDialogHeader.ClickSaveButton();
 	}
 	public void scheduleSubscription(String needTimeSlot) throws Exception {
