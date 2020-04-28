@@ -1,4 +1,4 @@
-package automation.PestRoutes.Controller.Admin.Preferences;
+package automation.PestRoutes.Controller.Admin.Preferences.ServiceRelated;
 
 import java.util.List;
 

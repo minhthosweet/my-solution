@@ -2,6 +2,7 @@ package automation.PestRoutes.PageObject.CustomerOverview;
 
 import java.util.Date;
 
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 
@@ -36,6 +37,14 @@ public class CustomerViewDialog_SubscriptionTab {
 	public String notesInputField = "//textarea[@name='subNotes']";
 	public String netBillingDaysInputField = "//input[@name='netBillingDaysDisplay']";
 	public String billingFrequencyDropdown = "//select[@name='billingFrequency']";
+	public String billingInitialInvoiceDropdown = "//select[@name='initialInvoice']";
+	public String initialBillingDateInputField = "//input[@name='initialBillingDate']";
+	
+	//Billing Frequency DropDown objects
+	public String billingFrequency_Renewal = "Renewal";
+	
+	//Billing Initial Invoice DropDown Objects
+	public String billing_initialBillingDate = "On Initial Billing Date";
 	//***Recurring Services objects***
 	public String serviceTypeDropdown = "//select[@name='recurringServiceType']";
 	public String serviceFrequencyDropdown = "//select[@name='frequency']";
@@ -201,7 +210,14 @@ public class CustomerViewDialog_SubscriptionTab {
 	}
 	
 	public void setExpDate(String needExpDate) {
+		FindElement.elementByAttribute(expirationDateInputField, InputType.XPath).clear();
 		FindElement.elementByAttribute(expirationDateInputField, InputType.XPath).sendKeys(needExpDate);
+	}
+	
+	public void setInitialBillingDate(String needInitialBillingDate) {
+		Utilities.waitUntileElementIsVisible(initialBillingDateInputField);
+		FindElement.elementByAttribute(initialBillingDateInputField, InputType.XPath).clear();
+		FindElement.elementByAttribute(initialBillingDateInputField, InputType.XPath).sendKeys(needInitialBillingDate);
 	}
 	
 	public void setRenewalDate(String needDate) {
@@ -222,11 +238,13 @@ public class CustomerViewDialog_SubscriptionTab {
 	}
 	
 	public void setCustomDate(String needCustomDate) {
+		Utilities.waitUntileElementIsVisible(customDateInputField);
 		FindElement.elementByAttribute(customDateInputField, InputType.XPath).sendKeys(needCustomDate);
 	}
 	
 	public void setInitialServiceQuote(String needAmount) {
-		FindElement.elementByAttribute(initialQuoteInputField, InputType.XPath).sendKeys(Keys.CONTROL,"a");
+		Utilities.highLight(initialQuoteInputField);
+//		FindElement.elementByAttribute(initialQuoteInputField, InputType.XPath).sendKeys(Keys.DELETE.toString());
 		FindElement.elementByAttribute(initialQuoteInputField, InputType.XPath).sendKeys(needAmount);
 	}
 	

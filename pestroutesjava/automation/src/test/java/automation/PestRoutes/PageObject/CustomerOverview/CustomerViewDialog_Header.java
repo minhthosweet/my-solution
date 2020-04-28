@@ -24,6 +24,14 @@ public class CustomerViewDialog_Header {
 	public String saveButton = "//div[@id= 'customerWindow']/following-sibling::div//span[text()='Save']";
 	public String closeXButton = "//span[@id= 'ui-id-11']/parent::div/button/span";
 
+	//Notes tab objects
+	public String customerContacts_Notes = "//li[text()='Customer Contacts']";
+	
+	public void clickCustomerContactsInNotesTab() {
+		Utilities.waitUntileElementIsVisible(customerContacts_Notes);
+		Utilities.clickElement(customerContacts_Notes, ElementType.XPath);
+	}
+	
 	public void NavigateTo(String chooseTabFromConst) {
 		Utilities.waitUntileElementIsVisible("//li[@name= '" + chooseTabFromConst + "']");
 		Utilities.clickElement("//li[@name = '" + chooseTabFromConst + "']", ElementType.XPath);

@@ -1,5 +1,6 @@
-package automation.PestRoutes.Controller.Admin.Preferences.TriggerRules;
+package automation.PestRoutes.Controller.Admin.Preferences.OfficeSettings.TriggerRules;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import org.testng.annotations.Test;
@@ -26,10 +27,9 @@ public class Trigger_SubscriptionStatus extends BaseClass {
 	SubscriptionStatusTab subscriptionStatus;
 	private String descriptionTrigger = "trigger_subscriptionStatus_all_actions";
 	public List list = new ArrayList<String>();
-	private String phoneNumber = "9999999999";
 
 	@Test
-	public void createSubscriptionStatus() throws InterruptedException, Exception {
+	public void createSubscriptionStatusRule() throws InterruptedException, Exception {
 		createTrigger_SubscriptionStatus();
 		searchTrigger_subscriptionStatus();
 		SMSAction_SubscriptionStatus();
@@ -53,6 +53,7 @@ public class Trigger_SubscriptionStatus extends BaseClass {
 		sendEmployeeVoice_SubscriptionStatus();
 		searchTrigger_subscriptionStatus();
 		assertActions_SubscriptionStatus();
+		validateIfFailureExist();
 	}
 
 	public void createTrigger_SubscriptionStatus() throws Exception {
@@ -177,19 +178,21 @@ public class Trigger_SubscriptionStatus extends BaseClass {
 	}
 
 	// Create Action Send Employee SMS
-	public void sendEmployeeSMS_SubscriptionStatus() {
+	public void sendEmployeeSMS_SubscriptionStatus() throws IOException {
 		actions.clickAddActionButton();
 		triggerAdmin.selectDropdown(actions.actionTypeDropDown, actions.sendEmployeeSMS_SubscriptionStatus);
-		actions.setEmployeePhoneNumber_SubscriptionStatus(actions.sendEmployeeSMS_SubscriptionStatus, phoneNumber);
+		actions.setEmployeePhoneNumber_SubscriptionStatus(actions.sendEmployeeSMS_SubscriptionStatus,
+				getData("phoneNumber", generalData));
 		actions.setMessageinAction_Type1(actions.sendEmployeeSMS_SubscriptionStatus, actions.getPlaceHolders());
 		triggerAdmin.clickSaveButton();
 	}
 
 	// Create Action Send Employee Voice
-	public void sendEmployeeVoice_SubscriptionStatus() {
+	public void sendEmployeeVoice_SubscriptionStatus() throws IOException {
 		actions.clickAddActionButton();
 		triggerAdmin.selectDropdown(actions.actionTypeDropDown, actions.sendEmployeeVoice_SubscriptionStatus);
-		actions.setEmployeePhoneNumber_SubscriptionStatus(actions.sendEmployeeVoice_SubscriptionStatus, phoneNumber);
+		actions.setEmployeePhoneNumber_SubscriptionStatus(actions.sendEmployeeVoice_SubscriptionStatus,
+				getData("phoneNumber", generalData));
 		triggerAdmin.selectDropdown(actions.voiceType_SubscriptionStatus, actions.preRecordedMessageVoice_Reminder);
 		triggerAdmin.selectDropdown(actions.preRecordedMessage_Message_SubscriptionStatus, "Pest Promotion");
 		triggerAdmin.selectDropdown(actions.voiceType_SubscriptionStatus, actions.newMessage_Voice);
@@ -231,5 +234,9 @@ public class Trigger_SubscriptionStatus extends BaseClass {
 			list.add(AssertException.result(expected, actual, stepName));
 		}
 		Reporter.status(stepName, expected, actual, testName);
+	}
+
+	public void validateIfFailureExist() {
+		AssertException.asserFailure(list);
 	}
 }

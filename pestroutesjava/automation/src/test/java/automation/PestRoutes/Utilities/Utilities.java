@@ -155,8 +155,16 @@ public class Utilities {
 	public static void closeBrowser() {
 		driver.close();
 	}
-	public enum ElementType {
-		XPath, ID, ClassName, PartialLink, LinkText
+	
+	public static void highLight(String needElement) {
+		if (SystemUtils.IS_OS_MAC_OSX) {
+			JavascriptExecutor js = (JavascriptExecutor)driver;
+			js.executeScript("arguments[0].value = '';", needElement);
+//			FindElement.elementByAttribute(needElement, InputType.XPath).sendKeys(Keys.chord(Keys.COMMAND, "a"));
+		} else if (SystemUtils.IS_OS_WINDOWS) {
+			FindElement.elementByAttribute(needElement, InputType.XPath).sendKeys(Keys.CONTROL, "a");
+		}
+
 	}
 
 	public static int removeSpecialChars(String needAttribute) {
@@ -165,5 +173,9 @@ public class Utilities {
 		int result = Integer.parseInt(cases.replaceAll("[@ $,.]", ""));
 
 		return result / 100;
+	}
+	
+	public enum ElementType {
+		XPath, ID, ClassName, PartialLink, LinkText
 	}
 }

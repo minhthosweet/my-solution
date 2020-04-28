@@ -1,6 +1,5 @@
 package automation.PestRoutes.Controller.CustomerCreation;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,21 +23,21 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
-public class CreateNewCustomer extends BaseClass{
+public class CreateNewCustomer extends BaseClass {
 	static ExtentTest test;
 	CreateCustomerDIalog customer;
 	CustomerViewDialog_Header dialog;
 	CustomerViewDialog_OverviewTab overview;
 	Header header;
 	List list = new ArrayList<String>();
-	
+
 	String fName = Utilities.generateRandomString(7);
 	String lName = Utilities.generateRandomString(6);
 	String expectedAlert = "Required: You must fill in the customer's last name or company name!";
 	String streetAddress = "4500 W Eldorado Pkwy STE 3200";
 	String city = "McKinney";
 	String zipcode = "75070";
-	
+
 	@Test
 	public void createCustomer() throws Exception {
 		createCustomerWithOutRequiredField();
@@ -46,10 +45,10 @@ public class CreateNewCustomer extends BaseClass{
 		createCustomerWithAddress();
 		validateCreatedCustomerNameAndAddress();
 		validateIfFailureExist();
-		
+
 	}
-	
-	@When ("I create customer without required last name field")
+
+	@When("I create customer without required last name field")
 	public void createCustomerWithOutRequiredField() {
 		String fName = Utilities.generateRandomString(7);
 		dialog = new CustomerViewDialog_Header();
@@ -61,15 +60,15 @@ public class CreateNewCustomer extends BaseClass{
 		customer.selectUnit("Multi Unit");
 		dialog.ClickSaveButton();
 	}
-	
-	@Then ("I validate alert")
+
+	@Then("I validate alert")
 	public void validateRequiredFieldError() {
 		String alert = Utilities.getAlertText();
 		Utilities.acceptAlert();
 		result(expectedAlert, alert, "required field while creating customer ", "Customer creation");
 	}
-	
-	@When ("I create customer with first name, last name and address")
+
+	@When("I create customer with first name, last name and address")
 	public void createCustomerWithAddress() throws Exception {
 		dialog = new CustomerViewDialog_Header();
 		customer = new CreateCustomerDIalog();
@@ -82,12 +81,14 @@ public class CreateNewCustomer extends BaseClass{
 		customer.setAddress(streetAddress);
 		customer.setZipCode(zipcode);
 		customer.setCity(city);
+		customer.setCellPhone(getData("phoneNumber",generalData));
+		customer.clickSmsCheckBox();
 		dialog.ClickSaveButton();
 		alertCondition();
 		captureUserIdAndFullName();
 	}
-	
-	@When ("I create customer with first name and last name")
+
+	@When("I create customer with first name and last name")
 	public void createCustomerWithoutAddress() throws Exception {
 
 		dialog = new CustomerViewDialog_Header();
@@ -98,13 +99,15 @@ public class CreateNewCustomer extends BaseClass{
 		customer.setFirstName(fName);
 		customer.setLastName(lName);
 		customer.selectUnit("Multi Unit");
+		customer.setCellPhone(getData("phoneNumber",generalData));
+		customer.clickSmsCheckBox();
 		dialog.ClickSaveButton();
 		captureUserIdAndFullName();
 	}
-	
-	@Then ("I validate if customer name and address match in overview tab")
+
+	@Then("I validate if customer name and address match in overview tab")
 	public void validateCreatedCustomerNameAndAddress() {
-		String expectedAddress = streetAddress + " " + city +", TX " + zipcode;
+		String expectedAddress = streetAddress + " " + city + ", TX " + zipcode;
 		Utilities.waitUntileElementIsVisible(overview.overviewTab_Address);
 		String customerNameInHeader = overview.getCustomerNameFromHeader();
 		System.out.println("Customer Name found is " + customerNameInHeader);
@@ -112,50 +115,46 @@ public class CreateNewCustomer extends BaseClass{
 		result(fName, customerNameInHeader, "Created customer name ", "Customer creation");
 		result(expectedAddress, actualAddress, "Created customer address", "Customer creation");
 	}
-	
-	@Then ("I validate if customer name match in overview tab")
+
+	@Then("I validate if customer name match in overview tab")
 	public void validateCreatedCustomerName() {
 		Utilities.waitUntileElementIsVisible(overview.overviewTab_Address);
 		String customerNameInHeader = overview.getCustomerNameFromHeader();
 		result(fName, customerNameInHeader, "Created customer name ", "Customer creation");
 	}
-	
-	@And ("I validate if there are errors exist in the list")
+
+	@And("I validate if there are errors exist in the list")
 	public void validateIfFailureExist() {
 		AssertException.asserFailure(list);
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	private void result(String expected, String actual, String stepName, String testName) {
-		if(AssertException.result(expected, actual, stepName).size()>0) {
+		if (AssertException.result(expected, actual, stepName).size() > 0) {
 			list.add(AssertException.result(expected, actual, stepName));
 		}
-		Reporter.status(stepName,expected, actual, testName);
+		Reporter.status(stepName, expected, actual, testName);
 	}
-	
+
 	private void alertCondition() throws Exception {
-		int i=0;
-		   while(i++<5)
-		   {
-		        try
-		        {
-		            Alert alert = Utilities.alertPopUp();
-		            String actionAlert = Utilities.getAlertText();
-		            String expected = "Action Required!";
-		    		if(actionAlert.contains(expected)) {
-		    			alert.accept();
-		    			Utilities.clickElement("//div[text()='Save Anyways']", ElementType.XPath);
-		    		}
-		            break;
-		        }
-		        catch(NoAlertPresentException e)
-		        {
-		          Thread.sleep(500);
-		          continue;
-		        }
-		   }
+		int i = 0;
+		while (i++ < 5) {
+			try {
+				Alert alert = Utilities.alertPopUp();
+				String actionAlert = Utilities.getAlertText();
+				String expected = "Action Required!";
+				if (actionAlert.contains(expected)) {
+					alert.accept();
+					Utilities.clickElement("//div[text()='Save Anyways']", ElementType.XPath);
+				}
+				break;
+			} catch (NoAlertPresentException e) {
+				Thread.sleep(500);
+				continue;
+			}
+		}
 	}
-	
+
 	private void captureUserIdAndFullName() throws Exception {
 		String id = overview.getCustomerIDFromHeader();
 		String newId = id.replaceAll("[^a-zA-Z0-9]+", "");
