@@ -1,6 +1,7 @@
 package automation.PestRoutes.Controller.StructureValidation;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.openqa.selenium.WebDriver;
@@ -34,7 +35,7 @@ public class Structures extends BaseClass {
 	SchedulingTab scheduleDay = new SchedulingTab();
 	UnitsTab unitsTab = new UnitsTab();
 	CustomerviewDialog_AppointmentsTab appointmentTab = new CustomerviewDialog_AppointmentsTab();
-	public List list = null;
+	List list = new ArrayList<String>();
 
 	private String mainStructureName = Utilities.generateRandomString(5);
 	private String routes = "//div[@class = 'route actualRoute route1 ']";
@@ -73,8 +74,7 @@ public class Structures extends BaseClass {
 		Utilities.waitUntileElementIsVisible(overview.overviewTab_Address);
 		String customerNameInHeader = overview.getCustomerNameFromHeader();
 		System.out.println("Customer Name found is " + customerNameInHeader);
-		list = AssertException.result(fName, customerNameInHeader, "Validate Customer Creation");
-		Reporter.status("Created customer ", customerNameInHeader, fName, "Customer creation");
+		result(fName, customerNameInHeader, "Created customer ", "Structure Validation");
 		String id = overview.getCustomerIDFromHeader();
 		String newId = id.replaceAll("[^a-zA-Z0-9]+", "");
 		System.out.println(newId);
@@ -142,14 +142,9 @@ public class Structures extends BaseClass {
 		String actualStructureArea = appointmentTab.getStructureAreaTreated();
 		String actualStructureIssues = appointmentTab.getStructureIssuesTreated();
 		String actualStructureProductUsed = appointmentTab.getStructureChemicalName();
-		list = AssertException.result(product, actualStructureArea, "Validate Structure product");
-		Reporter.status("Chemical for Structure", product, actualStructureArea, "Add Chemicals To An Appointment");
-		list = AssertException.result(product, actualStructureProductUsed, "Validate Structure product");
-		Reporter.status("Product for Structure", product, actualStructureProductUsed,
-				"Add Chemicals To An Appointment");
-		list = AssertException.result(targetIssue, actualStructureIssues, "Validate Struture target issue");
-		Reporter.status("Target issue for Structure", targetIssue, actualStructureIssues,
-				"Add Chemicals To An Appointment");
+		result(product, actualStructureArea, "Chemical for Structure", "Structure Validation");
+		result(product, actualStructureProductUsed, "Product for Structure", "Structure Validation");
+		result(targetIssue, actualStructureIssues, "Target issue for Structure", "Structure Validation");
 	}
 
 	private void verifySubChemicalinUnit() throws IOException, Exception {
@@ -162,14 +157,17 @@ public class Structures extends BaseClass {
 		String actualStructureArea = appointmentTab.getStructureAreaTreated();
 		String actualStructureIssues = appointmentTab.getStructureIssuesTreated();
 		String actualStructureProductUsed = appointmentTab.getStructureChemicalName();
-		list = AssertException.result(product, actualStructureArea, "Validate Structure product");
-		Reporter.status("Chemical for Structure", product, actualStructureArea, "Add Chemicals To An Appointment");
-		list = AssertException.result(product, actualStructureProductUsed, "Validate Structure product");
-		Reporter.status("Product for Structure", product, actualStructureProductUsed,
-				"Add Chemicals To An Appointment");
-		list = AssertException.result(targetIssue, actualStructureIssues, "Validate Struture target issue");
-		Reporter.status("Target issue for Structure", targetIssue, actualStructureIssues,
-				"Add Chemicals To An Appointment");
+		result(product, actualStructureArea, "Chemical for Structure", "Structure Validation");
+		result(product, actualStructureProductUsed, "Product for Structure", "Structure Validation");
+		result(targetIssue, actualStructureIssues, "Target issue for Structure", "Structure Validation");
+	}
+	
+	@SuppressWarnings("unchecked")
+	private void result(String expected, String actual, String stepName, String testName) {
+		if (AssertException.result(expected, actual, stepName).size() > 0) {
+			list.add(AssertException.result(expected, actual, stepName));
+		}
+		Reporter.status(stepName, expected, actual, testName);
 	}
 
 }
