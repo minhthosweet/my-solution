@@ -46,7 +46,7 @@ public class ValidateRenewal extends BaseClass{
 	ScheduleAppt appt;
 	List list = new ArrayList<String>();
 	private static DecimalFormat value = new DecimalFormat("0.00");
-	private String serviceType = "Pest Renewal";
+	public String serviceType = "Pest Renewal";
 	String currentDate = Utilities.currentDate("M/dd/yyyy");
 	String expectedWarning = "Payment amount plus prepayments, is less than renewal amount.";
 	@Test

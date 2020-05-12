@@ -80,7 +80,6 @@ public class CustomerViewDialog_SubscriptionTab {
 	public String recurringTaxValue = "//div[@id='recurringServices']//div[@class='ticketSummary']/div[4]";
 	public String recurringTotalValue = "//div[@id='recurringServices']//div[@class='ticketSummary']/div[6]";
 	
-	
 	//********************Functional methods by objects********************
 	/*
 	 * Click actions
@@ -341,6 +340,16 @@ public class CustomerViewDialog_SubscriptionTab {
 		String newElm = elm.replace("$", "");
 		double attributeValue = Double.parseDouble(newElm);
 		return attributeValue;
+	}
+	
+	public String getSubscriptionID(String serviceType) {
+		String elm = Utilities.getElementTextValue("//h3[contains(text(),'"+serviceType+"')]/span[not(contains(text(),'Contract'))]", ElementType.XPath);
+		return elm;
+	}
+	
+	public void clickSubscription(String subscriptionID) {
+		Utilities.waitUntileElementIsVisible("//li[@subscriptionid='"+subscriptionID+"']");
+		Utilities.clickElement("//li[@subscriptionid='"+subscriptionID+"']", ElementType.XPath);
 	}
 
 }

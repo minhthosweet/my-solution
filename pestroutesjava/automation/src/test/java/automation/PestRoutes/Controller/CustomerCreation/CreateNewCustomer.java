@@ -83,6 +83,8 @@ public class CreateNewCustomer extends BaseClass {
 		customer.setCity(city);
 		customer.setCellPhone(getData("phoneNumber",generalData));
 		customer.clickSmsCheckBox();
+		customer.clickEmailCheckBox();
+		customer.clickVoiceCheckBox();
 		dialog.ClickSaveButton();
 		alertCondition();
 		captureUserIdAndFullName();

@@ -53,7 +53,7 @@ public class Trigger_Renewal extends BaseClass {
 
 	@Test
 	public void createRenewalRule() throws Exception {
-		/*createTrigger_Renewal();
+		createTrigger_Renewal();
 		searchTrigger_Renewal();
 		emailAction_Renewal();
 		searchTrigger_Renewal();
@@ -74,59 +74,59 @@ public class Trigger_Renewal extends BaseClass {
 		editTrigger_beforeExpirationDate();
 		createCustomer();
 		createSubscription_beforeExpirationDate();
-		hitTriggerRenewalQuery_expirationDate();
+		hitTriggerRenewalQuery();
 		assertLog();
 		
 		searchTrigger_Renewal();
 		editTrigger_afterExpirationDate();
 		createCustomer();
 		createSubscription_afterExpirationDate();
-		hitTriggerRenewalQuery_expirationDate();
+		hitTriggerRenewalQuery();
 		assertLog();
 		
 		searchTrigger_Renewal();
 		editTrigger_beforeNextBillingDate();
 		createCustomer();
 		createSubscription_beforeNextBillingDate();
-		hitTriggerRenewalQuery_expirationDate();
+		hitTriggerRenewalQuery();
 		assertLog();
 		
 		searchTrigger_Renewal();
 		editTrigger_beforeNextBillingDate();
 		createCustomer();
 		createSubscription_beforeNextBillingDate();
-		hitTriggerRenewalQuery_expirationDate();
+		hitTriggerRenewalQuery();
 		assertLog();
 		
 		searchTrigger_Renewal();
 		editTrigger_beforeDueDate();
 		createCustomer();
 		createSubscription_beforeDueDate();
-		hitTriggerRenewalQuery_expirationDate();
+		hitTriggerRenewalQuery();
 		assertLog();
 		
 		searchTrigger_Renewal();
 		editTrigger_afterDueDate();
 		createCustomer();
 		createSubscription_afterDueDate();
-		hitTriggerRenewalQuery_expirationDate();
+		hitTriggerRenewalQuery();
 		assertLog();
 		
 		searchTrigger_Renewal();
 		editTrigger_beforeRenewalDate();
 		createCustomer();
 		createSubscription_beforeRenewalDate();
-		hitTriggerRenewalQuery_expirationDate();
+		hitTriggerRenewalQuery();
 		assertLog();
-		validateIfFailureExist();*/
 		
 		searchTrigger_Renewal();
 		editTrigger_afterRenewalDate();
 		createCustomer();
 		createSubscription_afterRenewalDate();
-		//hitTriggerRenewalQuery_expirationDate();
-		//assertLog();
-		//validateIfFailureExist();
+		hitTriggerRenewalQuery();
+		assertLog();
+		
+		validateIfFailureExist();
 
 	}
 
@@ -290,7 +290,7 @@ public class Trigger_Renewal extends BaseClass {
 	}
 
 	// Hit the Script
-	public void hitTriggerRenewalQuery_expirationDate() {
+	public void hitTriggerRenewalQuery() {
 		Utilities.navigateToUrl("https://adityam.pestroutes.com/resources/scripts/triggerRenewal.php");
 	}
 
@@ -388,6 +388,7 @@ public class Trigger_Renewal extends BaseClass {
 		validateRenewal = new ValidateRenewal();
 		validateRenewal.renewalFieldsValidation();
 		validateRenewal.createRenewalSubscription();
+		subscription.clickSubscription(subscription.getSubscriptionID(validateRenewal.serviceType));
 		subscription.setCustomDate(GetDate.addOneDayToDate(Utilities.currentDate("MM/dd/yyyy")));
 		overviewHeader.ClickSaveButton();
 	}
@@ -406,6 +407,7 @@ public class Trigger_Renewal extends BaseClass {
 		overviewHeader = new CustomerViewDialog_Header();
 		validateRenewal = new ValidateRenewal();
 		validateRenewal.renewalFieldsValidation();
+		subscription.clickSubscription(subscription.getSubscriptionID(validateRenewal.serviceType));
 		subscription.setCustomDate(GetDate.minusOneDayToDate(Utilities.currentDate("MM/dd/yyyy")));
 		validateRenewal.createRenewalSubscription();
 		overviewHeader.ClickSaveButton();
@@ -419,7 +421,7 @@ public class Trigger_Renewal extends BaseClass {
 		triggerAdmin.clickSaveButton();
 	}
 	
-	// Create Subscription for Due Date set to yesterday
+	// Create Subscription for Renewal Due Date set to yesterday
 	public void createSubscription_beforeRenewalDate() throws Exception {
 		subscription = new CustomerViewDialog_SubscriptionTab();
 		overviewHeader = new CustomerViewDialog_Header();
@@ -438,7 +440,7 @@ public class Trigger_Renewal extends BaseClass {
 		triggerAdmin.clickSaveButton();
 	}
 	
-	// Create Subscription for Due Date set to yesterday
+	// Create Subscription for Renewal Due Date set to tomorrow
 	public void createSubscription_afterRenewalDate() throws Exception {
 		subscription = new CustomerViewDialog_SubscriptionTab();
 		overviewHeader = new CustomerViewDialog_Header();

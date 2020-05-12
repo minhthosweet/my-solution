@@ -2,6 +2,7 @@ package automation.PestRoutes.PageObject.Admin.OfficeSettings.TriggerTypes;
 
 import automation.PestRoutes.Utilities.FindElement;
 import automation.PestRoutes.Utilities.FindElement.InputType;
+import automation.PestRoutes.Utilities.Utilities;
 
 public class SubscriptionDueForServiceTab {
 
@@ -15,6 +16,9 @@ public class SubscriptionDueForServiceTab {
 
 	// Set days before after due date
 	public void setdays_before_afterDueDate_InputField(String setDays) {
+		Utilities.waitUntileElementIsVisible(days_before_afterDueDate);
+		FindElement.elementByAttribute(days_before_afterDueDate, InputType.XPath).clear();
+		Utilities.waitUntileElementIsVisible(days_before_afterDueDate);
 		FindElement.elementByAttribute(days_before_afterDueDate, InputType.XPath).sendKeys(setDays);
 	}
 }

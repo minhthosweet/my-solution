@@ -4,19 +4,26 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import org.testng.annotations.Test;
+import automation.PestRoutes.Controller.Admin.Preferences.ServiceRelated.Service;
+import automation.PestRoutes.Controller.CustomerCreation.CreateNewCustomer;
+import automation.PestRoutes.Controller.Renewal.ValidateRenewal;
 import automation.PestRoutes.PageObject.Header;
 import automation.PestRoutes.PageObject.Admin.AdminMainPage;
 import automation.PestRoutes.PageObject.Admin.OfficeSettings.Actions;
 import automation.PestRoutes.PageObject.Admin.OfficeSettings.TriggerRules;
 import automation.PestRoutes.PageObject.Admin.OfficeSettings.TriggerTypes.ARTab;
+import automation.PestRoutes.PageObject.Admin.OfficeSettings.TriggerTypes.ReminderTab;
 import automation.PestRoutes.PageObject.Admin.OfficeSettings.TriggerTypes.RenewalTab;
 import automation.PestRoutes.PageObject.Admin.OfficeSettings.TriggerTypes.SubscriptionDueForServiceTab;
 import automation.PestRoutes.PageObject.Admin.OfficeSettings.TriggerTypes.SubscriptionStatusTab;
+import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_Header;
+import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_SubscriptionTab;
 import automation.PestRoutes.Utilities.AssertException;
 import automation.PestRoutes.Utilities.BaseClass;
 import automation.PestRoutes.Utilities.GetDate;
 import automation.PestRoutes.Utilities.Reporter;
 import automation.PestRoutes.Utilities.Utilities;
+import automation.PestRoutes.Utilities.Utilities.ElementType;
 
 public class Trigger_SubscriptionDueForService extends BaseClass {
 	Header header;
@@ -27,13 +34,22 @@ public class Trigger_SubscriptionDueForService extends BaseClass {
 	ARTab ar;
 	SubscriptionStatusTab subscriptionStatus;
 	SubscriptionDueForServiceTab subscriptionDueForService;
+	Service service;
+	CreateNewCustomer createCustomer;
+	CustomerViewDialog_SubscriptionTab subscription;
+	ValidateRenewal validateRenewal;
+	CustomerViewDialog_Header overviewHeader;
+	ReminderTab reminder;
+	
 	private String descriptionTrigger = "trigger_subscriptionDueForService_all_actions";
 	public List list = new ArrayList<String>();
-	private String days_before_afterDueDate_InputField_Value = Double.toString(Utilities.generateRandomInteger(1));
-
+	private String days_before_afterDueDate_InputField_Value = "1";
+	private String editAlertNote_Text = "Sorry, this note is not editable.";
+	private String SMSMAppointmentRenewalNote = "SMS Sent";
+	
 	@Test
 	public void createSubscriptionDueForService() throws Exception {
-		createTrigger_SubscriptionDueForService();
+		/*createTrigger_SubscriptionDueForService();
 		searchTrigger_subscriptionDueForService();
 		SMSAction_SubscriptionDueForService();
 		searchTrigger_subscriptionDueForService();
@@ -42,9 +58,9 @@ public class Trigger_SubscriptionDueForService extends BaseClass {
 		emailAction_SubscriptionDueForService();
 		searchTrigger_subscriptionDueForService();
 		snailMailAction_SubscriptionDueForService();
-		searchTrigger_subscriptionDueForService();
-		webhookAction_SubscriptionDueForService();
-		searchTrigger_subscriptionDueForService();
+		/*searchTrigger_subscriptionDueForService();
+		webhookAction_SubscriptionDueForService();*/
+		/*searchTrigger_subscriptionDueForService();
 		sendEmployeeEmail_SubscriptionDueForService();
 		searchTrigger_subscriptionDueForService();
 		addAlert_SubscriptionDueForService();
@@ -56,6 +72,16 @@ public class Trigger_SubscriptionDueForService extends BaseClass {
 		sendEmployeeVoice_SubscriptionDueForService();
 		searchTrigger_subscriptionDueForService();
 		assertActions_SubscriptionDueForService();
+		
+		createRenewalServiceType();*/
+
+		/*searchTrigger_subscriptionDueForService();
+		editTrigger_beforeDueDate();
+		createCustomer();
+		createSubscription_beforeDueDate();*/
+		hitTriggerSubscriptionDueForService_Query();
+		assertLog();
+		
 		validateIfFailureExist();
 	}
 
@@ -86,7 +112,7 @@ public class Trigger_SubscriptionDueForService extends BaseClass {
 		subscriptionDueForService.setdays_before_afterDueDate_InputField(days_before_afterDueDate_InputField_Value);
 		triggerAdmin.selectDropdown(renewalTab.propertyTypeDropdown, ar.propertyType_CommercialOnly);
 		triggerAdmin.selectDropdown(renewalTab.propertyTypeDropdown, ar.propertyType_AllProperties);
-		triggerAdmin.clickSaveButton();
+		//triggerAdmin.clickSaveButton();
 	}
 
 	// Search Subscription Due For Service Trigger
@@ -120,7 +146,7 @@ public class Trigger_SubscriptionDueForService extends BaseClass {
 		triggerAdmin.selectDropdown(actions.actionTypeDropDown, actions.sendVoiceMessageType_Action);
 		triggerAdmin.selectDropdown(actions.ignoreContactPrefsDropDown, actions.ignoreContactPrefsTypes_No);
 		triggerAdmin.selectDropdown(actions.voiceType_Reminder, actions.preRecordedMessageVoice_Reminder);
-		triggerAdmin.selectDropdown(actions.preRecordedMessage_Message_Reminder, "Pest Promotion");
+		//triggerAdmin.selectDropdown(actions.preRecordedMessage_Message_Reminder, "Pest Promotion");
 		triggerAdmin.selectDropdown(actions.voiceType_Reminder, actions.newMessage_Voice);
 		actions.setMessageinAction_Type1(actions.sendVoiceMessageType_Action, actions.getPlaceHolders());
 		triggerAdmin.clickSaveButton();
@@ -198,7 +224,7 @@ public class Trigger_SubscriptionDueForService extends BaseClass {
 		triggerAdmin.selectDropdown(actions.actionTypeDropDown, actions.sendEmployeeVoice_SubscriptionStatus);
 		actions.setEmployeePhoneNumber_SubscriptionStatus(actions.sendEmployeeVoice_SubscriptionStatus, getData("phoneNumber", generalData));
 		triggerAdmin.selectDropdown(actions.voiceType_SubscriptionStatus, actions.preRecordedMessageVoice_Reminder);
-		triggerAdmin.selectDropdown(actions.preRecordedMessage_Message_SubscriptionStatus, "Pest Promotion");
+		//triggerAdmin.selectDropdown(actions.preRecordedMessage_Message_SubscriptionStatus, "Pest Promotion");
 		triggerAdmin.selectDropdown(actions.voiceType_SubscriptionStatus, actions.newMessage_Voice);
 		actions.setMessageinAction_Type1(actions.sendEmployeeVoice_SubscriptionStatus, actions.getPlaceHolders());
 		triggerAdmin.clickSaveButton();
@@ -215,8 +241,8 @@ public class Trigger_SubscriptionDueForService extends BaseClass {
 				"Subscription Due For Service Creation");
 		result(actions.EmailMessageType_Action, ar.getEmailActionTextValue(), "Email Action",
 				"Subscription Due For Service Creation");
-		result(actions.webhookMessageType_Action, renewalTab.getWebhookActionTextValue(), "Webhook Action",
-				"Subscription Due For Service Creation");
+		//result(actions.webhookMessageType_Action, renewalTab.getWebhookActionTextValue(), "Webhook Action",
+		//		"Subscription Due For Service Creation");
 		result(actions.snailMailMessageType_Action, ar.getSnailMailActionTextValue(), "Snail Mail Action",
 				"Subscription Due For Service Creation");
 		result(actions.sendEmployeeEmail_SubscriptionStatus, subscriptionStatus.getSendEmployeeEmailActionTextValue(),
@@ -231,7 +257,65 @@ public class Trigger_SubscriptionDueForService extends BaseClass {
 				"Send Employee Voice Action", "Subscription Due For Service Creation");
 
 	}
+	
+	// Create service type with Renewal Service
+	public void createRenewalServiceType() throws Exception {
+		service = new Service();
+		service.workWithService();
+	}
+	
+	// Create customer with Renewal Subscription
+	public void createCustomer() throws Exception {
+		header = new Header();
+		header.NavigateTo(header.schedulingTab);
+		createCustomer = new CreateNewCustomer();
+		createCustomer.createCustomerWithAddress();
+		createCustomer.validateCreatedCustomerNameAndAddress();
 
+	}
+
+	// Update Trigger Before Due date
+	public void editTrigger_beforeDueDate() {
+		subscriptionDueForService = new SubscriptionDueForServiceTab();
+		triggerAdmin.selectDropdown(triggerAdmin.activeType, triggerAdmin.activeType_Active);
+		triggerAdmin.selectDropdown(subscriptionDueForService.before_afterDueDate,
+				subscriptionDueForService.beforeDueDate_dueDateType);
+		//triggerAdmin.clickSaveButton();
+	}
+	
+	// Create Subscription for Due Date set to tomorrow
+	public void createSubscription_beforeDueDate() throws Exception {
+		subscription = new CustomerViewDialog_SubscriptionTab();
+		overviewHeader = new CustomerViewDialog_Header();
+		validateRenewal = new ValidateRenewal();
+		validateRenewal.renewalFieldsValidation();
+		validateRenewal.createRenewalSubscription();
+		subscription.clickSubscription(subscription.getSubscriptionID(validateRenewal.serviceType));
+		subscription.setCustomDate(GetDate.addOneDayToDate(Utilities.currentDate("MM/dd/yyyy")));
+		overviewHeader.ClickSaveButton();
+	}
+	
+	// Hit the Script
+	public void hitTriggerSubscriptionDueForService_Query() {
+		Utilities.navigateToUrl("https://adityam.pestroutes.com/resources/scripts/triggerServiceDue.php");
+	}
+	
+	// Navigate to customer and validate the log
+		public void assertLog() throws IOException, Exception {
+			Utilities.navigateToUrl("https://adityam.pestroutes.com/");
+			header = new Header();
+			reminder = new ReminderTab();
+			header.Search_A_Customer(getData("userID", generalData));
+			overviewHeader = new CustomerViewDialog_Header();
+			overviewHeader.NavigateTo(overviewHeader.notesTabInDialog);
+			overviewHeader.clickCustomerContactsInNotesTab();
+			result(editAlertNote_Text, reminder.getAlertText_Notes(), "Edit Note Alert", "Subscription Due For Service Creation");
+			result(SMSMAppointmentRenewalNote, reminder.SMSConfirmationNote(), "SMS Notification Affirmative",
+					"Subscription Due For Service Creation");
+			result(SMSMAppointmentRenewalNote, reminder.SMSConfirmationNote(), "SMS Notification Affirmative",
+					"Subscription Due For Service Creation");
+		}
+		
 	@SuppressWarnings("unchecked")
 	private void result(String expected, String actual, String stepName, String testName) {
 		if (AssertException.result(expected, actual, stepName).size() > 0) {

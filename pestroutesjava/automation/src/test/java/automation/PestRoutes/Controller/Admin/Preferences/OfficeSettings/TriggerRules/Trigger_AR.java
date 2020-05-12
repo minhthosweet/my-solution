@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.testng.annotations.Test;
 
+import automation.PestRoutes.Controller.Admin.Preferences.ServiceRelated.Service;
 import automation.PestRoutes.PageObject.Header;
 import automation.PestRoutes.PageObject.Admin.AdminMainPage;
 import automation.PestRoutes.PageObject.Admin.OfficeSettings.Actions;
@@ -59,6 +60,7 @@ public class Trigger_AR extends BaseClass {
 		sendToARMAction_AR();
 		searchTrigger_AR();
 		assertActions_Reminder();
+		searchTrigger_AR();
 		validateIfFailureExist();
 	}
 
@@ -201,7 +203,7 @@ public class Trigger_AR extends BaseClass {
 				"Collections Stage Action", "AR Trigger Rule");
 		result(actions.sendTOARMMessageType_Action, ar.getARMStageActionTextValue(), "ARM Action", "AR Trigger Rule");
 	}
-
+	
 	@SuppressWarnings("unchecked")
 	private void result(String expected, String actual, String stepName, String testName) {
 		if (AssertException.result(expected, actual, stepName).size() > 0) {
