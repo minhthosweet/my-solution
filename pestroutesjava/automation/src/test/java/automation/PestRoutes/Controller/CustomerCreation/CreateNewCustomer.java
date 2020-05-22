@@ -89,6 +89,27 @@ public class CreateNewCustomer extends BaseClass {
 		alertCondition();
 		captureUserIdAndFullName();
 	}
+	
+	@When("I create customer with first name, last name, email and address")
+	public void createCustomerWithEmail() throws Exception {
+		dialog = new CustomerViewDialog_Header();
+		customer = new CreateCustomerDIalog();
+		overview = new CustomerViewDialog_OverviewTab();
+		header = new Header();
+		header.NavigateTo(header.newCustomerTab);
+		customer.setFirstName(fName);
+		customer.setLastName(lName);
+		customer.setEmailAddress("abdul.aarbi@pestroutes.com");
+		customer.selectUnit("Multi Unit");
+		customer.setAddress(streetAddress);
+		customer.setZipCode(zipcode);
+		customer.setCity(city);
+		customer.setCellPhone(getData("phoneNumber",generalData));
+		customer.clickSmsCheckBox();
+		dialog.ClickSaveButton();
+		alertCondition();
+		captureUserIdAndFullName();
+	}
 
 	@When("I create customer with first name and last name")
 	public void createCustomerWithoutAddress() throws Exception {

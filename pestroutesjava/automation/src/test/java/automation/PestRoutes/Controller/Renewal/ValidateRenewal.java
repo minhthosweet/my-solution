@@ -10,6 +10,7 @@ import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import automation.PestRoutes.Controller.CustomerCreation.CreateNewCustomer;
 import automation.PestRoutes.Controller.Schedules.ScheduleAppt;
 import automation.PestRoutes.PageObject.Header;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_Header;
@@ -34,6 +35,7 @@ public class ValidateRenewal extends BaseClass{
 	
 	CustomerViewDialog_SubscriptionTab subscription = new CustomerViewDialog_SubscriptionTab();
 	CustomerViewDialog_Header customerDialogHeader;
+	CreateNewCustomer newCustomer;
 	CustomerviewDialog_AppointmentsTab appointmentTab;
 	CustomerViewDialog_Header overviewHeader;
 	InvoiceImplementation paymentPage;
@@ -65,7 +67,9 @@ public class ValidateRenewal extends BaseClass{
 	public void renewalFieldsValidation() throws Exception {
 		header = new Header();
 		customerDialogHeader = new CustomerViewDialog_Header();
-		header.Search_A_Customer(getData("customerName", generalData));
+		newCustomer = new CreateNewCustomer();
+		newCustomer.createCustomerWithEmail();
+		//header.Search_A_Customer(getData("customerName", generalData));
 		customerDialogHeader.NavigateTo(customerDialogHeader.subscriptionTabInDialog);
 		subscription.clickNewSubscriptionButton();
 		subscription.selectServiceType(serviceType);

@@ -5,8 +5,6 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Random;
-import java.util.concurrent.TimeUnit;
-
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.SystemUtils;
@@ -18,13 +16,11 @@ import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.annotations.Test;
-
 import automation.PestRoutes.Utilities.FindElement.InputType;
 import automation.PestRoutes.Utilities.Driver.GetWebDriver;
 
@@ -92,6 +88,21 @@ public class Utilities {
 	public static void waitUntileElementIsVisible(String needXpath) {
 		WebDriverWait wait = new WebDriverWait(driver, 50);
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(needXpath)));
+	}
+	
+	public static void sign(WebElement needAttribute) {
+		Actions builder = new Actions(driver);
+		Action drawAction = builder 
+	              .click(needAttribute)
+	              .moveToElement(needAttribute,8,8)
+	              .clickAndHold(needAttribute)
+	              .moveByOffset(60, 70)
+	              .moveByOffset(-120,-120)
+	              .moveByOffset(70, 80)
+	              .moveByOffset(-80,-80)
+	              .release(needAttribute)
+	              .build();
+	    drawAction.perform();
 	}
 
 	public static void javaScriptClick(String needID) {
