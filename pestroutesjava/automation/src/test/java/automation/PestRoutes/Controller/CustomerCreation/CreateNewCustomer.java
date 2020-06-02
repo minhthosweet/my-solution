@@ -96,10 +96,11 @@ public class CreateNewCustomer extends BaseClass {
 		customer = new CreateCustomerDIalog();
 		overview = new CustomerViewDialog_OverviewTab();
 		header = new Header();
+		header.NavigateTo(header.schedulingTab);
 		header.NavigateTo(header.newCustomerTab);
 		customer.setFirstName(fName);
 		customer.setLastName(lName);
-		customer.setEmailAddress("abdul.aarbi@pestroutes.com");
+		customer.setEmailAddress("aditya.morugadi@pestroutes.com");
 		customer.selectUnit("Multi Unit");
 		customer.setAddress(streetAddress);
 		customer.setZipCode(zipcode);

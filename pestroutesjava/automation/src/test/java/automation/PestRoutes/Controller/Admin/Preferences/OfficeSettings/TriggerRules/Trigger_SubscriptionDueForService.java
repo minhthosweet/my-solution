@@ -23,7 +23,6 @@ import automation.PestRoutes.Utilities.BaseClass;
 import automation.PestRoutes.Utilities.GetDate;
 import automation.PestRoutes.Utilities.Reporter;
 import automation.PestRoutes.Utilities.Utilities;
-import automation.PestRoutes.Utilities.Utilities.ElementType;
 
 public class Trigger_SubscriptionDueForService extends BaseClass {
 	Header header;
@@ -49,7 +48,7 @@ public class Trigger_SubscriptionDueForService extends BaseClass {
 	
 	@Test
 	public void createSubscriptionDueForService() throws Exception {
-		/*createTrigger_SubscriptionDueForService();
+		createTrigger_SubscriptionDueForService();
 		searchTrigger_subscriptionDueForService();
 		SMSAction_SubscriptionDueForService();
 		searchTrigger_subscriptionDueForService();
@@ -60,7 +59,7 @@ public class Trigger_SubscriptionDueForService extends BaseClass {
 		snailMailAction_SubscriptionDueForService();
 		/*searchTrigger_subscriptionDueForService();
 		webhookAction_SubscriptionDueForService();*/
-		/*searchTrigger_subscriptionDueForService();
+		searchTrigger_subscriptionDueForService();
 		sendEmployeeEmail_SubscriptionDueForService();
 		searchTrigger_subscriptionDueForService();
 		addAlert_SubscriptionDueForService();
@@ -71,17 +70,14 @@ public class Trigger_SubscriptionDueForService extends BaseClass {
 		searchTrigger_subscriptionDueForService();
 		sendEmployeeVoice_SubscriptionDueForService();
 		searchTrigger_subscriptionDueForService();
-		assertActions_SubscriptionDueForService();
-		
-		createRenewalServiceType();*/
-
-		/*searchTrigger_subscriptionDueForService();
+		assertActions_SubscriptionDueForService();		
+		createRenewalServiceType();
+		searchTrigger_subscriptionDueForService();
 		editTrigger_beforeDueDate();
 		createCustomer();
-		createSubscription_beforeDueDate();*/
+		createSubscription_beforeDueDate();
 		hitTriggerSubscriptionDueForService_Query();
-		assertLog();
-		
+		assertLog();		
 		validateIfFailureExist();
 	}
 
@@ -280,7 +276,7 @@ public class Trigger_SubscriptionDueForService extends BaseClass {
 		triggerAdmin.selectDropdown(triggerAdmin.activeType, triggerAdmin.activeType_Active);
 		triggerAdmin.selectDropdown(subscriptionDueForService.before_afterDueDate,
 				subscriptionDueForService.beforeDueDate_dueDateType);
-		//triggerAdmin.clickSaveButton();
+		triggerAdmin.clickSaveButton();
 	}
 	
 	// Create Subscription for Due Date set to tomorrow
@@ -305,7 +301,7 @@ public class Trigger_SubscriptionDueForService extends BaseClass {
 			Utilities.navigateToUrl("https://adityam.pestroutes.com/");
 			header = new Header();
 			reminder = new ReminderTab();
-			header.Search_A_Customer(getData("userID", generalData));
+			header.Search_A_Customer(getData("customerName", generalData));
 			overviewHeader = new CustomerViewDialog_Header();
 			overviewHeader.NavigateTo(overviewHeader.notesTabInDialog);
 			overviewHeader.clickCustomerContactsInNotesTab();
