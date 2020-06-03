@@ -1,5 +1,6 @@
 #Author: Aarbi
 @Regression
+@CustomerCart
 Feature: Create customer scenarios
 
   Scenario: Create a customer without address

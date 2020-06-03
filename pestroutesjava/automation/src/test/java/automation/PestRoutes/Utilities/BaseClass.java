@@ -22,9 +22,9 @@ public class BaseClass extends AppData {
 
 	public void beforeTest() throws IOException {
 		driver = GetWebDriver.getInstance();
-		String url = getData("pronBetaUrl",generalData);
-		String userName = getData("userName", generalData);
-		String password = getData("password", generalData);
+		String url = getData("url",environment);
+		String userName = getData("userName", environment);
+		String password = getData("password", environment);
 
 		driver.get(url);
 		signInPage = new SignIn();

@@ -10,6 +10,7 @@ public class AppData {
 	static Properties properties;
 	public String generalData = "application.properties";
 	public String quarterlyPreferredDayData = "quarterlybyprefferedday.properties";
+	public String environment = "env.properties";
 
 	public static void loadData(String needFile) {
 

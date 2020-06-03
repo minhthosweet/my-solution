@@ -9,6 +9,8 @@ import automation.PestRoutes.Utilities.Utilities.ElementType;
 
 public class DocumentsPage {
 	
+	//submission message object
+	public String message = "//div[@id = 'customerDocumentUploadPanel']/preceding-sibling::div[1]";
 	//Main buttons
 	public String uploadDocumentsButton = "//li[contains (text(), 'Upload Document')]";
 	public String newAgreementButton = "//li[contains (text(), 'New Agreement')]";
@@ -27,16 +29,27 @@ public class DocumentsPage {
 	//Service Agreement objects
 	public String createSignedAgreementButton = "//div[text()='Create Signed Agreement']";
 	public String agreementSignBox= "//canvas[@id='formSignature']";
+	public String signButton = "//div[text() = 'Sign']";
+	
+	//New form objects
+	
 	
 	
 	public void clickButton(String needAttribute) {
 		Utilities.waitUntileElementIsVisible(needAttribute);
-		Utilities.clickElement(needAttribute, ElementType.XPath);
+		Utilities.clickElement(needAttribute, ElementType.XPath); 
+	}
+	public void selectForm(String needFormName) {
+		Utilities.clickElement("//div[text() = "+needFormName+"]", ElementType.XPath);
 	}
 	public void sign(String needAttribute) {
 		Utilities.waitUntileElementIsVisible(needAttribute);
 		WebElement elem = FindElement.elementByAttribute(needAttribute, InputType.XPath);
 		Utilities.sign(elem);
+	}
+	
+	public String getMessage(String needAttribute) {
+		return Utilities.getElementTextValue(needAttribute, ElementType.XPath);
 	}
 
 }
