@@ -10,15 +10,11 @@
 		<!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-chrome-driver -->
 
 		<dependency>
-
 			<groupId>org.seleniumhq.selenium</groupId>
-
 			<artifactId>selenium-chrome-driver</artifactId>
-
 			<version>4.0.0-alpha-5</version>
 
 		</dependency>
-
 		<!-- https://mvnrepository.com/artifact/jsch/jsch -->
 		<!-- https://mvnrepository.com/artifact/com.jcraft/jsch -->
 		<dependency>
@@ -27,14 +23,12 @@
 			<version>0.1.54</version>
 		</dependency>
 
-
 		<!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-ie-driver -->
 		<dependency>
 			<groupId>org.seleniumhq.selenium</groupId>
 			<artifactId>selenium-ie-driver</artifactId>
 			<version>4.0.0-alpha-4</version>
 		</dependency>
-
 
 		<dependency>
 			<groupId>io.github.bonigarcia</groupId>
@@ -50,7 +44,6 @@
 			<version>3.141.59</version>
 		</dependency>
 
-
 		<!-- https://mvnrepository.com/artifact/org.testng/testng -->
 		<dependency>
 			<groupId>org.testng</groupId>
@@ -59,15 +52,10 @@
 			<scope>test</scope>
 		</dependency>
 
-
 		<dependency>
-
 			<groupId>commons-io</groupId>
-
 			<artifactId>commons-io</artifactId>
-
 			<version>2.6</version>
-
 		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
@@ -76,7 +64,6 @@
 			<artifactId>mysql-connector-java</artifactId>
 			<version>8.0.19</version>
 		</dependency>
-
 
 		<dependency>
 			<groupId>com.aventstack</groupId>
@@ -98,10 +85,13 @@
 			<version>4.7.2</version>
 		</dependency>
 
-
-
+		<!-- https://mvnrepository.com/artifact/io.cucumber/cucumber-testng -->
+		<dependency>
+			<groupId>io.cucumber</groupId>
+			<artifactId>cucumber-testng</artifactId>
+			<version>5.7.0</version>
+		</dependency>
 
 	</dependencies>
-
 
 </project>

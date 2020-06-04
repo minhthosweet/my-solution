@@ -24,7 +24,17 @@ public class CustomerViewDialog_Admin {
 	public String reassignToSelf = "Reassign Service Properties to Themselves";
 	public String cancelNotes = "//textarea[@id='cancelNotes']";
 	private String clickFreeze = "//span[text()='Freeze Account']";
+	public String customerStatus = "//div[@id='completeButton']/div[@id='SubStatus']";
 
+	// Customer Status
+	public String customerStatus_Frozen = "Frozen";
+	public String customerStatus_Active = "Active";
+
+	// Cancellation Options
+	public String cancelResponsibleServiceSubscriptions = "Cancel Responsible Service Subscriptions";
+	public String reassignServicePropertiesToNewBillingAccount = "Reassign Service Properties To New Billing Account";
+	public String reassignServicePropertiestoThemselves = "Reassign Service Properties to Themselves";
+	
 	public void changeAccountStatus_Frozen(String cancelCustomerOption) {
 
 		Utilities.waitUntileElementIsVisible(accountStatusChange);
@@ -79,6 +89,10 @@ public class CustomerViewDialog_Admin {
 
 	public void clickFreezeAccount() {
 		Utilities.clickElement(clickFreeze, ElementType.XPath);
+	}
+
+	public String getCustomerStatus() {
+		return Utilities.getElementTextValue(customerStatus, ElementType.XPath);
 	}
 
 }

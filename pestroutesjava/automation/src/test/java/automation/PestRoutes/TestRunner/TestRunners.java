@@ -1,13 +1,10 @@
 package automation.PestRoutes.TestRunner;
 
-//import cucumber.api.CucumberOptions;
-//import cucumber.api.testng.*;
+import io.cucumber.testng.AbstractTestNGCucumberTests;
+import io.cucumber.testng.CucumberOptions;
 
-//@CucumberOptions(
-// features = {"src/test/java/automation/PestRoutes/Controller"},
-// glue={"PageObject.CreateCustomer"}
-// )
-//
-//public class TestRunners extends AbstractTestNGCucumberTests{
-//
-//}
+@CucumberOptions(plugin = { "src/test/java/automation/PestRoutes/Controller" }, glue = { "PageObject.CreateCustomer" })
+
+public class TestRunners extends AbstractTestNGCucumberTests {
+
+}

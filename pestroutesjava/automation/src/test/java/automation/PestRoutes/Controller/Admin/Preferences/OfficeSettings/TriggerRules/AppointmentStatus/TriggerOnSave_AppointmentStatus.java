@@ -3,59 +3,53 @@ package automation.PestRoutes.Controller.Admin.Preferences.OfficeSettings.Trigge
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.testng.annotations.Test;
 import automation.PestRoutes.Controller.Admin.Preferences.OfficeSettings.TriggerRules.Trigger_SubscriptionDueForService;
+import automation.PestRoutes.Controller.Admin.Preferences.OfficeSettings.TriggerRules.CustomerStatus.TriggerOnSave_CustomerStatus;
 import automation.PestRoutes.Controller.CustomerCreation.CreateNewCustomer;
 import automation.PestRoutes.Controller.Renewal.ValidateRenewal;
 import automation.PestRoutes.PageObject.Header;
 import automation.PestRoutes.PageObject.Admin.OfficeSettings.TriggerRules;
 import automation.PestRoutes.PageObject.Admin.OfficeSettings.TriggerTypes.SubscriptionStatusTab;
-import automation.PestRoutes.Utilities.AssertException;
 import automation.PestRoutes.Utilities.BaseClass;
-import automation.PestRoutes.Utilities.Reporter;
 import automation.PestRoutes.Utilities.Utilities;
 
 public class TriggerOnSave_AppointmentStatus extends BaseClass {
-	CreateTrigger_AppointmentStatus createAppointmentStatus;
+	CreateTrigger_AppointmentStatus createAppointmentStatus = new CreateTrigger_AppointmentStatus();
 	TriggerRules triggerAdmin = new TriggerRules();
 	SubscriptionStatusTab subscriptionStatus;
 	Header header;
 	CreateNewCustomer createCustomer;
 	ValidateRenewal validateRenewal;
 	Trigger_SubscriptionDueForService subscriptionDueForService;
+	TriggerOnSave_CustomerStatus customerStatus;
 
 	private String descriptionSMS = "SMS_Appointment";
 	public List list = new ArrayList<String>();
 
 	@Test
 	public void triggerOnSave_AppointmentStatus() throws Exception {
-		createTrigger();
-		editTrigger_triggerOnSave_AnyAppointmentStatus();
-		appointmentStatus_SMS();
+		createSMSTrigger();
+		editTrigger_triggerOnSave_AppointmentStatus("Any");
+		appointmentStatus_SMSAction();
 		createCutomerWithSubscription();
 		scheduleappointment();
 
 	}
 
-	public void createTrigger() throws Exception {
-		createAppointmentStatus = new CreateTrigger_AppointmentStatus();
+	// Create Trigger
+	public void createSMSTrigger() throws Exception {
 		createAppointmentStatus.createTrigger_AppointmentStatus(descriptionSMS);
 	}
 
-	public void editTrigger_triggerOnSave_AnyAppointmentStatus() throws Exception {
-		subscriptionStatus = new SubscriptionStatusTab();
-		createAppointmentStatus = new CreateTrigger_AppointmentStatus();
-		createAppointmentStatus.searchTrigger_appointmentStatus(descriptionSMS);
-		triggerAdmin.clickEditTrigger(descriptionSMS);
-		triggerAdmin.selectDropdown(subscriptionStatus.whenToTrigger, subscriptionStatus.whenToTrigger_triggerOnSave);
-		triggerAdmin.selectDropdown(subscriptionStatus.statusChangedTo, subscriptionStatus.statusChangedTo_Any);
-		triggerAdmin.clickSaveButton();
+	// Edit Trigger
+	public void editTrigger_triggerOnSave_AppointmentStatus(String statusChange) throws Exception {
+		customerStatus = new TriggerOnSave_CustomerStatus();
+		customerStatus.editTrigger_triggerOnSave_CustomerStatus(statusChange);
 	}
 
-	// Set Appointment Status
-	public void appointmentStatus_SMS() throws InterruptedException {
-		createAppointmentStatus = new CreateTrigger_AppointmentStatus();
+	// Set SMS Appointment Status
+	public void appointmentStatus_SMSAction() throws InterruptedException {
 		createAppointmentStatus.searchTrigger_appointmentStatus(descriptionSMS);
 		createAppointmentStatus.SMSAction_AppointmentStatus();
 	}

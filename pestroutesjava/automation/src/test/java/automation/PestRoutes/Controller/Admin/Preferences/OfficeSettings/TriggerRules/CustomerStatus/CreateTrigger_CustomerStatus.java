@@ -1,4 +1,4 @@
-package automation.PestRoutes.Controller.Admin.Preferences.OfficeSettings.TriggerRules;
+package automation.PestRoutes.Controller.Admin.Preferences.OfficeSettings.TriggerRules.CustomerStatus;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -17,7 +17,7 @@ import automation.PestRoutes.Utilities.GetDate;
 import automation.PestRoutes.Utilities.Reporter;
 import automation.PestRoutes.Utilities.Utilities;
 
-public class Trigger_CustomerStatus extends BaseClass {
+public class CreateTrigger_CustomerStatus extends BaseClass {
 	Header header;
 	AdminMainPage adminMainPage;
 	TriggerRules triggerAdmin = new TriggerRules();
@@ -30,34 +30,34 @@ public class Trigger_CustomerStatus extends BaseClass {
 
 	@Test
 	public void createCustomerStatusRule() throws Exception {
-		createTrigger_CustomerStatus();
-		searchTrigger_appointmentStatus();
+		createTrigger_CustomerStatus(descriptionTrigger);
+		searchTrigger_appointmentStatus(descriptionTrigger);
 		SMSAction_CustomerStatus();
-		searchTrigger_appointmentStatus();
+		searchTrigger_appointmentStatus(descriptionTrigger);
 		voiceAction_CustomerStatus();
-		searchTrigger_appointmentStatus();
+		searchTrigger_appointmentStatus(descriptionTrigger);
 		emailAction_CustomerStatus();
-		searchTrigger_appointmentStatus();
+		searchTrigger_appointmentStatus(descriptionTrigger);
 		snailMailAction_CustomerStatus();
-		searchTrigger_appointmentStatus();
-		webhookAction_CustomerStatus();
-		searchTrigger_appointmentStatus();
+		searchTrigger_appointmentStatus(descriptionTrigger);
+		/*webhookAction_CustomerStatus();
+		searchTrigger_appointmentStatus(descriptionName);*/
 		sendEmployeeEmail_CustomerStatus();
-		searchTrigger_appointmentStatus();
+		searchTrigger_appointmentStatus(descriptionTrigger);
 		addAlert_CustomerStatus();
-		searchTrigger_appointmentStatus();
+		searchTrigger_appointmentStatus(descriptionTrigger);
 		addTask_CustomerStatus();
-		searchTrigger_appointmentStatus();
+		searchTrigger_appointmentStatus(descriptionTrigger);
 		sendEmployeeSMS_CustomerStatus();
-		searchTrigger_appointmentStatus();
+		searchTrigger_appointmentStatus(descriptionTrigger);
 		sendEmployeeVoice_CustomerStatus();
-		searchTrigger_appointmentStatus();
+		searchTrigger_appointmentStatus(descriptionTrigger);
 		assertActions_AppointmentStatus();
 		validateIfFailureExist();
 	}
 
 	// Create a Customer Status Trigger
-	public void createTrigger_CustomerStatus() throws InterruptedException, Exception {
+	public void createTrigger_CustomerStatus(String descriptionName) throws InterruptedException, Exception {
 		header = new Header();
 		adminMainPage = new AdminMainPage();
 		renewalTab = new RenewalTab();
@@ -69,7 +69,7 @@ public class Trigger_CustomerStatus extends BaseClass {
 		triggerAdmin.clickAddTrigerButton();
 		triggerAdmin.setStartDate(Utilities.currentDate("MM/dd/yyyy"));
 		triggerAdmin.setEndDate(GetDate.addOneYearToDate(Utilities.currentDate("MM/dd/yyyy")));
-		triggerAdmin.setDescription(descriptionTrigger);
+		triggerAdmin.setDescription(descriptionName);
 		triggerAdmin.selectDropdown(triggerAdmin.triggerTypeDropdown, triggerAdmin.triggerType_CustomerStatus);
 		triggerAdmin.selectDropdown(triggerAdmin.globalType, triggerAdmin.global_SpecificToThisOffice);
 		triggerAdmin.selectDropdown(triggerAdmin.activeType, triggerAdmin.activeType_NotActive);
@@ -83,16 +83,16 @@ public class Trigger_CustomerStatus extends BaseClass {
 	}
 
 	// Search Customer Status Trigger
-	public void searchTrigger_appointmentStatus() {
+	public void searchTrigger_appointmentStatus(String descriptionName) {
 		header = new Header();
 		adminMainPage = new AdminMainPage();
 		header.NavigateTo(header.adminTab);
 		adminMainPage.navigateTo(adminMainPage.preferences);
 		triggerAdmin.navigateToTriggerRules();
-		triggerAdmin.searchTrigger(descriptionTrigger);
-		result(descriptionTrigger, triggerAdmin.getDescriptionText(descriptionTrigger), "Search Customer",
+		triggerAdmin.searchTrigger(descriptionName);
+		result(descriptionName, triggerAdmin.getDescriptionText(descriptionName), "Search Customer",
 				"Appointment Status Creation");
-		triggerAdmin.clickEditTrigger(descriptionTrigger);
+		triggerAdmin.clickEditTrigger(descriptionName);
 	}
 
 	// Create a SMS action

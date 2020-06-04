@@ -126,6 +126,7 @@ public class CreateNewCustomer extends BaseClass {
 		customer.setCellPhone(getData("phoneNumber",generalData));
 		customer.clickSmsCheckBox();
 		dialog.ClickSaveButton();
+		alertCondition();
 		captureUserIdAndFullName();
 	}
 

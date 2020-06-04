@@ -32,7 +32,7 @@ public class CreateTrigger_AppointmentStatus extends BaseClass {
 
 	@Test
 	public void createAppointmentStatusRule() throws InterruptedException, Exception {
-		//createTrigger_AppointmentStatus();
+		createTrigger_AppointmentStatus(descriptionTrigger);
 		searchTrigger_appointmentStatus(descriptionTrigger);
 		SMSAction_AppointmentStatus();
 		searchTrigger_appointmentStatus(descriptionTrigger);
