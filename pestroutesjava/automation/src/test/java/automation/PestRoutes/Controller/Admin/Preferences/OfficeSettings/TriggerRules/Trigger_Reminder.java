@@ -212,11 +212,9 @@ public class Trigger_Reminder extends BaseClass {
 		overviewHeader.NavigateTo(overviewHeader.notesTabInDialog);
 		overviewHeader.clickCustomerContactsInNotesTab();
 		result(editAlertNote_Text, reminder.getAlertText_Notes(), "Edit Note Alert", "Reminder Trigger Rule");
-		result(SMSMAppointmentReminderNote, reminder.SMSConfirmationNote(), "SMS Notification Affirmative",
+		result(SMSMAppointmentReminderNote + getData("phoneNumber", generalData),
+				reminder.SMSConfirmationNote(getData("phoneNumber", generalData)), "SMS Notification Affirmative",
 				"Reminder Trigger Rule");
-		result(sentToPhoneNumber, reminder.getNumberReminderSentTo(getData("phoneNumber", generalData)),
-				"Number SMS Sent from Confirmation", "Reminder Trigger Rule");
-
 	}
 
 	@SuppressWarnings("unchecked")
