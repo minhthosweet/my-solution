@@ -31,6 +31,8 @@ public class Actions {
 	public String addTask_SubscriptionStatus = "Add Task";
 	public String sendEmployeeSMS_SubscriptionStatus = "Send Employee SMS";
 	public String sendEmployeeVoice_SubscriptionStatus = "Send Employee Voice";
+	public String removePaymentProfile_SubscriptionStatus = "Remove Payment Profile"; 
+	
 	// Action Filter Objects
 	public String actionTypeDropDown = "//select[@name = 'eventObserverID']";
 
@@ -130,6 +132,12 @@ public class Actions {
 	public String placeHolderItemText;
 	public String hidePlaceHolders = "//div[text()='Hide Placeholders']";
 
+	// Remove Payment Profile Objects
+	public String paymentType = "//select[@data-observeritemtype='paymentType']";
+	public String CCandACH = "Credit Card and Bank Account";
+	public String ACHOnly = "Bank Account Only";
+	public String CCOnly = "Credit Card Only";
+	
 	// Actions
 	public void clickAddActionButton() {
 		Utilities.waitUntileElementIsVisible(addActionButton);
@@ -214,6 +222,13 @@ public class Actions {
 	public void messageInWebhook(String webHookMessageType, String placeHolderMessage) {
 		FindElement.elementByAttribute("//label[text()='" + webHookMessageType + "']/following-sibling::div/textarea",
 				InputType.XPath).sendKeys(placeHolderMessage);
+	}
+	
+	// Payment Type in Remove Payment Profile
+	public void paymentType_removePaymentProfile(String paymentOption) {
+		Utilities.clickElement(paymentType, ElementType.XPath);
+		Utilities.waitUntileElementIsVisible("//select[@data-observeritemtype='paymentType']//option[text()='"+paymentOption+"']");
+		Utilities.clickElement("//select[@data-observeritemtype='paymentType']//option[text()='"+paymentOption+"']", ElementType.XPath);
 	}
 
 	// Remove trigger

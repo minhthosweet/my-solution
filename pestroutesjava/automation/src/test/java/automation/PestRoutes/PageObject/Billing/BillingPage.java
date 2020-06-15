@@ -10,9 +10,9 @@ import automation.PestRoutes.Utilities.Utilities.ElementType;
 public class BillingPage {
 	
 	//**********Left navigation objects**********
-	public String creditCardButton = "//li[text()='Billing Info']";
-	public String bankAccountButton = "//li[text()='Credit Card ']";
-	public String billingInfoButton = "//li[text()='Bank Account ']";
+	public String billingInfoButton = "//li[text()='Billing Info']";
+	public String creditCardButton = "//li[text()='Credit Card ']";
+	public String bankAccountButton = "//li[text()='Bank Account ']";
 	
 	//**********Billing information objects**********
 	//***Check Boxes***
@@ -61,13 +61,13 @@ public class BillingPage {
 	
 	//**********Credit card objects**********
 	//***Buttons***
-	public String ccSecurelyEnterCardInfoButton = "//div[@id='renderSecureCardFormButtonNMI']";
+	public String ccSecurelyEnterCardInfoButton = "//div[text()='Securely Enter Card Info']";
 	public String ccRemoveAccountButton = "//div[text()='Remove Account']";
 	public String ccCopyAccountButton = "//div[text()='Copy Account']";
 	public String ccSaveCardButton = "//button[@id='submit-payment']";
 	public String cc_X_ButtonInAddCreditCardDialog = "//form[@id='lightbox']//div[@class='x-container']";
 	//***Input Fields***
-	public String ccCardNumberInputField = "//input[@id='cc-number']";
+	public String ccCardNumberInputField = "//input[@id='credit-card-number']";
 	public String ccExpirationInputField = "//input[@id='cc-exp']";
 	public String ccCvvInputField = "//input[@id='cc-cvv']";
 	//***Drop downs***
@@ -104,6 +104,7 @@ public class BillingPage {
 	
 	public void setInputField(String needInputField, String needValue) {
 		Utilities.waitUntileElementIsVisible(needInputField);
+		Utilities.clickElement(needInputField, ElementType.XPath);
 		FindElement.elementByAttribute(needInputField, InputType.XPath).sendKeys(Keys.CONTROL,"a");
 		FindElement.elementByAttribute(needInputField, InputType.XPath).sendKeys(needValue);
 	}

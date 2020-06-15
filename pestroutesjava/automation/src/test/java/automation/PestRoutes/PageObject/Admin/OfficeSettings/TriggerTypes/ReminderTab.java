@@ -7,7 +7,7 @@ import automation.PestRoutes.Utilities.FindElement.InputType;
 
 public class ReminderTab {
 
-	//Reminder Type
+	// Reminder Type
 	public String daysBefore_Reminder = "//input[@data-ruleitemtype='reminderDayOffset']";
 
 	// When to trigger Objects
@@ -28,6 +28,30 @@ public class ReminderTab {
 	// Assert objects for Notes after Reminder is triggered
 	public String editNotes_Alert = "//div[@id='notesDetail']//li";
 
+	// get Email value in Notes
+	public String emailValue = "//li[1][@contactid='SENTEMAIL']//div[@sentto]";
+
+	// get Voice Value in Notes
+	public String voiceValue = "//div[contains(text(),'Voice Message')]//preceding-sibling::div[@sentto]";
+
+	// get Snail Mail Value in Notes
+	public String snailMailValue = "//div[contains(text(),'Queued Snail Mail')]//following-sibling::div[@sentto]";
+
+	// get Alert Value in Notes
+	public String alertLogValue = "//div[contains(text(),'Alert')]";
+	
+	// get Task Value in Notes
+	public String taskLogValue = "//div[contains(text(),'Task - Customer Status')]";
+
+	// get Employee Voice Value in Notes 
+	public String employeeVoiceValue = "//div[contains(text(),'unable to send message [bad phone number]')]";
+	
+	//get Removed Payment Value in Notes
+	public String removePaymentValue = "//div[text()='Removed Payment Method from Trigger: Card']";
+	
+	//get Credit Card Info in Billing
+	public String CCInfo = "//li[@class='gatewayCC']//div[text()='No Payment Info']";
+	
 	public void setdaysBefore_Reminder(String numberOfDays) {
 		Utilities.waitUntileElementIsVisible(daysBefore_Reminder);
 		FindElement.elementByAttribute(daysBefore_Reminder, InputType.XPath).clear();
@@ -55,12 +79,49 @@ public class ReminderTab {
 		return editNote_AlertText;
 	}
 
-	public String SMSConfirmationNote() {
-		return Utilities.getElementTextValue("//div[@name='contactTypeName']", ElementType.XPath).trim();
+	public String SMSConfirmationNote(String phoneNumber) {
+		return Utilities.getElementTextValue("//div[@sentto='" + phoneNumber + "']", ElementType.XPath).trim();
 
 	}
 
-	public String getNumberReminderSentTo(String phoneNumber) {
-		return Utilities.getElementTextValue("//div[@sentto='" + phoneNumber + "']", ElementType.XPath).trim();
+	public String getEmailValue() {
+		return Utilities.getElementTextValue(emailValue, ElementType.XPath);
+	}
+
+	public String getVoiceText() {
+		return Utilities.getElementTextValue(voiceValue, ElementType.XPath);
+	}
+
+	public String getSnailMailValue() {
+		return Utilities.getElementTextValue(snailMailValue, ElementType.XPath);
+	}
+
+	public String getEmployeeEMailValue(String employeeEmail) {
+		return Utilities.getElementTextValue("//div[@sentto='" + employeeEmail + "']", ElementType.XPath);
+	}
+
+	public String getAlertValue() {
+		return Utilities.getElementTextValue(alertLogValue, ElementType.XPath);
+	}
+	
+	public String getTaskValue() {
+		return Utilities.getElementTextValue(taskLogValue, ElementType.XPath);
+	}
+	
+	public String customerNameinTask(String customerNameTask) {
+		Utilities.scrollToElement("//td[@customerid]//p[text()='"+customerNameTask+"']");
+		return Utilities.getElementTextValue("//td[@customerid]//p[text()='"+customerNameTask+"']", ElementType.XPath);
+	}
+	
+	public String getEmployeeVoiceValue() {
+		return Utilities.getElementTextValue(employeeVoiceValue, ElementType.XPath).substring(0, 41);
+	}
+	
+	public String getRemovedPaymentValue() {
+		return Utilities.getElementTextValue(removePaymentValue, ElementType.XPath).substring(0, 41);
+	}
+	
+	public String getCCInfoBilling() {
+		return Utilities.getElementTextValue(CCInfo, ElementType.XPath);
 	}
 }

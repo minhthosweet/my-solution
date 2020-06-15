@@ -80,7 +80,7 @@ public class TriggerOnSave_AppointmentStatus extends BaseClass {
 	// assert SMS Log
 	public void assertSMSlog() throws IOException, Exception {
 		subscriptionDueForService = new Trigger_SubscriptionDueForService();
-		subscriptionDueForService.assertLog();
+		subscriptionDueForService.assertSMSLog();
 	}
 
 }
