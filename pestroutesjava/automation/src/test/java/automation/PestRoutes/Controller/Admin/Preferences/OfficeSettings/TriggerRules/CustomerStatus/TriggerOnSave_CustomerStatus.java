@@ -17,23 +17,23 @@ import automation.PestRoutes.Utilities.Utilities;
 public class TriggerOnSave_CustomerStatus extends BaseClass {
 
 	CreateTrigger_CustomerStatus createCustomerStatus = new CreateTrigger_CustomerStatus();
-	TriggerRules triggerAdmin = new TriggerRules();
+	TriggerRules triggerAdmin;
 	SubscriptionStatusTab subscriptionStatus;
 	CreateNewCustomer newCustomer;
-	Trigger_SubscriptionDueForService subscriptionDueForService;
+	Trigger_SubscriptionDueForService subscriptionDueForService = new Trigger_SubscriptionDueForService();;
 	CustomerViewDialog_Admin customerAdmin;
 	CustomerViewDialog_Header overviewHeader;
 	CreateCustomerDIalog customer;
 	Billing billing;
 	Header header;
 
-	private String description_TriggerOnSave = "SMS_Customer";
+	private String description_TriggerOnSave = "TriggerOnSave_CustomerStatus";
 
 	@Test
-	public void triggerOnSave_AppointmentStatus() throws Exception {
+	public void triggerOnSave_CustomerStatus() throws Exception {
 
 		// Create trigger
-		createTriggerOnSave_CustomerStatus();
+		createTriggerOnSave_CustomerStatus(description_TriggerOnSave);
 		
 		// Create Actions
 		customerStatus_SMSAction();
@@ -101,13 +101,14 @@ public class TriggerOnSave_CustomerStatus extends BaseClass {
 	}
 
 	// Create Trigger
-	public void createTriggerOnSave_CustomerStatus() throws Exception {
-		createCustomerStatus.createTrigger_CustomerStatus(description_TriggerOnSave);
+	public void createTriggerOnSave_CustomerStatus(String description) throws Exception {
+		createCustomerStatus.createTrigger_CustomerStatus(description);
 	}
 
 	// Edit Trigger Status
 	public void editTrigger_triggerOnSave_CustomerStatus(String statusChange) throws Exception {
 		subscriptionStatus = new SubscriptionStatusTab();
+		triggerAdmin = new TriggerRules();
 		createCustomerStatus.searchTrigger_appointmentStatus(description_TriggerOnSave);
 		triggerAdmin.clickEditTrigger(description_TriggerOnSave);
 		triggerAdmin.selectDropdown(subscriptionStatus.whenToTrigger, subscriptionStatus.whenToTrigger_triggerOnSave);
@@ -165,7 +166,6 @@ public class TriggerOnSave_CustomerStatus extends BaseClass {
 
 	// Set Remove Payment Profile Action Customer Status
 	public void customerStatus_removePaymentProfileAction() throws InterruptedException, IOException {
-		subscriptionDueForService = new Trigger_SubscriptionDueForService();
 		createCustomerStatus.searchTrigger_appointmentStatus(description_TriggerOnSave);
 		subscriptionDueForService.removePaymentProfile_subscriptionForService();
 	}
@@ -177,55 +177,46 @@ public class TriggerOnSave_CustomerStatus extends BaseClass {
 
 	// assert SMS Log
 	public void assertSMSlog() throws IOException, Exception {
-		subscriptionDueForService = new Trigger_SubscriptionDueForService();
 		subscriptionDueForService.assertSMSLog();
 	}
 
 	// assert Email Log
 	public void assertEmaillog() throws IOException, Exception {
-		subscriptionDueForService = new Trigger_SubscriptionDueForService();
 		subscriptionDueForService.assertEMailLog();
 	}
 
 	// assert Email Log
 	public void assertVoicelog() throws IOException, Exception {
-		subscriptionDueForService = new Trigger_SubscriptionDueForService();
 		subscriptionDueForService.assertVoiceLog();
 	}
 
 	// assert Snail Mail Log
 	public void assertSnailMaillog() throws IOException, Exception {
-		subscriptionDueForService = new Trigger_SubscriptionDueForService();
 		subscriptionDueForService.assertSnailMailLog();
 	}
 
 	// assert Employee EMail Log
 	public void assertEmployeeEmaillog() throws IOException, Exception {
-		subscriptionDueForService = new Trigger_SubscriptionDueForService();
 		subscriptionDueForService.assertEmployeeEMailLog();
 	}
 
 	// assert Alert Log
 	public void assertAlertlog() throws IOException, Exception {
-		subscriptionDueForService = new Trigger_SubscriptionDueForService();
 		subscriptionDueForService.assertAlertLog();
 	}
 
 	// assert Task Log
 	public void assertTasklog() throws IOException, Exception {
-		subscriptionDueForService = new Trigger_SubscriptionDueForService();
 		subscriptionDueForService.assertTaskLog();
 	}
 
 	// assert Employee Voice Log
 	public void assertEmployeeVoicelog() throws IOException, Exception {
-		subscriptionDueForService = new Trigger_SubscriptionDueForService();
 		subscriptionDueForService.assertEmplopeeVoiceLog();
 	}
 
 	// assert Remove Payment Log
 	public void assertRemovePaymentlog() throws IOException, Exception {
-		subscriptionDueForService = new Trigger_SubscriptionDueForService();
 		subscriptionDueForService.assertRemovePaymentLog();
 	}
 
