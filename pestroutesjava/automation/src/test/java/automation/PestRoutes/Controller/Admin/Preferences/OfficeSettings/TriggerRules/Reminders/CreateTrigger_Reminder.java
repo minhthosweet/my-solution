@@ -1,4 +1,4 @@
-package automation.PestRoutes.Controller.Admin.Preferences.OfficeSettings.TriggerRules;
+package automation.PestRoutes.Controller.Admin.Preferences.OfficeSettings.TriggerRules.Reminders;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -24,7 +24,7 @@ import automation.PestRoutes.Utilities.GetDate;
 import automation.PestRoutes.Utilities.Reporter;
 import automation.PestRoutes.Utilities.Utilities;
 
-public class Trigger_Reminder extends BaseClass {
+public class CreateTrigger_Reminder extends BaseClass {
 	Header header;
 	AdminMainPage adminMainPage;
 	TriggerRules triggerAdmin = new TriggerRules();
