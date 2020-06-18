@@ -35,6 +35,7 @@ public class TriggerDaysBefore_Reminder extends BaseClass {
         createReminder.voiceAction_Reminder();
     }
 
+
     public void hitTriggerQueue() {
         Utilities.navigateToUrl("https://adityam.pestroutes.com/resources/scripts/triggerReminders.php");
     }
