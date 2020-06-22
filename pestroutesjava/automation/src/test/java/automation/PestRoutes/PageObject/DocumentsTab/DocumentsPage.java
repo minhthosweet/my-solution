@@ -1,5 +1,6 @@
 package automation.PestRoutes.PageObject.DocumentsTab;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import automation.PestRoutes.Utilities.FindElement;
@@ -32,15 +33,23 @@ public class DocumentsPage {
 	public String signButton = "//div[text() = 'Sign']";
 	
 	//New form objects
+	public String iframe = "//iframe[@id='documentFrame']";
+	public String actionsButton = "//div[text()='Actions']";
+	public String employeeSignatureButton = "//div[text()=' Employee ']/following-sibling::div[@for='employee']";
+	public String customerSignatureButton = "//div[text()=' Customer ']/following-sibling::div[@for='customer']";
+	public String formSignatureBox = "//canvas[@id='singleSignatureInput']";
+	public String formSignatureBoxSignButton = "//span[text() = 'Sign']";
 	
-	
-	
+
 	public void clickButton(String needAttribute) {
 		Utilities.waitUntileElementIsVisible(needAttribute);
 		Utilities.clickElement(needAttribute, ElementType.XPath); 
 	}
+	public void selectAgreement(String needFormName) {
+		Utilities.clickElement("//div[text() = '"+needFormName+"']", ElementType.XPath);
+	}
 	public void selectForm(String needFormName) {
-		Utilities.clickElement("//div[text() = "+needFormName+"]", ElementType.XPath);
+		Utilities.clickElement("//div[text() = '"+needFormName+"']", ElementType.XPath);
 	}
 	public void sign(String needAttribute) {
 		Utilities.waitUntileElementIsVisible(needAttribute);
