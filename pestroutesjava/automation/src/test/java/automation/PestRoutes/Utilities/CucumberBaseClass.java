@@ -2,7 +2,7 @@ package automation.PestRoutes.Utilities;
 
 import java.io.IOException;
 import automation.PestRoutes.Utilities.Driver.GetWebDriver;
-import io.cucumber.core.api.Scenario;
+import io.cucumber.java.Scenario;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 
