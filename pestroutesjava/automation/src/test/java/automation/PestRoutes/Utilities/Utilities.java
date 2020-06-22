@@ -30,6 +30,38 @@ public class Utilities {
 	public static String getAlertText() {
 		return driver.switchTo().alert().getText();
 	}
+	
+	public static void clickElementInIframe(String needXpath) {
+		int size = driver.findElements(By.tagName("iframe")).size();
+		System.out.println(size);
+		for (int i = 0; i <= size; i++) {
+			driver.switchTo().frame(i);
+			int elem = driver.findElements(By.xpath(needXpath)).size();
+			System.out.println(elem);
+			if (elem != 0) {
+				driver.findElement(By.xpath(needXpath)).click();
+				break;
+			} else {
+				driver.switchTo().defaultContent();
+				continue;
+			}
+		}
+	}
+	
+	public static void switchToIframeByXpath(WebElement needElement) {
+		WebDriverWait wait = new WebDriverWait(driver, 20);
+		//wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath(needXpath)));
+		WebElement elm = needElement;
+		driver.switchTo().frame(elm);
+	}
+	
+	public static void switchToIframeByIndex(int needIndex) {
+		driver.switchTo().frame(needIndex);
+	}
+	
+	public static void switchBackToDom() {
+		driver.switchTo().defaultContent();
+	}
 
 	public static void acceptAlert() {
 		driver.switchTo().alert().accept();
@@ -37,6 +69,10 @@ public class Utilities {
 
 	public static Alert alertPopUp() {
 		return driver.switchTo().alert();
+	}
+	
+	public static void hitEnter(String needAttributeXpath) {
+		driver.findElement(By.xpath(needAttributeXpath)).sendKeys(Keys.ENTER);
 	}
 
 	public static void selectValueFromDropDownByValue(String needXpath, String needValue) {
@@ -185,6 +221,7 @@ public class Utilities {
 
 		return result / 100;
 	}
+	
 	
 	public enum ElementType {
 		XPath, ID, ClassName, PartialLink, LinkText
