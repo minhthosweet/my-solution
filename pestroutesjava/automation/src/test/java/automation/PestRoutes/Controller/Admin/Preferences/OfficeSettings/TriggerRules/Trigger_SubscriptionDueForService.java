@@ -325,7 +325,7 @@ public class Trigger_SubscriptionDueForService extends BaseClass {
 		overviewHeader = new CustomerViewDialog_Header();
 		overviewHeader.NavigateTo(overviewHeader.notesTabInDialog);
 		result(SMSMAppointmentSubscriptionNote + getData("phoneNumber", generalData),
-				reminder.SMSConfirmationNote(getData("phoneNumber", generalData)), "SMS Notification Affirmative",
+				reminder.ConfirmationNote(getData("phoneNumber", generalData)), "SMS Notification Affirmative",
 				"Subscription Due For Service Creation");
 	}
 
