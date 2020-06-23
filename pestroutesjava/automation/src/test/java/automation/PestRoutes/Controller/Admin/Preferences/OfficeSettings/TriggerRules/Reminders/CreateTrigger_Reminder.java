@@ -46,7 +46,9 @@ public class CreateTrigger_Reminder extends BaseClass {
 	private String daysBefore_Trigger = "1";
 	private String serviceType = "Roaches";
 	private String editAlertNote_Text = "Sorry, this note is not editable.";
-	private String SMSMAppointmentReminderNote = "SMS Appointment Reminder";
+	public String SMSMAppointmentReminderNote = "SMS Appointment Reminder";
+	public String VoiceMAppointmentReminderNote = "Voice Appointment Reminder";
+	public String EmailMAppointmentReminderNote = "Email Appointment Reminder";
 
 	@Test
 	public void createReminderRule() throws Exception {
@@ -211,9 +213,12 @@ public class CreateTrigger_Reminder extends BaseClass {
 		overviewHeader.NavigateTo(overviewHeader.notesTabInDialog);
 		overviewHeader.clickCustomerContactsInNotesTab();
 		result(editAlertNote_Text, reminder.getAlertText_Notes(), "Edit Note Alert", "Reminder Trigger Rule");
-		result(SMSMAppointmentReminderNote + getData("phoneNumber", generalData),
-				reminder.SMSConfirmationNote(getData("phoneNumber", generalData)), "SMS Notification Affirmative",
-				"Reminder Trigger Rule");
+		result(SMSMAppointmentReminderNote, reminder.ConfirmationNote(SMSMAppointmentReminderNote),
+				"SMS Notification Affirmative", "Reminder Trigger Rule");
+		result(VoiceMAppointmentReminderNote, reminder.ConfirmationNote(VoiceMAppointmentReminderNote),
+				"Voice Notification Affirmative", "Reminder Trigger Rule");
+		result(EmailMAppointmentReminderNote, reminder.ConfirmationNote(EmailMAppointmentReminderNote),
+				"Email Notification Affirmative", "Reminder Trigger Rule");
 	}
 
 	@SuppressWarnings("unchecked")

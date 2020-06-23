@@ -39,19 +39,19 @@ public class ReminderTab {
 
 	// get Alert Value in Notes
 	public String alertLogValue = "//div[contains(text(),'Alert')]";
-	
+
 	// get Task Value in Notes
 	public String taskLogValue = "//div[contains(text(),'Task - Customer Status')]";
 
-	// get Employee Voice Value in Notes 
+	// get Employee Voice Value in Notes
 	public String employeeVoiceValue = "//div[contains(text(),'unable to send message [bad phone number]')]";
-	
-	//get Removed Payment Value in Notes
+
+	// get Removed Payment Value in Notes
 	public String removePaymentValue = "//div[text()='Removed Payment Method from Trigger: Card']";
-	
-	//get Credit Card Info in Billing
+
+	// get Credit Card Info in Billing
 	public String CCInfo = "//li[@class='gatewayCC']//div[text()='No Payment Info']";
-	
+
 	public void setdaysBefore_Reminder(String numberOfDays) {
 		Utilities.waitUntileElementIsVisible(daysBefore_Reminder);
 		FindElement.elementByAttribute(daysBefore_Reminder, InputType.XPath).clear();
@@ -79,8 +79,8 @@ public class ReminderTab {
 		return editNote_AlertText;
 	}
 
-	public String SMSConfirmationNote(String phoneNumber) {
-		return Utilities.getElementTextValue("//div[@sentto='" + phoneNumber + "']", ElementType.XPath).trim();
+	public String ConfirmationNote(String affirmation) {
+		return Utilities.getElementTextValue("//div[contains(text(),'" + affirmation + "')]", ElementType.XPath);
 
 	}
 
@@ -103,24 +103,25 @@ public class ReminderTab {
 	public String getAlertValue() {
 		return Utilities.getElementTextValue(alertLogValue, ElementType.XPath);
 	}
-	
+
 	public String getTaskValue() {
 		return Utilities.getElementTextValue(taskLogValue, ElementType.XPath);
 	}
-	
+
 	public String customerNameinTask(String customerNameTask) {
-		Utilities.scrollToElement("//td[@customerid]//p[text()='"+customerNameTask+"']");
-		return Utilities.getElementTextValue("//td[@customerid]//p[text()='"+customerNameTask+"']", ElementType.XPath);
+		Utilities.scrollToElement("//td[@customerid]//p[text()='" + customerNameTask + "']");
+		return Utilities.getElementTextValue("//td[@customerid]//p[text()='" + customerNameTask + "']",
+				ElementType.XPath);
 	}
-	
+
 	public String getEmployeeVoiceValue() {
 		return Utilities.getElementTextValue(employeeVoiceValue, ElementType.XPath).substring(0, 41);
 	}
-	
+
 	public String getRemovedPaymentValue() {
 		return Utilities.getElementTextValue(removePaymentValue, ElementType.XPath).substring(0, 41);
 	}
-	
+
 	public String getCCInfoBilling() {
 		return Utilities.getElementTextValue(CCInfo, ElementType.XPath);
 	}
