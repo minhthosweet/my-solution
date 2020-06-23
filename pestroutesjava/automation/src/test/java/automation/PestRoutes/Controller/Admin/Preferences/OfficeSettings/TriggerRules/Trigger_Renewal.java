@@ -304,7 +304,7 @@ public class Trigger_Renewal extends BaseClass {
 		overviewHeader.NavigateTo(overviewHeader.notesTabInDialog);
 		overviewHeader.clickCustomerContactsInNotesTab();
 		result(editAlertNote_Text, reminder.getAlertText_Notes(), "Edit Note Alert", "Renewal Trigger Rule");
-		result(SMSMAppointmentRenewalNote + getData("phoneNumber",generalData), reminder.SMSConfirmationNote(getData("phoneNumber",generalData)), "SMS Notification Affirmative",
+		result(SMSMAppointmentRenewalNote + getData("phoneNumber",generalData), reminder.ConfirmationNote(getData("phoneNumber",generalData)), "SMS Notification Affirmative",
 				"Renewal Trigger Rule");
 	}
 
