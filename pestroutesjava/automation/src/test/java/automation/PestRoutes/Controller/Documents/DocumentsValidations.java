@@ -65,10 +65,11 @@ public class DocumentsValidations extends BaseClass {
 		documents.selectForm(formName);
 		documents.clickButton(documents.actionsButton);
 		documents.clickButton(documents.signButton);
+		Utilities.clickElementInIframe(documents.employeeSignatureButton);
 		//Utilities.clickElementInIframe(documents.employeeSignatureButton);
-		WebElement iframe = FindElement.elementByAttribute(documents.iframe, InputType.XPath);
-		Utilities.switchToIframeByXpath(iframe);
-		documents.clickButton(documents.customerSignatureButton);
+		//WebElement iframe = FindElement.elementByAttribute(documents.iframe, InputType.XPath);
+		//Utilities.switchToIframeByXpath(iframe);
+		//documents.clickButton(documents.employeeSignatureButton);
 		documents.sign(documents.formSignatureBox);
 		documents.clickButton(documents.formSignatureBoxSignButton);
 		Utilities.switchBackToDom();

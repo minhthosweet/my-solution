@@ -130,6 +130,7 @@ public class CreateCustomerDIalog {
 	 * Setter methods Below methods insert text in the input fields
 	 */
 	public void setFirstName(String needFirstName) {
+		Utilities.waitUntileElementIsVisible(firstNameInputField);
 		FindElement.elementByAttribute(firstNameInputField, InputType.XPath).sendKeys(needFirstName);
 	}
 
