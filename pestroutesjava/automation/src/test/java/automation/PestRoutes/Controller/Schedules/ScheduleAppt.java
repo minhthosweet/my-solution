@@ -13,6 +13,9 @@ import automation.PestRoutes.Utilities.AssertException;
 import automation.PestRoutes.Utilities.BaseClass;
 import automation.PestRoutes.Utilities.Reporter;
 import automation.PestRoutes.Utilities.Utilities;
+import io.cucumber.java.en.And;
+import io.cucumber.java.en.Then;
+
 import java.io.IOException;
 import java.util.List;
 import static org.testng.Assert.assertTrue;
@@ -53,7 +56,7 @@ public class ScheduleAppt extends BaseClass {
 		AssertException.asserFailure(list);
 
 	}
-
+	@And("I change customer type to multi unit") 
 	public void changeToMultiUnit() throws IOException, Exception {
 		header.Search_A_Customer(getData("userID", generalData));
 		overviewHeader.NavigateTo(overviewHeader.infoTabInDialog);
@@ -64,7 +67,7 @@ public class ScheduleAppt extends BaseClass {
 		unitsTab.newUnitClick();
 		unitsTab.setupUnit("Harold", "3", "62534");
 	}
-
+	@And("I add a route")
 	public void addRoute() throws Exception {
 		header.NavigateTo(header.schedulingTab);
 		scheduleDay.addScheduleDateToProperties();
@@ -73,7 +76,7 @@ public class ScheduleAppt extends BaseClass {
 		route.clickButton(route.addRoutesButton);
 		route.addRoutesByQuantity("1");
 	}
-
+	@And("I add an appointment")
 	public void addAppointment(String needUserID, String needServieType, String needTimeSlot) throws Exception {
 		header.Search_A_Customer(needUserID);
 
@@ -86,7 +89,7 @@ public class ScheduleAppt extends BaseClass {
 		confirmAppt.selectInteriorNeededOption(serviceAreaProvided);
 		confirmAppt.selectTargetPestsOption(pestTreaded);
 	}
-
+	@And("I add a chemical in unit tab")
 	public void addChemicalInUnitTab() {
 		unitsTab.clickUnitsScheduleApt();
 		unitsTab.AddUnitsSchApt();
@@ -99,7 +102,7 @@ public class ScheduleAppt extends BaseClass {
 		confirmAppt.clickScheduleButton();
 
 	}
-
+	@And("I add chemical")
 	public void addChemical() throws Exception {
 		header.Search_A_Customer(getData("userID", generalData));
 		overviewHeader.NavigateTo(overviewHeader.appointmentsTabInDialog);
@@ -113,7 +116,7 @@ public class ScheduleAppt extends BaseClass {
 		appointmentTab.clickSaveAndCompleteButton();
 
 	}
-
+	@Then("I verify chemical in unit")
 	public void verifyChemicalinUnit() {
 		appointmentTab.clickScheduledService(serviceType);
 		appointmentTab.clickUnitName();
@@ -128,7 +131,7 @@ public class ScheduleAppt extends BaseClass {
 		Reporter.status("target issue for multiUnit", targetIssue, actualUnitPest, "Add Chemicals To An Appointment");
 
 	}
-
+	@Then("I verify chemical")
 	public void verifyChemical() {
 		appointmentTab.clickScheduledService(serviceType);
 		String actualProductUsed = appointmentTab.getChemicalName();

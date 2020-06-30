@@ -48,11 +48,12 @@ public class AddSubscription extends BaseClass {
 	public void startSubscription() throws Exception {
 		customerDialogHeader = new CustomerViewDialog_Header();
 		header = new Header();
-		header.Search_A_Customer(getData("customerName", generalData));
 		customerDialogHeader.NavigateTo(customerDialogHeader.subscriptionTabInDialog);
 		subscription.clickNewSubscriptionButton();
 		subscription.selectServiceType(getData("quarterly", quarterlyPreferredDayData));
+		subscription.selectServiceFrequency("Alternate Monthly");
 		subscription.setCustomDate(getData("customDate", quarterlyPreferredDayData));
+		subscription.clickButton(subscription.standardProductionButton);
 	}
 
 	@Then("I validate upcoming appointments per each day")
