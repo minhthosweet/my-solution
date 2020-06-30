@@ -4,6 +4,7 @@ import org.testng.annotations.Test;
 import automation.PestRoutes.PageObject.Header;
 import automation.PestRoutes.PageObject.CreateCustomer.CreateCustomerDIalog;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_Header;
+import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_OverviewTab;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerviewDialog_AppointmentsTab;
 import automation.PestRoutes.PageObject.RoutePage.RoutePage;
 import automation.PestRoutes.PageObject.RoutePage.SchedulingAppointmentDialog;
@@ -36,6 +37,8 @@ public class ScheduleAppt extends BaseClass {
 	Header header = new Header();
 	CreateCustomerDIalog customer = new CreateCustomerDIalog();
 	UnitsTab unitsTab = new UnitsTab();
+	
+	
 
 	public List list;
 
@@ -43,19 +46,32 @@ public class ScheduleAppt extends BaseClass {
 	public void createSchedule() throws Exception {
 		String userID = getData("userID", generalData);
 
-		changeToMultiUnit();
+		changeToMultiUnit(userID);
 		addRoute();
 		addAppointment(userID, serviceType, scheduleTime);
 		addChemicalInUnitTab();
-		addChemical();
+		addChemical(userID);
+		verifyChemicalinUnit();
+		verifyChemical();
+		AssertException.asserFailure(list);
+
+	}
+	
+	public void createScheduleWithCustomerName(String customerNameInHeader) throws Exception {
+		
+		changeToMultiUnit(customerNameInHeader);
+		addRoute();
+		addAppointment(customerNameInHeader, serviceType, scheduleTime);
+		addChemicalInUnitTab();
+		addChemical(customerNameInHeader);
 		verifyChemicalinUnit();
 		verifyChemical();
 		AssertException.asserFailure(list);
 
 	}
 
-	public void changeToMultiUnit() throws IOException, Exception {
-		header.Search_A_Customer(getData("userID", generalData));
+	public void changeToMultiUnit(String userID) throws IOException, Exception {
+		header.Search_A_Customer(userID);	
 		overviewHeader.NavigateTo(overviewHeader.infoTabInDialog);
 		customer.clickInfo();
 		unitsTab.selectUnit("Multi Unit");
@@ -100,8 +116,8 @@ public class ScheduleAppt extends BaseClass {
 
 	}
 
-	public void addChemical() throws Exception {
-		header.Search_A_Customer(getData("userID", generalData));
+	public void addChemical(String userID) throws Exception {
+		header.Search_A_Customer(userID);	
 		overviewHeader.NavigateTo(overviewHeader.appointmentsTabInDialog);
 		appointmentTab.clickScheduledService(serviceType);
 		appointmentTab.clickStatusButton();
@@ -110,6 +126,7 @@ public class ScheduleAppt extends BaseClass {
 		appointmentTab.chooseApplicationMethod(applicationMethod);
 		appointmentTab.chooseTargetIssue(targetIssue);
 		appointmentTab.chooseTargetArea(targetArea);
+		appointmentTab.chooseInteriorServiced(getData("interiorServiced", generalData));
 		appointmentTab.clickSaveAndCompleteButton();
 
 	}

@@ -7,7 +7,7 @@ import automation.PestRoutes.Utilities.Utilities.ElementType;
 
 public class UnitsTab {
 
-	public String newUnitClick = "//li[@id=\"addUnit\"]";
+	public String newUnitClick = "//li[text()='+ New Unit']";
 	public String buildingDetails = "//*[@id=\"customerCardUnitWrapper\"]/div[2]/form/div[2]/div[1]/div[1]/div/input";
 	public String unitDetails = "//div[@id=\"customerCardUnitWrapper\"]//input[@name=\"description\"]";
 	public String barcodeDetails = "//div[@id=\"customerCardUnitWrapper\"]//input[@name=\"barcode\"]";
@@ -29,6 +29,7 @@ public class UnitsTab {
 	}
 
 	public void newUnitClick() {
+		Utilities.waitUntileElementIsVisible(newUnitClick);
 		Utilities.clickElement(newUnitClick, ElementType.XPath);
 	}
 

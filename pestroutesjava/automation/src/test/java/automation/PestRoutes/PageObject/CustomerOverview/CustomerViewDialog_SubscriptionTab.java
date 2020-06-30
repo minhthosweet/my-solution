@@ -17,6 +17,7 @@ public class CustomerViewDialog_SubscriptionTab {
 	//Status fields
 	public String statusText = "//div[@id='subStatusBox']//div[@id='SubStatus']";
 	public String deActivateButton = "//div[@id='subStatusBox']/span[@id='SubStatusAction']";
+	public String contractValue = "//span[contains(text(),'Contract Value')]";
 	public String cencellationCategoryDropdown_cancelSubscriptionDialog = "//select[@id='cancelSubCategory']";
 	public String cancelNotesInputField = "//textarea[@id='cancelSubNotes']";
 	public String freezeSubscriptionButton = "//span[text()='Freeze Subscription']";
@@ -30,6 +31,7 @@ public class CustomerViewDialog_SubscriptionTab {
 	public String soldDateField = "//input[@name='subDateAdded']";
 	public String contractLengthDropdown = "//h3[text()=  'Sales Info']/following-sibling::select[@name='agreementLength']";
 	public String expirationDateInputField = "//input[@name='expirationDate']";
+	public String subscriptionFlagDropdown = "//select[@id='subscriptionGenericFlags']";
 	public String renewalDateField = "//input[@name='renewalDate']";
 	public String setRenewalDateDropdown = "//select[@name='setRenewalDateOn']";
 	public String renewalFrequencyDropdown = "//select[@name='renewalFrequency']";
@@ -213,6 +215,11 @@ public class CustomerViewDialog_SubscriptionTab {
 		FindElement.elementByAttribute(expirationDateInputField, InputType.XPath).sendKeys(needExpDate);
 	}
 	
+	public void selectSubscriptionFlag(String needSubscriptionFlag) {
+		Utilities.waitUntileElementIsVisible(subscriptionFlagDropdown);
+		Utilities.selectValueFromDropDownByValue(subscriptionFlagDropdown, needSubscriptionFlag);
+	}
+	
 	public void setInitialBillingDate(String needInitialBillingDate) {
 		Utilities.waitUntileElementIsVisible(initialBillingDateInputField);
 		FindElement.elementByAttribute(initialBillingDateInputField, InputType.XPath).clear();
@@ -342,9 +349,19 @@ public class CustomerViewDialog_SubscriptionTab {
 		return attributeValue;
 	}
 	
+	public double getContractValue(String needServiceType) throws InterruptedException {
+		String subscriptionTitle = "//h3[contains (text(), '"+needServiceType+"')]";
+		Utilities.waitUntileElementIsVisible(subscriptionTitle);
+		String elm = Utilities.getElementTextValue(contractValue, ElementType.XPath);
+		String newElm = elm.replaceAll("[^\\\\.0123456789]", "");
+		double attributeValue = Double.parseDouble(newElm);
+		return attributeValue;
+	}
+	
 	public String getSubscriptionID(String serviceType) {
 		String elm = Utilities.getElementTextValue("//h3[contains(text(),'"+serviceType+"')]/span[not(contains(text(),'Contract'))]", ElementType.XPath);
 		return elm;
+		
 	}
 	
 	public void clickSubscription(String subscriptionID) {

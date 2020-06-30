@@ -1,6 +1,7 @@
 package automation.PestRoutes.Controller.Subscriptions;
 
 import automation.PestRoutes.PageObject.Header;
+import automation.PestRoutes.PageObject.CreateCustomer.CreateCustomerDIalog;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_Header;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_SubscriptionTab;
 import automation.PestRoutes.Utilities.AssertException;
@@ -23,6 +24,7 @@ public class AddSubscription extends BaseClass {
 
 	CustomerViewDialog_SubscriptionTab subscription = new CustomerViewDialog_SubscriptionTab();
 	CustomerViewDialog_Header customerDialogHeader;
+	CreateCustomerDIalog createCustomer;
 	Header header;
 	ExtentTest test;
 	List list = new ArrayList<String>();
@@ -53,6 +55,21 @@ public class AddSubscription extends BaseClass {
 		subscription.clickNewSubscriptionButton();
 		subscription.selectServiceType(getData("quarterly", quarterlyPreferredDayData));
 		subscription.setCustomDate(getData("customDate", quarterlyPreferredDayData));
+	}
+	
+	public double startSubscriptionWithSalesRep(String needSalesRep, String needSubscriptionFlag) throws Exception {
+		customerDialogHeader = new CustomerViewDialog_Header();
+		createCustomer = new CreateCustomerDIalog();
+		header = new Header();
+		customerDialogHeader.NavigateTo(customerDialogHeader.subscriptionTabInDialog);
+		subscription.clickNewSubscriptionButton();
+		subscription.selectServiceType(getData("quarterly", quarterlyPreferredDayData));
+		subscription.setCustomDate(getData("customDate", quarterlyPreferredDayData));
+		subscription.selectSalesRep(needSalesRep);
+		subscription.selectSubscriptionFlag(needSubscriptionFlag);
+		createCustomer.clickSave();
+		double finalContractValue = subscription.getContractValue(getData("quarterly", quarterlyPreferredDayData));
+		return finalContractValue;
 	}
 
 	@Then("I validate upcoming appointments per each day")

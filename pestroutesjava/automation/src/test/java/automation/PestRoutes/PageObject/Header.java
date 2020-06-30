@@ -20,6 +20,7 @@ public class Header {
 	public String FirstSearchResult = "//ul[@id='ui-id-15']/li[1]";
 	
 	public void NavigateTo(String chooseTabFromConst) {
+		Utilities.waitUntileElementIsVisible("//a[text() = '"+chooseTabFromConst+"']");
 		Utilities.clickElement("//a[text() = '"+chooseTabFromConst+"']", ElementType.XPath);
 	}
 	
