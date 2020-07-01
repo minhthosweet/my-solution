@@ -227,8 +227,8 @@ public class CreateTrigger_CustomerStatus extends BaseClass {
 
 	@SuppressWarnings("unchecked")
 	private void result(String expected, String actual, String stepName, String testName) {
-		if (AssertException.result(expected, actual, stepName).size() > 0) {
-			list.add(AssertException.result(expected, actual, stepName));
+		if (AssertException.hardAssert(expected, actual, stepName).size() > 0) {
+			list.add(AssertException.hardAssert(expected, actual, stepName));
 		}
 		Reporter.status(stepName, expected, actual, testName);
 	}

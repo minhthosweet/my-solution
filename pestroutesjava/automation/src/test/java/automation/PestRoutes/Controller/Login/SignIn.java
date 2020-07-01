@@ -20,9 +20,9 @@ public class SignIn extends AppData{
 	
 	@Given ("I sign in to pestroutes domain")
 	public void login() throws Exception {
-		String url = getData("pronBetaUrl",generalData);
-		String userName = getData("userName", generalData);
-		String password = getData("password", generalData);
+		String url = getData("url",environment);
+		String userName = getData("userName", environment);
+		String password = getData("password", environment);
 
 		GetWebDriver.getInstance().get(url);
 		login = new LoginPage();

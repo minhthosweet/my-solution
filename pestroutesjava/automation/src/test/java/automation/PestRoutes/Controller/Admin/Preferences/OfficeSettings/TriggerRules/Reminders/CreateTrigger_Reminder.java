@@ -1,4 +1,4 @@
-package automation.PestRoutes.Controller.Admin.Preferences.OfficeSettings.TriggerRules;
+package automation.PestRoutes.Controller.Admin.Preferences.OfficeSettings.TriggerRules.Reminders;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -24,7 +24,7 @@ import automation.PestRoutes.Utilities.GetDate;
 import automation.PestRoutes.Utilities.Reporter;
 import automation.PestRoutes.Utilities.Utilities;
 
-public class Trigger_Reminder extends BaseClass {
+public class CreateTrigger_Reminder extends BaseClass {
 	Header header;
 	AdminMainPage adminMainPage;
 	TriggerRules triggerAdmin = new TriggerRules();
@@ -41,24 +41,25 @@ public class Trigger_Reminder extends BaseClass {
 	SchedulingTab scheduleTab;
 
 	private String descriptionTrigger = "trigger_reminder_sms_actions_checkIN";
-	private String numberOfDays_Before_Reminder = Double.toString(Utilities.generateRandomInteger(1));
+	private String numberOfDays_Before_Reminder = "1";
 	public List list = new ArrayList<String>();
 	private String daysBefore_Trigger = "1";
 	private String serviceType = "Roaches";
 	private String editAlertNote_Text = "Sorry, this note is not editable.";
-	private String SMSMAppointmentReminderNote = "SMS Appointment Reminder";
-	private String sentToPhoneNumber = "Sent to: (660)853-7186";
+	public String SMSMAppointmentReminderNote = "SMS Appointment Reminder";
+	public String VoiceMAppointmentReminderNote = "Voice Appointment Reminder";
+	public String EmailMAppointmentReminderNote = "Email Appointment Reminder";
 
 	@Test
 	public void createReminderRule() throws Exception {
-		createTrigger_Reminder();
-		searchTrigger_Reminder();
+		createTrigger_Reminder(descriptionTrigger);
+		searchTrigger_Reminder(descriptionTrigger);
 		emailAction_Reminder();
-		searchTrigger_Reminder();
+		searchTrigger_Reminder(descriptionTrigger);
 		SMSAction_Reminder();
-		searchTrigger_Reminder();
+		searchTrigger_Reminder(descriptionTrigger);
 		voiceAction_Reminder();
-		searchTrigger_Reminder();
+		searchTrigger_Reminder(descriptionTrigger);
 		assertActions_Reminder();
 		editTrigger_Reminder_DaysBefore();
 		createCustomer();
@@ -69,7 +70,7 @@ public class Trigger_Reminder extends BaseClass {
 	}
 
 	// Create Reminder Trigger
-	public void createTrigger_Reminder() throws Exception {
+	public void createTrigger_Reminder(String descriptionName) throws Exception {
 		header = new Header();
 		adminMainPage = new AdminMainPage();
 		reminder = new ReminderTab();
@@ -83,7 +84,7 @@ public class Trigger_Reminder extends BaseClass {
 		triggerAdmin.clickAddTrigerButton();
 		triggerAdmin.setStartDate(GetDate.minusOneWeekToDate(Utilities.currentDate("MM/dd/yyyy")));
 		triggerAdmin.setEndDate(GetDate.addOneYearToDate(Utilities.currentDate("MM/dd/yyyy")));
-		triggerAdmin.setDescription(descriptionTrigger);
+		triggerAdmin.setDescription(descriptionName);
 		triggerAdmin.selectDropdown(triggerAdmin.triggerTypeDropdown, triggerAdmin.triggerType_Reminders);
 		triggerAdmin.selectDropdown(triggerAdmin.globalType, triggerAdmin.global_SpecificToThisOffice);
 		triggerAdmin.selectDropdown(triggerAdmin.activeType, triggerAdmin.activeType_Active);
@@ -98,16 +99,16 @@ public class Trigger_Reminder extends BaseClass {
 	}
 
 	// Search Reminder Trigger
-	public void searchTrigger_Reminder() {
+	public void searchTrigger_Reminder(String descriptionName) {
 		header = new Header();
 		adminMainPage = new AdminMainPage();
 		header.NavigateTo(header.adminTab);
 		adminMainPage.navigateTo(adminMainPage.preferences);
 		triggerAdmin.navigateToTriggerRules();
-		triggerAdmin.searchTrigger(descriptionTrigger);
-		result(descriptionTrigger, triggerAdmin.getDescriptionText(descriptionTrigger), "Reminder Creation",
+		triggerAdmin.searchTrigger(descriptionName);
+		result(descriptionName, triggerAdmin.getDescriptionText(descriptionName), "Reminder Creation",
 				"Reminder Trigger Rule");
-		triggerAdmin.clickEditTrigger(descriptionTrigger);
+		triggerAdmin.clickEditTrigger(descriptionName);
 	}
 
 	// Create an Reminder action
@@ -212,17 +213,18 @@ public class Trigger_Reminder extends BaseClass {
 		overviewHeader.NavigateTo(overviewHeader.notesTabInDialog);
 		overviewHeader.clickCustomerContactsInNotesTab();
 		result(editAlertNote_Text, reminder.getAlertText_Notes(), "Edit Note Alert", "Reminder Trigger Rule");
-		result(SMSMAppointmentReminderNote, reminder.SMSConfirmationNote(), "SMS Notification Affirmative",
-				"Reminder Trigger Rule");
-		result(sentToPhoneNumber, reminder.getNumberReminderSentTo(getData("phoneNumber", generalData)),
-				"Number SMS Sent from Confirmation", "Reminder Trigger Rule");
-
+		result(SMSMAppointmentReminderNote, reminder.ConfirmationNote(SMSMAppointmentReminderNote),
+				"SMS Notification Affirmative", "Reminder Trigger Rule");
+		result(VoiceMAppointmentReminderNote, reminder.ConfirmationNote(VoiceMAppointmentReminderNote),
+				"Voice Notification Affirmative", "Reminder Trigger Rule");
+		result(EmailMAppointmentReminderNote, reminder.ConfirmationNote(EmailMAppointmentReminderNote),
+				"Email Notification Affirmative", "Reminder Trigger Rule");
 	}
 
 	@SuppressWarnings("unchecked")
 	private void result(String expected, String actual, String stepName, String testName) {
-		if (AssertException.result(expected, actual, stepName).size() > 0) {
-			list.add(AssertException.result(expected, actual, stepName));
+		if (AssertException.hardAssert(expected, actual, stepName).size() > 0) {
+			list.add(AssertException.hardAssert(expected, actual, stepName));
 		}
 		Reporter.status(stepName, expected, actual, testName);
 	}

@@ -38,6 +38,7 @@ public class TriggerRules {
 	public String startDateInputField = "//input[@name='startDate']";
 	public String endDateInputField = "//input[@name='endDate']";
 	public String isActiveDropdown = "//select[@name='active']";
+	public String daysAfterChange = "//input[@data-ruleitemtype='triggerWhenValue']";
 
 	// Save Button
 	public String saveButton = "//div[@id='triggerRulesTable']//span[text()='save']";
@@ -98,6 +99,11 @@ public class TriggerRules {
 		Utilities.clickElement(endDateInputField, ElementType.XPath);
 		FindElement.elementByAttribute(endDateInputField, InputType.XPath).clear();
 		FindElement.elementByAttribute(endDateInputField, InputType.XPath).sendKeys(needEndDate);
+	}
+	
+	public void setDaysAfterChange(String days) {
+		Utilities.waitUntileElementIsVisible(daysAfterChange);
+		FindElement.elementByAttribute(daysAfterChange, InputType.XPath).sendKeys(days);
 	}
 
 }

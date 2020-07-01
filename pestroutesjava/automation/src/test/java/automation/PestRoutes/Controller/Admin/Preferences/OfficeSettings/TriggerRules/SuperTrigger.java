@@ -4,10 +4,11 @@ import org.testng.annotations.Test;
 
 import automation.PestRoutes.Controller.Admin.Preferences.OfficeSettings.TriggerRules.AppointmentStatus.CreateTrigger_AppointmentStatus;
 import automation.PestRoutes.Controller.Admin.Preferences.OfficeSettings.TriggerRules.CustomerStatus.CreateTrigger_CustomerStatus;
+import automation.PestRoutes.Controller.Admin.Preferences.OfficeSettings.TriggerRules.Reminders.CreateTrigger_Reminder;
 import automation.PestRoutes.Utilities.BaseClass;
 
 public class SuperTrigger extends BaseClass {
-	Trigger_Reminder Reminder_trigger = new Trigger_Reminder();
+	CreateTrigger_Reminder Reminder_trigger = new CreateTrigger_Reminder();
 	Trigger_AR AR_trigger = new Trigger_AR();
 	CreateTrigger_AppointmentStatus AppointmentStatus_trigger = new CreateTrigger_AppointmentStatus();
 	CreateTrigger_CustomerStatus CustomerStatus_trigger = new CreateTrigger_CustomerStatus();
