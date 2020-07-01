@@ -34,6 +34,7 @@ public class TriggerOnSave_AppointmentStatus extends BaseClass {
 		appointmentStatus_SMSAction();
 		createCutomerWithSubscription();
 		scheduleappointment();
+		hitTriggerQueue();
 
 	}
 
