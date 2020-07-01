@@ -59,7 +59,6 @@ public class AddSubscription extends BaseClass {
 	
 	public double startSubscriptionWithSalesRep(String needSalesRep, String needSubscriptionFlag) throws Exception {
 		customerDialogHeader = new CustomerViewDialog_Header();
-		createCustomer = new CreateCustomerDIalog();
 		header = new Header();
 		customerDialogHeader.NavigateTo(customerDialogHeader.subscriptionTabInDialog);
 		subscription.clickNewSubscriptionButton();
@@ -67,7 +66,7 @@ public class AddSubscription extends BaseClass {
 		subscription.setCustomDate(getData("customDate", quarterlyPreferredDayData));
 		subscription.selectSalesRep(needSalesRep);
 		subscription.selectSubscriptionFlag(needSubscriptionFlag);
-		createCustomer.clickSave();
+		customerDialogHeader.ClickSaveButton();
 		double finalContractValue = subscription.getContractValue(getData("quarterly", quarterlyPreferredDayData));
 		return finalContractValue;
 	}

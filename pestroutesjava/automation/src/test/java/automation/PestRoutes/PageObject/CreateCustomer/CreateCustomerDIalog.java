@@ -184,10 +184,6 @@ public class CreateCustomerDIalog {
 		Utilities.clickElement(clickAddFlag, ElementType.XPath);
 	}
 	
-	public void clickSave() {
-		Utilities.clickElement(clickSave, ElementType.XPath);
-	}
-
 	/*
 	 * Getter methods Below methods get text value from an object
 	 */
