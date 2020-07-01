@@ -183,7 +183,7 @@ public class CreateCustomerDIalog {
 	public void clickAddFlag() {
 		Utilities.clickElement(clickAddFlag, ElementType.XPath);
 	}
-
+	
 	/*
 	 * Getter methods Below methods get text value from an object
 	 */

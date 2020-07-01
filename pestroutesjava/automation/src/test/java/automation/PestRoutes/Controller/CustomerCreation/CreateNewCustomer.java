@@ -31,8 +31,8 @@ public class CreateNewCustomer extends BaseClass {
 	Header header;
 	List list = new ArrayList<String>();
 
-	String fName = Utilities.generateRandomString(7);
-	String lName = Utilities.generateRandomString(6);
+	public String fName = Utilities.generateRandomString(7);
+	public String lName = Utilities.generateRandomString(6);
 	String expectedAlert = "Required: You must fill in the customer's last name or company name!";
 	public String streetAddress = "4500 W Eldorado Pkwy STE 3200";
 	String city = "McKinney";

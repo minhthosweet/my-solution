@@ -19,6 +19,7 @@ public class CustomerviewDialog_AppointmentsTab {
 	public String targetAreaDropdown_InCompletingApptDialog = "//select[@id='targetedLocations0']";
 	public String cancelButton_InCompletingApptDialog = "//div[@id='completeAppointment']/following-sibling::div//span[text() = 'Cancel']";
 	public String saveButton_InCompletingApptDialog = "//div[@id='completeAppointment']/following-sibling::div//span[text() = 'Save']";
+	public String interiorSeviced = "//select[@name='servicedInterior']";
 	public String saveAndCompleteButton_InCompletingApptDialog = "//span[text() = 'Save and Complete']";
 	public String subscriptionType_schedulinTab = "//h3[contains(text(),'Scheduling')]/parent::div//child::select[@name='subscriptionID']";
 	public String serviceNotes_Complete = "//textarea[@name='serviceNotes']";
@@ -86,6 +87,10 @@ public class CustomerviewDialog_AppointmentsTab {
 
 	public void chooseTargetArea(String needOption) {
 		Utilities.selectValueFromDropDownByValue(targetAreaDropdown_InCompletingApptDialog, needOption);
+	}
+	
+	public void chooseInteriorServiced(String needOption) {
+		Utilities.selectValueFromDropDownByValue(interiorSeviced, needOption);
 	}
 
 	public void clickCancelButton() {
