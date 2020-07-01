@@ -34,9 +34,10 @@ public class CreateNewCustomer extends BaseClass {
 	public String fName = Utilities.generateRandomString(7);
 	public String lName = Utilities.generateRandomString(6);
 	String expectedAlert = "Required: You must fill in the customer's last name or company name!";
-	String streetAddress = "4500 W Eldorado Pkwy STE 3200";
+	public String streetAddress = "4500 W Eldorado Pkwy STE 3200";
 	String city = "McKinney";
 	String zipcode = "75070";
+	public String email = "test@gmail.com";
 
 	@Test
 	public void createCustomer() throws Exception {
@@ -96,15 +97,13 @@ public class CreateNewCustomer extends BaseClass {
 		customer = new CreateCustomerDIalog();
 		overview = new CustomerViewDialog_OverviewTab();
 		header = new Header();
-		header.NavigateTo(header.schedulingTab);
 		header.NavigateTo(header.newCustomerTab);
 		customer.setFirstName(fName);
 		customer.setLastName(lName);
-		customer.setEmailAddress("aditya.morugadi@pestroutes.com");
+		customer.setEmailAddress(email);
 		customer.selectUnit("Multi Unit");
 		customer.setAddress(streetAddress);
 		customer.setZipCode(zipcode);
-		customer.setCity(city);
 		customer.setCellPhone(getData("phoneNumber",generalData));
 		customer.clickSmsCheckBox();
 		dialog.ClickSaveButton();

@@ -19,6 +19,8 @@ public class FindElement {
                     return driver.findElement(By.id(needAttribute));
                 case ClassName:
                     return driver.findElement(By.name(needAttribute));
+                case TagName:
+                    return driver.findElement(By.tagName(needAttribute));
                 case LinkText:
                     return driver.findElement(By.linkText(needAttribute));
                 default:
@@ -34,6 +36,7 @@ public class FindElement {
 	        ID,
 	        ClassName,
 	        PartialLink,
+	        TagName,
 	        LinkText
 	    }
 	

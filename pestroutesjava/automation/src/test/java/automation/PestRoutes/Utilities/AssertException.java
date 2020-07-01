@@ -12,12 +12,12 @@ import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 
 public class AssertException {
-	//public static List list = new ArrayList<String>();
-	public static List<String> result(String expected, String actual, String testName){
+	// public static List list = new ArrayList<String>();
+	public static List<String> result(String expected, String actual, String testName) {
 		List list = new ArrayList<String>();
-		try{
+		try {
 			assertTrue(actual.contains(expected));
-		}catch(AssertionError e) {
+		} catch (AssertionError e) {
 //			if(e.getMessage()!=null) {
 //				list.add(testName + ":" + e.getMessage());
 //			}
@@ -25,28 +25,37 @@ public class AssertException {
 		}
 		return list;
 	}
-	
-	public static List<String> conditionResult(WebElement element){
+
+	public static List<String> conditionResult(WebElement element) {
 		List list = new ArrayList<String>();
 		try {
-			if(element==null) {
+			if (element == null) {
 				Assert.fail();
 			}
-		}catch(AssertionError e) {
+		} catch (AssertionError e) {
 			list.add(e.getMessage());
 		}
 		return list;
 	}
-	
-	
+
+	public static List<String> hardAssert(String expected, String actual, String testName) {
+		List list = new ArrayList<String>();
+		try {
+			assertTrue(actual.equals(expected));
+		} catch (AssertionError e) {
+			list.add(testName + ":" + e.getMessage());
+		}
+		return list;
+	}
+
 	public static void asserFailure(List needListName) {
 		List list = new ArrayList<String>();
 		System.out.println(needListName);
-		if (needListName.size()>0) {
+		if (needListName.size() > 0) {
 			System.out.println(needListName.size());
 			System.out.println(needListName);
 			throw new AssertionError();
-			
+
 		}
 	}
 
