@@ -1,4 +1,4 @@
-package automation.PestRoutes.Controller.BackendTest.Admin.Users;
+package automation.PestRoutes.Controller.Admin.Users;
 
 import java.io.IOException;
 

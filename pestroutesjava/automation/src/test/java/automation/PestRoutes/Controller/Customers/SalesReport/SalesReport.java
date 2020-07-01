@@ -26,7 +26,6 @@ public class SalesReport extends BaseClass {
 	Header header;
 	AddUser addUser;
 	AdminMainPage adminPage;
-	AddUser addUser;
 	CreateNewCustomer createNewCustomer;
 	AddSubscription addNewSubscription;
 	SalesReportPage salesReportPage;

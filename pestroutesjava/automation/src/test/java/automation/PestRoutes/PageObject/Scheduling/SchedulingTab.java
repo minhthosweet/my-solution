@@ -6,7 +6,7 @@ import automation.PestRoutes.Utilities.Utilities.ElementType;
 
 public class SchedulingTab extends AppData {
 
-	public String scheduleDay = "//div[@style='border:1px solid;']";
+	public String scheduleDay = "//div[@style='border:1px solid;']/following-sibling::div[1]";
 
 	public void clickScheduleDay() {
 		Utilities.clickElement(scheduleDay, ElementType.XPath);
