@@ -70,7 +70,7 @@ public class TriggerOnSave_AppointmentStatus extends BaseClass {
 
 	// Hit trigger Queue
 	public void hitTriggerQueue() {
-		Utilities.navigateToUrl("https://adityam.pestroutes.com/resources/scripts/triggerQueue.php");
+		triggerAdmin.hitTriggerQueue();
 	}
 
 	// Hit trigger AppointmentStatus

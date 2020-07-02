@@ -41,7 +41,7 @@ public class TriggerDaysBefore_Reminder extends BaseClass {
 		createReminder.voiceAction_Reminder();
 	}
 
-	// Create Customer
+	// Create Customer with Appointment
 	public void createCustomerWithAppointment() throws Exception {
 		triggerOnSave_AppintmentStatus = new TriggerOnSave_AppointmentStatus();
 		triggerOnSave_AppintmentStatus.createCutomerWithSubscription();

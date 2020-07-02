@@ -105,5 +105,10 @@ public class TriggerRules {
 		Utilities.waitUntileElementIsVisible(daysAfterChange);
 		FindElement.elementByAttribute(daysAfterChange, InputType.XPath).sendKeys(days);
 	}
+	
+	// trigger Queue query
+	public void hitTriggerQueue() {
+		Utilities.navigateToUrl("https://adityam.pestroutes.com/resources/scripts/triggerQueue.php");
+	}
 
 }

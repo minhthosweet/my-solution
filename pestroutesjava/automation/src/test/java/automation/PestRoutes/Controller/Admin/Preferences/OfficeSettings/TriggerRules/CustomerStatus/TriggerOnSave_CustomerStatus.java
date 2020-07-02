@@ -172,7 +172,8 @@ public class TriggerOnSave_CustomerStatus extends BaseClass {
 
 	// Hit trigger Queue
 	public void hitTriggerQueue() {
-		Utilities.navigateToUrl("https://adityam.pestroutes.com/resources/scripts/triggerQueue.php");
+		triggerAdmin = new TriggerRules();
+		triggerAdmin.hitTriggerQueue();
 	}
 
 	// assert SMS Log
