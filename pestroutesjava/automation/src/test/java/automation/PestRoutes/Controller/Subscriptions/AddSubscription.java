@@ -1,6 +1,7 @@
 package automation.PestRoutes.Controller.Subscriptions;
 
 import automation.PestRoutes.PageObject.Header;
+import automation.PestRoutes.PageObject.CreateCustomer.CreateCustomerDIalog;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_Header;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_SubscriptionTab;
 import automation.PestRoutes.Utilities.AssertException;
@@ -23,6 +24,7 @@ public class AddSubscription extends BaseClass {
 
 	CustomerViewDialog_SubscriptionTab subscription = new CustomerViewDialog_SubscriptionTab();
 	CustomerViewDialog_Header customerDialogHeader;
+	CreateCustomerDIalog createCustomer;
 	Header header;
 	ExtentTest test;
 	List list = new ArrayList<String>();
@@ -48,11 +50,26 @@ public class AddSubscription extends BaseClass {
 	public void startSubscription() throws Exception {
 		customerDialogHeader = new CustomerViewDialog_Header();
 		header = new Header();
-		header.Search_A_Customer(getData("customerName", generalData));
+		customerDialogHeader.NavigateTo(customerDialogHeader.subscriptionTabInDialog);
+		subscription.clickNewSubscriptionButton();
+		subscription.selectServiceType(getData("quarterly", quarterlyPreferredDayData));
+		subscription.selectServiceFrequency("Alternate Monthly");
+		subscription.setCustomDate(getData("customDate", quarterlyPreferredDayData));
+		subscription.clickButton(subscription.standardProductionButton);
+	}
+	
+	public double startSubscriptionWithSalesRep(String needSalesRep, String needSubscriptionFlag) throws Exception {
+		customerDialogHeader = new CustomerViewDialog_Header();
+		header = new Header();
 		customerDialogHeader.NavigateTo(customerDialogHeader.subscriptionTabInDialog);
 		subscription.clickNewSubscriptionButton();
 		subscription.selectServiceType(getData("quarterly", quarterlyPreferredDayData));
 		subscription.setCustomDate(getData("customDate", quarterlyPreferredDayData));
+		subscription.selectSalesRep(needSalesRep);
+		subscription.selectSubscriptionFlag(needSubscriptionFlag);
+		customerDialogHeader.ClickSaveButton();
+		double finalContractValue = subscription.getContractValue(getData("quarterly", quarterlyPreferredDayData));
+		return finalContractValue;
 	}
 
 	@Then("I validate upcoming appointments per each day")

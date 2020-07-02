@@ -17,6 +17,7 @@ public class CustomerViewDialog_SubscriptionTab {
 	//Status fields
 	public String statusText = "//div[@id='subStatusBox']//div[@id='SubStatus']";
 	public String deActivateButton = "//div[@id='subStatusBox']/span[@id='SubStatusAction']";
+	public String contractValue = "//span[contains(text(),'Contract Value')]";
 	public String cencellationCategoryDropdown_cancelSubscriptionDialog = "//select[@id='cancelSubCategory']";
 	public String cancelNotesInputField = "//textarea[@id='cancelSubNotes']";
 	public String freezeSubscriptionButton = "//span[text()='Freeze Subscription']";
@@ -30,6 +31,7 @@ public class CustomerViewDialog_SubscriptionTab {
 	public String soldDateField = "//input[@name='subDateAdded']";
 	public String contractLengthDropdown = "//h3[text()=  'Sales Info']/following-sibling::select[@name='agreementLength']";
 	public String expirationDateInputField = "//input[@name='expirationDate']";
+	public String subscriptionFlagDropdown = "//select[@id='subscriptionGenericFlags']";
 	public String renewalDateField = "//input[@name='renewalDate']";
 	public String setRenewalDateDropdown = "//select[@name='setRenewalDateOn']";
 	public String renewalFrequencyDropdown = "//select[@name='renewalFrequency']";
@@ -76,6 +78,8 @@ public class CustomerViewDialog_SubscriptionTab {
 	public String initialTotalValue = "//div[@id='initialTicket']//div[@class='ticketSummary']/div[6]";
 	//***Recurring invoice template objects***
 	public String recurringInvoice_AddTicketItemButton = "//h3[text()='Recurring Invoice Template']/following-sibling::div[text()='+ Add Ticket Item']";
+	public String standardProductionButton = "//div[@id='recurringServices']//span[text()='Standard Production']";
+	public String customProductionButton = "//div[@id='recurringServices']//span[text()='Custom Production']";
 	public String recurringSubTotalValue="//div[@id='recurringServices']//div[@class='ticketSummary']/div[2]";
 	public String recurringTaxValue = "//div[@id='recurringServices']//div[@class='ticketSummary']/div[4]";
 	public String recurringTotalValue = "//div[@id='recurringServices']//div[@class='ticketSummary']/div[6]";
@@ -87,6 +91,11 @@ public class CustomerViewDialog_SubscriptionTab {
 	 */
 	public void clickNewSubscriptionButton() {
 		Utilities.clickElement(newSubscriptionButton, ElementType.XPath);
+	}
+	
+	public void clickButton(String needButton) {
+		Utilities.waitUntileElementIsVisible(needButton);
+		Utilities.clickElement(needButton, ElementType.XPath);
 	}
 	
 	public void clickDeActivateButton() {
@@ -177,6 +186,7 @@ public class CustomerViewDialog_SubscriptionTab {
 	}
 	
 	public void selectPreferredDayOption(String needOption) {
+		Utilities.waitUntileElementIsVisible(preferredDayDropdown);
 		Utilities.selectValueFromDropDownByValue(preferredDayDropdown, needOption);
 	}
 	
@@ -191,6 +201,7 @@ public class CustomerViewDialog_SubscriptionTab {
 	}
 	
 	public void selectAdditionalItem_ToRecurringInvoice(String needItem) {
+		Utilities.waitUntileElementIsVisible(recurringInvoice_AddTicketItemButton);
 		Utilities.clickElement(recurringInvoice_AddTicketItemButton, ElementType.XPath);
 		Utilities.waitUntileElementIsVisible("//span[text()=  '"+needItem+"']");
 		Utilities.clickElement("//span[text()=  '"+needItem+"']", ElementType.XPath);
@@ -211,6 +222,11 @@ public class CustomerViewDialog_SubscriptionTab {
 	public void setExpDate(String needExpDate) {
 		FindElement.elementByAttribute(expirationDateInputField, InputType.XPath).clear();
 		FindElement.elementByAttribute(expirationDateInputField, InputType.XPath).sendKeys(needExpDate);
+	}
+	
+	public void selectSubscriptionFlag(String needSubscriptionFlag) {
+		Utilities.waitUntileElementIsVisible(subscriptionFlagDropdown);
+		Utilities.selectValueFromDropDownByValue(subscriptionFlagDropdown, needSubscriptionFlag);
 	}
 	
 	public void setInitialBillingDate(String needInitialBillingDate) {
@@ -257,8 +273,8 @@ public class CustomerViewDialog_SubscriptionTab {
 		FindElement.elementByAttribute("//div[text()= '"+needService+"']/following-sibling::input", InputType.XPath).sendKeys(needAmount);
 	}
 	public void setAdditionalItemAmount(String needItemName, String needAmount) {
-		FindElement.elementByAttribute("//h3[text()='Recurring Invoice Template']/following-sibling::div/div[text()='"+needItemName+"']/following-sibling::input", InputType.XPath).sendKeys(Keys.CONTROL,"a");
-		FindElement.elementByAttribute("//h3[text()='Recurring Invoice Template']/following-sibling::div/div[text()='"+needItemName+"']/following-sibling::input", InputType.XPath).sendKeys(needAmount);
+		FindElement.elementByAttribute("//h3[text()='Recurring Invoice Template']/following-sibling::div/div[text()='"+needItemName+"']/following-sibling::div/input", InputType.XPath).sendKeys(Keys.CONTROL,"a");
+		FindElement.elementByAttribute("//h3[text()='Recurring Invoice Template']/following-sibling::div/div[text()='"+needItemName+"']/following-sibling::div/input", InputType.XPath).sendKeys(needAmount);
 	}
 
 	/*
@@ -308,7 +324,7 @@ public class CustomerViewDialog_SubscriptionTab {
 	}
 	
 	public double getRecurringService_NewTicketItemPrice(String needTicketItem) {
-		WebElement elm = FindElement.elementByAttribute("//div[@id='recurringServices']//div[text() = '"+needTicketItem+"']/following-sibling::input", InputType.XPath);
+		WebElement elm = FindElement.elementByAttribute("//div[@id='recurringServices']//div[text() = '"+needTicketItem+"']/following-sibling::div/input", InputType.XPath);
 		String val = elm.getAttribute("value");
 		double attributeValue = Double.parseDouble(val);
 		return attributeValue;
@@ -342,9 +358,19 @@ public class CustomerViewDialog_SubscriptionTab {
 		return attributeValue;
 	}
 	
+	public double getContractValue(String needServiceType) throws InterruptedException {
+		String subscriptionTitle = "//h3[contains (text(), '"+needServiceType+"')]";
+		Utilities.waitUntileElementIsVisible(subscriptionTitle);
+		String elm = Utilities.getElementTextValue(contractValue, ElementType.XPath);
+		String newElm = elm.replaceAll("[^\\\\.0123456789]", "");
+		double attributeValue = Double.parseDouble(newElm);
+		return attributeValue;
+	}
+	
 	public String getSubscriptionID(String serviceType) {
 		String elm = Utilities.getElementTextValue("//h3[contains(text(),'"+serviceType+"')]/span[not(contains(text(),'Contract'))]", ElementType.XPath);
 		return elm;
+		
 	}
 	
 	public void clickSubscription(String subscriptionID) {

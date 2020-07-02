@@ -55,7 +55,7 @@ public class ValidateRenewal extends BaseClass{
 	public void test() throws Exception {
 		renewalFieldsValidation();
 		createRenewalSubscription();
-		scheduleSubscription("06:30");
+		scheduleSubscription("06:30",getData("customerName", generalData));
 		completeSchedulesService();
 		validateRenewalDate();
 		//freezeSubscription();
@@ -98,7 +98,7 @@ public class ValidateRenewal extends BaseClass{
 		subscription.selectRenewalFrequency("Annually");
 		customerDialogHeader.ClickSaveButton();
 	}
-	public void scheduleSubscription(String needTimeSlot) throws Exception {
+	public void scheduleSubscription(String needTimeSlot,String needCustomerName) throws Exception {
 		header = new Header();
 		route = new RoutePage();
 		appt = new ScheduleAppt();
@@ -113,7 +113,7 @@ public class ValidateRenewal extends BaseClass{
 		route.clickButton(route.addRoutesButton);
 		route.addRoutesByQuantity("1");
 		
-		header.Search_A_Customer(getData("customerName", generalData));
+		header.Search_A_Customer(needCustomerName);
 		overviewHeader.ClickScheduleButton();
 		int totalCount = Utilities.getElementCount(appt.routes);
 		String routesCount = Integer.toString(totalCount);

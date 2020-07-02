@@ -4,6 +4,7 @@ import org.testng.annotations.Test;
 import automation.PestRoutes.PageObject.Header;
 import automation.PestRoutes.PageObject.CreateCustomer.CreateCustomerDIalog;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_Header;
+import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_OverviewTab;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerviewDialog_AppointmentsTab;
 import automation.PestRoutes.PageObject.RoutePage.RoutePage;
 import automation.PestRoutes.PageObject.RoutePage.SchedulingAppointmentDialog;
@@ -13,6 +14,9 @@ import automation.PestRoutes.Utilities.AssertException;
 import automation.PestRoutes.Utilities.BaseClass;
 import automation.PestRoutes.Utilities.Reporter;
 import automation.PestRoutes.Utilities.Utilities;
+import io.cucumber.java.en.And;
+import io.cucumber.java.en.Then;
+
 import java.io.IOException;
 import java.util.List;
 import static org.testng.Assert.assertTrue;
@@ -36,6 +40,8 @@ public class ScheduleAppt extends BaseClass {
 	Header header = new Header();
 	CreateCustomerDIalog customer = new CreateCustomerDIalog();
 	UnitsTab unitsTab = new UnitsTab();
+	
+	
 
 	public List list;
 
@@ -43,19 +49,33 @@ public class ScheduleAppt extends BaseClass {
 	public void createSchedule() throws Exception {
 		String userID = getData("userID", generalData);
 
-		changeToMultiUnit();
+		changeToMultiUnit(userID);
 		addRoute();
 		addAppointment(userID, serviceType, scheduleTime);
 		addChemicalInUnitTab();
-		addChemical();
+		addChemical(userID);
 		verifyChemicalinUnit();
 		verifyChemical();
 		AssertException.asserFailure(list);
 
 	}
+	
+	public void createScheduleWithCustomerName(String customerNameInHeader) throws Exception {
+		
+		changeToMultiUnit(customerNameInHeader);
+		addRoute();
+		addAppointment(customerNameInHeader, serviceType, scheduleTime);
+		addChemicalInUnitTab();
+		addChemical(customerNameInHeader);
+		verifyChemicalinUnit();
+		verifyChemical();
+		AssertException.asserFailure(list);
 
-	public void changeToMultiUnit() throws IOException, Exception {
-		header.Search_A_Customer(getData("userID", generalData));
+	}
+	@And("I change customer type to multi unit") 
+	public void changeToMultiUnit(String userID) throws IOException, Exception {
+		header.Search_A_Customer(userID);	
+
 		overviewHeader.NavigateTo(overviewHeader.infoTabInDialog);
 		customer.clickInfo();
 		unitsTab.selectUnit("Multi Unit");
@@ -64,7 +84,7 @@ public class ScheduleAppt extends BaseClass {
 		unitsTab.newUnitClick();
 		unitsTab.setupUnit("Harold", "3", "62534");
 	}
-
+	@And("I add a route")
 	public void addRoute() throws Exception {
 		header.NavigateTo(header.schedulingTab);
 		scheduleDay.addScheduleDateToProperties();
@@ -73,7 +93,7 @@ public class ScheduleAppt extends BaseClass {
 		route.clickButton(route.addRoutesButton);
 		route.addRoutesByQuantity("1");
 	}
-
+	@And("I add an appointment")
 	public void addAppointment(String needUserID, String needServieType, String needTimeSlot) throws Exception {
 		header.Search_A_Customer(needUserID);
 
@@ -86,7 +106,7 @@ public class ScheduleAppt extends BaseClass {
 		confirmAppt.selectInteriorNeededOption(serviceAreaProvided);
 		confirmAppt.selectTargetPestsOption(pestTreaded);
 	}
-
+	@And("I add a chemical in unit tab")
 	public void addChemicalInUnitTab() {
 		unitsTab.clickUnitsScheduleApt();
 		unitsTab.AddUnitsSchApt();
@@ -99,9 +119,9 @@ public class ScheduleAppt extends BaseClass {
 		confirmAppt.clickScheduleButton();
 
 	}
-
-	public void addChemical() throws Exception {
-		header.Search_A_Customer(getData("userID", generalData));
+	@And("I add chemical")
+	public void addChemical(String userID) throws Exception {
+		header.Search_A_Customer(userID);	
 		overviewHeader.NavigateTo(overviewHeader.appointmentsTabInDialog);
 		appointmentTab.clickScheduledService(serviceType);
 		appointmentTab.clickStatusButton();
@@ -110,10 +130,11 @@ public class ScheduleAppt extends BaseClass {
 		appointmentTab.chooseApplicationMethod(applicationMethod);
 		appointmentTab.chooseTargetIssue(targetIssue);
 		appointmentTab.chooseTargetArea(targetArea);
+		appointmentTab.chooseInteriorServiced(getData("interiorServiced", generalData));
 		appointmentTab.clickSaveAndCompleteButton();
 
 	}
-
+	@Then("I verify chemical in unit")
 	public void verifyChemicalinUnit() {
 		appointmentTab.clickScheduledService(serviceType);
 		appointmentTab.clickUnitName();
@@ -128,7 +149,7 @@ public class ScheduleAppt extends BaseClass {
 		Reporter.status("target issue for multiUnit", targetIssue, actualUnitPest, "Add Chemicals To An Appointment");
 
 	}
-
+	@Then("I verify chemical")
 	public void verifyChemical() {
 		appointmentTab.clickScheduledService(serviceType);
 		String actualProductUsed = appointmentTab.getChemicalName();
