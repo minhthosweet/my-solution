@@ -10,7 +10,7 @@ import org.openqa.selenium.chrome.ChromeOptions;
 public class GetWebDriver {
 	
 	private static WebDriver driver;
-	private static ThreadLocal<WebDriver> webDrivers = new ThreadLocal<>();
+	private static ThreadLocal<WebDriver> webDrivers = new ThreadLocal<WebDriver>();
 
 	public static WebDriver getInstance() {
 		if(driver == null) {
