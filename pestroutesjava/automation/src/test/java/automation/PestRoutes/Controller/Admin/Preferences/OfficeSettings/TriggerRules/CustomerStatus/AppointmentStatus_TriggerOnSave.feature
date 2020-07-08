@@ -1,6 +1,5 @@
 @RegressionTest
 Feature: Validate Customer Status Trigger Rule with Trigger on Save
-  I want to validate all actions and all status of customer when we save a customer
 
   @SmokeTest
   Scenario: Validate for SMS Action for ANY status
