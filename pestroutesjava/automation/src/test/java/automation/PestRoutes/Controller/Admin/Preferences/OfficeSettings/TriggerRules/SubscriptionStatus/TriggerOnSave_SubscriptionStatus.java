@@ -21,18 +21,26 @@ public class TriggerOnSave_SubscriptionStatus extends BaseClass {
 
 	@Test
 	public void triggerOnSave_SubscriptionStatus() throws Exception {
-		// createTriggerOnSave_SubscriptionStatus(description_TriggerOnSave);
-		// SubscriptionStatus_createAllActions();
+		 createTriggerOnSave_SubscriptionStatus(description_TriggerOnSave);
+		 SubscriptionStatus_createAllActions();
 
-		// Any Subscription Status Trigger Validation
-		// triggerOnSave_CustomerStatus.editTrigger_triggerOnSave_CustomerStatus("Any");
-		// triggerOnSave_AppointmentStatus.createCutomerWithSubscription();
-		// triggerOnSave_AppointmentStatus.hitTriggerQueue();
-		// assertAllLogs();
+		 //Any Subscription Status Trigger Validation
+		 triggerOnSave_CustomerStatus.editTrigger_triggerOnSave_CustomerStatus("Any");
+		 triggerOnSave_AppointmentStatus.createCutomerWithSubscription();
+		 triggerOnSave_AppointmentStatus.hitTriggerQueue();
+		 assertAllLogs();
 
-		// Frozen Subscription Status Trigger Validation
-		// triggerOnSave_CustomerStatus.editTrigger_triggerOnSave_CustomerStatus("Frozen");
-		createFrozenSubscription();
+		 //Frozen Subscription Status Trigger Validation
+		 triggerOnSave_CustomerStatus.editTrigger_triggerOnSave_CustomerStatus("Frozen");
+		 createFrozenSubscription();
+		 triggerOnSave_AppointmentStatus.hitTriggerQueue();
+		 assertAllLogs();
+
+		 //Active Subscription Status Trigger Validation
+		 triggerOnSave_CustomerStatus.editTrigger_triggerOnSave_CustomerStatus("Active");
+		 createActiveSubscription();
+		 triggerOnSave_AppointmentStatus.hitTriggerQueue();
+		 assertAllLogs();
 	}
 
 	// Create trigger
@@ -62,6 +70,11 @@ public class TriggerOnSave_SubscriptionStatus extends BaseClass {
 	public void createFrozenSubscription() throws Exception {
 		triggerOnSave_AppointmentStatus.createCutomerWithSubscription();
 		
+	}
+
+	public void createActiveSubscription() throws Exception {
+		triggerOnSave_AppointmentStatus.createCutomerWithSubscription();
+
 	}
 
 }
