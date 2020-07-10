@@ -5,6 +5,7 @@ import automation.PestRoutes.Utilities.FindElement;
 import automation.PestRoutes.Utilities.Utilities;
 import automation.PestRoutes.Utilities.FindElement.InputType;
 import automation.PestRoutes.Utilities.Utilities.ElementType;
+import io.cucumber.java.en.And;
 
 public class RoutePage {
 	public String addRoutesButton = "//li[@id= 'addRoutesButton']";
@@ -61,7 +62,7 @@ public class RoutePage {
 		Utilities.clickElement("//div[@customerid = '" + needCustomerID + "']//p[text() = 'Customer Card']",
 				ElementType.XPath);
 	}
-
+	@And("I add a route group")
 	public void addGroup() {
 		String groupXpath = "//h3[text()= 'TestRoutes']/parent::div";
 		String group = "groupButton";

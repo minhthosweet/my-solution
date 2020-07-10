@@ -86,9 +86,7 @@ public class ScheduleAppt extends BaseClass {
 	}
 	@And("I add a route")
 	public void addRoute() throws Exception {
-		header.NavigateTo(header.schedulingTab);
-		scheduleDay.addScheduleDateToProperties();
-		scheduleDay.clickScheduleDay();
+		route = new RoutePage();
 		route.addGroup();
 		route.clickButton(route.addRoutesButton);
 		route.addRoutesByQuantity("1");

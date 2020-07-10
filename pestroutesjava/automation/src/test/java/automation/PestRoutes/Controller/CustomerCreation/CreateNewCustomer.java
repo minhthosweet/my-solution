@@ -91,6 +91,12 @@ public class CreateNewCustomer extends BaseClass {
 		captureUserIdAndFullName();
 	}
 	
+	@And("I search customer")
+	public void searchCustomer() throws Exception {
+		header = new Header();
+		header.Search_A_Customer(fName + " " + lName);
+	}
+	
 	@When("I create customer with first name, last name, email and address")
 	public void createCustomerWithEmail() throws Exception {
 		dialog = new CustomerViewDialog_Header();
