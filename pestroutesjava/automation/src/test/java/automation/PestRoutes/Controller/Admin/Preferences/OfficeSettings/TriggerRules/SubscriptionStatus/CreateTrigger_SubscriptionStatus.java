@@ -27,7 +27,7 @@ public class CreateTrigger_SubscriptionStatus extends BaseClass {
 	SubscriptionStatusTab subscriptionStatus;
 	private String descriptionTrigger = "trigger_subscriptionStatus_all_actions";
 	public List list = new ArrayList<String>();
-	private String days_After_Change = "1";
+	public String days_After_Change = "1";
 
 	@Test
 	public void createSubscriptionStatusRule() throws InterruptedException, Exception {
