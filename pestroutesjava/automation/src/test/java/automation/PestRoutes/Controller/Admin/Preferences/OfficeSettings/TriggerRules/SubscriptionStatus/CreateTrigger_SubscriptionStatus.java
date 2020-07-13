@@ -1,4 +1,4 @@
-package automation.PestRoutes.Controller.Admin.Preferences.OfficeSettings.TriggerRules;
+package automation.PestRoutes.Controller.Admin.Preferences.OfficeSettings.TriggerRules.SubscriptionStatus;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -17,7 +17,7 @@ import automation.PestRoutes.Utilities.GetDate;
 import automation.PestRoutes.Utilities.Reporter;
 import automation.PestRoutes.Utilities.Utilities;
 
-public class Trigger_SubscriptionStatus extends BaseClass {
+public class CreateTrigger_SubscriptionStatus extends BaseClass {
 	Header header;
 	AdminMainPage adminMainPage;
 	TriggerRules triggerAdmin = new TriggerRules();
@@ -27,37 +27,37 @@ public class Trigger_SubscriptionStatus extends BaseClass {
 	SubscriptionStatusTab subscriptionStatus;
 	private String descriptionTrigger = "trigger_subscriptionStatus_all_actions";
 	public List list = new ArrayList<String>();
-	private String days_After_Change = "1";
+	public String days_After_Change = "1";
 
 	@Test
 	public void createSubscriptionStatusRule() throws InterruptedException, Exception {
-		createTrigger_SubscriptionStatus();
-		searchTrigger_subscriptionStatus();
+		createTrigger_SubscriptionStatus(descriptionTrigger);
+		searchTrigger_subscriptionStatus(descriptionTrigger);
 		SMSAction_SubscriptionStatus();
-		searchTrigger_subscriptionStatus();
+		searchTrigger_subscriptionStatus(descriptionTrigger);
 		voiceAction_SubscriptionStatus();
-		searchTrigger_subscriptionStatus();
+		searchTrigger_subscriptionStatus(descriptionTrigger);
 		emailAction_SubscriptionStatus();
-		searchTrigger_subscriptionStatus();
+		searchTrigger_subscriptionStatus(descriptionTrigger);
 		snailMailAction_SubscriptionStatus();
-		searchTrigger_subscriptionStatus();
-		webhookAction_SubscriptionStatus();
-		searchTrigger_subscriptionStatus();
+		/*searchTrigger_subscriptionStatus(descriptionTrigger);
+		webhookAction_SubscriptionStatus();*/
+		searchTrigger_subscriptionStatus(descriptionTrigger);
 		sendEmployeeEmail_SubscriptionStatus();
-		searchTrigger_subscriptionStatus();
+		searchTrigger_subscriptionStatus(descriptionTrigger);
 		addAlert_SubscriptionStatus();
-		searchTrigger_subscriptionStatus();
+		searchTrigger_subscriptionStatus(descriptionTrigger);
 		addTask_SubscriptionStatus();
-		searchTrigger_subscriptionStatus();
+		searchTrigger_subscriptionStatus(descriptionTrigger);
 		sendEmployeeSMS_SubscriptionStatus();
-		searchTrigger_subscriptionStatus();
+		searchTrigger_subscriptionStatus(descriptionTrigger);
 		sendEmployeeVoice_SubscriptionStatus();
-		searchTrigger_subscriptionStatus();
+		searchTrigger_subscriptionStatus(descriptionTrigger);
 		assertActions_SubscriptionStatus();
 		validateIfFailureExist();
 	}
 
-	public void createTrigger_SubscriptionStatus() throws Exception {
+	public void createTrigger_SubscriptionStatus(String descriptionName) throws Exception {
 		header = new Header();
 		adminMainPage = new AdminMainPage();
 		renewalTab = new RenewalTab();
@@ -69,7 +69,7 @@ public class Trigger_SubscriptionStatus extends BaseClass {
 		triggerAdmin.clickAddTrigerButton();
 		triggerAdmin.setStartDate(Utilities.currentDate("MM/dd/yyyy"));
 		triggerAdmin.setEndDate(GetDate.addOneYearToDate(Utilities.currentDate("MM/dd/yyyy")));
-		triggerAdmin.setDescription(descriptionTrigger);
+		triggerAdmin.setDescription(descriptionName);
 		triggerAdmin.selectDropdown(triggerAdmin.triggerTypeDropdown, triggerAdmin.triggerType_SubscriptionStatus);
 		triggerAdmin.selectDropdown(triggerAdmin.globalType, triggerAdmin.global_SpecificToThisOffice);
 		triggerAdmin.selectDropdown(triggerAdmin.activeType, triggerAdmin.activeType_Active);
@@ -86,16 +86,16 @@ public class Trigger_SubscriptionStatus extends BaseClass {
 	}
 
 	// Search Subscription Status Trigger
-	public void searchTrigger_subscriptionStatus() {
+	public void searchTrigger_subscriptionStatus(String descriptionName) {
 		header = new Header();
 		adminMainPage = new AdminMainPage();
 		header.NavigateTo(header.adminTab);
 		adminMainPage.navigateTo(adminMainPage.preferences);
 		triggerAdmin.navigateToTriggerRules();
-		triggerAdmin.searchTrigger(descriptionTrigger);
-		result(descriptionTrigger, triggerAdmin.getDescriptionText(descriptionTrigger), "Search Customer",
+		triggerAdmin.searchTrigger(descriptionName);
+		result(descriptionName, triggerAdmin.getDescriptionText(descriptionName), "Search Customer",
 				"Subscription Status Creation");
-		triggerAdmin.clickEditTrigger(descriptionTrigger);
+		triggerAdmin.clickEditTrigger(descriptionName);
 	}
 
 	// Create a SMS action
