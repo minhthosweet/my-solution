@@ -4,7 +4,7 @@ import io.cucumber.testng.AbstractTestNGCucumberTests;
 import io.cucumber.testng.CucumberOptions;
 
 @CucumberOptions(features = { "src/test/resources/features" }, plugin = { "pretty" }, glue = {
-		"automation.PestRoutes" }, tags = "@Smoke")
+		"automation.PestRoutes" }, tags = "@Renewal")
 public class TestRunners extends AbstractTestNGCucumberTests {
 	
 }

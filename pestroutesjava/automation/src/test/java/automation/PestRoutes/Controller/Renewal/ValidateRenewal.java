@@ -50,14 +50,23 @@ public class ValidateRenewal extends BaseClass{
 	ScheduleAppt appt;
 	List list = new ArrayList<String>();
 	private static DecimalFormat value = new DecimalFormat("0.00");
-	public String serviceType = "Pest Renewal";
+	public String serviceType;
+
+	{
+		try {
+			serviceType = getData("serviceDescription", generalData);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
 	String currentDate = Utilities.currentDate("M/dd/yyyy");
 	String expectedWarning = "Payment amount plus prepayments, is less than renewal amount.";
 	@Test
 	public void test() throws Exception {
 		renewalFieldsValidation();
 		createRenewalSubscription();
-		scheduleSubscription("06:30",getData("customerName", generalData));
+		//scheduleSubscription("06:30",getData("customerName", generalData));
 		completeSchedulesService();
 		validateRenewalDate();
 		//freezeSubscription();
@@ -112,15 +121,17 @@ public class ValidateRenewal extends BaseClass{
 //		route.clickButton(route.addRoutesButton);
 //		route.addRoutesByQuantity("1");
 //	}
-	@And("I schedule an service appointment (.+)")
-	public void scheduleAnAppointment(String needTimeSlot) throws Exception {
+	@And("I schedule an service appointment")
+	public void scheduleAnAppointment() throws Exception {
+		appt = new ScheduleAppt();
+		route = new RoutePage();
 		confirmAppt = new SchedulingAppointmentDialog();
 		overviewHeader = new CustomerViewDialog_Header();
 		overviewHeader.ClickScheduleButton();
 		int totalCount = Utilities.getElementCount(appt.routes);
 		String routesCount = Integer.toString(totalCount);
 		System.out.println(routesCount);
-		route.scheduleAppointment(routesCount, needTimeSlot);
+		route.scheduleAppointment(routesCount, getData("timeSlot", generalData));
 		confirmAppt.selectServiceType(serviceType);
 		confirmAppt.selectInteriorNeededOption(appt.serviceAreaProvided);
 		confirmAppt.selectTargetPestsOption(appt.pestTreaded);
@@ -133,15 +144,15 @@ public class ValidateRenewal extends BaseClass{
 		scheduleDay = new SchedulingTab();
 		confirmAppt = new SchedulingAppointmentDialog();
 		overviewHeader = new CustomerViewDialog_Header();
-		
+
 		header.NavigateTo(header.schedulingTab);
 		scheduleDay.addScheduleDateToProperties();
 		scheduleDay.clickScheduleDay();
 		route.addGroup();
 		route.clickButton(route.addRoutesButton);
 		route.addRoutesByQuantity("1");
-		
-		header.Search_A_Customer(needCustomerName);
+
+		//header.Search_A_Customer(needCustomerName);
 		overviewHeader.ClickScheduleButton();
 		int totalCount = Utilities.getElementCount(appt.routes);
 		String routesCount = Integer.toString(totalCount);
@@ -211,7 +222,7 @@ public class ValidateRenewal extends BaseClass{
 		overviewHeader.NavigateTo(overviewHeader.invoicesTabInDialog);
 		invoicing.clickAddPayment();
 		invHeader.navigate(invHeader.cash);
-		paymentPage.setLimitedToSubscription();
+		paymentPage.setLimitedToSubscription(getData("serviceDescription", generalData));
 		Utilities.clickElement(paymentPage.confirmPymtAmtField, ElementType.XPath);
 		String paymentWarning = paymentPage.getPaymentWarning();
 		result(expectedWarning, paymentWarning, "payment warning to renew subscription", "Subscription Renewal");

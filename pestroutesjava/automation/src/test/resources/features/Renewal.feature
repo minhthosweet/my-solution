@@ -1,16 +1,17 @@
 #Author Aarbi
-@Regression
+@Renewal
 Feature: Renewal
 
   Scenario: Validate Renewal
   	Given I sign in to pestroutes domain
+    Given I add a renewal service
     When I create customer with first name, last name and address
     And I validate if renewal fields display in Subscription tab if I choose renewal as service type
     And I create a renewal subscription
     And I navigate to scheduling tab
     And I add a route
     And I search customer
-    And I schedule an service appointment <06:30>
+    And I schedule an service appointment
     And I search customer
     And I complete an appointment
     And I search customer

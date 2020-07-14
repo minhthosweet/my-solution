@@ -26,7 +26,7 @@ public class Product extends BaseClass {
 	private String productLabel = Utilities.generateRandomString(4).toUpperCase();
 
 	@Test
-	public void validateProduct() {
+	public void validateProduct() throws InterruptedException {
 		createProduct();
 		assertCreatedProduct();
 		editProductUnit();
@@ -34,7 +34,7 @@ public class Product extends BaseClass {
 	}
 
 	//Create product
-	public void createProduct() {
+	public void createProduct() throws InterruptedException {
 		header.NavigateTo(header.adminTab);
 		adminMainPage.navigateTo(adminMainPage.preferences);
 		preferences.navigateTo(preferences.serviceRelatedNav, preferences.productsText);
@@ -60,7 +60,7 @@ public class Product extends BaseClass {
 	}
 
 	//Assert the product created
-	private void assertCreatedProduct() {
+	private void assertCreatedProduct() throws InterruptedException {
 		header.NavigateTo(header.adminTab);
 		adminMainPage.navigateTo(adminMainPage.preferences);
 		preferences.navigateTo(preferences.serviceRelatedNav, preferences.productsText);
@@ -74,7 +74,7 @@ public class Product extends BaseClass {
 	}
 
 	//Edit Product
-	private void editProductUnit() {
+	private void editProductUnit() throws InterruptedException {
 		header.NavigateTo(header.adminTab);
 		adminMainPage.navigateTo(adminMainPage.preferences);
 		preferences.navigateTo(preferences.serviceRelatedNav, preferences.productsText);

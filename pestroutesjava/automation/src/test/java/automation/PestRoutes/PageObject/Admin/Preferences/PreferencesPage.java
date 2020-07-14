@@ -32,8 +32,9 @@ public class PreferencesPage {
 	 * Actions
 	 * Below methods perform actions such as selecting from drop drown or click an object
 	 */
-	public void navigateTo(String needMenuArea, String needPage) {
+	public void navigateTo(String needMenuArea, String needPage) throws InterruptedException {
 		Utilities.clickElement("//h2[@id='office']", ElementType.XPath);
+		Thread.sleep(500);
 		Utilities.waitUntileElementIsVisible(needMenuArea);
 		Utilities.scrollToElement(needMenuArea);
 		Utilities.waitUntileElementIsVisible(needMenuArea);

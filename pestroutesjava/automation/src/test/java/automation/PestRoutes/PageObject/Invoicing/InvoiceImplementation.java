@@ -105,9 +105,9 @@ public class InvoiceImplementation {
 
 	}
 	
-	public void setLimitedToSubscription() {
+	public void setLimitedToSubscription(String needServiceName) {
 		Utilities.clickElement(limitedToSubscription, ElementType.XPath);
-		Utilities.clickElement("//label[contains (text(), 'Pest Renewal Subscription Invoices')]", ElementType.XPath);
+		Utilities.clickElement("//label[contains (text(), '"+needServiceName+" Subscription Invoices')]", ElementType.XPath);
 	}
 
 	public void clickrecordPayment() {

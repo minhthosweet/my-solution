@@ -21,7 +21,7 @@ public class EquipmentTypesValidations extends BaseClass {
 	Header header;
 	public List list;
 	@Test
-	public void addEquipment() {
+	public void addEquipment() throws InterruptedException {
 		main = new AdminMainPage();
 		preferences = new PreferencesPage();
 		equipment = new EquipmentTypes();

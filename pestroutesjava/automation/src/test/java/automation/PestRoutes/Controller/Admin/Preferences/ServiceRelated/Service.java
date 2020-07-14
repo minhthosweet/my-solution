@@ -8,6 +8,7 @@ import automation.PestRoutes.PageObject.Admin.AdminMainPage;
 import automation.PestRoutes.PageObject.Admin.Preferences.PreferencesPage;
 import automation.PestRoutes.PageObject.Admin.Preferences.ServiceTypes;
 import automation.PestRoutes.Utilities.BaseClass;
+import io.cucumber.java.en.Given;
 
 public class Service extends BaseClass {
 	Header header;
@@ -15,7 +16,7 @@ public class Service extends BaseClass {
 	PreferencesPage preferences;
 	ServiceTypes service;
 
-	@Test
+	@Given("I add a renewal service")
 	public void workWithService() throws Exception {
 		// Utilities.navigateToUrl(getData("betaUrl", generalData));
 		navigateToServiceType();
@@ -28,12 +29,12 @@ public class Service extends BaseClass {
 
 			}
 		} catch (Exception e) {
-			System.out.println("Exception Caught");
-			addServiceType();
+			System.out.println("did not find renewal service");
+			addRenewalServiceType();
 		}
 	}
 
-	public void navigateToServiceType() {
+	public void navigateToServiceType() throws InterruptedException {
 		admin = new AdminMainPage();
 		header = new Header();
 		preferences = new PreferencesPage();
@@ -48,7 +49,7 @@ public class Service extends BaseClass {
 		service.setSearch(needServiceDescription);
 	}
 
-	public void addServiceType() throws Exception {
+	public void addRenewalServiceType() throws Exception {
 		service = new ServiceTypes();
 		service.clickAddServiceButton();
 		service.setDescription(getData("serviceDescription", generalData));
@@ -64,9 +65,9 @@ public class Service extends BaseClass {
 		service.selectFromDropdown(service.displayRenewalDateDropDown, "Yes");
 		service.selectFromDropdown(service.renewalFrequencyDropDown, "Annually");
 		service.selectFromDropdown(service.setRenewalDateDropDown, "On Initial Service Completion");
-		service.setServiceCharge("0");
-		service.setServiceCommission("0");
-		service.setMinInitialCharge("0.00");
+//		service.setServiceCharge("0");
+//		service.setServiceCommission("0");
+//		service.setMinInitialCharge("0.00");
 		service.clickSave();
 	}
 

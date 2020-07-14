@@ -65,7 +65,7 @@ public class TriggerOnSave_AppointmentStatus extends BaseClass {
 	// Schedule an appointment
 	public void scheduleappointment() throws Exception {
 		validateRenewal = new ValidateRenewal();
-		validateRenewal.scheduleSubscription("11:00", getData("customerName", generalData));
+		validateRenewal.scheduleSubscription("11:00");
 	}
 
 	// Hit trigger Queue
