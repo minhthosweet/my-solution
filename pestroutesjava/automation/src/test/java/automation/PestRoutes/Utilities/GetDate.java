@@ -1,15 +1,8 @@
 package automation.PestRoutes.Utilities;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.time.format.FormatStyle;
 import java.util.Calendar;
-import java.util.Date;
-
-import org.testng.annotations.Test;
 
 public class GetDate {
 
@@ -70,6 +63,17 @@ public class GetDate {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/dd/uuuu");
 		LocalDate localDate = LocalDate.parse(input, formatter);
 		LocalDate yearLater = localDate.minusDays(1);
+		String formattedDate = yearLater.format(DateTimeFormatter.ofPattern("M/dd/yyyy"));
+		System.out.println(formattedDate);
+		return formattedDate;
+
+	}
+
+	public static String minusGenericDayToDate(String needDate, int days) throws Exception {
+		String input = needDate;
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/dd/uuuu");
+		LocalDate localDate = LocalDate.parse(input, formatter);
+		LocalDate yearLater = localDate.minusDays(days);
 		String formattedDate = yearLater.format(DateTimeFormatter.ofPattern("M/dd/yyyy"));
 		System.out.println(formattedDate);
 		return formattedDate;

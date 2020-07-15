@@ -124,7 +124,7 @@ public class Trigger_SubscriptionDueForService extends BaseClass {
 	}
 
 	// Search Subscription Due For Service Trigger
-	public void searchTrigger_subscriptionDueForService() {
+	public void searchTrigger_subscriptionDueForService() throws InterruptedException {
 		header = new Header();
 		adminMainPage = new AdminMainPage();
 		header.NavigateTo(header.adminTab);

@@ -11,7 +11,7 @@ public class RoutePageInvoicing {
 	public String accountSummary = "Account Summary";
 	public String addTicketItem = "//div[contains(@class,'grayButton full aCenter  serviceTicketButton left') and contains(text(),'Add Ticket Item')]";
 	public String clickAddPartialPayment = "//div[contains(@class,'grayButton full aCenter  serviceTicketButton ticketPaymentButton left') and contains(text(),'Add Payment')]";
-	private String addAvailableTicket = "//span[contains(@class,'productDescription') and contains(text(),'Candy Party')]";
+	private String addAvailableTicket = "//div[@id='availableItems']//li[1]";
 
 	// Setter
 

@@ -1,8 +1,9 @@
 package automation.PestRoutes.Controller.Invoicing;
 
+import automation.PestRoutes.Controller.CustomerCreation.CreateNewCustomer;
+import automation.PestRoutes.Utilities.GetDate;
+import automation.PestRoutes.Utilities.Utilities;
 import org.testng.annotations.Test;
-
-import automation.PestRoutes.PageObject.Header;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_Header;
 import automation.PestRoutes.PageObject.Invoicing.InvoiceImplementation;
 import automation.PestRoutes.PageObject.Invoicing.Invoice_Header;
@@ -12,31 +13,24 @@ import automation.PestRoutes.Utilities.Reporter;
 
 public class InvoicingTab extends BaseClass {
 
-	Header mainHeader;
-	InvoiceImplementation invImplementation;
-
-	RoutePageInvoicing invoiceRoutesTab;
+	InvoiceImplementation invImplementation  = new InvoiceImplementation();;
+	CreateNewCustomer createCustomer;
+	RoutePageInvoicing invoiceRoutesTab = new RoutePageInvoicing();;
 	CustomerViewDialog_Header routesTab;
 	Invoice_Header invoiceHeader;
+
 	private String treatmentAmount = "900";
 	private Integer partialPaymentAmount = Integer.parseInt(treatmentAmount) / 2;
 	private String successfulPartialCharge = "Successfully Charged Cash!$450.00";
 	private String successfulFullCharge = "Successfully Charged Cash!$5,450.00";
 
+	private String invoiceDate = "1";
+
 	@Test
 	public void CustomerInvoicing() throws Exception {
-		// Login
-		mainHeader = new Header();
 
-		// Object Creation
-		invImplementation = new InvoiceImplementation();
-		routesTab = new CustomerViewDialog_Header();
-		invoiceRoutesTab = new RoutePageInvoicing();
-		invoiceHeader = new Invoice_Header();
-
-		// Methods
-		searchCustomer();
-		addNewInvoice();
+		// Implementation
+		addNewInvoice(invoiceDate);
 		InitialCost();
 		assertInitialCharge();
 		reducingBalance();
@@ -45,17 +39,16 @@ public class InvoicingTab extends BaseClass {
 		assertFullCharge();
 	}
 
-	// Searches for a customer
-	private void searchCustomer() throws Exception {
-		mainHeader.Search_A_Customer(getData("userID", generalData));
-	}
-
 	// Add a new invoice to the customer
-	private void addNewInvoice() throws InterruptedException {
+	public void addNewInvoice(String date) throws Exception {
+		createCustomer = new CreateNewCustomer();
+		createCustomer.createCustomerWithEmail();
+		createCustomer.searchCustomer();
+		routesTab = new CustomerViewDialog_Header();
 		routesTab.NavigateTo(routesTab.invoicesTabInDialog);
 		invoiceRoutesTab.clickAddPayment();
 		invoiceRoutesTab.clickAddNewInvoice(invoiceRoutesTab.addNewInvoice);
-		invImplementation.newInvoiceDetails(treatmentAmount);
+		invImplementation.newInvoiceDetails(treatmentAmount,date);
 		invoiceRoutesTab.invoiceDetails();
 		invoiceRoutesTab.selectAvailableItems();
 
@@ -68,6 +61,7 @@ public class InvoicingTab extends BaseClass {
 
 	// Keeps checking balance
 	private void reducingBalance() {
+		invoiceHeader = new Invoice_Header();
 		invoiceRoutesTab.clickAddPartialPayments();
 		invoiceHeader.navigate(invoiceHeader.cash);
 	}

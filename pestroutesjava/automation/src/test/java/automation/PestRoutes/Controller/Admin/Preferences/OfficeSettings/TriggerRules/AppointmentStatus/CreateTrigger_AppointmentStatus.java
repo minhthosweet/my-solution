@@ -31,7 +31,7 @@ public class CreateTrigger_AppointmentStatus extends BaseClass {
 	public List list = new ArrayList<String>();
 
 	@Test
-	public void createAppointmentStatusRule() throws InterruptedException, Exception {
+	public void createAppointmentStatusRule() throws Exception {
 		createTrigger_AppointmentStatus(descriptionTrigger);
 		searchTrigger_appointmentStatus(descriptionTrigger);
 		SMSAction_AppointmentStatus();

@@ -4,10 +4,8 @@ import java.io.IOException;
 
 import org.testng.annotations.Test;
 import automation.PestRoutes.Controller.Admin.Preferences.OfficeSettings.TriggerRules.AppointmentStatus.TriggerOnSave_AppointmentStatus;
-import automation.PestRoutes.Controller.Admin.Preferences.OfficeSettings.TriggerRules.CustomerStatus.TriggerAfterTime_CustomerStatus;
 import automation.PestRoutes.Controller.Admin.Preferences.OfficeSettings.TriggerRules.CustomerStatus.TriggerOnSave_CustomerStatus;
 import automation.PestRoutes.Controller.Renewal.ValidateRenewal;
-import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_SubscriptionTab;
 import automation.PestRoutes.Utilities.BaseClass;
 
 public class TriggerOnSave_SubscriptionStatus extends BaseClass {
@@ -15,8 +13,8 @@ public class TriggerOnSave_SubscriptionStatus extends BaseClass {
     CreateTrigger_SubscriptionStatus createSubscriptionStatus = new CreateTrigger_SubscriptionStatus();
     TriggerOnSave_CustomerStatus triggerOnSave_CustomerStatus = new TriggerOnSave_CustomerStatus();
     TriggerOnSave_AppointmentStatus triggerOnSave_AppointmentStatus = new TriggerOnSave_AppointmentStatus();
-    TriggerAfterTime_CustomerStatus triggerAfterTime_CustomerStatus;
-    CustomerViewDialog_SubscriptionTab subscription;
+    TriggerOnSave_CustomerStatus triggerOnSave = new TriggerOnSave_CustomerStatus();
+    ValidateRenewal renewal;
 
     private String description_TriggerOnSave = "TriggerOnSave_SubscriptionStatus";
 
@@ -42,6 +40,7 @@ public class TriggerOnSave_SubscriptionStatus extends BaseClass {
         createActiveSubscription();
         triggerOnSave_AppointmentStatus.hitTriggerQueue();
         assertAllLogs();
+
     }
 
     // Create trigger
@@ -51,32 +50,26 @@ public class TriggerOnSave_SubscriptionStatus extends BaseClass {
 
     // Create Actions
     public void triggerOnSave_SubscriptionStatus_createAllActions(String description) throws InterruptedException, IOException {
-        createSubscriptionStatus.searchTrigger_subscriptionStatus(description);
-        createSubscriptionStatus.SMSAction_SubscriptionStatus();
-        createSubscriptionStatus.voiceAction_SubscriptionStatus();
-        createSubscriptionStatus.emailAction_SubscriptionStatus();
-        createSubscriptionStatus.snailMailAction_SubscriptionStatus();
-        createSubscriptionStatus.sendEmployeeEmail_SubscriptionStatus();
-        createSubscriptionStatus.addAlert_SubscriptionStatus();
-        createSubscriptionStatus.addTask_SubscriptionStatus();
-        createSubscriptionStatus.sendEmployeeSMS_SubscriptionStatus();
-        createSubscriptionStatus.sendEmployeeVoice_SubscriptionStatus();
+        triggerOnSave.customerStatus_addAllAction(description);
     }
 
     // Assert Trigger Log
     public void assertAllLogs() throws IOException, Exception {
-        triggerAfterTime_CustomerStatus = new TriggerAfterTime_CustomerStatus();
-        triggerAfterTime_CustomerStatus.assertFrozen_allActions();
+        triggerOnSave.assertlog();
     }
 
+    // Create frozen subscription
     public void createFrozenSubscription() throws Exception {
         triggerOnSave_AppointmentStatus.createCutomerWithSubscription();
-
+        renewal = new ValidateRenewal();
+        renewal.freezeSubscription();
     }
 
+    // Activate Subscription
     public void createActiveSubscription() throws Exception {
         triggerOnSave_AppointmentStatus.createCutomerWithSubscription();
-
+        renewal = new ValidateRenewal();
+        renewal.freezeSubscription();
+        //renewal.activateSubscription();
     }
-
 }
