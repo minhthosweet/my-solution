@@ -20,7 +20,7 @@ public class TriggerRules_Cucumber {
 	private String descriptionTrigger = "trigger_renewal_email_snailmail";
 
 	@And("I navigate to trigger rules")
-	public void i_navigate_to_trigger_rules() {
+	public void i_navigate_to_trigger_rules() throws InterruptedException {
 		header.NavigateTo(header.adminTab);
 		adminMainPage.navigateTo(adminMainPage.preferences);
 		triggerAdmin.navigateToTriggerRules();

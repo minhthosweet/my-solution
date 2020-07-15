@@ -26,31 +26,31 @@ public class TriggerAfterTime_CustomerStatus extends BaseClass {
 		createTriggerAfterTime_CustomerStatus(description_TriggerAfterTime);
 
 		// Create Actions
-		customerStatus_CreateAllActions();
+		customerStatus_CreateAllActions(description_TriggerAfterTime);
 
 		// Trigger on Save for Frozen customer
 		editTrigger_triggerAfterTime_CustomerStatus("Frozen");
 		createNewCustomerWithPhoneEmailBilling_Frozen();
-		hitTriggerQueue();
+		hitTriggerCustomerStatus();
 		assertFrozen_allActions();
 		assertFrozen_RemovePayment();
 		
 		// Trigger on Save for Created customer
 		editTrigger_triggerAfterTime_CustomerStatus("Created");
 		createNewCustomerWithPhoneEmailBilling_Created();
-		hitTriggerQueue();
+		hitTriggerCustomerStatus();
 		assertFrozen_allActions();
 		
 		// Trigger on Save for Active customer
 		editTrigger_triggerAfterTime_CustomerStatus("Active");
 		createNewCustomerWithPhoneEmailBilling_Active();
-		hitTriggerQueue();
+		hitTriggerCustomerStatus();
 		assertFrozen_allActions();
 		
 		// Trigger on Save for Pending Cancel customer
 		editTrigger_triggerAfterTime_CustomerStatus("Pending Cancel");
 		createNewCustomerWithPhoneEmailBilling_PendingCancel();
-		hitTriggerQueue();
+		hitTriggerCustomerStatus();
 		assertFrozen_allActions();
 
 	}
@@ -71,18 +71,10 @@ public class TriggerAfterTime_CustomerStatus extends BaseClass {
 		triggerAdmin.clickSaveButton();
 	}
 	
-	public void customerStatus_CreateAllActions() throws InterruptedException, IOException {
-		triggerOnSave.customerStatus_SMSAction();
-		triggerOnSave.customerStatus_EmailAction();
-		triggerOnSave.customerStatus_VoiceAction();
-		triggerOnSave.customerStatus_SnailMailAction();
-		triggerOnSave.customerStatus_employeeEmailAction();
-		triggerOnSave.customerStatus_alertAction();
-		triggerOnSave.customerStatus_taskAction();
-		triggerOnSave.customerStatus_employeeVoiceAction();
-		triggerOnSave.customerStatus_removePaymentProfileAction();
+	public void customerStatus_CreateAllActions(String description) throws InterruptedException, IOException {
+		triggerOnSave.customerStatus_addAllAction(description);
 	}
-	
+
 	public void createNewCustomerWithPhoneEmailBilling_Frozen() throws Exception {
 		triggerOnSave.createNewCustomerwithPhoneEmailBilling_Frozen();
 	}
@@ -98,21 +90,14 @@ public class TriggerAfterTime_CustomerStatus extends BaseClass {
 	public void createNewCustomerWithPhoneEmailBilling_PendingCancel() throws Exception {
 		triggerOnSave.createNewCustomerwithPhoneEmailBilling_PendingCancel();
 	}
-	
-	public void hitTriggerQueue() {
+
+	// Run script
+	public void hitTriggerCustomerStatus() {
 		Utilities.navigateToUrl("https://adityam.pestroutes.com/resources/scripts/triggerCustomerStatus.php");
 	}
 	
 	public void assertFrozen_allActions() throws IOException, Exception {
-		triggerOnSave.assertSMSlog();
-		triggerOnSave.assertEmaillog();
-		triggerOnSave.assertVoicelog();
-		triggerOnSave.assertSnailMaillog();
-		triggerOnSave.assertEmployeeEmaillog();
-		triggerOnSave.assertAlertlog();
-		triggerOnSave.assertTasklog();
-		triggerOnSave.assertEmployeeVoicelog();
-		
+		triggerOnSave.assertlog();
 	}	
 	
 	public void assertFrozen_RemovePayment() throws IOException, Exception{

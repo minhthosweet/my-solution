@@ -30,6 +30,7 @@ public class TriggerRules {
 	public String activeType_NotActive = "Not Active";
 
 	// Filter Objects
+	public String officeSettingsText = "//div[@id='OfficeLogo']//preceding-sibling::h2";
 	public String triggerRulesText = "//li[text() = 'Trigger Rules']";
 	public String addTriggerButton = "//div[text() = '+ Trigger']";
 	public String triggerTypeDropdown = "//select[@name='triggerEventID']";
@@ -51,7 +52,7 @@ public class TriggerRules {
 
 	// Trigger Filter Actions
 	public void navigateToTriggerRules() {
-		Utilities.waitUntileElementIsVisible(triggerRulesText);
+		Utilities.waitUntileElementIsVisible(officeSettingsText);
 		Utilities.clickElement(triggerRulesText, ElementType.XPath);
 	}
 

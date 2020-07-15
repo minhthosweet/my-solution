@@ -16,7 +16,7 @@ public class CustomerViewDialog_SubscriptionTab {
 	//********************Objects in subscription tab********************
 	//Status fields
 	public String statusText = "//div[@id='subStatusBox']//div[@id='SubStatus']";
-	public String deActivateButton = "//div[@id='subStatusBox']/span[@id='SubStatusAction']";
+	public String ActivateDeactivateButton = "//div[@id='subStatusBox']/span[@id='SubStatusAction']";
 	public String contractValue = "//span[contains(text(),'Contract Value')]";
 	public String cencellationCategoryDropdown_cancelSubscriptionDialog = "//select[@id='cancelSubCategory']";
 	public String cancelNotesInputField = "//textarea[@id='cancelSubNotes']";
@@ -98,9 +98,9 @@ public class CustomerViewDialog_SubscriptionTab {
 		Utilities.clickElement(needButton, ElementType.XPath);
 	}
 	
-	public void clickDeActivateButton() {
-		Utilities.waitUntileElementIsVisible(deActivateButton);
-		Utilities.clickElement(deActivateButton, ElementType.XPath);
+	public void clickActivateDeActivateButton() {
+		Utilities.waitUntileElementIsVisible(ActivateDeactivateButton);
+		Utilities.clickElement(ActivateDeactivateButton, ElementType.XPath);
 	}
 	
 	public void clickFreezeSubscriptionButton() {

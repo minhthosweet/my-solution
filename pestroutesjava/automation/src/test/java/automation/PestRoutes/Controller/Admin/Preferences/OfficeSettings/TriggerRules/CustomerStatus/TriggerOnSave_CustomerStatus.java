@@ -1,6 +1,7 @@
 package automation.PestRoutes.Controller.Admin.Preferences.OfficeSettings.TriggerRules.CustomerStatus;
 
 import java.io.IOException;
+
 import org.testng.annotations.Test;
 import automation.PestRoutes.Controller.Admin.Preferences.OfficeSettings.TriggerRules.Trigger_SubscriptionDueForService;
 import automation.PestRoutes.Controller.Billings.Billing;
@@ -16,257 +17,166 @@ import automation.PestRoutes.Utilities.Utilities;
 
 public class TriggerOnSave_CustomerStatus extends BaseClass {
 
-	CreateTrigger_CustomerStatus createCustomerStatus = new CreateTrigger_CustomerStatus();
-	TriggerRules triggerAdmin;
-	SubscriptionStatusTab subscriptionStatus;
-	CreateNewCustomer newCustomer;
-	Trigger_SubscriptionDueForService subscriptionDueForService = new Trigger_SubscriptionDueForService();;
-	CustomerViewDialog_Admin customerAdmin;
-	CustomerViewDialog_Header overviewHeader;
-	CreateCustomerDIalog customer;
-	Billing billing;
-	Header header;
+    CreateTrigger_CustomerStatus createCustomerStatus = new CreateTrigger_CustomerStatus();
+    TriggerRules triggerAdmin;
+    SubscriptionStatusTab subscriptionStatus;
+    CreateNewCustomer newCustomer;
+    Trigger_SubscriptionDueForService subscriptionDueForService = new Trigger_SubscriptionDueForService();
+    CustomerViewDialog_Admin customerAdmin;
+    CustomerViewDialog_Header overviewHeader;
+    CreateCustomerDIalog customer;
+    Billing billing;
+    Header header;
 
-	private String description_TriggerOnSave = "TriggerOnSave_CustomerStatus";
+    private String description_TriggerOnSave = "TriggerOnSave_CustomerStatus";
 
-	@Test
-	public void triggerOnSave_CustomerStatus() throws Exception {
+    @Test
+    public void triggerOnSave_CustomerStatus() throws Exception {
 
-		// Create trigger
-		createTriggerOnSave_CustomerStatus(description_TriggerOnSave);
-		
-		// Create Actions
-		customerStatus_SMSAction();
-		customerStatus_EmailAction();
-		customerStatus_VoiceAction();
-		customerStatus_SnailMailAction();
-		customerStatus_employeeEmailAction();
-		customerStatus_alertAction();
-		customerStatus_taskAction();
-		customerStatus_employeeVoiceAction();
-		customerStatus_removePaymentProfileAction();
+        // Create trigger
+        createTriggerOnSave_CustomerStatus(description_TriggerOnSave);
 
-		// Trigger on Save for Frozen customer
-		editTrigger_triggerOnSave_CustomerStatus("Frozen");
-		createNewCustomerwithPhoneEmailBilling_Frozen();
-		hitTriggerQueue();
-		assertSMSlog();
-		assertEmaillog();
-		assertVoicelog();
-		assertSnailMaillog();
-		assertEmployeeEmaillog();
-		assertAlertlog();
-		assertTasklog();
-		assertEmployeeVoicelog();
-		assertRemovePaymentlog();
+        // Create Actions
+        customerStatus_addAllAction(description_TriggerOnSave);
+        customerStatus_removePaymentProfileAction(description_TriggerOnSave);
 
-		// Trigger on Save for Created customer
-		editTrigger_triggerOnSave_CustomerStatus("Created");
-		createNewCustomerwithPhoneEmailBilling_Created();
-		hitTriggerQueue();
-		assertSMSlog();
-		assertEmaillog();
-		assertVoicelog();
-		assertSnailMaillog();
-		assertEmployeeEmaillog();
-		assertAlertlog();
-		assertTasklog();
-		assertEmployeeVoicelog();
+        // Trigger on Save for Frozen customer
+        editTrigger_triggerOnSave_CustomerStatus("Frozen");
+        createNewCustomerwithPhoneEmailBilling_Frozen();
+        hitTriggerQueue();
+        assertlog();
+        assertRemovePaymentlog();
 
-		// Trigger on Save for Active customer
-		editTrigger_triggerOnSave_CustomerStatus("Active");
-		createNewCustomerwithPhoneEmailBilling_Active();
-		hitTriggerQueue();
-		assertSMSlog();
-		assertEmaillog();
-		assertVoicelog();
-		assertSnailMaillog();
-		assertEmployeeEmaillog();
-		assertAlertlog();
-		assertTasklog();
-		assertEmployeeVoicelog();
+        // Trigger on Save for Created customer
+        editTrigger_triggerOnSave_CustomerStatus("Created");
+        createNewCustomerwithPhoneEmailBilling_Created();
+        hitTriggerQueue();
+        assertlog();
 
-		// Trigger on Save for Pending Cancel customer
-		editTrigger_triggerOnSave_CustomerStatus("Pending Cancel");
-		createNewCustomerwithPhoneEmailBilling_PendingCancel();
-		hitTriggerQueue();
-		assertSMSlog();
-		assertEmaillog();
-		assertVoicelog();
-		assertSnailMaillog();
-		assertEmployeeEmaillog();
-		assertAlertlog();
-		assertTasklog();
-		assertEmployeeVoicelog();
-	}
+        // Trigger on Save for Active customer
+        editTrigger_triggerOnSave_CustomerStatus("Active");
+        createNewCustomerwithPhoneEmailBilling_Active();
+        hitTriggerQueue();
+        assertlog();
 
-	// Create Trigger
-	public void createTriggerOnSave_CustomerStatus(String description) throws Exception {
-		createCustomerStatus.createTrigger_CustomerStatus(description);
-	}
+        // Trigger on Save for Pending Cancel customer
+        editTrigger_triggerOnSave_CustomerStatus("Pending Cancel");
+        createNewCustomerwithPhoneEmailBilling_PendingCancel();
+        hitTriggerQueue();
+        assertlog();
+    }
 
-	// Edit Trigger Status
-	public void editTrigger_triggerOnSave_CustomerStatus(String statusChange) throws Exception {
-		subscriptionStatus = new SubscriptionStatusTab();
-		triggerAdmin = new TriggerRules();
-		createCustomerStatus.searchTrigger_appointmentStatus(description_TriggerOnSave);
-		triggerAdmin.clickEditTrigger(description_TriggerOnSave);
-		triggerAdmin.selectDropdown(subscriptionStatus.whenToTrigger, subscriptionStatus.whenToTrigger_triggerOnSave);
-		triggerAdmin.selectDropdown(subscriptionStatus.statusChangedTo, statusChange);
-		triggerAdmin.clickSaveButton();
-	}
+    // Create Trigger
+    public void createTriggerOnSave_CustomerStatus(String description) throws Exception {
+        createCustomerStatus.createTrigger_CustomerStatus(description);
+    }
 
-	// Set SMS Action Customer Status
-	public void customerStatus_SMSAction() throws InterruptedException {
-		createCustomerStatus.searchTrigger_appointmentStatus(description_TriggerOnSave);
-		createCustomerStatus.SMSAction_CustomerStatus();
-	}
+    // Edit Trigger Status
+    public void editTrigger_triggerOnSave_CustomerStatus(String statusChange) {
+        subscriptionStatus = new SubscriptionStatusTab();
+        triggerAdmin = new TriggerRules();
+        createCustomerStatus.searchTrigger_appointmentStatus(description_TriggerOnSave);
+        triggerAdmin.clickEditTrigger(description_TriggerOnSave);
+        triggerAdmin.selectDropdown(subscriptionStatus.whenToTrigger, subscriptionStatus.whenToTrigger_triggerOnSave);
+        triggerAdmin.selectDropdown(subscriptionStatus.statusChangedTo, statusChange);
+        triggerAdmin.clickSaveButton();
+    }
 
-	// Set Email Action Customer Status
-	public void customerStatus_EmailAction() throws InterruptedException {
-		createCustomerStatus.searchTrigger_appointmentStatus(description_TriggerOnSave);
-		createCustomerStatus.emailAction_CustomerStatus();
-	}
+    // Set SMS Action Customer Status
+    public void customerStatus_addAllAction(String description) throws InterruptedException, IOException {
+        createCustomerStatus.searchTrigger_appointmentStatus(description);
+        createCustomerStatus.SMSAction_CustomerStatus();
+        createCustomerStatus.searchTrigger_appointmentStatus(description);
+        createCustomerStatus.emailAction_CustomerStatus();
+        createCustomerStatus.searchTrigger_appointmentStatus(description);
+        createCustomerStatus.voiceAction_CustomerStatus();
+        createCustomerStatus.searchTrigger_appointmentStatus(description);
+        createCustomerStatus.snailMailAction_CustomerStatus();
+        createCustomerStatus.searchTrigger_appointmentStatus(description);
+        createCustomerStatus.sendEmployeeEmail_CustomerStatus();
+        createCustomerStatus.searchTrigger_appointmentStatus(description);
+        createCustomerStatus.addAlert_CustomerStatus();
+        createCustomerStatus.searchTrigger_appointmentStatus(description);
+        createCustomerStatus.addTask_CustomerStatus();
+        createCustomerStatus.searchTrigger_appointmentStatus(description);
+        createCustomerStatus.sendEmployeeVoice_CustomerStatus();
 
-	// Set Voice Action Customer Status
-	public void customerStatus_VoiceAction() throws InterruptedException {
-		createCustomerStatus.searchTrigger_appointmentStatus(description_TriggerOnSave);
-		createCustomerStatus.voiceAction_CustomerStatus();
-	}
+    }
 
-	// Set SnailMail Action Customer Status
-	public void customerStatus_SnailMailAction() throws InterruptedException {
-		createCustomerStatus.searchTrigger_appointmentStatus(description_TriggerOnSave);
-		createCustomerStatus.snailMailAction_CustomerStatus();
-	}
+    public void customerStatus_removePaymentProfileAction(String description) {
+        createCustomerStatus.searchTrigger_appointmentStatus(description);
+        subscriptionDueForService.removePaymentProfile_subscriptionForService();
+    }
 
-	// Set Employee Mail Action Customer Status
-	public void customerStatus_employeeEmailAction() throws InterruptedException {
-		createCustomerStatus.searchTrigger_appointmentStatus(description_TriggerOnSave);
-		createCustomerStatus.sendEmployeeEmail_CustomerStatus();
-	}
+    // Hit trigger Queue
+    public void hitTriggerQueue() {
+        triggerAdmin = new TriggerRules();
+        triggerAdmin.hitTriggerQueue();
+    }
 
-	// Set Alert Action Customer Status
-	public void customerStatus_alertAction() throws InterruptedException {
-		createCustomerStatus.searchTrigger_appointmentStatus(description_TriggerOnSave);
-		createCustomerStatus.addAlert_CustomerStatus();
-	}
+    // assert Log on Notes
+    public void assertlog() throws Exception {
+        subscriptionDueForService.assertSMSLog();
+        subscriptionDueForService.assertEMailLog();
+        subscriptionDueForService.assertVoiceLog();
+        subscriptionDueForService.assertSnailMailLog();
+        subscriptionDueForService.assertEmployeeEMailLog();
+        subscriptionDueForService.assertAlertLog();
+        subscriptionDueForService.assertTaskLog();
+        subscriptionDueForService.assertEmplopeeVoiceLog();
+    }
 
-	// Set Task Action Customer Status
-	public void customerStatus_taskAction() throws InterruptedException {
-		createCustomerStatus.searchTrigger_appointmentStatus(description_TriggerOnSave);
-		createCustomerStatus.addTask_CustomerStatus();
-	}
+    // assert Remove Payment Log
+    public void assertRemovePaymentlog() throws Exception {
+        subscriptionDueForService.assertRemovePaymentLog();
+    }
 
-	// Set Employee Voice Action Customer Status
-	public void customerStatus_employeeVoiceAction() throws InterruptedException, IOException {
-		createCustomerStatus.searchTrigger_appointmentStatus(description_TriggerOnSave);
-		createCustomerStatus.sendEmployeeVoice_CustomerStatus();
-	}
+    // Create customer with Frozen Status
+    public void createNewCustomerwithPhoneEmailBilling_Frozen() throws Exception {
+        newCustomer = new CreateNewCustomer();
+        customerAdmin = new CustomerViewDialog_Admin();
+        overviewHeader = new CustomerViewDialog_Header();
+        billing = new Billing();
+        newCustomer.createCustomerWithEmail();
+        overviewHeader.NavigateTo(overviewHeader.billingTabInDialog);
+        billing.navigateToCC();
+        billing.addCC();
+        billing.navigateToBankAccount();
+        billing.addBankAccount();
+        overviewHeader.NavigateTo(overviewHeader.adminTabInDialog);
+        customerAdmin.changeAccountStatus_Active();
+        header = new Header();
+        header.Search_A_Customer(getData("customerName", generalData));
+        overviewHeader.NavigateTo(overviewHeader.adminTabInDialog);
+        customerAdmin.changeAccountStatus_Frozen(customerAdmin.reassignServicePropertiesToNewBillingAccount);
+    }
 
-	// Set Remove Payment Profile Action Customer Status
-	public void customerStatus_removePaymentProfileAction() throws InterruptedException, IOException {
-		createCustomerStatus.searchTrigger_appointmentStatus(description_TriggerOnSave);
-		subscriptionDueForService.removePaymentProfile_subscriptionForService();
-	}
+    // Create customer with Active Status
+    public void createNewCustomerwithPhoneEmailBilling_Active() throws Exception {
+        newCustomer = new CreateNewCustomer();
+        customerAdmin = new CustomerViewDialog_Admin();
+        overviewHeader = new CustomerViewDialog_Header();
+        newCustomer.createCustomerWithEmail();
+        overviewHeader.NavigateTo(overviewHeader.billingTabInDialog);
+        overviewHeader.NavigateTo(overviewHeader.adminTabInDialog);
+        customerAdmin.changeAccountStatus_Active();
+    }
 
-	// Hit trigger Queue
-	public void hitTriggerQueue() {
-		triggerAdmin = new TriggerRules();
-		triggerAdmin.hitTriggerQueue();
-	}
+    // Create customer with Created Status
+    public void createNewCustomerwithPhoneEmailBilling_Created() throws Exception {
+        newCustomer = new CreateNewCustomer();
+        newCustomer.createCustomerWithEmail();
+    }
 
-	// assert SMS Log
-	public void assertSMSlog() throws IOException, Exception {
-		subscriptionDueForService.assertSMSLog();
-	}
-
-	// assert Email Log
-	public void assertEmaillog() throws IOException, Exception {
-		subscriptionDueForService.assertEMailLog();
-	}
-
-	// assert Email Log
-	public void assertVoicelog() throws IOException, Exception {
-		subscriptionDueForService.assertVoiceLog();
-	}
-
-	// assert Snail Mail Log
-	public void assertSnailMaillog() throws IOException, Exception {
-		subscriptionDueForService.assertSnailMailLog();
-	}
-
-	// assert Employee EMail Log
-	public void assertEmployeeEmaillog() throws IOException, Exception {
-		subscriptionDueForService.assertEmployeeEMailLog();
-	}
-
-	// assert Alert Log
-	public void assertAlertlog() throws IOException, Exception {
-		subscriptionDueForService.assertAlertLog();
-	}
-
-	// assert Task Log
-	public void assertTasklog() throws IOException, Exception {
-		subscriptionDueForService.assertTaskLog();
-	}
-
-	// assert Employee Voice Log
-	public void assertEmployeeVoicelog() throws IOException, Exception {
-		subscriptionDueForService.assertEmplopeeVoiceLog();
-	}
-
-	// assert Remove Payment Log
-	public void assertRemovePaymentlog() throws IOException, Exception {
-		subscriptionDueForService.assertRemovePaymentLog();
-	}
-
-	// Create customer with Frozen Status
-	public void createNewCustomerwithPhoneEmailBilling_Frozen() throws Exception {
-		newCustomer = new CreateNewCustomer();
-		customerAdmin = new CustomerViewDialog_Admin();
-		overviewHeader = new CustomerViewDialog_Header();
-		billing = new Billing();
-		newCustomer.createCustomerWithEmail();
-		overviewHeader.NavigateTo(overviewHeader.billingTabInDialog);
-		billing.navigateToCC();
-		billing.addCC();
-		billing.navigateToBankAccount();
-		billing.addBankAccount();
-		overviewHeader.NavigateTo(overviewHeader.adminTabInDialog);
-		customerAdmin.changeAccountStatus_Active();
-		header = new Header();
-		header.Search_A_Customer(getData("customerName", generalData));
-		overviewHeader.NavigateTo(overviewHeader.adminTabInDialog);
-		customerAdmin.changeAccountStatus_Frozen(customerAdmin.reassignServicePropertiesToNewBillingAccount);
-	}
-
-	// Create customer with Active Status
-	public void createNewCustomerwithPhoneEmailBilling_Active() throws Exception {
-		newCustomer = new CreateNewCustomer();
-		customerAdmin = new CustomerViewDialog_Admin();
-		overviewHeader = new CustomerViewDialog_Header();
-		newCustomer.createCustomerWithEmail();
-		overviewHeader.NavigateTo(overviewHeader.billingTabInDialog);
-		overviewHeader.NavigateTo(overviewHeader.adminTabInDialog);
-		customerAdmin.changeAccountStatus_Active();
-	}
-
-	// Create customer with Created Status
-	public void createNewCustomerwithPhoneEmailBilling_Created() throws Exception {
-		newCustomer = new CreateNewCustomer();
-		newCustomer.createCustomerWithEmail();
-	}
-
-	// Create customer with Created Status
-	public void createNewCustomerwithPhoneEmailBilling_PendingCancel() throws Exception {
-		newCustomer = new CreateNewCustomer();
-		header = new Header();
-		overviewHeader = new CustomerViewDialog_Header();
-		customer = new CreateCustomerDIalog();
-		newCustomer.createCustomerWithEmail();
-		header.Search_A_Customer(getData("customerName", generalData));
-		overviewHeader.NavigateTo(overviewHeader.infoTabInDialog);
-		customer.clickPendingCancelCheckBox();
-	}
+    // Create customer with Created Status
+    public void createNewCustomerwithPhoneEmailBilling_PendingCancel() throws Exception {
+        newCustomer = new CreateNewCustomer();
+        header = new Header();
+        overviewHeader = new CustomerViewDialog_Header();
+        customer = new CreateCustomerDIalog();
+        newCustomer.createCustomerWithEmail();
+        header.Search_A_Customer(getData("customerName", generalData));
+        overviewHeader.NavigateTo(overviewHeader.infoTabInDialog);
+        customer.clickPendingCancelCheckBox();
+    }
 }

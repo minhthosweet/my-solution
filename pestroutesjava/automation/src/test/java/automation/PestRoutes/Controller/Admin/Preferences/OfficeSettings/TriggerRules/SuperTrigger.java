@@ -1,5 +1,6 @@
 package automation.PestRoutes.Controller.Admin.Preferences.OfficeSettings.TriggerRules;
 
+import automation.PestRoutes.Controller.Admin.Preferences.OfficeSettings.TriggerRules.AR.CreateTrigger_AR;
 import org.testng.annotations.Test;
 
 import automation.PestRoutes.Controller.Admin.Preferences.OfficeSettings.TriggerRules.AppointmentStatus.CreateTrigger_AppointmentStatus;
@@ -10,7 +11,7 @@ import automation.PestRoutes.Utilities.BaseClass;
 
 public class SuperTrigger extends BaseClass {
 	CreateTrigger_Reminder Reminder_trigger = new CreateTrigger_Reminder();
-	Trigger_AR AR_trigger = new Trigger_AR();
+	CreateTrigger_AR AR_trigger = new CreateTrigger_AR();
 	CreateTrigger_AppointmentStatus AppointmentStatus_trigger = new CreateTrigger_AppointmentStatus();
 	CreateTrigger_CustomerStatus CustomerStatus_trigger = new CreateTrigger_CustomerStatus();
 	Trigger_Renewal Renewal_trigger = new Trigger_Renewal();

@@ -190,7 +190,7 @@ public class ValidateRenewal extends BaseClass{
 		header = new Header();
 		customerDialogHeader = new CustomerViewDialog_Header();
 		customerDialogHeader.NavigateTo(customerDialogHeader.subscriptionTabInDialog);
-		subscription.clickDeActivateButton();
+		subscription.clickActivateDeActivateButton();
 		subscription.selectCancellationCategory("Moved");
 		subscription.setCancelSubscriptionNotes("Testing");
 		subscription.clickFreezeSubscriptionButton();

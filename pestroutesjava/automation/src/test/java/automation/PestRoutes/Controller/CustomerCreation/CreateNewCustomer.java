@@ -81,7 +81,6 @@ public class CreateNewCustomer extends BaseClass {
 		customer.selectUnit("Multi Unit");
 		customer.setAddress(streetAddress);
 		customer.setZipCode(zipcode);
-		customer.setCity(city);
 		customer.setCellPhone(getData("phoneNumber",generalData));
 		customer.clickSmsCheckBox();
 		customer.clickEmailCheckBox();
@@ -112,6 +111,8 @@ public class CreateNewCustomer extends BaseClass {
 		customer.setZipCode(zipcode);
 		customer.setCellPhone(getData("phoneNumber",generalData));
 		customer.clickSmsCheckBox();
+		customer.clickEmailCheckBox();
+		customer.clickVoiceCheckBox();
 		dialog.ClickSaveButton();
 		alertCondition();
 		captureUserIdAndFullName();

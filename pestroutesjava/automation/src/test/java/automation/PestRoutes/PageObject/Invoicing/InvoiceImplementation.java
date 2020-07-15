@@ -42,8 +42,10 @@ public class InvoiceImplementation {
 	private String successfulCharge = "//h2[contains(@class,'bold aCenter clr font24') and contains(text(),'Successfully Charged Cash!')]";
 	private String successfulChargeAmount = "//form[@id=\"singlePaymentForm\"]//h2[@class=\"bold aCenter clr\"]";
 
-	// Getter Methods
+	//Create New Invoice
+	private String createNewInvoice_date = "//input[@name='date']";
 
+	// Getter Methods
 	public int getInvoiceCost() {
 		Utilities.waitUntileElementIsVisible(invoiceCost);
 		return Utilities.removeSpecialChars(invoiceCost);
@@ -82,7 +84,10 @@ public class InvoiceImplementation {
 
 	// Setter
 
-	public void newInvoiceDetails(String amount) {
+	public void newInvoiceDetails( String amount , String date) {
+		Utilities.waitUntileElementIsVisible(createNewInvoice_date);
+		FindElement.elementByAttribute(createNewInvoice_date, InputType.XPath).clear();
+		FindElement.elementByAttribute(createNewInvoice_date, InputType.XPath).sendKeys(date);
 		Utilities.clickElement(newInvoice, ElementType.XPath);
 		FindElement.elementByAttribute(newInvoice, InputType.XPath).clear();
 		FindElement.elementByAttribute(newInvoice, InputType.XPath).sendKeys(amount);
