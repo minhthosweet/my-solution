@@ -38,6 +38,7 @@ public class CustomerViewDialog_Header {
 	}
 
 	public void ClickScheduleButton() throws Exception {
+		Thread.sleep(2000);
 		Utilities.clickElement(scheduleButtonInDialog, ElementType.XPath);
 		Thread.sleep(2000);
 	}

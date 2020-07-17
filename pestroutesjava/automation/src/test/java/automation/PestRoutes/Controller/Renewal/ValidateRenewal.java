@@ -3,15 +3,10 @@ package automation.PestRoutes.Controller.Renewal;
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-
 import io.cucumber.java.en.Then;
 import org.openqa.selenium.WebElement;
-import org.testng.Assert;
 import org.testng.annotations.Test;
-
-import automation.PestRoutes.Controller.CustomerCreation.CreateNewCustomer;
 import automation.PestRoutes.Controller.Schedules.ScheduleAppt;
 import automation.PestRoutes.PageObject.Header;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_Header;
@@ -37,7 +32,6 @@ public class ValidateRenewal extends BaseClass{
 	
 	CustomerViewDialog_SubscriptionTab subscription = new CustomerViewDialog_SubscriptionTab();
 	CustomerViewDialog_Header customerDialogHeader;
-	CreateNewCustomer newCustomer;
 	CustomerviewDialog_AppointmentsTab appointmentTab;
 	CustomerViewDialog_Header overviewHeader;
 	InvoiceImplementation paymentPage;
@@ -72,7 +66,7 @@ public class ValidateRenewal extends BaseClass{
 		//freezeSubscription();
 		addPayment();
 		validateActivationOfSubscription();
-		AssertException.asserFailure(list);
+		AssertException.assertFailure(list);
 	}
 	@And("I validate if renewal fields display in Subscription tab if I choose renewal as service type")
 	public void renewalFieldsValidation() throws Exception {
@@ -137,6 +131,23 @@ public class ValidateRenewal extends BaseClass{
 		confirmAppt.selectTargetPestsOption(appt.pestTreaded);
 		confirmAppt.clickScheduleButton();
 	}
+
+	@And("I schedule an subscription appointment")
+	public void subscriptionAnAppointment() throws Exception {
+		appt = new ScheduleAppt();
+		route = new RoutePage();
+		confirmAppt = new SchedulingAppointmentDialog();
+		overviewHeader = new CustomerViewDialog_Header();
+		overviewHeader.ClickScheduleButton();
+		scheduleDay = new SchedulingTab();
+		int totalCount = Utilities.getElementCount(appt.routes);
+		String routesCount = Integer.toString(totalCount);
+		System.out.println(routesCount);
+		route.scheduleAppointment(routesCount, getData("timeSlot", generalData));
+		confirmAppt.selectInteriorNeededOption(appt.serviceAreaProvided);
+		confirmAppt.selectTargetPestsOption(appt.pestTreaded);
+		confirmAppt.clickScheduleButton();
+	}
 	public void scheduleSubscription(String needTimeSlot) throws Exception {
 		header = new Header();
 		route = new RoutePage();
@@ -196,6 +207,14 @@ public class ValidateRenewal extends BaseClass{
 		subscription.clickFreezeSubscriptionButton();
 
 	}
+
+	@And("I reactive a frozen subscription")
+	public void reActivateSubscription() throws Exception {
+		customerDialogHeader = new CustomerViewDialog_Header();
+		customerDialogHeader.NavigateTo(customerDialogHeader.subscriptionTabInDialog);
+		subscription.clickActivateDeActivateButton();
+	}
+
 	@And("I get the subscription total")
 	public String subscriptionTotal()throws Exception {
 		System.out.println(currentDate);

@@ -6,14 +6,12 @@ import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_Head
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_SubscriptionTab;
 import automation.PestRoutes.Utilities.AssertException;
 import automation.PestRoutes.Utilities.BaseClass;
-import automation.PestRoutes.Utilities.GetDate;
 import automation.PestRoutes.Utilities.Reporter;
 import automation.PestRoutes.Utilities.Utilities;
 import automation.PestRoutes.Utilities.Utilities.ElementType;
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,7 +22,6 @@ public class AddSubscription extends BaseClass {
 
 	CustomerViewDialog_SubscriptionTab subscription = new CustomerViewDialog_SubscriptionTab();
 	CustomerViewDialog_Header customerDialogHeader;
-	CreateCustomerDIalog createCustomer;
 	Header header;
 	ExtentTest test;
 	List list = new ArrayList<String>();
@@ -42,7 +39,7 @@ public class AddSubscription extends BaseClass {
 		validateRecurringInvoice();
 		validateBillingFrequencyByMonthly();
 		validateBillingFrequencyByAnnually();
-		AssertException.asserFailure(list);
+		AssertException.assertFailure(list);
 
 	}
 
@@ -57,7 +54,8 @@ public class AddSubscription extends BaseClass {
 		subscription.setCustomDate(getData("customDate", quarterlyPreferredDayData));
 		subscription.clickButton(subscription.standardProductionButton);
 	}
-	
+
+	@And("I create a subscription with Sales Rep assigned {string} and {string}")
 	public double startSubscriptionWithSalesRep(String needSalesRep, String needSubscriptionFlag) throws Exception {
 		customerDialogHeader = new CustomerViewDialog_Header();
 		header = new Header();

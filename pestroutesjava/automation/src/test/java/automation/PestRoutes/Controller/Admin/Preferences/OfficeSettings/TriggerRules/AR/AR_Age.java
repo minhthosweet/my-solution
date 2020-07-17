@@ -15,13 +15,13 @@ public class AR_Age extends BaseClass {
     AR_daysPastDue ar_daysPastDue;
 
     private String description_TriggerAge = "TriggerAge_AR";
-    private String age_pastDue = "1";
+    public String age = "1";
 
     @Test
     public void daysPastDue_AR() throws Exception {
 
         // Create trigger and all actions
-        createTriggerandActionsAge_AR(description_TriggerAge, age_pastDue);
+        createTriggerandActionsAge_AR(description_TriggerAge, age);
 
         // Create customer with all communication
         createCustomerWithInvoice();

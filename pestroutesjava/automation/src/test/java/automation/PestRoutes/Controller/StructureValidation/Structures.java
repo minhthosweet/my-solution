@@ -79,7 +79,7 @@ public class Structures extends BaseClass {
 		String newId = id.replaceAll("[^a-zA-Z0-9]+", "");
 		System.out.println(newId);
 		addData("strutureUID", newId, generalData);
-		AssertException.asserFailure(list);
+		AssertException.assertFailure(list);
 		header.Search_A_Customer(newId);
 		dialog.NavigateTo(dialog.structuresTabInDialog);
 		structures.setMainStructure(mainStructureName);

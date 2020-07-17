@@ -45,7 +45,7 @@ public class EquipmentTypesValidations extends BaseClass {
 		String expectedDescription = description;
 		String actualDescription = equipment.getDescription();
 		list.add(AssertException.result(expectedDescription, actualDescription, "Validate added equipment"));
-		AssertException.asserFailure(list);
+		AssertException.assertFailure(list);
 		
 	}
 	

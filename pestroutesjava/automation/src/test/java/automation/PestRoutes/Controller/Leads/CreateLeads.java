@@ -1,6 +1,5 @@
 package automation.PestRoutes.Controller.Leads;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -100,7 +99,7 @@ public class CreateLeads extends BaseClass{
 			result(Double.toString(expectedValue[i]), actualValue[i], stepName[i], "Leads validation");
 		}
 		
-		AssertException.asserFailure(list);
+		AssertException.assertFailure(list);
 	}
 	
 	@SuppressWarnings("unchecked")

@@ -48,7 +48,7 @@ public class AssertException {
 		return list;
 	}
 
-	public static void asserFailure(List needListName) {
+	public static void assertFailure(List needListName) {
 		List list = new ArrayList<String>();
 		System.out.println(needListName);
 		if (needListName.size() > 0) {

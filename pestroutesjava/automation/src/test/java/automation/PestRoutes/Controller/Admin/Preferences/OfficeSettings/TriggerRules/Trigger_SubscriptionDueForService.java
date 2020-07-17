@@ -448,6 +448,6 @@ public class Trigger_SubscriptionDueForService extends BaseClass {
 	}
 
 	public void validateIfFailureExist() {
-		AssertException.asserFailure(list);
+		AssertException.assertFailure(list);
 	}
 }

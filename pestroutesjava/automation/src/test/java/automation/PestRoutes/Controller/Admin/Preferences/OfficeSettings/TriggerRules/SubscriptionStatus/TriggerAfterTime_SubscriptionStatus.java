@@ -24,19 +24,19 @@ public class TriggerAfterTime_SubscriptionStatus extends BaseClass {
         triggerAfterTime_SubscriptionStatus_CreateAllActions(description_TriggerOnSave);
 
         //Any Subscription Status Trigger Validation
-        triggerOnSave.editTrigger_triggerOnSave_CustomerStatus("Any");
+        triggerOnSave.editTrigger_triggerOnSave_CustomerStatus("Any", description_TriggerOnSave);
         triggerOnSave_AppointmentStatus.createCutomerWithSubscription();
         hitTriggerSubscriptionStatus();
         assertAllLogs();
 
         //Frozen Subscription Status Trigger Validation
-        triggerOnSave.editTrigger_triggerOnSave_CustomerStatus("Frozen");
+        triggerOnSave.editTrigger_triggerOnSave_CustomerStatus("Frozen", description_TriggerOnSave);
         triggerOnSave_subscriptionStatus.createFrozenSubscription();
         hitTriggerSubscriptionStatus();
         assertAllLogs();
 
         //Active Subscription Status Trigger Validation
-        triggerOnSave.editTrigger_triggerOnSave_CustomerStatus("Active");
+        triggerOnSave.editTrigger_triggerOnSave_CustomerStatus("Active", description_TriggerOnSave);
         triggerOnSave_subscriptionStatus.createActiveSubscription();
         hitTriggerSubscriptionStatus();
         assertAllLogs();
