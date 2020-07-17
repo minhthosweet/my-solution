@@ -3,6 +3,7 @@ package automation.PestRoutes.Controller.Admin.Preferences.OfficeSettings.Trigge
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import io.cucumber.java.en.And;
 import org.testng.annotations.Test;
 import automation.PestRoutes.PageObject.Header;
 import automation.PestRoutes.PageObject.Admin.AdminMainPage;
@@ -86,6 +87,7 @@ public class CreateTrigger_SubscriptionStatus extends BaseClass {
 	}
 
 	// Search Subscription Status Trigger
+	@And("I search for the trigger {string}")
 	public void searchTrigger_subscriptionStatus(String descriptionName) {
 		header = new Header();
 		adminMainPage = new AdminMainPage();
@@ -95,7 +97,6 @@ public class CreateTrigger_SubscriptionStatus extends BaseClass {
 		triggerAdmin.searchTrigger(descriptionName);
 		result(descriptionName, triggerAdmin.getDescriptionText(descriptionName), "Search Customer",
 				"Subscription Status Creation");
-		triggerAdmin.clickEditTrigger(descriptionName);
 	}
 
 	// Create a SMS action
@@ -239,6 +240,6 @@ public class CreateTrigger_SubscriptionStatus extends BaseClass {
 	}
 
 	public void validateIfFailureExist() {
-		AssertException.asserFailure(list);
+		AssertException.assertFailure(list);
 	}
 }

@@ -4,7 +4,6 @@ import org.testng.annotations.Test;
 import automation.PestRoutes.PageObject.Header;
 import automation.PestRoutes.PageObject.CreateCustomer.CreateCustomerDIalog;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_Header;
-import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_OverviewTab;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerviewDialog_AppointmentsTab;
 import automation.PestRoutes.PageObject.RoutePage.RoutePage;
 import automation.PestRoutes.PageObject.RoutePage.SchedulingAppointmentDialog;
@@ -16,10 +15,8 @@ import automation.PestRoutes.Utilities.Reporter;
 import automation.PestRoutes.Utilities.Utilities;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
-
 import java.io.IOException;
 import java.util.List;
-import static org.testng.Assert.assertTrue;
 
 public class ScheduleAppt extends BaseClass {
 	public String routes = "//div[@class = 'route actualRoute route1 ']";
@@ -56,7 +53,7 @@ public class ScheduleAppt extends BaseClass {
 		addChemical(userID);
 		verifyChemicalinUnit();
 		verifyChemical();
-		AssertException.asserFailure(list);
+		AssertException.assertFailure(list);
 
 	}
 	
@@ -69,7 +66,7 @@ public class ScheduleAppt extends BaseClass {
 		addChemical(customerNameInHeader);
 		verifyChemicalinUnit();
 		verifyChemical();
-		AssertException.asserFailure(list);
+		AssertException.assertFailure(list);
 
 	}
 	@And("I change customer type to multi unit") 

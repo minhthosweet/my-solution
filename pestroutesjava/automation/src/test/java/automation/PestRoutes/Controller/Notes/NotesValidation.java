@@ -1,12 +1,9 @@
 package automation.PestRoutes.Controller.Notes;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.openqa.selenium.Keys;
 import org.testng.annotations.Test;
-
 import automation.PestRoutes.PageObject.Header;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_Header;
 import automation.PestRoutes.PageObject.NotesTab.NotesPage;
@@ -29,7 +26,7 @@ public class NotesValidation extends BaseClass{
 	public void notesTabValidation() throws Exception {
 		createNote();
 		createTask();
-		AssertException.asserFailure(list);
+		AssertException.assertFailure(list);
 	}
 	
 	public void createNote() throws Exception {

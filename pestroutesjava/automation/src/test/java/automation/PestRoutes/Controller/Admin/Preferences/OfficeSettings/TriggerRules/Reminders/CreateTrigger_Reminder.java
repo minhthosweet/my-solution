@@ -230,6 +230,6 @@ public class CreateTrigger_Reminder extends BaseClass {
 	}
 
 	public void validateIfFailureExist() {
-		AssertException.asserFailure(list);
+		AssertException.assertFailure(list);
 	}
 }

@@ -29,7 +29,7 @@ public class AccountStatus extends BaseClass {
 		createCustomer();
 		validateActiveStatus();
 		validateFrozenStatus();
-		AssertException.asserFailure(list);
+		AssertException.assertFailure(list);
 	}
 
 	// Creates customer

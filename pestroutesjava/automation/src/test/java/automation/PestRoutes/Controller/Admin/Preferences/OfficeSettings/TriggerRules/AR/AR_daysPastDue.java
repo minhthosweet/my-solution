@@ -15,13 +15,13 @@ public class AR_daysPastDue  extends BaseClass {
     Trigger_SubscriptionDueForService subscriptionDueForService;
 
     private String description_TriggerDaysPastDue = "TriggerDaysPastDue_AR";
-    private String age_pastDue = "1";
+    public String pastDue = "1";
 
     @Test
     public void daysPastDue_AR() throws Exception {
 
         // Create trigger and all actions
-        createTriggerandActionsDaysPastDue_AR(description_TriggerDaysPastDue, age_pastDue);
+        createTriggerandActionsDaysPastDue_AR(description_TriggerDaysPastDue, pastDue);
 
         // Create customer with all communication
         createCustomerWithInvoice();

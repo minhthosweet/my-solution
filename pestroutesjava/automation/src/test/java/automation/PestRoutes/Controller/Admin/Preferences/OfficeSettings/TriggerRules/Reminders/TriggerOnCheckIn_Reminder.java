@@ -23,7 +23,7 @@ public class TriggerOnCheckIn_Reminder extends BaseClass {
 	public void createReminderRule() throws Exception {
 
 		// Create Trigger
-		createaaTriggerOnCheckIn_Reminder(description_TriggerOnCheckIn);
+		createTriggerOnCheckIn_Reminder(description_TriggerOnCheckIn);
 
 		// Create all actions
 		reminder_createAllActions();
@@ -39,18 +39,18 @@ public class TriggerOnCheckIn_Reminder extends BaseClass {
 	}
 
 	// Create Trigger
-	public void createaaTriggerOnCheckIn_Reminder(String description) throws Exception {
+	public void createTriggerOnCheckIn_Reminder(String description) throws Exception {
 		triggerAdmin = new TriggerRules();
 		subscriptionStatus = new SubscriptionStatusTab();
 		reminder = new ReminderTab();
-		createReminder.createTrigger_Reminder(description_TriggerOnCheckIn);
-		createReminder.searchTrigger_Reminder(description_TriggerOnCheckIn);
+		createReminder.createTrigger_Reminder(description);
+		createReminder.searchTrigger_Reminder(description);
 		triggerAdmin.selectDropdown(subscriptionStatus.whenToTrigger, reminder.triggerOnCheckIn_whenToTrigger);
 	}
 
 	public void reminder_createAllActions() {
 		triggerDaysBefore_Reminder = new TriggerDaysBefore_Reminder();
-		triggerDaysBefore_Reminder.Reminder_createAllActions();
+		triggerDaysBefore_Reminder.reminder_createAllActions();
 	}
 
 	public void createCustomerPlusAppointment() throws Exception {

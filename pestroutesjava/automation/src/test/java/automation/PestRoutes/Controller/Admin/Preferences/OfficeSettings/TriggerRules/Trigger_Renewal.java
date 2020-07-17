@@ -458,6 +458,6 @@ public class Trigger_Renewal extends BaseClass {
 	}
 	
 	public void validateIfFailureExist() {
-		AssertException.asserFailure(list);
+		AssertException.assertFailure(list);
 	}
 }

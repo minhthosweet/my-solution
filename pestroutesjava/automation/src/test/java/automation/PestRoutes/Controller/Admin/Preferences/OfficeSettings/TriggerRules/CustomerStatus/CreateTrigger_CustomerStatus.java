@@ -102,8 +102,8 @@ public class CreateTrigger_CustomerStatus extends BaseClass {
 		Thread.sleep(3000);
 		triggerAdmin.selectDropdown(actions.actionTypeDropDown, actions.sendSMSMessageType_Action);
 		triggerAdmin.selectDropdown(actions.ignoreContactPrefsDropDown, actions.ignoreContactPrefsTypes_Yes);
-		triggerAdmin.selectDropdown(actions.ignoreContactPrefsDropDown, actions.ignoreContactPrefsTypes_No);
 		actions.setMessageinAction_Type1(actions.sendSMSMessageType_Action, actions.getPlaceHolders());
+		triggerAdmin.selectDropdown(actions.ignoreContactPrefsDropDown, actions.ignoreContactPrefsTypes_No);
 		triggerAdmin.clickSaveButton();
 	}
 
@@ -234,6 +234,6 @@ public class CreateTrigger_CustomerStatus extends BaseClass {
 	}
 
 	public void validateIfFailureExist() {
-		AssertException.asserFailure(list);
+		AssertException.assertFailure(list);
 	}
 }

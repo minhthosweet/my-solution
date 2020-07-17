@@ -2,10 +2,7 @@ package automation.PestRoutes.Controller.Admin.Preferences.OfficeSettings.Trigge
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.testng.annotations.Test;
-
-import automation.PestRoutes.Controller.Admin.Preferences.ServiceRelated.Service;
 import automation.PestRoutes.PageObject.Header;
 import automation.PestRoutes.PageObject.Admin.AdminMainPage;
 import automation.PestRoutes.PageObject.Admin.OfficeSettings.Actions;
@@ -218,7 +215,7 @@ public class CreateTrigger_AR extends BaseClass {
     }
 
     public void validateIfFailureExist() {
-        AssertException.asserFailure(list);
+        AssertException.assertFailure(list);
     }
 
     // trigger Queue query

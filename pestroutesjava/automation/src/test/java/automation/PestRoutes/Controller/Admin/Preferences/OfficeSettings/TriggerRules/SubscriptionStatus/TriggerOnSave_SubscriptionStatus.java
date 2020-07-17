@@ -1,7 +1,6 @@
 package automation.PestRoutes.Controller.Admin.Preferences.OfficeSettings.TriggerRules.SubscriptionStatus;
 
 import java.io.IOException;
-
 import org.testng.annotations.Test;
 import automation.PestRoutes.Controller.Admin.Preferences.OfficeSettings.TriggerRules.AppointmentStatus.TriggerOnSave_AppointmentStatus;
 import automation.PestRoutes.Controller.Admin.Preferences.OfficeSettings.TriggerRules.CustomerStatus.TriggerOnSave_CustomerStatus;
@@ -24,19 +23,21 @@ public class TriggerOnSave_SubscriptionStatus extends BaseClass {
         triggerOnSave_SubscriptionStatus_createAllActions(description_TriggerOnSave);
 
         //Any Subscription Status Trigger Validation
-        triggerOnSave_CustomerStatus.editTrigger_triggerOnSave_CustomerStatus("Any");
+        triggerOnSave_CustomerStatus.editTrigger_triggerOnSave_CustomerStatus("Any", description_TriggerOnSave);
         triggerOnSave_AppointmentStatus.createCutomerWithSubscription();
         triggerOnSave_AppointmentStatus.hitTriggerQueue();
         assertAllLogs();
 
         //Frozen Subscription Status Trigger Validation
-        triggerOnSave_CustomerStatus.editTrigger_triggerOnSave_CustomerStatus("Frozen");
+        triggerOnSave_CustomerStatus.editTrigger_triggerOnSave_CustomerStatus("Frozen", description_TriggerOnSave);
+        triggerOnSave_AppointmentStatus.createCutomerWithSubscription();
         createFrozenSubscription();
         triggerOnSave_AppointmentStatus.hitTriggerQueue();
         assertAllLogs();
 
         //Active Subscription Status Trigger Validation
-        triggerOnSave_CustomerStatus.editTrigger_triggerOnSave_CustomerStatus("Active");
+        triggerOnSave_CustomerStatus.editTrigger_triggerOnSave_CustomerStatus("Active", description_TriggerOnSave);
+        triggerOnSave_AppointmentStatus.createCutomerWithSubscription();
         createActiveSubscription();
         triggerOnSave_AppointmentStatus.hitTriggerQueue();
         assertAllLogs();
@@ -67,9 +68,9 @@ public class TriggerOnSave_SubscriptionStatus extends BaseClass {
 
     // Activate Subscription
     public void createActiveSubscription() throws Exception {
-        triggerOnSave_AppointmentStatus.createCutomerWithSubscription();
         renewal = new ValidateRenewal();
+        triggerOnSave_AppointmentStatus.createCutomerWithSubscription();
         renewal.freezeSubscription();
-        //renewal.activateSubscription();
+        renewal.reActivateSubscription();
     }
 }

@@ -36,7 +36,7 @@ public class BaseClass extends AppData {
 
 	public void afterTest() {
 		Reporter.flushReport();
-		driver.close();
+		//driver.close();
 		
 		
 	}

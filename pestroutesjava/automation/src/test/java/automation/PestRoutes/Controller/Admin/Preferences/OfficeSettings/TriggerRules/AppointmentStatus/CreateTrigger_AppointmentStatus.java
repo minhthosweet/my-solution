@@ -80,7 +80,7 @@ public class CreateTrigger_AppointmentStatus extends BaseClass {
 				subscriptionStatus.whenToTrigger_triggerAfterTime);
 		triggerAdmin.selectDropdown(subscriptionStatus.whenToTrigger, subscriptionStatus.whenToTrigger_triggerOnSave);
 		triggerAdmin.selectDropdown(subscriptionStatus.statusChangedTo, subscriptionStatus.statusChangedTo_Pending);
-		triggerAdmin.selectDropdown(subscriptionStatus.statusChangedTo, subscriptionStatus.statusChangedTo_Complete);
+		triggerAdmin.selectDropdown(subscriptionStatus.statusChangedTo, subscriptionStatus.statusChangedTo_Any);
 		triggerAdmin.selectDropdown(reminder.hasInitialServiceDropdown_Reminder,
 				reminder.hasInitialService_Any_Reminder);
 		triggerAdmin.clickSaveButton();
@@ -240,6 +240,6 @@ public class CreateTrigger_AppointmentStatus extends BaseClass {
 	}
 
 	public void validateIfFailureExist() {
-		AssertException.asserFailure(list);
+		AssertException.assertFailure(list);
 	}
 }

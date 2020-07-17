@@ -1,7 +1,11 @@
 package automation.PestRoutes.Controller.Admin.Preferences.OfficeSettings.TriggerRules.CustomerStatus;
 
 import java.io.IOException;
-
+import java.util.ArrayList;
+import java.util.List;
+import automation.PestRoutes.Utilities.AssertException;
+import automation.PestRoutes.Utilities.Reporter;
+import io.cucumber.java.en.Then;
 import org.testng.annotations.Test;
 import automation.PestRoutes.Controller.Admin.Preferences.OfficeSettings.TriggerRules.Trigger_SubscriptionDueForService;
 import automation.PestRoutes.Controller.Billings.Billing;
@@ -13,7 +17,6 @@ import automation.PestRoutes.PageObject.CreateCustomer.CreateCustomerDIalog;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_Admin;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_Header;
 import automation.PestRoutes.Utilities.BaseClass;
-import automation.PestRoutes.Utilities.Utilities;
 
 public class TriggerOnSave_CustomerStatus extends BaseClass {
 
@@ -29,6 +32,7 @@ public class TriggerOnSave_CustomerStatus extends BaseClass {
     Header header;
 
     private String description_TriggerOnSave = "TriggerOnSave_CustomerStatus";
+    public List list = new ArrayList<String>();
 
     @Test
     public void triggerOnSave_CustomerStatus() throws Exception {
@@ -41,26 +45,26 @@ public class TriggerOnSave_CustomerStatus extends BaseClass {
         customerStatus_removePaymentProfileAction(description_TriggerOnSave);
 
         // Trigger on Save for Frozen customer
-        editTrigger_triggerOnSave_CustomerStatus("Frozen");
+        editTrigger_triggerOnSave_CustomerStatus("Frozen", description_TriggerOnSave);
         createNewCustomerwithPhoneEmailBilling_Frozen();
         hitTriggerQueue();
         assertlog();
         assertRemovePaymentlog();
 
         // Trigger on Save for Created customer
-        editTrigger_triggerOnSave_CustomerStatus("Created");
+        editTrigger_triggerOnSave_CustomerStatus("Created", description_TriggerOnSave);
         createNewCustomerwithPhoneEmailBilling_Created();
         hitTriggerQueue();
         assertlog();
 
         // Trigger on Save for Active customer
-        editTrigger_triggerOnSave_CustomerStatus("Active");
+        editTrigger_triggerOnSave_CustomerStatus("Active", description_TriggerOnSave);
         createNewCustomerwithPhoneEmailBilling_Active();
         hitTriggerQueue();
         assertlog();
 
         // Trigger on Save for Pending Cancel customer
-        editTrigger_triggerOnSave_CustomerStatus("Pending Cancel");
+        editTrigger_triggerOnSave_CustomerStatus("Pending Cancel", description_TriggerOnSave);
         createNewCustomerwithPhoneEmailBilling_PendingCancel();
         hitTriggerQueue();
         assertlog();
@@ -72,14 +76,18 @@ public class TriggerOnSave_CustomerStatus extends BaseClass {
     }
 
     // Edit Trigger Status
-    public void editTrigger_triggerOnSave_CustomerStatus(String statusChange) {
+    @Then("I edit the trigger status {string} of type {string}")
+    public void editTrigger_triggerOnSave_CustomerStatus(String statusChange, String description) {
         subscriptionStatus = new SubscriptionStatusTab();
         triggerAdmin = new TriggerRules();
-        createCustomerStatus.searchTrigger_appointmentStatus(description_TriggerOnSave);
-        triggerAdmin.clickEditTrigger(description_TriggerOnSave);
+        createCustomerStatus.searchTrigger_appointmentStatus(description);
+        triggerAdmin.clickEditTrigger(description);
         triggerAdmin.selectDropdown(subscriptionStatus.whenToTrigger, subscriptionStatus.whenToTrigger_triggerOnSave);
         triggerAdmin.selectDropdown(subscriptionStatus.statusChangedTo, statusChange);
         triggerAdmin.clickSaveButton();
+        triggerAdmin.searchTrigger(description);
+        result(description, triggerAdmin.getDescriptionText(description), "Search Customer",
+                "Subscription Status Creation");
     }
 
     // Set SMS Action Customer Status
@@ -100,6 +108,8 @@ public class TriggerOnSave_CustomerStatus extends BaseClass {
         createCustomerStatus.addTask_CustomerStatus();
         createCustomerStatus.searchTrigger_appointmentStatus(description);
         createCustomerStatus.sendEmployeeVoice_CustomerStatus();
+        createCustomerStatus.searchTrigger_appointmentStatus(description);
+        createCustomerStatus.sendEmployeeSMS_CustomerStatus();
 
     }
 
@@ -115,6 +125,7 @@ public class TriggerOnSave_CustomerStatus extends BaseClass {
     }
 
     // assert Log on Notes
+    @Then("I assert all the logs")
     public void assertlog() throws Exception {
         subscriptionDueForService.assertSMSLog();
         subscriptionDueForService.assertEMailLog();
@@ -179,4 +190,16 @@ public class TriggerOnSave_CustomerStatus extends BaseClass {
         overviewHeader.NavigateTo(overviewHeader.infoTabInDialog);
         customer.clickPendingCancelCheckBox();
     }
+
+    private void result(String expected, String actual, String stepName, String testName) {
+        if (AssertException.result(expected, actual, stepName).size() > 0) {
+            list.add(AssertException.result(expected, actual, stepName));
+        }
+        Reporter.status(stepName, expected, actual, testName);
+    }
+
+    public void validateIfFailureExist() {
+        AssertException.assertFailure(list);
+    }
 }
+

@@ -17,7 +17,7 @@ public class TriggerDaysBefore_Reminder extends BaseClass {
 		createTriggerDaysBefore_Reminder(description_TriggerBeforeDays);
 
 		// Create Actions
-		Reminder_createAllActions();
+		reminder_createAllActions();
 
 		// Create customer
 		createCustomerWithAppointment();
@@ -35,7 +35,7 @@ public class TriggerDaysBefore_Reminder extends BaseClass {
 	}
 
 	// Create All Actions
-	public void Reminder_createAllActions() {
+	public void reminder_createAllActions() {
 		createReminder.emailAction_Reminder();
 		createReminder.SMSAction_Reminder();
 		createReminder.voiceAction_Reminder();
