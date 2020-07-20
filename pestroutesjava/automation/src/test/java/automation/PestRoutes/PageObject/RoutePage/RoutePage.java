@@ -36,13 +36,13 @@ public class RoutePage {
 //		Utilities.clickElement("//div[@routeid="+needRouteID+"]//div[text() = "+needTime+"]/following-sibling::div", ElementType.XPath);
 //	}
 
-	public void scheduleAppointment(String needRouteSlotNumber, String needTime) {
+	public void scheduleAppointment(String needRouteSlotNumber, String needTime) throws InterruptedException {
 		Utilities.scrollToElement(
 				"//div[@class='routes']/div[" + needRouteSlotNumber + "]"
 						+ "//div[text()='" + needTime + "']/following-sibling::div");
 		Utilities.waitUntileElementIsVisible("//div[@class='routes']/div[" + needRouteSlotNumber + "]"
 				+ "//div[text()='" + needTime + "']/following-sibling::div");
-
+		Thread.sleep(3000);
 		Utilities.clickElement("//div[@class='routes']/div[" + needRouteSlotNumber + "]" + "//div[text()='" + needTime
 				+ "']/following-sibling::div", ElementType.XPath);
 	}

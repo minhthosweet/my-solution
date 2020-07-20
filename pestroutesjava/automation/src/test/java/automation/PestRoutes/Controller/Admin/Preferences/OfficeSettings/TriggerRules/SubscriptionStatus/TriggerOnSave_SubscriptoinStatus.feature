@@ -5,6 +5,7 @@ Feature: Subscription Status
   Scenario: Validate Trigger On Save Subscription Status of Status Any
     Given I sign in to pestroutes domain
     Given I add a trigger "TriggerOnSave_SubscriptionStatus"
+    And I validate the new trigger "TriggerOnSave_SubscriptionStatus"
     Then I edit the trigger status "Any" of type "TriggerOnSave_SubscriptionStatus"
     When I create customer with first name, last name and address
     When I create a subscription with Sales Rep assigned "Jared Green - Office" and "Fire"
@@ -14,6 +15,7 @@ Feature: Subscription Status
   Scenario: Validate Trigger On Save Subscription Status of Status Frozen
     Given I sign in to pestroutes domain
     Given I add a trigger "TriggerOnSave_SubscriptionStatus"
+    And I validate the new trigger "TriggerOnSave_SubscriptionStatus"
     Then I edit the trigger status "Frozen" of type "TriggerOnSave_SubscriptionStatus"
     When I create customer with first name, last name and address
     When I create a subscription with Sales Rep assigned "Jared Green - Office" and "Fire"
@@ -24,6 +26,7 @@ Feature: Subscription Status
   Scenario: Validate Trigger On Save Subscription Status of Status Active
     Given I sign in to pestroutes domain
     Given I add a trigger "TriggerOnSave_SubscriptionStatus"
+    And I validate the new trigger "TriggerOnSave_SubscriptionStatus"
     Then I edit the trigger status "Active" of type "TriggerOnSave_SubscriptionStatus"
     When I create customer with first name, last name and address
     When I create a subscription with Sales Rep assigned "Jared Green - Office" and "Fire"
