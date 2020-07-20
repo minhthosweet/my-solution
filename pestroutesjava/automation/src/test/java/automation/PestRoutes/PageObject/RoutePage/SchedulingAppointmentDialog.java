@@ -21,6 +21,7 @@ public class SchedulingAppointmentDialog {
     public String apptFlagsDropdown = "//select[@id = 'appointmentGenericFlags']";
     public String appointmentNotesInputField = "//div[contains (text(), 'Appointment Notes')]/following-sibling::textarea";
     public String scheduleButton = "//div[@id= 'completeAppointment']/following-sibling::div//span";
+    public String rescheduleButton = "//span[text()='Reschedule']";
 
     //*****Unit tab objects*****
     public String unitsTab = "//a[text() = 'Units']";
@@ -78,6 +79,12 @@ public class SchedulingAppointmentDialog {
     public void clickScheduleButton() {
         Utilities.clickElement(schedulingTab, ElementType.XPath);
         Utilities.clickElement(scheduleButton, ElementType.XPath);
+    }
+
+    public void clickRescheduleButton() {
+        Utilities.waitUntileElementIsVisible(schedulingTab);
+        Utilities.clickElement(schedulingTab, ElementType.XPath);
+        Utilities.clickElement(rescheduleButton, ElementType.XPath);
     }
 
     public void navigateToUnitTab() {
