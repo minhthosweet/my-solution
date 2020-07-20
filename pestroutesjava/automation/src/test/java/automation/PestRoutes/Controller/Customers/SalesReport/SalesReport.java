@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.cucumber.java.en.And;
+import io.cucumber.java.en.Then;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -45,27 +47,27 @@ public class SalesReport extends BaseClass {
 
 		String salesmanName = getData("salesmanName", generalData);
 		String subscriptionFlagName = getData("subscriptionFlagName", generalData);
+		String accountTypeField = getData("accountTypeField", generalData);
 
-		addUser.createUser();
+		addUser.createUser(accountTypeField);
 		createNewCustomer.createCustomerWithAddress();
 		String customerNameInHeader = createNewCustomer.fName + " " + createNewCustomer.lName;
-		double customerContractValue = addNewSubscription.startSubscriptionWithSalesRep(salesmanName,
-				subscriptionFlagName);
+		double customerContractValue = addNewSubscription.startSubscriptionWithSalesRep(salesmanName,subscriptionFlagName);
 		scheduleAppt.createScheduleWithCustomerName(customerNameInHeader);
 		runSoldSubcriptionsReport();
-		validateSubscriptionFlagColumn(customerNameInHeader);
-		validateSalesReportTotals(customerNameInHeader, customerContractValue);
+		validateSubscriptionFlagColumn();
+		validateSalesReportTotals(customerContractValue);
 		addUser.deactivateUser();
 
 	}
 
+	@And("I run sold subscription report")
 	public void runSoldSubcriptionsReport() throws IOException {
 		header = new Header();
 		salesReportPage = new SalesReportPage();
 		customersMainPage = new CustomersMainPage();
 		String addtionalColumnName = getData("additionalColumnName", generalData);
 		String salesmanName = getData("fiterSalesman", generalData);
-
 		header.NavigateTo(header.customersTab);
 		customersMainPage.NavigateTo(customersMainPage.salesReport);
 		salesReportPage.selectTodaysDate(salesReportPage.selectToday);
@@ -75,9 +77,10 @@ public class SalesReport extends BaseClass {
 
 	}
 
-	public void validateSubscriptionFlagColumn(String needCustomerName) throws IOException {
+	@And("I validate subscription flag column")
+	public void validateSubscriptionFlagColumn() throws IOException {
 		salesReportPage = new SalesReportPage();
-		String currentSubscriptionFlagName = salesReportPage.getCurrentSubscriptionFlagName(needCustomerName);
+		String currentSubscriptionFlagName = salesReportPage.getCurrentSubscriptionFlagName(getData("serviceDescription", generalData));
 		String expectedSubscriptionFlagName = getData("subscriptionFlagName", generalData);
 		salesReportPage.subscriptionFlagColumnPresent();
 		if (expectedSubscriptionFlagName == currentSubscriptionFlagName) {
@@ -85,11 +88,12 @@ public class SalesReport extends BaseClass {
 		}
 	}
 
-	public void validateSalesReportTotals(String needCustomerName, double customerContractValue) {
+	@Then("I validate sales report totals")
+	public void validateSalesReportTotals(double customerContractValue) throws IOException {
 		salesReportPage = new SalesReportPage();
 		double currentReportTotalContractValue = salesReportPage.getSalesReportTotalContractValue();
 		double expectedReportTotalContractValue = salesReportPage
-				.getSalesReportTotalSingleContractValue(needCustomerName);
+				.getSalesReportTotalSingleContractValue(getData("serviceDescription", generalData));
 		if (customerContractValue == currentReportTotalContractValue) {
 			if (expectedReportTotalContractValue == currentReportTotalContractValue) {
 				Assert.assertTrue(true);

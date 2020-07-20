@@ -70,6 +70,7 @@ public class RoutePage {
 			Thread.sleep(300);
 			//WebElement testGroupname = FindElement.elementByAttribute(groupName, InputType.XPath);
 			if (Utilities.getElementCount(groupName)==0) {
+				Utilities.scrollToElement(addGroup);
 				Utilities.clickElement(addGroup, ElementType.XPath);
 				FindElement.elementByAttribute(groupTitle, InputType.XPath).sendKeys("TestRoutes");
 				Utilities.waitUntileElementIsVisible(groupTemplate);

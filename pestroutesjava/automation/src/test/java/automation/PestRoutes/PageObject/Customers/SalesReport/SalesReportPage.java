@@ -15,7 +15,7 @@ public class SalesReportPage extends BaseClass{
 	String additionColumns = "//select[@name='extraFields']";
 	String filterBySalesman = "//select[@name='soldSalesmen']";
 	String filterBySalesman2 = "//select[@name='soldSalesmen2']";
-	String refreshButton = "//div[text()='Refresh']";
+	String refreshButton = "//div[@onmouseup='loadSoldCustomers();']";
 	String exportButton = "//div[text()='Export to Excel']";
 	String salesReportTotalContractValue = "//div[@class='salesReportTotalsContainer']/preceding-sibling::h3[1]";
 
@@ -39,6 +39,7 @@ public class SalesReportPage extends BaseClass{
 	}
 	
 	public void ClickRefreshButton() {
+		Utilities.waitUntileElementIsVisible(refreshButton);
 		Utilities.clickElement(refreshButton, ElementType.XPath);
 	}
 
@@ -48,12 +49,12 @@ public class SalesReportPage extends BaseClass{
 	}
 	
 	public String getCurrentSubscriptionFlagName(String chooseNameFromConst) {
-		String elm = Utilities.getElementTextValue("//td[contains(text(),'"+chooseNameFromConst+"')]/following-sibling::td[13]", ElementType.XPath);
+		String elm = Utilities.getElementTextValue("//td[contains(text(),'"+chooseNameFromConst+"')]/following-sibling::td[12]", ElementType.XPath);
 		return elm;
 	}
 
 	public double getSalesReportTotalSingleContractValue(String chooseNameFromConst) {
-		String elm = Utilities.getElementTextValue("//td[contains(text(),'"+chooseNameFromConst+"')]/following-sibling::td[12]", ElementType.XPath);
+		String elm = Utilities.getElementTextValue("//td[contains(text(),'"+chooseNameFromConst+"')]/following-sibling::td[11]", ElementType.XPath);
 		String newElm = elm.replaceAll("[^\\\\.0123456789]", "");
 		double attributeValue = Double.parseDouble(newElm);
 		return attributeValue;		

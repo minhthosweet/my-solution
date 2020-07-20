@@ -7,6 +7,7 @@ import automation.PestRoutes.Utilities.Utilities;
 import automation.PestRoutes.Utilities.FindElement.InputType;
 import automation.PestRoutes.Utilities.Utilities.ElementType;
 
+
 public class AdminMainPage {
 	
 	public String businessContacts = "Business Contacts";
@@ -17,13 +18,10 @@ public class AdminMainPage {
 	public String billing = "Billing";
 	public String userButton = "//div[text()='+ User']";
 	public String mergeuserButton = "//div[text()='Merge Users']";
-	//public WebElement userName = FindElement.elementByAttribute("//div[contains(text(),'Automation User')]", InputType.XPath);
 	public String existingUser = "//div[contains(text(),'Automation User')]";
+	public String preExistingUser = "//div[contains(text(),'Automation User')]/parent::div/preceding-sibling::div[2]";
 			
-			
-	
-	
-	
+
 	//Action methods
 	public void navigateTo(String needTab) {
 		Utilities.waitUntileElementIsVisible("//p[text() = '"+needTab+"']");
@@ -32,6 +30,7 @@ public class AdminMainPage {
 
 	public void clickButton(String needButton) {
 		Utilities.waitUntileElementIsVisible(needButton);
+		Utilities.scrollToElement(needButton);
 		Utilities.clickElement(needButton, ElementType.XPath);
 	}
 	
