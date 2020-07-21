@@ -5,7 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 import automation.PestRoutes.Utilities.AssertException;
 import automation.PestRoutes.Utilities.Reporter;
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 import org.testng.annotations.Test;
 import automation.PestRoutes.Controller.Admin.Preferences.OfficeSettings.TriggerRules.Trigger_SubscriptionDueForService;
 import automation.PestRoutes.Controller.Billings.Billing;
@@ -42,14 +44,6 @@ public class TriggerOnSave_CustomerStatus extends BaseClass {
 
         // Create Actions
         customerStatus_addAllAction(description_TriggerOnSave);
-        customerStatus_removePaymentProfileAction(description_TriggerOnSave);
-
-        // Trigger on Save for Frozen customer
-        editTrigger_triggerOnSave_CustomerStatus("Frozen", description_TriggerOnSave);
-        createNewCustomerwithPhoneEmailBilling_Frozen();
-        hitTriggerQueue();
-        assertlog();
-        assertRemovePaymentlog();
 
         // Trigger on Save for Created customer
         editTrigger_triggerOnSave_CustomerStatus("Created", description_TriggerOnSave);
@@ -68,6 +62,14 @@ public class TriggerOnSave_CustomerStatus extends BaseClass {
         createNewCustomerwithPhoneEmailBilling_PendingCancel();
         hitTriggerQueue();
         assertlog();
+
+        // Trigger on Save for Frozen customer
+        customerStatus_removePaymentProfileAction(description_TriggerOnSave);
+        editTrigger_triggerOnSave_CustomerStatus("Frozen", description_TriggerOnSave);
+        createNewCustomerwithPhoneEmailBilling_Frozen();
+        hitTriggerQueue();
+        assertlog();
+        assertRemovePaymentlog();
     }
 
     // Create Trigger
@@ -76,7 +78,7 @@ public class TriggerOnSave_CustomerStatus extends BaseClass {
     }
 
     // Edit Trigger Status
-    @Then("I edit the trigger status {string} of type {string}")
+    @Then("I edit the trigger status on trigger on save {string} of type {string}")
     public void editTrigger_triggerOnSave_CustomerStatus(String statusChange, String description) {
         subscriptionStatus = new SubscriptionStatusTab();
         triggerAdmin = new TriggerRules();
@@ -113,6 +115,7 @@ public class TriggerOnSave_CustomerStatus extends BaseClass {
 
     }
 
+    @And("I add remove payment profile action {string}")
     public void customerStatus_removePaymentProfileAction(String description) {
         createCustomerStatus.searchTrigger_appointmentStatus(description);
         subscriptionDueForService.removePaymentProfile_subscriptionForService();
@@ -143,6 +146,7 @@ public class TriggerOnSave_CustomerStatus extends BaseClass {
     }
 
     // Create customer with Frozen Status
+    @When("I create frozen customer with first name, last name, email and address")
     public void createNewCustomerwithPhoneEmailBilling_Frozen() throws Exception {
         newCustomer = new CreateNewCustomer();
         customerAdmin = new CustomerViewDialog_Admin();
@@ -163,6 +167,7 @@ public class TriggerOnSave_CustomerStatus extends BaseClass {
     }
 
     // Create customer with Active Status
+    @When("I create active customer with first name, last name, email and address")
     public void createNewCustomerwithPhoneEmailBilling_Active() throws Exception {
         newCustomer = new CreateNewCustomer();
         customerAdmin = new CustomerViewDialog_Admin();
@@ -180,6 +185,7 @@ public class TriggerOnSave_CustomerStatus extends BaseClass {
     }
 
     // Create customer with Created Status
+    @When("I create pending cancel customer with first name, last name, email and address")
     public void createNewCustomerwithPhoneEmailBilling_PendingCancel() throws Exception {
         newCustomer = new CreateNewCustomer();
         header = new Header();

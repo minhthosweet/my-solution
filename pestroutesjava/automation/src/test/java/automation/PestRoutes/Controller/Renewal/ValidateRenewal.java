@@ -114,6 +114,15 @@ public class ValidateRenewal extends BaseClass {
         scheduleDay.clickScheduleDay();
     }
 
+    @And("I navigate to scheduling on Same Day")
+    public void navigateToSchedulingSameDayTab() throws Exception {
+        header = new Header();
+        scheduleDay = new SchedulingTab();
+        header.NavigateTo(header.schedulingTab);
+        scheduleDay.addScheduleDateToProperties();
+        scheduleDay.clickScheduleSameDay();
+    }
+
     //	@And("I add a route")
 //	public void addRoutes() {
 //		route = new RoutePage();
@@ -189,6 +198,17 @@ public class ValidateRenewal extends BaseClass {
         appointmentTab.clickScheduledService(serviceType);
         appointmentTab.clickStatusButton();
         appointmentTab.clickSaveAndCompleteButton();
+    }
+
+    @And("I cancel the appointment")
+    public void cancelAppointment() throws InterruptedException, IOException {
+        appointmentTab = new CustomerviewDialog_AppointmentsTab();
+        overviewHeader = new CustomerViewDialog_Header();
+        overviewHeader.NavigateTo(overviewHeader.appointmentsTabInDialog);
+        appointmentTab.clickScheduledService(getData("quarterly", quarterlyPreferredDayData));
+        appointmentTab.clickCancelAppointmentButton();
+        appointmentTab.cancellationNotes();
+        appointmentTab.confirmCancellation();
     }
 
     @And("I reschedule an appointment")
