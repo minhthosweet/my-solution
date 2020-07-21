@@ -8,7 +8,7 @@ Feature: Appointment Status
     Then I edit the trigger appointment status on trigger on save "Any" of type "TriggerOnSave_AppointmentStatus"
     When I create customer with first name, last name and address
     When I create a subscription with Sales Rep assigned "Jared Green - Office" and "Fire"
-    And I navigate to scheduling tab
+    And I navigate to scheduling on Same Day
     And I add a route
     And I search customer
     And I navigate to Subscription Tab
@@ -22,7 +22,7 @@ Feature: Appointment Status
     Then I edit the trigger appointment status on trigger on save "Scheduled" of type "TriggerOnSave_AppointmentStatus"
     When I create customer with first name, last name and address
     When I create a subscription with Sales Rep assigned "Jared Green - Office" and "Fire"
-    And I navigate to scheduling tab
+    And I navigate to scheduling on Same Day
     And I add a route
     And I search customer
     And I navigate to Subscription Tab
@@ -37,7 +37,7 @@ Feature: Appointment Status
     Then I edit the trigger appointment status on trigger on save "Complete" of type "TriggerOnSave_AppointmentStatus"
     When I create customer with first name, last name and address
     When I create a subscription with Sales Rep assigned "Jared Green - Office" and "Fire"
-    And I navigate to scheduling tab
+    And I navigate to scheduling on Same Day
     And I add a route
     And I search customer
     And I navigate to Subscription Tab
@@ -51,7 +51,7 @@ Feature: Appointment Status
     Then I edit the trigger appointment status on trigger on save "Rescheduled" of type "TriggerOnSave_AppointmentStatus"
     When I create customer with first name, last name and address
     When I create a subscription with Sales Rep assigned "Jared Green - Office" and "Fire"
-    And I navigate to scheduling tab
+    And I navigate to scheduling on Same Day
     And I add a route
     And I search customer
     And I navigate to Subscription Tab
@@ -68,7 +68,7 @@ Feature: Appointment Status
     Then I edit the trigger appointment status on trigger on save "Cancelled" of type "TriggerOnSave_AppointmentStatus"
     When I create customer with first name, last name and address
     When I create a subscription with Sales Rep assigned "Jared Green - Office" and "Fire"
-    And I navigate to scheduling tab
+    And I navigate to scheduling on Same Day
     And I add a route
     And I search customer
     And I navigate to Subscription Tab

@@ -114,6 +114,15 @@ public class ValidateRenewal extends BaseClass {
         scheduleDay.clickScheduleDay();
     }
 
+    @And("I navigate to scheduling on Same Day")
+    public void navigateToSchedulingSameDayTab() throws Exception {
+        header = new Header();
+        scheduleDay = new SchedulingTab();
+        header.NavigateTo(header.schedulingTab);
+        scheduleDay.addScheduleDateToProperties();
+        scheduleDay.clickScheduleSameDay();
+    }
+
     //	@And("I add a route")
 //	public void addRoutes() {
 //		route = new RoutePage();
