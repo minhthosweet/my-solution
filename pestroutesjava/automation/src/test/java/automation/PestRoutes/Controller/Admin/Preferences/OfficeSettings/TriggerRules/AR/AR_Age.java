@@ -1,11 +1,10 @@
 package automation.PestRoutes.Controller.Admin.Preferences.OfficeSettings.TriggerRules.AR;
 
-import automation.PestRoutes.Controller.Admin.Preferences.OfficeSettings.TriggerRules.Trigger_SubscriptionDueForService;
 import automation.PestRoutes.Controller.Invoicing.InvoicingTab;
-import automation.PestRoutes.PageObject.Admin.OfficeSettings.TriggerRules;
 import automation.PestRoutes.Utilities.BaseClass;
 import automation.PestRoutes.Utilities.GetDate;
 import automation.PestRoutes.Utilities.Utilities;
+import io.cucumber.java.en.When;
 import org.testng.annotations.Test;
 
 public class AR_Age extends BaseClass {
@@ -34,16 +33,18 @@ public class AR_Age extends BaseClass {
     }
 
     public void createTriggerandActionsAge_AR(String description, String days) throws Exception {
-        createAR.createTrigger_AR( description, "Days Past Due",days);
+        createAR.createTrigger_AR(description, "Days Past Due", days);
         createAR.createAllARActions(description);
     }
 
+    @When("I create customer with Invoice")
     public void createCustomerWithInvoice() throws Exception {
         invoiceTab = new InvoicingTab();
         invoiceTab.addNewInvoice(GetDate.minusOneDayToDate(Utilities.currentDate("MM/dd/yyyy")));
     }
 
-    public void runTriggerEvent(){
+    @When("I execute the trigger event script")
+    public void runTriggerEvent() {
         createAR.hitTriggerEvent();
     }
 

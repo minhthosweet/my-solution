@@ -5,7 +5,7 @@ Feature: Appointment Status
   Scenario: Validate Trigger After Time Appointment Status of Status Scheduled
     Given I sign in to pestroutes domain
     Given I add a trigger "TriggerAfterTime_AppointmentStatus"
-    Then I edit the trigger appointment status on trigger after time "Scheduled" of type "TriggerAfterTime_AppointmentStatus"
+    Then I edit the trigger status on trigger after time "Scheduled" of type "TriggerAfterTime_AppointmentStatus"
     When I create customer with first name, last name and address
     When I create a subscription with Sales Rep assigned "Jared Green - Office" and "Fire"
     And I navigate to scheduling tab
@@ -20,7 +20,7 @@ Feature: Appointment Status
     Given I sign in to pestroutes domain
     Given I add a trigger "TriggerAfterTime_AppointmentStatus"
     And I validate the new trigger "TriggerAfterTime_AppointmentStatus"
-    Then I edit the trigger appointment status on trigger after time "Complete" of type "TriggerAfterTime_AppointmentStatus"
+    Then I edit the trigger status on trigger after time "Complete" of type "TriggerAfterTime_AppointmentStatus"
     When I create customer with first name, last name and address
     When I create a subscription with Sales Rep assigned "Jared Green - Office" and "Fire"
     And I navigate to scheduling tab
@@ -34,7 +34,7 @@ Feature: Appointment Status
   Scenario: Validate Trigger After Time Appointment Status of Status Rescheduled
     Given I sign in to pestroutes domain
     Given I add a trigger "TriggerAfterTime_AppointmentStatus"
-    Then I edit the trigger appointment status on trigger after time "Rescheduled" of type "TriggerAfterTime_AppointmentStatus"
+    Then I edit the trigger status on trigger after time "Rescheduled" of type "TriggerAfterTime_AppointmentStatus"
     When I create customer with first name, last name and address
     When I create a subscription with Sales Rep assigned "Jared Green - Office" and "Fire"
     And I navigate to scheduling tab
@@ -51,7 +51,7 @@ Feature: Appointment Status
   Scenario: Validate Trigger After Time Appointment Status of Status Cancelled
     Given I sign in to pestroutes domain
     Given I add a trigger "TriggerAfterTime_AppointmentStatus"
-    Then I edit the trigger appointment status on trigger after time "Cancelled" of type "TriggerAfterTime_AppointmentStatus"
+    Then I edit the trigger status on trigger after time "Cancelled" of type "TriggerAfterTime_AppointmentStatus"
     When I create customer with first name, last name and address
     When I create a subscription with Sales Rep assigned "Jared Green - Office" and "Fire"
     And I navigate to scheduling tab

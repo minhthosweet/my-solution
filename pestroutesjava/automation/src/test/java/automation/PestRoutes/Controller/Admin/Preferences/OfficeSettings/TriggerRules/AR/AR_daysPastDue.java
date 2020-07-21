@@ -2,10 +2,10 @@ package automation.PestRoutes.Controller.Admin.Preferences.OfficeSettings.Trigge
 
 import automation.PestRoutes.Controller.Admin.Preferences.OfficeSettings.TriggerRules.Trigger_SubscriptionDueForService;
 import automation.PestRoutes.Controller.Invoicing.InvoicingTab;
-import automation.PestRoutes.PageObject.Admin.OfficeSettings.TriggerRules;
 import automation.PestRoutes.Utilities.BaseClass;
 import automation.PestRoutes.Utilities.GetDate;
 import automation.PestRoutes.Utilities.Utilities;
+import io.cucumber.java.en.Then;
 import org.testng.annotations.Test;
 
 public class AR_daysPastDue  extends BaseClass {
@@ -48,6 +48,7 @@ public class AR_daysPastDue  extends BaseClass {
         createAR.hitTriggerEvent();
     }
 
+    @Then("I assert trigger event logs")
     public void assertLog() throws Exception {
         subscriptionDueForService = new Trigger_SubscriptionDueForService();
         subscriptionDueForService.assertSMSLog();

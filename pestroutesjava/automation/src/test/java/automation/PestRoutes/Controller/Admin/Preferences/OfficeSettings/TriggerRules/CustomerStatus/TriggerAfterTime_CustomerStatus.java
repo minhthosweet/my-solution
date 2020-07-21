@@ -3,6 +3,7 @@ package automation.PestRoutes.Controller.Admin.Preferences.OfficeSettings.Trigge
 import java.io.IOException;
 
 import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 import org.testng.annotations.Test;
 import automation.PestRoutes.PageObject.Admin.OfficeSettings.TriggerRules;
 import automation.PestRoutes.PageObject.Admin.OfficeSettings.TriggerTypes.SubscriptionStatusTab;
@@ -30,13 +31,6 @@ public class TriggerAfterTime_CustomerStatus extends BaseClass {
         // Create Actions
         customerStatus_CreateAllActions(description_TriggerAfterTime);
 
-        // Trigger on Save for Frozen customer
-        editTrigger_triggerAfterTime_CustomerStatus("Frozen", description_TriggerAfterTime);
-        createNewCustomerWithPhoneEmailBilling_Frozen();
-        hitTriggerCustomerStatus();
-        assertFrozen_allActions();
-        assertFrozen_RemovePayment();
-
         // Trigger on Save for Created customer
         editTrigger_triggerAfterTime_CustomerStatus("Created", description_TriggerAfterTime);
         createNewCustomerWithPhoneEmailBilling_Created();
@@ -55,13 +49,21 @@ public class TriggerAfterTime_CustomerStatus extends BaseClass {
         hitTriggerCustomerStatus();
         assertFrozen_allActions();
 
+        // Trigger on Save for Frozen customer
+        editTrigger_triggerAfterTime_CustomerStatus("Frozen", description_TriggerAfterTime);
+        customerStatus_RemovePaymentProfileAction(description_TriggerAfterTime);
+        createNewCustomerWithPhoneEmailBilling_Frozen();
+        hitTriggerCustomerStatus();
+        assertFrozen_allActions();
+        assertFrozen_RemovePayment();
+
     }
 
     public void createTriggerAfterTime_CustomerStatus(String description) throws Exception {
         triggerOnSave.createTriggerOnSave_CustomerStatus(description);
     }
 
-    @Then("I edit the trigger appointment status on trigger after time {string} of type {string}")
+    @Then("I edit the trigger status on trigger after time {string} of type {string}")
     public void editTrigger_triggerAfterTime_CustomerStatus(String statusChange, String description) {
         subscriptionStatus = new SubscriptionStatusTab();
         triggerAdmin = new TriggerRules();
@@ -76,6 +78,10 @@ public class TriggerAfterTime_CustomerStatus extends BaseClass {
 
     public void customerStatus_CreateAllActions(String description) throws InterruptedException, IOException {
         triggerOnSave.customerStatus_addAllAction(description);
+    }
+
+    public void customerStatus_RemovePaymentProfileAction(String description) {
+        triggerOnSave.customerStatus_removePaymentProfileAction(description);
     }
 
     public void createNewCustomerWithPhoneEmailBilling_Frozen() throws Exception {
@@ -95,6 +101,7 @@ public class TriggerAfterTime_CustomerStatus extends BaseClass {
     }
 
     // Run script
+    @When("I execute the trigger customer status script")
     public void hitTriggerCustomerStatus() {
         Utilities.navigateToUrl("https://adityam.pestroutes.com/resources/scripts/triggerCustomerStatus.php");
     }
