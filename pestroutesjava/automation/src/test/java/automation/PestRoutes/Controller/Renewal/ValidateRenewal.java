@@ -191,6 +191,17 @@ public class ValidateRenewal extends BaseClass {
         appointmentTab.clickSaveAndCompleteButton();
     }
 
+    @And("I cancel the appointment")
+    public void cancelAppointment() throws InterruptedException, IOException {
+        appointmentTab = new CustomerviewDialog_AppointmentsTab();
+        overviewHeader = new CustomerViewDialog_Header();
+        overviewHeader.NavigateTo(overviewHeader.appointmentsTabInDialog);
+        appointmentTab.clickScheduledService(getData("quarterly", quarterlyPreferredDayData));
+        appointmentTab.clickCancelAppointmentButton();
+        appointmentTab.cancellationNotes();
+        appointmentTab.confirmCancellation();
+    }
+
     @And("I reschedule an appointment")
     public void rescheduleSchedulesService() throws Exception {
         route = new RoutePage();

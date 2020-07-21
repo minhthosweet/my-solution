@@ -76,7 +76,7 @@ public class TriggerOnSave_CustomerStatus extends BaseClass {
     }
 
     // Edit Trigger Status
-    @Then("I edit the trigger status {string} of type {string}")
+    @Then("I edit the trigger appointment status on trigger on save {string} of type {string}")
     public void editTrigger_triggerOnSave_CustomerStatus(String statusChange, String description) {
         subscriptionStatus = new SubscriptionStatusTab();
         triggerAdmin = new TriggerRules();

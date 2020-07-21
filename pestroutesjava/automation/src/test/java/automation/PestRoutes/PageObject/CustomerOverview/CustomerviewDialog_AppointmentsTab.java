@@ -1,5 +1,6 @@
 package automation.PestRoutes.PageObject.CustomerOverview;
 
+import automation.PestRoutes.Utilities.FindElement;
 import automation.PestRoutes.Utilities.Utilities;
 import automation.PestRoutes.Utilities.Utilities.ElementType;
 
@@ -25,6 +26,9 @@ public class CustomerviewDialog_AppointmentsTab {
     public String serviceNotes_Complete = "//textarea[@name='serviceNotes']";
     public String editButton = "//div[@id='appointmentContainor']//div[text()='Edit']";
     public String reScheduleButton = "//span[text()='Reschedule']";
+    public String cancelAppointment = "//div[@id='completeButton']/following-sibling::div//div[text() = 'Cancel']";
+    public String cancelNotesAppointment = "//textarea[@id='cancelReason']";
+    public String confirmCancellation = "//span[text()='Confirm Cancelation']";
 
     // Subscription objects
     public String createNewSubscription_Scheduling = "Create New Subscription";
@@ -116,6 +120,22 @@ public class CustomerviewDialog_AppointmentsTab {
     public void clickRescheduleButton() {
         Utilities.waitUntileElementIsVisible(reScheduleButton);
         Utilities.clickElement(reScheduleButton, ElementType.XPath);
+    }
+
+    public void clickCancelAppointmentButton() throws InterruptedException {
+        Thread.sleep(3000);
+        Utilities.waitUntileElementIsVisible(cancelAppointment);
+        Utilities.clickElement(cancelAppointment, ElementType.XPath);
+    }
+
+    public void cancellationNotes() {
+        Utilities.waitUntileElementIsVisible(cancelNotesAppointment);
+        FindElement.elementByAttribute(cancelNotesAppointment, FindElement.InputType.XPath).sendKeys(Utilities.generateRandomString(10));
+    }
+
+    public void confirmCancellation() {
+        Utilities.waitUntileElementIsVisible(confirmCancellation);
+        Utilities.clickElement(confirmCancellation, ElementType.XPath);
     }
 
     public void clickUnitName() {
