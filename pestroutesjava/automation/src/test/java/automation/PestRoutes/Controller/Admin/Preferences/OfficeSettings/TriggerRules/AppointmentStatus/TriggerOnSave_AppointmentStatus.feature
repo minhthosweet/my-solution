@@ -44,6 +44,8 @@ Feature: Appointment Status
     And I schedule an subscription appointment
     And I search customer
     And I complete an appointment
+    When I execute the trigger queue script
+    Then I assert all the logs
 
   Scenario: Validate Trigger On Save Appointment Status of Status Rescheduled
     Given I sign in to pestroutes domain

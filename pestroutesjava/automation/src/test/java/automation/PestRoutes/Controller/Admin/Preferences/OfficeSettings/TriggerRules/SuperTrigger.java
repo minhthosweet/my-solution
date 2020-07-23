@@ -15,7 +15,6 @@ import automation.PestRoutes.PageObject.Admin.OfficeSettings.TriggerRules_Cucumb
 import io.cucumber.java.en.Given;
 import org.openqa.selenium.WebElement;
 import org.testng.annotations.Test;
-
 import automation.PestRoutes.Controller.Admin.Preferences.OfficeSettings.TriggerRules.AppointmentStatus.CreateTrigger_AppointmentStatus;
 import automation.PestRoutes.Controller.Admin.Preferences.OfficeSettings.TriggerRules.CustomerStatus.CreateTrigger_CustomerStatus;
 import automation.PestRoutes.Controller.Admin.Preferences.OfficeSettings.TriggerRules.Reminders.CreateTrigger_Reminder;
@@ -90,7 +89,6 @@ public class SuperTrigger extends BaseClass {
             case "TriggerOnSave_CustomerStatus":
                 triggerOnSave_customerStatus.createTriggerOnSave_CustomerStatus(description);
                 triggerOnSave_customerStatus.customerStatus_addAllAction(description);
-                triggerOnSave_customerStatus.customerStatus_removePaymentProfileAction(description);
                 break;
             case "TriggerAfterTime_CustomerStatus":
                 triggerAfterTime_customerStatus.createTriggerAfterTime_CustomerStatus(description);

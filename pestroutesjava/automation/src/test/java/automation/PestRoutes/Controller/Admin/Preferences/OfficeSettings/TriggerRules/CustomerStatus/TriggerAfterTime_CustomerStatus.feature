@@ -34,3 +34,4 @@ Feature: Customer Status
     When I create frozen customer with first name, last name, email and address
     When I execute the trigger customer status script
     Then I assert all the logs
+    And I assert Remove Payment log
