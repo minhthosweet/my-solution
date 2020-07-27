@@ -8,7 +8,7 @@ import automation.PestRoutes.Controller.CustomerCreation.CreateNewCustomer;
 import automation.PestRoutes.Controller.Schedules.ScheduleAppt;
 import automation.PestRoutes.PageObject.Header;
 import automation.PestRoutes.PageObject.Admin.AdminMainPage;
-import automation.PestRoutes.PageObject.Admin.OfficeSettings.Actions;
+import automation.PestRoutes.PageObject.Admin.OfficeSettings.Trigger_Actions;
 import automation.PestRoutes.PageObject.Admin.OfficeSettings.TriggerRules;
 import automation.PestRoutes.PageObject.Admin.OfficeSettings.TriggerTypes.ARTab;
 import automation.PestRoutes.PageObject.Admin.OfficeSettings.TriggerTypes.ReminderTab;
@@ -31,7 +31,7 @@ public class CreateTrigger_Reminder extends BaseClass {
 	ReminderTab reminder;
 	RenewalTab renewalTab;
 	ARTab ar;
-	Actions actions;
+	Trigger_Actions triggerActions;
 	SubscriptionStatusTab subscriptionStatus;
 	CreateNewCustomer createCustomer;
 	ScheduleAppt scheduleAppt;
@@ -54,11 +54,11 @@ public class CreateTrigger_Reminder extends BaseClass {
 	public void createReminderRule() throws Exception {
 		createTrigger_Reminder(descriptionTrigger);
 		searchTrigger_Reminder(descriptionTrigger);
-		emailAction_Reminder();
+		emailAction_Reminder(descriptionTrigger);
 		searchTrigger_Reminder(descriptionTrigger);
-		SMSAction_Reminder();
+		SMSAction_Reminder(descriptionTrigger);
 		searchTrigger_Reminder(descriptionTrigger);
-		voiceAction_Reminder();
+		voiceAction_Reminder(descriptionTrigger);
 		searchTrigger_Reminder(descriptionTrigger);
 		assertActions_Reminder();
 		editTrigger_Reminder_DaysBefore();
@@ -76,7 +76,7 @@ public class CreateTrigger_Reminder extends BaseClass {
 		reminder = new ReminderTab();
 		renewalTab = new RenewalTab();
 		ar = new ARTab();
-		actions = new Actions();
+		triggerActions = new Trigger_Actions();
 		subscriptionStatus = new SubscriptionStatusTab();
 		header.NavigateTo(header.adminTab);
 		adminMainPage.navigateTo(adminMainPage.preferences);
@@ -112,54 +112,57 @@ public class CreateTrigger_Reminder extends BaseClass {
 	}
 
 	// Create an Reminder action
-	public void emailAction_Reminder() {
-		actions = new Actions();
-		actions.clickAddActionButton();
-		triggerAdmin.selectDropdown(actions.actionTypeDropDown, actions.sendSMSReminder);
-		triggerAdmin.selectDropdown(actions.actionTypeDropDown, actions.sendEmailReminder);
-		triggerAdmin.selectDropdown(actions.ignoreContactPrefsDropDown, actions.ignoreContactPrefsTypes_No);
-		triggerAdmin.selectDropdown(actions.emailType_Reminder, actions.standardReminderEmail_Reminder);
-		triggerAdmin.selectDropdown(actions.emailType_Reminder, actions.customReminderEmail_Reminder);
-		actions.setMessageinAction_Type2(actions.sendEmailReminder, actions.getPlaceHolders() + " Email Reminder");
-		actions.removeAction(actions.sendSMSReminder);
+	public void emailAction_Reminder(String description) {
+		triggerActions = new Trigger_Actions();
+		searchTrigger_Reminder(description);
+		triggerActions.clickAddActionButton();
+		//triggerAdmin.selectDropdown(actions.actionTypeDropDown, actions.sendSMSReminder);
+		triggerAdmin.selectDropdown(triggerActions.actionTypeDropDown, triggerActions.sendEmailReminder);
+		triggerAdmin.selectDropdown(triggerActions.ignoreContactPrefsDropDown, triggerActions.ignoreContactPrefsTypes_No);
+		triggerAdmin.selectDropdown(triggerActions.emailType_Reminder, triggerActions.standardReminderEmail_Reminder);
+		triggerAdmin.selectDropdown(triggerActions.emailType_Reminder, triggerActions.customReminderEmail_Reminder);
+		triggerActions.setMessageinAction_Type3(triggerActions.sendEmailReminder, triggerActions.getPlaceHolders());
+		//actions.removeAction(actions.sendSMSReminder);
 		triggerAdmin.clickSaveButton();
 	}
 
 	// Create second Reminder action
-	public void SMSAction_Reminder() {
-		actions = new Actions();
-		actions.clickAddActionButton();
-		triggerAdmin.selectDropdown(actions.actionTypeDropDown, actions.sendSMSReminder);
-		triggerAdmin.selectDropdown(actions.ignoreContactPrefsDropDown, actions.ignoreContactPrefsTypes_No);
-		triggerAdmin.selectDropdown(actions.SMSType_Reminder, actions.standardReminderSMS_Reminder);
-		triggerAdmin.selectDropdown(actions.SMSType_Reminder, actions.customSMS_Reminder);
-		actions.setMessageinAction_Type1(actions.sendSMSReminder, actions.getPlaceHolders() + " SMS Reminder");
+	public void SMSAction_Reminder(String description) {
+		triggerActions = new Trigger_Actions();
+		searchTrigger_Reminder(description);
+		triggerActions.clickAddActionButton();
+		triggerAdmin.selectDropdown(triggerActions.actionTypeDropDown, triggerActions.sendSMSReminder);
+		triggerAdmin.selectDropdown(triggerActions.ignoreContactPrefsDropDown, triggerActions.ignoreContactPrefsTypes_No);
+		triggerAdmin.selectDropdown(triggerActions.SMSType_Reminder, triggerActions.standardReminderSMS_Reminder);
+		triggerAdmin.selectDropdown(triggerActions.SMSType_Reminder, triggerActions.customSMS_Reminder);
+		triggerActions.setMessageinAction_Type1(triggerActions.sendSMSReminder, triggerActions.getPlaceHolders() + " SMS Reminder");
 		triggerAdmin.clickSaveButton();
 	}
 
 	// Create third Reminder action
-	public void voiceAction_Reminder() {
-		actions = new Actions();
-		actions.clickAddActionButton();
-		triggerAdmin.selectDropdown(actions.actionTypeDropDown, actions.sendVoiceReminder);
-		triggerAdmin.selectDropdown(actions.ignoreContactPrefsDropDown, actions.ignoreContactPrefsTypes_No);
-		triggerAdmin.selectDropdown(actions.voiceType_Reminder, actions.standardReminderVoice_Reminder);
-		triggerAdmin.selectDropdown(actions.voiceType_Reminder, actions.preRecordedMessageVoice_Reminder);
-		triggerAdmin.selectDropdown(actions.preRecordedMessage_Message_Reminder, "Pest Promotion");
-		triggerAdmin.selectDropdown(actions.voiceType_Reminder, actions.standardReminderVoice_Reminder);
-		triggerAdmin.selectDropdown(actions.voiceType_Reminder, actions.customReminderVoice_Reminder);
-		actions.setMessageinAction_Type1(actions.sendVoiceReminder, actions.getPlaceHolders() + " Voice Reminder");
+	public void voiceAction_Reminder(String description) {
+		triggerActions = new Trigger_Actions();
+		searchTrigger_Reminder(description);
+		triggerActions.clickAddActionButton();
+		triggerAdmin.selectDropdown(triggerActions.actionTypeDropDown, triggerActions.sendVoiceReminder);
+		triggerAdmin.selectDropdown(triggerActions.ignoreContactPrefsDropDown, triggerActions.ignoreContactPrefsTypes_No);
+		triggerAdmin.selectDropdown(triggerActions.voiceType_Reminder, triggerActions.standardReminderVoice_Reminder);
+		triggerAdmin.selectDropdown(triggerActions.voiceType_Reminder, triggerActions.preRecordedMessageVoice_Reminder);
+		triggerAdmin.selectDropdown(triggerActions.preRecordedMessage_Message_Reminder, "Pest Promotion");
+		triggerAdmin.selectDropdown(triggerActions.voiceType_Reminder, triggerActions.standardReminderVoice_Reminder);
+		triggerAdmin.selectDropdown(triggerActions.voiceType_Reminder, triggerActions.customReminderVoice_Reminder);
+		triggerActions.setMessageinAction_Type1(triggerActions.sendVoiceReminder, triggerActions.getPlaceHolders() + " Voice Reminder");
 		triggerAdmin.clickSaveButton();
 	}
 
 	// Assert all created actions
 	public void assertActions_Reminder() {
-		actions = new Actions();
+		triggerActions = new Trigger_Actions();
 		reminder = new ReminderTab();
-		result(actions.sendEmailReminder, reminder.getEmailActionTextValue(), "Email Reminder",
+		result(triggerActions.sendEmailReminder, reminder.getEmailActionTextValue(), "Email Reminder",
 				"Reminder Trigger Rule");
-		result(actions.sendSMSReminder, reminder.getSMSActionTextValue(), "SMS Reminder", "Reminder Trigger Rule");
-		result(actions.sendVoiceReminder, reminder.getVoiceActionTextValue(), "Voice Reminder",
+		result(triggerActions.sendSMSReminder, reminder.getSMSActionTextValue(), "SMS Reminder", "Reminder Trigger Rule");
+		result(triggerActions.sendVoiceReminder, reminder.getVoiceActionTextValue(), "Voice Reminder",
 				"Reminder Trigger Rule");
 
 	}

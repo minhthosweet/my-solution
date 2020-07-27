@@ -14,7 +14,7 @@ public class TriggerRules_Cucumber {
 	TriggerRules triggerAdmin = new TriggerRules();
 	InventoryTab inventory = new InventoryTab();
 	RenewalTab renewalTab = new RenewalTab();
-	Actions actions = new Actions();
+	Trigger_Actions triggerActions = new Trigger_Actions();
 
 	private String typeOfTrigger = "Renewal";
 	private String descriptionTrigger = "trigger_renewal_email_snailmail";
@@ -119,38 +119,38 @@ public class TriggerRules_Cucumber {
 
 	@And("I add Actions")
 	public void i_add_Actions() {
-		actions.clickAddActionButton();
+		triggerActions.clickAddActionButton();
 	}
 
 	@And("I select Send Email")
 	public void i_select_Send_Email() {
-		triggerAdmin.selectDropdown(actions.actionTypeDropDown, "Send Email");
+		triggerAdmin.selectDropdown(triggerActions.actionTypeDropDown, "Send Email");
 	}
 
 	@And("I select Renewal Notice")
 	public void i_select_Renewal_Notice() {
-		triggerAdmin.selectDropdown(actions.messageTypeDropDown, "Renewal Notice");
+		triggerAdmin.selectDropdown(triggerActions.messageTypeDropDown, "Renewal Notice");
 	}
 
 	@And("I enter subject")
 	public void i_enter_subject() {
-		actions.enterSubjectText(Utilities.generateRandomString(5));
+		triggerActions.enterSubjectText(Utilities.generateRandomString(5));
 	}
 
 	@And("I select Snail Mail")
 	public void i_select_Snail_Mail() {
-		triggerAdmin.selectDropdown(actions.actionTypeDropDown, "Send Snail Mail");
+		triggerAdmin.selectDropdown(triggerActions.actionTypeDropDown, "Send Snail Mail");
 		
 	}
 	
 	@And("I select ignore Contact Prefs as {string}")
 	public void i_select_ignore_Contact_Prefs_as(String string) {
-		triggerAdmin.selectDropdown(actions.ignoreContactPrefsDropDown, "No");
+		triggerAdmin.selectDropdown(triggerActions.ignoreContactPrefsDropDown, "No");
 	}
 
 	@And("I select Renewal Link Dropdown as {string}")
 	public void i_select_Renewal_Link_Dropdown_as(String string) {
-		triggerAdmin.selectDropdown(actions.renewalLinkDropDown, "Include");
+		triggerAdmin.selectDropdown(triggerActions.renewalLinkDropDown, "Include");
 		
 	}
 

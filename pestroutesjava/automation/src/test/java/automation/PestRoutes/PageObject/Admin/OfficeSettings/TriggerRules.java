@@ -4,6 +4,7 @@ import automation.PestRoutes.Utilities.FindElement;
 import automation.PestRoutes.Utilities.Utilities;
 import automation.PestRoutes.Utilities.FindElement.InputType;
 import automation.PestRoutes.Utilities.Utilities.ElementType;
+import io.cucumber.java.en.When;
 import org.openqa.selenium.WebElement;
 
 public class TriggerRules {
@@ -96,7 +97,6 @@ public class TriggerRules {
     }
 
     public void setEndDate(String needEndDate) throws InterruptedException {
-        Thread.sleep(3000);
         Utilities.waitUntileElementIsVisible(endDateInputField);
         Utilities.clickElement(endDateInputField, ElementType.XPath);
         FindElement.elementByAttribute(endDateInputField, InputType.XPath).clear();
@@ -109,6 +109,7 @@ public class TriggerRules {
     }
 
     // trigger Queue query
+    @When("I execute the trigger queue script")
     public void hitTriggerQueue() {
         Utilities.navigateToUrl("https://adityam.pestroutes.com/resources/scripts/triggerQueue.php");
     }

@@ -3,10 +3,8 @@ package automation.PestRoutes.Controller.Admin.Preferences.OfficeSettings.Trigge
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
 import automation.PestRoutes.Controller.CustomerCreation.CreateNewCustomer;
 import automation.PestRoutes.Controller.Subscriptions.AddSubscription;
-import io.cucumber.java.en.When;
 import org.testng.annotations.Test;
 import automation.PestRoutes.Controller.Admin.Preferences.OfficeSettings.TriggerRules.Trigger_SubscriptionDueForService;
 import automation.PestRoutes.Controller.Admin.Preferences.OfficeSettings.TriggerRules.CustomerStatus.TriggerOnSave_CustomerStatus;
@@ -71,7 +69,6 @@ public class TriggerOnSave_AppointmentStatus extends BaseClass {
     }
 
     // Hit trigger Queue
-    @When("I execute the trigger queue script")
     public void hitTriggerQueue() {
         triggerAdmin.hitTriggerQueue();
     }

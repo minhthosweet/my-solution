@@ -5,7 +5,7 @@ import java.util.List;
 import org.testng.annotations.Test;
 import automation.PestRoutes.PageObject.Header;
 import automation.PestRoutes.PageObject.Admin.AdminMainPage;
-import automation.PestRoutes.PageObject.Admin.OfficeSettings.Actions;
+import automation.PestRoutes.PageObject.Admin.OfficeSettings.Trigger_Actions;
 import automation.PestRoutes.PageObject.Admin.OfficeSettings.TriggerRules;
 import automation.PestRoutes.PageObject.Admin.OfficeSettings.TriggerTypes.ARTab;
 import automation.PestRoutes.PageObject.Admin.OfficeSettings.TriggerTypes.RenewalTab;
@@ -21,7 +21,7 @@ public class CreateTrigger_AR extends BaseClass {
     AdminMainPage adminMainPage;
     TriggerRules triggerAdmin = new TriggerRules();
     RenewalTab renewalTab;
-    Actions actions = new Actions();
+    Trigger_Actions triggerActions = new Trigger_Actions();
     ARTab ar;
 
     private String descriptionTrigger = "trigger_ar_all_actions";
@@ -84,105 +84,105 @@ public class CreateTrigger_AR extends BaseClass {
 
     // Create an SMS action
     public void SMSAction_AR() {
-        actions.clickAddActionButton();
-        triggerAdmin.selectDropdown(actions.actionTypeDropDown, actions.sendSMSMessageType_Action);
-        triggerAdmin.selectDropdown(actions.ignoreContactPrefsDropDown, actions.ignoreContactPrefsTypes_No);
-        actions.setMessageinAction_Type1(actions.sendSMSMessageType_Action, actions.getPlaceHolders());
+        triggerActions.clickAddActionButton();
+        triggerAdmin.selectDropdown(triggerActions.actionTypeDropDown, triggerActions.sendSMSMessageType_Action);
+        triggerAdmin.selectDropdown(triggerActions.ignoreContactPrefsDropDown, triggerActions.ignoreContactPrefsTypes_No);
+        triggerActions.setMessageinAction_Type1(triggerActions.sendSMSMessageType_Action, triggerActions.getPlaceHolders());
         triggerAdmin.clickSaveButton();
     }
 
     // Create Invoice action
     public void createInvoiceAction_AR() {
-        actions.clickAddActionButton();
-        triggerAdmin.selectDropdown(actions.actionTypeDropDown, actions.createInvoicesMessageType_Action);
-        triggerAdmin.selectDropdown(actions.valueTypeDropDown, valueType_DropDownValue);
-        actions.setValue_Action(value_createInvoice_Action);
-        triggerAdmin.selectDropdown(actions.serviceType_Action, serviceType_createInvoice_Action);
+        triggerActions.clickAddActionButton();
+        triggerAdmin.selectDropdown(triggerActions.actionTypeDropDown, triggerActions.createInvoicesMessageType_Action);
+        triggerAdmin.selectDropdown(triggerActions.valueTypeDropDown, valueType_DropDownValue);
+        triggerActions.setValue_Action(value_createInvoice_Action);
+        triggerAdmin.selectDropdown(triggerActions.serviceType_Action, serviceType_createInvoice_Action);
         triggerAdmin.clickSaveButton();
     }
 
     // Create Voice AR action
     public void voiceAction_AR() {
-        actions.clickAddActionButton();
-        triggerAdmin.selectDropdown(actions.actionTypeDropDown, actions.sendVoiceMessageType_Action);
-        triggerAdmin.selectDropdown(actions.ignoreContactPrefsDropDown, actions.ignoreContactPrefsTypes_No);
-        triggerAdmin.selectDropdown(actions.voiceType_Reminder, actions.preRecordedMessageVoice_Reminder);
-        triggerAdmin.selectDropdown(actions.preRecordedMessage_Message_Reminder, "Pest Promotion");
-        triggerAdmin.selectDropdown(actions.voiceType_Reminder, actions.newMessage_Voice);
-        actions.setMessageinAction_Type1(actions.sendVoiceMessageType_Action, actions.getPlaceHolders());
+        triggerActions.clickAddActionButton();
+        triggerAdmin.selectDropdown(triggerActions.actionTypeDropDown, triggerActions.sendVoiceMessageType_Action);
+        triggerAdmin.selectDropdown(triggerActions.ignoreContactPrefsDropDown, triggerActions.ignoreContactPrefsTypes_No);
+        triggerAdmin.selectDropdown(triggerActions.voiceType_Reminder, triggerActions.preRecordedMessageVoice_Reminder);
+        triggerAdmin.selectDropdown(triggerActions.preRecordedMessage_Message_Reminder, "Pest Promotion");
+        triggerAdmin.selectDropdown(triggerActions.voiceType_Reminder, triggerActions.newMessage_Voice);
+        triggerActions.setMessageinAction_Type1(triggerActions.sendVoiceMessageType_Action, triggerActions.getPlaceHolders());
         triggerAdmin.clickSaveButton();
     }
 
     // Create Email AR Action
     public void emailAction_AR() {
-        actions.clickAddActionButton();
-        triggerAdmin.selectDropdown(actions.actionTypeDropDown, actions.EmailMessageType_Action);
-        triggerAdmin.selectDropdown(actions.ignoreContactPrefsDropDown, actions.ignoreContactPrefsTypes_No);
-        actions.setEmailTitle(Utilities.generateRandomString(5));
-        triggerAdmin.selectDropdown(actions.email_Type, actions.emailType_emailStatement);
-        triggerAdmin.selectDropdown(actions.email_Type, actions.emailType_newEmailMessage);
-        actions.setMessageinAction_Type2(actions.EmailMessageType_Action, actions.getPlaceHolders());
+        triggerActions.clickAddActionButton();
+        triggerAdmin.selectDropdown(triggerActions.actionTypeDropDown, triggerActions.EmailMessageType_Action);
+        triggerAdmin.selectDropdown(triggerActions.ignoreContactPrefsDropDown, triggerActions.ignoreContactPrefsTypes_No);
+        triggerActions.setEmailTitle(Utilities.generateRandomString(5));
+        triggerAdmin.selectDropdown(triggerActions.email_Type, triggerActions.emailType_emailStatement);
+        triggerAdmin.selectDropdown(triggerActions.email_Type, triggerActions.emailType_newEmailMessage);
+        triggerActions.setMessageinAction_Type2(triggerActions.EmailMessageType_Action, triggerActions.getPlaceHolders());
         triggerAdmin.clickSaveButton();
     }
 
     // Create SnailMail AR Action
     public void snailMailAction_AR() {
-        actions.clickAddActionButton();
-        triggerAdmin.selectDropdown(actions.actionTypeDropDown, actions.snailMailMessageType_Action);
-        triggerAdmin.selectDropdown(actions.snailMail_letterType, actions.snailMail_letterType_sendLetter);
-        triggerAdmin.selectDropdown(actions.snailMail_letterType, actions.snailMail_letterType_sendStatement);
-        actions.setMessageinAction_Type2(actions.snailMailMessageType_Action, actions.getPlaceHolders());
+        triggerActions.clickAddActionButton();
+        triggerAdmin.selectDropdown(triggerActions.actionTypeDropDown, triggerActions.snailMailMessageType_Action);
+        triggerAdmin.selectDropdown(triggerActions.snailMail_letterType, triggerActions.snailMail_letterType_sendLetter);
+        triggerAdmin.selectDropdown(triggerActions.snailMail_letterType, triggerActions.snailMail_letterType_sendStatement);
+        triggerActions.setMessageinAction_Type2(triggerActions.snailMailMessageType_Action, triggerActions.getPlaceHolders());
         triggerAdmin.clickSaveButton();
     }
 
     // Create Freeze AR Action
     public void freezeCustomersAction_AR() {
-        actions.clickAddActionButton();
-        triggerAdmin.selectDropdown(actions.actionTypeDropDown, actions.freezeCustomersMessageType_Action);
-        triggerAdmin.selectDropdown(actions.snailMail_letterType, actions.snailMail_letterType_sendLetter);
-        triggerAdmin.selectDropdown(actions.snailMail_letterType, actions.snailMail_letterType_sendStatement);
-        actions.setMessageinAction_Type2(actions.freezeCustomersMessageType_Action, actions.getPlaceHolders());
+        triggerActions.clickAddActionButton();
+        triggerAdmin.selectDropdown(triggerActions.actionTypeDropDown, triggerActions.freezeCustomersMessageType_Action);
+        triggerAdmin.selectDropdown(triggerActions.snailMail_letterType, triggerActions.snailMail_letterType_sendLetter);
+        triggerAdmin.selectDropdown(triggerActions.snailMail_letterType, triggerActions.snailMail_letterType_sendStatement);
+        triggerActions.setMessageinAction_Type2(triggerActions.freezeCustomersMessageType_Action, triggerActions.getPlaceHolders());
         triggerAdmin.clickSaveButton();
     }
 
     // Create add flags AR Action
     public void addFlagsAction_AR() {
-        actions.clickAddActionButton();
-        triggerAdmin.selectDropdown(actions.actionTypeDropDown, actions.addFlagsMessageType_Action);
+        triggerActions.clickAddActionButton();
+        triggerAdmin.selectDropdown(triggerActions.actionTypeDropDown, triggerActions.addFlagsMessageType_Action);
         triggerAdmin.clickSaveButton();
     }
 
     // Create set collections stage AR Action
     public void setCollectionsStageAction_AR() {
-        actions.clickAddActionButton();
-        triggerAdmin.selectDropdown(actions.actionTypeDropDown, actions.setCollectionsStageMessageType_Action);
-        actions.setCollectionsStage();
-        Utilities.clickElement(actions.collectionsStage_Stage, Utilities.ElementType.XPath);
-        triggerAdmin.selectDropdown(actions.collectionsStage_Stage, actions.stage_Sent);
+        triggerActions.clickAddActionButton();
+        triggerAdmin.selectDropdown(triggerActions.actionTypeDropDown, triggerActions.setCollectionsStageMessageType_Action);
+        triggerActions.setCollectionsStage();
+        Utilities.clickElement(triggerActions.collectionsStage_Stage, Utilities.ElementType.XPath);
+        triggerAdmin.selectDropdown(triggerActions.collectionsStage_Stage, triggerActions.stage_Sent);
         triggerAdmin.clickSaveButton();
     }
 
     // Create Send to ARM AR Action
     public void sendToARMAction_AR() {
-        actions.clickAddActionButton();
-        triggerAdmin.selectDropdown(actions.actionTypeDropDown, actions.sendTOARMMessageType_Action);
+        triggerActions.clickAddActionButton();
+        triggerAdmin.selectDropdown(triggerActions.actionTypeDropDown, triggerActions.sendTOARMMessageType_Action);
         triggerAdmin.clickSaveButton();
     }
 
     // Assert all created actions
     public void assertActions_Reminder() {
-        actions = new Actions();
+        triggerActions = new Trigger_Actions();
         ar = new ARTab();
-        result(actions.EmailMessageType_Action, ar.getEmailActionTextValue(), "Email Action", "AR Trigger Rule");
-        result(actions.sendSMSMessageType_Action, ar.getSMSActionTextValue(), "SMS Action", "AR Trigger Rule");
-        result(actions.sendVoiceMessageType_Action, ar.getVoiceActionTextValue(), "Voice Action", "AR Trigger Rule");
-        result(actions.createInvoicesMessageType_Action, ar.getCreateInvoiceActionTextValue(), "Create Invoice Action",
+        result(triggerActions.EmailMessageType_Action, ar.getEmailActionTextValue(), "Email Action", "AR Trigger Rule");
+        result(triggerActions.sendSMSMessageType_Action, ar.getSMSActionTextValue(), "SMS Action", "AR Trigger Rule");
+        result(triggerActions.sendVoiceMessageType_Action, ar.getVoiceActionTextValue(), "Voice Action", "AR Trigger Rule");
+        result(triggerActions.createInvoicesMessageType_Action, ar.getCreateInvoiceActionTextValue(), "Create Invoice Action",
                 "AR Trigger Rule");
-        result(actions.snailMailMessageType_Action, ar.getSnailMailActionTextValue(), "Snail Mail Action",
+        result(triggerActions.snailMailMessageType_Action, ar.getSnailMailActionTextValue(), "Snail Mail Action",
                 "AR Trigger Rule");
-        result(actions.setCollectionsStageMessageType_Action, ar.getCollectionsStageActionTextValue(),
+        result(triggerActions.setCollectionsStageMessageType_Action, ar.getCollectionsStageActionTextValue(),
                 "Collections Stage Action", "AR Trigger Rule");
-        result(actions.sendTOARMMessageType_Action, ar.getARMStageActionTextValue(), "ARM Action", "AR Trigger Rule");
+        result(triggerActions.sendTOARMMessageType_Action, ar.getARMStageActionTextValue(), "ARM Action", "AR Trigger Rule");
     }
 
     public void createAllARActions(String description)  {

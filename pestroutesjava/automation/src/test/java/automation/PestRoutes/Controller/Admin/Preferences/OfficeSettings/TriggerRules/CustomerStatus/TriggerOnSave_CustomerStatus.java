@@ -66,6 +66,7 @@ public class TriggerOnSave_CustomerStatus extends BaseClass {
         // Trigger on Save for Frozen customer
         customerStatus_removePaymentProfileAction(description_TriggerOnSave);
         editTrigger_triggerOnSave_CustomerStatus("Frozen", description_TriggerOnSave);
+        customerStatus_removePaymentProfileAction(description_TriggerOnSave);
         createNewCustomerwithPhoneEmailBilling_Frozen();
         hitTriggerQueue();
         assertlog();
@@ -141,6 +142,7 @@ public class TriggerOnSave_CustomerStatus extends BaseClass {
     }
 
     // assert Remove Payment Log
+    @And("I assert Remove Payment log")
     public void assertRemovePaymentlog() throws Exception {
         subscriptionDueForService.assertRemovePaymentLog();
     }
