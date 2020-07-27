@@ -133,6 +133,34 @@ public class CreateNewCustomer extends BaseClass {
         captureUserIdAndFullName();
     }
 
+    @When("I create customer with first name, last name, address, email and Structure")
+    public void createCustomerWithStructure() throws Exception {
+        dialog = new CustomerViewDialog_Header();
+        customer = new CreateCustomerDIalog();
+        overview = new CustomerViewDialog_OverviewTab();
+        header = new Header();
+        header.NavigateTo(header.newCustomerTab);
+        customer.setFirstName(fName);
+        customer.setLastName(lName);
+        customer.setEmailAddress(email);
+        customer.setAddress(streetAddress);
+        customer.setZipCode(zipcode);
+        customer.setCellPhone(getData("phoneNumber", generalData));
+        customer.clickSmsCheckBox();
+        customer.clickEmailCheckBox();
+        customer.clickVoiceCheckBox();
+        customer.selectUnit("Structures");
+        dialog.ClickSaveButton();
+        alertCondition();
+        Utilities.waitUntileElementIsVisible(overview.overviewTab_Address);
+        String customerNameInHeader = overview.getCustomerNameFromHeader();
+        result(fName, customerNameInHeader, "Created customer ", "Structure Validation");
+        String id = overview.getCustomerIDFromHeader();
+        String newId = id.replaceAll("[^a-zA-Z0-9]+", "");
+        addData("strutureUID", newId, generalData);
+        AssertException.assertFailure(list);
+    }
+
     @Then("I validate if customer name and address match in overview tab")
     public void validateCreatedCustomerNameAndAddress() {
         String expectedAddress = streetAddress + " " + city + ", TX " + zipcode;

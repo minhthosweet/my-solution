@@ -3,171 +3,123 @@ package automation.PestRoutes.Controller.StructureValidation;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
-import org.openqa.selenium.WebDriver;
+import automation.PestRoutes.Controller.CustomerCreation.CreateNewCustomer;
+import io.cucumber.java.en.And;
+import io.cucumber.java.en.Then;
 import org.testng.annotations.Test;
-
-import automation.PestRoutes.PageObject.Header;
-import automation.PestRoutes.PageObject.CreateCustomer.CreateCustomerDIalog;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_Header;
-import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_OverviewTab;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerviewDialog_AppointmentsTab;
-import automation.PestRoutes.PageObject.RoutePage.RoutePage;
-import automation.PestRoutes.PageObject.RoutePage.SchedulingAppointmentDialog;
-import automation.PestRoutes.PageObject.Scheduling.SchedulingTab;
-import automation.PestRoutes.PageObject.Scheduling.UnitsTab;
 import automation.PestRoutes.PageObject.Structure.StructuresTab;
 import automation.PestRoutes.Utilities.AssertException;
 import automation.PestRoutes.Utilities.BaseClass;
 import automation.PestRoutes.Utilities.Reporter;
 import automation.PestRoutes.Utilities.Utilities;
-import automation.PestRoutes.Utilities.Driver.GetWebDriver;
 
 public class Structures extends BaseClass {
-	WebDriver driver = GetWebDriver.getInstance();
-	CreateCustomerDIalog customer = new CreateCustomerDIalog();
-	CustomerViewDialog_Header dialog = new CustomerViewDialog_Header();
-	CustomerViewDialog_OverviewTab overview = new CustomerViewDialog_OverviewTab();
-	Header header = new Header();
-	StructuresTab structures = new StructuresTab();
-	RoutePage route = new RoutePage();
-	SchedulingAppointmentDialog confirmAppt = new SchedulingAppointmentDialog();
-	SchedulingTab scheduleDay = new SchedulingTab();
-	UnitsTab unitsTab = new UnitsTab();
-	CustomerviewDialog_AppointmentsTab appointmentTab = new CustomerviewDialog_AppointmentsTab();
-	List list = new ArrayList<String>();
+    CreateNewCustomer createNewCustomer;
+    CustomerViewDialog_Header dialog = new CustomerViewDialog_Header();
+    StructuresTab structures = new StructuresTab();
+    CustomerviewDialog_AppointmentsTab appointmentTab = new CustomerviewDialog_AppointmentsTab();
+    List list = new ArrayList<String>();
 
-	private String mainStructureName = Utilities.generateRandomString(5);
-	private String routes = "//div[@class = 'route actualRoute route1 ']";
-	private String serviceType = "Roach";
-	private String serviceAreaProvided = "Exterior Only";
-	private String pestTreaded = "Bat";
-	private String product = "UP-STAR";
-	private String applicationMethod = "Direct Spray";
-	private String targetIssue = "Bat";
-	private String fName = Utilities.generateRandomString(7);
-	private String lName = Utilities.generateRandomString(6);
-	private String subUnit = Utilities.generateRandomString(5);
-	private String subSubUnit = Utilities.generateRandomString(5);
+    private String mainStructureName = Utilities.generateRandomString(5);
+    private String product = "UP-STAR";
+    private String applicationMethod = "Direct Spray";
+    private String targetIssue = "Bat";
+    private String subUnit = Utilities.generateRandomString(5);
+    private String subSubUnit = Utilities.generateRandomString(5);
 
-	@Test
+    @Test
 
-	public void validateStructures() throws Exception {
+    public void validateStructures() throws Exception {
+        createStructureCustomer();
+        createStructure();
+        addChemicalMainStructureTab();
+        addChemicalSubStructureTab();
+        verifyChemicalinUnit();
+        verifySubChemicalinUnit();
+    }
 
-		createStructure();
-		addRoute();
-		addAppointment();
-		addChemicalMainStructureTab();
-		addChemicalSubStructureTab();
-		verifyChemicalinUnit();
-		verifySubChemicalinUnit();
+    public void createStructureCustomer() throws Exception {
+        createNewCustomer = new CreateNewCustomer();
+        createNewCustomer.createCustomerWithStructure();
+    }
 
-	}
+    @And("I add structure and sub structures")
+    public void createStructure() {
+        dialog.NavigateTo(dialog.structuresTabInDialog);
+        structures.setMainStructure(mainStructureName);
+        structures.setSubStructure(subUnit);
+        structures.setSubStructure(subSubUnit);
+    }
 
-	public void createStructure() throws Exception {
+    @And("I add chemicals to main structure")
+    public void addChemicalMainStructureTab() throws InterruptedException, IOException {
+    dialog.NavigateTo(dialog.appointmentsTabInDialog);
+        appointmentTab.clickScheduledService(getData("quarterly", quarterlyPreferredDayData));
+        appointmentTab.clickEditButton_AppointmentCard();
+        structures.clickStructuresTabApt();
+        structures.clickDetailsButtonMainStructure(mainStructureName);
+        structures.clickAddProductMainStructure();
+        appointmentTab.chooseProduct(product);
+        appointmentTab.chooseApplicationMethod(applicationMethod);
+        appointmentTab.chooseTargetIssue(targetIssue);
+        appointmentTab.clickSaveButton();
+    }
 
-		header.NavigateTo(header.newCustomerTab);
-		customer.setFirstName(fName);
-		customer.setLastName(lName);
-		unitsTab.selectUnit("Structures");
-		dialog.ClickSaveButton();
-		Utilities.waitUntileElementIsVisible(overview.overviewTab_Address);
-		String customerNameInHeader = overview.getCustomerNameFromHeader();
-		System.out.println("Customer Name found is " + customerNameInHeader);
-		result(fName, customerNameInHeader, "Created customer ", "Structure Validation");
-		String id = overview.getCustomerIDFromHeader();
-		String newId = id.replaceAll("[^a-zA-Z0-9]+", "");
-		System.out.println(newId);
-		addData("strutureUID", newId, generalData);
-		AssertException.assertFailure(list);
-		header.Search_A_Customer(newId);
-		dialog.NavigateTo(dialog.structuresTabInDialog);
-		structures.setMainStructure(mainStructureName);
-		structures.setSubStructure(subUnit);
-		structures.setSubStructure(subSubUnit);
+    @And("I add chemicals to substructures")
+    public void addChemicalSubStructureTab() throws InterruptedException, IOException {
+        appointmentTab.clickScheduledService(getData("quarterly", quarterlyPreferredDayData));
+        appointmentTab.clickEditButton_AppointmentCard();
+        structures.clickStructuresTabApt();
+        structures.clickDetailsButtonSubStructure(subUnit);
+        structures.clickAddProductSubStructure();
+        appointmentTab.chooseProduct(product);
+        appointmentTab.chooseApplicationMethod(applicationMethod);
+        appointmentTab.chooseTargetIssue(targetIssue);
+        appointmentTab.clickSaveButton();
+    }
 
-	}
+    @Then("I verify chemical in structure")
+    public void verifyChemicalinUnit() throws IOException, Exception {
+        createNewCustomer = new CreateNewCustomer();
+        createNewCustomer.searchCustomer();
+        dialog.NavigateTo(dialog.structuresTabInDialog);
+        appointmentTab.clickScheduledStructuredService(mainStructureName);
+        structures.clickProductsAptTab();
+        structures.getChemicalNameStructure(product);
+        appointmentTab.clickStructureName();
+        String actualStructureArea = appointmentTab.getStructureAreaTreated();
+        String actualStructureIssues = appointmentTab.getStructureIssuesTreated();
+        String actualStructureProductUsed = appointmentTab.getStructureChemicalName();
+        result(product, actualStructureArea, "Chemical for Structure", "Structure Validation");
+        result(product, actualStructureProductUsed, "Product for Structure", "Structure Validation");
+        result(targetIssue, actualStructureIssues, "Target issue for Structure", "Structure Validation");
+    }
 
-	private void addRoute() {
-		header.NavigateTo(header.schedulingTab);
-		scheduleDay.clickScheduleDay();
-		route.addGroup();
-		route.clickButton(route.addRoutesButton);
-		route.addRoutesByQuantity("1");
-	}
+    @Then("I verify chemical in substructure")
+    public void verifySubChemicalinUnit() throws IOException, Exception {
+        createNewCustomer = new CreateNewCustomer();
+        createNewCustomer.searchCustomer();
+        dialog.NavigateTo(dialog.structuresTabInDialog);
+        appointmentTab.clickSubScheduledStructuredService(mainStructureName, subUnit);
+        structures.clickProductsAptTab();
+        structures.getChemicalNameStructure(product);
+        appointmentTab.clickStructureName();
+        String actualStructureArea = appointmentTab.getStructureAreaTreated();
+        String actualStructureIssues = appointmentTab.getStructureIssuesTreated();
+        String actualStructureProductUsed = appointmentTab.getStructureChemicalName();
+        result(product, actualStructureArea, "Chemical for Structure", "Structure Validation");
+        result(product, actualStructureProductUsed, "Product for Structure", "Structure Validation");
+        result(targetIssue, actualStructureIssues, "Target issue for Structure", "Structure Validation");
+    }
 
-	private void addAppointment() throws Exception {
-		header.Search_A_Customer(getData("strutureUID", generalData));
-		dialog.Click_X_Button();
-		int totalCount = Utilities.getElementCount(routes);
-		String routesCount = Integer.toString(totalCount);
-		System.out.println(routesCount);
-		route.scheduleAppointment(routesCount, "08:30");
-		structures.clickExistingCustomer(fName + " " + lName, fName);
-		confirmAppt.selectServiceType(serviceType);
-		confirmAppt.selectInteriorNeededOption(serviceAreaProvided);
-		confirmAppt.selectTargetPestsOption(pestTreaded);
-		confirmAppt.clickScheduleButton();
-	}
-
-	private void addChemicalMainStructureTab() throws InterruptedException {
-		structures.clickAppointmentCard();
-		structures.clickStructuresTabApt();
-		structures.clickDetailsButtonMainStructure(mainStructureName);
-		structures.clickAddProductMainStructure();
-		appointmentTab.chooseProduct(product);
-		appointmentTab.chooseApplicationMethod(applicationMethod);
-		appointmentTab.chooseTargetIssue(targetIssue);
-		appointmentTab.clickSaveButton();
-	}
-
-	private void addChemicalSubStructureTab() throws InterruptedException {
-		structures.clickAppointmentCard();
-		structures.clickStructuresTabApt();
-		structures.clickDetailsButtonSubStructure(subUnit);
-		structures.clickAddProductSubStructure();
-		appointmentTab.chooseProduct(product);
-		appointmentTab.chooseApplicationMethod(applicationMethod);
-		appointmentTab.chooseTargetIssue(targetIssue);
-		appointmentTab.clickSaveButton();
-	}
-
-	private void verifyChemicalinUnit() throws IOException, Exception {
-		header.Search_A_Customer(fName + " " + lName);
-		dialog.NavigateTo(dialog.structuresTabInDialog);
-		appointmentTab.clickScheduledStructuredService(mainStructureName);
-		structures.clickProductsAptTab();
-		structures.getChemicalNameStructure(product);
-		appointmentTab.clickStructureName();
-		String actualStructureArea = appointmentTab.getStructureAreaTreated();
-		String actualStructureIssues = appointmentTab.getStructureIssuesTreated();
-		String actualStructureProductUsed = appointmentTab.getStructureChemicalName();
-		result(product, actualStructureArea, "Chemical for Structure", "Structure Validation");
-		result(product, actualStructureProductUsed, "Product for Structure", "Structure Validation");
-		result(targetIssue, actualStructureIssues, "Target issue for Structure", "Structure Validation");
-	}
-
-	private void verifySubChemicalinUnit() throws IOException, Exception {
-		header.Search_A_Customer(fName + " " + lName);
-		dialog.NavigateTo(dialog.structuresTabInDialog);
-		appointmentTab.clickSubScheduledStructuredService(mainStructureName, subUnit);
-		structures.clickProductsAptTab();
-		structures.getChemicalNameStructure(product);
-		appointmentTab.clickStructureName();
-		String actualStructureArea = appointmentTab.getStructureAreaTreated();
-		String actualStructureIssues = appointmentTab.getStructureIssuesTreated();
-		String actualStructureProductUsed = appointmentTab.getStructureChemicalName();
-		result(product, actualStructureArea, "Chemical for Structure", "Structure Validation");
-		result(product, actualStructureProductUsed, "Product for Structure", "Structure Validation");
-		result(targetIssue, actualStructureIssues, "Target issue for Structure", "Structure Validation");
-	}
-	
-	@SuppressWarnings("unchecked")
-	private void result(String expected, String actual, String stepName, String testName) {
-		if (AssertException.result(expected, actual, stepName).size() > 0) {
-			list.add(AssertException.result(expected, actual, stepName));
-		}
-		Reporter.status(stepName, expected, actual, testName);
-	}
+    @SuppressWarnings("unchecked")
+    private void result(String expected, String actual, String stepName, String testName) {
+        if (AssertException.result(expected, actual, stepName).size() > 0) {
+            list.add(AssertException.result(expected, actual, stepName));
+        }
+        Reporter.status(stepName, expected, actual, testName);
+    }
 
 }

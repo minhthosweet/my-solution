@@ -97,7 +97,6 @@ public class TriggerRules {
     }
 
     public void setEndDate(String needEndDate) throws InterruptedException {
-        Thread.sleep(3000);
         Utilities.waitUntileElementIsVisible(endDateInputField);
         Utilities.clickElement(endDateInputField, ElementType.XPath);
         FindElement.elementByAttribute(endDateInputField, InputType.XPath).clear();

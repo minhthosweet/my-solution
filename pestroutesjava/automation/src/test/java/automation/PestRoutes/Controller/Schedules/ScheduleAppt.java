@@ -7,7 +7,6 @@ import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_Head
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerviewDialog_AppointmentsTab;
 import automation.PestRoutes.PageObject.RoutePage.RoutePage;
 import automation.PestRoutes.PageObject.RoutePage.SchedulingAppointmentDialog;
-import automation.PestRoutes.PageObject.Scheduling.SchedulingTab;
 import automation.PestRoutes.PageObject.Scheduling.UnitsTab;
 import automation.PestRoutes.Utilities.AssertException;
 import automation.PestRoutes.Utilities.BaseClass;
@@ -91,7 +90,6 @@ public class ScheduleAppt extends BaseClass {
     @And("I add an appointment")
     public void addAppointment(String needUserID, String needServieType, String needTimeSlot) throws Exception {
         header.Search_A_Customer(needUserID);
-
         overviewHeader.ClickScheduleButton();
         int totalCount = Utilities.getElementCount(routes);
         String routesCount = Integer.toString(totalCount);

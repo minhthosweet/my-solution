@@ -74,6 +74,8 @@ public class SuperTrigger extends BaseClass {
         triggerAfterTime_customerStatus = new TriggerAfterTime_CustomerStatus();
         triggerAfterTime_subscriptionStatus = new TriggerAfterTime_SubscriptionStatus();
         triggerOnSave_subscriptionStatus = new TriggerOnSave_SubscriptionStatus();
+        triggerDaysBefore_reminder = new TriggerDaysBefore_Reminder();
+        triggerOnCheckIn_reminder = new TriggerOnCheckIn_Reminder();
 
         switch (description) {
             case "TriggerOnSave_AppointmentStatus":

@@ -205,9 +205,9 @@ public class Utilities {
 	
 	public static void highLight(String needElement) {
 		if (SystemUtils.IS_OS_MAC_OSX) {
-			JavascriptExecutor js = (JavascriptExecutor)driver;
-			js.executeScript("arguments[0].value = '';", needElement);
-//			FindElement.elementByAttribute(needElement, InputType.XPath).sendKeys(Keys.chord(Keys.COMMAND, "a"));
+			WebElement ele = FindElement.elementByAttribute(needElement, InputType.XPath);
+			Actions action = new Actions(driver);
+			action.doubleClick(ele).build().perform();
 		} else if (SystemUtils.IS_OS_WINDOWS) {
 			FindElement.elementByAttribute(needElement, InputType.XPath).sendKeys(Keys.CONTROL, "a");
 		}

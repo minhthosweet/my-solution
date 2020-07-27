@@ -12,7 +12,7 @@ import automation.PestRoutes.Controller.Renewal.ValidateRenewal;
 import automation.PestRoutes.PageObject.Footer;
 import automation.PestRoutes.PageObject.Header;
 import automation.PestRoutes.PageObject.Admin.AdminMainPage;
-import automation.PestRoutes.PageObject.Admin.OfficeSettings.Actions;
+import automation.PestRoutes.PageObject.Admin.OfficeSettings.Trigger_Actions;
 import automation.PestRoutes.PageObject.Admin.OfficeSettings.TriggerRules;
 import automation.PestRoutes.PageObject.Admin.OfficeSettings.TriggerTypes.ARTab;
 import automation.PestRoutes.PageObject.Admin.OfficeSettings.TriggerTypes.ReminderTab;
@@ -32,7 +32,7 @@ public class Trigger_SubscriptionDueForService extends BaseClass {
     AdminMainPage adminMainPage;
     TriggerRules triggerAdmin = new TriggerRules();
     RenewalTab renewalTab;
-    Actions actions = new Actions();
+    Trigger_Actions triggerActions = new Trigger_Actions();
     ARTab ar;
     SubscriptionStatusTab subscriptionStatus;
     SubscriptionDueForServiceTab subscriptionDueForService;
@@ -140,119 +140,119 @@ public class Trigger_SubscriptionDueForService extends BaseClass {
 
     // Create a SMS action
     public void SMSAction_SubscriptionDueForService() throws InterruptedException {
-        actions.clickAddActionButton();
-        triggerAdmin.selectDropdown(actions.actionTypeDropDown, actions.sendVoiceMessageType_Action);
+        triggerActions.clickAddActionButton();
+        triggerAdmin.selectDropdown(triggerActions.actionTypeDropDown, triggerActions.sendVoiceMessageType_Action);
         Thread.sleep(3000);
-        triggerAdmin.selectDropdown(actions.actionTypeDropDown, actions.sendSMSMessageType_Action);
-        triggerAdmin.selectDropdown(actions.ignoreContactPrefsDropDown, actions.ignoreContactPrefsTypes_Yes);
-        triggerAdmin.selectDropdown(actions.ignoreContactPrefsDropDown, actions.ignoreContactPrefsTypes_No);
-        actions.setMessageinAction_Type1(actions.sendSMSMessageType_Action, actions.getPlaceHolders());
+        triggerAdmin.selectDropdown(triggerActions.actionTypeDropDown, triggerActions.sendSMSMessageType_Action);
+        triggerAdmin.selectDropdown(triggerActions.ignoreContactPrefsDropDown, triggerActions.ignoreContactPrefsTypes_Yes);
+        triggerAdmin.selectDropdown(triggerActions.ignoreContactPrefsDropDown, triggerActions.ignoreContactPrefsTypes_No);
+        triggerActions.setMessageinAction_Type1(triggerActions.sendSMSMessageType_Action, triggerActions.getPlaceHolders());
         triggerAdmin.clickSaveButton();
     }
 
     // Create Voice Subscription Due For Service action
     public void voiceAction_SubscriptionDueForService() {
-        actions.clickAddActionButton();
-        triggerAdmin.selectDropdown(actions.actionTypeDropDown, actions.sendVoiceMessageType_Action);
-        triggerAdmin.selectDropdown(actions.ignoreContactPrefsDropDown, actions.ignoreContactPrefsTypes_No);
-        triggerAdmin.selectDropdown(actions.voiceType_Reminder, actions.preRecordedMessageVoice_Reminder);
+        triggerActions.clickAddActionButton();
+        triggerAdmin.selectDropdown(triggerActions.actionTypeDropDown, triggerActions.sendVoiceMessageType_Action);
+        triggerAdmin.selectDropdown(triggerActions.ignoreContactPrefsDropDown, triggerActions.ignoreContactPrefsTypes_No);
+        triggerAdmin.selectDropdown(triggerActions.voiceType_Reminder, triggerActions.preRecordedMessageVoice_Reminder);
         // triggerAdmin.selectDropdown(actions.preRecordedMessage_Message_Reminder,
         // "Pest Promotion");
-        triggerAdmin.selectDropdown(actions.voiceType_Reminder, actions.newMessage_Voice);
-        actions.setMessageinAction_Type1(actions.sendVoiceMessageType_Action, actions.getPlaceHolders());
+        triggerAdmin.selectDropdown(triggerActions.voiceType_Reminder, triggerActions.newMessage_Voice);
+        triggerActions.setMessageinAction_Type1(triggerActions.sendVoiceMessageType_Action, triggerActions.getPlaceHolders());
         triggerAdmin.clickSaveButton();
     }
 
     // Create Email Subscription Due For Service Action
     public void emailAction_SubscriptionDueForService() {
-        actions.clickAddActionButton();
-        triggerAdmin.selectDropdown(actions.actionTypeDropDown, actions.EmailMessageType_Action);
-        triggerAdmin.selectDropdown(actions.ignoreContactPrefsDropDown, actions.ignoreContactPrefsTypes_No);
-        actions.setEmailTitle(Utilities.generateRandomString(5));
-        actions.setMessageinAction_Type2(actions.EmailMessageType_Action, actions.getPlaceHolders());
+        triggerActions.clickAddActionButton();
+        triggerAdmin.selectDropdown(triggerActions.actionTypeDropDown, triggerActions.EmailMessageType_Action);
+        triggerAdmin.selectDropdown(triggerActions.ignoreContactPrefsDropDown, triggerActions.ignoreContactPrefsTypes_No);
+        triggerActions.setEmailTitle(Utilities.generateRandomString(5));
+        triggerActions.setMessageinAction_Type2(triggerActions.EmailMessageType_Action, triggerActions.getPlaceHolders());
         triggerAdmin.clickSaveButton();
     }
 
     // Create SnailMail Subscription Due For Service Action
     public void snailMailAction_SubscriptionDueForService() {
-        actions.clickAddActionButton();
-        triggerAdmin.selectDropdown(actions.actionTypeDropDown, actions.snailMailMessageType_Action);
-        actions.setMessageinAction_Type2(actions.snailMailMessageType_Action, actions.getPlaceHolders());
+        triggerActions.clickAddActionButton();
+        triggerAdmin.selectDropdown(triggerActions.actionTypeDropDown, triggerActions.snailMailMessageType_Action);
+        triggerActions.setMessageinAction_Type2(triggerActions.snailMailMessageType_Action, triggerActions.getPlaceHolders());
         triggerAdmin.clickSaveButton();
     }
 
     // Create Action with Webhook
     public void webhookAction_SubscriptionDueForService() {
-        actions.clickAddActionButton();
-        triggerAdmin.selectDropdown(actions.actionTypeDropDown, actions.webhookMessageType_Action);
-        triggerAdmin.selectDropdown(actions.webhook_MethodType, actions.webhookMethod_GET);
-        triggerAdmin.selectDropdown(actions.webhook_MethodType, actions.webhookMethod_POST);
-        actions.messageInWebhook(actions.URLMessage_Wehbook, actions.getPlaceHolders());
-        actions.messageInWebhook(actions.requestHeaderMessage_Webhook, actions.getPlaceHolders());
-        actions.messageInWebhook(actions.requestBodyMessage_Webhook, actions.getPlaceHolders());
+        triggerActions.clickAddActionButton();
+        triggerAdmin.selectDropdown(triggerActions.actionTypeDropDown, triggerActions.webhookMessageType_Action);
+        triggerAdmin.selectDropdown(triggerActions.webhook_MethodType, triggerActions.webhookMethod_GET);
+        triggerAdmin.selectDropdown(triggerActions.webhook_MethodType, triggerActions.webhookMethod_POST);
+        triggerActions.messageInWebhook(triggerActions.URLMessage_Wehbook, triggerActions.getPlaceHolders());
+        triggerActions.messageInWebhook(triggerActions.requestHeaderMessage_Webhook, triggerActions.getPlaceHolders());
+        triggerActions.messageInWebhook(triggerActions.requestBodyMessage_Webhook, triggerActions.getPlaceHolders());
         triggerAdmin.clickSaveButton();
     }
 
     // Create Action with Send Employee Email
     public void sendEmployeeEmail_SubscriptionDueForService() {
-        actions.clickAddActionButton();
-        triggerAdmin.selectDropdown(actions.actionTypeDropDown, actions.sendEmployeeEmail_SubscriptionStatus);
-        actions.setEmailTitle_SubscriptionStatus(Utilities.generateRandomString(5));
-        actions.setEmailAddress_SubscriptionStatus(employeeEmailValue);
-        actions.setMessageinAction_Type2(actions.sendEmployeeEmail_SubscriptionStatus, actions.getPlaceHolders());
+        triggerActions.clickAddActionButton();
+        triggerAdmin.selectDropdown(triggerActions.actionTypeDropDown, triggerActions.sendEmployeeEmail_SubscriptionStatus);
+        triggerActions.setEmailTitle_SubscriptionStatus(Utilities.generateRandomString(5));
+        triggerActions.setEmailAddress_SubscriptionStatus(employeeEmailValue);
+        triggerActions.setMessageinAction_Type2(triggerActions.sendEmployeeEmail_SubscriptionStatus, triggerActions.getPlaceHolders());
         triggerAdmin.clickSaveButton();
     }
 
     // Create Action with Add Alert
     public void addAlert_SubscriptionDueForService() {
-        actions.clickAddActionButton();
-        triggerAdmin.selectDropdown(actions.actionTypeDropDown, actions.addAlert_SubscriptionStatus);
-        actions.setMessageinAction_Type1(actions.addAlert_SubscriptionStatus, actions.getPlaceHolders());
+        triggerActions.clickAddActionButton();
+        triggerAdmin.selectDropdown(triggerActions.actionTypeDropDown, triggerActions.addAlert_SubscriptionStatus);
+        triggerActions.setMessageinAction_Type1(triggerActions.addAlert_SubscriptionStatus, triggerActions.getPlaceHolders());
         triggerAdmin.clickSaveButton();
     }
 
     // Create Action with Add Task
     public void addTask_SubscriptionDueForService() {
-        actions.clickAddActionButton();
-        triggerAdmin.selectDropdown(actions.actionTypeDropDown, actions.addTask_SubscriptionStatus);
-        actions.setDaysTillDueAddTask_SubscriptionStatus(Double.toString(Utilities.generateRandomInteger(1)));
-        actions.setMessageinAction_Type1(actions.addTask_SubscriptionStatus, actions.getPlaceHolders());
+        triggerActions.clickAddActionButton();
+        triggerAdmin.selectDropdown(triggerActions.actionTypeDropDown, triggerActions.addTask_SubscriptionStatus);
+        triggerActions.setDaysTillDueAddTask_SubscriptionStatus(Double.toString(Utilities.generateRandomInteger(1)));
+        triggerActions.setMessageinAction_Type1(triggerActions.addTask_SubscriptionStatus, triggerActions.getPlaceHolders());
         triggerAdmin.clickSaveButton();
     }
 
     // Create Action Send Employee SMS
     public void sendEmployeeSMS_SubscriptionDueForService() throws IOException {
-        actions.clickAddActionButton();
-        triggerAdmin.selectDropdown(actions.actionTypeDropDown, actions.sendEmployeeSMS_SubscriptionStatus);
-        actions.setEmployeePhoneNumber_SubscriptionStatus(actions.sendEmployeeSMS_SubscriptionStatus,
+        triggerActions.clickAddActionButton();
+        triggerAdmin.selectDropdown(triggerActions.actionTypeDropDown, triggerActions.sendEmployeeSMS_SubscriptionStatus);
+        triggerActions.setEmployeePhoneNumber_SubscriptionStatus(triggerActions.sendEmployeeSMS_SubscriptionStatus,
                 getData("phoneNumber", generalData));
-        actions.setMessageinAction_Type1(actions.sendEmployeeSMS_SubscriptionStatus, actions.getPlaceHolders());
+        triggerActions.setMessageinAction_Type1(triggerActions.sendEmployeeSMS_SubscriptionStatus, triggerActions.getPlaceHolders());
         triggerAdmin.clickSaveButton();
     }
 
     // Create Action Send Employee Voice
     public void sendEmployeeVoice_SubscriptionDueForService() throws IOException {
-        actions.clickAddActionButton();
-        triggerAdmin.selectDropdown(actions.actionTypeDropDown, actions.sendEmployeeVoice_SubscriptionStatus);
-        actions.setEmployeePhoneNumber_SubscriptionStatus(actions.sendEmployeeVoice_SubscriptionStatus,
+        triggerActions.clickAddActionButton();
+        triggerAdmin.selectDropdown(triggerActions.actionTypeDropDown, triggerActions.sendEmployeeVoice_SubscriptionStatus);
+        triggerActions.setEmployeePhoneNumber_SubscriptionStatus(triggerActions.sendEmployeeVoice_SubscriptionStatus,
                 getData("phoneNumber", generalData));
-        triggerAdmin.selectDropdown(actions.voiceType_SubscriptionStatus, actions.preRecordedMessageVoice_Reminder);
-        triggerAdmin.selectDropdown(actions.voiceType_SubscriptionStatus, actions.newMessage_Voice);
-        actions.setMessageinAction_Type1(actions.sendEmployeeVoice_SubscriptionStatus, actions.getPlaceHolders());
+        triggerAdmin.selectDropdown(triggerActions.voiceType_SubscriptionStatus, triggerActions.preRecordedMessageVoice_Reminder);
+        triggerAdmin.selectDropdown(triggerActions.voiceType_SubscriptionStatus, triggerActions.newMessage_Voice);
+        triggerActions.setMessageinAction_Type1(triggerActions.sendEmployeeVoice_SubscriptionStatus, triggerActions.getPlaceHolders());
         triggerAdmin.clickSaveButton();
     }
 
     // Create active for Remove Payment Profile Action
     public void removePaymentProfile_subscriptionForService() {
-        actions.clickAddActionButton();
+        triggerActions.clickAddActionButton();
         try {
             WebElement elm = triggerAdmin.getDescription("Remove Payment Profile");
             if (elm.isDisplayed()) {
                 triggerAdmin.clickSaveButton();
             }
         } catch (Exception e) {
-            triggerAdmin.selectDropdown(actions.actionTypeDropDown, actions.removePaymentProfile_SubscriptionStatus);
-            actions.paymentType_removePaymentProfile(actions.CCandACH);
+            triggerAdmin.selectDropdown(triggerActions.actionTypeDropDown, triggerActions.removePaymentProfile_SubscriptionStatus);
+            triggerActions.paymentType_removePaymentProfile(triggerActions.CCandACH);
             triggerAdmin.clickSaveButton();
         }
     }
@@ -262,23 +262,23 @@ public class Trigger_SubscriptionDueForService extends BaseClass {
         ar = new ARTab();
         renewalTab = new RenewalTab();
         subscriptionStatus = new SubscriptionStatusTab();
-        result(actions.sendSMSMessageType_Action, ar.getSMSActionTextValue(), "SMS Action",
+        result(triggerActions.sendSMSMessageType_Action, ar.getSMSActionTextValue(), "SMS Action",
                 "Subscription Due For Service Creation");
-        result(actions.sendVoiceMessageType_Action, ar.getVoiceActionTextValue(), "Voice Action",
+        result(triggerActions.sendVoiceMessageType_Action, ar.getVoiceActionTextValue(), "Voice Action",
                 "Subscription Due For Service Creation");
-        result(actions.EmailMessageType_Action, ar.getEmailActionTextValue(), "Email Action",
+        result(triggerActions.EmailMessageType_Action, ar.getEmailActionTextValue(), "Email Action",
                 "Subscription Due For Service Creation");
-        result(actions.snailMailMessageType_Action, ar.getSnailMailActionTextValue(), "Snail Mail Action",
+        result(triggerActions.snailMailMessageType_Action, ar.getSnailMailActionTextValue(), "Snail Mail Action",
                 "Subscription Due For Service Creation");
-        result(actions.sendEmployeeEmail_SubscriptionStatus, subscriptionStatus.getSendEmployeeEmailActionTextValue(),
+        result(triggerActions.sendEmployeeEmail_SubscriptionStatus, subscriptionStatus.getSendEmployeeEmailActionTextValue(),
                 "Send Employee Email Action", "Subscription Due For Service Creation");
-        result(actions.addAlert_SubscriptionStatus, subscriptionStatus.getAddAlertActionTextValue(), "Add Alert Action",
+        result(triggerActions.addAlert_SubscriptionStatus, subscriptionStatus.getAddAlertActionTextValue(), "Add Alert Action",
                 "Subscription Due For Service Creation");
-        result(actions.addTask_SubscriptionStatus, subscriptionStatus.getAddTaskActionTextValue(), "Add Task Action",
+        result(triggerActions.addTask_SubscriptionStatus, subscriptionStatus.getAddTaskActionTextValue(), "Add Task Action",
                 "Subscription Due For Service Creation");
-        result(actions.sendEmployeeSMS_SubscriptionStatus, subscriptionStatus.getSendEmploeeSMSActionTextValue(),
+        result(triggerActions.sendEmployeeSMS_SubscriptionStatus, subscriptionStatus.getSendEmploeeSMSActionTextValue(),
                 "Send Employee SMS Action", "Subscription Due For Service Creation");
-        result(actions.sendEmployeeVoice_SubscriptionStatus, subscriptionStatus.getSendEmployeeVoiceActionTextValue(),
+        result(triggerActions.sendEmployeeVoice_SubscriptionStatus, subscriptionStatus.getSendEmployeeVoiceActionTextValue(),
                 "Send Employee Voice Action", "Subscription Due For Service Creation");
 
     }

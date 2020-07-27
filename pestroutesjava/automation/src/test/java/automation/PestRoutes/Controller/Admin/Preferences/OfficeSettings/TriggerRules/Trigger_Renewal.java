@@ -9,7 +9,7 @@ import automation.PestRoutes.Controller.CustomerCreation.CreateNewCustomer;
 import automation.PestRoutes.Controller.Renewal.ValidateRenewal;
 import automation.PestRoutes.PageObject.Header;
 import automation.PestRoutes.PageObject.Admin.AdminMainPage;
-import automation.PestRoutes.PageObject.Admin.OfficeSettings.Actions;
+import automation.PestRoutes.PageObject.Admin.OfficeSettings.Trigger_Actions;
 import automation.PestRoutes.PageObject.Admin.OfficeSettings.TriggerRules;
 import automation.PestRoutes.PageObject.Admin.OfficeSettings.TriggerTypes.ARTab;
 import automation.PestRoutes.PageObject.Admin.OfficeSettings.TriggerTypes.ReminderTab;
@@ -30,7 +30,7 @@ public class Trigger_Renewal extends BaseClass {
 	TriggerRules triggerAdmin = new TriggerRules();
 	InventoryTab inventory;
 	RenewalTab renewalTab;
-	Actions actions;
+	Trigger_Actions triggerActions;
 	ARTab ar;
 	Service service;
 	CreateNewCustomer createCustomer;
@@ -136,7 +136,7 @@ public class Trigger_Renewal extends BaseClass {
 		adminMainPage = new AdminMainPage();
 		inventory = new InventoryTab();
 		renewalTab = new RenewalTab();
-		actions = new Actions();
+		triggerActions = new Trigger_Actions();
 		header.NavigateTo(header.adminTab);
 		adminMainPage.navigateTo(adminMainPage.preferences);
 		triggerAdmin.navigateToTriggerRules();
@@ -184,73 +184,73 @@ public class Trigger_Renewal extends BaseClass {
 
 	// Create Email Renewal Trigger Action
 	public void emailAction_Renewal() {
-		actions = new Actions();
-		actions.clickAddActionButton();
-		triggerAdmin.selectDropdown(actions.actionTypeDropDown, actions.EmailMessageType_Action);
-		triggerAdmin.selectDropdown(actions.messageTypeDropDown, actions.renewalNotice);
-		triggerAdmin.selectDropdown(actions.ignoreContactPrefsDropDown, actions.ignoreContactPrefsTypes_No);
-		actions.enterSubjectText(Utilities.generateRandomString(5));
-		triggerAdmin.selectDropdown(actions.renewalLinkDropDown, actions.renewalLinkDropdown_Include);
+		triggerActions = new Trigger_Actions();
+		triggerActions.clickAddActionButton();
+		triggerAdmin.selectDropdown(triggerActions.actionTypeDropDown, triggerActions.EmailMessageType_Action);
+		triggerAdmin.selectDropdown(triggerActions.messageTypeDropDown, triggerActions.renewalNotice);
+		triggerAdmin.selectDropdown(triggerActions.ignoreContactPrefsDropDown, triggerActions.ignoreContactPrefsTypes_No);
+		triggerActions.enterSubjectText(Utilities.generateRandomString(5));
+		triggerAdmin.selectDropdown(triggerActions.renewalLinkDropDown, triggerActions.renewalLinkDropdown_Include);
 		triggerAdmin.clickSaveButton();
 	}
 
 	// Create Action with Snail Mail
 	public void snailMailAction_Renewal() throws InterruptedException {
-		actions = new Actions();
-		actions.clickAddActionButton();
-		triggerAdmin.selectDropdown(actions.actionTypeDropDown, actions.snailMailMessageType_Action);
+		triggerActions = new Trigger_Actions();
+		triggerActions.clickAddActionButton();
+		triggerAdmin.selectDropdown(triggerActions.actionTypeDropDown, triggerActions.snailMailMessageType_Action);
 		Thread.sleep(3000);
-		triggerAdmin.selectDropdown(actions.snailMail_messageType, actions.renewalNotice);
+		triggerAdmin.selectDropdown(triggerActions.snailMail_messageType, triggerActions.renewalNotice);
 		triggerAdmin.clickSaveButton();
 	}
 
 	// Create Action with Webhook
 	public void webhookAction_Renewal() throws InterruptedException {
-		actions = new Actions();
-		actions.clickAddActionButton();
-		triggerAdmin.selectDropdown(actions.actionTypeDropDown, actions.webhookMessageType_Action);
-		triggerAdmin.selectDropdown(actions.webhook_MethodType, actions.webhookMethod_GET);
-		triggerAdmin.selectDropdown(actions.webhook_MethodType, actions.webhookMethod_POST);
-		actions.messageInWebhook(actions.URLMessage_Wehbook, actions.getPlaceHolders());
-		actions.messageInWebhook(actions.requestHeaderMessage_Webhook, actions.getPlaceHolders());
-		actions.messageInWebhook(actions.requestBodyMessage_Webhook, actions.getPlaceHolders());
+		triggerActions = new Trigger_Actions();
+		triggerActions.clickAddActionButton();
+		triggerAdmin.selectDropdown(triggerActions.actionTypeDropDown, triggerActions.webhookMessageType_Action);
+		triggerAdmin.selectDropdown(triggerActions.webhook_MethodType, triggerActions.webhookMethod_GET);
+		triggerAdmin.selectDropdown(triggerActions.webhook_MethodType, triggerActions.webhookMethod_POST);
+		triggerActions.messageInWebhook(triggerActions.URLMessage_Wehbook, triggerActions.getPlaceHolders());
+		triggerActions.messageInWebhook(triggerActions.requestHeaderMessage_Webhook, triggerActions.getPlaceHolders());
+		triggerActions.messageInWebhook(triggerActions.requestBodyMessage_Webhook, triggerActions.getPlaceHolders());
 		triggerAdmin.clickSaveButton();
 	}
 
 	// Create SMS action
 	public void SMSAction_Renewal() {
-		actions = new Actions();
-		actions.clickAddActionButton();
-		triggerAdmin.selectDropdown(actions.actionTypeDropDown, actions.sendSMSMessageType_Action);
-		triggerAdmin.selectDropdown(actions.ignoreContactPrefsDropDown, actions.ignoreContactPrefsTypes_No);
-		actions.setMessageinAction_Type1(actions.sendSMSMessageType_Action, actions.getPlaceHolders());
+		triggerActions = new Trigger_Actions();
+		triggerActions.clickAddActionButton();
+		triggerAdmin.selectDropdown(triggerActions.actionTypeDropDown, triggerActions.sendSMSMessageType_Action);
+		triggerAdmin.selectDropdown(triggerActions.ignoreContactPrefsDropDown, triggerActions.ignoreContactPrefsTypes_No);
+		triggerActions.setMessageinAction_Type1(triggerActions.sendSMSMessageType_Action, triggerActions.getPlaceHolders());
 		triggerAdmin.clickSaveButton();
 	}
 
 	// Create Voice action
 	public void voiceAction_Renewal() {
-		actions = new Actions();
-		actions.clickAddActionButton();
-		triggerAdmin.selectDropdown(actions.actionTypeDropDown, actions.sendVoiceMessageType_Action);
-		triggerAdmin.selectDropdown(actions.ignoreContactPrefsDropDown, actions.ignoreContactPrefsTypes_No);
-		triggerAdmin.selectDropdown(actions.voiceType_Reminder, actions.preRecordedMessageVoice_Reminder);
-		triggerAdmin.selectDropdown(actions.voiceType_Reminder, actions.newMessage_Voice);
-		actions.setMessageinAction_Type1(actions.sendVoiceMessageType_Action, actions.getPlaceHolders());
+		triggerActions = new Trigger_Actions();
+		triggerActions.clickAddActionButton();
+		triggerAdmin.selectDropdown(triggerActions.actionTypeDropDown, triggerActions.sendVoiceMessageType_Action);
+		triggerAdmin.selectDropdown(triggerActions.ignoreContactPrefsDropDown, triggerActions.ignoreContactPrefsTypes_No);
+		triggerAdmin.selectDropdown(triggerActions.voiceType_Reminder, triggerActions.preRecordedMessageVoice_Reminder);
+		triggerAdmin.selectDropdown(triggerActions.voiceType_Reminder, triggerActions.newMessage_Voice);
+		triggerActions.setMessageinAction_Type1(triggerActions.sendVoiceMessageType_Action, triggerActions.getPlaceHolders());
 		triggerAdmin.clickSaveButton();
 	}
 
 	// Assert all created actions
 	public void assertActions_Renewal() {
-		actions = new Actions();
+		triggerActions = new Trigger_Actions();
 		ar = new ARTab();
 		renewalTab = new RenewalTab();
-		result(actions.EmailMessageType_Action, ar.getEmailActionTextValue(), "Email Action", "Renewal Trigger Rule");
-		result(actions.snailMailMessageType_Action, ar.getSnailMailActionTextValue(), "Snail Mail Action",
+		result(triggerActions.EmailMessageType_Action, ar.getEmailActionTextValue(), "Email Action", "Renewal Trigger Rule");
+		result(triggerActions.snailMailMessageType_Action, ar.getSnailMailActionTextValue(), "Snail Mail Action",
 				"Renewal Trigger Rule");
 		// result(actions.webhookMessageType_Action,
 		// renewalTab.getWebhookActionTextValue(), "Webhook Action","Renewal Trigger Rule");
-		result(actions.sendSMSMessageType_Action, ar.getSMSActionTextValue(), "SMS Renewal", "Renewal Trigger Rule");
-		result(actions.sendVoiceMessageType_Action, ar.getVoiceActionTextValue(), "Voice Renewal",
+		result(triggerActions.sendSMSMessageType_Action, ar.getSMSActionTextValue(), "SMS Renewal", "Renewal Trigger Rule");
+		result(triggerActions.sendVoiceMessageType_Action, ar.getVoiceActionTextValue(), "Voice Renewal",
 				"Renewal Trigger Rule");
 	}
 

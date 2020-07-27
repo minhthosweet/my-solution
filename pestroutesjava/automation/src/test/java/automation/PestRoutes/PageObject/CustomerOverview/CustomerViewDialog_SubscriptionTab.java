@@ -72,7 +72,7 @@ public class CustomerViewDialog_SubscriptionTab {
 	//***Initial invoice template objects***
 	public String initialInvoice_AddTicketItemButton = "//h3[text()='Initial Invoice Template']/following-sibling::div[text()='+ Add Ticket Item']";
 	public String initialQuoteInputField = "//div[text()=  'Initial Quote']/following-sibling::input";
-	public String initialDiscountInputField = "//div[text()=  'Initial Discount']/following-sibling::input";
+	public String initialDiscountInputField = "//div[text()=  'Initial Discount']/following-sibling::input[@value]";
 	public String initialSubTotalValue = "//div[@id='initialTicket']//div[@class='ticketSummary']/div[2]";
 	public String initialTaxValue = "//div[@id='initialTicket']//div[@class='ticketSummary']/div[4]";
 	public String initialTotalValue = "//div[@id='initialTicket']//div[@class='ticketSummary']/div[6]";
@@ -264,19 +264,17 @@ public class CustomerViewDialog_SubscriptionTab {
 	}
 	
 	public void setInitialServiceDiscount(String needAmount) {
-		Utilities.waitUntileElementIsVisible(initialDiscountInputField);
-		FindElement.elementByAttribute(initialDiscountInputField, InputType.XPath).sendKeys(Keys.CONTROL,"a");
+		FindElement.elementByAttribute(initialDiscountInputField, InputType.XPath).clear();
+		Utilities.highLight(initialDiscountInputField);
 		FindElement.elementByAttribute(initialDiscountInputField, InputType.XPath).sendKeys(needAmount);
 	}
 
 	public void setServiceQuote(String needService, String needAmount) {
-		Utilities.waitUntileElementIsVisible("//h3[text()='Recurring Invoice Template']/parent::div//div[text()= '"+needService+"']/following-sibling::input");
-		FindElement.elementByAttribute("//h3[text()='Recurring Invoice Template']/parent::div//div[text()= '"+needService+"']/following-sibling::input", InputType.XPath).sendKeys(Keys.CONTROL,"a");
+		Utilities.highLight("//h3[text()='Recurring Invoice Template']/parent::div//div[text()= '"+needService+"']/following-sibling::input");
 		FindElement.elementByAttribute("//h3[text()='Recurring Invoice Template']/parent::div//div[text()= '"+needService+"']/following-sibling::input", InputType.XPath).sendKeys(needAmount);
 	}
 	public void setAdditionalItemAmount(String needItemName, String needAmount) {
-		Utilities.waitUntileElementIsVisible("//h3[text()='Recurring Invoice Template']/following-sibling::div/div[text()='"+needItemName+"']/following-sibling::div/input");
-		FindElement.elementByAttribute("//h3[text()='Recurring Invoice Template']/following-sibling::div/div[text()='"+needItemName+"']/following-sibling::div/input", InputType.XPath).sendKeys(Keys.CONTROL,"a");
+		Utilities.highLight("//h3[text()='Recurring Invoice Template']/following-sibling::div/div[text()='"+needItemName+"']/following-sibling::div/input");
 		FindElement.elementByAttribute("//h3[text()='Recurring Invoice Template']/following-sibling::div/div[text()='"+needItemName+"']/following-sibling::div/input", InputType.XPath).sendKeys(needAmount);
 	}
 

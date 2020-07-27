@@ -6,7 +6,7 @@ import java.util.List;
 import org.testng.annotations.Test;
 import automation.PestRoutes.PageObject.Header;
 import automation.PestRoutes.PageObject.Admin.AdminMainPage;
-import automation.PestRoutes.PageObject.Admin.OfficeSettings.Actions;
+import automation.PestRoutes.PageObject.Admin.OfficeSettings.Trigger_Actions;
 import automation.PestRoutes.PageObject.Admin.OfficeSettings.TriggerRules;
 import automation.PestRoutes.PageObject.Admin.OfficeSettings.TriggerTypes.ARTab;
 import automation.PestRoutes.PageObject.Admin.OfficeSettings.TriggerTypes.RenewalTab;
@@ -22,7 +22,7 @@ public class CreateTrigger_CustomerStatus extends BaseClass {
     AdminMainPage adminMainPage;
     TriggerRules triggerAdmin = new TriggerRules();
     RenewalTab renewalTab;
-    Actions actions = new Actions();
+    Trigger_Actions triggerActions = new Trigger_Actions();
     ARTab ar;
     SubscriptionStatusTab subscriptionStatus;
     private String descriptionTrigger = "trigger_customerStatus_all_actions";
@@ -97,103 +97,103 @@ public class CreateTrigger_CustomerStatus extends BaseClass {
 
     // Create a SMS action
     public void SMSAction_CustomerStatus() throws InterruptedException {
-        actions.clickAddActionButton();
-        triggerAdmin.selectDropdown(actions.actionTypeDropDown, actions.sendVoiceMessageType_Action);
+        triggerActions.clickAddActionButton();
+        triggerAdmin.selectDropdown(triggerActions.actionTypeDropDown, triggerActions.sendVoiceMessageType_Action);
         Thread.sleep(3000);
-        triggerAdmin.selectDropdown(actions.actionTypeDropDown, actions.sendSMSMessageType_Action);
-        triggerAdmin.selectDropdown(actions.ignoreContactPrefsDropDown, actions.ignoreContactPrefsTypes_Yes);
-        actions.setMessageinAction_Type1(actions.sendSMSMessageType_Action, actions.getPlaceHolders());
-        triggerAdmin.selectDropdown(actions.ignoreContactPrefsDropDown, actions.ignoreContactPrefsTypes_No);
+        triggerAdmin.selectDropdown(triggerActions.actionTypeDropDown, triggerActions.sendSMSMessageType_Action);
+        triggerAdmin.selectDropdown(triggerActions.ignoreContactPrefsDropDown, triggerActions.ignoreContactPrefsTypes_Yes);
+        triggerActions.setMessageinAction_Type1(triggerActions.sendSMSMessageType_Action, triggerActions.getPlaceHolders());
+        triggerAdmin.selectDropdown(triggerActions.ignoreContactPrefsDropDown, triggerActions.ignoreContactPrefsTypes_No);
         triggerAdmin.clickSaveButton();
     }
 
     // Create Voice Customer Status action
     public void voiceAction_CustomerStatus() {
-        actions.clickAddActionButton();
-        triggerAdmin.selectDropdown(actions.actionTypeDropDown, actions.sendVoiceMessageType_Action);
-        triggerAdmin.selectDropdown(actions.ignoreContactPrefsDropDown, actions.ignoreContactPrefsTypes_No);
-        triggerAdmin.selectDropdown(actions.voiceType_Reminder, actions.preRecordedMessageVoice_Reminder);
-        triggerAdmin.selectDropdown(actions.preRecordedMessage_Message_Reminder, "Pest Promotion");
-        triggerAdmin.selectDropdown(actions.voiceType_Reminder, actions.newMessage_Voice);
-        actions.setMessageinAction_Type1(actions.sendVoiceMessageType_Action, actions.getPlaceHolders());
+        triggerActions.clickAddActionButton();
+        triggerAdmin.selectDropdown(triggerActions.actionTypeDropDown, triggerActions.sendVoiceMessageType_Action);
+        triggerAdmin.selectDropdown(triggerActions.ignoreContactPrefsDropDown, triggerActions.ignoreContactPrefsTypes_No);
+        triggerAdmin.selectDropdown(triggerActions.voiceType_Reminder, triggerActions.preRecordedMessageVoice_Reminder);
+        triggerAdmin.selectDropdown(triggerActions.preRecordedMessage_Message_Reminder, "Pest Promotion");
+        triggerAdmin.selectDropdown(triggerActions.voiceType_Reminder, triggerActions.newMessage_Voice);
+        triggerActions.setMessageinAction_Type1(triggerActions.sendVoiceMessageType_Action, triggerActions.getPlaceHolders());
         triggerAdmin.clickSaveButton();
     }
 
     // Create Email Customer Status Action
     public void emailAction_CustomerStatus() {
-        actions.clickAddActionButton();
-        triggerAdmin.selectDropdown(actions.actionTypeDropDown, actions.EmailMessageType_Action);
-        triggerAdmin.selectDropdown(actions.ignoreContactPrefsDropDown, actions.ignoreContactPrefsTypes_No);
-        actions.setEmailTitle(Utilities.generateRandomString(5));
-        actions.setMessageinAction_Type2(actions.EmailMessageType_Action, actions.getPlaceHolders());
+        triggerActions.clickAddActionButton();
+        triggerAdmin.selectDropdown(triggerActions.actionTypeDropDown, triggerActions.EmailMessageType_Action);
+        triggerAdmin.selectDropdown(triggerActions.ignoreContactPrefsDropDown, triggerActions.ignoreContactPrefsTypes_No);
+        triggerActions.setEmailTitle(Utilities.generateRandomString(5));
+        triggerActions.setMessageinAction_Type2(triggerActions.EmailMessageType_Action, triggerActions.getPlaceHolders());
         triggerAdmin.clickSaveButton();
     }
 
     // Create SnailMail Customer Status Action
     public void snailMailAction_CustomerStatus() {
-        actions.clickAddActionButton();
-        triggerAdmin.selectDropdown(actions.actionTypeDropDown, actions.snailMailMessageType_Action);
-        actions.setMessageinAction_Type2(actions.snailMailMessageType_Action, actions.getPlaceHolders());
+        triggerActions.clickAddActionButton();
+        triggerAdmin.selectDropdown(triggerActions.actionTypeDropDown, triggerActions.snailMailMessageType_Action);
+        triggerActions.setMessageinAction_Type2(triggerActions.snailMailMessageType_Action, triggerActions.getPlaceHolders());
         triggerAdmin.clickSaveButton();
     }
 
     // Create Action with Webhook
     public void webhookAction_CustomerStatus() {
-        actions.clickAddActionButton();
-        triggerAdmin.selectDropdown(actions.actionTypeDropDown, actions.webhookMessageType_Action);
-        triggerAdmin.selectDropdown(actions.webhook_MethodType, actions.webhookMethod_GET);
-        triggerAdmin.selectDropdown(actions.webhook_MethodType, actions.webhookMethod_POST);
-        actions.messageInWebhook(actions.URLMessage_Wehbook, actions.getPlaceHolders());
-        actions.messageInWebhook(actions.requestHeaderMessage_Webhook, actions.getPlaceHolders());
-        actions.messageInWebhook(actions.requestBodyMessage_Webhook, actions.getPlaceHolders());
+        triggerActions.clickAddActionButton();
+        triggerAdmin.selectDropdown(triggerActions.actionTypeDropDown, triggerActions.webhookMessageType_Action);
+        triggerAdmin.selectDropdown(triggerActions.webhook_MethodType, triggerActions.webhookMethod_GET);
+        triggerAdmin.selectDropdown(triggerActions.webhook_MethodType, triggerActions.webhookMethod_POST);
+        triggerActions.messageInWebhook(triggerActions.URLMessage_Wehbook, triggerActions.getPlaceHolders());
+        triggerActions.messageInWebhook(triggerActions.requestHeaderMessage_Webhook, triggerActions.getPlaceHolders());
+        triggerActions.messageInWebhook(triggerActions.requestBodyMessage_Webhook, triggerActions.getPlaceHolders());
         triggerAdmin.clickSaveButton();
     }
 
     // Create Action with Send Employee Email
     public void sendEmployeeEmail_CustomerStatus() {
-        actions.clickAddActionButton();
-        triggerAdmin.selectDropdown(actions.actionTypeDropDown, actions.sendEmployeeEmail_SubscriptionStatus);
-        actions.setEmailTitle_SubscriptionStatus(Utilities.generateRandomString(5));
-        actions.setEmailAddress_SubscriptionStatus(Utilities.generateRandomString(5) + "@gmail.com");
-        actions.setMessageinAction_Type2(actions.sendEmployeeEmail_SubscriptionStatus, actions.getPlaceHolders());
+        triggerActions.clickAddActionButton();
+        triggerAdmin.selectDropdown(triggerActions.actionTypeDropDown, triggerActions.sendEmployeeEmail_SubscriptionStatus);
+        triggerActions.setEmailTitle_SubscriptionStatus(Utilities.generateRandomString(5));
+        triggerActions.setEmailAddress_SubscriptionStatus(Utilities.generateRandomString(5) + "@gmail.com");
+        triggerActions.setMessageinAction_Type2(triggerActions.sendEmployeeEmail_SubscriptionStatus, triggerActions.getPlaceHolders());
         triggerAdmin.clickSaveButton();
     }
 
     // Create Action with Add Alert
     public void addAlert_CustomerStatus() {
-        actions.clickAddActionButton();
-        triggerAdmin.selectDropdown(actions.actionTypeDropDown, actions.addAlert_SubscriptionStatus);
-        actions.setMessageinAction_Type1(actions.addAlert_SubscriptionStatus, actions.getPlaceHolders());
+        triggerActions.clickAddActionButton();
+        triggerAdmin.selectDropdown(triggerActions.actionTypeDropDown, triggerActions.addAlert_SubscriptionStatus);
+        triggerActions.setMessageinAction_Type1(triggerActions.addAlert_SubscriptionStatus, triggerActions.getPlaceHolders());
         triggerAdmin.clickSaveButton();
     }
 
     // Create Action with Add Task
     public void addTask_CustomerStatus() {
-        actions.clickAddActionButton();
-        triggerAdmin.selectDropdown(actions.actionTypeDropDown, actions.addTask_SubscriptionStatus);
-        actions.setDaysTillDueAddTask_SubscriptionStatus(Double.toString(Utilities.generateRandomInteger(1)));
-        actions.setMessageinAction_Type1(actions.addTask_SubscriptionStatus, actions.getPlaceHolders());
+        triggerActions.clickAddActionButton();
+        triggerAdmin.selectDropdown(triggerActions.actionTypeDropDown, triggerActions.addTask_SubscriptionStatus);
+        triggerActions.setDaysTillDueAddTask_SubscriptionStatus(Double.toString(Utilities.generateRandomInteger(1)));
+        triggerActions.setMessageinAction_Type1(triggerActions.addTask_SubscriptionStatus, triggerActions.getPlaceHolders());
         triggerAdmin.clickSaveButton();
     }
 
     // Create Action Send Employee SMS
     public void sendEmployeeSMS_CustomerStatus() throws IOException {
-        actions.clickAddActionButton();
-        triggerAdmin.selectDropdown(actions.actionTypeDropDown, actions.sendEmployeeSMS_SubscriptionStatus);
-        actions.setEmployeePhoneNumber_SubscriptionStatus(actions.sendEmployeeSMS_SubscriptionStatus, getData("phoneNumber", generalData));
-        actions.setMessageinAction_Type1(actions.sendEmployeeSMS_SubscriptionStatus, actions.getPlaceHolders());
+        triggerActions.clickAddActionButton();
+        triggerAdmin.selectDropdown(triggerActions.actionTypeDropDown, triggerActions.sendEmployeeSMS_SubscriptionStatus);
+        triggerActions.setEmployeePhoneNumber_SubscriptionStatus(triggerActions.sendEmployeeSMS_SubscriptionStatus, getData("phoneNumber", generalData));
+        triggerActions.setMessageinAction_Type1(triggerActions.sendEmployeeSMS_SubscriptionStatus, triggerActions.getPlaceHolders());
         triggerAdmin.clickSaveButton();
     }
 
     // Create Action Send Employee Voice
     public void sendEmployeeVoice_CustomerStatus() throws IOException {
-        actions.clickAddActionButton();
-        triggerAdmin.selectDropdown(actions.actionTypeDropDown, actions.sendEmployeeVoice_SubscriptionStatus);
-        actions.setEmployeePhoneNumber_SubscriptionStatus(actions.sendEmployeeVoice_SubscriptionStatus, getData("phoneNumber", generalData));
-        triggerAdmin.selectDropdown(actions.voiceType_SubscriptionStatus, actions.preRecordedMessageVoice_Reminder);
-        triggerAdmin.selectDropdown(actions.preRecordedMessage_Message_SubscriptionStatus, "Pest Promotion");
-        triggerAdmin.selectDropdown(actions.voiceType_SubscriptionStatus, actions.newMessage_Voice);
-        actions.setMessageinAction_Type1(actions.sendEmployeeVoice_SubscriptionStatus, actions.getPlaceHolders());
+        triggerActions.clickAddActionButton();
+        triggerAdmin.selectDropdown(triggerActions.actionTypeDropDown, triggerActions.sendEmployeeVoice_SubscriptionStatus);
+        triggerActions.setEmployeePhoneNumber_SubscriptionStatus(triggerActions.sendEmployeeVoice_SubscriptionStatus, getData("phoneNumber", generalData));
+        triggerAdmin.selectDropdown(triggerActions.voiceType_SubscriptionStatus, triggerActions.preRecordedMessageVoice_Reminder);
+        triggerAdmin.selectDropdown(triggerActions.preRecordedMessage_Message_SubscriptionStatus, "Pest Promotion");
+        triggerAdmin.selectDropdown(triggerActions.voiceType_SubscriptionStatus, triggerActions.newMessage_Voice);
+        triggerActions.setMessageinAction_Type1(triggerActions.sendEmployeeVoice_SubscriptionStatus, triggerActions.getPlaceHolders());
         triggerAdmin.clickSaveButton();
     }
 
@@ -202,25 +202,25 @@ public class CreateTrigger_CustomerStatus extends BaseClass {
         ar = new ARTab();
         renewalTab = new RenewalTab();
         subscriptionStatus = new SubscriptionStatusTab();
-        result(actions.sendSMSMessageType_Action, ar.getSMSActionTextValue(), "SMS Action",
+        result(triggerActions.sendSMSMessageType_Action, ar.getSMSActionTextValue(), "SMS Action",
                 "Appointment Status Creation");
-        result(actions.sendVoiceMessageType_Action, ar.getVoiceActionTextValue(), "Voice Action",
+        result(triggerActions.sendVoiceMessageType_Action, ar.getVoiceActionTextValue(), "Voice Action",
                 "Appointment Status Creation");
-        result(actions.EmailMessageType_Action, ar.getEmailActionTextValue(), "Email Action",
+        result(triggerActions.EmailMessageType_Action, ar.getEmailActionTextValue(), "Email Action",
                 "Appointment Status Creation");
-        result(actions.webhookMessageType_Action, renewalTab.getWebhookActionTextValue(), "Webhook Action",
+        result(triggerActions.webhookMessageType_Action, renewalTab.getWebhookActionTextValue(), "Webhook Action",
                 "Appointment Status Creation");
-        result(actions.snailMailMessageType_Action, ar.getSnailMailActionTextValue(), "Snail Mail Action",
+        result(triggerActions.snailMailMessageType_Action, ar.getSnailMailActionTextValue(), "Snail Mail Action",
                 "Appointment Status Creation");
-        result(actions.sendEmployeeEmail_SubscriptionStatus, subscriptionStatus.getSendEmployeeEmailActionTextValue(),
+        result(triggerActions.sendEmployeeEmail_SubscriptionStatus, subscriptionStatus.getSendEmployeeEmailActionTextValue(),
                 "Send Employee Email Action", "Appointment Status Creation");
-        result(actions.addAlert_SubscriptionStatus, subscriptionStatus.getAddAlertActionTextValue(), "Add Alert Action",
+        result(triggerActions.addAlert_SubscriptionStatus, subscriptionStatus.getAddAlertActionTextValue(), "Add Alert Action",
                 "Appointment Status Creation");
-        result(actions.addTask_SubscriptionStatus, subscriptionStatus.getAddTaskActionTextValue(), "Add Task Action",
+        result(triggerActions.addTask_SubscriptionStatus, subscriptionStatus.getAddTaskActionTextValue(), "Add Task Action",
                 "Appointment Status Creation");
-        result(actions.sendEmployeeSMS_SubscriptionStatus, subscriptionStatus.getSendEmploeeSMSActionTextValue(),
+        result(triggerActions.sendEmployeeSMS_SubscriptionStatus, subscriptionStatus.getSendEmploeeSMSActionTextValue(),
                 "Send Employee SMS Action", "Appointment Status Creation");
-        result(actions.sendEmployeeVoice_SubscriptionStatus, subscriptionStatus.getSendEmployeeVoiceActionTextValue(),
+        result(triggerActions.sendEmployeeVoice_SubscriptionStatus, subscriptionStatus.getSendEmployeeVoiceActionTextValue(),
                 "Send Employee Voice Action", "Appointment Status Creation");
 
     }
