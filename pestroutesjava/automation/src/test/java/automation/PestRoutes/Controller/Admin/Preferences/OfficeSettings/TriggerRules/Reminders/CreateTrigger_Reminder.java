@@ -3,6 +3,7 @@ package automation.PestRoutes.Controller.Admin.Preferences.OfficeSettings.Trigge
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import io.cucumber.java.en.When;
 import org.testng.annotations.Test;
 import automation.PestRoutes.Controller.CustomerCreation.CreateNewCustomer;
 import automation.PestRoutes.Controller.Schedules.ScheduleAppt;
@@ -204,6 +205,8 @@ public class CreateTrigger_Reminder extends BaseClass {
 		appointmentTab.clickSaveAndCompleteButton();
 	}
 
+	// trigger Queue query
+	@When("I execute the trigger Reminder script")
 	public void hitTriggerReminderQuery_daysBefore() {
 		Utilities.navigateToUrl("https://adityam.pestroutes.com/resources/scripts/triggerReminders.php");
 	}

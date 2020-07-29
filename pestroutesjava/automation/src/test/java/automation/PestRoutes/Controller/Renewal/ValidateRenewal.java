@@ -114,7 +114,7 @@ public class ValidateRenewal extends BaseClass {
         scheduleDay.clickScheduleDay();
     }
 
-    @And("I navigate to scheduling on Same Day")
+    @And("I navigate to scheduling on same Day")
     public void navigateToSchedulingSameDayTab() throws Exception {
         header = new Header();
         scheduleDay = new SchedulingTab();
@@ -123,12 +123,15 @@ public class ValidateRenewal extends BaseClass {
         scheduleDay.clickScheduleSameDay();
     }
 
-    //	@And("I add a route")
-//	public void addRoutes() {
-//		route = new RoutePage();
-//		route.clickButton(route.addRoutesButton);
-//		route.addRoutesByQuantity("1");
-//	}
+    @And("I navigate to {string} days before on scheduling tab")
+    public void navigateToSchedulingPreviousDayTab(String daysBefore) throws Exception {
+        header = new Header();
+        scheduleDay = new SchedulingTab();
+        header.NavigateTo(header.schedulingTab);
+        scheduleDay.addScheduleDateToProperties();
+        scheduleDay.clickScheduleDaysBefore(daysBefore);
+    }
+
     @And("I schedule an service appointment")
     public void scheduleAnAppointment() throws Exception {
         appt = new ScheduleAppt();
@@ -193,9 +196,19 @@ public class ValidateRenewal extends BaseClass {
         header = new Header();
         overviewHeader = new CustomerViewDialog_Header();
         appointmentTab = new CustomerviewDialog_AppointmentsTab();
-        //header.Search_A_Customer(getData("customerName", generalData));
         overviewHeader.NavigateTo(overviewHeader.appointmentsTabInDialog);
         appointmentTab.clickScheduledService(serviceType);
+        appointmentTab.clickStatusButton();
+        appointmentTab.clickSaveAndCompleteButton();
+    }
+
+    @And("I complete a subscription appointment")
+    public void completeScheduledSubscriptionService() throws Exception {
+        header = new Header();
+        overviewHeader = new CustomerViewDialog_Header();
+        appointmentTab = new CustomerviewDialog_AppointmentsTab();
+        overviewHeader.NavigateTo(overviewHeader.appointmentsTabInDialog);
+        appointmentTab.clickScheduledService(getData("quarterly", quarterlyPreferredDayData));
         appointmentTab.clickStatusButton();
         appointmentTab.clickSaveAndCompleteButton();
     }
