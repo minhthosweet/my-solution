@@ -6,7 +6,7 @@ import java.util.List;
 import automation.PestRoutes.Controller.CustomerCreation.CreateNewCustomer;
 import automation.PestRoutes.Controller.Subscriptions.AddSubscription;
 import org.testng.annotations.Test;
-import automation.PestRoutes.Controller.Admin.Preferences.OfficeSettings.TriggerRules.Trigger_SubscriptionDueForService;
+import automation.PestRoutes.Controller.Admin.Preferences.OfficeSettings.TriggerRules.SubscriptionDueForService.CreateTrigger_SubscriptionDueForService;
 import automation.PestRoutes.Controller.Admin.Preferences.OfficeSettings.TriggerRules.CustomerStatus.TriggerOnSave_CustomerStatus;
 import automation.PestRoutes.Controller.Renewal.ValidateRenewal;
 import automation.PestRoutes.PageObject.Admin.OfficeSettings.TriggerRules;
@@ -17,7 +17,7 @@ public class TriggerOnSave_AppointmentStatus extends BaseClass {
     CreateTrigger_AppointmentStatus createAppointmentStatus = new CreateTrigger_AppointmentStatus();
     TriggerRules triggerAdmin = new TriggerRules();
     ValidateRenewal validateRenewal;
-    Trigger_SubscriptionDueForService subscriptionDueForService;
+    CreateTrigger_SubscriptionDueForService subscriptionDueForService;
     TriggerOnSave_CustomerStatus customerStatus;
     AddSubscription addSubscription;
     CreateNewCustomer createNewCustomer = new CreateNewCustomer();
@@ -80,7 +80,7 @@ public class TriggerOnSave_AppointmentStatus extends BaseClass {
 
     // assert SMS Log
     public void assertSMSlog() throws IOException, Exception {
-        subscriptionDueForService = new Trigger_SubscriptionDueForService();
+        subscriptionDueForService = new CreateTrigger_SubscriptionDueForService();
         subscriptionDueForService.assertSMSLog();
     }
 

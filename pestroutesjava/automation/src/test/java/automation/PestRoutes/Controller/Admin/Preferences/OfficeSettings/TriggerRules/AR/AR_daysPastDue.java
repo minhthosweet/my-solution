@@ -1,6 +1,6 @@
 package automation.PestRoutes.Controller.Admin.Preferences.OfficeSettings.TriggerRules.AR;
 
-import automation.PestRoutes.Controller.Admin.Preferences.OfficeSettings.TriggerRules.Trigger_SubscriptionDueForService;
+import automation.PestRoutes.Controller.Admin.Preferences.OfficeSettings.TriggerRules.SubscriptionDueForService.CreateTrigger_SubscriptionDueForService;
 import automation.PestRoutes.Controller.Invoicing.InvoicingTab;
 import automation.PestRoutes.Utilities.BaseClass;
 import automation.PestRoutes.Utilities.GetDate;
@@ -12,7 +12,7 @@ public class AR_daysPastDue  extends BaseClass {
 
     CreateTrigger_AR createAR = new CreateTrigger_AR();
     InvoicingTab invoiceTab;
-    Trigger_SubscriptionDueForService subscriptionDueForService;
+    CreateTrigger_SubscriptionDueForService subscriptionDueForService;
 
     private String description_TriggerDaysPastDue = "TriggerDaysPastDue_AR";
     public String pastDue = "1";
@@ -50,7 +50,7 @@ public class AR_daysPastDue  extends BaseClass {
 
     @Then("I assert trigger event logs")
     public void assertLog() throws Exception {
-        subscriptionDueForService = new Trigger_SubscriptionDueForService();
+        subscriptionDueForService = new CreateTrigger_SubscriptionDueForService();
         subscriptionDueForService.assertSMSLog();
         subscriptionDueForService.assertEMailLog();
         subscriptionDueForService.assertVoiceLog();

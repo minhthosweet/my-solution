@@ -1,9 +1,8 @@
-package automation.PestRoutes.Controller.Admin.Preferences.OfficeSettings.TriggerRules;
+package automation.PestRoutes.Controller.Admin.Preferences.OfficeSettings.TriggerRules.SubscriptionDueForService;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.openqa.selenium.WebElement;
 import org.testng.annotations.Test;
 import automation.PestRoutes.Controller.Admin.Preferences.ServiceRelated.Service;
@@ -27,7 +26,7 @@ import automation.PestRoutes.Utilities.GetDate;
 import automation.PestRoutes.Utilities.Reporter;
 import automation.PestRoutes.Utilities.Utilities;
 
-public class Trigger_SubscriptionDueForService extends BaseClass {
+public class CreateTrigger_SubscriptionDueForService extends BaseClass {
     Header header;
     AdminMainPage adminMainPage;
     TriggerRules triggerAdmin = new TriggerRules();
@@ -58,7 +57,7 @@ public class Trigger_SubscriptionDueForService extends BaseClass {
 
     @Test
     public void createSubscriptionDueForService() throws Exception {
-        createTrigger_SubscriptionDueForService();
+        createTrigger_SubscriptionDueForService(descriptionTrigger);
         searchTrigger_subscriptionDueForService();
         SMSAction_SubscriptionDueForService();
         searchTrigger_subscriptionDueForService();
@@ -95,7 +94,7 @@ public class Trigger_SubscriptionDueForService extends BaseClass {
         validateIfFailureExist();
     }
 
-    public void createTrigger_SubscriptionDueForService() throws Exception {
+    public void createTrigger_SubscriptionDueForService(String description) throws Exception {
         header = new Header();
         adminMainPage = new AdminMainPage();
         renewalTab = new RenewalTab();
@@ -108,7 +107,7 @@ public class Trigger_SubscriptionDueForService extends BaseClass {
         triggerAdmin.clickAddTrigerButton();
         triggerAdmin.setStartDate(Utilities.currentDate("MM/dd/yyyy"));
         triggerAdmin.setEndDate(GetDate.addOneYearToDate(Utilities.currentDate("MM/dd/yyyy")));
-        triggerAdmin.setDescription(descriptionTrigger);
+        triggerAdmin.setDescription(description);
         triggerAdmin.selectDropdown(triggerAdmin.triggerTypeDropdown,
                 triggerAdmin.triggerType_SubscriptionDueforService);
         triggerAdmin.selectDropdown(triggerAdmin.globalType, triggerAdmin.global_SpecificToThisOffice);
@@ -156,8 +155,6 @@ public class Trigger_SubscriptionDueForService extends BaseClass {
         triggerAdmin.selectDropdown(triggerActions.actionTypeDropDown, triggerActions.sendVoiceMessageType_Action);
         triggerAdmin.selectDropdown(triggerActions.ignoreContactPrefsDropDown, triggerActions.ignoreContactPrefsTypes_No);
         triggerAdmin.selectDropdown(triggerActions.voiceType_Reminder, triggerActions.preRecordedMessageVoice_Reminder);
-        // triggerAdmin.selectDropdown(actions.preRecordedMessage_Message_Reminder,
-        // "Pest Promotion");
         triggerAdmin.selectDropdown(triggerActions.voiceType_Reminder, triggerActions.newMessage_Voice);
         triggerActions.setMessageinAction_Type1(triggerActions.sendVoiceMessageType_Action, triggerActions.getPlaceHolders());
         triggerAdmin.clickSaveButton();

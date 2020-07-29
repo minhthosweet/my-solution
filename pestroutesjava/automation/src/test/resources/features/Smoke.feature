@@ -48,7 +48,7 @@ Feature: Create customer with address
     Then I validate if renewal date and account status changed
     And I validate if there are errors exist in the list
 
-  @CreateStructureandChemical
+  @CreateStructureAndChemical
   Scenario: Structure and Chemical Validation
     Given I sign in to pestroutes domain
     When I create customer with first name, last name, address, email and Structure

@@ -9,7 +9,7 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.testng.annotations.Test;
-import automation.PestRoutes.Controller.Admin.Preferences.OfficeSettings.TriggerRules.Trigger_SubscriptionDueForService;
+import automation.PestRoutes.Controller.Admin.Preferences.OfficeSettings.TriggerRules.SubscriptionDueForService.CreateTrigger_SubscriptionDueForService;
 import automation.PestRoutes.Controller.Billings.Billing;
 import automation.PestRoutes.Controller.CustomerCreation.CreateNewCustomer;
 import automation.PestRoutes.PageObject.Header;
@@ -26,7 +26,7 @@ public class TriggerOnSave_CustomerStatus extends BaseClass {
     TriggerRules triggerAdmin;
     SubscriptionStatusTab subscriptionStatus;
     CreateNewCustomer newCustomer;
-    Trigger_SubscriptionDueForService subscriptionDueForService = new Trigger_SubscriptionDueForService();
+    CreateTrigger_SubscriptionDueForService subscriptionDueForService = new CreateTrigger_SubscriptionDueForService();
     CustomerViewDialog_Admin customerAdmin;
     CustomerViewDialog_Header overviewHeader;
     CreateCustomerDIalog customer;

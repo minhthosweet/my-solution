@@ -60,7 +60,7 @@ public class CreateTrigger_SubscriptionStatus extends BaseClass {
         validateIfFailureExist();
     }
 
-    public void createTrigger_SubscriptionStatus(String descriptionName) throws Exception {
+    public void createTrigger_SubscriptionStatus(String description) throws Exception {
         header = new Header();
         adminMainPage = new AdminMainPage();
         renewalTab = new RenewalTab();
@@ -72,7 +72,7 @@ public class CreateTrigger_SubscriptionStatus extends BaseClass {
         triggerAdmin.clickAddTrigerButton();
         triggerAdmin.setStartDate(Utilities.currentDate("MM/dd/yyyy"));
         triggerAdmin.setEndDate(GetDate.addOneYearToDate(Utilities.currentDate("MM/dd/yyyy")));
-        triggerAdmin.setDescription(descriptionName);
+        triggerAdmin.setDescription(description);
         triggerAdmin.selectDropdown(triggerAdmin.triggerTypeDropdown, triggerAdmin.triggerType_SubscriptionStatus);
         triggerAdmin.selectDropdown(triggerAdmin.globalType, triggerAdmin.global_SpecificToThisOffice);
         triggerAdmin.selectDropdown(triggerAdmin.activeType, triggerAdmin.activeType_Active);
@@ -90,18 +90,19 @@ public class CreateTrigger_SubscriptionStatus extends BaseClass {
 
     // Search Subscription Status Trigger
     @And("I search for the trigger {string}")
-    public void searchTrigger_subscriptionStatus(String descriptionName) {
+    public void searchTrigger_subscriptionStatus(String description) {
         header = new Header();
         adminMainPage = new AdminMainPage();
         header.NavigateTo(header.adminTab);
         adminMainPage.navigateTo(adminMainPage.preferences);
         triggerAdmin.navigateToTriggerRules();
-        triggerAdmin.searchTrigger(descriptionName);
+        triggerAdmin.searchTrigger(description);
     }
 
     //Validate created trigger
     @And("I validate the new trigger {string}")
     public void validateTrigger(String descriptionName) {
+        searchTrigger_subscriptionStatus(descriptionName);
         triggerAdmin.clickEditTrigger(descriptionName);
         result(descriptionName, triggerAdmin.getDescriptionText(descriptionName), "Search Customer",
                 "Subscription Status Creation");

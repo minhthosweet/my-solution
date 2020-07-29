@@ -8,6 +8,8 @@ import automation.PestRoutes.Controller.Admin.Preferences.OfficeSettings.Trigger
 import automation.PestRoutes.Controller.Admin.Preferences.OfficeSettings.TriggerRules.CustomerStatus.TriggerOnSave_CustomerStatus;
 import automation.PestRoutes.Controller.Admin.Preferences.OfficeSettings.TriggerRules.Reminders.TriggerDaysBefore_Reminder;
 import automation.PestRoutes.Controller.Admin.Preferences.OfficeSettings.TriggerRules.Reminders.TriggerOnCheckIn_Reminder;
+import automation.PestRoutes.Controller.Admin.Preferences.OfficeSettings.TriggerRules.SubscriptionDueForService.CreateTrigger_SubscriptionDueForService;
+import automation.PestRoutes.Controller.Admin.Preferences.OfficeSettings.TriggerRules.SubscriptionDueForService.TriggerBeforeDueDate_SubscriptionDueForService;
 import automation.PestRoutes.Controller.Admin.Preferences.OfficeSettings.TriggerRules.SubscriptionStatus.TriggerAfterTime_SubscriptionStatus;
 import automation.PestRoutes.Controller.Admin.Preferences.OfficeSettings.TriggerRules.SubscriptionStatus.TriggerOnSave_SubscriptionStatus;
 import automation.PestRoutes.PageObject.Admin.OfficeSettings.TriggerRules;
@@ -27,7 +29,7 @@ public class SuperTrigger extends BaseClass {
     CreateTrigger_AppointmentStatus AppointmentStatus_trigger = new CreateTrigger_AppointmentStatus();
     CreateTrigger_CustomerStatus CustomerStatus_trigger = new CreateTrigger_CustomerStatus();
     Trigger_Renewal Renewal_trigger = new Trigger_Renewal();
-    Trigger_SubscriptionDueForService SubscriptionDueForService_trigger = new Trigger_SubscriptionDueForService();
+    CreateTrigger_SubscriptionDueForService SubscriptionDueForService_trigger = new CreateTrigger_SubscriptionDueForService();
     CreateTrigger_SubscriptionStatus SubscriptionStatus_trigger = new CreateTrigger_SubscriptionStatus();
     TriggerRules triggerAdmin;
     TriggerOnSave_AppointmentStatus triggerOnSave_appointmentStatus;
@@ -39,6 +41,7 @@ public class SuperTrigger extends BaseClass {
     TriggerDaysBefore_Reminder triggerDaysBefore_reminder;
     TriggerAfterTime_SubscriptionStatus triggerAfterTime_subscriptionStatus;
     TriggerOnSave_SubscriptionStatus triggerOnSave_subscriptionStatus;
+    TriggerBeforeDueDate_SubscriptionDueForService triggerBeforeDueDate_subscriptionDueForService;
     TriggerRules_Cucumber triggerRules_cucumber;
 
     @Test
@@ -76,6 +79,7 @@ public class SuperTrigger extends BaseClass {
         triggerOnSave_subscriptionStatus = new TriggerOnSave_SubscriptionStatus();
         triggerDaysBefore_reminder = new TriggerDaysBefore_Reminder();
         triggerOnCheckIn_reminder = new TriggerOnCheckIn_Reminder();
+        triggerBeforeDueDate_subscriptionDueForService = new TriggerBeforeDueDate_SubscriptionDueForService();
 
         switch (description) {
             case "TriggerOnSave_AppointmentStatus":
@@ -111,6 +115,10 @@ public class SuperTrigger extends BaseClass {
             case "TriggerAfterTime_SubscriptionStatus":
                 triggerAfterTime_subscriptionStatus.createTriggerAfterTime_SubscriptionStatus(description);
                 triggerAfterTime_subscriptionStatus.triggerAfterTime_SubscriptionStatus_CreateAllActions(description);
+                break;
+            case "TriggerBeforeDueDate_SubscriptionDueForService":
+                triggerBeforeDueDate_subscriptionDueForService.createTriggerBeforeDueDate(description);
+                triggerBeforeDueDate_subscriptionDueForService.triggerBeforeDueDate_SubscriptionDueForService_CreateAllActions(description);
                 break;
             default:
                 System.out.println("Trigger Not Found");

@@ -29,7 +29,7 @@ public class TriggerOnCheckIn_Reminder extends BaseClass {
 		reminder_createAllActions();
 
 		// Create customer with Appointment
-		createCustomerPlusAppointment();
+		createCustomerWithAppointment();
 
 		// hit trigger
 		hitTriggerReminderQuery_daysBefore();
@@ -53,7 +53,7 @@ public class TriggerOnCheckIn_Reminder extends BaseClass {
 		triggerDaysBefore_Reminder.reminder_createAllActions();
 	}
 
-	public void createCustomerPlusAppointment() throws Exception {
+	public void createCustomerWithAppointment() throws Exception {
 		triggerDaysBefore_Reminder = new TriggerDaysBefore_Reminder();
 		triggerDaysBefore_Reminder.createCustomerWithAppointment();
 	}

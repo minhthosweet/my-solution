@@ -46,8 +46,9 @@ public class TriggerAfterTime_SubscriptionStatus extends BaseClass {
     public void createTriggerAfterTime_SubscriptionStatus(String description) throws Exception {
         triggerAdmin = new TriggerRules();
         subscriptionStatus = new SubscriptionStatusTab();
-        createSubscriptionStatus.createTrigger_SubscriptionStatus(description_TriggerOnSave);
-        createSubscriptionStatus.searchTrigger_subscriptionStatus(description_TriggerOnSave);
+        createSubscriptionStatus.createTrigger_SubscriptionStatus(description);
+        createSubscriptionStatus.searchTrigger_subscriptionStatus(description);
+        triggerAdmin.clickEditTrigger(description);
         triggerAdmin.selectDropdown(subscriptionStatus.whenToTrigger,
                 subscriptionStatus.whenToTrigger_triggerAfterTime);
         triggerAdmin.setDaysAfterChange(createSubscriptionStatus.days_After_Change);
