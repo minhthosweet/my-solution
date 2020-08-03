@@ -3,6 +3,7 @@ package automation.PestRoutes.Controller.Admin.Preferences.OfficeSettings.Trigge
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import automation.PestRoutes.Controller.Admin.Preferences.OfficeSettings.TriggerRules.CustomerStatus.CreateTrigger_CustomerStatus;
 import automation.PestRoutes.Controller.Admin.Preferences.OfficeSettings.TriggerRules.SubscriptionStatus.CreateTrigger_SubscriptionStatus;
 import org.openqa.selenium.WebElement;
 import org.testng.annotations.Test;
@@ -38,6 +39,7 @@ public class CreateTrigger_SubscriptionDueForService extends BaseClass {
     ReminderTab reminder;
     Footer footer;
     CreateTrigger_SubscriptionStatus createTrigger_subscriptionStatus;
+    CreateTrigger_CustomerStatus createCustomerStatus;
 
     public List list = new ArrayList<String>();
 
@@ -54,31 +56,31 @@ public class CreateTrigger_SubscriptionDueForService extends BaseClass {
     @Test
     public void createSubscriptionDueForService() throws Exception {
         createTrigger_SubscriptionDueForService(descriptionTrigger);
-        searchTrigger_subscriptionDueForService();
+        searchTrigger_subscriptionDueForService(descriptionTrigger);
         SMSAction_SubscriptionDueForService();
-        searchTrigger_subscriptionDueForService();
+        searchTrigger_subscriptionDueForService(descriptionTrigger);
         voiceAction_SubscriptionDueForService();
-        searchTrigger_subscriptionDueForService();
+        searchTrigger_subscriptionDueForService(descriptionTrigger);
         emailAction_SubscriptionDueForService();
-        searchTrigger_subscriptionDueForService();
+        searchTrigger_subscriptionDueForService(descriptionTrigger);
         snailMailAction_SubscriptionDueForService();
         /*
-         * searchTrigger_subscriptionDueForService();
+         * searchTrigger_subscriptionDueForService(descriptionTrigger);
          * webhookAction_SubscriptionDueForService();
-        */
-        searchTrigger_subscriptionDueForService();
+         */
+        searchTrigger_subscriptionDueForService(descriptionTrigger);
         sendEmployeeEmail_SubscriptionDueForService();
-        searchTrigger_subscriptionDueForService();
+        searchTrigger_subscriptionDueForService(descriptionTrigger);
         addAlert_SubscriptionDueForService();
-        searchTrigger_subscriptionDueForService();
+        searchTrigger_subscriptionDueForService(descriptionTrigger);
         addTask_SubscriptionDueForService();
-        searchTrigger_subscriptionDueForService();
+        searchTrigger_subscriptionDueForService(descriptionTrigger);
         sendEmployeeSMS_SubscriptionDueForService();
-        searchTrigger_subscriptionDueForService();
+        searchTrigger_subscriptionDueForService(descriptionTrigger);
         sendEmployeeVoice_SubscriptionDueForService();
-        searchTrigger_subscriptionDueForService();
+        searchTrigger_subscriptionDueForService(descriptionTrigger);
         removePaymentProfile_subscriptionForService();
-        searchTrigger_subscriptionDueForService();
+        searchTrigger_subscriptionDueForService(descriptionTrigger);
         assertActions_SubscriptionDueForService();
         validateIfFailureExist();
     }
@@ -115,21 +117,13 @@ public class CreateTrigger_SubscriptionDueForService extends BaseClass {
     }
 
     // Search Subscription Due For Service Trigger
-    public void searchTrigger_subscriptionDueForService() throws InterruptedException {
-        header = new Header();
-        adminMainPage = new AdminMainPage();
-        header.NavigateTo(header.adminTab);
-        adminMainPage.navigateTo(adminMainPage.preferences);
-        triggerAdmin.navigateToTriggerRules();
-        triggerAdmin.searchTrigger(descriptionTrigger);
-        result(descriptionTrigger, triggerAdmin.getDescriptionText(descriptionTrigger), "Search Customer",
-                "Subscription Due For Service Creation");
-        triggerAdmin.clickEditTrigger(descriptionTrigger);
-        triggerAdmin.clickSaveButton();
+    public void searchTrigger_subscriptionDueForService(String description) throws InterruptedException {
+        createCustomerStatus = new CreateTrigger_CustomerStatus();
+        createCustomerStatus.searchTrigger_appointmentStatus(description);
     }
 
     // Edit Trigger
-    public void editTrigger_afterDueDate_subscriptionDueForService(String description){
+    public void editTrigger_afterDueDate_subscriptionDueForService(String description) {
         subscriptionDueForService = new SubscriptionDueForServiceTab();
         triggerAdmin.clickEditTrigger(description);
         triggerAdmin.selectDropdown(subscriptionDueForService.before_afterDueDate,
