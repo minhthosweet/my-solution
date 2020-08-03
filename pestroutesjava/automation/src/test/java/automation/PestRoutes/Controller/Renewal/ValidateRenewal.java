@@ -149,7 +149,7 @@ public class ValidateRenewal extends BaseClass {
         confirmAppt.clickScheduleButton();
     }
 
-    @And("I schedule an subscription appointment")
+    @And("I schedule a subscription appointment")
     public void subscriptionAppointment() throws Exception {
         appt = new ScheduleAppt();
         route = new RoutePage();

@@ -12,7 +12,7 @@ Feature: Subscription Due For Service
     And I add a route
     And I search customer
     And I navigate to Subscription Tab
-    And I schedule an subscription appointment
+    And I schedule a subscription appointment
     And I search customer
     And I complete a subscription appointment
     And I search customer
@@ -20,7 +20,7 @@ Feature: Subscription Due For Service
     And I add a route
     And I search customer
     And I navigate to Subscription Tab
-    And I schedule an subscription appointment
+    And I schedule a subscription appointment
     Then I assert all the logs
     And I validate if there are errors exist in the list
 

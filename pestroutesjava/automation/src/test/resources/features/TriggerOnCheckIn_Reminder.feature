@@ -12,7 +12,7 @@ Feature: Reminder
     And I add a route
     And I search customer
     And I navigate to Subscription Tab
-    And I schedule an subscription appointment
+    And I schedule a subscription appointment
     #And I check in from the app
     When I execute the trigger queue script
     Then I assert all the logs
