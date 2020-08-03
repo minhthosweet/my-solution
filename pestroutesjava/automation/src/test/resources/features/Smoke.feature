@@ -58,7 +58,7 @@ Feature: Create customer with address
     And I add a route
     And I search customer
     And I navigate to Subscription Tab
-    And I schedule an subscription appointment
+    And I schedule a subscription appointment
     And I search customer
     And I add chemicals to main structure
     And I add chemicals to substructures

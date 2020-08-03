@@ -13,7 +13,7 @@ Feature: Appointment Status
     And I add a route
     And I search customer
     And I navigate to Subscription Tab
-    And I schedule an subscription appointment
+    And I schedule a subscription appointment
     When I execute the trigger queue script
     Then I assert all the logs
     And I validate if there are errors exist in the list
@@ -29,7 +29,7 @@ Feature: Appointment Status
     And I add a route
     And I search customer
     And I navigate to Subscription Tab
-    And I schedule an subscription appointment
+    And I schedule a subscription appointment
     When I execute the trigger queue script
     Then I assert all the logs
     And I validate if there are errors exist in the list
@@ -45,7 +45,7 @@ Feature: Appointment Status
     And I add a route
     And I search customer
     And I navigate to Subscription Tab
-    And I schedule an subscription appointment
+    And I schedule a subscription appointment
     And I search customer
     And I complete a subscription appointment
     When I execute the trigger queue script
@@ -63,10 +63,10 @@ Feature: Appointment Status
     And I add a route
     And I search customer
     And I navigate to Subscription Tab
-    And I schedule an subscription appointment
+    And I schedule a subscription appointment
     And I search customer
     And I reschedule an appointment
-    And I schedule an subscription appointment
+    And I schedule a subscription appointment
     When I execute the trigger queue script
     Then I assert all the logs
     And I validate if there are errors exist in the list
@@ -82,7 +82,7 @@ Feature: Appointment Status
     And I add a route
     And I search customer
     And I navigate to Subscription Tab
-    And I schedule an subscription appointment
+    And I schedule a subscription appointment
     And I search customer
     And I cancel the appointment
     When I execute the trigger queue script

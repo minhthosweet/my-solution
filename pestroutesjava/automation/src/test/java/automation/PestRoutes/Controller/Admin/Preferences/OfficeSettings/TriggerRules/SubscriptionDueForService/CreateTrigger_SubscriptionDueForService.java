@@ -3,11 +3,11 @@ package automation.PestRoutes.Controller.Admin.Preferences.OfficeSettings.Trigge
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import automation.PestRoutes.Controller.Admin.Preferences.OfficeSettings.TriggerRules.CustomerStatus.CreateTrigger_CustomerStatus;
+import automation.PestRoutes.Controller.Admin.Preferences.OfficeSettings.TriggerRules.SubscriptionStatus.CreateTrigger_SubscriptionStatus;
 import org.openqa.selenium.WebElement;
 import org.testng.annotations.Test;
-import automation.PestRoutes.Controller.Admin.Preferences.ServiceRelated.Service;
 import automation.PestRoutes.Controller.CustomerCreation.CreateNewCustomer;
-import automation.PestRoutes.Controller.Renewal.ValidateRenewal;
 import automation.PestRoutes.PageObject.Footer;
 import automation.PestRoutes.PageObject.Header;
 import automation.PestRoutes.PageObject.Admin.AdminMainPage;
@@ -19,7 +19,6 @@ import automation.PestRoutes.PageObject.Admin.OfficeSettings.TriggerTypes.Renewa
 import automation.PestRoutes.PageObject.Admin.OfficeSettings.TriggerTypes.SubscriptionDueForServiceTab;
 import automation.PestRoutes.PageObject.Admin.OfficeSettings.TriggerTypes.SubscriptionStatusTab;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_Header;
-import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_SubscriptionTab;
 import automation.PestRoutes.Utilities.AssertException;
 import automation.PestRoutes.Utilities.BaseClass;
 import automation.PestRoutes.Utilities.GetDate;
@@ -35,13 +34,12 @@ public class CreateTrigger_SubscriptionDueForService extends BaseClass {
     ARTab ar;
     SubscriptionStatusTab subscriptionStatus;
     SubscriptionDueForServiceTab subscriptionDueForService;
-    Service service;
     CreateNewCustomer createCustomer;
-    CustomerViewDialog_SubscriptionTab subscription;
-    ValidateRenewal validateRenewal;
     CustomerViewDialog_Header overviewHeader;
     ReminderTab reminder;
     Footer footer;
+    CreateTrigger_SubscriptionStatus createTrigger_subscriptionStatus;
+    CreateTrigger_CustomerStatus createCustomerStatus;
 
     public List list = new ArrayList<String>();
 
@@ -58,43 +56,37 @@ public class CreateTrigger_SubscriptionDueForService extends BaseClass {
     @Test
     public void createSubscriptionDueForService() throws Exception {
         createTrigger_SubscriptionDueForService(descriptionTrigger);
-        searchTrigger_subscriptionDueForService();
+        searchTrigger_subscriptionDueForService(descriptionTrigger);
         SMSAction_SubscriptionDueForService();
-        searchTrigger_subscriptionDueForService();
+        searchTrigger_subscriptionDueForService(descriptionTrigger);
         voiceAction_SubscriptionDueForService();
-        searchTrigger_subscriptionDueForService();
+        searchTrigger_subscriptionDueForService(descriptionTrigger);
         emailAction_SubscriptionDueForService();
-        searchTrigger_subscriptionDueForService();
+        searchTrigger_subscriptionDueForService(descriptionTrigger);
         snailMailAction_SubscriptionDueForService();
         /*
-         * searchTrigger_subscriptionDueForService();
+         * searchTrigger_subscriptionDueForService(descriptionTrigger);
          * webhookAction_SubscriptionDueForService();
          */
-        searchTrigger_subscriptionDueForService();
+        searchTrigger_subscriptionDueForService(descriptionTrigger);
         sendEmployeeEmail_SubscriptionDueForService();
-        searchTrigger_subscriptionDueForService();
+        searchTrigger_subscriptionDueForService(descriptionTrigger);
         addAlert_SubscriptionDueForService();
-        searchTrigger_subscriptionDueForService();
+        searchTrigger_subscriptionDueForService(descriptionTrigger);
         addTask_SubscriptionDueForService();
-        searchTrigger_subscriptionDueForService();
+        searchTrigger_subscriptionDueForService(descriptionTrigger);
         sendEmployeeSMS_SubscriptionDueForService();
-        searchTrigger_subscriptionDueForService();
+        searchTrigger_subscriptionDueForService(descriptionTrigger);
         sendEmployeeVoice_SubscriptionDueForService();
-        searchTrigger_subscriptionDueForService();
+        searchTrigger_subscriptionDueForService(descriptionTrigger);
         removePaymentProfile_subscriptionForService();
-        searchTrigger_subscriptionDueForService();
+        searchTrigger_subscriptionDueForService(descriptionTrigger);
         assertActions_SubscriptionDueForService();
-        createRenewalServiceType();
-        searchTrigger_subscriptionDueForService();
-        editTrigger_beforeDueDate();
-        createCustomer();
-        createSubscription_beforeDueDate();
-        hitTriggerSubscriptionDueForService_Query();
-        assertSMSLog();
         validateIfFailureExist();
     }
 
     public void createTrigger_SubscriptionDueForService(String description) throws Exception {
+        createTrigger_subscriptionStatus = new CreateTrigger_SubscriptionStatus();
         header = new Header();
         adminMainPage = new AdminMainPage();
         renewalTab = new RenewalTab();
@@ -114,27 +106,28 @@ public class CreateTrigger_SubscriptionDueForService extends BaseClass {
         triggerAdmin.selectDropdown(triggerAdmin.activeType, triggerAdmin.activeType_Active);
         triggerAdmin.selectDropdown(subscriptionDueForService.before_afterDueDate,
                 subscriptionDueForService.afterDueDate_dueDateType);
-        triggerAdmin.selectDropdown(subscriptionDueForService.before_afterDueDate,
-                subscriptionDueForService.beforeDueDate_dueDateType);
         triggerAdmin.selectDropdown(renewalTab.multiUnitDropdown, renewalTab.multiUnit_Dropdown_Include);
         triggerAdmin.selectDropdown(renewalTab.hasInitialService_Renewal, renewalTab.hasInitialService_Any_Renewal);
         subscriptionDueForService.setdays_before_afterDueDate_InputField(days_before_afterDueDate_InputField_Value);
         triggerAdmin.selectDropdown(renewalTab.propertyTypeDropdown, ar.propertyType_CommercialOnly);
         triggerAdmin.selectDropdown(renewalTab.propertyTypeDropdown, ar.propertyType_AllProperties);
+        triggerAdmin.selectDropdown(subscriptionDueForService.before_afterDueDate,
+                subscriptionDueForService.beforeDueDate_dueDateType);
         triggerAdmin.clickSaveButton();
     }
 
     // Search Subscription Due For Service Trigger
-    public void searchTrigger_subscriptionDueForService() throws InterruptedException {
-        header = new Header();
-        adminMainPage = new AdminMainPage();
-        header.NavigateTo(header.adminTab);
-        adminMainPage.navigateTo(adminMainPage.preferences);
-        triggerAdmin.navigateToTriggerRules();
-        triggerAdmin.searchTrigger(descriptionTrigger);
-        result(descriptionTrigger, triggerAdmin.getDescriptionText(descriptionTrigger), "Search Customer",
-                "Subscription Due For Service Creation");
-        triggerAdmin.clickEditTrigger(descriptionTrigger);
+    public void searchTrigger_subscriptionDueForService(String description) throws InterruptedException {
+        createCustomerStatus = new CreateTrigger_CustomerStatus();
+        createCustomerStatus.searchTrigger_appointmentStatus(description);
+    }
+
+    // Edit Trigger
+    public void editTrigger_afterDueDate_subscriptionDueForService(String description) {
+        subscriptionDueForService = new SubscriptionDueForServiceTab();
+        triggerAdmin.clickEditTrigger(description);
+        triggerAdmin.selectDropdown(subscriptionDueForService.before_afterDueDate,
+                subscriptionDueForService.afterDueDate_dueDateType);
     }
 
     // Create a SMS action
@@ -278,43 +271,6 @@ public class CreateTrigger_SubscriptionDueForService extends BaseClass {
         result(triggerActions.sendEmployeeVoice_SubscriptionStatus, subscriptionStatus.getSendEmployeeVoiceActionTextValue(),
                 "Send Employee Voice Action", "Subscription Due For Service Creation");
 
-    }
-
-    // Create service type with Renewal Service
-    public void createRenewalServiceType() throws Exception {
-        service = new Service();
-        service.workWithService();
-    }
-
-    // Create customer with Renewal Subscription
-    public void createCustomer() throws Exception {
-        header = new Header();
-        header.NavigateTo(header.schedulingTab);
-        createCustomer = new CreateNewCustomer();
-        createCustomer.createCustomerWithAddress();
-        createCustomer.validateCreatedCustomerNameAndAddress();
-
-    }
-
-    // Update Trigger Before Due date
-    public void editTrigger_beforeDueDate() {
-        subscriptionDueForService = new SubscriptionDueForServiceTab();
-        triggerAdmin.selectDropdown(triggerAdmin.activeType, triggerAdmin.activeType_Active);
-        triggerAdmin.selectDropdown(subscriptionDueForService.before_afterDueDate,
-                subscriptionDueForService.beforeDueDate_dueDateType);
-        triggerAdmin.clickSaveButton();
-    }
-
-    // Create Subscription for Due Date set to tomorrow
-    public void createSubscription_beforeDueDate() throws Exception {
-        subscription = new CustomerViewDialog_SubscriptionTab();
-        overviewHeader = new CustomerViewDialog_Header();
-        validateRenewal = new ValidateRenewal();
-        validateRenewal.renewalFieldsValidation();
-        validateRenewal.createRenewalSubscription();
-        subscription.clickSubscription(subscription.getSubscriptionID(validateRenewal.serviceType));
-        subscription.setCustomDate(GetDate.addOneDayToDate(Utilities.currentDate("MM/dd/yyyy")));
-        overviewHeader.ClickSaveButton();
     }
 
     // Hit the Script
