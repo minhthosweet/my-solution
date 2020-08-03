@@ -96,7 +96,6 @@ public class CreateCustomerDIalog {
                 Utilities.clickElement(smsCheckBox, ElementType.XPath);
             }
         } catch (Exception e) {
-            System.out.println("SMS CheckBox Selected");
         }
     }
 
@@ -104,7 +103,6 @@ public class CreateCustomerDIalog {
         try {
             WebElement elm = FindElement.elementByAttribute(emailSelectedCheckBox, InputType.XPath);
             if (elm.isDisplayed()) {
-                System.out.println("Email Checkbox selected");
             }
         } catch (Exception e) {
             Utilities.clickElement(emailCheckBox, ElementType.XPath);
@@ -115,7 +113,6 @@ public class CreateCustomerDIalog {
         try {
             WebElement elm = FindElement.elementByAttribute(voiceSelectedCheckBox, InputType.XPath);
             if (elm.isDisplayed()) {
-                System.out.println("Email Checkbox selected");
             }
         } catch (Exception e) {
             Utilities.clickElement(voiceCheckBox, ElementType.XPath);
