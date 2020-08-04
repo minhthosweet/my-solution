@@ -6,12 +6,15 @@ import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_Head
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_SubscriptionTab;
 import automation.PestRoutes.Utilities.AssertException;
 import automation.PestRoutes.Utilities.BaseClass;
+import automation.PestRoutes.Utilities.GetDate;
 import automation.PestRoutes.Utilities.Reporter;
 import automation.PestRoutes.Utilities.Utilities;
 import automation.PestRoutes.Utilities.Utilities.ElementType;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,6 +25,7 @@ public class AddSubscription extends BaseClass {
 
 	CustomerViewDialog_SubscriptionTab subscription = new CustomerViewDialog_SubscriptionTab();
 	CustomerViewDialog_Header customerDialogHeader;
+	CreateCustomerDIalog createCustomer;
 	Header header;
 	ExtentTest test;
 	List list = new ArrayList<String>();
@@ -29,6 +33,7 @@ public class AddSubscription extends BaseClass {
 	private String ticketItem = "bed";
 	private String initialQuote = "120.00";
 	private String initialDiscount = "20.00";
+	public static String newContractValue = null;
 
 	@Test(groups = "Smoke")
 	public void validateSubscription() throws Exception {
@@ -55,19 +60,24 @@ public class AddSubscription extends BaseClass {
 		subscription.clickButton(subscription.standardProductionButton);
 	}
 
-	@And("I create a subscription with Sales Rep assigned {string} and {string}")
-	public double startSubscriptionWithSalesRep(String needSalesRep, String needSubscriptionFlag) throws Exception {
+	@And("I create a subscription with sales rep name and subscription flag {string}, {string}")
+	public void startSubscriptionWithSalesRep(String needSalesmanName, String needSubscriptionFlagName) throws Exception {
 		customerDialogHeader = new CustomerViewDialog_Header();
 		header = new Header();
 		customerDialogHeader.NavigateTo(customerDialogHeader.subscriptionTabInDialog);
 		subscription.clickNewSubscriptionButton();
-		subscription.selectServiceType(getData("quarterly", quarterlyPreferredDayData));
+		subscription.selectServiceType(getData("serviceDescription", generalData));
 		subscription.setCustomDate(getData("customDate", quarterlyPreferredDayData));
-		subscription.selectSalesRep(needSalesRep);
-		subscription.selectSubscriptionFlag(needSubscriptionFlag);
+		subscription.selectSalesRep(needSalesmanName);
+		subscription.selectSubscriptionFlag(needSubscriptionFlagName);
 		customerDialogHeader.ClickSaveButton();
-		double finalContractValue = subscription.getContractValue(getData("quarterly", quarterlyPreferredDayData));
-		return finalContractValue;
+		newContractValue = getContractValue();
+	}
+
+	public String getContractValue() throws Exception {
+		double contractValue = subscription.getContractValue(getData("serviceDescription", generalData));
+		String contractValueConverted = Double.toString(contractValue);
+		return contractValueConverted;
 	}
 
 	@Then("I validate upcoming appointments per each day")

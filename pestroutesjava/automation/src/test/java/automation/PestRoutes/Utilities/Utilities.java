@@ -90,10 +90,17 @@ public class Utilities {
 	}
 
 	public static void scrollToElement(String needXpath) {
+		Utilities.waitUntileElementIsVisible(needXpath);
 		WebElement element = driver.findElement(By.xpath(needXpath));
 		Actions actions = new Actions(driver);
 		actions.moveToElement(element);
 		actions.perform();
+	}
+
+	public static void scrollToElementJS(String needXpath) throws InterruptedException {
+		WebElement element = driver.findElement(By.xpath(needXpath));
+		((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
+		Thread.sleep(300);
 	}
 
 	public static String generateRandomString(int needLength) {

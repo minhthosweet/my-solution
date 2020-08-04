@@ -2,6 +2,9 @@ package automation.PestRoutes.Controller.Admin.Users;
 
 import java.io.IOException;
 
+import automation.PestRoutes.Utilities.Utilities;
+import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
 import org.openqa.selenium.WebElement;
 
 import automation.PestRoutes.PageObject.Header;
@@ -19,14 +22,14 @@ public class AddUser extends BaseClass {
 	AddUserDialog addUserDialog;
 	CreateCustomers createCustomer;
 
-	public void createUser() throws IOException, InterruptedException {
+	@Given("I create a new user if it is not already existing {string}")
+	public void createUser(String needAccountType) throws IOException, InterruptedException {
 		header = new Header();
 		adminPage = new AdminMainPage();
 		addUserDialog = new AddUserDialog();
 		createCustomer = new CreateCustomers();
 		String userFirstName = getData("userFirstName", generalData);
 		String userLastName = getData("userLastName", generalData);
-		String accountType = getData("accountTypeField", generalData);
 
 		// Navigate to the users page
 		header.NavigateTo(header.adminTab);
@@ -40,25 +43,29 @@ public class AddUser extends BaseClass {
 			adminPage.clickButton(adminPage.userButton);
 			addUserDialog.setInputValue(addUserDialog.firstNameInputField, userFirstName);
 			addUserDialog.setInputValue(addUserDialog.lastNameInputField, userLastName);
-			addUserDialog.selectValueFromDropDow(addUserDialog.accountTypeDropDown, accountType);
-			addUserDialog.clickButton(addUserDialog.saveButton);
+			addUserDialog.selectValueFromDropDown(addUserDialog.accountTypeDropDown, needAccountType);
+			addUserDialog.clickButton(addUserDialog.activateSaveButton);
 			Thread.sleep(3000);
 		}
 				
 	}
-
-	public void deactivateUser() {
+	@Then("I deactivate the existing user")
+	public void deactivateUser() throws InterruptedException {
 		addUserDialog = new AddUserDialog();
 		adminPage = new AdminMainPage();
 
-		adminPage.clickButton(adminPage.existingUser);
-		addUserDialog.clickButton(addUserDialog.deactivateLink);
-		addUserDialog.clickButton(addUserDialog.saveButton);
-
+		header.NavigateTo(header.adminTab);
+		adminPage.navigateTo(adminPage.users);
+		try {
+			Utilities.scrollToElementJS(adminPage.preExistingUser);
+			adminPage.clickButton(adminPage.existingUser);
+			addUserDialog.clickButton(addUserDialog.deactivateLink);
+			addUserDialog.clickButton(addUserDialog.deactivateSaveButton);
+			Thread.sleep(3000);
+			Utilities.scrollToElement(addUserDialog.cancelButton);
+			addUserDialog.clickButton(addUserDialog.cancelButton);
+		} catch (Exception e) {
+			System.out.println("Unable to find existing automation user or click on the button");
+		}
 	}
-	
-	
-	
-
-
 }
