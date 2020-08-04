@@ -12,14 +12,15 @@ public class AddUserDialog {
 	public String firstNameInputField = "//input[@name= 'fname']";
 	public String lastNameInputField = "//input[@name= 'lname']";
 	public String accountTypeDropDown = "//select[@class='sis-select-gray maxW']";
-	public String saveButton = "(//span[text()='Save'])[7]";
-	public String cancelButton = "//span[text()='Cancel']";
+	public String activateSaveButton = "(//span[text()='Save'])[7]";
+	public String deactivateSaveButton = "(//span[text()='Save'])[8]";
+	public String cancelButton = "(//span[text()='Cancel'])[9]";
 	public String deactivateLink = "//span[text()='De-Activate']";
 	
 
 	
 	//Action methods
-	public void selectValueFromDropDow(String needDropDown, String needValue) {
+	public void selectValueFromDropDown(String needDropDown, String needValue) {
 		Utilities.waitUntileElementIsVisible(needDropDown);
 		Utilities.selectValueFromDropDownByValue(needDropDown, needValue);
 		
