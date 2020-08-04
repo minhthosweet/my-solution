@@ -50,7 +50,6 @@ Feature: Appointment Status
     And I schedule a subscription appointment
     And I search customer
     And I reschedule an appointment
-    And I schedule a subscription appointment
     When I execute the trigger queue script
     Then I assert all the logs
     And I validate if there are errors exist in the list

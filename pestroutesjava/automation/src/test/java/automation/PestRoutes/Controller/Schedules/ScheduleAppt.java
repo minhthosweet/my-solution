@@ -1,5 +1,6 @@
 package automation.PestRoutes.Controller.Schedules;
 
+import automation.PestRoutes.PageObject.Scheduling.SchedulingTab;
 import org.testng.annotations.Test;
 import automation.PestRoutes.PageObject.Header;
 import automation.PestRoutes.PageObject.CreateCustomer.CreateCustomerDIalog;
@@ -29,13 +30,14 @@ public class ScheduleAppt extends BaseClass {
     private String targetArea = "Back Lawn";
     public String scheduleTime = "08:30";
 
-    CustomerViewDialog_Header overviewHeader = new CustomerViewDialog_Header();
+    CustomerViewDialog_Header overviewHeader;
     CustomerviewDialog_AppointmentsTab appointmentTab = new CustomerviewDialog_AppointmentsTab();
     SchedulingAppointmentDialog confirmAppt = new SchedulingAppointmentDialog();
-    RoutePage route = new RoutePage();
+    RoutePage route;
     Header header = new Header();
-    CreateCustomerDIalog customer = new CreateCustomerDIalog();
+    CreateCustomerDIalog customer;
     UnitsTab unitsTab = new UnitsTab();
+    SchedulingTab scheduleDay;
 
 
     public List list;
@@ -69,6 +71,8 @@ public class ScheduleAppt extends BaseClass {
 
     @And("I change customer type to multi unit")
     public void changeToMultiUnit(String userID) throws IOException, Exception {
+        overviewHeader = new CustomerViewDialog_Header();
+        customer = new CreateCustomerDIalog();
         header.Search_A_Customer(userID);
         overviewHeader.NavigateTo(overviewHeader.infoTabInDialog);
         customer.clickInfo();
@@ -83,14 +87,15 @@ public class ScheduleAppt extends BaseClass {
     public void addRoute() throws Exception {
         route = new RoutePage();
         route.addGroup();
-        route.clickButton(route.addRoutesButton);
         route.addRoutesByQuantity("1");
+        //route.clickButton(route.addRoutesButton);
     }
 
     @And("I add an appointment")
     public void addAppointment(String needUserID, String needServieType, String needTimeSlot) throws Exception {
         header.Search_A_Customer(needUserID);
-        overviewHeader.ClickScheduleButton();
+        scheduleDay = new SchedulingTab();
+        scheduleDay.ClickScheduleButton();
         int totalCount = Utilities.getElementCount(routes);
         String routesCount = Integer.toString(totalCount);
         System.out.println(routesCount);
@@ -116,6 +121,7 @@ public class ScheduleAppt extends BaseClass {
 
     @And("I add chemical")
     public void addChemical(String userID) throws Exception {
+        overviewHeader = new CustomerViewDialog_Header();
         header.Search_A_Customer(userID);
         overviewHeader.NavigateTo(overviewHeader.appointmentsTabInDialog);
         appointmentTab.clickScheduledService(serviceType);

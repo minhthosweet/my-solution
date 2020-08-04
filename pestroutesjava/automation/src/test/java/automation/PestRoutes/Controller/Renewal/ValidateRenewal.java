@@ -137,8 +137,8 @@ public class ValidateRenewal extends BaseClass {
         appt = new ScheduleAppt();
         route = new RoutePage();
         confirmAppt = new SchedulingAppointmentDialog();
-        overviewHeader = new CustomerViewDialog_Header();
-        overviewHeader.ClickScheduleButton();
+        scheduleDay = new SchedulingTab();
+        scheduleDay.ClickScheduleButton();
         int totalCount = Utilities.getElementCount(appt.routes);
         String routesCount = Integer.toString(totalCount);
         System.out.println(routesCount);
@@ -154,13 +154,14 @@ public class ValidateRenewal extends BaseClass {
         appt = new ScheduleAppt();
         route = new RoutePage();
         confirmAppt = new SchedulingAppointmentDialog();
-        overviewHeader = new CustomerViewDialog_Header();
-        overviewHeader.ClickScheduleButton();
+        scheduleDay = new SchedulingTab();
+        scheduleDay.ClickScheduleButton();
         scheduleDay = new SchedulingTab();
         int totalCount = Utilities.getElementCount(appt.routes);
         String routesCount = Integer.toString(totalCount);
         System.out.println(routesCount);
         route.scheduleAppointment(routesCount, getData("timeSlot", generalData));
+        scheduleDay.selectServiceType(getData("quarterly", quarterlyPreferredDayData));
         confirmAppt.clickScheduleButton();
     }
 
@@ -170,7 +171,7 @@ public class ValidateRenewal extends BaseClass {
         appt = new ScheduleAppt();
         scheduleDay = new SchedulingTab();
         confirmAppt = new SchedulingAppointmentDialog();
-        overviewHeader = new CustomerViewDialog_Header();
+        scheduleDay = new SchedulingTab();
 
         header.NavigateTo(header.schedulingTab);
         scheduleDay.addScheduleDateToProperties();
@@ -179,8 +180,7 @@ public class ValidateRenewal extends BaseClass {
         route.clickButton(route.addRoutesButton);
         route.addRoutesByQuantity("1");
 
-        //header.Search_A_Customer(needCustomerName);
-        overviewHeader.ClickScheduleButton();
+        scheduleDay.ClickScheduleButton();
         int totalCount = Utilities.getElementCount(appt.routes);
         String routesCount = Integer.toString(totalCount);
         System.out.println(routesCount);
@@ -231,7 +231,7 @@ public class ValidateRenewal extends BaseClass {
         overviewHeader = new CustomerViewDialog_Header();
         appointmentTab = new CustomerviewDialog_AppointmentsTab();
         overviewHeader.NavigateTo(overviewHeader.appointmentsTabInDialog);
-        appointmentTab.clickScheduledService(serviceType);
+        appointmentTab.clickScheduledService(getData("quarterly", quarterlyPreferredDayData));
         appointmentTab.clickEditButton_AppointmentCard();
         appointmentTab.clickRescheduleButton();
         overviewHeader.ClickCloseButton();
@@ -241,13 +241,13 @@ public class ValidateRenewal extends BaseClass {
         route.scheduleAppointment(routesCount, getData("timeSlot", generalData));
         confirmAppt.clickRescheduleButton();
 
+
     }
 
     @Then("I validate if the renewal date has posted")
     public void validateRenewalDate() throws Exception {
         header = new Header();
         overviewHeader = new CustomerViewDialog_Header();
-        //header.Search_A_Customer(getData("userID", generalData));
         overviewHeader.NavigateTo(overviewHeader.subscriptionTabInDialog);
         String expectedRenewalDate = GetDate.addOneYearToDate(getData("scheduleDate", generalData));
         String renewalDate = subscription.getRenewalDate();
