@@ -33,6 +33,7 @@ public class AddSubscription extends BaseClass {
 	private String ticketItem = "bed";
 	private String initialQuote = "120.00";
 	private String initialDiscount = "20.00";
+	public static String newContractValue = null;
 
 	@Test(groups = "Smoke")
 	public void validateSubscription() throws Exception {
@@ -60,7 +61,7 @@ public class AddSubscription extends BaseClass {
 	}
 
 	@And("I create a subscription with sales rep name and subscription flag {string}, {string}")
-	public double startSubscriptionWithSalesRep(String needSalesmanName, String needSubscriptionFlagName) throws Exception {
+	public void startSubscriptionWithSalesRep(String needSalesmanName, String needSubscriptionFlagName) throws Exception {
 		customerDialogHeader = new CustomerViewDialog_Header();
 		header = new Header();
 		customerDialogHeader.NavigateTo(customerDialogHeader.subscriptionTabInDialog);
@@ -70,8 +71,13 @@ public class AddSubscription extends BaseClass {
 		subscription.selectSalesRep(needSalesmanName);
 		subscription.selectSubscriptionFlag(needSubscriptionFlagName);
 		customerDialogHeader.ClickSaveButton();
-		double finalContractValue = subscription.getContractValue(getData("serviceDescription", generalData));
-		return finalContractValue;
+		newContractValue = getContractValue();
+	}
+
+	public String getContractValue() throws Exception {
+		double contractValue = subscription.getContractValue(getData("serviceDescription", generalData));
+		String contractValueConverted = Double.toString(contractValue);
+		return contractValueConverted;
 	}
 
 	@Then("I validate upcoming appointments per each day")

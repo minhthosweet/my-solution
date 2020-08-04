@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import automation.PestRoutes.Utilities.Reporter;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import org.testng.Assert;
@@ -35,6 +36,9 @@ public class SalesReport extends BaseClass {
 	ScheduleAppt scheduleAppt;
 	CustomerViewDialog_OverviewTab overview;
 
+	List list = new ArrayList<String>();
+	double customerContractValue;
+
 	@Test
 	public void test() throws Exception {
 		addUser = new AddUser();
@@ -49,14 +53,13 @@ public class SalesReport extends BaseClass {
 		String subscriptionFlagName = getData("subscriptionFlagName", generalData);
 		String accountTypeField = getData("accountTypeField", generalData);
 
+
 		addUser.createUser(accountTypeField);
 		createNewCustomer.createCustomerWithAddress();
 		String customerNameInHeader = createNewCustomer.fName + " " + createNewCustomer.lName;
-		double customerContractValue = addNewSubscription.startSubscriptionWithSalesRep(salesmanName,subscriptionFlagName);
 		scheduleAppt.createScheduleWithCustomerName(customerNameInHeader);
 		runSoldSubcriptionsReport();
 		validateSubscriptionFlagColumn();
-		validateSalesReportTotals(customerContractValue);
 		addUser.deactivateUser();
 
 	}
@@ -78,29 +81,33 @@ public class SalesReport extends BaseClass {
 	}
 
 	@And("I validate subscription flag column")
-	public void validateSubscriptionFlagColumn() throws IOException {
+	public void validateSubscriptionFlagColumn() throws Exception {
 		salesReportPage = new SalesReportPage();
 		String currentSubscriptionFlagName = salesReportPage.getCurrentSubscriptionFlagName(getData("serviceDescription", generalData));
 		String expectedSubscriptionFlagName = getData("subscriptionFlagName", generalData);
 		salesReportPage.subscriptionFlagColumnPresent();
-		if (expectedSubscriptionFlagName == currentSubscriptionFlagName) {
-			Assert.assertTrue(true);
-		}
+		result(expectedSubscriptionFlagName, currentSubscriptionFlagName, "validate flags", "validate salesReport");
 	}
 
 	@Then("I validate sales report totals")
-	public void validateSalesReportTotals(double customerContractValue) throws IOException {
+	public void validateSalesReportTotals() throws Exception {
+		addNewSubscription = new AddSubscription();
 		salesReportPage = new SalesReportPage();
 		double currentReportTotalContractValue = salesReportPage.getSalesReportTotalContractValue();
+		String currentReportTotalContractValueConverted = Double.toString(currentReportTotalContractValue);
 		double expectedReportTotalContractValue = salesReportPage
 				.getSalesReportTotalSingleContractValue(getData("serviceDescription", generalData));
-		if (customerContractValue == currentReportTotalContractValue) {
-			if (expectedReportTotalContractValue == currentReportTotalContractValue) {
-				Assert.assertTrue(true);
-			}
+		String expectedReportTotalContractValueConverted = Double.toString(expectedReportTotalContractValue);
+		result(addNewSubscription.newContractValue, currentReportTotalContractValueConverted, "validate contractValue", "validate salesReport" );
+		result(expectedReportTotalContractValueConverted, currentReportTotalContractValueConverted, "validate totalContractValue", "validate salesReport" );
+	}
 
+	@SuppressWarnings("unchecked")
+	private void result(String expected, String actual, String stepName, String testName) {
+		if (AssertException.result(expected, actual, stepName).size() > 0) {
+			list.add(AssertException.result(expected, actual, stepName));
 		}
-
+		Reporter.status(stepName, expected, actual, testName);
 	}
 
 }

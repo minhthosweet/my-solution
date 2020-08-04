@@ -61,13 +61,11 @@ public class AddUser extends BaseClass {
 			adminPage.clickButton(adminPage.existingUser);
 			addUserDialog.clickButton(addUserDialog.deactivateLink);
 			addUserDialog.clickButton(addUserDialog.deactivateSaveButton);
+			Thread.sleep(3000);
+			Utilities.scrollToElement(addUserDialog.cancelButton);
 			addUserDialog.clickButton(addUserDialog.cancelButton);
 		} catch (Exception e) {
+			System.out.println("Unable to find existing automation user or click on the button");
 		}
 	}
-	
-	
-	
-
-
 }

@@ -43,6 +43,7 @@ public class CustomerViewDialog_Header {
 		Thread.sleep(2000);
 	}
 
+
 	public void ClickTranferButton() {
 		Utilities.clickElement(tranferButtonInDialog, ElementType.XPath);
 	}

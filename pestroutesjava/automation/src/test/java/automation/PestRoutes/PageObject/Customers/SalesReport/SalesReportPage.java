@@ -17,7 +17,7 @@ public class SalesReportPage extends BaseClass{
 	String filterBySalesman2 = "//select[@name='soldSalesmen2']";
 	String refreshButton = "//div[@onmouseup='loadSoldCustomers();']";
 	String exportButton = "//div[text()='Export to Excel']";
-	String salesReportTotalContractValue = "//div[@class='salesReportTotalsContainer']/preceding-sibling::h3[1]";
+	String salesReportTotalContractValue = "//div[contains(text(),'Total Contract Value')]/preceding-sibling::h3";
 
 	
 

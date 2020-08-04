@@ -32,6 +32,15 @@ public class Reporter {
 		}
 		
 	}
+
+	public static void doubleStatus(String testStep, double expectedResult, double actualResult, String testName) {
+		if(actualResult == expectedResult) {
+			getInstance(testName).log(Status.PASS, "Validate "+testStep+ "=> Actual result  => "+ actualResult+ " matched with expected result  => " +expectedResult);
+		} else {
+			getInstance(testName).log(Status.FAIL, "Validate "+testStep+ "=> Actual result  => "+ actualResult+ " did not match with expected result  => " +expectedResult);
+		}
+
+	}
 	
 	public static void conditionStatus(WebElement needElement, String testStep, String testName) {
 		if(needElement.isDisplayed()) {
