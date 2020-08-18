@@ -2,13 +2,12 @@ package automation.PestRoutes.Controller.Admin.Preferences.OfficeSettings.Trigge
 
 import automation.PestRoutes.Controller.Admin.Preferences.OfficeSettings.TriggerRules.AR.AR_Age;
 import automation.PestRoutes.Controller.Admin.Preferences.OfficeSettings.TriggerRules.AR.AR_daysPastDue;
-import automation.PestRoutes.Controller.Admin.Preferences.OfficeSettings.TriggerRules.AR.CreateTrigger_AR;
 import automation.PestRoutes.Controller.Admin.Preferences.OfficeSettings.TriggerRules.AppointmentStatus.TriggerOnSave_AppointmentStatus;
 import automation.PestRoutes.Controller.Admin.Preferences.OfficeSettings.TriggerRules.CustomerStatus.TriggerAfterTime_CustomerStatus;
 import automation.PestRoutes.Controller.Admin.Preferences.OfficeSettings.TriggerRules.CustomerStatus.TriggerOnSave_CustomerStatus;
 import automation.PestRoutes.Controller.Admin.Preferences.OfficeSettings.TriggerRules.Reminders.TriggerDaysBefore_Reminder;
 import automation.PestRoutes.Controller.Admin.Preferences.OfficeSettings.TriggerRules.Reminders.TriggerOnCheckIn_Reminder;
-import automation.PestRoutes.Controller.Admin.Preferences.OfficeSettings.TriggerRules.SubscriptionDueForService.CreateTrigger_SubscriptionDueForService;
+import automation.PestRoutes.Controller.Admin.Preferences.OfficeSettings.TriggerRules.Renewal.CreateTrigger_Renewal;
 import automation.PestRoutes.Controller.Admin.Preferences.OfficeSettings.TriggerRules.SubscriptionDueForService.TriggerAfterDueDate_SubscriptionDueForService;
 import automation.PestRoutes.Controller.Admin.Preferences.OfficeSettings.TriggerRules.SubscriptionDueForService.TriggerBeforeDueDate_SubscriptionDueForService;
 import automation.PestRoutes.Controller.Admin.Preferences.OfficeSettings.TriggerRules.SubscriptionStatus.TriggerAfterTime_SubscriptionStatus;
@@ -18,20 +17,12 @@ import automation.PestRoutes.PageObject.Admin.OfficeSettings.TriggerRules_Cucumb
 import io.cucumber.java.en.Given;
 import org.openqa.selenium.WebElement;
 import org.testng.annotations.Test;
-import automation.PestRoutes.Controller.Admin.Preferences.OfficeSettings.TriggerRules.AppointmentStatus.CreateTrigger_AppointmentStatus;
-import automation.PestRoutes.Controller.Admin.Preferences.OfficeSettings.TriggerRules.CustomerStatus.CreateTrigger_CustomerStatus;
-import automation.PestRoutes.Controller.Admin.Preferences.OfficeSettings.TriggerRules.Reminders.CreateTrigger_Reminder;
 import automation.PestRoutes.Controller.Admin.Preferences.OfficeSettings.TriggerRules.SubscriptionStatus.CreateTrigger_SubscriptionStatus;
 import automation.PestRoutes.Utilities.BaseClass;
 
 public class SuperTrigger extends BaseClass {
-    CreateTrigger_Reminder Reminder_trigger = new CreateTrigger_Reminder();
-    CreateTrigger_AR AR_trigger = new CreateTrigger_AR();
-    CreateTrigger_AppointmentStatus AppointmentStatus_trigger = new CreateTrigger_AppointmentStatus();
-    CreateTrigger_CustomerStatus CustomerStatus_trigger = new CreateTrigger_CustomerStatus();
-    Trigger_Renewal Renewal_trigger = new Trigger_Renewal();
-    CreateTrigger_SubscriptionDueForService SubscriptionDueForService_trigger = new CreateTrigger_SubscriptionDueForService();
     CreateTrigger_SubscriptionStatus SubscriptionStatus_trigger = new CreateTrigger_SubscriptionStatus();
+    CreateTrigger_Renewal createTrigger_renewal;
     TriggerRules triggerAdmin;
     TriggerOnSave_AppointmentStatus triggerOnSave_appointmentStatus;
     AR_daysPastDue ar_daysPastDue;
@@ -47,17 +38,6 @@ public class SuperTrigger extends BaseClass {
     TriggerRules_Cucumber triggerRules_cucumber;
 
     @Test
-    public void createTrigger() throws Exception {
-        Reminder_trigger.createReminderRule();
-        AR_trigger.createRenewalRule();
-        AppointmentStatus_trigger.createAppointmentStatusRule();
-        CustomerStatus_trigger.createCustomerStatusRule();
-        Renewal_trigger.createRenewalRule();
-        SubscriptionDueForService_trigger.createSubscriptionDueForService();
-        SubscriptionStatus_trigger.createSubscriptionStatusRule();
-
-    }
-
     @Given("I add a trigger {string}")
     public void workWithTrigger(String descriptionName) throws Exception {
         triggerRules_cucumber = new TriggerRules_Cucumber();
@@ -83,6 +63,7 @@ public class SuperTrigger extends BaseClass {
         triggerOnCheckIn_reminder = new TriggerOnCheckIn_Reminder();
         triggerBeforeDueDate_subscriptionDueForService = new TriggerBeforeDueDate_SubscriptionDueForService();
         triggerAfterDueDate_subscriptionDueForService = new TriggerAfterDueDate_SubscriptionDueForService();
+        createTrigger_renewal = new CreateTrigger_Renewal();
 
         switch (description) {
             case "TriggerOnSave_AppointmentStatus":
@@ -126,6 +107,38 @@ public class SuperTrigger extends BaseClass {
             case "TriggerAfterDueDate_SubscriptionDueForService":
                 triggerAfterDueDate_subscriptionDueForService.createTriggerAfterDueDate(description);
                 triggerBeforeDueDate_subscriptionDueForService.triggerBeforeDueDate_SubscriptionDueForService_CreateAllActions(description);
+                break;
+            case "TriggerBeforeExpirationDate_Renewal":
+                createTrigger_renewal.createTrigger_Renewal(description);
+                createTrigger_renewal.createAllActions_Renewals(description);
+                break;
+            case "TriggerAfterExpirationDate_Renewal":
+                createTrigger_renewal.createTrigger_Renewal(description);
+                createTrigger_renewal.createAllActions_Renewals(description);
+                break;
+            case "TriggerBeforeNextBillingDate_Renewal":
+                createTrigger_renewal.createTrigger_Renewal(description);
+                createTrigger_renewal.createAllActions_Renewals(description);
+                break;
+            case "TriggerAfterNextBillingDate_Renewal":
+                createTrigger_renewal.createTrigger_Renewal(description);
+                createTrigger_renewal.createAllActions_Renewals(description);
+                break;
+            case "TriggerBeforeDueDate_Renewal":
+                createTrigger_renewal.createTrigger_Renewal(description);
+                createTrigger_renewal.createAllActions_Renewals(description);
+                break;
+            case "TriggerAfterDueDate_Renewal":
+                createTrigger_renewal.createTrigger_Renewal(description);
+                createTrigger_renewal.createAllActions_Renewals(description);
+                break;
+            case "TriggerBeforeRenewalDate_Renewal":
+                createTrigger_renewal.createTrigger_Renewal(description);
+                createTrigger_renewal.createAllActions_Renewals(description);
+                break;
+            case "TriggerAfterRenewalDate_Renewal":
+                createTrigger_renewal.createTrigger_Renewal(description);
+                createTrigger_renewal.createAllActions_Renewals(description);
                 break;
             default:
                 System.out.println("Trigger Not Found");

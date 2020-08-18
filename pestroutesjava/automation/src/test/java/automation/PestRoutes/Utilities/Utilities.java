@@ -103,6 +103,13 @@ public class Utilities {
 		Thread.sleep(300);
 	}
 
+	public static void scrollToBottomElementJS(String needXpath) throws InterruptedException {
+		WebElement element = driver.findElement(By.xpath(needXpath));
+		((JavascriptExecutor) driver).executeScript("window.scrollTo(0, document.body.scrollHeight)");
+		//((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
+		Thread.sleep(300);
+	}
+
 	public static String generateRandomString(int needLength) {
 		return RandomStringUtils.random(needLength, true, true);
 	}

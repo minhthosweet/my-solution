@@ -1,8 +1,12 @@
-package automation.PestRoutes.Controller.Admin.Preferences.OfficeSettings.TriggerRules;
+package automation.PestRoutes.Controller.Admin.Preferences.OfficeSettings.TriggerRules.Renewal;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import io.cucumber.java.en.And;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 import org.testng.annotations.Test;
 import automation.PestRoutes.Controller.Admin.Preferences.ServiceRelated.Service;
 import automation.PestRoutes.Controller.CustomerCreation.CreateNewCustomer;
@@ -23,7 +27,7 @@ import automation.PestRoutes.Utilities.GetDate;
 import automation.PestRoutes.Utilities.Reporter;
 import automation.PestRoutes.Utilities.Utilities;
 
-public class Trigger_Renewal extends BaseClass {
+public class CreateTrigger_Renewal extends BaseClass {
 
 	Header header;
 	AdminMainPage adminMainPage;
@@ -40,7 +44,6 @@ public class Trigger_Renewal extends BaseClass {
 	CustomerViewDialog_SubscriptionTab subscription;
 
 	private String descriptionTrigger = "trigger_renewal_all_actions";
-	private String setStartDate_negativeScenario = "01/01/2020";
 	private String accountStatus_Dropdown = "Any";
 	private String prefersPaper_Dropdown = "All";
 	private String daysBeforeAfter_Dropdown = "1";
@@ -53,85 +56,16 @@ public class Trigger_Renewal extends BaseClass {
 
 	@Test
 	public void createRenewalRule() throws Exception {
-		createTrigger_Renewal();
-		searchTrigger_Renewal();
-		emailAction_Renewal();
-		searchTrigger_Renewal();
-		snailMailAction_Renewal();
-		
-		 // Webhooks are not available to all offices searchTrigger_Renewal();
-		 // webhookAction_Renewal();
-		 
-		searchTrigger_Renewal();
-		SMSAction_Renewal();
-		searchTrigger_Renewal();
-		voiceAction_Renewal();
-		searchTrigger_Renewal();
-		assertActions_Renewal();
-		createRenewalServiceType();
-		
-		searchTrigger_Renewal();
-		editTrigger_beforeExpirationDate();
-		createCustomer();
-		createSubscription_beforeExpirationDate();
-		hitTriggerRenewalQuery();
-		assertLog();
-		
-		searchTrigger_Renewal();
-		editTrigger_afterExpirationDate();
-		createCustomer();
-		createSubscription_afterExpirationDate();
-		hitTriggerRenewalQuery();
-		assertLog();
-		
-		searchTrigger_Renewal();
-		editTrigger_beforeNextBillingDate();
-		createCustomer();
-		createSubscription_beforeNextBillingDate();
-		hitTriggerRenewalQuery();
-		assertLog();
-		
-		searchTrigger_Renewal();
-		editTrigger_beforeNextBillingDate();
-		createCustomer();
-		createSubscription_beforeNextBillingDate();
-		hitTriggerRenewalQuery();
-		assertLog();
-		
-		searchTrigger_Renewal();
-		editTrigger_beforeDueDate();
-		createCustomer();
-		createSubscription_beforeDueDate();
-		hitTriggerRenewalQuery();
-		assertLog();
-		
-		searchTrigger_Renewal();
-		editTrigger_afterDueDate();
-		createCustomer();
-		createSubscription_afterDueDate();
-		hitTriggerRenewalQuery();
-		assertLog();
-		
-		searchTrigger_Renewal();
-		editTrigger_beforeRenewalDate();
-		createCustomer();
-		createSubscription_beforeRenewalDate();
-		hitTriggerRenewalQuery();
-		assertLog();
-		
-		searchTrigger_Renewal();
-		editTrigger_afterRenewalDate();
-		createCustomer();
-		createSubscription_afterRenewalDate();
-		hitTriggerRenewalQuery();
-		assertLog();
-		
+		createTrigger_Renewal(descriptionTrigger);
+		createAllActions_Renewals(descriptionTrigger);
+		assertActions_Renewal(descriptionTrigger);
+
 		validateIfFailureExist();
 
 	}
 
 	// Create Renewal Trigger
-	public void createTrigger_Renewal() throws Exception {
+	public void createTrigger_Renewal(String descriptionName) throws Exception {
 		header = new Header();
 		adminMainPage = new AdminMainPage();
 		inventory = new InventoryTab();
@@ -141,22 +75,12 @@ public class Trigger_Renewal extends BaseClass {
 		adminMainPage.navigateTo(adminMainPage.preferences);
 		triggerAdmin.navigateToTriggerRules();
 		triggerAdmin.clickAddTrigerButton();
+		triggerAdmin.setStartDate(GetDate.minusOneWeekToDate(Utilities.currentDate("MM/dd/yyyy")));
+		triggerAdmin.setEndDate(GetDate.addOneYearToDate(Utilities.currentDate("MM/dd/yyyy")));
 		triggerAdmin.selectDropdown(triggerAdmin.globalType, triggerAdmin.global_SpecificToThisOffice);
 		triggerAdmin.selectDropdown(triggerAdmin.activeType, triggerAdmin.activeType_Active);
-		triggerAdmin.setDescription(descriptionTrigger);
-		// Negative Scenario
-		triggerAdmin.setStartDate(setStartDate_negativeScenario);
+		triggerAdmin.setDescription(descriptionName);
 		triggerAdmin.selectDropdown(triggerAdmin.triggerTypeDropdown, triggerAdmin.triggerType_Renewal);
-		triggerAdmin.setEndDate(Utilities.currentDate("MM/dd/yyyy"));
-		triggerAdmin.clickSaveButton();
-		System.out.println(inventory.removeAlertText());
-		inventory.removeAlertAccept();
-		triggerAdmin.setStartDate(GetDate.minusOneWeekToDate(Utilities.currentDate("MM/dd/yyyy")));
-		triggerAdmin.clickSaveButton();
-		System.out.println(inventory.removeAlertText());
-		inventory.removeAlertAccept();
-		// Positive Scenario
-		triggerAdmin.setEndDate(GetDate.addOneYearToDate(Utilities.currentDate("MM/dd/yyyy")));
 		triggerAdmin.selectDropdown(renewalTab.before_AfterDropdown, renewalTab.beforeAfter_beforeExpirationDate);
 		triggerAdmin.selectDropdown(renewalTab.accountStatusDropdown, accountStatus_Dropdown);
 		triggerAdmin.selectDropdown(renewalTab.multiUnitDropdown, renewalTab.multiUnit_Dropdown_Include);
@@ -170,16 +94,32 @@ public class Trigger_Renewal extends BaseClass {
 	}
 
 	// Search Renewal Trigger
-	public void searchTrigger_Renewal() {
+	public void searchTrigger_Renewal(String descriptionName) {
 		header = new Header();
 		adminMainPage = new AdminMainPage();
 		header.NavigateTo(header.adminTab);
 		adminMainPage.navigateTo(adminMainPage.preferences);
 		triggerAdmin.navigateToTriggerRules();
-		triggerAdmin.searchTrigger(descriptionTrigger);
-		result(descriptionTrigger, triggerAdmin.getDescriptionText(descriptionTrigger), "Renewal Trigger Rule",
+		triggerAdmin.searchTrigger(descriptionName);
+		result(descriptionName, triggerAdmin.getDescriptionText(descriptionName), "Renewal Trigger Rule",
 				"Renewal creation");
-		triggerAdmin.clickEditTrigger(descriptionTrigger);
+		triggerAdmin.clickEditTrigger(descriptionName);
+	}
+
+	// Create all actions
+	public void createAllActions_Renewals(String descriptionName) throws InterruptedException {
+		searchTrigger_Renewal(descriptionName);
+		emailAction_Renewal();
+		searchTrigger_Renewal(descriptionName);
+		snailMailAction_Renewal();
+
+		// Webhooks are not available to all offices searchTrigger_Renewal();
+		// webhookAction_Renewal();
+
+		searchTrigger_Renewal(descriptionName);
+		SMSAction_Renewal();
+		searchTrigger_Renewal(descriptionName);
+		voiceAction_Renewal();
 	}
 
 	// Create Email Renewal Trigger Action
@@ -240,7 +180,9 @@ public class Trigger_Renewal extends BaseClass {
 	}
 
 	// Assert all created actions
-	public void assertActions_Renewal() {
+	@And("I validate Renewal actions {string}")
+	public void assertActions_Renewal(String descriptionName) {
+		searchTrigger_Renewal(descriptionName);
 		triggerActions = new Trigger_Actions();
 		ar = new ARTab();
 		renewalTab = new RenewalTab();
@@ -254,12 +196,6 @@ public class Trigger_Renewal extends BaseClass {
 				"Renewal Trigger Rule");
 	}
 
-	// Create service type with Renewal Service
-	public void createRenewalServiceType() throws Exception {
-		service = new Service();
-		service.workWithService();
-	}
-
 	// Create customer with Renewal Subscription
 	public void createCustomer() throws Exception {
 		header = new Header();
@@ -271,6 +207,7 @@ public class Trigger_Renewal extends BaseClass {
 	}
 
 	// Create Subscription for Expiration Date set to tomorrow
+	@When("I create a subscription before expiration date")
 	public void createSubscription_beforeExpirationDate() throws Exception {
 		subscription = new CustomerViewDialog_SubscriptionTab();
 		validateRenewal = new ValidateRenewal();
@@ -282,19 +219,23 @@ public class Trigger_Renewal extends BaseClass {
 	}
 
 	// Update Renewal Trigger beforeExpirationDate
-	public void editTrigger_beforeExpirationDate() {
+	@And("I edit the trigger {string} to type {string}")
+	public void editTrigger_Renewal(String descriptionName, String renewalType) {
+		searchTrigger_Renewal(descriptionName);
 		renewalTab = new RenewalTab();
 		triggerAdmin.selectDropdown(triggerAdmin.activeType, triggerAdmin.activeType_Active);
-		triggerAdmin.selectDropdown(renewalTab.before_AfterDropdown, renewalTab.beforeAfter_beforeExpirationDate);
+		triggerAdmin.selectDropdown(renewalTab.before_AfterDropdown, renewalType);
 		triggerAdmin.clickSaveButton();
 	}
 
 	// Hit the Script
+	@Then("I run the trigger renewal script")
 	public void hitTriggerRenewalQuery() {
 		Utilities.navigateToUrl("https://adityam.pestroutes.com/resources/scripts/triggerRenewal.php");
 	}
 
 	// Navigate to customer and validate the log
+	@Then("I assert the renewal trigger rules log")
 	public void assertLog() throws IOException, Exception {
 		Utilities.navigateToUrl("https://adityam.pestroutes.com/");
 		header = new Header();
@@ -308,15 +249,8 @@ public class Trigger_Renewal extends BaseClass {
 				"Renewal Trigger Rule");
 	}
 
-	// Update Renewal Trigger after ExpirationDate
-	public void editTrigger_afterExpirationDate() {
-		renewalTab = new RenewalTab();
-		triggerAdmin.selectDropdown(triggerAdmin.activeType, triggerAdmin.activeType_Active);
-		triggerAdmin.selectDropdown(renewalTab.before_AfterDropdown, renewalTab.beforeAfter_afterExpirationDate);
-		triggerAdmin.clickSaveButton();
-	}
-
 	// Create Subscription for Expiration Date set to tomorrow
+	@When("I create a subscription after expiration date")
 	public void createSubscription_afterExpirationDate() throws Exception {
 		subscription = new CustomerViewDialog_SubscriptionTab();
 		overviewHeader = new CustomerViewDialog_Header();
@@ -327,15 +261,8 @@ public class Trigger_Renewal extends BaseClass {
 		overviewHeader.ClickSaveButton();
 	}
 
-	// Update Renewal Trigger after before next Billing Date
-	public void editTrigger_beforeNextBillingDate() {
-		renewalTab = new RenewalTab();
-		triggerAdmin.selectDropdown(triggerAdmin.activeType, triggerAdmin.activeType_Active);
-		triggerAdmin.selectDropdown(renewalTab.before_AfterDropdown, renewalTab.beforeAfter_beforeNextBillingDate);
-		triggerAdmin.clickSaveButton();
-	}
-
 	// Create Subscription for Billing date set to tomorrow
+	@When("I create a subscription before next billing date")
 	public void createSubscription_beforeNextBillingDate() throws Exception {
 		subscription = new CustomerViewDialog_SubscriptionTab();
 		overviewHeader = new CustomerViewDialog_Header();
@@ -349,15 +276,8 @@ public class Trigger_Renewal extends BaseClass {
 		overviewHeader.ClickSaveButton();
 	}
 
-	// Update Renewal Trigger after next Billing Date
-	public void editTrigger_afterNextBillingDate() {
-		renewalTab = new RenewalTab();
-		triggerAdmin.selectDropdown(triggerAdmin.activeType, triggerAdmin.activeType_Active);
-		triggerAdmin.selectDropdown(renewalTab.before_AfterDropdown, renewalTab.beforeAfter_afterNextBillingDate);
-		triggerAdmin.clickSaveButton();
-	}
-
 	// Create Subscription for Billing date set to yesterday
+	@When("I create a subscription after next billing date")
 	public void createSubscription_afterNextBillingDate() throws Exception {
 		subscription = new CustomerViewDialog_SubscriptionTab();
 		overviewHeader = new CustomerViewDialog_Header();
@@ -370,16 +290,9 @@ public class Trigger_Renewal extends BaseClass {
 		subscription.setInitialBillingDate(GetDate.minusOneDayToDate(Utilities.currentDate("MM/dd/yyyy")));
 		overviewHeader.ClickSaveButton();
 	}
-	
-	// Update Renewal Trigger Before Due date
-	public void editTrigger_beforeDueDate() {
-		renewalTab = new RenewalTab();
-		triggerAdmin.selectDropdown(triggerAdmin.activeType, triggerAdmin.activeType_Active);
-		triggerAdmin.selectDropdown(renewalTab.before_AfterDropdown, renewalTab.beforeAfter_beforeDueDate);
-		triggerAdmin.clickSaveButton();
-	}
 
 	// Create Subscription for Due Date set to tomorrow
+	@When("I create a subscription before due date")
 	public void createSubscription_beforeDueDate() throws Exception {
 		subscription = new CustomerViewDialog_SubscriptionTab();
 		overviewHeader = new CustomerViewDialog_Header();
@@ -390,16 +303,9 @@ public class Trigger_Renewal extends BaseClass {
 		subscription.setCustomDate(GetDate.addOneDayToDate(Utilities.currentDate("MM/dd/yyyy")));
 		overviewHeader.ClickSaveButton();
 	}
-	
-	// Update Renewal Trigger after Due Date
-	public void editTrigger_afterDueDate() {
-		renewalTab = new RenewalTab();
-		triggerAdmin.selectDropdown(triggerAdmin.activeType, triggerAdmin.activeType_Active);
-		triggerAdmin.selectDropdown(renewalTab.before_AfterDropdown, renewalTab.beforeAfter_afterDueDate);
-		triggerAdmin.clickSaveButton();
-	}
 
 	// Create Subscription for Due Date set to yesterday
+	@When("I create a subscription after due date")
 	public void createSubscription_afterDueDate() throws Exception {
 		subscription = new CustomerViewDialog_SubscriptionTab();
 		overviewHeader = new CustomerViewDialog_Header();
@@ -410,16 +316,9 @@ public class Trigger_Renewal extends BaseClass {
 		validateRenewal.createRenewalSubscription();
 		overviewHeader.ClickSaveButton();
 	}
-	
-	// Update Renewal Trigger before Renewal Date
-	public void editTrigger_beforeRenewalDate() {
-		renewalTab = new RenewalTab();
-		triggerAdmin.selectDropdown(triggerAdmin.activeType, triggerAdmin.activeType_Active);
-		triggerAdmin.selectDropdown(renewalTab.before_AfterDropdown, renewalTab.beforeAfter_beforeRenewalDate);
-		triggerAdmin.clickSaveButton();
-	}
-	
+
 	// Create Subscription for Renewal Due Date set to yesterday
+	@When("I create a subscription before renewal date")
 	public void createSubscription_beforeRenewalDate() throws Exception {
 		subscription = new CustomerViewDialog_SubscriptionTab();
 		overviewHeader = new CustomerViewDialog_Header();
@@ -429,16 +328,9 @@ public class Trigger_Renewal extends BaseClass {
 		validateRenewal.createRenewalSubscription();
 		overviewHeader.ClickSaveButton();
 	}
-	
-	// Update Renewal Trigger after Renewal Date
-	public void editTrigger_afterRenewalDate() {
-		renewalTab = new RenewalTab();
-		triggerAdmin.selectDropdown(triggerAdmin.activeType, triggerAdmin.activeType_Active);
-		triggerAdmin.selectDropdown(renewalTab.before_AfterDropdown, renewalTab.beforeAfter_afterRenewalDate);
-		triggerAdmin.clickSaveButton();
-	}
-	
+
 	// Create Subscription for Renewal Due Date set to tomorrow
+	@When("I create a subscription after renewal date")
 	public void createSubscription_afterRenewalDate() throws Exception {
 		subscription = new CustomerViewDialog_SubscriptionTab();
 		overviewHeader = new CustomerViewDialog_Header();
@@ -447,8 +339,8 @@ public class Trigger_Renewal extends BaseClass {
 		subscription.setRenewalDate(GetDate.addOneDayToDate(Utilities.currentDate("MM/dd/yyyy")));
 		validateRenewal.createRenewalSubscription();
 		overviewHeader.ClickSaveButton();
-	}	
-	
+	}
+
 	@SuppressWarnings("unchecked")
 	private void result(String expected, String actual, String stepName, String testName) {
 		if (AssertException.result(expected, actual, stepName).size() > 0) {
@@ -456,7 +348,7 @@ public class Trigger_Renewal extends BaseClass {
 		}
 		Reporter.status(stepName, expected, actual, testName);
 	}
-	
+
 	public void validateIfFailureExist() {
 		AssertException.assertFailure(list);
 	}

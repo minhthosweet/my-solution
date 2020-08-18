@@ -88,7 +88,6 @@ public class ScheduleAppt extends BaseClass {
         route = new RoutePage();
         route.addGroup();
         route.addRoutesByQuantity("1");
-        //route.clickButton(route.addRoutesButton);
     }
 
     @And("I add an appointment")

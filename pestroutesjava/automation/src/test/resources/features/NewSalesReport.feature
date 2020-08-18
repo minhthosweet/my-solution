@@ -7,7 +7,7 @@ Feature: New sales report
      Given I create a new user if it is not already existing "Salesman"
      Given I add a renewal service
      When I create customer with first name, last name and address
-     And I create a subscription with sales rep name and subscription flag "Automation User - Sales", "Fire"
+     And I create a subscription with Sales Rep assigned "Automation User - Sales" and "Fire"
      And I navigate to scheduling tab
      And I add a route
      And I search customer
