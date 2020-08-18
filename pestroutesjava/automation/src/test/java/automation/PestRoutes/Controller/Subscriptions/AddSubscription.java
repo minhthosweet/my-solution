@@ -60,7 +60,7 @@ public class AddSubscription extends BaseClass {
 		subscription.clickButton(subscription.standardProductionButton);
 	}
 
-	@And("I create a subscription with sales rep name and subscription flag {string}, {string}")
+	@And("I create a subscription with Sales Rep assigned {string} and {string}")
 	public void startSubscriptionWithSalesRep(String needSalesmanName, String needSubscriptionFlagName) throws Exception {
 		customerDialogHeader = new CustomerViewDialog_Header();
 		header = new Header();

@@ -39,8 +39,6 @@ public class RoutePage {
         try {
             Thread.sleep(1000);
             int total = Utilities.getElementCount(appt.routes);
-            //boolean forthRoute = FindElement.elementByAttribute("//div[@class='routes']//div[@groupid][4]",InputType.XPath).isDisplayed();
-            //while (forthRoute==true){
             while (total > 3) {
                 deleteFirstRoute();
                 total--;
