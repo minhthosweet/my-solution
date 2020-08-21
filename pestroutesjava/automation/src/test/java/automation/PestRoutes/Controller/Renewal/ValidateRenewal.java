@@ -16,7 +16,7 @@ import automation.PestRoutes.PageObject.Invoicing.InvoiceImplementation;
 import automation.PestRoutes.PageObject.Invoicing.Invoice_Header;
 import automation.PestRoutes.PageObject.Invoicing.RoutePageInvoicing;
 import automation.PestRoutes.PageObject.RoutePage.RoutePage;
-import automation.PestRoutes.PageObject.RoutePage.SchedulingAppointmentDialog;
+import automation.PestRoutes.PageObject.Scheduling.SchedulingAppointmentDialog;
 import automation.PestRoutes.PageObject.Scheduling.SchedulingTab;
 import automation.PestRoutes.Utilities.AssertException;
 import automation.PestRoutes.Utilities.BaseClass;

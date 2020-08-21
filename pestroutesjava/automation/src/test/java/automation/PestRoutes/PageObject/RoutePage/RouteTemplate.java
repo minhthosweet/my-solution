@@ -26,6 +26,7 @@ public class RouteTemplate {
     public String clickFillDescription = "//div[text()='Fill Description']";
     public String clickClear = "//div[text()='Clear']";
     public String saveTemplate = "//div[@id='templateBuilderAction']//div[text()='Save Template']";
+    public String blockDescriptionTextBox = "//div[@id='templateSpots']//div[text()='End']/parent::div/following-sibling::div[3]/div[text()='to']/following-sibling::input[2]";
 
     public void navigateToRouteTemplate() {
         header = new Header();
@@ -63,6 +64,10 @@ public class RouteTemplate {
             Utilities.scrollToElementJS("//li[text()='" + routeName + "']/parent::div/following-sibling::li");
             Utilities.scrollToElement("//li[text()='" + routeName + "']/parent::div/following-sibling::li");
         }
+    }
+
+    public void clickRouteTempalate(String routeName) {
+        Utilities.waitUntileElementIsVisible("//li[text()='" + routeName + "']");
         Utilities.clickElement("//li[text()='" + routeName + "']", Utilities.ElementType.XPath);
     }
 
@@ -78,6 +83,10 @@ public class RouteTemplate {
 
     public String getTemplateNameTextValue() {
         return Utilities.getAttributeValue("//label[text()='Template Name: ']/following-sibling::input", "value");
+    }
+
+    public String getDescriptionTextValue() {
+        return Utilities.getAttributeValue("//div[@id='templateSpots']//div[text()='End']/parent::div/following-sibling::div[1]/div[text()='to']/following-sibling::input[2]", "value");
     }
 
     public void setStartTime(String hour, String minute) {
@@ -110,6 +119,11 @@ public class RouteTemplate {
         FindElement.elementByAttribute(fillDescription, FindElement.InputType.XPath).sendKeys(description);
     }
 
+    public void clearDescription() {
+        Utilities.waitUntileElementIsVisible(fillDescription);
+        FindElement.elementByAttribute(fillDescription, FindElement.InputType.XPath).clear();
+    }
+
     public void clickGenerate() {
         Utilities.waitUntileElementIsVisible(clickGenerate);
         Utilities.clickElement(clickGenerate, Utilities.ElementType.XPath);
@@ -128,6 +142,15 @@ public class RouteTemplate {
     public void saveRoute() {
         Utilities.waitUntileElementIsVisible(saveTemplate);
         Utilities.clickElement(saveTemplate, Utilities.ElementType.XPath);
+    }
+
+    public WebElement getDescription(String needText) {
+        return FindElement.elementByAttribute("//li[(text()= '" + needText + "')]", FindElement.InputType.XPath);
+    }
+
+    public void setBlockDescription(String blockText) {
+        Utilities.waitUntileElementIsVisible(blockDescriptionTextBox);
+        FindElement.elementByAttribute(blockDescriptionTextBox, FindElement.InputType.XPath).sendKeys(blockText);
     }
 
     public void routeDelete_alertCondition() throws Exception {

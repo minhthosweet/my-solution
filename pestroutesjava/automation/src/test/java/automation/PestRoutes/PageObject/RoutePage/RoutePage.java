@@ -1,5 +1,6 @@
 package automation.PestRoutes.PageObject.RoutePage;
 
+import automation.PestRoutes.Controller.CustomRoute.CustomRoute;
 import automation.PestRoutes.Controller.Renewal.ValidateRenewal;
 import automation.PestRoutes.Controller.Schedules.ScheduleAppt;
 import automation.PestRoutes.Utilities.FindElement;
@@ -7,6 +8,8 @@ import automation.PestRoutes.Utilities.Utilities;
 import automation.PestRoutes.Utilities.FindElement.InputType;
 import automation.PestRoutes.Utilities.Utilities.ElementType;
 import io.cucumber.java.en.And;
+
+import java.io.IOException;
 
 public class RoutePage {
     public String addRoutesButton = "//li[@id= 'addRoutesButton']";
@@ -21,6 +24,10 @@ public class RoutePage {
     public String groupTemplate = "//form[@id='editGroupForm']//select[@name='templateID']";
     public String groupTemplateName = "//form[@id='editGroupForm']//option[contains (text(), 'TestRoutes')]";
     public String saveButton = "//span[text()='Edit Group']/parent::div/following-sibling::div//span[text()='Save']";
+    public String deleteButton = "//span[text()='Delete']";
+    public String deleteGroup = "//span[text()='Delete Group']";
+
+    CustomRoute customRoute;
 
     ScheduleAppt appt;
     RoutePage route;
@@ -65,9 +72,10 @@ public class RoutePage {
     }
 
     @And("I add a route group")
-    public void addGroup() {
+    public void addGroup() throws IOException {
         String groupXpath = "//h3[text()= 'TestRoutes']/parent::div";
         String group = "groupButton";
+        customRoute = new CustomRoute();
         try {
             if (Utilities.getElementCount(groupName) == 0) {
                 Utilities.clickElement(addGroup, ElementType.XPath);
@@ -75,7 +83,7 @@ public class RoutePage {
                 Utilities.waitUntileElementIsVisible(groupTemplate);
                 Utilities.clickElement(groupTemplate, ElementType.XPath);
                 Utilities.waitUntileElementIsVisible(groupTemplateName);
-                Utilities.clickElement(groupTemplateName, ElementType.XPath);
+                Utilities.clickElement("//form[@id='editGroupForm']//option[contains (text(), '" + customRoute.routeName + "')]", ElementType.XPath);
                 Utilities.waitUntileElementIsVisible(saveButton);
                 Utilities.clickElement(saveButton, ElementType.XPath);
             } else if (Utilities.getAttributeValue(groupXpath, "class").equalsIgnoreCase(group)) {
@@ -84,7 +92,6 @@ public class RoutePage {
         } catch (Exception e) {
             System.out.println("Exception is == " + e.getMessage());
         }
-
     }
 
     public void deleteFirstRoute() throws InterruptedException {

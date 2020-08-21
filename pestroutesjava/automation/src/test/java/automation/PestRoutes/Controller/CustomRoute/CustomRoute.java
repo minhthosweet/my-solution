@@ -1,46 +1,71 @@
-package automation.PestRoutes.Controller.Schedules;
+package automation.PestRoutes.Controller.CustomRoute;
 
+import automation.PestRoutes.Controller.Admin.Preferences.ServiceRelated.Service;
+import automation.PestRoutes.Controller.Renewal.ValidateRenewal;
 import automation.PestRoutes.PageObject.RoutePage.RouteTemplate;
 import automation.PestRoutes.Utilities.AssertException;
 import automation.PestRoutes.Utilities.BaseClass;
 import automation.PestRoutes.Utilities.Reporter;
 import automation.PestRoutes.Utilities.Utilities;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import io.cucumber.java.en.And;
+import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.openqa.selenium.WebElement;
 import org.testng.annotations.Test;
 
-public class customRoute extends BaseClass {
+public class CustomRoute extends BaseClass {
 
     RouteTemplate routeTemplate = new RouteTemplate();
+    Service service;
+    ValidateRenewal validateRenewal;
 
     public List list = new ArrayList<String>();
 
-    private String customRouteName = Utilities.generateRandomString(5);
-    private String route_startHour = "8";
-    private String route_startMinute = "10";
-    private String route_endHour = "16";
-    private String route_endMinute = "10";
+    private String route_startHour = "5";
+    private String route_startMinute = "30";
+    private String route_endHour = "18";
+    private String route_endMinute = "30";
     private String route_interval = "60";
     private String routeDescription = Utilities.generateRandomString(5);
-    private String blockTimeSlotNumber = "2";
+    private String blockTimeSlotNumber = "3";
+    private String blockTimeDescription = Utilities.generateRandomString(5);
+    public String routeName = getData("automationRouteTemplate", generalData);
+
+    public CustomRoute() throws IOException {
+    }
 
     @Test
+    @Given("I have a route template")
     public void createRouteTemplate() throws Exception {
-        createRouteTemplates(customRouteName);
-        generateTimeSlots(route_startHour, route_startMinute, route_endHour, route_endMinute, route_interval);
-        blockTimeSlot(customRouteName, blockTimeSlotNumber);
-        validateIfFailureExist();
+        routeTemplate.navigateToRouteTemplate();
+        service = new Service();
+        validateRenewal = new ValidateRenewal();
+        try {
+            WebElement elm = routeTemplate.getDescription(getData("automationRouteTemplate", generalData));
+            if (elm.isDisplayed()) {
+                routeTemplate.clickRouteTempalate(getData("automationRouteTemplate", generalData));
+                routeTemplate.saveRoute();
+                validateRenewal.navigateToSchedulingTab();
+            }
+        } catch (Exception e) {
+            createRouteTemplates(getData("automationRouteTemplate", generalData));
+            generateTimeSlots(route_startHour, route_startMinute, route_endHour, route_endMinute, route_interval);
+            blockTimeSlot(getData("automationRouteTemplate", generalData), blockTimeSlotNumber, blockTimeDescription);
+            validateIfFailureExist();
+            validateRenewal.navigateToSchedulingTab();
+        }
     }
 
     @When("I create a route with name {string}")
     public void createRouteTemplates(String routeName) throws Exception {
-        routeTemplate.navigateToRouteTemplate();
         routeTemplate.createNewRouteTemplate(routeName);
+        routeTemplate.clickRouteTempalate(routeName);
         routeTemplate.findRoute(routeName);
         routeTemplate.deleteRoute();
         routeTemplate.routeDelete_alertCondition();
@@ -63,19 +88,21 @@ public class customRoute extends BaseClass {
         routeTemplate.clickGenerate();
         routeTemplate.routeTemplateGenerate_alertCondition();
         routeTemplate.clickFillDescription();
+        /*result(blockTimeDescription, routeTemplate.getDescriptionTextValue(), "Description Filling",
+                "Route Template Creation");*/
+        routeTemplate.clearDescription();
+        routeTemplate.clickFillDescription();
         routeTemplate.saveRoute();
     }
 
     @And("I block route template {string} slot number {string}")
-    public void blockTimeSlot(String routeName, String slotNumber) throws InterruptedException {
+    public void blockTimeSlot(String routeName, String slotNumber, String blockDescription) throws InterruptedException {
         routeTemplate.navigateToRouteTemplate();
+        routeTemplate.clickRouteTempalate(routeName);
         routeTemplate.findRoute(routeName);
         routeTemplate.blockSpecificTimeSlot(slotNumber);
+        routeTemplate.setBlockDescription(blockDescription);
         routeTemplate.saveRoute();
-    }
-
-    public void validateGeneratedSlots() {
-
     }
 
     private void result(String expected, String actual, String stepName, String testName) {

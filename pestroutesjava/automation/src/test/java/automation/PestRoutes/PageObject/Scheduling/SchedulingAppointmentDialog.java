@@ -1,4 +1,4 @@
-package automation.PestRoutes.PageObject.RoutePage;
+package automation.PestRoutes.PageObject.Scheduling;
 
 import automation.PestRoutes.Utilities.FindElement;
 import automation.PestRoutes.Utilities.FindElement.InputType;

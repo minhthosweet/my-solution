@@ -1,5 +1,6 @@
 package automation.PestRoutes.Controller.Schedules;
 
+import automation.PestRoutes.Controller.CustomRoute.CustomRoute;
 import automation.PestRoutes.PageObject.Scheduling.SchedulingTab;
 import org.testng.annotations.Test;
 import automation.PestRoutes.PageObject.Header;
@@ -7,7 +8,7 @@ import automation.PestRoutes.PageObject.CreateCustomer.CreateCustomerDIalog;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_Header;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerviewDialog_AppointmentsTab;
 import automation.PestRoutes.PageObject.RoutePage.RoutePage;
-import automation.PestRoutes.PageObject.RoutePage.SchedulingAppointmentDialog;
+import automation.PestRoutes.PageObject.Scheduling.SchedulingAppointmentDialog;
 import automation.PestRoutes.PageObject.Scheduling.UnitsTab;
 import automation.PestRoutes.Utilities.AssertException;
 import automation.PestRoutes.Utilities.BaseClass;
@@ -38,6 +39,7 @@ public class ScheduleAppt extends BaseClass {
     CreateCustomerDIalog customer;
     UnitsTab unitsTab = new UnitsTab();
     SchedulingTab scheduleDay;
+    CustomRoute customRoute;
 
 
     public List list;
@@ -85,7 +87,9 @@ public class ScheduleAppt extends BaseClass {
 
     @And("I add a route")
     public void addRoute() throws Exception {
+        customRoute =  new CustomRoute();
         route = new RoutePage();
+        customRoute.createRouteTemplate();
         route.addGroup();
         route.addRoutesByQuantity("1");
     }
