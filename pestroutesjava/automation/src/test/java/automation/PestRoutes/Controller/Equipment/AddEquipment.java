@@ -18,8 +18,8 @@ public class AddEquipment {
     AssertException assertException;
     List list = new ArrayList<String>();
 
-    @And("^I add new equipment with barcode required \"([^\"]*)\" and \"([^\"]*)\" and \"([^\"]*)\" and \"([^\"]*)\" and \"([^\"]*)\" and \"([^\"]*)\" " +
-            "and \"([^\"]*)\" and \"([^\"]*)\" and \"([^\"]*)\"$")
+    @And("I add new equipment with barcode required {string} and {string} and {string} and {string} and {string} and {string} " +
+            "and {string} and {string} and {string}")
     public void addNewEquipmentWithBarcode(String needDescription, String needEquipmentType, String needEquipmentFlagType, String needDeviceID,
                                 String needApplicationMethod, String needBarcode, String needEquipmentTargetArea, String needEquipmentTargetIssue,
                                 String needNotes) {
@@ -43,7 +43,7 @@ public class AddEquipment {
 
     }
 
-    @And("^I verify that the equipment was added \"([^\"]*)\"$")
+    @And("I verify that the equipment was added {string}")
     public void verifyEquipmentWithBarcodeAdded(String needEquipmentFlagType) {
         customerDialogHeader = new CustomerViewDialog_Header();
         customerViewDialogEquipment = new CustomerViewDialog_Equipment();
@@ -56,7 +56,7 @@ public class AddEquipment {
         System.out.println(actualEquipmentFlagType);
     }
 
-    @And("^I add new equipment with no barcode required \"([^\"]*)\" and \"([^\"]*)\" and \"([^\"]*)\" and \"([^\"]*)\" and \"([^\"]*)\" and \"([^\"]*)\" and \"([^\"]*)\" and \"([^\"]*)\"$")
+    @And("I add new equipment with no barcode required {string} and {string} and {string} and {string} and {string} and {string} and {string} and {string}")
     public void addNewEquipmentWithoutBarcode(String needDescription, String needEquipmentType, String needEquipmentFlagType, String needDeviceID,
                                 String needApplicationMethod, String needEquipmentTargetArea, String needEquipmentTargetIssue,
                                 String needNotes) {
