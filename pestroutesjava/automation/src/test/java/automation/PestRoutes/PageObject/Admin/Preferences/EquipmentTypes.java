@@ -24,7 +24,6 @@ public class EquipmentTypes {
 	public String applicationMethodDropdown = "//div[@id='preferenceHeader']/following-sibling::form//select[@name= 'applicationMethod']";
 	public String targerIssueDropdown = "//div[@id='preferenceHeader']/following-sibling::form//select[@placeholder= 'Target Issues']";
 	
-	
 	/*
 	 * Action methods
 	 * Below methods clicks or select an object
@@ -34,7 +33,7 @@ public class EquipmentTypes {
 		Utilities.clickElement(addEquipmentTypeButton, ElementType.XPath);
 	}
 	public void selectOptionFromDropdown(String needObject, String needOption) {
-		Utilities.waitUntileElementIsVisible(needOption);
+		Utilities.waitUntileElementIsVisible(needObject);
 		Utilities.selectValueFromDropDownByValue(needObject, needOption);
 	}
 	
