@@ -45,7 +45,7 @@ public class CreateLeads extends BaseClass{
 		Header header = new Header();
 		CustomerViewDialog_Header customerCart = new CustomerViewDialog_Header();
 		header.Search_A_Customer(getData("customerName", generalData));
-		customerCart.NavigateTo(customerCart.leadsTabInDialog);
+		customerCart.navigateTo(customerCart.leadsTabInDialog);
 		leadCreation();
 		validateInvoices();
 	}
@@ -70,7 +70,7 @@ public class CreateLeads extends BaseClass{
 		
 		leads.selectAdditionalItem(leads.addInitialInvoiceTicketItemButton, additialItem);
 		leads.selectAdditionalItem(leads.addRecurringInvoiceTicketItemButton, additialItem);
-		header.ClickSaveButton();
+		header.clickSaveButton();
 		
 	}
 	

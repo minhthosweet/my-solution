@@ -5,7 +5,7 @@ import automation.PestRoutes.Utilities.Utilities.ElementType;
 
 public class RoutePageInvoicing {
 
-	public String addPayment = "//h3[text() = 'Payments']/following-sibling::div";
+	public String addPayment = "//div[text()='+ Add Payment']";
 	public String addNewInvoice = "+ New Invoice";
 	public String accountStatementReport = "Account Statement Report";
 	public String accountSummary = "Account Summary";
@@ -24,6 +24,11 @@ public class RoutePageInvoicing {
 	public void clickAddPayment() {
 		Utilities.waitUntileElementIsVisible(addPayment);
 		Utilities.clickElement(addPayment, ElementType.XPath);
+	}
+
+	public void jsClickAddPayment() {
+		Utilities.waitUntileElementIsVisible(addPayment);
+		Utilities.jsClickElement(addPayment, ElementType.XPath);
 	}
 
 	public void invoiceDetails() {

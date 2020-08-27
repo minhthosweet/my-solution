@@ -6,7 +6,6 @@ import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_Head
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_SubscriptionTab;
 import automation.PestRoutes.Utilities.AssertException;
 import automation.PestRoutes.Utilities.BaseClass;
-import automation.PestRoutes.Utilities.GetDate;
 import automation.PestRoutes.Utilities.Reporter;
 import automation.PestRoutes.Utilities.Utilities;
 import automation.PestRoutes.Utilities.Utilities.ElementType;
@@ -14,7 +13,6 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,7 +50,7 @@ public class AddSubscription extends BaseClass {
 	public void startSubscription() throws Exception {
 		customerDialogHeader = new CustomerViewDialog_Header();
 		header = new Header();
-		customerDialogHeader.NavigateTo(customerDialogHeader.subscriptionTabInDialog);
+		customerDialogHeader.navigateTo(customerDialogHeader.subscriptionTabInDialog);
 		subscription.clickNewSubscriptionButton();
 		subscription.selectServiceType(getData("quarterly", quarterlyPreferredDayData));
 		subscription.selectServiceFrequency("Alternate Monthly");
@@ -64,13 +62,13 @@ public class AddSubscription extends BaseClass {
 	public void startSubscriptionWithSalesRep(String needSalesmanName, String needSubscriptionFlagName) throws Exception {
 		customerDialogHeader = new CustomerViewDialog_Header();
 		header = new Header();
-		customerDialogHeader.NavigateTo(customerDialogHeader.subscriptionTabInDialog);
+		customerDialogHeader.navigateTo(customerDialogHeader.subscriptionTabInDialog);
 		subscription.clickNewSubscriptionButton();
 		subscription.selectServiceType(getData("serviceDescription", generalData));
 		subscription.setCustomDate(getData("customDate", quarterlyPreferredDayData));
 		subscription.selectSalesRep(needSalesmanName);
 		subscription.selectSubscriptionFlag(needSubscriptionFlagName);
-		customerDialogHeader.ClickSaveButton();
+		customerDialogHeader.clickSaveButton();
 		newContractValue = getContractValue();
 	}
 

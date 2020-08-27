@@ -155,16 +155,16 @@ public class TriggerOnSave_CustomerStatus extends BaseClass {
         overviewHeader = new CustomerViewDialog_Header();
         billing = new Billing();
         newCustomer.createCustomerWithEmail();
-        overviewHeader.NavigateTo(overviewHeader.billingTabInDialog);
+        overviewHeader.navigateTo(overviewHeader.billingTabInDialog);
         billing.navigateToCC();
         billing.addCC();
         billing.navigateToBankAccount();
         billing.addBankAccount();
-        overviewHeader.NavigateTo(overviewHeader.adminTabInDialog);
+        overviewHeader.navigateTo(overviewHeader.adminTabInDialog);
         customerAdmin.changeAccountStatus_Active();
         header = new Header();
         header.Search_A_Customer(getData("customerName", generalData));
-        overviewHeader.NavigateTo(overviewHeader.adminTabInDialog);
+        overviewHeader.navigateTo(overviewHeader.adminTabInDialog);
         customerAdmin.changeAccountStatus_Frozen(customerAdmin.reassignServicePropertiesToNewBillingAccount);
     }
 
@@ -175,8 +175,8 @@ public class TriggerOnSave_CustomerStatus extends BaseClass {
         customerAdmin = new CustomerViewDialog_Admin();
         overviewHeader = new CustomerViewDialog_Header();
         newCustomer.createCustomerWithEmail();
-        overviewHeader.NavigateTo(overviewHeader.billingTabInDialog);
-        overviewHeader.NavigateTo(overviewHeader.adminTabInDialog);
+        overviewHeader.navigateTo(overviewHeader.billingTabInDialog);
+        overviewHeader.navigateTo(overviewHeader.adminTabInDialog);
         customerAdmin.changeAccountStatus_Active();
     }
 
@@ -195,7 +195,7 @@ public class TriggerOnSave_CustomerStatus extends BaseClass {
         customer = new CreateCustomerDIalog();
         newCustomer.createCustomerWithEmail();
         header.Search_A_Customer(getData("customerName", generalData));
-        overviewHeader.NavigateTo(overviewHeader.infoTabInDialog);
+        overviewHeader.navigateTo(overviewHeader.infoTabInDialog);
         customer.clickPendingCancelCheckBox();
     }
 

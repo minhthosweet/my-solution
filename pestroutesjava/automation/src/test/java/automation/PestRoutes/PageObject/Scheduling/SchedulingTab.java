@@ -34,12 +34,10 @@ public class SchedulingTab extends AppData {
         addData("scheduleDate", scheduleDate, generalData);
     }
 
-    public void ClickScheduleButton() throws Exception {
+    public void clickScheduleButton() {
         overviewHeader = new CustomerViewDialog_Header();
-        Thread.sleep(2000);
-        overviewHeader.NavigateTo(overviewHeader.subscriptionTabInDialog);
+        overviewHeader.navigateTo(overviewHeader.subscriptionTabInDialog);
         Utilities.clickElement(scheduleButtonInDialog, ElementType.XPath);
-        Thread.sleep(2000);
     }
 
     public void selectServiceType(String serviceType) {

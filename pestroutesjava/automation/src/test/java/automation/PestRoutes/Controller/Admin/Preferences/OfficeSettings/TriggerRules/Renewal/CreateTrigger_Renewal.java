@@ -215,7 +215,7 @@ public class CreateTrigger_Renewal extends BaseClass {
 		validateRenewal.renewalFieldsValidation();
 		validateRenewal.createRenewalSubscription();
 		subscription.setExpDate(GetDate.addOneDayToDate(Utilities.currentDate("MM/dd/yyyy")));
-		overviewHeader.ClickSaveButton();
+		overviewHeader.clickSaveButton();
 	}
 
 	// Update Renewal Trigger beforeExpirationDate
@@ -242,7 +242,7 @@ public class CreateTrigger_Renewal extends BaseClass {
 		reminder = new ReminderTab();
 		header.Search_A_Customer(getData("userID", generalData));
 		overviewHeader = new CustomerViewDialog_Header();
-		overviewHeader.NavigateTo(overviewHeader.notesTabInDialog);
+		overviewHeader.navigateTo(overviewHeader.notesTabInDialog);
 		overviewHeader.clickCustomerContactsInNotesTab();
 		result(editAlertNote_Text, reminder.getAlertText_Notes(), "Edit Note Alert", "Renewal Trigger Rule");
 		result(SMSMAppointmentRenewalNote + getData("phoneNumber",generalData), reminder.ConfirmationNote(getData("phoneNumber",generalData)), "SMS Notification Affirmative",
@@ -258,7 +258,7 @@ public class CreateTrigger_Renewal extends BaseClass {
 		validateRenewal.renewalFieldsValidation();
 		validateRenewal.createRenewalSubscription();
 		subscription.setExpDate(GetDate.minusOneDayToDate(Utilities.currentDate("MM/dd/yyyy")));
-		overviewHeader.ClickSaveButton();
+		overviewHeader.clickSaveButton();
 	}
 
 	// Create Subscription for Billing date set to tomorrow
@@ -273,7 +273,7 @@ public class CreateTrigger_Renewal extends BaseClass {
 		triggerAdmin.selectDropdown(subscription.billingFrequencyDropdown, subscription.billingFrequency_Renewal);
 		triggerAdmin.selectDropdown(subscription.billingInitialInvoiceDropdown, subscription.billing_initialBillingDate);
 		subscription.setInitialBillingDate(GetDate.addOneDayToDate(Utilities.currentDate("MM/dd/yyyy")));
-		overviewHeader.ClickSaveButton();
+		overviewHeader.clickSaveButton();
 	}
 
 	// Create Subscription for Billing date set to yesterday
@@ -288,7 +288,7 @@ public class CreateTrigger_Renewal extends BaseClass {
 		triggerAdmin.selectDropdown(subscription.billingFrequencyDropdown, subscription.billingFrequency_Renewal);
 		triggerAdmin.selectDropdown(subscription.billingInitialInvoiceDropdown, subscription.billing_initialBillingDate);
 		subscription.setInitialBillingDate(GetDate.minusOneDayToDate(Utilities.currentDate("MM/dd/yyyy")));
-		overviewHeader.ClickSaveButton();
+		overviewHeader.clickSaveButton();
 	}
 
 	// Create Subscription for Due Date set to tomorrow
@@ -301,7 +301,7 @@ public class CreateTrigger_Renewal extends BaseClass {
 		validateRenewal.createRenewalSubscription();
 		subscription.clickSubscription(subscription.getSubscriptionID(validateRenewal.serviceType));
 		subscription.setCustomDate(GetDate.addOneDayToDate(Utilities.currentDate("MM/dd/yyyy")));
-		overviewHeader.ClickSaveButton();
+		overviewHeader.clickSaveButton();
 	}
 
 	// Create Subscription for Due Date set to yesterday
@@ -314,7 +314,7 @@ public class CreateTrigger_Renewal extends BaseClass {
 		subscription.clickSubscription(subscription.getSubscriptionID(validateRenewal.serviceType));
 		subscription.setCustomDate(GetDate.minusOneDayToDate(Utilities.currentDate("MM/dd/yyyy")));
 		validateRenewal.createRenewalSubscription();
-		overviewHeader.ClickSaveButton();
+		overviewHeader.clickSaveButton();
 	}
 
 	// Create Subscription for Renewal Due Date set to yesterday
@@ -326,7 +326,7 @@ public class CreateTrigger_Renewal extends BaseClass {
 		validateRenewal.renewalFieldsValidation();
 		subscription.setRenewalDate(GetDate.minusOneDayToDate(Utilities.currentDate("MM/dd/yyyy")));
 		validateRenewal.createRenewalSubscription();
-		overviewHeader.ClickSaveButton();
+		overviewHeader.clickSaveButton();
 	}
 
 	// Create Subscription for Renewal Due Date set to tomorrow
@@ -338,7 +338,7 @@ public class CreateTrigger_Renewal extends BaseClass {
 		validateRenewal.renewalFieldsValidation();
 		subscription.setRenewalDate(GetDate.addOneDayToDate(Utilities.currentDate("MM/dd/yyyy")));
 		validateRenewal.createRenewalSubscription();
-		overviewHeader.ClickSaveButton();
+		overviewHeader.clickSaveButton();
 	}
 
 	@SuppressWarnings("unchecked")

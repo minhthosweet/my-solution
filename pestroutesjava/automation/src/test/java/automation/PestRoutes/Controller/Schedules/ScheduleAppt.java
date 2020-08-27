@@ -76,10 +76,10 @@ public class ScheduleAppt extends BaseClass {
         overviewHeader = new CustomerViewDialog_Header();
         customer = new CreateCustomerDIalog();
         header.Search_A_Customer(userID);
-        overviewHeader.NavigateTo(overviewHeader.infoTabInDialog);
+        overviewHeader.navigateTo(overviewHeader.infoTabInDialog);
         customer.clickInfo();
         unitsTab.selectUnit("Multi Unit");
-        overviewHeader.ClickSaveButton();
+        overviewHeader.clickSaveButton();
         confirmAppt.navigateToUnitTab();
         unitsTab.newUnitClick();
         unitsTab.setupUnit("Harold", "3", "62534");
@@ -89,7 +89,7 @@ public class ScheduleAppt extends BaseClass {
     public void addRoute() throws Exception {
         customRoute =  new CustomRoute();
         route = new RoutePage();
-        customRoute.createRouteTemplate();
+//        customRoute.createRouteTemplate();
         route.addGroup();
         route.addRoutesByQuantity("1");
     }
@@ -98,7 +98,7 @@ public class ScheduleAppt extends BaseClass {
     public void addAppointment(String needUserID, String needServieType, String needTimeSlot) throws Exception {
         header.Search_A_Customer(needUserID);
         scheduleDay = new SchedulingTab();
-        scheduleDay.ClickScheduleButton();
+        scheduleDay.clickScheduleButton();
         int totalCount = Utilities.getElementCount(routes);
         String routesCount = Integer.toString(totalCount);
         System.out.println(routesCount);
@@ -126,7 +126,7 @@ public class ScheduleAppt extends BaseClass {
     public void addChemical(String userID) throws Exception {
         overviewHeader = new CustomerViewDialog_Header();
         header.Search_A_Customer(userID);
-        overviewHeader.NavigateTo(overviewHeader.appointmentsTabInDialog);
+        overviewHeader.navigateTo(overviewHeader.appointmentsTabInDialog);
         appointmentTab.clickScheduledService(serviceType);
         appointmentTab.clickStatusButton();
         appointmentTab.clickAddProductButton_InCompletingApptDialog();

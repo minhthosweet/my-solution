@@ -40,12 +40,12 @@ public class AccountStatus extends BaseClass {
 		header.NavigateTo(header.newCustomerTab);
 		customer.setFirstName(fName);
 		customer.selectUnit("Multi Unit");
-		dialog.ClickSaveButton();
+		dialog.clickSaveButton();
 		String alert = Utilities.getAlertText();
 		list.add(AssertException.result(expectedAlert, alert, "Validate required field"));
 		Utilities.acceptAlert();
 		customer.setLastName(lName);
-		dialog.ClickSaveButton();
+		dialog.clickSaveButton();
 		Utilities.waitUntileElementIsVisible(overview.overviewTab_Address);
 		String customerNameInHeader = overview.getCustomerNameFromHeader();
 		System.out.println("Customer Name found is " + customerNameInHeader);
@@ -59,7 +59,7 @@ public class AccountStatus extends BaseClass {
 	// Change the account to Active and assert
 	private void validateActiveStatus() throws Exception {
 		header.Search_A_Customer(getData("userID", generalData));
-		dialog.NavigateTo(dialog.adminTabInDialog);
+		dialog.navigateTo(dialog.adminTabInDialog);
 		statusChange.changeAccountStatus_Active();
 		statusChange.getAccountStatus();
 		String expectedStatus = "status: [Frozen] was changed to [Active]";
@@ -70,7 +70,7 @@ public class AccountStatus extends BaseClass {
 	// Change the account to Frozen and assert
 	private void validateFrozenStatus() throws IOException, Exception {
 		header.Search_A_Customer(getData("userID", generalData));
-		dialog.NavigateTo(dialog.adminTabInDialog);
+		dialog.navigateTo(dialog.adminTabInDialog);
 		statusChange.changeAccountStatus_Frozen(statusChange.cancelServiceProps);
 		statusChange.getAccountStatus();
 		String expectedStatus = "status: [Active] was changed to [Frozen]";

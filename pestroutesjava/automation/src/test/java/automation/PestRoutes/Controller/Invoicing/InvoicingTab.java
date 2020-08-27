@@ -1,8 +1,6 @@
 package automation.PestRoutes.Controller.Invoicing;
 
 import automation.PestRoutes.Controller.CustomerCreation.CreateNewCustomer;
-import automation.PestRoutes.Utilities.GetDate;
-import automation.PestRoutes.Utilities.Utilities;
 import org.testng.annotations.Test;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_Header;
 import automation.PestRoutes.PageObject.Invoicing.InvoiceImplementation;
@@ -45,7 +43,7 @@ public class InvoicingTab extends BaseClass {
 		createCustomer.createCustomerWithEmail();
 		createCustomer.searchCustomer();
 		routesTab = new CustomerViewDialog_Header();
-		routesTab.NavigateTo(routesTab.invoicesTabInDialog);
+		routesTab.navigateTo(routesTab.invoicesTabInDialog);
 		invoiceRoutesTab.clickAddPayment();
 		invoiceRoutesTab.clickAddNewInvoice(invoiceRoutesTab.addNewInvoice);
 		invImplementation.newInvoiceDetails(treatmentAmount,date);

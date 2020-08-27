@@ -1,6 +1,5 @@
 package automation.PestRoutes.PageObject.CreateCustomer;
 
-import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.WebDriver;
@@ -74,6 +73,6 @@ public class CreateCustomers extends AppData {
 
 	@Then("click save button")
 	public void click_save_button() {
-		dialog.ClickSaveButton();
+		dialog.clickSaveButton();
 	}
 }

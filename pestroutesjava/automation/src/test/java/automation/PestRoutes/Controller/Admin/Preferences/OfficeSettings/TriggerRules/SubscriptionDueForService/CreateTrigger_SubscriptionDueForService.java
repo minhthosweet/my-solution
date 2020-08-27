@@ -285,7 +285,7 @@ public class CreateTrigger_SubscriptionDueForService extends BaseClass {
         reminder = new ReminderTab();
         header.Search_A_Customer(getData("customerName", generalData));
         overviewHeader = new CustomerViewDialog_Header();
-        overviewHeader.NavigateTo(overviewHeader.notesTabInDialog);
+        overviewHeader.navigateTo(overviewHeader.notesTabInDialog);
         result(SMSMAppointmentSubscriptionNote + getData("phoneNumber", generalData),
                 reminder.ConfirmationNote(getData("phoneNumber", generalData)), "SMS Notification Affirmative",
                 "Subscription Due For Service Creation");
@@ -299,7 +299,7 @@ public class CreateTrigger_SubscriptionDueForService extends BaseClass {
         createCustomer = new CreateNewCustomer();
         header.Search_A_Customer(getData("customerName", generalData));
         overviewHeader = new CustomerViewDialog_Header();
-        overviewHeader.NavigateTo(overviewHeader.notesTabInDialog);
+        overviewHeader.navigateTo(overviewHeader.notesTabInDialog);
         result("Sent to: " + createCustomer.email, reminder.getEmailValue(), "Email Notification Affirmative",
                 "Subscription Due For Service Creation");
     }
@@ -311,7 +311,7 @@ public class CreateTrigger_SubscriptionDueForService extends BaseClass {
         reminder = new ReminderTab();
         header.Search_A_Customer(getData("customerName", generalData));
         overviewHeader = new CustomerViewDialog_Header();
-        overviewHeader.NavigateTo(overviewHeader.notesTabInDialog);
+        overviewHeader.navigateTo(overviewHeader.notesTabInDialog);
         result(SMSMAppointmentSubscriptionNote + getData("phoneNumber", generalData), reminder.getVoiceText(),
                 "Voice Notification Affirmative", "Subscription Due For Service Creation");
     }
@@ -324,7 +324,7 @@ public class CreateTrigger_SubscriptionDueForService extends BaseClass {
         createCustomer = new CreateNewCustomer();
         header.Search_A_Customer(getData("customerName", generalData));
         overviewHeader = new CustomerViewDialog_Header();
-        overviewHeader.NavigateTo(overviewHeader.notesTabInDialog);
+        overviewHeader.navigateTo(overviewHeader.notesTabInDialog);
         result("Sent to: " + createCustomer.streetAddress, reminder.getSnailMailValue(),
                 "Snail Mail Notification Affirmative", "Subscription Due For Service Creation");
     }
@@ -337,7 +337,7 @@ public class CreateTrigger_SubscriptionDueForService extends BaseClass {
         createCustomer = new CreateNewCustomer();
         header.Search_A_Customer(getData("customerName", generalData));
         overviewHeader = new CustomerViewDialog_Header();
-        overviewHeader.NavigateTo(overviewHeader.notesTabInDialog);
+        overviewHeader.navigateTo(overviewHeader.notesTabInDialog);
         result("Sent to: " + employeeEmailValue, reminder.getEmployeeEMailValue(employeeEmailValue),
                 "Employee EMail Notification Affirmative", "Subscription Due For Service Creation");
     }
@@ -350,7 +350,7 @@ public class CreateTrigger_SubscriptionDueForService extends BaseClass {
         createCustomer = new CreateNewCustomer();
         header.Search_A_Customer(getData("customerName", generalData));
         overviewHeader = new CustomerViewDialog_Header();
-        overviewHeader.NavigateTo(overviewHeader.notesTabInDialog);
+        overviewHeader.navigateTo(overviewHeader.notesTabInDialog);
         result(alertTextinNotes, reminder.getAlertValue(), "Alert Notification Affirmative",
                 "Subscription Due For Service Creation");
     }
@@ -364,7 +364,7 @@ public class CreateTrigger_SubscriptionDueForService extends BaseClass {
         footer = new Footer();
         header.Search_A_Customer(getData("customerName", generalData));
         overviewHeader = new CustomerViewDialog_Header();
-        overviewHeader.NavigateTo(overviewHeader.notesTabInDialog);
+        overviewHeader.navigateTo(overviewHeader.notesTabInDialog);
         result(taskTextinNotes, reminder.getTaskValue(), "Task Notification Affirmative",
                 "Subscription Due For Service Creation");
         footer.NavigateTo(footer.tasks);
@@ -380,7 +380,7 @@ public class CreateTrigger_SubscriptionDueForService extends BaseClass {
         createCustomer = new CreateNewCustomer();
         header.Search_A_Customer(getData("customerName", generalData));
         overviewHeader = new CustomerViewDialog_Header();
-        overviewHeader.NavigateTo(overviewHeader.notesTabInDialog);
+        overviewHeader.navigateTo(overviewHeader.notesTabInDialog);
         result(employeeVoiceinNotes, reminder.getEmployeeVoiceValue(), "Employee Voice Notification Affirmative",
                 "Subscription Due For Service Creation");
     }
@@ -393,10 +393,10 @@ public class CreateTrigger_SubscriptionDueForService extends BaseClass {
         createCustomer = new CreateNewCustomer();
         header.Search_A_Customer(getData("customerName", generalData));
         overviewHeader = new CustomerViewDialog_Header();
-        overviewHeader.NavigateTo(overviewHeader.notesTabInDialog);
+        overviewHeader.navigateTo(overviewHeader.notesTabInDialog);
         result(removePaymentinNotes, reminder.getRemovedPaymentValue(), "Remove Payment Notification Affirmative",
                 "Subscription Due For Service Creation");
-        overviewHeader.NavigateTo(overviewHeader.billingTabInDialog);
+        overviewHeader.navigateTo(overviewHeader.billingTabInDialog);
         result(CCInfoBillingTab, reminder.getCCInfoBilling(), "Remove Payment Notification Affirmative",
                 "Subscription Due For Service Creation");
     }

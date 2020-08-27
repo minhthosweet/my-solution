@@ -22,6 +22,8 @@ public class CustomerViewDialog_Header {
     public String closeButton = "//div[@id= 'customerWindow']/following-sibling::div//span[text()='Close']";
     public String saveButton = "//div[@id= 'customerWindow']/following-sibling::div//span[text()='Save']";
     public String closeXButton = "//span[@id= 'ui-id-11']/parent::div/button/span";
+    public String discardChange = "//span[text()='Discard Changes']";
+    public String saveAnyways = "//span[text()='Save Anyways']";
 
     //Notes tab objects
     public String customerContacts_Notes = "//li[text()='Customer Contacts']";
@@ -31,20 +33,20 @@ public class CustomerViewDialog_Header {
         Utilities.clickElement(customerContacts_Notes, ElementType.XPath);
     }
 
-    public void NavigateTo(String chooseTabFromConst) {
+    public void navigateTo(String chooseTabFromConst) {
         Utilities.waitUntileElementIsVisible("//li[@name= '" + chooseTabFromConst + "']");
-        Utilities.clickElement("//li[@name = '" + chooseTabFromConst + "']", ElementType.XPath);
+        Utilities.clickElement("//li[@name = '" + chooseTabFromConst + "']", ElementType.XPath, true);
     }
 
     public void ClickTranferButton() {
         Utilities.clickElement(tranferButtonInDialog, ElementType.XPath);
     }
 
-    public void ClickSaveButton() {
+    public void clickSaveButton() {
         Utilities.clickElement(saveButton, ElementType.XPath);
     }
 
-    public void ClickCloseButton() {
+    public void clickCloseButton() {
         Utilities.clickElement(closeButton, ElementType.XPath);
     }
 
@@ -52,4 +54,15 @@ public class CustomerViewDialog_Header {
         Utilities.clickElement(closeXButton, ElementType.XPath);
     }
 
+    public void discardChanges() {
+        if (Utilities.elementIsVisible(discardChange)) {
+            Utilities.clickElement(discardChange, ElementType.XPath);
+        }
+    }
+
+    public void saveAnyways() {
+        if (Utilities.elementIsVisible(saveAnyways)) {
+            Utilities.clickElement(saveAnyways, ElementType.XPath);
+        }
+    }
 }

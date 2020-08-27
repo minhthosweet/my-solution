@@ -2,6 +2,8 @@ package automation.PestRoutes.Controller.CustomerCreation;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import io.cucumber.java.en.Given;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.NoAlertPresentException;
 import org.testng.annotations.Test;
@@ -56,7 +58,7 @@ public class CreateNewCustomer extends BaseClass {
         header.NavigateTo(header.newCustomerTab);
         customer.setFirstName(fName);
         customer.selectUnit("Multi Unit");
-        dialog.ClickSaveButton();
+        dialog.clickSaveButton();
     }
 
     @Then("I validate alert")
@@ -82,7 +84,7 @@ public class CreateNewCustomer extends BaseClass {
         customer.clickSmsCheckBox();
         customer.clickEmailCheckBox();
         customer.clickVoiceCheckBox();
-        dialog.ClickSaveButton();
+        dialog.clickSaveButton();
         alertCondition();
         captureUserIdAndFullName();
     }
@@ -90,7 +92,14 @@ public class CreateNewCustomer extends BaseClass {
     @And("I search customer")
     public void searchCustomer() throws Exception {
         header = new Header();
-        header.Search_A_Customer(fName + " " + lName);
+        try {
+            header.Search_A_Customer(fName + " " + lName);
+        } catch (Exception e) {
+            CustomerViewDialog_Header overviewHeader;
+            overviewHeader = new CustomerViewDialog_Header();
+            overviewHeader.clickSaveButton();
+            header.Search_A_Customer(fName + " " + lName);
+        }
     }
 
     @When("I create customer with first name, last name, email and address")
@@ -110,7 +119,7 @@ public class CreateNewCustomer extends BaseClass {
         customer.clickSmsCheckBox();
         customer.clickEmailCheckBox();
         customer.clickVoiceCheckBox();
-        dialog.ClickSaveButton();
+        dialog.clickSaveButton();
         alertCondition();
         captureUserIdAndFullName();
     }
@@ -128,9 +137,17 @@ public class CreateNewCustomer extends BaseClass {
         customer.selectUnit("Multi Unit");
         customer.setCellPhone(getData("phoneNumber", generalData));
         customer.clickSmsCheckBox();
-        dialog.ClickSaveButton();
+        dialog.clickSaveButton();
         alertCondition();
         captureUserIdAndFullName();
+    }
+
+    @Given("I close customer card")
+    public void closeCustomerCard() {
+        CustomerViewDialog_Header overviewHeader;
+        overviewHeader = new CustomerViewDialog_Header();
+        overviewHeader.clickCloseButton();
+        overviewHeader.discardChanges();
     }
 
     @When("I create customer with first name, last name, address, email and Structure")
@@ -150,8 +167,9 @@ public class CreateNewCustomer extends BaseClass {
         customer.clickEmailCheckBox();
         customer.clickVoiceCheckBox();
         customer.selectUnit("Structures");
-        dialog.ClickSaveButton();
+        dialog.clickSaveButton();
         alertCondition();
+        dialog.saveAnyways();
         Utilities.waitUntileElementIsVisible(overview.overviewTab_Address);
         String customerNameInHeader = overview.getCustomerNameFromHeader();
         result(fName, customerNameInHeader, "Created customer ", "Structure Validation");
@@ -188,7 +206,7 @@ public class CreateNewCustomer extends BaseClass {
     public void navigateToSubscriptionTab() {
         customerDialogHeader = new CustomerViewDialog_Header();
         Utilities.waitUntileElementIsVisible("//li[@name = '" + customerDialogHeader.subscriptionTabInDialog + "']");
-        customerDialogHeader.NavigateTo(customerDialogHeader.subscriptionTabInDialog);
+        customerDialogHeader.navigateTo(customerDialogHeader.subscriptionTabInDialog);
     }
 
     @SuppressWarnings("unchecked")

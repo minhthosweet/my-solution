@@ -23,5 +23,3 @@ Feature: Renewal
     And I search customer
     Then I validate if renewal date and account status changed
     And I validate if there are errors exist in the list
-
-    
