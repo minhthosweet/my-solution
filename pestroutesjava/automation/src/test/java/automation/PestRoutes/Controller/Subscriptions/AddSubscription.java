@@ -23,15 +23,14 @@ public class AddSubscription extends BaseClass {
 
 	CustomerViewDialog_SubscriptionTab subscription = new CustomerViewDialog_SubscriptionTab();
 	CustomerViewDialog_Header customerDialogHeader;
-	CreateCustomerDIalog createCustomer;
 	Header header;
-	ExtentTest test;
 	List list = new ArrayList<String>();
 
 	private String ticketItem = "bed";
 	private String initialQuote = "120.00";
 	private String initialDiscount = "20.00";
 	public static String newContractValue = null;
+	public String initialInvoiceValue;
 
 	@Test(groups = "Smoke")
 	public void validateSubscription() throws Exception {
@@ -70,6 +69,21 @@ public class AddSubscription extends BaseClass {
 		subscription.selectSubscriptionFlag(needSubscriptionFlagName);
 		customerDialogHeader.clickSaveButton();
 		newContractValue = getContractValue();
+	}
+
+	@And("I create a subscription of type {string} and {string} of type {string}")
+	public void createSubscription(String needSalesmanName, String needSubscriptionFlagName, String initialInvoiceType) throws Exception {
+		customerDialogHeader = new CustomerViewDialog_Header();
+		header = new Header();
+		customerDialogHeader.NavigateTo(customerDialogHeader.subscriptionTabInDialog);
+		subscription.clickNewSubscriptionButton();
+		subscription.selectServiceType(getData("serviceDescription", generalData));
+		subscription.setCustomDate(getData("customDate", quarterlyPreferredDayData));
+		subscription.selectSalesRep(needSalesmanName);
+		subscription.selectSubscriptionFlag(needSubscriptionFlagName);
+		subscription.setInitialInvoiceType(initialInvoiceType);
+		customerDialogHeader.ClickSaveButton();
+		initialInvoiceValue = subscription.getInitialInvoiceValue();
 	}
 
 	public String getContractValue() throws Exception {
