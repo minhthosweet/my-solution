@@ -26,7 +26,7 @@ public class EquipmentTypesValidations extends BaseClass {
 	List list = new ArrayList<String>();
 	@Test
 
-	@Given("^I add equipment type \"([^\"]*)\" and \"([^\"]*)\" and \"([^\"]*)\"$")
+	@Given("I add equipment type {string} and {string} and {string}")
 	public void addEquipment(String prefix, String description, String barcodeRequiredOption) throws InterruptedException {
 		main = new AdminMainPage();
 		preferences = new PreferencesPage();
