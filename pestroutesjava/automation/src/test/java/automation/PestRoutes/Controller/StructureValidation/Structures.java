@@ -56,7 +56,7 @@ public class Structures extends BaseClass {
     @And("I add chemicals to main structure")
     public void addChemicalMainStructureTab() throws InterruptedException, IOException {
     dialog.navigateTo(dialog.appointmentsTabInDialog);
-        appointmentTab.clickScheduledService(getData("quarterly", quarterlyPreferredDayData));
+        appointmentTab.clickScheduledService(getData("serviceDescription", generalData));
         appointmentTab.clickEditButton_AppointmentCard();
         structures.clickStructuresTabApt();
         structures.clickDetailsButtonMainStructure(mainStructureName);
@@ -69,7 +69,7 @@ public class Structures extends BaseClass {
 
     @And("I add chemicals to substructures")
     public void addChemicalSubStructureTab() throws InterruptedException, IOException {
-        appointmentTab.clickScheduledService(getData("quarterly", quarterlyPreferredDayData));
+        appointmentTab.clickScheduledService(getData("serviceDescription", generalData));
         appointmentTab.clickEditButton_AppointmentCard();
         structures.clickStructuresTabApt();
         structures.clickDetailsButtonSubStructure(subUnit);

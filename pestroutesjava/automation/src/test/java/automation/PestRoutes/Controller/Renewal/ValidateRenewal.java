@@ -303,14 +303,14 @@ public class ValidateRenewal extends BaseClass {
         invoicing.clickAddPayment();
         System.out.println("clicked");
         for (int i = 0; i < 10; i++) {
-            System.out.println(i);
+            //System.out.println(i);
             try {
                 invHeader.navigate(invHeader.cash);
                 break;
             } catch (Exception e) {
                 try {
                     Thread.sleep(1000);
-                    invoicing.clickAddPayment();
+                    invoicing.jsClickAddPayment();
                 } catch (InterruptedException ex) {
                     ex.printStackTrace();
                 }
