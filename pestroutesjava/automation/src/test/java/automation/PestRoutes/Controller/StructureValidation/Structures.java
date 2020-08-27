@@ -47,7 +47,7 @@ public class Structures extends BaseClass {
 
     @And("I add structure and sub structures")
     public void createStructure() {
-        dialog.NavigateTo(dialog.structuresTabInDialog);
+        dialog.navigateTo(dialog.structuresTabInDialog);
         structures.setMainStructure(mainStructureName);
         structures.setSubStructure(subUnit);
         structures.setSubStructure(subSubUnit);
@@ -55,8 +55,8 @@ public class Structures extends BaseClass {
 
     @And("I add chemicals to main structure")
     public void addChemicalMainStructureTab() throws InterruptedException, IOException {
-    dialog.NavigateTo(dialog.appointmentsTabInDialog);
-        appointmentTab.clickScheduledService(getData("quarterly", quarterlyPreferredDayData));
+    dialog.navigateTo(dialog.appointmentsTabInDialog);
+        appointmentTab.clickScheduledService(getData("serviceDescription", generalData));
         appointmentTab.clickEditButton_AppointmentCard();
         structures.clickStructuresTabApt();
         structures.clickDetailsButtonMainStructure(mainStructureName);
@@ -69,7 +69,7 @@ public class Structures extends BaseClass {
 
     @And("I add chemicals to substructures")
     public void addChemicalSubStructureTab() throws InterruptedException, IOException {
-        appointmentTab.clickScheduledService(getData("quarterly", quarterlyPreferredDayData));
+        appointmentTab.clickScheduledService(getData("serviceDescription", generalData));
         appointmentTab.clickEditButton_AppointmentCard();
         structures.clickStructuresTabApt();
         structures.clickDetailsButtonSubStructure(subUnit);
@@ -82,9 +82,7 @@ public class Structures extends BaseClass {
 
     @Then("I verify chemical in structure")
     public void verifyChemicalinUnit() throws IOException, Exception {
-        createNewCustomer = new CreateNewCustomer();
-        createNewCustomer.searchCustomer();
-        dialog.NavigateTo(dialog.structuresTabInDialog);
+        dialog.navigateTo(dialog.structuresTabInDialog);
         appointmentTab.clickScheduledStructuredService(mainStructureName);
         structures.clickProductsAptTab();
         structures.getChemicalNameStructure(product);
@@ -99,9 +97,7 @@ public class Structures extends BaseClass {
 
     @Then("I verify chemical in substructure")
     public void verifySubChemicalinUnit() throws IOException, Exception {
-        createNewCustomer = new CreateNewCustomer();
-        createNewCustomer.searchCustomer();
-        dialog.NavigateTo(dialog.structuresTabInDialog);
+        dialog.navigateTo(dialog.structuresTabInDialog);
         appointmentTab.clickSubScheduledStructuredService(mainStructureName, subUnit);
         structures.clickProductsAptTab();
         structures.getChemicalNameStructure(product);

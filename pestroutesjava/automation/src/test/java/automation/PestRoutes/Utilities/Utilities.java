@@ -139,6 +139,14 @@ public class Utilities {
 		WebDriverWait wait = new WebDriverWait(driver, 50);
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(needXpath)));
 	}
+
+	public static boolean elementIsVisible(String needXpath) {
+		if (driver.findElements(By.xpath(needXpath)).size() > 0) {
+			return driver.findElement(By.xpath(needXpath)).isDisplayed();
+		} else {
+			return false;
+		}
+	}
 	
 	public static void sign(WebElement needAttribute) {
 		Actions builder = new Actions(driver);
@@ -161,51 +169,76 @@ public class Utilities {
 		executor.executeScript("arguments[0].click();", element);
 	}
 
-	public static String getElementTextValue(String needAttribute, ElementType Attribute_Type) {
-		String attribute;
+	private static WebElement locateElement(String needAttribute, ElementType Attribute_Type) {
 		switch (Attribute_Type) {
-		case XPath:
-			attribute = driver.findElement(By.xpath(needAttribute)).getText();
-			break;
-		case ID:
-			attribute = driver.findElement(By.id(needAttribute)).getText();
-			break;
-		case ClassName:
-			attribute = driver.findElement(By.className(needAttribute)).getText();
-			break;
-		case LinkText:
-			attribute = driver.findElement(By.linkText(needAttribute)).getText();
-			break;
-		default:
-			attribute = driver.findElement(By.xpath(needAttribute)).getText();
-			break;
+			case ID:
+				return driver.findElement(By.id(needAttribute));
+			case ClassName:
+				return  driver.findElement(By.className(needAttribute));
+			case LinkText:
+				return driver.findElement(By.linkText(needAttribute));
+			default:
+				return driver.findElement(By.xpath(needAttribute));
 		}
-		return attribute;
+	}
+
+	public static String getElementTextValue(String needAttribute, ElementType Attribute_Type) {
+		for (int i = 0; i < 10; i++) {
+			try {
+				System.out.println(i);
+				WebElement attribute = locateElement(needAttribute, Attribute_Type);
+				return attribute.getText();
+			} catch (Exception e) {
+				try {
+					Thread.sleep(1000);
+				} catch (InterruptedException ex) {
+					ex.printStackTrace();
+				}
+			}
+		}
+		return "";
 	}
 
 	public static void clickElement(String needAttribute, ElementType Attribute_Type) {
-		WebElement attribute;
-		switch (Attribute_Type) {
-		case XPath:
-			attribute = driver.findElement(By.xpath(needAttribute));
+		clickElement(needAttribute, Attribute_Type, false);
+	}
+
+	public static void clickElement(String needAttribute, ElementType Attribute_Type, Boolean simple) {
+		if (simple) {
+			WebElement attribute = locateElement(needAttribute, Attribute_Type);
 			attribute.click();
-			break;
-		case ID:
-			attribute = driver.findElement(By.id(needAttribute));
-			attribute.click();
-			break;
-		case ClassName:
-			attribute = driver.findElement(By.className(needAttribute));
-			attribute.click();
-			break;
-		case LinkText:
-			attribute = driver.findElement(By.linkText(needAttribute));
-			attribute.click();
-			break;
-		default:
-			attribute = driver.findElement(By.xpath(needAttribute));
-			attribute.click();
-			break;
+		} else {
+			for (int i = 0; i < 10; i++) {
+				try {
+					WebElement attribute = locateElement(needAttribute, Attribute_Type);
+					attribute.click();
+					break;
+				} catch (Exception e) {
+					try {
+						Thread.sleep(1000);
+					} catch (InterruptedException ex) {
+						ex.printStackTrace();
+					}
+				}
+			}
+		}
+	}
+
+	public static void jsClickElement(String needAttribute, ElementType Attribute_Type) {
+		for (int i = 0; i < 10; i++) {
+			try {
+				System.out.println(i);
+				WebElement attribute = locateElement(needAttribute, Attribute_Type);
+				JavascriptExecutor executor = (JavascriptExecutor)driver;
+				executor.executeScript("arguments[0].click();", attribute);
+				break;
+			} catch (Exception e) {
+				try {
+					Thread.sleep(1000);
+				} catch (InterruptedException ex) {
+					ex.printStackTrace();
+				}
+			}
 		}
 	}
 

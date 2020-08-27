@@ -74,7 +74,7 @@ public class ValidateRenewal extends BaseClass {
     public void renewalFieldsValidation() throws Exception {
         header = new Header();
         customerDialogHeader = new CustomerViewDialog_Header();
-        customerDialogHeader.NavigateTo(customerDialogHeader.subscriptionTabInDialog);
+        customerDialogHeader.navigateTo(customerDialogHeader.subscriptionTabInDialog);
         subscription.clickNewSubscriptionButton();
         subscription.selectServiceType(serviceType);
         WebElement renewalDateField = FindElement.elementByAttribute(subscription.renewalDateField, InputType.XPath);
@@ -97,12 +97,12 @@ public class ValidateRenewal extends BaseClass {
     @And("I create a renewal subscription")
     public void createRenewalSubscription() throws Exception {
         customerDialogHeader = new CustomerViewDialog_Header();
-        customerDialogHeader.NavigateTo(customerDialogHeader.subscriptionTabInDialog);
+        customerDialogHeader.navigateTo(customerDialogHeader.subscriptionTabInDialog);
         subscription.clickNewSubscriptionButton();
         subscription.selectServiceType(serviceType);
         subscription.selectSetRenewalDate("On Initial Service Completion");
         subscription.selectRenewalFrequency("Annually");
-        customerDialogHeader.ClickSaveButton();
+        customerDialogHeader.clickSaveButton();
     }
 
     @And("I navigate to scheduling tab")
@@ -138,10 +138,11 @@ public class ValidateRenewal extends BaseClass {
         route = new RoutePage();
         confirmAppt = new SchedulingAppointmentDialog();
         scheduleDay = new SchedulingTab();
-        scheduleDay.ClickScheduleButton();
+        scheduleDay.clickScheduleButton();
         int totalCount = Utilities.getElementCount(appt.routes);
         String routesCount = Integer.toString(totalCount);
         System.out.println(routesCount);
+        Thread.sleep(3000);
         route.scheduleAppointment(routesCount, getData("timeSlot", generalData));
         confirmAppt.selectServiceType(serviceType);
         confirmAppt.selectInteriorNeededOption(appt.serviceAreaProvided);
@@ -155,7 +156,7 @@ public class ValidateRenewal extends BaseClass {
         route = new RoutePage();
         confirmAppt = new SchedulingAppointmentDialog();
         scheduleDay = new SchedulingTab();
-        scheduleDay.ClickScheduleButton();
+        scheduleDay.clickScheduleButton();
         scheduleDay = new SchedulingTab();
         int totalCount = Utilities.getElementCount(appt.routes);
         String routesCount = Integer.toString(totalCount);
@@ -180,7 +181,7 @@ public class ValidateRenewal extends BaseClass {
         route.clickButton(route.addRoutesButton);
         route.addRoutesByQuantity("1");
 
-        scheduleDay.ClickScheduleButton();
+        scheduleDay.clickScheduleButton();
         int totalCount = Utilities.getElementCount(appt.routes);
         String routesCount = Integer.toString(totalCount);
         System.out.println(routesCount);
@@ -196,7 +197,7 @@ public class ValidateRenewal extends BaseClass {
         header = new Header();
         overviewHeader = new CustomerViewDialog_Header();
         appointmentTab = new CustomerviewDialog_AppointmentsTab();
-        overviewHeader.NavigateTo(overviewHeader.appointmentsTabInDialog);
+        overviewHeader.navigateTo(overviewHeader.appointmentsTabInDialog);
         appointmentTab.clickScheduledService(serviceType);
         appointmentTab.clickStatusButton();
         appointmentTab.clickSaveAndCompleteButton();
@@ -207,7 +208,7 @@ public class ValidateRenewal extends BaseClass {
         header = new Header();
         overviewHeader = new CustomerViewDialog_Header();
         appointmentTab = new CustomerviewDialog_AppointmentsTab();
-        overviewHeader.NavigateTo(overviewHeader.appointmentsTabInDialog);
+        overviewHeader.navigateTo(overviewHeader.appointmentsTabInDialog);
         appointmentTab.clickScheduledService(getData("quarterly", quarterlyPreferredDayData));
         appointmentTab.clickStatusButton();
         appointmentTab.clickSaveAndCompleteButton();
@@ -217,7 +218,7 @@ public class ValidateRenewal extends BaseClass {
     public void cancelAppointment() throws InterruptedException, IOException {
         appointmentTab = new CustomerviewDialog_AppointmentsTab();
         overviewHeader = new CustomerViewDialog_Header();
-        overviewHeader.NavigateTo(overviewHeader.appointmentsTabInDialog);
+        overviewHeader.navigateTo(overviewHeader.appointmentsTabInDialog);
         appointmentTab.clickScheduledService(getData("quarterly", quarterlyPreferredDayData));
         appointmentTab.clickCancelAppointmentButton();
         appointmentTab.cancellationNotes();
@@ -230,11 +231,11 @@ public class ValidateRenewal extends BaseClass {
         confirmAppt = new SchedulingAppointmentDialog();
         overviewHeader = new CustomerViewDialog_Header();
         appointmentTab = new CustomerviewDialog_AppointmentsTab();
-        overviewHeader.NavigateTo(overviewHeader.appointmentsTabInDialog);
+        overviewHeader.navigateTo(overviewHeader.appointmentsTabInDialog);
         appointmentTab.clickScheduledService(getData("quarterly", quarterlyPreferredDayData));
         appointmentTab.clickEditButton_AppointmentCard();
         appointmentTab.clickRescheduleButton();
-        overviewHeader.ClickCloseButton();
+        overviewHeader.clickCloseButton();
         int totalCount = Utilities.getElementCount(appt.routes);
         String routesCount = Integer.toString(totalCount);
         System.out.println(routesCount);
@@ -248,7 +249,7 @@ public class ValidateRenewal extends BaseClass {
     public void validateRenewalDate() throws Exception {
         header = new Header();
         overviewHeader = new CustomerViewDialog_Header();
-        overviewHeader.NavigateTo(overviewHeader.subscriptionTabInDialog);
+        overviewHeader.navigateTo(overviewHeader.subscriptionTabInDialog);
         String expectedRenewalDate = GetDate.addOneYearToDate(getData("scheduleDate", generalData));
         String renewalDate = subscription.getRenewalDate();
         result(expectedRenewalDate, renewalDate, "if renewal date is posted", "Subscription Renewal");
@@ -259,7 +260,7 @@ public class ValidateRenewal extends BaseClass {
         overviewHeader = new CustomerViewDialog_Header();
         header = new Header();
         customerDialogHeader = new CustomerViewDialog_Header();
-        customerDialogHeader.NavigateTo(customerDialogHeader.subscriptionTabInDialog);
+        customerDialogHeader.navigateTo(customerDialogHeader.subscriptionTabInDialog);
         subscription.clickActivateDeActivateButton();
         subscription.selectCancellationCategory("Moved");
         subscription.setCancelSubscriptionNotes("Testing");
@@ -270,7 +271,7 @@ public class ValidateRenewal extends BaseClass {
     @And("I reactive a frozen subscription")
     public void reActivateSubscription() throws Exception {
         customerDialogHeader = new CustomerViewDialog_Header();
-        customerDialogHeader.NavigateTo(customerDialogHeader.subscriptionTabInDialog);
+        customerDialogHeader.navigateTo(customerDialogHeader.subscriptionTabInDialog);
         subscription.clickActivateDeActivateButton();
     }
 
@@ -285,7 +286,7 @@ public class ValidateRenewal extends BaseClass {
         double val = subscription.getRecurringTotal();
         String total = value.format(val);
         System.out.println(total);
-        overviewHeader.ClickSaveButton();
+        overviewHeader.clickSaveButton();
         return total;
     }
 
@@ -298,9 +299,24 @@ public class ValidateRenewal extends BaseClass {
         header = new Header();
         //header.Search_A_Customer(getData("userID", generalData));
         String total = subscriptionTotal();
-        overviewHeader.NavigateTo(overviewHeader.invoicesTabInDialog);
+        overviewHeader.navigateTo(overviewHeader.invoicesTabInDialog);
         invoicing.clickAddPayment();
-        invHeader.navigate(invHeader.cash);
+        System.out.println("clicked");
+        for (int i = 0; i < 10; i++) {
+            //System.out.println(i);
+            try {
+                invHeader.navigate(invHeader.cash);
+                break;
+            } catch (Exception e) {
+                try {
+                    Thread.sleep(1000);
+                    invoicing.jsClickAddPayment();
+                } catch (InterruptedException ex) {
+                    ex.printStackTrace();
+                }
+            }
+        }
+
         paymentPage.setLimitedToSubscription(getData("serviceDescription", generalData));
         Utilities.clickElement(paymentPage.confirmPymtAmtField, ElementType.XPath);
         String paymentWarning = paymentPage.getPaymentWarning();
@@ -318,7 +334,7 @@ public class ValidateRenewal extends BaseClass {
         overviewHeader = new CustomerViewDialog_Header();
         String expectedRenewalDate = GetDate.addOneYearToDate(currentDate);
         //header.Search_A_Customer(getData("customerName", generalData));
-        overviewHeader.NavigateTo(overviewHeader.subscriptionTabInDialog);
+        overviewHeader.navigateTo(overviewHeader.subscriptionTabInDialog);
         String renewalDate = subscription.getRenewalDate();
         result(expectedRenewalDate, renewalDate, "if renewal date changed after full payment", "Subscription Renewal");
         String expectedStatus = "Active";

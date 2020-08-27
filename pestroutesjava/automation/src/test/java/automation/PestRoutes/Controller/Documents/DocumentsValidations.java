@@ -3,7 +3,6 @@ package automation.PestRoutes.Controller.Documents;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.openqa.selenium.WebElement;
 import org.testng.annotations.Test;
 
 import automation.PestRoutes.Controller.Admin.Preferences.CustomerPreferences.FormTemplates;
@@ -14,8 +13,6 @@ import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_Head
 import automation.PestRoutes.PageObject.DocumentsTab.DocumentsPage;
 import automation.PestRoutes.Utilities.AssertException;
 import automation.PestRoutes.Utilities.BaseClass;
-import automation.PestRoutes.Utilities.FindElement;
-import automation.PestRoutes.Utilities.FindElement.InputType;
 import automation.PestRoutes.Utilities.Reporter;
 import automation.PestRoutes.Utilities.Utilities;
 
@@ -38,7 +35,7 @@ public class DocumentsValidations extends BaseClass {
 		subscription.renewalFieldsValidation();
 		subscription.createRenewalSubscription();
 		customerCardHeader = new CustomerViewDialog_Header();
-		customerCardHeader.NavigateTo(customerCardHeader.documentsTabInDIalog);
+		customerCardHeader.navigateTo(customerCardHeader.documentsTabInDIalog);
 		documents.clickButton(documents.uploadDocumentsButton);
 		documents.clickButton(documents.newAgreementButton);
 		documents.clickButton(documents.subscriptionButton);
@@ -60,7 +57,7 @@ public class DocumentsValidations extends BaseClass {
 		forms.navigateToFormTemplate();
 		forms.createEmployeeSignForm(formName);
 		newCustomer.createCustomerWithEmail();
-		customerCardHeader.NavigateTo(customerCardHeader.documentsTabInDIalog);
+		customerCardHeader.navigateTo(customerCardHeader.documentsTabInDIalog);
 		documents.clickButton(documents.newFormButton);
 		documents.selectForm(formName);
 		documents.clickButton(documents.actionsButton);

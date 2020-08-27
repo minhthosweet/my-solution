@@ -8,6 +8,7 @@ import automation.PestRoutes.Utilities.Utilities;
 import automation.PestRoutes.Utilities.FindElement.InputType;
 import automation.PestRoutes.Utilities.Utilities.ElementType;
 import io.cucumber.java.en.And;
+import org.openqa.selenium.JavascriptExecutor;
 
 import java.io.IOException;
 
@@ -57,17 +58,18 @@ public class RoutePage {
         }
         route.clickButton(route.addRoutesButton);
         Utilities.waitUntileElementIsVisible("//p[text()= 'Add " + insertQuantity + " Route']");
+        Utilities.scrollToElement("//p[text()= 'Add " + insertQuantity + " Route']");
         Utilities.clickElement("//p[text()= 'Add " + insertQuantity + " Route']", ElementType.XPath);
     }
 
     public void scheduleAppointment(String needRouteSlotNumber, String needTime) throws InterruptedException {
+        Utilities.waitUntileElementIsVisible("//*[@id='schedulingNotice']");
         Utilities.scrollToElement(
                 "//div[@class='routes']/div[" + needRouteSlotNumber + "]"
                         + "//div[text()='" + needTime + "']/following-sibling::div");
         Utilities.waitUntileElementIsVisible("//div[@class='routes']/div[" + needRouteSlotNumber + "]"
                 + "//div[text()='" + needTime + "']/following-sibling::div");
-        Thread.sleep(3000);
-        Utilities.clickElement("//div[@class='routes']/div[" + needRouteSlotNumber + "]" + "//div[text()='" + needTime
+        Utilities.jsClickElement("//div[@class='routes']/div[" + needRouteSlotNumber + "]" + "//div[text()='" + needTime
                 + "']/following-sibling::div", ElementType.XPath);
     }
 

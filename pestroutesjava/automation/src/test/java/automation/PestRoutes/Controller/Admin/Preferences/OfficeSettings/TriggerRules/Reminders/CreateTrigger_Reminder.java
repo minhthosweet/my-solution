@@ -199,7 +199,7 @@ public class CreateTrigger_Reminder extends BaseClass {
 				appointmentTab.standAloneService_Scheduling);
 		confirmAppt.clickScheduleButton();
 		header.Search_A_Customer(getData("userID", generalData));
-		overviewHeader.NavigateTo(overviewHeader.appointmentsTabInDialog);
+		overviewHeader.navigateTo(overviewHeader.appointmentsTabInDialog);
 		appointmentTab.clickScheduledService(serviceType);
 		appointmentTab.clickStatusButton();
 		appointmentTab.clickSaveAndCompleteButton();
@@ -216,7 +216,7 @@ public class CreateTrigger_Reminder extends BaseClass {
 		reminder = new ReminderTab();
 		header.Search_A_Customer(getData("userID", generalData));
 		overviewHeader = new CustomerViewDialog_Header();
-		overviewHeader.NavigateTo(overviewHeader.notesTabInDialog);
+		overviewHeader.navigateTo(overviewHeader.notesTabInDialog);
 		overviewHeader.clickCustomerContactsInNotesTab();
 		result(editAlertNote_Text, reminder.getAlertText_Notes(), "Edit Note Alert", "Reminder Trigger Rule");
 		result(SMSMAppointmentReminderNote, reminder.ConfirmationNote(SMSMAppointmentReminderNote),

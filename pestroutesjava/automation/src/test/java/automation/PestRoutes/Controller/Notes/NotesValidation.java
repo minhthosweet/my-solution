@@ -77,7 +77,7 @@ public class NotesValidation extends BaseClass{
 	
 	private void navigateToNotesTab() {
 		customerCardHeader = new CustomerViewDialog_Header();
-		customerCardHeader.NavigateTo(customerCardHeader.notesTabInDialog);
+		customerCardHeader.navigateTo(customerCardHeader.notesTabInDialog);
 	}
 	
 	@SuppressWarnings("unchecked")
