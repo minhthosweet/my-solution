@@ -37,9 +37,11 @@ public class AddEquipment {
         customerViewDialogEquipment.selectItemFromDropDown(customerViewDialogEquipment.addEquipmentTargetIssue, needEquipmentTargetIssue);
         customerViewDialogEquipment.setItem(customerViewDialogEquipment.addNotes, needNotes);
         customerViewDialogEquipment.clickButton(customerViewDialogEquipment.saveButton);
-        Utilities.acceptAlert();
-        customerViewDialogEquipment.setItem(customerViewDialogEquipment.addBarcode, needBarcode);
-        customerViewDialogEquipment.clickButton(customerViewDialogEquipment.saveButton);
+        if (needBarcode.length() > 0){
+            Utilities.acceptAlert();
+            customerViewDialogEquipment.setItem(customerViewDialogEquipment.addBarcode, needBarcode);
+            customerViewDialogEquipment.clickButton(customerViewDialogEquipment.saveButton);
+        }
 
     }
 
@@ -55,25 +57,4 @@ public class AddEquipment {
         assertException.result(expectedEquipmentFlagType, actualEquipmentFlagType, "Validate equipment added", "add equipment");
         System.out.println(actualEquipmentFlagType);
     }
-
-    @And("I add new equipment with no barcode required {string} and {string} and {string} and {string} and {string} and {string} and {string} and {string}")
-    public void addNewEquipmentWithoutBarcode(String needDescription, String needEquipmentType, String needEquipmentFlagType, String needDeviceID,
-                                String needApplicationMethod, String needEquipmentTargetArea, String needEquipmentTargetIssue,
-                                String needNotes) {
-        customerDialogHeader = new CustomerViewDialog_Header();
-        customerViewDialogEquipment = new CustomerViewDialog_Equipment();
-
-        customerDialogHeader.NavigateTo(customerDialogHeader.equipmentTabInDialog);
-        customerViewDialogEquipment.clickButton(customerViewDialogEquipment.addEquipmentButton);
-        customerViewDialogEquipment.setItem(customerViewDialogEquipment.addDescription, needDescription);
-        customerViewDialogEquipment.selectItemFromDropDown(customerViewDialogEquipment.addEquipmentType, needEquipmentType);
-        customerViewDialogEquipment.selectItemFromDropDown(customerViewDialogEquipment.addEquipmentFlag, needEquipmentFlagType);
-        customerViewDialogEquipment.setItem(customerViewDialogEquipment.addDeviceId, needDeviceID);
-        customerViewDialogEquipment.selectItemFromDropDown(customerViewDialogEquipment.addApplicationMethod, needApplicationMethod);
-        customerViewDialogEquipment.selectItemFromDropDown(customerViewDialogEquipment.addEquipmentTargeArea, needEquipmentTargetArea);
-        customerViewDialogEquipment.selectItemFromDropDown(customerViewDialogEquipment.addEquipmentTargetIssue, needEquipmentTargetIssue);
-        customerViewDialogEquipment.setItem(customerViewDialogEquipment.addNotes, needNotes);
-        customerViewDialogEquipment.clickButton(customerViewDialogEquipment.saveButton);
-    }
-
 }

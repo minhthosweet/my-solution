@@ -10,7 +10,7 @@
       And I verify that the equipment was added "Automation Test1"
       Given I add equipment type "ID2" and "Automation Test2" and "No"
       When I create customer with first name, last name and address
-      And I add new equipment with no barcode required "Automation" and "Automation Test2" and "DE2" and "5678" and "Injection" and "Bed" and "Bed Bugs" and "Special Product"
+      And I add new equipment with barcode required "Automation2" and "Automation Test2" and "DE2" and "1234" and "Injection" and "" and "Bed" and "Bed Bugs" and "Special Product"
       And I search customer
       And I verify that the equipment was added "Automation Test2"
       And I validate if there are errors exist in the list
