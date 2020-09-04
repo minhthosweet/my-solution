@@ -22,11 +22,11 @@ public class AddEquipment {
             "and {string} and {string} and {string}")
     public void addNewEquipmentWithBarcode(String needDescription, String needEquipmentType, String needEquipmentFlagType, String needDeviceID,
                                 String needApplicationMethod, String needBarcode, String needEquipmentTargetArea, String needEquipmentTargetIssue,
-                                String needNotes) {
+                                String needNotes) throws InterruptedException {
         customerDialogHeader = new CustomerViewDialog_Header();
         customerViewDialogEquipment = new CustomerViewDialog_Equipment();
 
-        customerDialogHeader.NavigateTo(customerDialogHeader.equipmentTabInDialog);
+        customerDialogHeader.navigateTo(customerDialogHeader.equipmentTabInDialog);
         customerViewDialogEquipment.clickButton(customerViewDialogEquipment.addEquipmentButton);
         customerViewDialogEquipment.setItem(customerViewDialogEquipment.addDescription, needDescription);
         customerViewDialogEquipment.selectItemFromDropDown(customerViewDialogEquipment.addEquipmentType, needEquipmentType);
@@ -46,12 +46,12 @@ public class AddEquipment {
     }
 
     @And("I verify that the equipment was added {string}")
-    public void verifyEquipmentWithBarcodeAdded(String needEquipmentFlagType) {
+    public void verifyEquipmentWithBarcodeAdded(String needEquipmentFlagType) throws InterruptedException {
         customerDialogHeader = new CustomerViewDialog_Header();
         customerViewDialogEquipment = new CustomerViewDialog_Equipment();
         assertException = new AssertException();
 
-        customerDialogHeader.NavigateTo(customerDialogHeader.equipmentTabInDialog);
+        customerDialogHeader.navigateTo(customerDialogHeader.equipmentTabInDialog);
         String expectedEquipmentFlagType = needEquipmentFlagType;
         String actualEquipmentFlagType = customerViewDialogEquipment.getItem();
         assertException.result(expectedEquipmentFlagType, actualEquipmentFlagType, "Validate equipment added", "add equipment");
