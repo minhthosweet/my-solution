@@ -61,6 +61,7 @@ public class CustomerviewDialog_AppointmentsTab {
     }
 
     public void clickSubScheduledStructuredService(String needStructureName, String needSubStructureName) {
+        Utilities.waitUntileElementIsVisible("//ul[@id='structuresMenuList']//span[text()='" + needStructureName +"']");
         Utilities.clickElement("//ul[@id='structuresMenuList']//span[text()='" + needStructureName + "']",
                 ElementType.XPath);
         Utilities.waitUntileElementIsVisible(

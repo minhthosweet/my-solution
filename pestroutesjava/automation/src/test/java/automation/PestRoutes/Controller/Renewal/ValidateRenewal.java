@@ -256,7 +256,7 @@ public class ValidateRenewal extends BaseClass {
     }
 
     @And("I freeze the subscription")
-    public void freezeSubscription() {
+    public void freezeSubscription() throws InterruptedException {
         overviewHeader = new CustomerViewDialog_Header();
         header = new Header();
         customerDialogHeader = new CustomerViewDialog_Header();

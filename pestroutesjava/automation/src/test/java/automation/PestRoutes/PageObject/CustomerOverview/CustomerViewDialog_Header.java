@@ -33,7 +33,8 @@ public class CustomerViewDialog_Header {
         Utilities.clickElement(customerContacts_Notes, ElementType.XPath);
     }
 
-    public void navigateTo(String chooseTabFromConst) {
+    public void navigateTo(String chooseTabFromConst) throws InterruptedException {
+        Thread.sleep(500);
         Utilities.waitUntileElementIsVisible("//li[@name= '" + chooseTabFromConst + "']");
         Utilities.clickElement("//li[@name = '" + chooseTabFromConst + "']", ElementType.XPath, true);
     }

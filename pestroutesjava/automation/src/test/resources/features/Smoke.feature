@@ -47,10 +47,12 @@ Feature: Create customer with address
     And I search customer
     Then I validate if renewal date and account status changed
     And I validate if there are errors exist in the list
+    Given I close customer card
+    And I navigate to scheduling tab
+    Then I delete a routing group
 
   @CreateStructureAndChemical
   Scenario: Structure and Chemical Validation
-    Given I close customer card
     When I create customer with first name, last name, address, email and Structure
     And I add structure and sub structures
     When I create a subscription with Sales Rep assigned "Jared Green - Office" and "Fire"
@@ -64,3 +66,6 @@ Feature: Create customer with address
     Then I verify chemical in structure
     Then I verify chemical in substructure
     And I validate if there are errors exist in the list
+    And I close customer card
+    And I navigate to scheduling tab
+    Then I delete a routing group

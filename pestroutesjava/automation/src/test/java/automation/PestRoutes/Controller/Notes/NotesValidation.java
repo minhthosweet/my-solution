@@ -75,7 +75,7 @@ public class NotesValidation extends BaseClass{
 		Utilities.acceptAlert();
 	}
 	
-	private void navigateToNotesTab() {
+	private void navigateToNotesTab() throws InterruptedException {
 		customerCardHeader = new CustomerViewDialog_Header();
 		customerCardHeader.navigateTo(customerCardHeader.notesTabInDialog);
 	}

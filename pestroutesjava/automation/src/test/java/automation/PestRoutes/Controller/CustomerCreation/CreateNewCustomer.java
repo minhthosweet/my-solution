@@ -203,7 +203,7 @@ public class CreateNewCustomer extends BaseClass {
     }
 
     @And("I navigate to Subscription Tab")
-    public void navigateToSubscriptionTab() {
+    public void navigateToSubscriptionTab() throws InterruptedException {
         customerDialogHeader = new CustomerViewDialog_Header();
         Utilities.waitUntileElementIsVisible("//li[@name = '" + customerDialogHeader.subscriptionTabInDialog + "']");
         customerDialogHeader.navigateTo(customerDialogHeader.subscriptionTabInDialog);

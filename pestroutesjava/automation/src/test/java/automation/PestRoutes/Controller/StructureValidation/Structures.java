@@ -46,7 +46,7 @@ public class Structures extends BaseClass {
     }
 
     @And("I add structure and sub structures")
-    public void createStructure() {
+    public void createStructure() throws InterruptedException {
         dialog.navigateTo(dialog.structuresTabInDialog);
         structures.setMainStructure(mainStructureName);
         structures.setSubStructure(subUnit);

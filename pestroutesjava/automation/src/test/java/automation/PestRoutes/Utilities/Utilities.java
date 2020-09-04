@@ -136,7 +136,7 @@ public class Utilities {
 	}
 
 	public static void waitUntileElementIsVisible(String needXpath) {
-		WebDriverWait wait = new WebDriverWait(driver, 50);
+		WebDriverWait wait = new WebDriverWait(driver, 20);
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(needXpath)));
 	}
 
@@ -200,6 +200,7 @@ public class Utilities {
 	}
 
 	public static void clickElement(String needAttribute, ElementType Attribute_Type) {
+		scrollToElement(needAttribute);
 		clickElement(needAttribute, Attribute_Type, false);
 	}
 

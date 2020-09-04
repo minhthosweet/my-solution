@@ -34,7 +34,7 @@ public class SchedulingTab extends AppData {
         addData("scheduleDate", scheduleDate, generalData);
     }
 
-    public void clickScheduleButton() {
+    public void clickScheduleButton() throws InterruptedException {
         overviewHeader = new CustomerViewDialog_Header();
         overviewHeader.navigateTo(overviewHeader.subscriptionTabInDialog);
         Utilities.clickElement(scheduleButtonInDialog, ElementType.XPath);

@@ -8,6 +8,7 @@ import automation.PestRoutes.Utilities.Utilities;
 import automation.PestRoutes.Utilities.FindElement.InputType;
 import automation.PestRoutes.Utilities.Utilities.ElementType;
 import io.cucumber.java.en.And;
+import io.cucumber.java.en.Then;
 import org.openqa.selenium.JavascriptExecutor;
 
 import java.io.IOException;
@@ -44,18 +45,18 @@ public class RoutePage {
         appt = new ScheduleAppt();
         validateRenewal = new ValidateRenewal();
         route = new RoutePage();
-        try {
-            Thread.sleep(1000);
-            int total = Utilities.getElementCount(appt.routes);
-            while (total > 3) {
-                deleteFirstRoute();
-                total--;
-                validateRenewal.navigateToSchedulingSameDayTab();
-                continue;
-            }
-        } catch (Exception e) {
-            System.out.println("Exception is " + e);
-        }
+//        try {
+//            Thread.sleep(1000);
+//            int total = Utilities.getElementCount(appt.routes);
+//            while (total > 3) {
+//                deleteFirstRoute();
+//                total--;
+//                validateRenewal.navigateToSchedulingTab();
+//                continue;
+//            }
+//        } catch (Exception e) {
+//            System.out.println("Exception is " + e);
+//        }
         route.clickButton(route.addRoutesButton);
         Utilities.waitUntileElementIsVisible("//p[text()= 'Add " + insertQuantity + " Route']");
         Utilities.scrollToElement("//p[text()= 'Add " + insertQuantity + " Route']");
@@ -78,22 +79,20 @@ public class RoutePage {
         String groupXpath = "//h3[text()= 'TestRoutes']/parent::div";
         String group = "groupButton";
         customRoute = new CustomRoute();
-        try {
-            if (Utilities.getElementCount(groupName) == 0) {
-                Utilities.clickElement(addGroup, ElementType.XPath);
-                FindElement.elementByAttribute(groupTitle, InputType.XPath).sendKeys("TestRoutes");
-                Utilities.waitUntileElementIsVisible(groupTemplate);
-                Utilities.clickElement(groupTemplate, ElementType.XPath);
-                Utilities.waitUntileElementIsVisible(groupTemplateName);
-                Utilities.clickElement("//form[@id='editGroupForm']//option[contains (text(), '" + customRoute.routeName + "')]", ElementType.XPath);
-                Utilities.waitUntileElementIsVisible(saveButton);
-                Utilities.clickElement(saveButton, ElementType.XPath);
-            } else if (Utilities.getAttributeValue(groupXpath, "class").equalsIgnoreCase(group)) {
-                Utilities.clickElement(groupName, ElementType.XPath);
-            }
-        } catch (Exception e) {
-            System.out.println("Exception is == " + e.getMessage());
-        }
+        Utilities.clickElement(addGroup, ElementType.XPath);
+        FindElement.elementByAttribute(groupTitle, InputType.XPath).sendKeys("TestRoutes");
+        Utilities.waitUntileElementIsVisible(groupTemplate);
+        Utilities.selectValueFromDropDownByValue("//select[@name='templateID']", "TestRoutes");
+        Utilities.waitUntileElementIsVisible(saveButton);
+        Utilities.clickElement(saveButton, ElementType.XPath);
+    }
+    @Then("I delete a routing group")
+    public void deleteGroup(){
+        Utilities.waitUntileElementIsVisible("//h3[text() = 'TestRoutes']");
+        Utilities.clickElement("//h3[text() = 'TestRoutes']", ElementType.XPath);
+        Utilities.clickElement("//div[@id = 'editGroupDialog']/following-sibling::div[1]//span[text()='Delete']", ElementType.XPath);
+        Utilities.waitUntileElementIsVisible("//span[text()='Delete Group']");
+        Utilities.clickElement("//span[text()='Delete Group']", ElementType.XPath);
     }
 
     public void deleteFirstRoute() throws InterruptedException {

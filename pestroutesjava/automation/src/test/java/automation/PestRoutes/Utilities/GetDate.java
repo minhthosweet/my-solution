@@ -1,8 +1,12 @@
 package automation.PestRoutes.Utilities;
 
+import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
+import java.util.Date;
 
 public class GetDate {
 
@@ -16,8 +20,9 @@ public class GetDate {
 
 	public static String addOneYearToDate(String needDate) throws Exception {
 		String input = needDate;
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/dd/uuuu");
-		LocalDate localDate = LocalDate.parse(input, formatter);
+		Date date = new SimpleDateFormat("M/dd/yyyy").parse(input);
+		Instant instant = date.toInstant();
+		LocalDate localDate = instant.atZone(ZoneId.systemDefault()).toLocalDate();
 		LocalDate yearLater = localDate.plusYears(1);
 		String formattedDate = yearLater.format(DateTimeFormatter.ofPattern("M/dd/yyyy"));
 		System.out.println(formattedDate);
