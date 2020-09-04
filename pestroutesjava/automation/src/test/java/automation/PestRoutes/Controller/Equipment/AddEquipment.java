@@ -27,6 +27,8 @@ public class AddEquipment {
         customerViewDialogEquipment = new CustomerViewDialog_Equipment();
 
         customerDialogHeader.navigateTo(customerDialogHeader.equipmentTabInDialog);
+        customerDialogHeader = new CustomerViewDialog_Header();
+        customerViewDialogEquipment = new CustomerViewDialog_Equipment();
         customerViewDialogEquipment.clickButton(customerViewDialogEquipment.addEquipmentButton);
         customerViewDialogEquipment.setItem(customerViewDialogEquipment.addDescription, needDescription);
         customerViewDialogEquipment.selectItemFromDropDown(customerViewDialogEquipment.addEquipmentType, needEquipmentType);
