@@ -2,6 +2,7 @@ package automation.PestRoutes.PageObject.CustomerOverview;
 
 import java.util.Date;
 
+import org.apache.commons.lang3.SystemUtils;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
@@ -196,6 +197,9 @@ public class CustomerViewDialog_SubscriptionTab {
 	
 	public void selectAdditionalItem_ToInitialInvoice(String needItem) {
 		Utilities.clickElement(initialInvoice_AddTicketItemButton, ElementType.XPath);
+		if(SystemUtils.IS_OS_LINUX) {
+			Utilities.acceptAlertLinux();
+		}
 		Utilities.waitUntileElementIsVisible("//span[text()=  '"+needItem+"']");
 		Utilities.clickElement("//span[text()=  '"+needItem+"']", ElementType.XPath);
 	}
@@ -203,6 +207,9 @@ public class CustomerViewDialog_SubscriptionTab {
 	public void selectAdditionalItem_ToRecurringInvoice(String needItem) {
 		Utilities.waitUntileElementIsVisible(recurringInvoice_AddTicketItemButton);
 		Utilities.clickElement(recurringInvoice_AddTicketItemButton, ElementType.XPath);
+		if(SystemUtils.IS_OS_LINUX) {
+			Utilities.acceptAlertLinux();
+		}
 		Utilities.waitUntileElementIsVisible("//span[text()=  '"+needItem+"']");
 		Utilities.clickElement("//span[text()=  '"+needItem+"']", ElementType.XPath);
 	}
@@ -266,6 +273,9 @@ public class CustomerViewDialog_SubscriptionTab {
 	public void setInitialServiceDiscount(String needAmount) {
 		FindElement.elementByAttribute(initialDiscountInputField, InputType.XPath).clear();
 		Utilities.highLight(initialDiscountInputField);
+		if(SystemUtils.IS_OS_LINUX) {
+			Utilities.acceptAlertLinux();
+		}
 		FindElement.elementByAttribute(initialDiscountInputField, InputType.XPath).sendKeys(needAmount);
 	}
 
@@ -332,8 +342,10 @@ public class CustomerViewDialog_SubscriptionTab {
 	}
 	
 	public String getCustomProductionValue() {
-		WebElement elm = FindElement.elementByAttribute
-				("//span[text()='Custom Production']/following-sibling::input[@name='productionValue']", InputType.XPath);
+		if(SystemUtils.IS_OS_LINUX) {
+			Utilities.acceptAlertLinux();
+		}
+		WebElement elm = FindElement.elementByAttribute("//span[text()='Custom Production']/following-sibling::input[@name='productionValue']", InputType.XPath);
 		String value = elm.getAttribute("value");
 		return value;
 	}

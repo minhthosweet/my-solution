@@ -16,7 +16,7 @@ public class GetWebDriver {
 		if(driver == null) {
 			if(SystemUtils.IS_OS_MAC_OSX) {
 				System.setProperty("webdriver.chrome.driver",
-						"src/test/java/automation/PestRoutes/Utilities/Driver/chromedriver");
+						"src/test/java/automation/PestRoutes/Utilities/Driver/chromedriver.mac");
 				driver = new ChromeDriver();
 				driver.manage().window().maximize();
 				driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
@@ -27,6 +27,8 @@ public class GetWebDriver {
 				driver.manage().window().maximize();
 				driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 			} else if(SystemUtils.IS_OS_LINUX) {
+				System.setProperty("webdriver.chrome.driver",
+						"src/test/java/automation/PestRoutes/Utilities/Driver/chromedriver.linux");
 				ChromeOptions options = new ChromeOptions();
 				options.addArguments("--headless", "--disable-gpu", "--window-size=1920,1200","--ignore-certificate-errors");
 				driver = new ChromeDriver(options);

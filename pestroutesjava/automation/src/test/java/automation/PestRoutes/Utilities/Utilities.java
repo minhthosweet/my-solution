@@ -67,6 +67,14 @@ public class Utilities {
 		driver.switchTo().alert().accept();
 	}
 
+	public static void acceptAlertLinux() {
+		try {
+			driver.switchTo().alert().accept();
+		} catch (Exception e) {
+
+		}
+	}
+
 	public static Alert alertPopUp() {
 		return driver.switchTo().alert();
 	}
@@ -90,11 +98,22 @@ public class Utilities {
 	}
 
 	public static void scrollToElement(String needXpath) {
-		Utilities.waitUntileElementIsVisible(needXpath);
-		WebElement element = driver.findElement(By.xpath(needXpath));
-		Actions actions = new Actions(driver);
-		actions.moveToElement(element);
-		actions.perform();
+		for (int i = 0; i < 10; i++) {
+			try {
+				Utilities.waitUntileElementIsVisible(needXpath);
+				WebElement element = driver.findElement(By.xpath(needXpath));
+				Actions actions = new Actions(driver);
+				actions.moveToElement(element);
+				actions.perform();
+				break;
+			} catch (Exception e) {
+				try {
+					Thread.sleep(1000);
+				} catch (InterruptedException ex) {
+					ex.printStackTrace();
+				}
+			}
+		}
 	}
 
 	public static void scrollToElementJS(String needXpath) throws InterruptedException {
