@@ -89,7 +89,7 @@ public class ScheduleAppt extends BaseClass {
     public void addRoute() throws Exception {
         customRoute =  new CustomRoute();
         route = new RoutePage();
-//        customRoute.createRouteTemplate();
+        customRoute.createRouteTemplate();
         route.addGroup();
         route.addRoutesByQuantity("1");
     }

@@ -75,14 +75,14 @@ public class AddSubscription extends BaseClass {
 	public void createSubscription(String needSalesmanName, String needSubscriptionFlagName, String initialInvoiceType) throws Exception {
 		customerDialogHeader = new CustomerViewDialog_Header();
 		header = new Header();
-		customerDialogHeader.NavigateTo(customerDialogHeader.subscriptionTabInDialog);
+		customerDialogHeader.navigateTo(customerDialogHeader.subscriptionTabInDialog);
 		subscription.clickNewSubscriptionButton();
 		subscription.selectServiceType(getData("serviceDescription", generalData));
 		subscription.setCustomDate(getData("customDate", quarterlyPreferredDayData));
 		subscription.selectSalesRep(needSalesmanName);
 		subscription.selectSubscriptionFlag(needSubscriptionFlagName);
 		subscription.setInitialInvoiceType(initialInvoiceType);
-		customerDialogHeader.ClickSaveButton();
+		customerDialogHeader.clickSaveButton();
 		initialInvoiceValue = subscription.getInitialInvoiceValue();
 	}
 

@@ -141,8 +141,6 @@ public class ValidateRenewal extends BaseClass {
         scheduleDay.clickScheduleButton();
         int totalCount = Utilities.getElementCount(appt.routes);
         String routesCount = Integer.toString(totalCount);
-        System.out.println(routesCount);
-        Thread.sleep(3000);
         route.scheduleAppointment(routesCount, getData("timeSlot", generalData));
         confirmAppt.selectServiceType(serviceType);
         confirmAppt.selectInteriorNeededOption(appt.serviceAreaProvided);
@@ -157,10 +155,8 @@ public class ValidateRenewal extends BaseClass {
         confirmAppt = new SchedulingAppointmentDialog();
         scheduleDay = new SchedulingTab();
         scheduleDay.clickScheduleButton();
-        scheduleDay = new SchedulingTab();
         int totalCount = Utilities.getElementCount(appt.routes);
         String routesCount = Integer.toString(totalCount);
-        System.out.println(routesCount);
         route.scheduleAppointment(routesCount, getData("timeSlot", generalData));
         scheduleDay.selectServiceType(getData("quarterly", quarterlyPreferredDayData));
         confirmAppt.clickScheduleButton();

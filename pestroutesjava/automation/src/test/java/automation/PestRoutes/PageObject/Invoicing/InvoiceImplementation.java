@@ -45,6 +45,14 @@ public class InvoiceImplementation {
     //Create New Invoice
     private String createNewInvoice_date = "//input[@name='date']";
 
+    //Account Summary Objects
+    public String accountBalance = "//div[text()='Email']/parent::div/following-sibling::div[1]//div";
+
+    //Initial Invoice Objects
+    public String invoiceDate = "//div[text()='Invoice Date']/following-sibling::div[1]";
+    public String chargesBalance = "//div[@data-isinitial='1']//following-sibling::div/child::div[text()='Total']/following-sibling::div[1]";
+    public String paymentsBalance = "//div[text()='Balance']/following-sibling::div";
+
     // Getter Methods
     public int getInvoiceCost() {
         Utilities.waitUntileElementIsVisible(invoiceCost);
@@ -127,7 +135,21 @@ public class InvoiceImplementation {
 
     public void clickInvoice(String needServiceName) {
         Utilities.waitUntileElementIsVisible("//ul[@id='invoiceGroupListContainer']//div[contains(text(),'" + needServiceName + "')]");
-        Utilities.clickElement("//ul[@id='invoiceGroupListContainer']//div[contains(text(),'", ElementType.XPath);
+        Utilities.clickElement("//ul[@id='invoiceGroupListContainer']//div[contains(text(),'" + needServiceName + "')]", ElementType.XPath);
     }
 
+    public String getAccountBalance(){
+        Utilities.waitUntileElementIsVisible(accountBalance);
+        return Utilities.getElementTextValue(accountBalance, ElementType.XPath);
+    }
+
+    public String getChargesBalance(){
+        Utilities.waitUntileElementIsVisible(invoiceDate);
+        return Utilities.getElementTextValue(chargesBalance, ElementType.XPath);
+    }
+
+    public String getPaymentsBalance(){
+        Utilities.waitUntileElementIsVisible(invoiceDate);
+        return Utilities.getElementTextValue(paymentsBalance, ElementType.XPath);
+    }
 }

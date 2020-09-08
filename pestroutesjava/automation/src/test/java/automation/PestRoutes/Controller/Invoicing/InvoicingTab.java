@@ -1,6 +1,10 @@
 package automation.PestRoutes.Controller.Invoicing;
 
 import automation.PestRoutes.Controller.CustomerCreation.CreateNewCustomer;
+import automation.PestRoutes.Controller.Subscriptions.AddSubscription;
+import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_SubscriptionTab;
+import automation.PestRoutes.Utilities.AssertException;
+import io.cucumber.java.en.And;
 import org.testng.annotations.Test;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_Header;
 import automation.PestRoutes.PageObject.Invoicing.InvoiceImplementation;
@@ -9,19 +13,25 @@ import automation.PestRoutes.PageObject.Invoicing.RoutePageInvoicing;
 import automation.PestRoutes.Utilities.BaseClass;
 import automation.PestRoutes.Utilities.Reporter;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 public class InvoicingTab extends BaseClass {
 
-	InvoiceImplementation invImplementation  = new InvoiceImplementation();;
+	InvoiceImplementation invImplementation  = new InvoiceImplementation();
 	CreateNewCustomer createCustomer;
-	RoutePageInvoicing invoiceRoutesTab = new RoutePageInvoicing();;
-	CustomerViewDialog_Header routesTab;
+	RoutePageInvoicing invoiceRoutesTab = new RoutePageInvoicing();
+	CustomerViewDialog_Header header;
 	Invoice_Header invoiceHeader;
+	AddSubscription addSubscription;
+	CustomerViewDialog_SubscriptionTab subscriptionTab;
 
 	private String treatmentAmount = "900";
 	private Integer partialPaymentAmount = Integer.parseInt(treatmentAmount) / 2;
 	private String successfulPartialCharge = "Successfully Charged Cash!$450.00";
 	private String successfulFullCharge = "Successfully Charged Cash!$5,450.00";
-
+	List list = new ArrayList<String>();
 	private String invoiceDate = "1";
 
 	@Test
@@ -42,8 +52,8 @@ public class InvoicingTab extends BaseClass {
 		createCustomer = new CreateNewCustomer();
 		createCustomer.createCustomerWithEmail();
 		createCustomer.searchCustomer();
-		routesTab = new CustomerViewDialog_Header();
-		routesTab.navigateTo(routesTab.invoicesTabInDialog);
+		header = new CustomerViewDialog_Header();
+		header.navigateTo(header.invoicesTabInDialog);
 		invoiceRoutesTab.clickAddPayment();
 		invoiceRoutesTab.clickAddNewInvoice(invoiceRoutesTab.addNewInvoice);
 		invImplementation.newInvoiceDetails(treatmentAmount,date);
@@ -93,4 +103,31 @@ public class InvoicingTab extends BaseClass {
 		invImplementation.InvoiceAccountSummaryClick();
 	}
 
+	@And("I validate invoice")
+	public void validateInvoice() throws IOException {
+		addSubscription = new AddSubscription();
+		header = new CustomerViewDialog_Header();
+		subscriptionTab = new CustomerViewDialog_SubscriptionTab();;
+		header.navigateTo(header.subscriptionTabInDialog);
+		String initialInvoiceValue = subscriptionTab.getInitialInvoiceValue();
+		header.navigateTo(header.invoicesTabInDialog);
+		result(initialInvoiceValue, "$" + invImplementation.getAccountBalance(), "Total Initial Invoice Value",
+				"Initial Invoice Validation");
+		invImplementation.clickInvoice(getData("serviceDescription", generalData));
+		result(initialInvoiceValue,"$" +  invImplementation.getChargesBalance(), "Total Initial Invoice Value",
+				"Initial Invoice Validation");
+		result(initialInvoiceValue, "$" + invImplementation.getPaymentsBalance(), "Total Initial Invoice Value",
+				"Initial Invoice Validation");
+	}
+
+	private void result(String expected, String actual, String stepName, String testName) {
+		if (AssertException.result(expected, actual, stepName).size() > 0) {
+			list.add(AssertException.result(expected, actual, stepName));
+		}
+		Reporter.status(stepName, expected, actual, testName);
+	}
+
+	public void validateIfFailureExist() {
+		AssertException.assertFailure(list);
+	}
 }
