@@ -15,6 +15,7 @@ public class PreferencesPage {
 	//Customer preferences navigation
 	public String customerPreferencesRelatedNav = "//h2[@id='customer']";
 	public String formTemplate = "//li[text()='Form Templates']";
+	public String genericFlags = "//li[text()='Generic Flags']";
 	
 	//Service related navigation
 	public String serviceRelatedNav = "//h2[@id='service']";

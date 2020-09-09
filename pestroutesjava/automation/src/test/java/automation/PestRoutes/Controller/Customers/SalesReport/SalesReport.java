@@ -35,6 +35,7 @@ public class SalesReport extends BaseClass {
 	CustomersMainPage customersMainPage;
 	ScheduleAppt scheduleAppt;
 	CustomerViewDialog_OverviewTab overview;
+	AssertException assertException;
 
 	List list = new ArrayList<String>();
 	double customerContractValue;
@@ -83,31 +84,25 @@ public class SalesReport extends BaseClass {
 	@And("I validate subscription flag column")
 	public void validateSubscriptionFlagColumn() throws Exception {
 		salesReportPage = new SalesReportPage();
+		assertException = new AssertException();
 		String currentSubscriptionFlagName = salesReportPage.getCurrentSubscriptionFlagName(getData("serviceDescription", generalData));
 		String expectedSubscriptionFlagName = getData("subscriptionFlagName", generalData);
 		salesReportPage.subscriptionFlagColumnPresent();
-		result(expectedSubscriptionFlagName, currentSubscriptionFlagName, "validate flags", "validate salesReport");
+		assertException.result(expectedSubscriptionFlagName, currentSubscriptionFlagName, "validate flags", "validate salesReport");
 	}
 
 	@Then("I validate sales report totals")
 	public void validateSalesReportTotals() throws Exception {
 		addNewSubscription = new AddSubscription();
 		salesReportPage = new SalesReportPage();
+		assertException = new AssertException();
 		double currentReportTotalContractValue = salesReportPage.getSalesReportTotalContractValue();
 		String currentReportTotalContractValueConverted = Double.toString(currentReportTotalContractValue);
 		double expectedReportTotalContractValue = salesReportPage
 				.getSalesReportTotalSingleContractValue(getData("serviceDescription", generalData));
 		String expectedReportTotalContractValueConverted = Double.toString(expectedReportTotalContractValue);
-		result(addNewSubscription.newContractValue, currentReportTotalContractValueConverted, "validate contractValue", "validate salesReport" );
-		result(expectedReportTotalContractValueConverted, currentReportTotalContractValueConverted, "validate totalContractValue", "validate salesReport" );
-	}
-
-	@SuppressWarnings("unchecked")
-	private void result(String expected, String actual, String stepName, String testName) {
-		if (AssertException.result(expected, actual, stepName).size() > 0) {
-			list.add(AssertException.result(expected, actual, stepName));
-		}
-		Reporter.status(stepName, expected, actual, testName);
+		assertException.result(addNewSubscription.newContractValue, currentReportTotalContractValueConverted, "validate contractValue", "validate salesReport" );
+		assertException.result(expectedReportTotalContractValueConverted, currentReportTotalContractValueConverted, "validate totalContractValue", "validate salesReport" );
 	}
 
 }

@@ -35,7 +35,6 @@ public class AddUser extends BaseClass {
 		header.NavigateTo(header.adminTab);
 		adminPage.navigateTo(adminPage.users);
 
-
 		// Click on the User button
 		try {
 			WebElement elm = FindElement.elementByAttribute(adminPage.existingUser, InputType.XPath);

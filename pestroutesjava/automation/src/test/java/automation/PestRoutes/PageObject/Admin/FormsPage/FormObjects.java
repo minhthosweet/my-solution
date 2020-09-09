@@ -8,6 +8,7 @@ import automation.PestRoutes.Utilities.Utilities.ElementType;
 public class FormObjects {
 	
 	public String addFormButton = "//div[text() = '+ Form Template']";
+	public String addFlagButton = "//div[text() = '+ Generic Flag']";
 	public String htmlButton = "//div[@id='preferenceHeader']/following-sibling::form//div[text()='html']";
 	public String previewButton = "//div[@id='preferenceHeader']/following-sibling::form//div[text()='preview']";
 	public String deleteButton = "//div[@id='preferenceHeader']/following-sibling::form//div[text()='delete']";
@@ -18,6 +19,7 @@ public class FormObjects {
 	public String nameField = "//div[@id='preferenceHeader']/following-sibling::form//input[@name='description']";
 	public String requiredApprovalDropdown = "//div[@id='preferenceHeader']/following-sibling::form//select[@name='requireApproval']";
 	public String htmlInputField = "//div[@id='preferenceHeader']/following-sibling::form//textarea[@name = 'content']";
+	public String existingFlag = "//div[contains(text(),'Fire')]";
 	
 	
 	
