@@ -104,7 +104,7 @@ public class InvoicingTab extends BaseClass {
 	}
 
 	@And("I validate invoice")
-	public void validateInvoice() throws IOException {
+	public void validateInvoice() throws IOException, InterruptedException {
 		addSubscription = new AddSubscription();
 		header = new CustomerViewDialog_Header();
 		subscriptionTab = new CustomerViewDialog_SubscriptionTab();;
