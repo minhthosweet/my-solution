@@ -391,4 +391,12 @@ public class CustomerViewDialog_SubscriptionTab {
 		Utilities.clickElement("//li[@subscriptionid='"+subscriptionID+"']", ElementType.XPath);
 	}
 
+	public void setInitialInvoiceType(String initialInvoiceType) {
+		Utilities.selectValueFromDropDownByValue(billingInitialInvoiceDropdown, initialInvoiceType);
+	}
+
+	public String getInitialInvoiceValue(){
+		return Utilities.getElementTextValue(initialTotalValue, ElementType.XPath);
+	}
+
 }
