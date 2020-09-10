@@ -1,8 +1,10 @@
 package automation.PestRoutes.Controller.Documents;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.cucumber.java.en.And;
 import org.testng.annotations.Test;
 
 import automation.PestRoutes.Controller.Admin.Preferences.CustomerPreferences.FormTemplates;
@@ -26,7 +28,7 @@ public class DocumentsValidations extends BaseClass {
 	FormTemplates forms;
 	List list = new ArrayList<String>();
 	String formName = "Automation Test";
-	
+
 	public void signAgreement() throws Exception{
 		String expectedSuccessEmailMessage = "The agreement has been successfully signed!";
 		documents = new DocumentsPage();
@@ -46,6 +48,23 @@ public class DocumentsValidations extends BaseClass {
 		result(expectedSuccessEmailMessage, actualSuccessMessage, "New emailed agreement message", "Documents tab validations");
 		
 		
+	}
+
+	@And("I sign the agreement for subscription of type After Agreement Signed")
+	public void signAgreement_AfterAgreementSignedSubscription() throws Exception{
+		String expectedSuccessEmailMessage = "The agreement has been successfully signed!";
+		documents = new DocumentsPage();
+		customerCardHeader = new CustomerViewDialog_Header();
+		customerCardHeader.navigateTo(customerCardHeader.documentsTabInDIalog);
+		documents.clickButton(documents.newAgreementButton);
+		documents.clickButton(documents.subscriptionButton);
+		documents.clickButton(documents.createSignedAgreementButton);
+		documents.sign(documents.agreementSignBox);
+		documents.clickButton(documents.signButton);
+		String actualSuccessMessage = documents.getMessage(documents.message);
+		result(expectedSuccessEmailMessage, actualSuccessMessage, "New emailed agreement message", "Documents tab validations");
+
+
 	}
 	@Test
 	public void signEmployeeForm() throws Exception {
@@ -72,6 +91,16 @@ public class DocumentsValidations extends BaseClass {
 		Utilities.switchBackToDom();
 		
 		
+	}
+
+	@And("I validate the if agreement is created")
+	public void validateAgreement() throws InterruptedException, IOException {
+		documents = new DocumentsPage();
+		String expectedSuccessMessage = getData("serviceDescription", generalData)+ " Agreement";
+		customerCardHeader = new CustomerViewDialog_Header();
+		customerCardHeader.navigateTo(customerCardHeader.documentsTabInDIalog);
+		String actualSuccessMessage = Utilities.getElementTextValue("//ul[@id='documentList']//div[text()='"+getData("serviceDescription", generalData)+" Agreement']", Utilities.ElementType.XPath);
+		result(expectedSuccessMessage, actualSuccessMessage, "New emailed agreement message", "Documents tab validations");
 	}
 	
 	

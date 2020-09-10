@@ -1,7 +1,6 @@
 package automation.PestRoutes.Controller.Subscriptions;
 
 import automation.PestRoutes.PageObject.Header;
-import automation.PestRoutes.PageObject.CreateCustomer.CreateCustomerDIalog;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_Header;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_SubscriptionTab;
 import automation.PestRoutes.Utilities.AssertException;
@@ -12,12 +11,9 @@ import automation.PestRoutes.Utilities.Utilities.ElementType;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import org.testng.annotations.Test;
-import com.aventstack.extentreports.ExtentTest;
 
 public class AddSubscription extends BaseClass {
 
@@ -71,16 +67,14 @@ public class AddSubscription extends BaseClass {
 		newContractValue = getContractValue();
 	}
 
-	@And("I create a subscription of type {string} and {string} of type {string}")
-	public void createSubscription(String needSalesmanName, String needSubscriptionFlagName, String initialInvoiceType) throws Exception {
+	@And("I create a subscription of type {string}")
+	public void createSubscription(String initialInvoiceType) throws Exception {
 		customerDialogHeader = new CustomerViewDialog_Header();
 		header = new Header();
 		customerDialogHeader.navigateTo(customerDialogHeader.subscriptionTabInDialog);
 		subscription.clickNewSubscriptionButton();
 		subscription.selectServiceType(getData("serviceDescription", generalData));
 		subscription.setCustomDate(getData("customDate", quarterlyPreferredDayData));
-		subscription.selectSalesRep(needSalesmanName);
-		subscription.selectSubscriptionFlag(needSubscriptionFlagName);
 		subscription.setInitialInvoiceType(initialInvoiceType);
 		customerDialogHeader.clickSaveButton();
 		initialInvoiceValue = subscription.getInitialInvoiceValue();

@@ -120,6 +120,23 @@ public class InvoicingTab extends BaseClass {
 				"Initial Invoice Validation");
 	}
 
+	@And("I validate initial invoice created on invoice tab")
+	public void validateInitialInvoice() throws IOException, InterruptedException {
+		addSubscription = new AddSubscription();
+		header = new CustomerViewDialog_Header();
+		subscriptionTab = new CustomerViewDialog_SubscriptionTab();;
+		header.navigateTo(header.subscriptionTabInDialog);
+		String initialInvoiceValue = subscriptionTab.getInitialInvoiceValue();
+		header.navigateTo(header.invoicesTabInDialog);
+		result(initialInvoiceValue, "$" + invImplementation.getAccountBalance(), "Total Initial Invoice Value",
+				"Initial Invoice Validation");
+		invImplementation.clickInitialInvoice();
+		result(initialInvoiceValue,"$" +  invImplementation.getChargesBalance(), "Total Initial Invoice Value",
+				"Initial Invoice Validation");
+		result(initialInvoiceValue, "$" + invImplementation.getPaymentsBalance(), "Total Initial Invoice Value",
+				"Initial Invoice Validation");
+	}
+
 	private void result(String expected, String actual, String stepName, String testName) {
 		if (AssertException.result(expected, actual, stepName).size() > 0) {
 			list.add(AssertException.result(expected, actual, stepName));

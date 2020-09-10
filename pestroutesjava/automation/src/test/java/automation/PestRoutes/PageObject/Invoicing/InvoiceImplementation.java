@@ -9,6 +9,7 @@ public class InvoiceImplementation {
 
     // Values on Invoicing Landing Page
     private String invoiceAccountSummaryClick = "//ul[@id=\"invoiceGroupListContainer\"]/ul/li";
+    public String initialInvoice = "//span[text()='Initial Balance']";
 
     // Invoice Amount
     private String newInvoice = "//form[@id=\"newInvoiceParams\"]//input[@type=\"number\"]";
@@ -136,6 +137,11 @@ public class InvoiceImplementation {
     public void clickInvoice(String needServiceName) {
         Utilities.waitUntileElementIsVisible("//ul[@id='invoiceGroupListContainer']//div[contains(text(),'" + needServiceName + "')]");
         Utilities.clickElement("//ul[@id='invoiceGroupListContainer']//div[contains(text(),'" + needServiceName + "')]", ElementType.XPath);
+    }
+
+    public void clickInitialInvoice(){
+        Utilities.waitUntileElementIsVisible(initialInvoice);
+        Utilities.clickElement(initialInvoice, ElementType.XPath);
     }
 
     public String getAccountBalance(){
