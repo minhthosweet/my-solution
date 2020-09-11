@@ -10,6 +10,7 @@ import automation.PestRoutes.Utilities.Utilities.ElementType;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebElement;
 
 import java.io.IOException;
 
@@ -74,25 +75,43 @@ public class RoutePage {
                 + "']/following-sibling::div", ElementType.XPath);
     }
 
+    @And ("I add a route group if not already existing")
+    public void addGroupIfNotExisting() throws IOException, InterruptedException {
+        try {
+            WebElement elm = FindElement.elementByAttribute("//h3[text() = 'TestRoutes']", InputType.XPath);
+            if (elm.isDisplayed()) {
+                deleteGroup();
+                addGroup();
+            }
+        } catch(Exception e) {
+                addGroup();
+            }
+        }
+
     @And("I add a route group")
-    public void addGroup() throws IOException {
+    public void addGroup() throws IOException, InterruptedException {
         String groupXpath = "//h3[text()= 'TestRoutes']/parent::div";
         String group = "groupButton";
         customRoute = new CustomRoute();
-        Utilities.clickElement(addGroup, ElementType.XPath);
-        FindElement.elementByAttribute(groupTitle, InputType.XPath).sendKeys("TestRoutes");
-        Utilities.waitUntileElementIsVisible(groupTemplate);
-        Utilities.selectValueFromDropDownByValue("//select[@name='templateID']", "TestRoutes");
-        Utilities.waitUntileElementIsVisible(saveButton);
-        Utilities.clickElement(saveButton, ElementType.XPath);
-    }
-    @Then("I delete a routing group")
-    public void deleteGroup(){
-        Utilities.waitUntileElementIsVisible("//h3[text() = 'TestRoutes']");
-        Utilities.clickElement("//h3[text() = 'TestRoutes']", ElementType.XPath);
-        Utilities.clickElement("//div[@id = 'editGroupDialog']/following-sibling::div[1]//span[text()='Delete']", ElementType.XPath);
-        Utilities.waitUntileElementIsVisible("//span[text()='Delete Group']");
-        Utilities.clickElement("//span[text()='Delete Group']", ElementType.XPath);
+            Utilities.scrollToElementJS(addGroup);
+            Utilities.clickElement(addGroup, ElementType.XPath);
+            FindElement.elementByAttribute(groupTitle, InputType.XPath).sendKeys("TestRoutes");
+            Utilities.waitUntileElementIsVisible(groupTemplate);
+            Utilities.selectValueFromDropDownByValue("//select[@name='templateID']", "TestRoutes");
+            Utilities.waitUntileElementIsVisible(saveButton);
+            Utilities.clickElement(saveButton, ElementType.XPath);
+        }
+
+        @Then("I delete a routing group")
+        public void deleteGroup () {
+            Utilities.waitUntileElementIsVisible("//h3[text() = 'TestRoutes']");
+            Utilities.clickElement("//h3[text() = 'TestRoutes']", ElementType.XPath);
+            Utilities.waitUntileElementIsVisible("//h3[text() = 'TestRoutes']/following-sibling::div[@class = 'clickToEdit']");
+            Utilities.clickElement("//h3[text() = 'TestRoutes']/following-sibling::div[@class = 'clickToEdit']", ElementType.XPath);
+            Utilities.waitUntileElementIsVisible("//div[@id = 'editGroupDialog']/following-sibling::div[1]//span[text()='Delete']");
+            Utilities.clickElement("//div[@id = 'editGroupDialog']/following-sibling::div[1]//span[text()='Delete']", ElementType.XPath);
+            Utilities.waitUntileElementIsVisible("//span[text()='Delete Group?']/ancestor::div//span[text()='Delete Group']");
+            Utilities.clickElement("//span[text()='Delete Group?']/ancestor::div//span[text()='Delete Group']", ElementType.XPath);
     }
 
     public void deleteFirstRoute() throws InterruptedException {
