@@ -143,6 +143,13 @@ public class Utilities {
 		DateFormat dateFormat = new SimpleDateFormat(needFormat);
 		Date date = new Date();
 		String date1 = dateFormat.format(date);
+		return date1;
+	}
+
+	public static String currentDateWithZeroDelimiterOnDate(String needFormat) {
+		DateFormat dateFormat = new SimpleDateFormat(needFormat);
+		Date date = new Date();
+		String date1 = dateFormat.format(date);
 		if(date1.startsWith("0")){
 			date1 = date1.substring(1,date1.length());
 		}

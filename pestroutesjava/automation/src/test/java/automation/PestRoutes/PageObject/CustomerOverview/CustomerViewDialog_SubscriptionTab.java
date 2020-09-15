@@ -408,7 +408,7 @@ public class CustomerViewDialog_SubscriptionTab {
 	}
 
 	public String getCurrentDate() {
-		return Utilities.currentDate("MM/dd/yyyy");
+		return Utilities.currentDateWithZeroDelimiterOnDate("MM/dd/yyyy");
 	}
 
 	public void clickRecurringSubTotalValue() {
