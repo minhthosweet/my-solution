@@ -10,8 +10,8 @@ Feature: Customer Status
     Then I validate initial Billing date
     And I close customer card
     When I run the billing queue script
-    Given I clear cache and reload the browser
-    Given I sign in to pestroutes domain
+    Then I clear cache and reload the browser
+    And I sign in to pestroutes domain
     When I search customer
     And I validate initial invoice created on invoice tab
     And I validate if there are errors exist in the list
