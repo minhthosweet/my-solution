@@ -32,7 +32,7 @@ public class SignIn extends AppData{
 	}
 
 	@Given ("I clear cache and reload the browser")
-	public void browserReload() throws IllegalMonitorStateException, Exception{
+	public void browserReload() throws Exception{
 		GetWebDriver.reloadBrowser();
 	}
 
