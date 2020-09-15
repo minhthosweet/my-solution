@@ -7,7 +7,6 @@ import automation.PestRoutes.Utilities.AssertException;
 import automation.PestRoutes.Utilities.BaseClass;
 import automation.PestRoutes.Utilities.Reporter;
 import automation.PestRoutes.Utilities.Utilities;
-import automation.PestRoutes.Utilities.Utilities.ElementType;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -193,12 +192,23 @@ public class AddSubscription extends BaseClass {
 		result(expectedCustomProduction, actualCustomProduction, "Annually custom production ", "Subscription");
 	}
 
-	private void insertServiceQuoteByBillingFrequency(String needFrequency, String needServiceQuote,
+	public void insertServiceQuoteByBillingFrequency(String needFrequency, String needServiceQuote,
 			String needItemAmount) throws Exception {
 		subscription.selectBillingFrequency(needFrequency);
 		subscription.setServiceQuote(getData("quarterly", quarterlyPreferredDayData), needServiceQuote);
 		subscription.setAdditionalItemAmount(ticketItem, needItemAmount);
-		Utilities.clickElement(subscription.recurringSubTotalValue, ElementType.XPath);
+		subscription.clickRecurringSubTotalValue();
+	}
+
+	@Then("I validate initial Billing date")
+	public void validateInitialBillingDate(){
+		result(subscription.getCurrentDate(),subscription.getBilling_initialBillingDate(),"Initial Billing Date","Subscription");
+	}
+
+	@And("I run the billing queue script")
+	public void runBillingQueueScript() throws Exception{
+		Thread.sleep(7000);
+		Utilities.navigateToUrl("https://adityam.pestroutes.com/resources/scripts/billingQueue.php?debug=1");
 	}
 
 	@SuppressWarnings("unchecked")

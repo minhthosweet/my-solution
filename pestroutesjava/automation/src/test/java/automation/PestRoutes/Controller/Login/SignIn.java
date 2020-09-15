@@ -10,7 +10,7 @@ import io.cucumber.java.en.Given;
 
 public class SignIn extends AppData{
 	LoginPage login;
-//	@Given ("I sign in to pestroutes domain")
+
 	public void login(String needUserName, String needPassword) {
 		login = new LoginPage();
 		login.setUserName(needUserName);
@@ -29,6 +29,11 @@ public class SignIn extends AppData{
 		login.setUserName(userName);
 		login.setPassword(password);
 		login.clickLoginButton();
+	}
+
+	@Given ("I clear cache and reload the browser")
+	public void browserReload() throws Exception{
+		GetWebDriver.reloadBrowser();
 	}
 
 }

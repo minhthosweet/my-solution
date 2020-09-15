@@ -5,6 +5,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Random;
+import io.cucumber.java.en.And;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.SystemUtils;
@@ -145,6 +146,16 @@ public class Utilities {
 		return date1;
 	}
 
+	public static String currentDateWithZeroDelimiterOnDate(String needFormat) {
+		DateFormat dateFormat = new SimpleDateFormat(needFormat);
+		Date date = new Date();
+		String date1 = dateFormat.format(date);
+		if(date1.startsWith("0")){
+			date1 = date1.substring(1,date1.length());
+		}
+		return date1;
+	}
+
 	public static int getElementCount(String needXpath) {
 		return driver.findElements(By.xpath(needXpath)).size();
 	}
@@ -266,6 +277,7 @@ public class Utilities {
 		driver.get(needURL);
 	}
 
+	@And("I close the browser")
 	public static void closeBrowser() {
 		driver.close();
 	}
