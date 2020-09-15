@@ -1,8 +1,8 @@
-@AfterAgreementSigned
+@AfterInitialCompletion
 Feature: Customer Status
 
-  @CreateInitialInvoiceAfterAgreementSigned
-  Scenario: Create Initial Invoice of type After Agreement Signed
+  @CreateInitialInvoiceAfterInitialCompletion
+  Scenario: Create Initial Invoice of type After Initial Completion
     Given I sign in to pestroutes domain
     Given I have disabled ECA
     When I create customer with first name, last name, email and address

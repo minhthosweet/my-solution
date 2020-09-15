@@ -45,7 +45,4 @@ public class GetWebDriver {
 			webDrivers.remove();
 		}
 	}
-	public static void reloadBrowser() throws InterruptedException {
-		driver.manage().deleteAllCookies();
-	}
 }
