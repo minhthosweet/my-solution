@@ -76,7 +76,7 @@ public class RoutePage {
     }
 
     @And ("I add a route group if not already existing")
-    public void addGroupIfNotExisting() throws IOException, InterruptedException {
+    public void addGroupIfNotExisting() throws Exception {
         try {
             WebElement elm = FindElement.elementByAttribute("//h3[text() = 'TestRoutes']", InputType.XPath);
             if (elm.isDisplayed()) {
@@ -89,7 +89,7 @@ public class RoutePage {
         }
 
     @And("I add a route group")
-    public void addGroup() throws IOException, InterruptedException {
+    public void addGroup() throws Exception {
         String groupXpath = "//h3[text()= 'TestRoutes']/parent::div";
         String group = "groupButton";
         customRoute = new CustomRoute();
