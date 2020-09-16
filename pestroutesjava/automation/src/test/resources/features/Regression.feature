@@ -110,8 +110,8 @@ Feature: End to end testing on the application
     And I verify that the equipment was added "Automation Test2"
     And I validate if there are errors exist in the list
 
-    @AddSalesRep
-    Scenario: Validate sales report totals
+  @AddSalesRep
+  Scenario: Validate sales report totals
     Given I create a new user if it is not already existing "Sales Rep"
     Given I add a renewal service
     Given I add a new generic flag if it is not already existing "Fire" and "Its lit" and "Subscription"
