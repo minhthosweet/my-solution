@@ -27,6 +27,7 @@ public class RouteTemplate {
     public String clickClear = "//div[text()='Clear']";
     public String saveTemplate = "//div[@id='templateBuilderAction']//div[text()='Save Template']";
     public String blockDescriptionTextBox = "//div[@id='templateSpots']//div[text()='End']/parent::div/following-sibling::div[3]/div[text()='to']/following-sibling::input[2]";
+    public String termOfService = "//a[text()='Terms of Service']";
 
     public void navigateToRouteTemplate() {
         header = new Header();
@@ -37,6 +38,8 @@ public class RouteTemplate {
 
     public void createNewRouteTemplate(String routeName) throws InterruptedException {
         Utilities.waitUntileElementIsVisible(selectAllBlock);
+        Utilities.scrollToElementJS(termOfService);
+        Utilities.scrollToBottomElementJS(termOfService);
         Utilities.scrollToElementJS(newRouteTemplate_button);
         Utilities.waitUntileElementIsVisible(newRouteTemplate_button);
         Utilities.clickElement(newRouteTemplate_button, Utilities.ElementType.XPath);

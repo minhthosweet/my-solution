@@ -7,13 +7,10 @@ import automation.PestRoutes.Utilities.AssertException;
 import automation.PestRoutes.Utilities.BaseClass;
 import automation.PestRoutes.Utilities.Reporter;
 import automation.PestRoutes.Utilities.Utilities;
-
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import io.cucumber.java.en.And;
-import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.openqa.selenium.WebElement;
@@ -37,12 +34,9 @@ public class CustomRoute extends BaseClass {
     private String blockTimeDescription = Utilities.generateRandomString(5);
     public String routeName = Utilities.generateRandomString(5);
 
-    public CustomRoute() throws Exception {
-    }
-
     @Test
     @Then("I navigate to Route Templates")
-    public void navigateToRouteTemplates(){
+    public void navigateToRouteTemplates() {
         routeTemplate.navigateToRouteTemplate();
     }
 
@@ -64,15 +58,10 @@ public class CustomRoute extends BaseClass {
         }
     }
 
-    @When("I create a route")
+    @When("I create a route template")
     public void createRouteTemplates() throws Exception {
         routeTemplate.createNewRouteTemplate(routeName);
         routeTemplate.clickRouteTempalate(routeName);
-        routeTemplate.findRoute(routeName);
-        routeTemplate.deleteRoute();
-        routeTemplate.routeDelete_alertCondition();
-        routeTemplate.navigateToRouteTemplate();
-        routeTemplate.createNewRouteTemplate(routeName);
         result(routeName, routeTemplate.getRouteTemplateTextValue(routeName), "Create Route",
                 "Route Template Creation");
         result(routeName, routeTemplate.getTemplateNameTextValue(), "Create Route",
@@ -106,6 +95,16 @@ public class CustomRoute extends BaseClass {
         routeTemplate.blockSpecificTimeSlot(slotNumber);
         routeTemplate.setBlockDescription(blockDescription);
         routeTemplate.saveRoute();
+    }
+
+    @And("I delete the route template")
+    public void deleteRouteTemplate() throws Exception {
+        routeTemplate.clickRouteTempalate(routeName);
+        routeTemplate.findRoute(routeName);
+        routeTemplate.deleteRoute();
+        routeTemplate.routeDelete_alertCondition();
+        routeTemplate.navigateToRouteTemplate();
+        routeTemplate.createNewRouteTemplate(routeName);
     }
 
     private void result(String expected, String actual, String stepName, String testName) {

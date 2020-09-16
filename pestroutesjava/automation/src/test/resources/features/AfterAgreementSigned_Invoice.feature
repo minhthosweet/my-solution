@@ -1,5 +1,5 @@
 @AfterAgreementSigned
-Feature: Customer Status
+Feature: Invoice generated from agreement signing
 
   @CreateInitialInvoiceAfterAgreementSigned
   Scenario: Create Initial Invoice of type After Agreement Signed

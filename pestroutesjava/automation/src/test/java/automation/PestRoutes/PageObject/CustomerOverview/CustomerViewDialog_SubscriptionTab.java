@@ -26,7 +26,6 @@ public class CustomerViewDialog_SubscriptionTab {
 
 	//***Sales Info/Billing Options objects***
 	public String newSubscriptionButton = "//div[text()=  '+ New Subscription']";
-	public String salesRepDropdown = "//h3[text()=  'Sales Info']/following-sibling::select[@name='creditTo']";
 	public String second_SalesRepDropdown = "//h3[text()=  'Sales Info']/following-sibling::select[@name='creditTo3']";
 	public String sourceDropdown = "//h3[text()=  'Sales Info']/following-sibling::select[@name='sourceID']";
 	public String soldDateField = "//input[@name='subDateAdded']";
@@ -85,6 +84,9 @@ public class CustomerViewDialog_SubscriptionTab {
 	public String recurringTaxValue = "//div[@id='recurringServices']//div[@class='ticketSummary']/div[4]";
 	public String recurringTotalValue = "//div[@id='recurringServices']//div[@class='ticketSummary']/div[6]";
 
+	//Sales Info Objects
+	public String salesRepDropdown = "//h3[text()=  'Sales Info']/following-sibling::select[@name='creditTo']";
+
 	//********************Functional methods by objects********************
 	/*
 	 * Click actions
@@ -119,7 +121,7 @@ public class CustomerViewDialog_SubscriptionTab {
 	}
 
 	public void selectSalesRep(String needSalesRap) {
-		Utilities.selectValueFromDropDownByValue(salesRepDropdown, needSalesRap);
+		FindElement.elementByAttribute("//h3[text()=  'Sales Info']/following-sibling::select[@name='creditTo']", InputType.XPath).sendKeys(needSalesRap);
 	}
 
 	public void selectSalesRep2(String needSalesRap) {
@@ -267,7 +269,6 @@ public class CustomerViewDialog_SubscriptionTab {
 
 	public void setInitialServiceQuote(String needAmount) {
 		Utilities.highLight(initialQuoteInputField);
-//		FindElement.elementByAttribute(initialQuoteInputField, InputType.XPath).sendKeys(Keys.DELETE.toString());
 		FindElement.elementByAttribute(initialQuoteInputField, InputType.XPath).sendKeys(needAmount);
 	}
 

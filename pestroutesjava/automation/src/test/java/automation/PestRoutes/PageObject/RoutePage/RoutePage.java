@@ -77,14 +77,17 @@ public class RoutePage {
 
     @And ("I add a route group if not already existing")
     public void addGroupIfNotExisting() throws Exception {
+        route = new RoutePage();
         try {
             WebElement elm = FindElement.elementByAttribute("//h3[text() = 'TestRoutes']", InputType.XPath);
             if (elm.isDisplayed()) {
                 deleteGroup();
                 addGroup();
+                route.addRoutesByQuantity("1");
             }
         } catch(Exception e) {
                 addGroup();
+            route.addRoutesByQuantity("1");
             }
         }
 
