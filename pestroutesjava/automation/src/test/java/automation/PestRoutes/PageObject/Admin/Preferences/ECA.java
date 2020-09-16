@@ -46,7 +46,7 @@ public class ECA {
             Utilities.waitUntileElementIsVisible(ECAEnabledCheckBox);
             Utilities.clickElement(checkBox, Utilities.ElementType.XPath);
         } catch (Exception e) {
-            System.out.println("ECA Disabled /n" + e);
+            System.out.println("ECA Disabled");
         }
         clickSave();
     }

@@ -27,6 +27,7 @@ public class RouteTemplate {
     public String clickClear = "//div[text()='Clear']";
     public String saveTemplate = "//div[@id='templateBuilderAction']//div[text()='Save Template']";
     public String blockDescriptionTextBox = "//div[@id='templateSpots']//div[text()='End']/parent::div/following-sibling::div[3]/div[text()='to']/following-sibling::input[2]";
+    public String termOfService = "//a[text()='Terms of Service']";
 
     public void navigateToRouteTemplate() {
         header = new Header();
@@ -37,6 +38,8 @@ public class RouteTemplate {
 
     public void createNewRouteTemplate(String routeName) throws InterruptedException {
         Utilities.waitUntileElementIsVisible(selectAllBlock);
+        Utilities.scrollToElementJS(termOfService);
+        Utilities.scrollToBottomElementJS(termOfService);
         Utilities.scrollToElementJS(newRouteTemplate_button);
         Utilities.waitUntileElementIsVisible(newRouteTemplate_button);
         Utilities.clickElement(newRouteTemplate_button, Utilities.ElementType.XPath);
@@ -89,7 +92,7 @@ public class RouteTemplate {
         return Utilities.getAttributeValue("//div[@id='templateSpots']//div[text()='End']/parent::div/following-sibling::div[1]/div[text()='to']/following-sibling::input[2]", "value");
     }
 
-    public void setStartTime(String hour, String minute) {
+    public void setStartTime(String hour, String minute) throws Exception {
         Utilities.waitUntileElementIsVisible(clickStartHour);
         Utilities.clickElement(clickStartHour, Utilities.ElementType.XPath);
         Utilities.waitUntileElementIsVisible("//td[@data-hour='" + hour + "']//a[text()='" + hour + "']");
@@ -196,6 +199,24 @@ public class RouteTemplate {
                 Alert alert = Utilities.alertPopUp();
                 String actionAlert = Utilities.getAlertText();
                 String expected = "Are you sure you want to clear the route?";
+                if (actionAlert.contains(expected)) {
+                    alert.accept();
+                }
+                break;
+            } catch (NoAlertPresentException e) {
+                Thread.sleep(500);
+                continue;
+            }
+        }
+    }
+
+    public void routeTemplateGenerateValidTimes_alertCondition() throws Exception {
+        int i = 0;
+        while (i++ < 5) {
+            try {
+                Alert alert = Utilities.alertPopUp();
+                String actionAlert = Utilities.getAlertText();
+                String expected = "Please";
                 if (actionAlert.contains(expected)) {
                     alert.accept();
                 }
