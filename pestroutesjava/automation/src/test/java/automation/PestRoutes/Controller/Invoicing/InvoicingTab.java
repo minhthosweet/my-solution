@@ -148,15 +148,11 @@ public class InvoicingTab extends BaseClass {
 		header.navigateTo(header.invoicesTabInDialog);
 		result(initialInvoiceValue,invImplementation.getAccountBalance(), "Total Initial Invoice Value",
 				"Initial Invoice Validation");
-		System.out.println(initialInvoiceValue);
-		System.out.println(invImplementation.getAccountBalance());
 		invImplementation.clickInitialInvoice();
 		result(initialInvoiceValue,invImplementation.getChargesBalance(), "Total Initial Invoice Value",
 				"Initial Invoice Validation");
-		System.out.println(invImplementation.getChargesBalance_customSchedule(iniitialIvoiceValueWithoutTax));
 		result(initialInvoiceValue, invImplementation.getPaymentsBalance(), "Total Initial Invoice Value",
 				"Initial Invoice Validation");
-		System.out.println(invImplementation.getPaymentsBalance());
 	}
 
 	private void result(String expected, String actual, String stepName, String testName) {
