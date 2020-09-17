@@ -1,18 +1,19 @@
 package automation.PestRoutes.PageObject.CustomerOverview;
 
-import java.util.Date;
-
 import org.apache.commons.lang3.SystemUtils;
-import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.WebElement;
-
 import automation.PestRoutes.Utilities.FindElement;
 import automation.PestRoutes.Utilities.Utilities;
 import automation.PestRoutes.Utilities.FindElement.InputType;
 import automation.PestRoutes.Utilities.Utilities.ElementType;
 
 public class CustomerViewDialog_SubscriptionTab {
+
+	CustomerViewDialog_InfoTab infoTab;
+	CustomerViewDialog_Header customerDialogHeader;
 
 	//********************Objects in subscription tab********************
 	//Status fields
@@ -41,6 +42,8 @@ public class CustomerViewDialog_SubscriptionTab {
 	public String billingFrequencyDropdown = "//select[@name='billingFrequency']";
 	public String billingInitialInvoiceDropdown = "//select[@name='initialInvoice']";
 	public String initialBillingDateInputField = "//input[@name='initialBillingDate']";
+	public String editCustomScheduleButton = "//div[@id='editInitialCustomScheduleButton']";
+	public String selectedCustomScheduleOption = "//select[@name='initialInvoice']/option[@selected='SELECTED' and text()='Custom Schedule']";
 
 	//Billing Frequency DropDown objects
 	public String billingFrequency_Renewal = "Renewal";
@@ -84,6 +87,9 @@ public class CustomerViewDialog_SubscriptionTab {
 	public String recurringTaxValue = "//div[@id='recurringServices']//div[@class='ticketSummary']/div[4]";
 	public String recurringTotalValue = "//div[@id='recurringServices']//div[@class='ticketSummary']/div[6]";
 
+	//Custom Schedule Tab Objects
+	public String finishEditingCustomScheduleButton = "//span[text()='Finished Editing Custom Schedule']";
+
 	//Sales Info Objects
 	public String salesRepDropdown = "//h3[text()=  'Sales Info']/following-sibling::select[@name='creditTo']";
 
@@ -113,6 +119,34 @@ public class CustomerViewDialog_SubscriptionTab {
 
 	public void clickCancelButton_CancenSubscriptionDialog() {
 		Utilities.clickElement(cancelButton_cancelSubscriptionDialog, ElementType.XPath);
+	}
+
+	public void clickSubscription(String subscriptionID) {
+		Utilities.waitUntileElementIsVisible("//li[@subscriptionid='" + subscriptionID + "']");
+		Utilities.clickElement("//li[@subscriptionid='" + subscriptionID + "']", ElementType.XPath);
+	}
+
+	public void clickEditCustomScheduleButton() {
+		Utilities.waitUntileElementIsVisible(editCustomScheduleButton);
+		Utilities.clickElement(editCustomScheduleButton, ElementType.XPath);
+	}
+
+	public void clickRecurringSubTotalValue() {
+		Utilities.clickElement(recurringSubTotalValue, ElementType.XPath);
+	}
+
+	public void clickSpecificDateButton() {
+		Utilities.waitUntileElementIsVisible("//div[@scheduletype='3']//h4[text()='" + Utilities.getCurrentMonth() + "']/following-sibling::div[contains(text(),'Specific Date')]");
+		Utilities.clickElement("//div[@scheduletype='3']//h4[text()='" + Utilities.getCurrentMonth() + "']/following-sibling::div[contains(text(),'Specific Date')]", ElementType.XPath);
+	}
+
+	public void clickFinishEditingSchedule() {
+		Utilities.waitUntileElementIsVisible(finishEditingCustomScheduleButton);
+		Utilities.clickElement(finishEditingCustomScheduleButton, ElementType.XPath);
+	}
+
+	public void selectCurrentDate_CustomSchedule() {
+		FindElement.elementByAttribute("//div[@scheduletype='3']//h4[text()='" + Utilities.getCurrentMonth() + "']/following-sibling::div//select", InputType.XPath).sendKeys(Utilities.getCurrentDate());
 	}
 
 	public void selectCancellationCategory(String needCategory) {
@@ -291,6 +325,14 @@ public class CustomerViewDialog_SubscriptionTab {
 		FindElement.elementByAttribute("//h3[text()='Recurring Invoice Template']/following-sibling::div/div[text()='" + needItemName + "']/following-sibling::div/input", InputType.XPath).sendKeys(needAmount);
 	}
 
+	public void setInitialInvoiceType(String initialInvoiceType) {
+		Utilities.selectValueFromDropDownByValue(billingInitialInvoiceDropdown, initialInvoiceType);
+	}
+
+	public void setAmount_CustomSchedule() {
+		FindElement.elementByAttribute("//div[@scheduletype='3']//h4[text()='" + Utilities.getCurrentMonth() + "']/following-sibling::div//input[@name='amount']", InputType.XPath).sendKeys(String.valueOf(Utilities.generateRandomInteger(3)));
+	}
+
 	/*
 	 * Getter methods
 	 * Below methods get string value of given object
@@ -391,15 +433,6 @@ public class CustomerViewDialog_SubscriptionTab {
 
 	}
 
-	public void clickSubscription(String subscriptionID) {
-		Utilities.waitUntileElementIsVisible("//li[@subscriptionid='" + subscriptionID + "']");
-		Utilities.clickElement("//li[@subscriptionid='" + subscriptionID + "']", ElementType.XPath);
-	}
-
-	public void setInitialInvoiceType(String initialInvoiceType) {
-		Utilities.selectValueFromDropDownByValue(billingInitialInvoiceDropdown, initialInvoiceType);
-	}
-
 	public String getInitialInvoiceValue() {
 		return Utilities.getElementTextValue(initialTotalValue, ElementType.XPath);
 	}
@@ -412,7 +445,35 @@ public class CustomerViewDialog_SubscriptionTab {
 		return Utilities.currentDateWithZeroDelimiterOnDate("MM/dd/yyyy");
 	}
 
-	public void clickRecurringSubTotalValue() {
-		Utilities.clickElement(recurringSubTotalValue, ElementType.XPath);
+	public String getInitialInvoiceAmountWithoutTax_CustomSchedule(){
+		Utilities.waitUntileElementIsVisible(selectedCustomScheduleOption);
+		clickEditCustomScheduleButton();
+		return Utilities.getAttributeValue("//div[@scheduletype='3']//h4[text()='" + Utilities.getCurrentMonth() + "']/following-sibling::div//input[@name='amount']","value" );
+	}
+
+	public String getInitialInvoiceTotalAmount_CustomerSchedule() throws InterruptedException {
+		customerDialogHeader = new CustomerViewDialog_Header();
+		infoTab = new CustomerViewDialog_InfoTab();
+		String initialInvoiceAmountWithoutTax = getInitialInvoiceAmountWithoutTax_CustomSchedule();
+		customerDialogHeader.navigateTo(customerDialogHeader.infoTabInDialog);
+		return String.valueOf((double)Math.round((Double.parseDouble(initialInvoiceAmountWithoutTax)+(Double.parseDouble(infoTab.getTaxRate())*Double.parseDouble(initialInvoiceAmountWithoutTax))/100)*100)/100);
+	}
+
+
+	public void customInitialBilling_alertCondition() {
+		int i = 0;
+		while (i++ < 5) {
+			try {
+				Alert alert = Utilities.alertPopUp();
+				String actionAlert = Utilities.getAlertText();
+				String expected = "Custom initial billing schedules cannot be empty. These changes have not been saved.";
+				if (actionAlert.contains(expected)) {
+					alert.accept();
+				}
+				break;
+			} catch (NoAlertPresentException e) {
+				continue;
+			}
+		}
 	}
 }

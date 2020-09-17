@@ -3,6 +3,7 @@ package automation.PestRoutes.Utilities;
 import java.io.File;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Random;
 import io.cucumber.java.en.And;
@@ -301,6 +302,19 @@ public class Utilities {
 		return result / 100;
 	}
 	
+	public static String getCurrentMonth(){
+		Calendar calendar = Calendar.getInstance();
+		return new SimpleDateFormat("MMMMMMMMMMMMMM").format(calendar.getTime());
+	}
+
+	public static String getCurrentDate(){
+		Calendar calendar = Calendar.getInstance();
+		String date = new SimpleDateFormat("dd").format(calendar.getTime());
+		if(date.startsWith("0")){
+			date = date.substring(1,date.length());
+		}
+		return date;
+	}
 	
 	public enum ElementType {
 		XPath, ID, ClassName, PartialLink, LinkText
