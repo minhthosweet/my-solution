@@ -2,8 +2,10 @@ package automation.PestRoutes.PageObject.Admin.Preferences;
 
 import automation.PestRoutes.PageObject.Admin.AdminMainPage;
 import automation.PestRoutes.PageObject.Header;
+import automation.PestRoutes.Utilities.FindElement;
 import automation.PestRoutes.Utilities.Utilities;
 import io.cucumber.java.en.Given;
+import org.openqa.selenium.WebElement;
 
 public class ECA {
 
@@ -12,11 +14,11 @@ public class ECA {
     PreferencesPage preferences;
 
     public String editECAButton = "//div[contains(text(),'Require Electronic Consent Agreement')]/preceding-sibling::div[text()='edit']";
-    public String ECAEnabledCheckBox = "//div[contains(text(),'Require Electronic Consent Agreement')]/following-sibling::div[@style='display: block;']";
-    public String ECADisabledCheckBox = "//div[contains(text(),'Require Electronic Consent Agreement')]/following-sibling::div[@style='display: none;']";
-    public String agreementSignatureEmailSubject = "//span[contains(text(),'Agreement Signature Email Subject:')]";
+    public String serviceFollowUpEmail = "//span[text()='Service Follow-up Email:']";
     public String clickSave = "//div[@id='requireElectronicConsent' and text()='save']";
     public String checkBox = "//input[@type='checkbox' and @name='requireElectronicConsent']";
+    public String uncheckedECA = "//input[@name='requireElectronicConsent' and @value='1' and not((@checked))]";
+    public String checkedECA = "//input[@name='requireElectronicConsent' and @checked]";
 
     @Given("I have disabled ECA")
     public void disablingECA() throws InterruptedException {
@@ -35,7 +37,7 @@ public class ECA {
 
     //edit ECA
     public void clickEditECA() {
-        Utilities.scrollToElement(agreementSignatureEmailSubject);
+        Utilities.scrollToElement(serviceFollowUpEmail);
         Utilities.waitUntileElementIsVisible(editECAButton);
         Utilities.clickElement(editECAButton, Utilities.ElementType.XPath);
     }
@@ -43,10 +45,12 @@ public class ECA {
     public void disableECA() {
         clickEditECA();
         try {
-            Utilities.waitUntileElementIsVisible(ECAEnabledCheckBox);
-            Utilities.clickElement(checkBox, Utilities.ElementType.XPath);
+            WebElement elm = FindElement.elementByAttribute(uncheckedECA, FindElement.InputType.XPath);
+            if (elm.isDisplayed()) {
+                System.out.println("ECA Disabled");
+            }
         } catch (Exception e) {
-            System.out.println("ECA Disabled");
+            Utilities.clickElement(checkBox, Utilities.ElementType.XPath);
         }
         clickSave();
     }
@@ -54,10 +58,12 @@ public class ECA {
     public void enableECA() {
         clickEditECA();
         try {
-            Utilities.waitUntileElementIsVisible(ECADisabledCheckBox);
-            Utilities.clickElement(checkBox, Utilities.ElementType.XPath);
+            WebElement elm = FindElement.elementByAttribute(checkedECA, FindElement.InputType.XPath);
+            if (elm.isDisplayed()) {
+                System.out.println("ECA Enabled");
+            }
         } catch (Exception e) {
-            System.out.println("ECA Enabled /n" + e);
+            Utilities.clickElement(checkBox, Utilities.ElementType.XPath);
         }
         clickSave();
     }

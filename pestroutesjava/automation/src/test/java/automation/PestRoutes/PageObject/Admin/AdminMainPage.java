@@ -1,7 +1,5 @@
 package automation.PestRoutes.PageObject.Admin;
 
-import org.openqa.selenium.WebElement;
-
 import automation.PestRoutes.Utilities.FindElement;
 import automation.PestRoutes.Utilities.Utilities;
 import automation.PestRoutes.Utilities.FindElement.InputType;
@@ -9,7 +7,7 @@ import automation.PestRoutes.Utilities.Utilities.ElementType;
 
 
 public class AdminMainPage {
-	
+
 	public String businessContacts = "Business Contacts";
 	public String users = "Users";
 	public String teams_Departments = "Teams / Departments";
@@ -20,7 +18,7 @@ public class AdminMainPage {
 	public String mergeuserButton = "//div[text()='Merge Users']";
 	public String existingUser = "//div[contains(text(),'Automation User')]";
 	public String preExistingUser = "//div[contains(text(),'Automation User')]/parent::div/preceding-sibling::div[2]";
-			
+
 
 	//Action methods
 	public void navigateTo(String needTab) {
@@ -33,13 +31,11 @@ public class AdminMainPage {
 		Utilities.scrollToElement(needButton);
 		Utilities.clickElement(needButton, ElementType.XPath);
 	}
-	
-	
+
 	//Setters
 	public void setInputValue(String needInputField, String keysToSend) {
 		FindElement.elementByAttribute(needInputField, InputType.XPath).sendKeys(keysToSend);
 	}
-	
 
 	//Getters
 	public String getFieldValue(String needFieldName) {
@@ -47,6 +43,4 @@ public class AdminMainPage {
 		return Utilities.getElementTextValue(needFieldName, ElementType.XPath);
 	}
 
-
-	
 }

@@ -121,7 +121,7 @@ public class InvoicingTab extends BaseClass {
 	}
 
 	@And("I validate initial invoice created on invoice tab")
-	public void validateInitialInvoice() throws IOException, InterruptedException {
+	public void validateInitialInvoice() throws InterruptedException {
 		addSubscription = new AddSubscription();
 		header = new CustomerViewDialog_Header();
 		subscriptionTab = new CustomerViewDialog_SubscriptionTab();;
@@ -134,6 +134,24 @@ public class InvoicingTab extends BaseClass {
 		result(initialInvoiceValue,"$" +  invImplementation.getChargesBalance(), "Total Initial Invoice Value",
 				"Initial Invoice Validation");
 		result(initialInvoiceValue, "$" + invImplementation.getPaymentsBalance(), "Total Initial Invoice Value",
+				"Initial Invoice Validation");
+	}
+
+	@And("I validate initial invoice created on invoice tab from custom schedule")
+	public void validateInitialInvoice_customSchedule() throws InterruptedException {
+		addSubscription = new AddSubscription();
+		header = new CustomerViewDialog_Header();
+		subscriptionTab = new CustomerViewDialog_SubscriptionTab();;
+		header.navigateTo(header.subscriptionTabInDialog);
+		String iniitialIvoiceValueWithoutTax = subscriptionTab.getInitialInvoiceAmountWithoutTax_CustomSchedule();
+		String initialInvoiceValue = "$"+subscriptionTab.getInitialInvoiceTotalAmount_CustomerSchedule();
+		header.navigateTo(header.invoicesTabInDialog);
+		result(initialInvoiceValue,invImplementation.getAccountBalance(), "Total Initial Invoice Value",
+				"Initial Invoice Validation");
+		invImplementation.clickInitialInvoice();
+		result(initialInvoiceValue,invImplementation.getChargesBalance(), "Total Initial Invoice Value",
+				"Initial Invoice Validation");
+		result(initialInvoiceValue, invImplementation.getPaymentsBalance(), "Total Initial Invoice Value",
 				"Initial Invoice Validation");
 	}
 

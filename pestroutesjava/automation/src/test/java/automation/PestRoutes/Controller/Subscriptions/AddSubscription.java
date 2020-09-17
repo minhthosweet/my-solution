@@ -1,5 +1,6 @@
 package automation.PestRoutes.Controller.Subscriptions;
 
+import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_InfoTab;
 import automation.PestRoutes.PageObject.Header;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_Header;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_SubscriptionTab;
@@ -19,6 +20,7 @@ public class AddSubscription extends BaseClass {
 	CustomerViewDialog_SubscriptionTab subscription = new CustomerViewDialog_SubscriptionTab();
 	CustomerViewDialog_Header customerDialogHeader;
 	Header header;
+
 	List list = new ArrayList<String>();
 
 	private String ticketItem = "bed";
@@ -205,9 +207,38 @@ public class AddSubscription extends BaseClass {
 		result(subscription.getCurrentDate(),subscription.getBilling_initialBillingDate(),"Initial Billing Date","Subscription");
 	}
 
+	@And("I create a custom schedule subscription of type {string}")
+	public void createCustomScheduleSubscription(String initialInvoiceType) throws Exception {
+		customerDialogHeader = new CustomerViewDialog_Header();
+		header = new Header();
+		customerDialogHeader.navigateTo(customerDialogHeader.subscriptionTabInDialog);
+		subscription.clickNewSubscriptionButton();
+		subscription.selectServiceType(getData("serviceDescription", generalData));
+		subscription.setCustomDate(getData("customDate", quarterlyPreferredDayData));
+		subscription.setInitialInvoiceType(initialInvoiceType);
+		customerDialogHeader.clickSaveButton();
+		subscription.customInitialBilling_alertCondition();
+	}
+
+	@And("I set today as custom billing date")
+	public void setCurrentDateAsCustomBillingDate(){
+		customerDialogHeader = new CustomerViewDialog_Header();
+		subscription.clickEditCustomScheduleButton();
+		subscription.clickSpecificDateButton();
+		subscription.selectCurrentDate_CustomSchedule();
+		subscription.setAmount_CustomSchedule();
+		subscription.clickFinishEditingSchedule();
+		customerDialogHeader.clickSaveButton();
+	}
+
+	@And("I calculate the Initial Invoice amount for the Custom Schedule")
+	public void calculateInitialInvoiceTotal_customSchedule() throws InterruptedException {
+		subscription.getInitialInvoiceTotalAmount_CustomerSchedule();
+	}
+
 	@And("I run the billing queue script")
 	public void runBillingQueueScript() throws Exception{
-		Thread.sleep(7000);
+		Thread.sleep(700);
 		Utilities.navigateToUrl("https://adityam.pestroutes.com/resources/scripts/billingQueue.php?debug=1");
 	}
 

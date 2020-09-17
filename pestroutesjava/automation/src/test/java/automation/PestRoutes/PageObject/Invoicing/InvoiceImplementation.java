@@ -154,6 +154,11 @@ public class InvoiceImplementation {
         return Utilities.getElementTextValue(chargesBalance, ElementType.XPath);
     }
 
+    public String getChargesBalance_customSchedule(String initialAmountWithoutTax){
+        Utilities.waitUntileElementIsVisible(invoiceDate);
+        return Utilities.getElementTextValue("//div[text()='Sub Total']/following-sibling::div[contains(text(),'"+initialAmountWithoutTax+"')]/following-sibling::div[4]", ElementType.XPath);
+    }
+
     public String getPaymentsBalance(){
         Utilities.waitUntileElementIsVisible(invoiceDate);
         return Utilities.getElementTextValue(paymentsBalance, ElementType.XPath);
