@@ -5,6 +5,7 @@ import automation.PestRoutes.PageObject.Header;
 import automation.PestRoutes.Utilities.FindElement;
 import automation.PestRoutes.Utilities.Utilities;
 import io.cucumber.java.en.Given;
+import org.apache.commons.lang3.SystemUtils;
 import org.openqa.selenium.WebElement;
 
 public class ECA {
@@ -69,6 +70,9 @@ public class ECA {
     }
 
     public void clickSave() {
+        if (SystemUtils.IS_OS_LINUX) {
+            Utilities.acceptAlertLinux();
+        }
         Utilities.waitUntileElementIsVisible(clickSave);
         Utilities.clickElement(clickSave, Utilities.ElementType.XPath);
     }
