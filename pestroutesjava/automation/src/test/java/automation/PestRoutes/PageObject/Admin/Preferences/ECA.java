@@ -15,7 +15,7 @@ public class ECA {
 
     public String editECAButton = "//div[contains(text(),'Require Electronic Consent Agreement')]/preceding-sibling::div[text()='edit']";
     public String serviceFollowUpEmail = "//span[text()='Service Follow-up Email:']";
-    public String clickSave = "//div[@id='requireElectronicConsent' and text()='save']";
+    public String clickSave = "//div[@id='requireElectronicConsent' and text()='save' and @style='display: block;']";
     public String checkBox = "//input[@type='checkbox' and @name='requireElectronicConsent']";
     public String uncheckedECA = "//input[@name='requireElectronicConsent' and @value='1' and not((@checked))]";
     public String checkedECA = "//input[@name='requireElectronicConsent' and @checked]";
