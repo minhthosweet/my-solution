@@ -73,6 +73,7 @@ public class ECA {
         if (SystemUtils.IS_OS_LINUX) {
             Utilities.acceptAlertLinux();
         }
+        Utilities.scrollToElement(serviceFollowUpEmail);
         Utilities.waitUntileElementIsVisible(clickSave);
         Utilities.clickElement(clickSave, Utilities.ElementType.XPath);
     }
