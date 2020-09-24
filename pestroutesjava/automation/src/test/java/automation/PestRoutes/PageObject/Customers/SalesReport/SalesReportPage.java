@@ -1,7 +1,5 @@
 package automation.PestRoutes.PageObject.Customers.SalesReport;
 
-import java.io.IOException;
-
 import automation.PestRoutes.Utilities.BaseClass;
 import automation.PestRoutes.Utilities.Utilities;
 import automation.PestRoutes.Utilities.Utilities.ElementType;

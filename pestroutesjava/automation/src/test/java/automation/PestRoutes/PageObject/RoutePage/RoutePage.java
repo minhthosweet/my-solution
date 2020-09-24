@@ -9,10 +9,7 @@ import automation.PestRoutes.Utilities.FindElement.InputType;
 import automation.PestRoutes.Utilities.Utilities.ElementType;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
-
-import java.io.IOException;
 
 public class RoutePage {
     public String addRoutesButton = "//li[@id= 'addRoutesButton']";
@@ -60,7 +57,7 @@ public class RoutePage {
 //        }
         route.clickButton(route.addRoutesButton);
         Utilities.waitUntileElementIsVisible("//p[text()= 'Add " + insertQuantity + " Route']");
-        Utilities.scrollToElement("//p[text()= 'Add " + insertQuantity + " Route']");
+        Utilities.scrollToElementJS("//p[text()= 'Add " + insertQuantity + " Route']");
         Utilities.clickElement("//p[text()= 'Add " + insertQuantity + " Route']", ElementType.XPath);
     }
 
@@ -114,7 +111,7 @@ public class RoutePage {
             Utilities.waitUntileElementIsVisible("//div[@id = 'editGroupDialog']/following-sibling::div[1]//span[text()='Delete']");
             Utilities.clickElement("//div[@id = 'editGroupDialog']/following-sibling::div[1]//span[text()='Delete']", ElementType.XPath);
             Utilities.waitUntileElementIsVisible("//span[text()='Delete Group?']/ancestor::div//span[text()='Delete Group']");
-            Utilities.clickElement("//span[text()='Delete Group?']/ancestor::div//span[text()='Delete Group']", ElementType.XPath);
+            Utilities.clickElement("//span[text()='Delete Group?']/ancestor::div//span[text()='Delete Group']", ElementType.XPath, false, true);
     }
 
     public void deleteFirstRoute() throws InterruptedException {

@@ -57,6 +57,7 @@ Feature: Create customer with address
     And I add structure and sub structures
     When I create a subscription with Sales Rep assigned "Jared Green - Office" and "Fire"
     And I close customer card
+    And I navigate to scheduling tab
     And I add a route group if not already existing
     And I search customer
     And I schedule an service appointment

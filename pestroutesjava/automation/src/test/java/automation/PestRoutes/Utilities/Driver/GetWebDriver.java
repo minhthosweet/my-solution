@@ -14,25 +14,23 @@ public class GetWebDriver {
 
 	public static WebDriver getInstance() {
 		if(driver == null) {
+			ChromeOptions options = new ChromeOptions();
+			options.addArguments("--window-size=1366,768","--ignore-certificate-errors");
 			if(SystemUtils.IS_OS_MAC_OSX) {
 				System.setProperty("webdriver.chrome.driver",
 						"src/test/java/automation/PestRoutes/Utilities/Driver/chromedriver.mac");
-				driver = new ChromeDriver();
-				driver.manage().window().maximize();
+				driver = new ChromeDriver(options);
 				driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 			} else if(SystemUtils.IS_OS_WINDOWS) {
 				System.setProperty("webdriver.chrome.driver",
 						"src/test/java/automation/PestRoutes/Utilities/Driver/chromedriver.exe");
-				driver = new ChromeDriver();
-				driver.manage().window().maximize();
+				driver = new ChromeDriver(options);
 				driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 			} else if(SystemUtils.IS_OS_LINUX) {
 				System.setProperty("webdriver.chrome.driver",
 						"src/test/java/automation/PestRoutes/Utilities/Driver/chromedriver.linux");
-				ChromeOptions options = new ChromeOptions();
-				options.addArguments("--headless", "--disable-gpu", "--window-size=1920,1200","--ignore-certificate-errors");
+				options.addArguments("--headless", "--disable-gpu");
 				driver = new ChromeDriver(options);
-				driver.manage().window().maximize();
 				driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 			}
 		}

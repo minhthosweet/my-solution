@@ -54,30 +54,15 @@ public class RouteTemplate {
         Utilities.clickElement("//div[text()='Time Description']/parent::div/following-sibling::div[" + slotNumber + "]//input[@class='markBlocked']", Utilities.ElementType.XPath);
     }
 
-    public void findRoute(String routeName) throws InterruptedException {
-        try {
-            WebElement elm = FindElement.elementByAttribute("//li[text()='" + routeName + "']/following-sibling::li[2]", FindElement.InputType.XPath);
-            Utilities.waitUntileElementIsVisible("//li[text()='" + routeName + "']/following-sibling::li[2]");
-            Utilities.scrollToElementJS("//li[text()='" + routeName + "']/following-sibling::li[2]");
-            Utilities.scrollToElement("//li[text()='" + routeName + "']/following-sibling::li[2]");
-
-        } catch (Exception e) {
-            WebElement elm = FindElement.elementByAttribute("//li[text()='" + routeName + "']/parent::div/following-sibling::li", FindElement.InputType.XPath);
-            Utilities.waitUntileElementIsVisible("//li[text()='" + routeName + "']/parent::div/following-sibling::li");
-            Utilities.scrollToElementJS("//li[text()='" + routeName + "']/parent::div/following-sibling::li");
-            Utilities.scrollToElement("//li[text()='" + routeName + "']/parent::div/following-sibling::li");
-        }
-    }
-
     public void clickRouteTempalate(String routeName) {
         Utilities.waitUntileElementIsVisible("//li[text()='" + routeName + "']");
-        Utilities.clickElement("//li[text()='" + routeName + "']", Utilities.ElementType.XPath);
+        Utilities.jsClickElement("//li[text()='" + routeName + "']", Utilities.ElementType.XPath);
     }
 
     public void deleteRoute() {
         Utilities.waitUntileElementIsVisible(selectAllBlock);
+        Utilities.scrollToElementJS(deleteCustomRoute);
         Utilities.clickElement(deleteCustomRoute, Utilities.ElementType.XPath);
-
     }
 
     public String getRouteTemplateTextValue(String actualRouteTemplatename) {
@@ -144,6 +129,7 @@ public class RouteTemplate {
 
     public void saveRoute() {
         Utilities.waitUntileElementIsVisible(saveTemplate);
+        Utilities.scrollToElementJS(saveTemplate);
         Utilities.clickElement(saveTemplate, Utilities.ElementType.XPath);
     }
 

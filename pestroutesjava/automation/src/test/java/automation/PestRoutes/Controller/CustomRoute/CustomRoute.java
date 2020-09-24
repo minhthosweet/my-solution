@@ -90,7 +90,6 @@ public class CustomRoute extends BaseClass {
     @And("I block route template slot number {string} with block description {string}")
     public void blockTimeSlot(String slotNumber, String blockDescription) throws InterruptedException {
         routeTemplate.navigateToRouteTemplate();
-        routeTemplate.findRoute(routeName);
         routeTemplate.clickRouteTempalate(routeName);
         routeTemplate.blockSpecificTimeSlot(slotNumber);
         routeTemplate.setBlockDescription(blockDescription);
@@ -100,11 +99,8 @@ public class CustomRoute extends BaseClass {
     @And("I delete the route template")
     public void deleteRouteTemplate() throws Exception {
         routeTemplate.clickRouteTempalate(routeName);
-        routeTemplate.findRoute(routeName);
         routeTemplate.deleteRoute();
         routeTemplate.routeDelete_alertCondition();
-        routeTemplate.navigateToRouteTemplate();
-        routeTemplate.createNewRouteTemplate(routeName);
     }
 
     private void result(String expected, String actual, String stepName, String testName) {

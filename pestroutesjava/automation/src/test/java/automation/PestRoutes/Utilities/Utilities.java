@@ -5,7 +5,9 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Random;
+
 import io.cucumber.java.en.And;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -102,7 +104,6 @@ public class Utilities {
 	public static void scrollToElement(String needXpath) {
 		for (int i = 0; i < 10; i++) {
 			try {
-				Utilities.waitUntileElementIsVisible(needXpath);
 				WebElement element = driver.findElement(By.xpath(needXpath));
 				Actions actions = new Actions(driver);
 				actions.moveToElement(element);
@@ -118,10 +119,22 @@ public class Utilities {
 		}
 	}
 
-	public static void scrollToElementJS(String needXpath) throws InterruptedException {
-		WebElement element = driver.findElement(By.xpath(needXpath));
-		((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
-		Thread.sleep(300);
+	public static void scrollToElementJS(String needXpath) {
+		for (int i = 0; i < 10; i++) {
+			try {
+				WebElement element = driver.findElement(By.xpath(needXpath));
+				((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
+				((JavascriptExecutor) driver).executeScript("window.scrollBy(0, -40)");
+				break;
+			} catch (Exception e) {
+				try {
+					Thread.sleep(1000);
+				} catch (InterruptedException ex) {
+					ex.printStackTrace();
+				}
+			}
+		}
+
 	}
 
 	public static void scrollToBottomElementJS(String needXpath) throws InterruptedException {
@@ -205,7 +218,7 @@ public class Utilities {
 			case ID:
 				return driver.findElement(By.id(needAttribute));
 			case ClassName:
-				return  driver.findElement(By.className(needAttribute));
+				return driver.findElement(By.className(needAttribute));
 			case LinkText:
 				return driver.findElement(By.linkText(needAttribute));
 			default:
@@ -213,10 +226,28 @@ public class Utilities {
 		}
 	}
 
+	private static WebElement locateElements(String needAttribute, ElementType Attribute_Type) {
+		List<WebElement> elements;
+		switch (Attribute_Type) {
+			case ID:
+				elements = driver.findElements(By.id(needAttribute));
+				break;
+			case ClassName:
+				elements = driver.findElements(By.className(needAttribute));
+				break;
+			case LinkText:
+				elements = driver.findElements(By.linkText(needAttribute));
+				break;
+			default:
+				elements = driver.findElements(By.xpath(needAttribute));
+		}
+		return elements.get(elements.size() - 1);
+
+	}
+
 	public static String getElementTextValue(String needAttribute, ElementType Attribute_Type) {
 		for (int i = 0; i < 10; i++) {
 			try {
-				System.out.println(i);
 				WebElement attribute = locateElement(needAttribute, Attribute_Type);
 				return attribute.getText();
 			} catch (Exception e) {
@@ -232,17 +263,22 @@ public class Utilities {
 
 	public static void clickElement(String needAttribute, ElementType Attribute_Type) {
 		scrollToElement(needAttribute);
-		clickElement(needAttribute, Attribute_Type, false);
+		clickElement(needAttribute, Attribute_Type, false, false);
 	}
 
-	public static void clickElement(String needAttribute, ElementType Attribute_Type, Boolean simple) {
+	public static void clickElement(String needAttribute, ElementType Attribute_Type, Boolean simple, Boolean order) {
 		if (simple) {
 			WebElement attribute = locateElement(needAttribute, Attribute_Type);
 			attribute.click();
 		} else {
 			for (int i = 0; i < 10; i++) {
 				try {
-					WebElement attribute = locateElement(needAttribute, Attribute_Type);
+					WebElement attribute;
+					if (order) {
+						 attribute = locateElements(needAttribute, Attribute_Type);
+					} else {
+						attribute = locateElement(needAttribute, Attribute_Type);
+					}
 					attribute.click();
 					break;
 				} catch (Exception e) {
@@ -259,7 +295,6 @@ public class Utilities {
 	public static void jsClickElement(String needAttribute, ElementType Attribute_Type) {
 		for (int i = 0; i < 10; i++) {
 			try {
-				System.out.println(i);
 				WebElement attribute = locateElement(needAttribute, Attribute_Type);
 				JavascriptExecutor executor = (JavascriptExecutor)driver;
 				executor.executeScript("arguments[0].click();", attribute);

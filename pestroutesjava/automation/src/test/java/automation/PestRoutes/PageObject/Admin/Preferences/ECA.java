@@ -38,9 +38,9 @@ public class ECA {
 
     //edit ECA
     public void clickEditECA() {
-        Utilities.scrollToElement(serviceFollowUpEmail);
         Utilities.waitUntileElementIsVisible(editECAButton);
-        Utilities.clickElement(editECAButton, Utilities.ElementType.XPath);
+        Utilities.scrollToElementJS(editECAButton);
+        Utilities.jsClickElement(editECAButton, Utilities.ElementType.XPath);
     }
 
     public void disableECA() {

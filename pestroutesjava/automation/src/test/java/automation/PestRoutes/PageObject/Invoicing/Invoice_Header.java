@@ -13,7 +13,7 @@ public class Invoice_Header {
 	
 	public void navigate(String needTab) {
 
-		Utilities.clickElement("//div[contains(@class,'paymentMethod bluGradientBG') and contains(text(),'"+needTab+"')]",ElementType.XPath, true);
+		Utilities.clickElement("//div[contains(@class,'paymentMethod bluGradientBG') and contains(text(),'"+needTab+"')]",ElementType.XPath, true, false);
 	
 	}							
 	
