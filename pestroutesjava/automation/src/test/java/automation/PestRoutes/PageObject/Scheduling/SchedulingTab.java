@@ -14,7 +14,8 @@ public class SchedulingTab extends AppData {
     public String scheduleButtonInDialog = "//span[text()='Schedule']";
 
     public void clickScheduleDay() {
-        Utilities.clickElement(scheduleDay, ElementType.XPath);
+        String date = Utilities.currentDate("M/dd/yyyy");
+        Utilities.clickElement("//div[@date='"+ date +"']", ElementType.XPath);
     }
 
     public void clickScheduleSameDay() {
@@ -30,7 +31,9 @@ public class SchedulingTab extends AppData {
     }
 
     public void addScheduleDateToProperties() throws Exception {
-        String scheduleDate = Utilities.getAttributeValue(scheduleDay, "date");
+        String date = Utilities.currentDate("M/dd/yyyy");
+        String currentDay = "//div[@date='"+ date +"']";
+        String scheduleDate = Utilities.getAttributeValue(currentDay, "date");
         addData("scheduleDate", scheduleDate, generalData);
     }
 
