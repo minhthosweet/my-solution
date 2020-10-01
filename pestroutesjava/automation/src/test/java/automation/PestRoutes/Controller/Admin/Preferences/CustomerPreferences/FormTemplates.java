@@ -2,6 +2,7 @@ package automation.PestRoutes.Controller.Admin.Preferences.CustomerPreferences;
 
 import java.io.IOException;
 
+import automation.PestRoutes.Utilities.AppData;
 import org.testng.annotations.Test;
 
 import automation.PestRoutes.PageObject.Header;
@@ -11,7 +12,7 @@ import automation.PestRoutes.PageObject.Admin.Preferences.PreferencesPage;
 import automation.PestRoutes.Utilities.BaseClass;
 import automation.PestRoutes.Utilities.Utilities;
 
-public class FormTemplates extends BaseClass{
+public class FormTemplates extends AppData {
 	AdminMainPage adminPage;
 	Header header;
 	PreferencesPage preferences;

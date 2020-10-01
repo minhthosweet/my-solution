@@ -4,18 +4,15 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import automation.PestRoutes.Controller.CustomerCreation.CreateNewCustomer;
+import automation.PestRoutes.Utilities.*;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import org.testng.annotations.Test;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_Header;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerviewDialog_AppointmentsTab;
 import automation.PestRoutes.PageObject.Structure.StructuresTab;
-import automation.PestRoutes.Utilities.AssertException;
-import automation.PestRoutes.Utilities.BaseClass;
-import automation.PestRoutes.Utilities.Reporter;
-import automation.PestRoutes.Utilities.Utilities;
 
-public class Structures extends BaseClass {
+public class Structures extends AppData {
     CreateNewCustomer createNewCustomer;
     CustomerViewDialog_Header dialog = new CustomerViewDialog_Header();
     StructuresTab structures = new StructuresTab();

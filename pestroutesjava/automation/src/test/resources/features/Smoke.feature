@@ -70,3 +70,7 @@ Feature: Create customer with address
     And I close customer card
     And I navigate to scheduling tab
     Then I delete a routing group
+
+
+  Scenario: Close browser
+    And I quit driver

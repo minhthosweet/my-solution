@@ -2,19 +2,16 @@ package automation.PestRoutes.Controller.Notes;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import automation.PestRoutes.Utilities.*;
 import org.openqa.selenium.Keys;
 import org.testng.annotations.Test;
 import automation.PestRoutes.PageObject.Header;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_Header;
 import automation.PestRoutes.PageObject.NotesTab.NotesPage;
-import automation.PestRoutes.Utilities.AssertException;
-import automation.PestRoutes.Utilities.BaseClass;
-import automation.PestRoutes.Utilities.FindElement;
-import automation.PestRoutes.Utilities.Reporter;
-import automation.PestRoutes.Utilities.Utilities;
 import automation.PestRoutes.Utilities.FindElement.InputType;
 
-public class NotesValidation extends BaseClass{
+public class NotesValidation extends AppData {
 	
 	Header mainHeader;
 	CustomerViewDialog_Header customerCardHeader;

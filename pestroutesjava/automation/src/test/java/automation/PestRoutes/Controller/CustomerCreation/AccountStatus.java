@@ -3,6 +3,8 @@ package automation.PestRoutes.Controller.CustomerCreation;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import automation.PestRoutes.Utilities.*;
 import org.testng.annotations.Test;
 import com.aventstack.extentreports.ExtentTest;
 import automation.PestRoutes.PageObject.Header;
@@ -10,12 +12,8 @@ import automation.PestRoutes.PageObject.CreateCustomer.CreateCustomerDIalog;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_Header;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_OverviewTab;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_Admin;
-import automation.PestRoutes.Utilities.AssertException;
-import automation.PestRoutes.Utilities.BaseClass;
-import automation.PestRoutes.Utilities.Reporter;
-import automation.PestRoutes.Utilities.Utilities;
 
-public class AccountStatus extends BaseClass {
+public class AccountStatus extends AppData {
 	static ExtentTest test;
 	CreateCustomerDIalog customer = new CreateCustomerDIalog();
 	CustomerViewDialog_Header dialog = new CustomerViewDialog_Header();

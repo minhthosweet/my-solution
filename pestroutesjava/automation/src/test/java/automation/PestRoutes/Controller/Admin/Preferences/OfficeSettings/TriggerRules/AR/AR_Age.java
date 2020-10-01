@@ -1,13 +1,14 @@
 package automation.PestRoutes.Controller.Admin.Preferences.OfficeSettings.TriggerRules.AR;
 
 import automation.PestRoutes.Controller.Invoicing.InvoicingTab;
+import automation.PestRoutes.Utilities.AppData;
 import automation.PestRoutes.Utilities.BaseClass;
 import automation.PestRoutes.Utilities.GetDate;
 import automation.PestRoutes.Utilities.Utilities;
 import io.cucumber.java.en.When;
 import org.testng.annotations.Test;
 
-public class AR_Age extends BaseClass {
+public class AR_Age extends AppData {
 
     CreateTrigger_AR createAR = new CreateTrigger_AR();
     InvoicingTab invoiceTab;

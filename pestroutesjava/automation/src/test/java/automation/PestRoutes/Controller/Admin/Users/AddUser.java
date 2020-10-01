@@ -2,6 +2,7 @@ package automation.PestRoutes.Controller.Admin.Users;
 
 import java.io.IOException;
 
+import automation.PestRoutes.Utilities.AppData;
 import automation.PestRoutes.Utilities.Utilities;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -15,7 +16,7 @@ import automation.PestRoutes.Utilities.BaseClass;
 import automation.PestRoutes.Utilities.FindElement;
 import automation.PestRoutes.Utilities.FindElement.InputType;
 
-public class AddUser extends BaseClass {
+public class AddUser extends AppData {
 
 	Header header;
 	AdminMainPage adminPage;

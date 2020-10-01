@@ -313,9 +313,9 @@ public class Utilities {
 		driver.get(needURL);
 	}
 
-	@And("I close the browser")
+	@And("I quit driver")
 	public static void closeBrowser() {
-		driver.close();
+		driver.quit();
 	}
 	
 	public static void highLight(String needElement) {

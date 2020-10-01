@@ -1,31 +1,34 @@
 package automation.PestRoutes.Utilities;
 
 import java.io.IOException;
+
+import io.cucumber.java.After;
+import io.cucumber.java.Before;
 import org.openqa.selenium.WebDriver;
-import org.testng.annotations.AfterSuite;
-import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.*;
 import automation.PestRoutes.Controller.Login.SignIn;
 import automation.PestRoutes.Utilities.Driver.GetWebDriver;
 
-public class BaseClass extends AppData {
+public class BaseClass {
 
     WebDriver driver;
     SignIn signInPage;
 
     // @Parameters("browser")
-    @BeforeSuite
+    @BeforeClass
 
     public void beforeTest() throws IOException {
         driver = GetWebDriver.getInstance();
-        String url = getData("url", environment);
-        String userName = getData("userName", environment);
-        String password = getData("password", environment);
+        String url = "https://prone.pestroutes.com/";
+//        String url = getData("url", environment);
+//        String userName = getData("userName", environment);
+//        String password = getData("password", environment);
         driver.get(url);
         signInPage = new SignIn();
-        signInPage.login(userName, password);
+        //signInPage.login(userName, password);
     }
 
-    @AfterSuite(alwaysRun = true)
+    @AfterClass
 
     public void afterTest() {
         Reporter.flushReport();

@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import automation.PestRoutes.Utilities.*;
 import io.cucumber.java.en.And;
 import org.testng.annotations.Test;
 import automation.PestRoutes.PageObject.Header;
@@ -13,13 +14,8 @@ import automation.PestRoutes.PageObject.Admin.OfficeSettings.TriggerRules;
 import automation.PestRoutes.PageObject.Admin.OfficeSettings.TriggerTypes.ARTab;
 import automation.PestRoutes.PageObject.Admin.OfficeSettings.TriggerTypes.RenewalTab;
 import automation.PestRoutes.PageObject.Admin.OfficeSettings.TriggerTypes.SubscriptionStatusTab;
-import automation.PestRoutes.Utilities.AssertException;
-import automation.PestRoutes.Utilities.BaseClass;
-import automation.PestRoutes.Utilities.GetDate;
-import automation.PestRoutes.Utilities.Reporter;
-import automation.PestRoutes.Utilities.Utilities;
 
-public class CreateTrigger_SubscriptionStatus extends BaseClass {
+public class CreateTrigger_SubscriptionStatus extends AppData {
     Header header;
     AdminMainPage adminMainPage;
     TriggerRules triggerAdmin = new TriggerRules();

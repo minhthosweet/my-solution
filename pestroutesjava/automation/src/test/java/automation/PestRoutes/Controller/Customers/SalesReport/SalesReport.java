@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import automation.PestRoutes.Utilities.Reporter;
+import automation.PestRoutes.Utilities.*;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import org.testng.Assert;
@@ -20,11 +20,8 @@ import automation.PestRoutes.PageObject.Admin.UsersPage.AddUserDialog;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_OverviewTab;
 import automation.PestRoutes.PageObject.Customers.CustomersMainPage;
 import automation.PestRoutes.PageObject.Customers.SalesReport.SalesReportPage;
-import automation.PestRoutes.Utilities.AssertException;
-import automation.PestRoutes.Utilities.BaseClass;
-import automation.PestRoutes.Utilities.Utilities;
 
-public class SalesReport extends BaseClass {
+public class SalesReport extends AppData {
 
 	Header header;
 	AddUser addUser;

@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
+
+import automation.PestRoutes.Utilities.*;
 import io.cucumber.java.en.Then;
 import org.openqa.selenium.WebElement;
 import org.testng.annotations.Test;
@@ -18,17 +20,11 @@ import automation.PestRoutes.PageObject.Invoicing.RoutePageInvoicing;
 import automation.PestRoutes.PageObject.RoutePage.RoutePage;
 import automation.PestRoutes.PageObject.Scheduling.SchedulingAppointmentDialog;
 import automation.PestRoutes.PageObject.Scheduling.SchedulingTab;
-import automation.PestRoutes.Utilities.AssertException;
-import automation.PestRoutes.Utilities.BaseClass;
-import automation.PestRoutes.Utilities.FindElement;
 import automation.PestRoutes.Utilities.FindElement.InputType;
-import automation.PestRoutes.Utilities.GetDate;
-import automation.PestRoutes.Utilities.Reporter;
-import automation.PestRoutes.Utilities.Utilities;
 import automation.PestRoutes.Utilities.Utilities.ElementType;
 import io.cucumber.java.en.And;
 
-public class ValidateRenewal extends BaseClass {
+public class ValidateRenewal extends AppData {
 
     CustomerViewDialog_SubscriptionTab subscription = new CustomerViewDialog_SubscriptionTab();
     CustomerViewDialog_Header customerDialogHeader;

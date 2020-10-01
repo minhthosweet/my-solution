@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import automation.PestRoutes.Utilities.*;
 import io.cucumber.java.en.And;
 import org.testng.annotations.Test;
 
@@ -13,12 +14,8 @@ import automation.PestRoutes.Controller.Renewal.ValidateRenewal;
 import automation.PestRoutes.PageObject.Header;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_Header;
 import automation.PestRoutes.PageObject.DocumentsTab.DocumentsPage;
-import automation.PestRoutes.Utilities.AssertException;
-import automation.PestRoutes.Utilities.BaseClass;
-import automation.PestRoutes.Utilities.Reporter;
-import automation.PestRoutes.Utilities.Utilities;
 
-public class DocumentsValidations extends BaseClass {
+public class DocumentsValidations extends AppData {
 	
 	DocumentsPage documents;
 	Header header;

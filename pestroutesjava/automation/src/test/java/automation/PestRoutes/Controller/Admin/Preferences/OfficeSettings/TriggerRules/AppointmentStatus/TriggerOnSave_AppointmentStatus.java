@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import automation.PestRoutes.Controller.CustomerCreation.CreateNewCustomer;
 import automation.PestRoutes.Controller.Subscriptions.AddSubscription;
+import automation.PestRoutes.Utilities.AppData;
 import org.testng.annotations.Test;
 import automation.PestRoutes.Controller.Admin.Preferences.OfficeSettings.TriggerRules.SubscriptionDueForService.CreateTrigger_SubscriptionDueForService;
 import automation.PestRoutes.Controller.Admin.Preferences.OfficeSettings.TriggerRules.CustomerStatus.TriggerOnSave_CustomerStatus;
@@ -13,7 +14,7 @@ import automation.PestRoutes.PageObject.Admin.OfficeSettings.TriggerRules;
 import automation.PestRoutes.Utilities.BaseClass;
 import automation.PestRoutes.Utilities.Utilities;
 
-public class TriggerOnSave_AppointmentStatus extends BaseClass {
+public class TriggerOnSave_AppointmentStatus extends AppData {
     CreateTrigger_AppointmentStatus createAppointmentStatus = new CreateTrigger_AppointmentStatus();
     TriggerRules triggerAdmin = new TriggerRules();
     ValidateRenewal validateRenewal;

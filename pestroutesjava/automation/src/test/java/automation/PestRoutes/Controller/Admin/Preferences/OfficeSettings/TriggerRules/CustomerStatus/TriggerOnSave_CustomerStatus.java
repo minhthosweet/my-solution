@@ -3,6 +3,8 @@ package automation.PestRoutes.Controller.Admin.Preferences.OfficeSettings.Trigge
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import automation.PestRoutes.Utilities.AppData;
 import automation.PestRoutes.Utilities.AssertException;
 import automation.PestRoutes.Utilities.Reporter;
 import io.cucumber.java.en.And;
@@ -20,7 +22,7 @@ import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_Admi
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_Header;
 import automation.PestRoutes.Utilities.BaseClass;
 
-public class TriggerOnSave_CustomerStatus extends BaseClass {
+public class TriggerOnSave_CustomerStatus extends AppData {
 
     CreateTrigger_CustomerStatus createCustomerStatus = new CreateTrigger_CustomerStatus();
     TriggerRules triggerAdmin;

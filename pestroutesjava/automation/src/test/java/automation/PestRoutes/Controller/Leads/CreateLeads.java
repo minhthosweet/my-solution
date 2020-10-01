@@ -3,6 +3,7 @@ package automation.PestRoutes.Controller.Leads;
 import java.util.ArrayList;
 import java.util.List;
 
+import automation.PestRoutes.Utilities.AppData;
 import org.testng.annotations.Test;
 
 import automation.PestRoutes.PageObject.Header;
@@ -12,7 +13,7 @@ import automation.PestRoutes.Utilities.AssertException;
 import automation.PestRoutes.Utilities.BaseClass;
 import automation.PestRoutes.Utilities.Reporter;
 
-public class CreateLeads extends BaseClass{
+public class CreateLeads extends AppData {
 	
 	CustomerViewDialog_Header header;
 	String additialItem = "bed";

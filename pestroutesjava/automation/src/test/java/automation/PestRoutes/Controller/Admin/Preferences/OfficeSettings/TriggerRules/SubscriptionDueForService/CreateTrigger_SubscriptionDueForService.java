@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import automation.PestRoutes.Controller.Admin.Preferences.OfficeSettings.TriggerRules.CustomerStatus.CreateTrigger_CustomerStatus;
 import automation.PestRoutes.Controller.Admin.Preferences.OfficeSettings.TriggerRules.SubscriptionStatus.CreateTrigger_SubscriptionStatus;
+import automation.PestRoutes.Utilities.*;
 import org.openqa.selenium.WebElement;
 import org.testng.annotations.Test;
 import automation.PestRoutes.Controller.CustomerCreation.CreateNewCustomer;
@@ -19,13 +20,8 @@ import automation.PestRoutes.PageObject.Admin.OfficeSettings.TriggerTypes.Renewa
 import automation.PestRoutes.PageObject.Admin.OfficeSettings.TriggerTypes.SubscriptionDueForServiceTab;
 import automation.PestRoutes.PageObject.Admin.OfficeSettings.TriggerTypes.SubscriptionStatusTab;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_Header;
-import automation.PestRoutes.Utilities.AssertException;
-import automation.PestRoutes.Utilities.BaseClass;
-import automation.PestRoutes.Utilities.GetDate;
-import automation.PestRoutes.Utilities.Reporter;
-import automation.PestRoutes.Utilities.Utilities;
 
-public class CreateTrigger_SubscriptionDueForService extends BaseClass {
+public class CreateTrigger_SubscriptionDueForService extends AppData {
     Header header;
     AdminMainPage adminMainPage;
     TriggerRules triggerAdmin = new TriggerRules();

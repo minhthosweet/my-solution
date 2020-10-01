@@ -3,10 +3,11 @@ package automation.PestRoutes.Controller.Admin.Preferences.OfficeSettings.Trigge
 import automation.PestRoutes.Controller.Admin.Preferences.OfficeSettings.TriggerRules.CustomerStatus.TriggerOnSave_CustomerStatus;
 import automation.PestRoutes.PageObject.Admin.OfficeSettings.TriggerRules;
 import automation.PestRoutes.PageObject.Admin.OfficeSettings.TriggerTypes.SubscriptionStatusTab;
+import automation.PestRoutes.Utilities.AppData;
 import automation.PestRoutes.Utilities.BaseClass;
 import org.testng.annotations.Test;
 
-public class TriggerAfterTime_AppointmentStatus extends BaseClass {
+public class TriggerAfterTime_AppointmentStatus extends AppData {
     TriggerOnSave_AppointmentStatus triggerOnSave_appointmentStatus;
     TriggerOnSave_CustomerStatus customerStatus;
     TriggerRules triggerAdmin;

@@ -3,9 +3,10 @@ package automation.PestRoutes.Controller.Billings;
 import java.io.IOException;
 
 import automation.PestRoutes.PageObject.Billing.BillingPage;
+import automation.PestRoutes.Utilities.AppData;
 import automation.PestRoutes.Utilities.BaseClass;
 
-public class Billing extends BaseClass{
+public class Billing extends AppData {
 	
 	BillingPage billing = new BillingPage();
 	

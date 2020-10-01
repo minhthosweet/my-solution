@@ -14,4 +14,3 @@ Feature: Subscription tab
   	When I start a regular subscription
   	Then I validate initial invoice
   	And I validate if there are errors exist in the list
-  	

@@ -2,13 +2,14 @@ package automation.PestRoutes.Controller.Admin.Preferences.OfficeSettings.Trigge
 
 import automation.PestRoutes.Controller.Admin.Preferences.OfficeSettings.TriggerRules.SubscriptionDueForService.CreateTrigger_SubscriptionDueForService;
 import automation.PestRoutes.Controller.Invoicing.InvoicingTab;
+import automation.PestRoutes.Utilities.AppData;
 import automation.PestRoutes.Utilities.BaseClass;
 import automation.PestRoutes.Utilities.GetDate;
 import automation.PestRoutes.Utilities.Utilities;
 import io.cucumber.java.en.Then;
 import org.testng.annotations.Test;
 
-public class AR_daysPastDue  extends BaseClass {
+public class AR_daysPastDue  extends AppData {
 
     CreateTrigger_AR createAR = new CreateTrigger_AR();
     InvoicingTab invoiceTab;

@@ -3,6 +3,7 @@ package automation.PestRoutes.Controller.CustomerCreation;
 import java.util.ArrayList;
 import java.util.List;
 
+import automation.PestRoutes.Utilities.*;
 import io.cucumber.java.en.Given;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.NoAlertPresentException;
@@ -12,16 +13,12 @@ import automation.PestRoutes.PageObject.Header;
 import automation.PestRoutes.PageObject.CreateCustomer.CreateCustomerDIalog;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_Header;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_OverviewTab;
-import automation.PestRoutes.Utilities.AssertException;
-import automation.PestRoutes.Utilities.BaseClass;
-import automation.PestRoutes.Utilities.Reporter;
-import automation.PestRoutes.Utilities.Utilities;
 import automation.PestRoutes.Utilities.Utilities.ElementType;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
-public class CreateNewCustomer extends BaseClass {
+public class CreateNewCustomer extends AppData {
     static ExtentTest test;
     CreateCustomerDIalog customer;
     CustomerViewDialog_Header dialog;

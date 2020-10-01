@@ -2,6 +2,7 @@ package automation.PestRoutes.Controller.Schedules;
 
 import automation.PestRoutes.Controller.CustomRoute.CustomRoute;
 import automation.PestRoutes.PageObject.Scheduling.SchedulingTab;
+import automation.PestRoutes.Utilities.*;
 import org.testng.annotations.Test;
 import automation.PestRoutes.PageObject.Header;
 import automation.PestRoutes.PageObject.CreateCustomer.CreateCustomerDIalog;
@@ -10,17 +11,13 @@ import automation.PestRoutes.PageObject.CustomerOverview.CustomerviewDialog_Appo
 import automation.PestRoutes.PageObject.RoutePage.RoutePage;
 import automation.PestRoutes.PageObject.Scheduling.SchedulingAppointmentDialog;
 import automation.PestRoutes.PageObject.Scheduling.UnitsTab;
-import automation.PestRoutes.Utilities.AssertException;
-import automation.PestRoutes.Utilities.BaseClass;
-import automation.PestRoutes.Utilities.Reporter;
-import automation.PestRoutes.Utilities.Utilities;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 
 import java.io.IOException;
 import java.util.List;
 
-public class ScheduleAppt extends BaseClass {
+public class ScheduleAppt extends AppData {
     public String routes = "//div[@class = 'route actualRoute route1 ']";
     private String serviceType = "Roach";
     public String serviceAreaProvided = "Exterior Only";

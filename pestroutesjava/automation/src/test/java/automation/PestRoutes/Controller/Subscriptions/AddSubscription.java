@@ -4,10 +4,7 @@ import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_Info
 import automation.PestRoutes.PageObject.Header;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_Header;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_SubscriptionTab;
-import automation.PestRoutes.Utilities.AssertException;
-import automation.PestRoutes.Utilities.BaseClass;
-import automation.PestRoutes.Utilities.Reporter;
-import automation.PestRoutes.Utilities.Utilities;
+import automation.PestRoutes.Utilities.*;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -15,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import org.testng.annotations.Test;
 
-public class AddSubscription extends BaseClass {
+public class AddSubscription extends AppData {
 
 	CustomerViewDialog_SubscriptionTab subscription = new CustomerViewDialog_SubscriptionTab();
 	CustomerViewDialog_Header customerDialogHeader;

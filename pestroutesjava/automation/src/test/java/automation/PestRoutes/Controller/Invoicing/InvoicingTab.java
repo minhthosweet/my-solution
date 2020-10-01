@@ -3,6 +3,7 @@ package automation.PestRoutes.Controller.Invoicing;
 import automation.PestRoutes.Controller.CustomerCreation.CreateNewCustomer;
 import automation.PestRoutes.Controller.Subscriptions.AddSubscription;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_SubscriptionTab;
+import automation.PestRoutes.Utilities.AppData;
 import automation.PestRoutes.Utilities.AssertException;
 import io.cucumber.java.en.And;
 import org.testng.annotations.Test;
@@ -17,7 +18,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class InvoicingTab extends BaseClass {
+public class InvoicingTab extends AppData {
 
 	InvoiceImplementation invImplementation  = new InvoiceImplementation();
 	CreateNewCustomer createCustomer;

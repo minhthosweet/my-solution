@@ -1,5 +1,6 @@
 package automation.PestRoutes.Controller.Admin.Preferences.ServiceRelated;
 
+import automation.PestRoutes.Utilities.AppData;
 import org.openqa.selenium.WebElement;
 import automation.PestRoutes.PageObject.Header;
 import automation.PestRoutes.PageObject.Admin.AdminMainPage;
@@ -8,7 +9,7 @@ import automation.PestRoutes.PageObject.Admin.Preferences.ServiceTypes;
 import automation.PestRoutes.Utilities.BaseClass;
 import io.cucumber.java.en.Given;
 
-public class Service extends BaseClass {
+public class Service extends AppData {
     Header header;
     AdminMainPage admin;
     PreferencesPage preferences;

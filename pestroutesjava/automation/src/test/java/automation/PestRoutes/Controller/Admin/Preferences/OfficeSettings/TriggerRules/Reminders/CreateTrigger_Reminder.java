@@ -3,6 +3,8 @@ package automation.PestRoutes.Controller.Admin.Preferences.OfficeSettings.Trigge
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import automation.PestRoutes.Utilities.*;
 import io.cucumber.java.en.When;
 import org.testng.annotations.Test;
 import automation.PestRoutes.Controller.CustomerCreation.CreateNewCustomer;
@@ -19,13 +21,8 @@ import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_Head
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerviewDialog_AppointmentsTab;
 import automation.PestRoutes.PageObject.Scheduling.SchedulingAppointmentDialog;
 import automation.PestRoutes.PageObject.Scheduling.SchedulingTab;
-import automation.PestRoutes.Utilities.AssertException;
-import automation.PestRoutes.Utilities.BaseClass;
-import automation.PestRoutes.Utilities.GetDate;
-import automation.PestRoutes.Utilities.Reporter;
-import automation.PestRoutes.Utilities.Utilities;
 
-public class CreateTrigger_Reminder extends BaseClass {
+public class CreateTrigger_Reminder extends AppData {
 	Header header;
 	AdminMainPage adminMainPage;
 	TriggerRules triggerAdmin = new TriggerRules();
