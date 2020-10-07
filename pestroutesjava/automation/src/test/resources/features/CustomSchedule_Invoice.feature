@@ -1,4 +1,4 @@
-@CustomDate
+@CustomDateInitialAppointment
 Feature: Customer Status
 
   @CreateInitialInvoiceCustomSchedule

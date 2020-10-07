@@ -44,7 +44,8 @@ public class CustomerViewDialog_SubscriptionTab {
 	public String billingFrequencyDropdown = "//select[@name='billingFrequency']";
 	public String billingInitialInvoiceDropdown = "//select[@name='initialInvoice']";
 	public String initialBillingDateInputField = "//input[@name='initialBillingDate']";
-	public String editCustomScheduleButton = "//div[@id='editInitialCustomScheduleButton']";
+	public String editCustomInitialScheduleButton = "//div[@id='editInitialCustomScheduleButton']";
+	public String editCustomRecurringScheduleButton = "//div[@id='editCustomScheduleButton']";
 	public String selectedCustomScheduleOption = "//select[@name='initialInvoice']/option[@selected='SELECTED' and text()='Custom Schedule']";
 
 	//Billing Frequency DropDown objects
@@ -128,9 +129,14 @@ public class CustomerViewDialog_SubscriptionTab {
 		Utilities.clickElement("//li[@subscriptionid='" + subscriptionID + "']", ElementType.XPath);
 	}
 
-	public void clickEditCustomScheduleButton() {
-		Utilities.waitUntileElementIsVisible(editCustomScheduleButton);
-		Utilities.clickElement(editCustomScheduleButton, ElementType.XPath);
+	public void clickEditCustomInitialScheduleButton() {
+		Utilities.waitUntileElementIsVisible(editCustomInitialScheduleButton);
+		Utilities.clickElement(editCustomInitialScheduleButton, ElementType.XPath);
+	}
+
+	public void clickEditCustomRecurringScheduleButton() {
+		Utilities.waitUntileElementIsVisible(editCustomRecurringScheduleButton);
+		Utilities.clickElement(editCustomRecurringScheduleButton, ElementType.XPath);
 	}
 
 	public void clickRecurringSubTotalValue() {
@@ -453,7 +459,7 @@ public class CustomerViewDialog_SubscriptionTab {
 
 	public String getInitialInvoiceAmountWithoutTax_CustomSchedule(){
 		Utilities.waitUntileElementIsVisible(selectedCustomScheduleOption);
-		clickEditCustomScheduleButton();
+		clickEditCustomInitialScheduleButton();
 		return Utilities.getAttributeValue("//div[@scheduletype='3']//h4[text()='" + Utilities.getCurrentMonth() + "']/following-sibling::div//input[@name='amount']","value" );
 	}
 

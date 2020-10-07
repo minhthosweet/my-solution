@@ -222,7 +222,7 @@ public class AddSubscription extends AppData {
 	@And("I set today as custom billing date")
 	public void setCurrentDateAsCustomBillingDate(){
 		customerDialogHeader = new CustomerViewDialog_Header();
-		subscription.clickEditCustomScheduleButton();
+		subscription.clickEditCustomInitialScheduleButton();
 		subscription.clickSpecificDateButton();
 		subscription.selectCurrentDate_CustomSchedule();
 		subscription.setAmount_CustomSchedule();
@@ -239,6 +239,12 @@ public class AddSubscription extends AppData {
 	public void runBillingQueueScript() throws Exception{
 		Thread.sleep(700);
 		Utilities.navigateToUrl("https://adityam.pestroutes.com/resources/scripts/billingQueue.php?debug=1");
+	}
+
+	@And("I add a custom frequency recurring service")
+	public void customFrequencyRecurringService(){
+		subscription.selectServiceFrequency("Custom Schedule");
+		subscription.clickEditCustomRecurringScheduleButton();
 	}
 
 	@SuppressWarnings("unchecked")
