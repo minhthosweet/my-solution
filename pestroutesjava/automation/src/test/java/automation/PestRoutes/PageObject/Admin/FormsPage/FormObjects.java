@@ -37,9 +37,6 @@ public class FormObjects {
 	public void selectValueFromDropdown(String needType, String needValue) {
 		Utilities.selectValueFromDropDownByValue(needType, needValue);
 	}
-	public void selectFromDropDown(String needValue) {
-
-	}
 	public void setInputField(String needInputField, String needValue) {
 		Utilities.waitUntileElementIsVisible(needInputField);
 		FindElement.elementByAttribute(needInputField, InputType.XPath).sendKeys(needValue);
