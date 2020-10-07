@@ -1,5 +1,6 @@
-package automation.PestRoutes.PageObject.Admin.OfficeSettings;
+package automation.PestRoutes.PageObject.Admin.OfficeSettings.TriggerTypes;
 
+import automation.PestRoutes.PageObject.Admin.OfficeSettings.OfficeSettingsObjects;
 import automation.PestRoutes.Utilities.FindElement;
 import automation.PestRoutes.Utilities.Utilities;
 import automation.PestRoutes.Utilities.FindElement.InputType;
@@ -9,6 +10,7 @@ import org.openqa.selenium.WebElement;
 
 public class TriggerRules {
 
+    OfficeSettingsObjects officeSettingsObjects;
     // Search Trigger
     public String searchTrigger = "//input[@id='triggerSearch']";
 
@@ -33,7 +35,6 @@ public class TriggerRules {
 
     // Filter Objects
     public String officeSettingsText = "//div[@id='OfficeLogo']//preceding-sibling::h2";
-    public String triggerRulesText = "//li[text() = 'Trigger Rules']";
     public String addTriggerButton = "//div[text() = '+ Trigger']";
     public String triggerTypeDropdown = "//select[@name='triggerEventID']";
     public String descriptionInputField = "//form//input[@name='description']";
@@ -54,8 +55,9 @@ public class TriggerRules {
 
     // Trigger Filter Actions
     public void navigateToTriggerRules() {
+        officeSettingsObjects= new OfficeSettingsObjects();
         Utilities.waitUntileElementIsVisible(officeSettingsText);
-        Utilities.clickElement(triggerRulesText, ElementType.XPath);
+        Utilities.clickElement(officeSettingsObjects.triggerRules, ElementType.XPath);
     }
 
     public void clickAddTrigerButton() {

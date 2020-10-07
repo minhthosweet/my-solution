@@ -1,4 +1,4 @@
-package automation.PestRoutes.PageObject.Admin.OfficeSettings;
+package automation.PestRoutes.PageObject.Admin.OfficeSettings.TriggerTypes;
 
 import automation.PestRoutes.Utilities.FindElement;
 import automation.PestRoutes.Utilities.Utilities;

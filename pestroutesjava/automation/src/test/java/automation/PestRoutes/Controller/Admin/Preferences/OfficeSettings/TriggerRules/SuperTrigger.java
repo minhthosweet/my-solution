@@ -12,8 +12,8 @@ import automation.PestRoutes.Controller.Admin.Preferences.OfficeSettings.Trigger
 import automation.PestRoutes.Controller.Admin.Preferences.OfficeSettings.TriggerRules.SubscriptionDueForService.TriggerBeforeDueDate_SubscriptionDueForService;
 import automation.PestRoutes.Controller.Admin.Preferences.OfficeSettings.TriggerRules.SubscriptionStatus.TriggerAfterTime_SubscriptionStatus;
 import automation.PestRoutes.Controller.Admin.Preferences.OfficeSettings.TriggerRules.SubscriptionStatus.TriggerOnSave_SubscriptionStatus;
-import automation.PestRoutes.PageObject.Admin.OfficeSettings.TriggerRules;
-import automation.PestRoutes.PageObject.Admin.OfficeSettings.TriggerRules_Cucumber;
+import automation.PestRoutes.PageObject.Admin.OfficeSettings.TriggerTypes.TriggerRules;
+import automation.PestRoutes.PageObject.Admin.OfficeSettings.TriggerTypes.TriggerRules_Cucumber;
 import io.cucumber.java.en.Given;
 import org.openqa.selenium.WebElement;
 import org.testng.annotations.Test;
