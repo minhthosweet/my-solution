@@ -17,6 +17,8 @@ public class FormObjects {
 	
 	//Form objects
 	public String nameField = "//div[@id='preferenceHeader']/following-sibling::form//input[@name='description']";
+	public String flagCodeField = "//div[@id='preferenceHeader']/following-sibling::form//input[@name='code']";
+	public String flagType = "//div[@id='preferenceHeader']/following-sibling::form//select[@name='type']";
 	public String requiredApprovalDropdown = "//div[@id='preferenceHeader']/following-sibling::form//select[@name='requireApproval']";
 	public String htmlInputField = "//div[@id='preferenceHeader']/following-sibling::form//textarea[@name = 'content']";
 	public String existingFlag = "//div[contains(text(),'Fire')]";
@@ -32,12 +34,16 @@ public class FormObjects {
 		Utilities.waitUntileElementIsVisible("//input[@value = '"+needFormName+"']/following-sibling::div[text() = 'edit']");
 		Utilities.clickElement("//input[@value = '"+needFormName+"']/following-sibling::div[text() = 'edit']", ElementType.XPath);
 	}
-	public void selectValueFromDropdown(String needValue) {
-		Utilities.selectValueFromDropDownByValue(requiredApprovalDropdown, needValue);
+	public void selectValueFromDropdown(String needType, String needValue) {
+		Utilities.selectValueFromDropDownByValue(needType, needValue);
+	}
+	public void selectFromDropDown(String needValue) {
+
 	}
 	public void setInputField(String needInputField, String needValue) {
 		Utilities.waitUntileElementIsVisible(needInputField);
 		FindElement.elementByAttribute(needInputField, InputType.XPath).sendKeys(needValue);
 	}
+
 
 }

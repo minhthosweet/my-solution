@@ -27,7 +27,9 @@ public class CustomerViewDialog_SubscriptionTab {
 
 	//***Sales Info/Billing Options objects***
 	public String newSubscriptionButton = "//div[text()=  '+ New Subscription']";
+	public String first_SalesRepDropdown = "//h3[text()=  'Sales Info']/following-sibling::select[@name='creditTo']";
 	public String second_SalesRepDropdown = "//h3[text()=  'Sales Info']/following-sibling::select[@name='creditTo3']";
+	public String third_SalesRepDropdown = "//h3[text()=  'Sales Info']/following-sibling::select[@name='creditTo4']";
 	public String sourceDropdown = "//h3[text()=  'Sales Info']/following-sibling::select[@name='sourceID']";
 	public String soldDateField = "//input[@name='subDateAdded']";
 	public String contractLengthDropdown = "//h3[text()=  'Sales Info']/following-sibling::select[@name='agreementLength']";
@@ -160,6 +162,10 @@ public class CustomerViewDialog_SubscriptionTab {
 
 	public void selectSalesRep2(String needSalesRap) {
 		Utilities.selectValueFromDropDownByValue(second_SalesRepDropdown, needSalesRap);
+	}
+
+	public void selectSalesRep3(String needSalesRap) {
+		Utilities.selectValueFromDropDownByValue(third_SalesRepDropdown, needSalesRap);
 	}
 
 	public void selectSource(String needSource) {

@@ -86,6 +86,29 @@ public class CreateNewCustomer extends AppData {
         captureUserIdAndFullName();
     }
 
+    @When("I create customer with first name, last name, address and generic flag {string} and {string}")
+    public void createCustomerWithGenericFlag(String needFlagName, String needSource) throws Exception {
+        dialog = new CustomerViewDialog_Header();
+        customer = new CreateCustomerDIalog();
+        overview = new CustomerViewDialog_OverviewTab();
+        header = new Header();
+        header.NavigateTo(header.newCustomerTab);
+        customer.setFirstName(fName);
+        customer.setLastName(lName);
+        customer.selectUnit("Multi Unit");
+        customer.setAddress(streetAddress);
+        customer.setZipCode(zipcode);
+        customer.setCellPhone(getData("phoneNumber", generalData));
+        customer.selectSource(needSource);
+        customer.selectGenericFlag(needFlagName);
+        customer.clickSmsCheckBox();
+        customer.clickEmailCheckBox();
+        customer.clickVoiceCheckBox();
+        dialog.clickSaveButton();
+        alertCondition();
+        captureUserIdAndFullName();
+    }
+
     @And("I search customer")
     public void searchCustomer() throws Exception {
         header = new Header();

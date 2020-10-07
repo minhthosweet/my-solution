@@ -19,7 +19,7 @@ public class CreateCustomerDIalog {
     public String emailAddressInputField = "//input[@name= 'email']";
     public String propertyTypeDropDown = "//select[@name= 'commercialAccount']";
     public String unitTypeDropDown = "//select[@name= 'isMultiUnit']";
-    public String selectSourceDropDown = "//select[@name= 'sourceID']";
+    public String selectSourceDropDown = "//div[@class='col-6']/select[@name='sourceID']";
     public String companyNameInputField = "//input[@name= 'companyName']";
     public String specialHandlingInputField = "//textarea[@name= 'specialScheduling']";
     public String smsCheckBox = "//input[@name= 'smsReminders']";
