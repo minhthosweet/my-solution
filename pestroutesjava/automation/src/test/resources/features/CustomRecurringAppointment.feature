@@ -10,4 +10,6 @@ Feature: Customer Status
     And I search customer
     And I navigate to Subscription Tab
     And I add a custom frequency recurring service
-    And I set today as custom billing date
+    Then I validate upcoming appointments for custom recurring appointments
+
+

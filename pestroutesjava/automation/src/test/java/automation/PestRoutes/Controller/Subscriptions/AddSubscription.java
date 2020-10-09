@@ -23,6 +23,7 @@ public class AddSubscription extends AppData {
 	private String ticketItem = "bed";
 	private String initialQuote = "120.00";
 	private String initialDiscount = "20.00";
+	private String customDate = "14";
 	public static String newContractValue = null;
 	public String initialInvoiceValue;
 
@@ -220,10 +221,10 @@ public class AddSubscription extends AppData {
 	}
 
 	@And("I set today as custom billing date")
-	public void setCurrentDateAsCustomBillingDate(){
+	public void setCurrentDateAsCustomBillingDate_InitialAppointment(){
 		customerDialogHeader = new CustomerViewDialog_Header();
 		subscription.clickEditCustomInitialScheduleButton();
-		subscription.clickSpecificDateButton();
+		subscription.clickSpecificDateButton_initialCustomSchedule();
 		subscription.selectCurrentDate_CustomSchedule();
 		subscription.setAmount_CustomSchedule();
 		subscription.clickFinishEditingSchedule();
@@ -243,8 +244,15 @@ public class AddSubscription extends AppData {
 
 	@And("I add a custom frequency recurring service")
 	public void customFrequencyRecurringService(){
+		subscription.clearCustomDate();
 		subscription.selectServiceFrequency("Custom Schedule");
 		subscription.clickEditCustomRecurringScheduleButton();
+		subscription.clickSpecificDateButton_recurringCustomSchedule();
+		subscription.selectCurrentDateSpecificDate_recurringCustomSchedule(customDate);
+		subscription.clickDayOfTheWeekButton_recurringCustomSchedule();
+		subscription.selectDayOfTheWeek("Third", "Tuesday");
+		subscription.clickFinishEditingSchedule();
+		customerDialogHeader.clickSaveButton();
 	}
 
 	@SuppressWarnings("unchecked")
@@ -255,4 +263,12 @@ public class AddSubscription extends AppData {
 		Reporter.status(stepName, expected, actual, testName);
 	}
 
+	@Then("I validate upcoming appointments for custom recurring appointments")
+	public void validateCustomSchedule_RecurringAppt() throws Exception {
+		result(subscription.getUpcomingAppt(subscription.firstUpcomingAppointment), Utilities.getCurrentDate(), "first appointment", "Subscription");
+		result(subscription.getUpcomingAppt(subscription.secondUpcomingAppointment), subscription.getUpcomingAppointment_specificDate(customDate, 0), "second appointment", "Subscription");
+		result(subscription.getUpcomingAppt(subscription.fourthUpcomingAppointment), subscription.getUpcomingAppointment_specificDate(customDate, 2), "fourth appointment", "Subscription");
+		result(subscription.getUpcomingAppt(subscription.sixthUpcomingAppointment), subscription.getUpcomingAppointment_specificDate(customDate, 4), "fourth appointment", "Subscription");
+
+	}
 }

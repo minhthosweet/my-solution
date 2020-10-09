@@ -143,9 +143,31 @@ public class CustomerViewDialog_SubscriptionTab {
 		Utilities.clickElement(recurringSubTotalValue, ElementType.XPath);
 	}
 
-	public void clickSpecificDateButton() {
+	public void clickSpecificDateButton_initialCustomSchedule() {
 		Utilities.waitUntileElementIsVisible("//div[@scheduletype='3']//h4[text()='" + Utilities.getCurrentMonth() + "']/following-sibling::div[contains(text(),'Specific Date')]");
 		Utilities.clickElement("//div[@scheduletype='3']//h4[text()='" + Utilities.getCurrentMonth() + "']/following-sibling::div[contains(text(),'Specific Date')]", ElementType.XPath);
+	}
+
+	public void clickDayOfTheWeekButton_recurringCustomSchedule() {
+		Utilities.waitUntileElementIsVisible("//h4[text()='" + Utilities.getMonthsInFuture(1) + "']/following-sibling::div[text()='+ Day of Week']");
+		Utilities.clickElement("//h4[text()='" + Utilities.getMonthsInFuture(1) + "']/following-sibling::div[text()='+ Day of Week']", ElementType.XPath);
+	}
+
+	public void clickSpecificDateButton_recurringCustomSchedule() {
+		Utilities.waitUntileElementIsVisible("//h4[text()='" + Utilities.getCurrentMonth() + "']/following-sibling::div[text()='+ Day of Week']/preceding-sibling::div[text()='+ Specific Date']");
+		Utilities.clickElement("//h4[text()='" + Utilities.getCurrentMonth() + "']/following-sibling::div[text()='+ Day of Week']/preceding-sibling::div[text()='+ Specific Date']", ElementType.XPath);
+	}
+
+	public void selectCurrentDateSpecificDate_recurringCustomSchedule(String needCurrentDate){
+		Utilities.waitUntileElementIsVisible("//h4[text()='"+Utilities.getCurrentMonth()+"']/parent::div//select//option[text()='"+needCurrentDate+"']");
+		Utilities.clickElement("//h4[text()='"+Utilities.getCurrentMonth()+"']/parent::div//select//option[text()='"+needCurrentDate+"']",ElementType.XPath);
+	}
+
+	public void selectDayOfTheWeek(String needWeek, String needDay){
+		Utilities.waitUntileElementIsVisible("//h4[text()='" + Utilities.getMonthsInFuture(1) + "']/parent::div//select[@name='ordinal']/option");
+		Utilities.selectValueFromDropDownByValue("//h4[text()='" + Utilities.getMonthsInFuture(1)+ "']/parent::div//select[@name='ordinal']",needWeek);
+		Utilities.waitUntileElementIsVisible("//h4[text()='" + Utilities.getMonthsInFuture(1) + "']/parent::div//select[@name='dayOfWeek']/option");
+		Utilities.selectValueFromDropDownByValue("//h4[text()='" + Utilities.getMonthsInFuture(1)+ "']/parent::div//select[@name='dayOfWeek']",needDay);
 	}
 
 	public void clickFinishEditingSchedule() {
@@ -260,6 +282,11 @@ public class CustomerViewDialog_SubscriptionTab {
 		}
 		Utilities.waitUntileElementIsVisible("//span[text()=  '" + needItem + "']");
 		Utilities.clickElement("//span[text()=  '" + needItem + "']", ElementType.XPath);
+	}
+
+	public void clearCustomDate(){
+		Utilities.waitUntileElementIsVisible(customDateInputField);
+		FindElement.elementByAttribute(customDateInputField, InputType.XPath).clear();
 	}
 
 	/*
@@ -471,7 +498,6 @@ public class CustomerViewDialog_SubscriptionTab {
 		return String.valueOf((double)Math.round((Double.parseDouble(initialInvoiceAmountWithoutTax)+(Double.parseDouble(infoTab.getTaxRate())*Double.parseDouble(initialInvoiceAmountWithoutTax))/100)*100)/100);
 	}
 
-
 	public void customInitialBilling_alertCondition() {
 		int i = 0;
 		while (i++ < 5) {
@@ -488,4 +514,9 @@ public class CustomerViewDialog_SubscriptionTab {
 			}
 		}
 	}
+
+	public String getUpcomingAppointment_specificDate(String needDate, int addMonths){
+		return Utilities.getCurrentMonthInNumbers(addMonths) + "/" + needDate + "/" + Utilities.getCurrentYear();
+	}
+
 }
