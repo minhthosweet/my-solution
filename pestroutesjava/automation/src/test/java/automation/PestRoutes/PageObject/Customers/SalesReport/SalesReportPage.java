@@ -9,10 +9,27 @@ public class SalesReportPage extends BaseClass{
 	public String selectToday = "//div[@class='daterangepicker dropdown-menu ltr openscenter show-calendar']//li[text()='Today'] ";
 	public String subscriptionFlagColumn = "//th[text()='Subscription Flags'] ";
 	public String currentSubscriptionFlagName = "//td[text()='Fire']";
-	String selectDateField = "//input[@name='soldCustomersReportDateFilter']";
-	String additionColumns = "//select[@name='extraFields']";
-	String filterBySalesman = "//select[@name='soldSalesmen']";
-	String filterBySalesman2 = "//select[@name='soldSalesmen2']";
+	public String selectDateField = "//input[@name='soldCustomersReportDateFilter']";
+	public String selectEmployeeType = "//select[@name='employeeTypes']";
+	public String selectStatus = "//select[@name='status']";
+	public String subscriptionStatus = "//select[@name='subscriptionStatus']";
+	public String additionColumns = "//select[@name='extraFields']";
+	public String includeOffices = "//select[@id='officeIDs-emailForm']";
+	public String includeRoamingReps = "//select[@name='includeRoamingRepSales']";
+	public String filterEmployeeStatus = "//select[@name='employeeStatus']";
+	public String filterBySalesman = "//select[@name='soldSalesmen']";
+	public String filterBySalesman2 = "//select[@name='soldSalesmen2']";
+	public String filterBySalesman3 = "//select[@name='soldSalesmen3']";
+	public String filterTeams = "//select[@name='soldTeams']";
+	public String includeServiceTypes = "//select[@id='soldCustomers-serviceTypes']";
+	public String excludeServiceTypes = "//select[@name='excludeServiceTypes']";
+	public String includeCustomerFlags = "//select[@name='includeCustomerFlags']";
+	public String excludeCustomerFlags = "//select[@name='excludeCustomerFlags']";
+	public String includeCustomerSources = "//select[@name='includeCustomerSources']";
+	public String excludeCustomerSources = "//select[@name='excludeCustomerSources']";
+	public String includeServiceTypeCategories = "//select[@name='serviceTypeCategories']";
+	public String excludeServiceTypeCategories = "//select[@name='excludeServiceTypeCategories']";
+
 	String refreshButton = "//div[@onmouseup='loadSoldCustomers();']";
 	String exportButton = "//div[text()='Export to Excel']";
 	String salesReportTotalContractValue = "//div[contains(text(),'Total Contract Value')]/preceding-sibling::h3";
@@ -29,11 +46,19 @@ public class SalesReportPage extends BaseClass{
 	
 	public void selectAdditionalColumns(String needColumnName) {
 		Utilities.selectValueFromDropDownByValue(additionColumns, needColumnName);
-		
 	}
+
+	public void selectIncludeOffices(String needOffice) {
+		Utilities.selectValueFromDropDownByValue(includeOffices, needOffice);
+	}
+
 	
-	public void selectSalesmanFilter(String needSalesman) {
+	public void selectSalesmanFilter(String filterBySalesman, String needSalesman) {
 		Utilities.selectValueFromDropDownByValue(filterBySalesman, needSalesman);
+	}
+
+	public void selectFilter(String needFilterType, String needValue) {
+		Utilities.selectValueFromDropDownByValue(needFilterType, needValue);
 	}
 	
 	public void ClickRefreshButton() {

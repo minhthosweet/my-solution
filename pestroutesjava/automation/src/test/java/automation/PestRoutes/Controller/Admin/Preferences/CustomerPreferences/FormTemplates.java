@@ -32,7 +32,7 @@ public class FormTemplates extends AppData {
 		form = new FormObjects();
 		form.clickButton(form.addFormButton);
 		form.setInputField(form.nameField, needFormName);
-		form.selectValueFromDropdown("No");
+		form.selectValueFromDropdown(form.requiredApprovalDropdown, "No");
 		form.clickButton(form.htmlButton);
 		Utilities.scrollToElement(form.htmlInputField);
 		form.setInputField(form.htmlInputField, "<div> Employee </div>");
@@ -46,7 +46,7 @@ public class FormTemplates extends AppData {
 		form = new FormObjects();
 		form.clickButton(form.addFormButton);
 		form.setInputField(form.nameField, needFormName);
-		form.selectValueFromDropdown("No");
+		form.selectValueFromDropdown(form.requiredApprovalDropdown, "No");
 		form.clickButton(form.htmlButton);
 		Utilities.scrollToElement(form.htmlInputField);
 		form.setInputField(form.htmlInputField, "<div> Customer </div>");
@@ -60,7 +60,7 @@ public class FormTemplates extends AppData {
 		form = new FormObjects();
 		form.clickButton(form.addFormButton);
 		form.setInputField(form.nameField, needFormName);
-		form.selectValueFromDropdown("No");
+		form.selectValueFromDropdown(form.requiredApprovalDropdown, "No");
 		form.clickButton(form.htmlButton);
 		Utilities.scrollToElement(form.htmlInputField);
 		form.setInputField(form.htmlInputField, "<div> Customer </div>");

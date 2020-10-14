@@ -60,6 +60,8 @@ public class AddSubscription extends AppData {
 		subscription.selectServiceType(getData("serviceDescription", generalData));
 		subscription.setCustomDate(getData("customDate", quarterlyPreferredDayData));
 		subscription.selectSalesRep(needSalesmanName);
+		subscription.selectSalesRep2(needSalesmanName);
+		subscription.selectSalesRep3(needSalesmanName);
 		subscription.selectSubscriptionFlag(needSubscriptionFlagName);
 		customerDialogHeader.clickSaveButton();
 		newContractValue = getContractValue();

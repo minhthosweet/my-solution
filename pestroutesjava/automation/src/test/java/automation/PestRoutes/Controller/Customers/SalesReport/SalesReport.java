@@ -67,13 +67,47 @@ public class SalesReport extends AppData {
 		header = new Header();
 		salesReportPage = new SalesReportPage();
 		customersMainPage = new CustomersMainPage();
+
+		String employeeType = getData("employeeType", generalData);
+		String initialStatus = getData("initialStatus", generalData);
+		String subscriptionStatus = getData("subscriptionStatus", generalData);
 		String addtionalColumnName = getData("additionalColumnName", generalData);
-		String salesmanName = getData("fiterSalesman", generalData);
+		String salesmanName = getData("salesmanName", generalData);
+		String officeName = getData("officeName", generalData);
+		String includeRoamingReps = getData("roamingReps", generalData);
+		String employeeStatus = getData("employeeStatus", generalData);
+		String filterTeams = getData("filterTeam", generalData);
+		String includeServicetypes = getData("includeServicetype", generalData);
+		String excludeServicetypes = getData("excludeServicetype", generalData);
+		String includeCustomerFlags = getData("includeCustomerFlags", generalData);
+		String excludeCustomerFlags = getData("excludeCustomerFlags", generalData);
+		String includeCustomerSources = getData("includeCustomerSources", generalData);
+		String excludeCustomerSources = getData("excludeCustomerSources", generalData);
+		String includeServiceTypeCategories = getData("includeServiceTypeCategories", generalData);
+		String excludeServiceTypeCategories = getData("excludeServiceTypeCategories", generalData);
+
 		header.NavigateTo(header.customersTab);
 		customersMainPage.NavigateTo(customersMainPage.salesReport);
 		salesReportPage.selectTodaysDate(salesReportPage.selectToday);
+		salesReportPage.selectFilter(salesReportPage.selectEmployeeType, employeeType);
+		salesReportPage.selectFilter(salesReportPage.selectStatus, initialStatus);
+		salesReportPage.selectFilter(salesReportPage.subscriptionStatus, subscriptionStatus);
 		salesReportPage.selectAdditionalColumns(addtionalColumnName);
-		salesReportPage.selectSalesmanFilter(salesmanName);
+		salesReportPage.selectIncludeOffices(officeName);
+		salesReportPage.selectFilter(salesReportPage.includeRoamingReps, includeRoamingReps);
+		salesReportPage.selectFilter(salesReportPage.filterEmployeeStatus, employeeStatus);
+		salesReportPage.selectSalesmanFilter(salesReportPage.filterBySalesman, salesmanName);
+		salesReportPage.selectSalesmanFilter(salesReportPage.filterBySalesman2, salesmanName);
+		salesReportPage.selectSalesmanFilter(salesReportPage.filterBySalesman3, salesmanName);
+		salesReportPage.selectFilter(salesReportPage.filterTeams, filterTeams);
+		salesReportPage.selectFilter(salesReportPage.includeServiceTypes, includeServicetypes);
+		salesReportPage.selectFilter(salesReportPage.excludeServiceTypes, excludeServicetypes);
+		salesReportPage.selectFilter(salesReportPage.includeCustomerFlags, includeCustomerFlags);
+		salesReportPage.selectFilter(salesReportPage.excludeCustomerFlags, excludeCustomerFlags);
+//		salesReportPage.selectFilter(salesReportPage.includeCustomerSources, includeCustomerSources);
+		salesReportPage.selectFilter(salesReportPage.excludeCustomerSources, excludeCustomerSources);
+		salesReportPage.selectFilter(salesReportPage.includeServiceTypeCategories, includeServiceTypeCategories);
+		salesReportPage.selectFilter(salesReportPage.excludeServiceTypeCategories, excludeServiceTypeCategories);
 		salesReportPage.ClickRefreshButton();
 
 	}
