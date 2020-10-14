@@ -4,7 +4,7 @@ import java.io.IOException;
 
 import org.testng.annotations.Test;
 
-import automation.PestRoutes.PageObject.Admin.OfficeSettings.TriggerRules;
+import automation.PestRoutes.PageObject.Admin.OfficeSettings.TriggerTypes.TriggerRules;
 import automation.PestRoutes.PageObject.Admin.OfficeSettings.TriggerTypes.ReminderTab;
 import automation.PestRoutes.PageObject.Admin.OfficeSettings.TriggerTypes.SubscriptionStatusTab;
 import automation.PestRoutes.Utilities.BaseClass;

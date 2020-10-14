@@ -1,8 +1,7 @@
-package automation.PestRoutes.PageObject.Admin.OfficeSettings;
+package automation.PestRoutes.PageObject.Admin.OfficeSettings.TriggerTypes;
 
 import automation.PestRoutes.PageObject.Header;
 import automation.PestRoutes.PageObject.Admin.AdminMainPage;
-import automation.PestRoutes.PageObject.Admin.OfficeSettings.TriggerTypes.RenewalTab;
 import automation.PestRoutes.PageObject.ReportingPage.Inventory.InventoryTab;
 import automation.PestRoutes.Utilities.GetDate;
 import automation.PestRoutes.Utilities.Utilities;
