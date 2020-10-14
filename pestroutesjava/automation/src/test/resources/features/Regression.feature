@@ -141,5 +141,13 @@ Feature: End to end testing on the application
     And I add a custom frequency recurring service
     Then I validate upcoming appointments for custom recurring appointments
 
+   @CreateNewLead
+   Scenario: Create new lead
+    When I create customer with first name, last name and address
+    And I create a new lead
+    Then I validate lead creation invoices
+    And I convert a successful lead to subscription and I verify it in the subscriptions tab
+    And I validate if there are errors exist in the list
+
   Scenario: Close browser
     And I quit driver
