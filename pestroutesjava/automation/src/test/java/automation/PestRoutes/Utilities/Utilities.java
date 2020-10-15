@@ -27,6 +27,7 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import automation.PestRoutes.Utilities.FindElement.InputType;
 import automation.PestRoutes.Utilities.Driver.GetWebDriver;
+import org.apache.commons.lang3.time.DateUtils;
 
 public class Utilities {
 	static WebDriver driver = GetWebDriver.getInstance();;
@@ -342,14 +343,12 @@ public class Utilities {
 		return new SimpleDateFormat("MMMMMMMMMMMMMM").format(calendar.getTime());
 	}
 
-	public static String getCurrentMonthInNumbers(int addNumberOfMonths){
-		Calendar calendar = Calendar.getInstance();
-		return Integer.toString(calendar.get(Calendar.MONTH) + 1 + addNumberOfMonths);
-	}
-
-	public static String getCurrentYear(){
-		Calendar calendar = Calendar.getInstance();
-		return Integer.toString(calendar.get(Calendar.YEAR));
+	public static String addYearstoCurrentYear(String needFormat, int addNumberOfMonths){
+		DateFormat dateFormat = new SimpleDateFormat(needFormat);
+		Date date = new Date();
+		date = DateUtils.addYears(date, addNumberOfMonths);
+		String date1 = dateFormat.format(date);
+		return date1;
 	}
 
 	public static String getCurrentDate(){

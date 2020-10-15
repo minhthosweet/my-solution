@@ -1,7 +1,8 @@
+#Author Aditya
 @CustomDateRecurringAppointment
 Feature: Customer Status
 
-  @CreateInitialInvoiceCustomSchedule
+  @CreateAndValidateCustomRecurringAppointments
   Scenario: Create Initial Invoice of type On Initial Billing Date
     Given I sign in to pestroutes domain
     When I create customer with first name, last name and address
