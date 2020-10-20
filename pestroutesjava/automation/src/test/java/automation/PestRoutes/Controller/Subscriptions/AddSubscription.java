@@ -1,6 +1,5 @@
 package automation.PestRoutes.Controller.Subscriptions;
 
-import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_InfoTab;
 import automation.PestRoutes.PageObject.Header;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_Header;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_SubscriptionTab;
@@ -23,6 +22,7 @@ public class AddSubscription extends AppData {
 	private String ticketItem = "bed";
 	private String initialQuote = "120.00";
 	private String initialDiscount = "20.00";
+	private String customDateInCustomSchedule = Utilities.getCurrentDate();
 	public static String newContractValue = null;
 	public String initialInvoiceValue;
 
@@ -220,10 +220,10 @@ public class AddSubscription extends AppData {
 	}
 
 	@And("I set today as custom billing date")
-	public void setCurrentDateAsCustomBillingDate(){
+	public void setCurrentDateAsCustomBillingDate_InitialAppointment(){
 		customerDialogHeader = new CustomerViewDialog_Header();
-		subscription.clickEditCustomScheduleButton();
-		subscription.clickSpecificDateButton();
+		subscription.clickEditCustomInitialScheduleButton();
+		subscription.clickSpecificDateButton_initialCustomSchedule();
 		subscription.selectCurrentDate_CustomSchedule();
 		subscription.setAmount_CustomSchedule();
 		subscription.clickFinishEditingSchedule();
@@ -241,6 +241,19 @@ public class AddSubscription extends AppData {
 		Utilities.navigateToUrl("https://adityam.pestroutes.com/resources/scripts/billingQueue.php?debug=1");
 	}
 
+	@And("I add a custom frequency recurring service")
+	public void customFrequencyRecurringService(){
+		subscription.clearCustomDate();
+		subscription.selectServiceFrequency("Custom Schedule");
+		subscription.clickEditCustomRecurringScheduleButton();
+		subscription.clickSpecificDateButton_recurringCustomSchedule();
+		subscription.selectCurrentDateSpecificDate_recurringCustomSchedule(customDateInCustomSchedule);
+		subscription.clickDayOfTheWeekButton_recurringCustomSchedule();
+		subscription.selectDayOfTheWeek("Third", "Tuesday");
+		subscription.clickFinishEditingSchedule();
+		customerDialogHeader.clickSaveButton();
+	}
+
 	@SuppressWarnings("unchecked")
 	private void result(String expected, String actual, String stepName, String testName) {
 		if (AssertException.result(expected, actual, stepName).size() > 0) {
@@ -249,4 +262,17 @@ public class AddSubscription extends AppData {
 		Reporter.status(stepName, expected, actual, testName);
 	}
 
+	@Then("I validate upcoming appointments for custom recurring appointments")
+	public void validateCustomSchedule_RecurringAppt() throws Exception {
+
+		result(subscription.getUpcomingAppt(subscription.firstUpcomingAppointment), subscription.getUpcomingAppointment_specificDate(customDateInCustomSchedule, 0), "first appointment", "Subscription");
+		result(subscription.getUpcomingAppt(subscription.thirdUpcomingAppointment), subscription.getUpcomingAppointment_specificDate(customDateInCustomSchedule, 1), "third appointment", "Subscription");
+		result(subscription.getUpcomingAppt(subscription.fifthUpcomingAppointment), subscription.getUpcomingAppointment_specificDate(customDateInCustomSchedule, 2), "fifth appointment", "Subscription");
+		result(subscription.getUpcomingAppt(subscription.seventhUpcomingAppointment), subscription.getUpcomingAppointment_specificDate(customDateInCustomSchedule, 3), "fifth appointment", "Subscription");
+
+		result(subscription.getUpcomingAppt(subscription.secondUpcomingAppointment), subscription.getUpcomingAppointment_specificDay_everyYear(1), "second appointment", "Subscription");
+		result(subscription.getUpcomingAppt(subscription.fourthUpcomingAppointment), subscription.getUpcomingAppointment_specificDay_everyYear(2), "fourth appointment", "Subscription");
+		result(subscription.getUpcomingAppt(subscription.sixthUpcomingAppointment), subscription.getUpcomingAppointment_specificDay_everyYear(3), "sixth appointment", "Subscription");
+		result(subscription.getUpcomingAppt(subscription.eighthUpcomingAppointment), subscription.getUpcomingAppointment_specificDay_everyYear(4), "eighth appointment", "Subscription");
+	}
 }

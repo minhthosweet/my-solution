@@ -27,6 +27,7 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import automation.PestRoutes.Utilities.FindElement.InputType;
 import automation.PestRoutes.Utilities.Driver.GetWebDriver;
+import org.apache.commons.lang3.time.DateUtils;
 
 public class Utilities {
 	static WebDriver driver = GetWebDriver.getInstance();;
@@ -342,6 +343,14 @@ public class Utilities {
 		return new SimpleDateFormat("MMMMMMMMMMMMMM").format(calendar.getTime());
 	}
 
+	public static String addYearstoCurrentYear(String needFormat, int addNumberOfMonths){
+		DateFormat dateFormat = new SimpleDateFormat(needFormat);
+		Date date = new Date();
+		date = DateUtils.addYears(date, addNumberOfMonths);
+		String date1 = dateFormat.format(date);
+		return date1;
+	}
+
 	public static String getCurrentDate(){
 		Calendar calendar = Calendar.getInstance();
 		String date = new SimpleDateFormat("dd").format(calendar.getTime());
@@ -349,6 +358,25 @@ public class Utilities {
 			date = date.substring(1,date.length());
 		}
 		return date;
+	}
+
+	public static String getMonthsInFuture(int monthsInFuture){
+		Calendar currentMonth = Calendar.getInstance();
+		SimpleDateFormat dateFormat = new SimpleDateFormat("MMMM");
+		currentMonth.add(Calendar.MONTH, monthsInFuture);
+		return dateFormat.format(currentMonth.getTime());
+	}
+
+	public static String getLastDateOfTheMonth(){
+		Date today = new Date();
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(today);
+		calendar.add(Calendar.MONTH, 1);
+		calendar.set(Calendar.DAY_OF_MONTH, 1);
+		calendar.add(Calendar.DATE, -1);
+		Date lastDayOfMonth = calendar.getTime();
+		DateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+		return sdf.format(lastDayOfMonth);
 	}
 	
 	public enum ElementType {

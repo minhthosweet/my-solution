@@ -16,6 +16,7 @@ public class AddUserDialog {
 	public String deactivateSaveButton = "(//span[text()='Save'])[8]";
 	public String cancelButton = "(//span[text()='Cancel'])[9]";
 	public String deactivateLink = "//span[text()='De-Activate']";
+	public String closeButton = "//span[text()='Edit User']/following-sibling::button[@title='close']";
 	
 
 	

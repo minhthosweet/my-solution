@@ -12,6 +12,7 @@ public class SchedulingTab extends AppData {
     public String scheduleDay = "//div[@style='border:1px solid;']/following-sibling::div[1]";
     public String scheduleSameDay = "//div[@style='border:1px solid;']";
     public String scheduleButtonInDialog = "//span[text()='Schedule']";
+    public String closeRecommendedRoutes = "//span[text()='Recommended Routes']/following-sibling::button[@title='close']";
 
     public void clickScheduleDay() {
         String date = Utilities.currentDate("M/d/yyyy");
@@ -41,6 +42,8 @@ public class SchedulingTab extends AppData {
         overviewHeader = new CustomerViewDialog_Header();
         overviewHeader.navigateTo(overviewHeader.subscriptionTabInDialog);
         Utilities.jsClickElement(scheduleButtonInDialog, ElementType.XPath);
+        Utilities.waitUntileElementIsVisible(closeRecommendedRoutes);
+        Utilities.jsClickElement(closeRecommendedRoutes, ElementType.XPath);
     }
 
     public void selectServiceType(String serviceType) {

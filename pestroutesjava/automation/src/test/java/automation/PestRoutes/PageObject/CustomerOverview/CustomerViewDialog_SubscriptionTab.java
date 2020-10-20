@@ -9,6 +9,10 @@ import automation.PestRoutes.Utilities.FindElement;
 import automation.PestRoutes.Utilities.Utilities;
 import automation.PestRoutes.Utilities.FindElement.InputType;
 import automation.PestRoutes.Utilities.Utilities.ElementType;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalAdjusters;
 
 public class CustomerViewDialog_SubscriptionTab {
 
@@ -44,7 +48,8 @@ public class CustomerViewDialog_SubscriptionTab {
 	public String billingFrequencyDropdown = "//select[@name='billingFrequency']";
 	public String billingInitialInvoiceDropdown = "//select[@name='initialInvoice']";
 	public String initialBillingDateInputField = "//input[@name='initialBillingDate']";
-	public String editCustomScheduleButton = "//div[@id='editInitialCustomScheduleButton']";
+	public String editCustomInitialScheduleButton = "//div[@id='editInitialCustomScheduleButton']";
+	public String editCustomRecurringScheduleButton = "//div[@id='editCustomScheduleButton']";
 	public String selectedCustomScheduleOption = "//select[@name='initialInvoice']/option[@selected='SELECTED' and text()='Custom Schedule']";
 
 	//Billing Frequency DropDown objects
@@ -74,6 +79,8 @@ public class CustomerViewDialog_SubscriptionTab {
 	public String fifthUpcomingAppointment = "//div[@id='scheduleWrapper']/div[5]/h4";
 	public String sixthUpcomingAppointment = "//div[@id='scheduleWrapper']/div[6]/h4";
 	public String seventhUpcomingAppointment = "//div[@id='scheduleWrapper']/div[7]/h4";
+	public String eighthUpcomingAppointment = "//div[@id='scheduleWrapper']/div[8]/h4";
+
 	//***Initial invoice template objects***
 	public String initialInvoice_AddTicketItemButton = "//h3[text()='Initial Invoice Template']/following-sibling::div[text()='+ Add Ticket Item']";
 	public String initialQuoteInputField = "//div[text()=  'Initial Quote']/following-sibling::input";
@@ -128,18 +135,45 @@ public class CustomerViewDialog_SubscriptionTab {
 		Utilities.clickElement("//li[@subscriptionid='" + subscriptionID + "']", ElementType.XPath);
 	}
 
-	public void clickEditCustomScheduleButton() {
-		Utilities.waitUntileElementIsVisible(editCustomScheduleButton);
-		Utilities.clickElement(editCustomScheduleButton, ElementType.XPath);
+	public void clickEditCustomInitialScheduleButton() {
+		Utilities.waitUntileElementIsVisible(editCustomInitialScheduleButton);
+		Utilities.clickElement(editCustomInitialScheduleButton, ElementType.XPath);
+	}
+
+	public void clickEditCustomRecurringScheduleButton() {
+		Utilities.waitUntileElementIsVisible(editCustomRecurringScheduleButton);
+		Utilities.clickElement(editCustomRecurringScheduleButton, ElementType.XPath);
 	}
 
 	public void clickRecurringSubTotalValue() {
 		Utilities.clickElement(recurringSubTotalValue, ElementType.XPath);
 	}
 
-	public void clickSpecificDateButton() {
+	public void clickSpecificDateButton_initialCustomSchedule() {
 		Utilities.waitUntileElementIsVisible("//div[@scheduletype='3']//h4[text()='" + Utilities.getCurrentMonth() + "']/following-sibling::div[contains(text(),'Specific Date')]");
 		Utilities.clickElement("//div[@scheduletype='3']//h4[text()='" + Utilities.getCurrentMonth() + "']/following-sibling::div[contains(text(),'Specific Date')]", ElementType.XPath);
+	}
+
+	public void clickDayOfTheWeekButton_recurringCustomSchedule() {
+		Utilities.waitUntileElementIsVisible("//h4[text()='" + Utilities.getMonthsInFuture(1) + "']/following-sibling::div[text()='+ Day of Week']");
+		Utilities.clickElement("//h4[text()='" + Utilities.getMonthsInFuture(1) + "']/following-sibling::div[text()='+ Day of Week']", ElementType.XPath);
+	}
+
+	public void clickSpecificDateButton_recurringCustomSchedule() {
+		Utilities.waitUntileElementIsVisible("//h4[text()='" + Utilities.getCurrentMonth() + "']/following-sibling::div[text()='+ Day of Week']/preceding-sibling::div[text()='+ Specific Date']");
+		Utilities.clickElement("//h4[text()='" + Utilities.getCurrentMonth() + "']/following-sibling::div[text()='+ Day of Week']/preceding-sibling::div[text()='+ Specific Date']", ElementType.XPath);
+	}
+
+	public void selectCurrentDateSpecificDate_recurringCustomSchedule(String needCurrentDate) {
+		Utilities.waitUntileElementIsVisible("//h4[text()='" + Utilities.getCurrentMonth() + "']/parent::div//select//option[text()='" + needCurrentDate + "']");
+		Utilities.clickElement("//h4[text()='" + Utilities.getCurrentMonth() + "']/parent::div//select//option[text()='" + needCurrentDate + "']", ElementType.XPath);
+	}
+
+	public void selectDayOfTheWeek(String needWeek, String needDay) {
+		Utilities.waitUntileElementIsVisible("//h4[text()='" + Utilities.getMonthsInFuture(1) + "']/parent::div//select[@name='ordinal']/option");
+		Utilities.selectValueFromDropDownByValue("//h4[text()='" + Utilities.getMonthsInFuture(1) + "']/parent::div//select[@name='ordinal']", needWeek);
+		Utilities.waitUntileElementIsVisible("//h4[text()='" + Utilities.getMonthsInFuture(1) + "']/parent::div//select[@name='dayOfWeek']/option");
+		Utilities.selectValueFromDropDownByValue("//h4[text()='" + Utilities.getMonthsInFuture(1) + "']/parent::div//select[@name='dayOfWeek']", needDay);
 	}
 
 	public void clickFinishEditingSchedule() {
@@ -254,6 +288,11 @@ public class CustomerViewDialog_SubscriptionTab {
 		}
 		Utilities.waitUntileElementIsVisible("//span[text()=  '" + needItem + "']");
 		Utilities.clickElement("//span[text()=  '" + needItem + "']", ElementType.XPath);
+	}
+
+	public void clearCustomDate() {
+		Utilities.waitUntileElementIsVisible(customDateInputField);
+		FindElement.elementByAttribute(customDateInputField, InputType.XPath).clear();
 	}
 
 	/*
@@ -451,10 +490,10 @@ public class CustomerViewDialog_SubscriptionTab {
 		return Utilities.currentDateWithZeroDelimiterOnDate("MM/dd/yyyy");
 	}
 
-	public String getInitialInvoiceAmountWithoutTax_CustomSchedule(){
+	public String getInitialInvoiceAmountWithoutTax_CustomSchedule() {
 		Utilities.waitUntileElementIsVisible(selectedCustomScheduleOption);
-		clickEditCustomScheduleButton();
-		return Utilities.getAttributeValue("//div[@scheduletype='3']//h4[text()='" + Utilities.getCurrentMonth() + "']/following-sibling::div//input[@name='amount']","value" );
+		clickEditCustomInitialScheduleButton();
+		return Utilities.getAttributeValue("//div[@scheduletype='3']//h4[text()='" + Utilities.getCurrentMonth() + "']/following-sibling::div//input[@name='amount']", "value");
 	}
 
 	public String getInitialInvoiceTotalAmount_CustomerSchedule() throws InterruptedException {
@@ -462,9 +501,8 @@ public class CustomerViewDialog_SubscriptionTab {
 		infoTab = new CustomerViewDialog_InfoTab();
 		String initialInvoiceAmountWithoutTax = getInitialInvoiceAmountWithoutTax_CustomSchedule();
 		customerDialogHeader.navigateTo(customerDialogHeader.infoTabInDialog);
-		return String.valueOf((double)Math.round((Double.parseDouble(initialInvoiceAmountWithoutTax)+(Double.parseDouble(infoTab.getTaxRate())*Double.parseDouble(initialInvoiceAmountWithoutTax))/100)*100)/100);
+		return String.valueOf((double) Math.round((Double.parseDouble(initialInvoiceAmountWithoutTax) + (Double.parseDouble(infoTab.getTaxRate()) * Double.parseDouble(initialInvoiceAmountWithoutTax)) / 100) * 100) / 100);
 	}
-
 
 	public void customInitialBilling_alertCondition() {
 		int i = 0;
@@ -481,5 +519,31 @@ public class CustomerViewDialog_SubscriptionTab {
 				continue;
 			}
 		}
+	}
+
+	public String getUpcomingAppointment_specificDate(String needDate, int addMonths) {
+		return Utilities.addYearstoCurrentYear("MM/dd/yy", addMonths);
+	}
+
+	public String getUpcomingAppointment_specificDay_everyYear(int appointmentNumber) {
+		String[] datesResult = new String[7];
+		int counter = 0;
+		String inputDate = Utilities.currentDate("MM/dd/yy");
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yy");
+		LocalDate date = LocalDate.parse(inputDate, formatter).plusMonths(1);
+
+		do {
+			date = date.withDayOfMonth(1);
+			if (date.getDayOfWeek() != DayOfWeek.TUESDAY) {
+				date = date.with(TemporalAdjusters.next(DayOfWeek.TUESDAY));
+			}
+			int firstTuesday = date.getDayOfMonth();
+			int thirdTuesday = firstTuesday + 14;
+			date = date.withDayOfMonth(thirdTuesday);
+			datesResult[counter] = formatter.format(date).toString();
+			date = date.plusMonths(12);
+			++counter;
+		} while (counter != 7);
+		return datesResult[appointmentNumber-1];
 	}
 }
