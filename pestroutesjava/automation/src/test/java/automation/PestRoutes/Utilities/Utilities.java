@@ -41,6 +41,7 @@ public class Utilities {
 		System.out.println(size);
 		for (int i = 0; i <= size; i++) {
 			driver.switchTo().frame(i);
+			Utilities.waitUntileElementIsVisible(needXpath);
 			int elem = driver.findElements(By.xpath(needXpath)).size();
 			System.out.println(elem);
 			if (elem != 0) {
@@ -91,6 +92,15 @@ public class Utilities {
 	public static void selectValueFromDropDownByValue(String needXpath, String needValue) {
 		Select dropdown = new Select(driver.findElement(By.xpath(needXpath)));
 		dropdown.selectByVisibleText(needValue);
+	}
+
+	public static void clickValueFromDropDownByValue(String needXpath, String needValue) {
+		try {
+			Utilities.clickElement(needXpath, ElementType.XPath);
+			Utilities.clickElement(needValue, ElementType.XPath);
+		} catch (Exception e) {
+
+		}
 	}
 
 	public static void takeSnapShot(WebDriver webdriver, String fileWithPath) throws Exception {
@@ -217,12 +227,16 @@ public class Utilities {
 	private static WebElement locateElement(String needAttribute, ElementType Attribute_Type) {
 		switch (Attribute_Type) {
 			case ID:
+				Utilities.waitUntileElementIsVisible(needAttribute);
 				return driver.findElement(By.id(needAttribute));
 			case ClassName:
+				Utilities.waitUntileElementIsVisible(needAttribute);
 				return driver.findElement(By.className(needAttribute));
 			case LinkText:
+				Utilities.waitUntileElementIsVisible(needAttribute);
 				return driver.findElement(By.linkText(needAttribute));
 			default:
+				Utilities.waitUntileElementIsVisible(needAttribute);
 				return driver.findElement(By.xpath(needAttribute));
 		}
 	}
@@ -231,15 +245,19 @@ public class Utilities {
 		List<WebElement> elements;
 		switch (Attribute_Type) {
 			case ID:
+				Utilities.waitUntileElementIsVisible(needAttribute);
 				elements = driver.findElements(By.id(needAttribute));
 				break;
 			case ClassName:
+				Utilities.waitUntileElementIsVisible(needAttribute);
 				elements = driver.findElements(By.className(needAttribute));
 				break;
 			case LinkText:
+				Utilities.waitUntileElementIsVisible(needAttribute);
 				elements = driver.findElements(By.linkText(needAttribute));
 				break;
 			default:
+				Utilities.waitUntileElementIsVisible(needAttribute);
 				elements = driver.findElements(By.xpath(needAttribute));
 		}
 		return elements.get(elements.size() - 1);
@@ -276,7 +294,7 @@ public class Utilities {
 				try {
 					WebElement attribute;
 					if (order) {
-						 attribute = locateElements(needAttribute, Attribute_Type);
+						attribute = locateElements(needAttribute, Attribute_Type);
 					} else {
 						attribute = locateElement(needAttribute, Attribute_Type);
 					}
@@ -310,8 +328,7 @@ public class Utilities {
 		}
 	}
 
-	public static void navigateToUrl(String needURL) {
-		driver.get(needURL);
+	public static void navigateToUrl(String needURL) { driver.get(needURL);
 	}
 
 	@And("I quit driver")
