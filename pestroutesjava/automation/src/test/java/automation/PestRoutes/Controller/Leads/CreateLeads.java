@@ -3,15 +3,15 @@ package automation.PestRoutes.Controller.Leads;
 import java.util.ArrayList;
 import java.util.List;
 
-import automation.PestRoutes.Utilities.AppData;
+import automation.PestRoutes.Utilities.*;
+import io.cucumber.java.en.And;
+import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
 import org.testng.annotations.Test;
 
 import automation.PestRoutes.PageObject.Header;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_Header;
 import automation.PestRoutes.PageObject.Leads.LeadsPage;
-import automation.PestRoutes.Utilities.AssertException;
-import automation.PestRoutes.Utilities.BaseClass;
-import automation.PestRoutes.Utilities.Reporter;
 
 public class CreateLeads extends AppData {
 	
@@ -19,7 +19,7 @@ public class CreateLeads extends AppData {
 	String additialItem = "bed";
 	
 	String assignto = "   - Office ";
-	String source = "Current Customer";
+	String source = "Current Customer.";
 	String contractLength = "12 months";
 	String reasonLost = "";
 	String dateAssigned = "";
@@ -40,7 +40,7 @@ public class CreateLeads extends AppData {
 	
 	LeadsPage leads = new LeadsPage();
 	List list = new ArrayList<String>();
-	
+
 	@Test
 	public void test() throws Exception {
 		Header header = new Header();
@@ -50,10 +50,12 @@ public class CreateLeads extends AppData {
 		leadCreation();
 		validateInvoices();
 	}
-	
-	
-	public void leadCreation() {
+
+	@And("I create a new lead")
+	public void leadCreation() throws InterruptedException {
 		header = new CustomerViewDialog_Header();
+		CustomerViewDialog_Header customerCart = new CustomerViewDialog_Header();
+		customerCart.navigateTo(customerCart.leadsTabInDialog);
 		leads.clickButton(leads.newButton);
 		String[] dropdown = {leads.assignToDropdown,leads.sourceDropdown,
 				leads.contractDropdown, leads.serviceTypeDropdown,
@@ -72,9 +74,13 @@ public class CreateLeads extends AppData {
 		leads.selectAdditionalItem(leads.addInitialInvoiceTicketItemButton, additialItem);
 		leads.selectAdditionalItem(leads.addRecurringInvoiceTicketItemButton, additialItem);
 		header.clickSaveButton();
-		
+		Utilities.waitUntileElementIsVisible(leads.newButton);
+		leads.clickButton(leads.addLeadsNotesButton);
+		leads.setInputField(leads.notesInputField, source);
+		leads.clickButton(leads.saveNotesButton);
 	}
-	
+
+	@Then("I validate lead creation invoices")
 	public void validateInvoices() {
 		String initialTax = (leads.getValueOfAnElement(leads.initialTaxValue)).replace("$", "");
 		double initialItemValue = Double.parseDouble
@@ -99,8 +105,19 @@ public class CreateLeads extends AppData {
 			System.out.println(actualValue[i]+" "+expectedValue[i]);
 			result(Double.toString(expectedValue[i]), actualValue[i], stepName[i], "Leads validation");
 		}
-		
-		AssertException.assertFailure(list);
+	}
+
+	@Then("I convert a successful lead to subscription and I verify it in the subscriptions tab")
+		public void convertLeadToSubscription() throws InterruptedException {
+		header = new CustomerViewDialog_Header();
+		CustomerViewDialog_Header customerCart = new CustomerViewDialog_Header();
+		String subscriptionTitle = "//h3[contains (text(), '" + serviceType + "')]";
+		Utilities.waitUntileElementIsVisible(leads.newButton);
+		leads.clickButton(leads.convertToLeadButton);
+		customerCart.navigateTo(customerCart.subscriptionTabInDialog);
+		Utilities.waitUntileElementIsVisible(subscriptionTitle);
+		String actualServiceTypeConverted = Utilities.getElementTextValue(subscriptionTitle, Utilities.ElementType.XPath);
+		result(serviceType, actualServiceTypeConverted, "serviceType Validation", "");
 	}
 	
 	@SuppressWarnings("unchecked")

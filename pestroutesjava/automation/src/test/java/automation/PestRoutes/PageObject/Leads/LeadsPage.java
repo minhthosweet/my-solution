@@ -11,6 +11,9 @@ public class LeadsPage {
 	public String statusDropdown = "//select[@id='leadStatusAction']";
 	
 	//********************Sales info objects********************
+	public String convertToLeadButton = "//div[text()='Convert Lead']";
+	public String deleteButton = "//div[@id='deleteCustomerContactButton']";
+	public String leadStatusButton = "//select[@id='leadStatusAction']";
 	public String newButton = "//div[text()='+ New']";
 	public String assignToDropdown = "//h3[text()='Sales Info']/following-sibling::select[@name='assignedTo']";
 	public String salesRep2Dropdown = 
