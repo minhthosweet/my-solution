@@ -124,7 +124,7 @@ public class AddSubscription extends AppData {
 
 	}
 
-	@Then("I validate initial invoice")
+	@Then("I validate initial invoice template values")
 	public void validateInitialInvoice() {
 		subscription.setInitialServiceQuote(initialQuote);
 		subscription.setInitialServiceDiscount(initialDiscount);
@@ -147,9 +147,9 @@ public class AddSubscription extends AppData {
 		result(expectedInitialTotal, actualInitialTotal, "Initial invoice total validation ", "Subscription");
 	}
 
-	@Then("I validate recurring invoice")
+	@Then("I validate recurring invoice template values")
 	public void validateRecurringInvoice() throws Exception {
-		subscription.setServiceQuote(getData("quarterly", quarterlyPreferredDayData), initialQuote);
+		subscription.setServiceQuote(getData("serviceDescription", generalData), initialQuote);
 		subscription.selectAdditionalItem_ToRecurringInvoice(ticketItem);
 		double serviceAmount = Double.parseDouble(initialQuote);
 		double ticketAmount = subscription.getRecurringService_NewTicketItemPrice(ticketItem);
@@ -166,6 +166,7 @@ public class AddSubscription extends AppData {
 		String expectedServiceTotal = Double.toString(total);
 		String actualServiceTotal = Double.toString(serviceTotal);
 		result(expectedServiceTotal, actualServiceTotal, "Service invoice total validation ", "Subscription");
+		customerDialogHeader.clickSaveButton();
 	}
 
 	@Then("I validate billing frequency by month")
@@ -194,7 +195,7 @@ public class AddSubscription extends AppData {
 	}
 
 	public void insertServiceQuoteByBillingFrequency(String needFrequency, String needServiceQuote,
-			String needItemAmount) throws Exception {
+													 String needItemAmount) throws Exception {
 		subscription.selectBillingFrequency(needFrequency);
 		subscription.setServiceQuote(getData("quarterly", quarterlyPreferredDayData), needServiceQuote);
 		subscription.setAdditionalItemAmount(ticketItem, needItemAmount);

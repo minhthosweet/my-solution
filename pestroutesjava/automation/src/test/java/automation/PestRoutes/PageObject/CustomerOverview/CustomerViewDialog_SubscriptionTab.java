@@ -347,6 +347,7 @@ public class CustomerViewDialog_SubscriptionTab {
 	}
 
 	public void setInitialServiceQuote(String needAmount) {
+		FindElement.elementByAttribute(initialQuoteInputField, InputType.XPath).clear();
 		Utilities.highLight(initialQuoteInputField);
 		FindElement.elementByAttribute(initialQuoteInputField, InputType.XPath).sendKeys(needAmount);
 	}
@@ -480,6 +481,10 @@ public class CustomerViewDialog_SubscriptionTab {
 
 	public String getInitialInvoiceValue() {
 		return Utilities.getElementTextValue(initialTotalValue, ElementType.XPath);
+	}
+
+	public String getRecurringInvoiceValue() {
+		return Utilities.getElementTextValue(recurringTotalValue, ElementType.XPath);
 	}
 
 	public String getBilling_initialBillingDate() {

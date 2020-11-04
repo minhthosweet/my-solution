@@ -8,7 +8,7 @@ import automation.PestRoutes.Utilities.Utilities.ElementType;
 public class InvoiceImplementation {
 
     // Values on Invoicing Landing Page
-    private String invoiceAccountSummaryClick = "//ul[@id=\"invoiceGroupListContainer\"]/ul/li";
+    private String invoiceAccountSummaryClick = "//ul[@id='invoiceGroupListContainer']/ul/li";
     public String initialInvoice = "//span[text()='Initial Balance']";
 
     // Invoice Amount
@@ -144,12 +144,17 @@ public class InvoiceImplementation {
         Utilities.clickElement(initialInvoice, ElementType.XPath);
     }
 
+    public void clickRecurringInvoice(String recurringInvoiceTotal){
+        Utilities.waitUntileElementIsVisible("//ul[@id='invoiceGroupListContainer']//span[text()='Remaining Balance']/parent::div[contains(text(),'"+recurringInvoiceTotal+"')]");
+        Utilities.clickElement("//ul[@id='invoiceGroupListContainer']//span[text()='Remaining Balance']/parent::div[contains(text(),'"+recurringInvoiceTotal+"')]", ElementType.XPath);
+    }
+
     public String getAccountBalance(){
         Utilities.waitUntileElementIsVisible(accountBalance);
         return Utilities.getElementTextValue(accountBalance, ElementType.XPath);
     }
 
-    public String getChargesBalance(){
+    public String getInitialChargesBalance(){
         Utilities.waitUntileElementIsVisible(invoiceDate);
         return Utilities.getElementTextValue(chargesBalance, ElementType.XPath);
     }
@@ -159,7 +164,7 @@ public class InvoiceImplementation {
         return Utilities.getElementTextValue("//div[text()='Sub Total']/following-sibling::div[contains(text(),'"+initialAmountWithoutTax+"')]/following-sibling::div[4]", ElementType.XPath);
     }
 
-    public String getPaymentsBalance(){
+    public String getInitialPaymentsBalance(){
         Utilities.waitUntileElementIsVisible(invoiceDate);
         return Utilities.getElementTextValue(paymentsBalance, ElementType.XPath);
     }
