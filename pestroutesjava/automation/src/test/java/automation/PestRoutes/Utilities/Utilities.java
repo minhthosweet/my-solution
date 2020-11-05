@@ -227,16 +227,12 @@ public class Utilities {
 	private static WebElement locateElement(String needAttribute, ElementType Attribute_Type) {
 		switch (Attribute_Type) {
 			case ID:
-				Utilities.waitUntileElementIsVisible(needAttribute);
 				return driver.findElement(By.id(needAttribute));
 			case ClassName:
-				Utilities.waitUntileElementIsVisible(needAttribute);
 				return driver.findElement(By.className(needAttribute));
 			case LinkText:
-				Utilities.waitUntileElementIsVisible(needAttribute);
 				return driver.findElement(By.linkText(needAttribute));
 			default:
-				Utilities.waitUntileElementIsVisible(needAttribute);
 				return driver.findElement(By.xpath(needAttribute));
 		}
 	}
@@ -245,19 +241,15 @@ public class Utilities {
 		List<WebElement> elements;
 		switch (Attribute_Type) {
 			case ID:
-				Utilities.waitUntileElementIsVisible(needAttribute);
 				elements = driver.findElements(By.id(needAttribute));
 				break;
 			case ClassName:
-				Utilities.waitUntileElementIsVisible(needAttribute);
 				elements = driver.findElements(By.className(needAttribute));
 				break;
 			case LinkText:
-				Utilities.waitUntileElementIsVisible(needAttribute);
 				elements = driver.findElements(By.linkText(needAttribute));
 				break;
 			default:
-				Utilities.waitUntileElementIsVisible(needAttribute);
 				elements = driver.findElements(By.xpath(needAttribute));
 		}
 		return elements.get(elements.size() - 1);

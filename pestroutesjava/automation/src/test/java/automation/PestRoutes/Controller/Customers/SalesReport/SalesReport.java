@@ -104,7 +104,7 @@ public class SalesReport extends AppData {
 		salesReportPage.selectFilter(salesReportPage.excludeServiceTypes, excludeServicetypes);
 		salesReportPage.selectFilter(salesReportPage.includeCustomerFlags, includeCustomerFlags);
 		salesReportPage.selectFilter(salesReportPage.excludeCustomerFlags, excludeCustomerFlags);
-//		salesReportPage.selectFilter(salesReportPage.includeCustomerSources, includeCustomerSources);
+		salesReportPage.selectFilter(salesReportPage.includeCustomerSources, includeCustomerSources);
 		salesReportPage.selectFilter(salesReportPage.excludeCustomerSources, excludeCustomerSources);
 		salesReportPage.selectFilter(salesReportPage.includeServiceTypeCategories, includeServiceTypeCategories);
 		salesReportPage.selectFilter(salesReportPage.excludeServiceTypeCategories, excludeServiceTypeCategories);
