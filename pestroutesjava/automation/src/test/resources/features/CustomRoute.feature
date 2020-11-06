@@ -1,5 +1,5 @@
 #Author Aditya
-@CreateRouteTemplate
+@CustomRoute
 Feature: Route Tempalte
 
   Scenario: Create a route template
@@ -12,3 +12,6 @@ Feature: Route Tempalte
     When I navigate to Route Templates
     Then I delete the route template
     And I validate if there are errors exist in the list
+
+  Scenario: Close browser
+    And I quit driver

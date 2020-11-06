@@ -9,3 +9,6 @@
       Then I validate lead creation invoices
       And I convert a successful lead to subscription and I verify it in the subscriptions tab
       And I validate if there are errors exist in the list
+
+    Scenario: Close browser
+      And I quit driver

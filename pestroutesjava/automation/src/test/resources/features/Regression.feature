@@ -2,7 +2,6 @@
 @RegressionTest
 Feature: End to end testing on the application
 
-  @CreateCustomer
   Scenario: Create a customer with address
     Given I sign in to pestroutes domain
     When I create customer without required last name field
@@ -11,7 +10,6 @@ Feature: End to end testing on the application
     Then I validate if customer name and address match in overview tab
     And I validate if there are errors exist in the list
 
-  @CreateInitialInvoiceAfterInitialCompletion
   Scenario: Create Initial Invoice of type After Initial Completion
     When I create customer with first name, last name and address
     Then I validate if customer name and address match in overview tab
@@ -27,7 +25,6 @@ Feature: End to end testing on the application
     And I validate initial invoice created on invoice tab
     And I validate if there are errors exist in the list
 
-  @CreateInitialInvoiceAfterAgreementSigned
   Scenario: Create Initial Invoice of type After Agreement Signed
     Given I have disabled ECA
     When I create customer with first name, last name, email and address
@@ -40,7 +37,6 @@ Feature: End to end testing on the application
     And I validate initial invoice created on invoice tab
     And I validate if there are errors exist in the list
 
-  @CreateRouteTemplate
   Scenario: Create a route template
     Then I navigate to Route Templates
     When I create a route template
@@ -51,7 +47,6 @@ Feature: End to end testing on the application
     Then I delete the route template
     And I validate if there are errors exist in the list
 
-  @CreateServiceAppointment
   Scenario: Validate Renewal
     Given I add a renewal service
     When I create customer with first name, last name and address
@@ -76,7 +71,6 @@ Feature: End to end testing on the application
     And I navigate to scheduling tab
     Then I delete a routing group
 
-  @CreateStructureAndChemical
   Scenario: Structure and Chemical Validation
     When I create customer with first name, last name, address, email and Structure
     And I add structure and sub structures
@@ -96,7 +90,6 @@ Feature: End to end testing on the application
     And I navigate to scheduling tab
     Then I delete a routing group
 
-  @AddEquipment
   Scenario: Add equipment type on customer card
     Given I add equipment type "ID1" and "Automation Test1" and "Yes"
     When I create customer with first name, last name and address
@@ -110,7 +103,6 @@ Feature: End to end testing on the application
     And I verify that the equipment was added "Automation Test2"
     And I validate if there are errors exist in the list
 
-  @AddSalesRep
   Scenario: Validate sales report totals
     Given I create a new user if it is not already existing "Office Staff"
     Given I add a renewal service
@@ -131,7 +123,6 @@ Feature: End to end testing on the application
     Then I deactivate the existing user
     And I validate if there are errors exist in the list
 
-  @CreateAndValidateCustomRecurringAppointments
   Scenario: Create Initial Invoice of type On Initial Billing Date
     When I create customer with first name, last name and address
     Then I validate if customer name and address match in overview tab
@@ -141,7 +132,6 @@ Feature: End to end testing on the application
     And I add a custom frequency recurring service
     Then I validate upcoming appointments for custom recurring appointments
 
-   @CreateNewLead
    Scenario: Create new lead
     When I create customer with first name, last name and address
     And I create a new lead

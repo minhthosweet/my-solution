@@ -1,5 +1,5 @@
 #Author: Faraz
-  @Test
+  @Equipment
   Feature: Add Equipment on customer card
     Scenario: Add equipment type on customer card
       Given I sign in to pestroutes domain
@@ -14,3 +14,6 @@
       And I search customer
       And I verify that the equipment was added "Automation Test2"
       And I validate if there are errors exist in the list
+      
+    Scenario: Close browser
+      And I quit driver

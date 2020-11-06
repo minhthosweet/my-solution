@@ -1,4 +1,3 @@
-@AfterAgreementSigned
 Feature: Invoice generated from agreement signing
 
   @CreateInitialInvoiceAfterAgreementSigned
@@ -14,3 +13,6 @@ Feature: Invoice generated from agreement signing
     And I search customer
     And I validate initial invoice created on invoice tab
     And I validate if there are errors exist in the list
+
+  Scenario: Close browser
+    And I quit driver

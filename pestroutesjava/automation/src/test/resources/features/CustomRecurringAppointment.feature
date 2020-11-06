@@ -1,5 +1,5 @@
 #Author Aditya
-@CustomDateRecurringAppointment
+@CustomDate
 Feature: Customer Status
 
   @CreateAndValidateCustomRecurringAppointments
@@ -13,4 +13,5 @@ Feature: Customer Status
     And I add a custom frequency recurring service
     Then I validate upcoming appointments for custom recurring appointments
 
-
+  Scenario: Close browser
+    And I quit driver
