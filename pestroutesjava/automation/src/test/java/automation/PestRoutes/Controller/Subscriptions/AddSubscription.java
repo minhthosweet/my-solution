@@ -195,8 +195,7 @@ public class AddSubscription extends AppData {
 		result(expectedCustomProduction, actualCustomProduction, "Annually custom production ", "Subscription");
 	}
 
-	public void insertServiceQuoteByBillingFrequency(String needFrequency, String needServiceQuote,
-													 String needItemAmount) throws Exception {
+	public void insertServiceQuoteByBillingFrequency(String needFrequency, String needServiceQuote, String needItemAmount) throws Exception {
 		subscription.selectBillingFrequency(needFrequency);
 		subscription.setServiceQuote(getData("quarterly", quarterlyPreferredDayData), needServiceQuote);
 		subscription.setAdditionalItemAmount(ticketItem, needItemAmount);
