@@ -5,6 +5,7 @@ import automation.PestRoutes.Controller.Subscriptions.AddSubscription;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_SubscriptionTab;
 import automation.PestRoutes.Utilities.AppData;
 import automation.PestRoutes.Utilities.AssertException;
+import automation.PestRoutes.Utilities.Utilities;
 import io.cucumber.java.en.And;
 import org.testng.annotations.Test;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_Header;
@@ -114,47 +115,82 @@ public class InvoicingTab extends AppData {
 		result(initialInvoiceValue, "$" + invImplementation.getAccountBalance(), "Total Initial Invoice Value",
 				"Invoice Validation");
 		invImplementation.clickInvoice(getData("serviceDescription", generalData));
-		result(initialInvoiceValue,"$" +  invImplementation.getInitialChargesBalance(), "Total Initial Invoice Value",
+		result(initialInvoiceValue,"$" +  invImplementation.getChargesBalance(), "Total Initial Invoice Value",
 				"Invoice Validation");
-		result(initialInvoiceValue, "$" + invImplementation.getInitialPaymentsBalance(), "Total Initial Invoice Value",
+		result(initialInvoiceValue, "$" + invImplementation.getPaymentsBalance(), "Total Initial Invoice Value",
 				"Invoice Validation");
 	}
 
-	@And("I validate recurring invoice created on invoice tab")
+	@And("I validate initial invoice created on invoice tab")
 	public void validateInitialInvoice() throws InterruptedException {
 		addSubscription = new AddSubscription();
 		header = new CustomerViewDialog_Header();
 		subscriptionTab = new CustomerViewDialog_SubscriptionTab();;
 		header.navigateTo(header.subscriptionTabInDialog);
 		String initialInvoiceValue = subscriptionTab.getInitialInvoiceValue();
-		String recurringInvoiceValue = subscriptionTab.getRecurringInvoiceValue();
-		String accountPendingBalance = Double.toString(Double.parseDouble(initialInvoiceValue) + Double.parseDouble(recurringInvoiceValue));
-		header.navigateTo(header.invoicesTabInDialog);
-		System.out.println("account pending balance" + accountPendingBalance);
-		System.out.println("2 $" + invImplementation.getAccountBalance());
-		result(accountPendingBalance, "$" + invImplementation.getAccountBalance(), "Total Invoice Value",
-				"Invoice Validation");
-		invImplementation.clickRecurringInvoice(recurringInvoiceValue);
-/*		result(recurringInvoiceValue,"$" +  invImplementation.getChargesBalance(), "Total Initial Invoice Value",
-				"Invoice Validation");
-		result(recurringInvoiceValue, "$" + invImplementation.getPaymentsBalance(), "Total Initial Invoice Value",
-				"Invoice Validation");*/
-	}
+		String initialSubTotal = Double.toString(subscriptionTab.getInitialSubTotal());
+		String taxAmount = Double.toString(subscriptionTab.getInitialTax());
 
-	@And("I validate initial invoice created on invoice tab")
+		header.navigateTo(header.invoicesTabInDialog);
+		result(initialInvoiceValue, invImplementation.getAccountBalance(), "Total Initial Invoice Value",
+				"Initial Invoice Validation");
+		invImplementation.clickInitialInvoice();
+
+		result(addSubscription.initialQuote,invImplementation.getServiceCostBeforeTax(), "Total Initial Invoice Value",
+				"Initial Invoice Validation");
+		result(Double.toString(subscriptionTab.getInitialService_NewTicketItemPrice(addSubscription.ticketItem)),invImplementation.getAddOnValue(addSubscription.ticketItem), "Total Initial Invoice Value",
+				"Initial Invoice Validation");
+		result("$" + initialSubTotal,invImplementation.getSubTotalValue(), "Total Initial Invoice Value",
+				"Initial Invoice Validation");
+		result("$" + taxAmount,invImplementation.getTaxValue(), "Total Initial Invoice Value",
+				"Initial Invoice Validation");
+		result("-" + addSubscription.initialDiscount,invImplementation.getInitialDiscountValue(), "Total Initial Invoice Value",
+				"Initial Invoice Validation");
+		result(initialInvoiceValue,invImplementation.getChargesBalance(), "Total Initial Invoice Value",
+				"Initial Invoice Validation");
+		result(initialInvoiceValue, invImplementation.getPaymentsBalance(), "Total Initial Invoice Value",
+				"Initial Invoice Validation");
+		result(Utilities.currentDateWithZeroDelimiterOnDate("MM/dd/yy"), invImplementation.getInvoiceDate(), "Total Initial Invoice Value",
+				"Initial Invoice Validation");
+		result(Utilities.currentDateWithZeroDelimiterOnDate("MM/dd/yy"), invImplementation.getDueDate(), "Total Initial Invoice Value",
+				"Initial Invoice Validation");
+		result(Utilities.currentDateWithZeroDelimiterOnDate("MM/dd/yy"), invImplementation.getAppointmentDate(), "Total Initial Invoice Value",
+				"Initial Invoice Validation");
+		}
+
+	@And("I validate recurring invoice created on invoice tab")
 	public void validateRecurringInvoice() throws InterruptedException {
 		addSubscription = new AddSubscription();
 		header = new CustomerViewDialog_Header();
 		subscriptionTab = new CustomerViewDialog_SubscriptionTab();;
 		header.navigateTo(header.subscriptionTabInDialog);
-		String initialInvoiceValue = subscriptionTab.getInitialInvoiceValue();
+		String initialInvoiceValue = subscriptionTab.getInitialInvoiceValue().substring(1,subscriptionTab.getInitialInvoiceValue().length());
+		String recurringInvoiceValue = subscriptionTab.getRecurringInvoiceValue().substring(1,subscriptionTab.getRecurringInvoiceValue().length());
+		String accountPendingBalance = Double.toString(Double.parseDouble(recurringInvoiceValue) + Double.parseDouble(initialInvoiceValue));
+		String recurringSubTotal = Double.toString(subscriptionTab.getRecurringSubTotal());
+		String taxAmount = Double.toString(subscriptionTab.getRecurringTax());
 		header.navigateTo(header.invoicesTabInDialog);
-		result(initialInvoiceValue, "$" + invImplementation.getAccountBalance(), "Total Initial Invoice Value",
+		result("$" + accountPendingBalance, invImplementation.getAccountBalance(), "Total Invoice Value",
+				"Invoice Validation");
+		invImplementation.clickRecurringInvoice(recurringInvoiceValue);
+
+		result(addSubscription.recurringQuote,invImplementation.getServiceCostBeforeTax(), "Total Initial Invoice Value",
 				"Initial Invoice Validation");
-		invImplementation.clickInitialInvoice();
-		result(initialInvoiceValue,"$" +  invImplementation.getInitialChargesBalance(), "Total Initial Invoice Value",
+		result(Double.toString(subscriptionTab.getInitialService_NewTicketItemPrice(addSubscription.ticketItem)),invImplementation.getAddOnValue(addSubscription.ticketItem), "Total Initial Invoice Value",
 				"Initial Invoice Validation");
-		result(initialInvoiceValue, "$" + invImplementation.getInitialPaymentsBalance(), "Total Initial Invoice Value",
+		result("$" + recurringSubTotal,invImplementation.getSubTotalValue(), "Total Initial Invoice Value",
+				"Initial Invoice Validation");
+		result("$" + taxAmount,invImplementation.getTaxValue(), "Total Initial Invoice Value",
+				"Initial Invoice Validation");
+		result("$" + recurringInvoiceValue, invImplementation.getChargesBalance(), "Total Initial Invoice Value",
+				"Invoice Validation");
+		result("$" + recurringInvoiceValue, invImplementation.getPaymentsBalance(), "Total Initial Invoice Value",
+				"Invoice Validation");
+		result(Utilities.currentDateWithZeroDelimiterOnDate("MM/dd/yy"), invImplementation.getInvoiceDate(), "Total Initial Invoice Value",
+				"Initial Invoice Validation");
+		result(Utilities.currentDateWithZeroDelimiterOnDate("MM/dd/yy"), invImplementation.getDueDate(), "Total Initial Invoice Value",
+				"Initial Invoice Validation");
+		result(Utilities.currentDateWithZeroDelimiterOnDate("MM/dd/yy"), invImplementation.getAppointmentDate(), "Total Initial Invoice Value",
 				"Initial Invoice Validation");
 	}
 
@@ -170,9 +206,9 @@ public class InvoicingTab extends AppData {
 		result(initialInvoiceValue,invImplementation.getAccountBalance(), "Total Initial Invoice Value",
 				"Initial Invoice Validation");
 		invImplementation.clickInitialInvoice();
-		result(initialInvoiceValue,invImplementation.getInitialChargesBalance(), "Total Initial Invoice Value",
+		result(initialInvoiceValue,invImplementation.getChargesBalance(), "Total Initial Invoice Value",
 				"Initial Invoice Validation");
-		result(initialInvoiceValue, invImplementation.getInitialPaymentsBalance(), "Total Initial Invoice Value",
+		result(initialInvoiceValue, invImplementation.getPaymentsBalance(), "Total Initial Invoice Value",
 				"Initial Invoice Validation");
 	}
 

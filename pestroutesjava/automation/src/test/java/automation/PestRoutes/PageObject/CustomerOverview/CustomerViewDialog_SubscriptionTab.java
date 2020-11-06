@@ -347,8 +347,6 @@ public class CustomerViewDialog_SubscriptionTab {
 	}
 
 	public void setInitialServiceQuote(String needAmount) {
-		/*Utilities.waitUntileElementIsVisible(initialQuoteInputField);*/
-		FindElement.elementByAttribute(initialQuoteInputField, InputType.XPath).clear();
 		Utilities.highLight(initialQuoteInputField);
 		FindElement.elementByAttribute(initialQuoteInputField, InputType.XPath).sendKeys(needAmount);
 	}

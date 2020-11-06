@@ -19,9 +19,10 @@ public class AddSubscription extends AppData {
 
 	List list = new ArrayList<String>();
 
-	private String ticketItem = "bed";
-	private String initialQuote = "120.00";
-	private String initialDiscount = "20.00";
+	public String ticketItem = "bed";
+	public String initialQuote = "120.00";
+	public String recurringQuote = "240";
+	public String initialDiscount = "20.00";
 	private String customDateInCustomSchedule = Utilities.getCurrentDate();
 	public static String newContractValue = null;
 	public String initialInvoiceValue;
@@ -149,9 +150,9 @@ public class AddSubscription extends AppData {
 
 	@Then("I validate recurring invoice template values")
 	public void validateRecurringInvoice() throws Exception {
-		subscription.setServiceQuote(getData("serviceDescription", generalData), initialQuote);
+		subscription.setServiceQuote(getData("serviceDescription", generalData), recurringQuote);
 		subscription.selectAdditionalItem_ToRecurringInvoice(ticketItem);
-		double serviceAmount = Double.parseDouble(initialQuote);
+		double serviceAmount = Double.parseDouble(recurringQuote);
 		double ticketAmount = subscription.getRecurringService_NewTicketItemPrice(ticketItem);
 		double actualServiceSubtotal = subscription.getRecurringSubTotal();
 		double serviceTax = subscription.getRecurringTax();

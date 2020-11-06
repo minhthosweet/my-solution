@@ -20,7 +20,6 @@ public class InvoiceImplementation {
     // Assertion Invoice Values
     private String invoiceCost = "//div[@id=\"serviceTicket\"]//div[contains (text(), '@ $5,000.00')]";
     private String totalValueCharges = "//div[@id=\"invoiceDetails\"]//div[@class = 'ticketTotal totalBoxValue']";
-    private String totalPaymentCharges = "//div[@id=\"invoiceDetails\"]//div[@class=\"ticketTotal totalBoxValue balanceBox\"]";
 
     // Payment Status
     //Do not have any other XPath for initialPaymentStatus
@@ -50,9 +49,19 @@ public class InvoiceImplementation {
     public String accountBalance = "//div[text()='Email']/parent::div/following-sibling::div[1]//div";
 
     //Initial Invoice Objects
-    public String invoiceDate = "//div[text()='Invoice Date']/following-sibling::div[1]";
-    public String chargesBalance = "//div[@data-isinitial='1']//following-sibling::div/child::div[text()='Total']/following-sibling::div[1]";
     public String paymentsBalance = "//div[text()='Balance']/following-sibling::div";
+
+    // Charges Objects
+    public String serviceCostBeforeTax  = "//div[not(@ticketid='0')and@subscriptionid='0']//div[@serviceid]/input";
+    public String subTotalValue = "//div[not(@ticketid='0')and@subscriptionid='0']//following-sibling::div//div[text()='Sub Total']/following-sibling::div[1]";
+    public String taxValue = "//div[not(@ticketid='0')and@subscriptionid='0']//following-sibling::div//div[text()='Tax']/following-sibling::div[1]";
+    public String chargesTotalValue = "//div[not(@ticketid='0')and@subscriptionid='0']//following-sibling::div//div[text()='Total']/following-sibling::div[1]";
+    public String initialDiscountValue = "//div[@subscriptionid='0']//div[text()='Initial Discount']/following-sibling::input[@name='amount']";
+
+    //Ticket Info Objects
+    public String invoiceDate = "//div[text()='Invoice Date']/following-sibling::div[1]";
+    public String dueDate = "//div[text()='Due Date']/following-sibling::div[1]";
+    public String appointmentDate = "//div[text()='Appointment Date']/following-sibling::div[1]";
 
     // Getter Methods
     public int getInvoiceCost() {
@@ -66,8 +75,8 @@ public class InvoiceImplementation {
     }
 
     public Integer getTotalValuePayments() {
-        Utilities.waitUntileElementIsVisible(totalPaymentCharges);
-        return Utilities.removeSpecialChars(totalPaymentCharges);
+        Utilities.waitUntileElementIsVisible(chargesTotalValue);
+        return Utilities.removeSpecialChars(chargesTotalValue);
     }
 
     public String checkPaymentStatus() {
@@ -154,9 +163,9 @@ public class InvoiceImplementation {
         return Utilities.getElementTextValue(accountBalance, ElementType.XPath);
     }
 
-    public String getInitialChargesBalance(){
+    public String getChargesBalance(){
         Utilities.waitUntileElementIsVisible(invoiceDate);
-        return Utilities.getElementTextValue(chargesBalance, ElementType.XPath);
+        return Utilities.getElementTextValue(chargesTotalValue, ElementType.XPath);
     }
 
     public String getChargesBalance_customSchedule(String initialAmountWithoutTax){
@@ -164,8 +173,48 @@ public class InvoiceImplementation {
         return Utilities.getElementTextValue("//div[text()='Sub Total']/following-sibling::div[contains(text(),'"+initialAmountWithoutTax+"')]/following-sibling::div[4]", ElementType.XPath);
     }
 
-    public String getInitialPaymentsBalance(){
+    public String getPaymentsBalance(){
         Utilities.waitUntileElementIsVisible(invoiceDate);
         return Utilities.getElementTextValue(paymentsBalance, ElementType.XPath);
     }
+
+    public String getServiceCostBeforeTax(){
+        Utilities.waitUntileElementIsVisible(invoiceDate);
+        return Utilities.getAttributeValue(serviceCostBeforeTax,"value");
+    }
+
+    public String getAddOnValue(String addOn){
+        Utilities.waitUntileElementIsVisible(invoiceDate);
+        return Utilities.getAttributeValue("//div[not(@ticketid='0')and@subscriptionid='0']//div[text()='"+addOn+"']/following-sibling::input","value");
+    }
+
+    public String getSubTotalValue(){
+        Utilities.waitUntileElementIsVisible(invoiceDate);
+        return Utilities.getElementTextValue(subTotalValue, ElementType.XPath);
+    }
+    public String getTaxValue(){
+        Utilities.waitUntileElementIsVisible(invoiceDate);
+        return Utilities.getElementTextValue(taxValue, ElementType.XPath);
+    }
+
+    public String getInitialDiscountValue(){
+        Utilities.waitUntileElementIsVisible(invoiceDate);
+        return Utilities.getAttributeValue(initialDiscountValue,"value");
+    }
+
+    public String getInvoiceDate(){
+        Utilities.waitUntileElementIsVisible(invoiceDate);
+        return Utilities.getElementTextValue(invoiceDate, ElementType.XPath);
+    }
+
+    public String getDueDate(){
+        Utilities.waitUntileElementIsVisible(invoiceDate);
+        return Utilities.getElementTextValue(dueDate, ElementType.XPath);
+    }
+
+    public String getAppointmentDate(){
+        Utilities.waitUntileElementIsVisible(invoiceDate);
+        return Utilities.getElementTextValue(appointmentDate, ElementType.XPath);
+    }
+
 }
