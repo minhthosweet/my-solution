@@ -94,15 +94,6 @@ public class Utilities {
 		dropdown.selectByVisibleText(needValue);
 	}
 
-	public static void clickValueFromDropDownByValue(String needXpath, String needValue) {
-		try {
-			Utilities.clickElement(needXpath, ElementType.XPath);
-			Utilities.clickElement(needValue, ElementType.XPath);
-		} catch (Exception e) {
-
-		}
-	}
-
 	public static void takeSnapShot(WebDriver webdriver, String fileWithPath) throws Exception {
 
 		TakesScreenshot scrShot = ((TakesScreenshot) webdriver);
