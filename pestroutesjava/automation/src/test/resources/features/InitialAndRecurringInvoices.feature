@@ -1,6 +1,6 @@
-#Author Adytia
-@CustomSchedule
-Feature: Custome Schedule
+#Author Aditya
+@InitialAndRecurringInvoices
+Feature: Initial And Recurring Invoices
 
   Scenario: Create initial and recurring invoice and validate them
     Given I sign in to pestroutes domain
