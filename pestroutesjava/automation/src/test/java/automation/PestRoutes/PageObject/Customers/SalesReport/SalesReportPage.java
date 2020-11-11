@@ -62,7 +62,7 @@ public class SalesReportPage extends BaseClass{
 	}
 
 	public void clickFilter(String needFilterType, String needValue) {
-		Utilities.clickValueFromDropDownByValue(needFilterType, needValue);
+		Utilities.selectValueFromDropDownByValue(needFilterType, needValue);
 	}
 	
 	public void ClickRefreshButton() {
