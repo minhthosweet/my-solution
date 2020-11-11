@@ -1,6 +1,6 @@
-#Faraz
+#Author Faraz
 @TaxRate
-Feature: Subscription tab
+Feature: Tax Rate
 
   Scenario: Create customer and verify all tax rates
     Given I sign in to pestroutes domain
