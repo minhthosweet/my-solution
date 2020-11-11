@@ -86,6 +86,40 @@ public class CreateNewCustomer extends AppData {
         captureUserIdAndFullName();
     }
 
+   @Then("^I create customer with address and ZipCode and I verify Main Tax, State Tax, City Tax, County Tax, Custom Tax, District1 Tax, District2 Tax" +
+           ", District3 Tax, District4 Tax, District5 Tax Rates \"([^\"]*)\" and \"([^\"]*)\" and \"([^\"]*)\" and \"([^\"]*)\" and \"([^\"]*)\" " +
+           "and \"([^\"]*)\" and \"([^\"]*)\" and \"([^\"]*)\" and \"([^\"]*)\" and \"([^\"]*)\" and \"([^\"]*)\" and \"([^\"]*)\"$")
+    public void verifyCustomerWithAddressTaxRate(String needStreetAddress, String needZipCode, String needMainTax, String needStateTax,
+                String needCityTax, String needCountyTax, String needCustomTax, String needDistrict1Tax, String needDistrict2Tax,
+                String needDistrict3Tax, String needDistrict4Tax, String needDistrict5Tax) throws Exception {
+        dialog = new CustomerViewDialog_Header();
+        customer = new CreateCustomerDIalog();
+        overview = new CustomerViewDialog_OverviewTab();
+        header = new Header();
+        header.NavigateTo(header.newCustomerTab);
+        customer.setFirstName(fName);
+        customer.setLastName(lName);
+        customer.setAddress(needStreetAddress);
+        customer.setZipCode(needZipCode);
+        customer.setCellPhone(getData("phoneNumber", generalData));
+        dialog.clickSaveButton();
+        alertCondition();
+        captureUserIdAndFullName();
+        dialog.navigateTo(dialog.infoTabInDialog);
+        customer.clickOverrideTaxCheckBox();
+        result(customer.getTaxRate(customer.mainTaxPercentage), needMainTax, "Entered ZipCode" , "Tax Rate Validation");
+        result(customer.getTaxRate(customer.stateTaxPercentage), needStateTax, "Entered ZipCode" , "StateTax Rate Validation");
+        result(customer.getTaxRate(customer.cityTaxPercentage), needCityTax, "Entered ZipCode" , "CityTax Rate Validation");
+        result(customer.getTaxRate(customer.countyTaxPercentage), needCountyTax, "Entered ZipCode" , "CountyTax Rate Validation");
+        result(customer.getTaxRate(customer.customTaxPercentage), needCustomTax, "Entered ZipCode" , "CustomTax Rate Validation");
+        result(customer.getTaxRate(customer.district1TaxPercentage), needDistrict1Tax, "Entered ZipCode" , "District1 Tax Rate Validation");
+        result(customer.getTaxRate(customer.district2TaxPercentage), needDistrict2Tax, "Entered ZipCode" , "District2 Tax Rate Validation");
+        result(customer.getTaxRate(customer.district3TaxPercentage), needDistrict3Tax, "Entered ZipCode" , "District3 Tax Rate Validation");
+        result(customer.getTaxRate(customer.district4TaxPercentage), needDistrict4Tax, "Entered ZipCode" , "District4 Tax Rate Validation");
+        result(customer.getTaxRate(customer.district5TaxPercentage), needDistrict5Tax, "Entered ZipCode" , "District5 Tax Rate Validation");
+        customer.clickOverrideTaxCheckBox();
+    }
+
     @When("I create customer with first name, last name, address and generic flag {string} and {string}")
     public void createCustomerWithGenericFlag(String needFlagName, String needSource) throws Exception {
         dialog = new CustomerViewDialog_Header();

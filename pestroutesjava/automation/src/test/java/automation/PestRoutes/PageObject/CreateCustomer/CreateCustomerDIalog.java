@@ -42,6 +42,17 @@ public class CreateCustomerDIalog {
     public String countyDropDown = "//select[@name= 'county']";
     public String countryDropDown = "//select[@name= 'countryID']";
     public String taxPercentageInputField = "//input[@name= 'taxRate']";
+    public String taxPercentageOverrideCheckbox = "//input[@id='overrideTax']";
+    public String mainTaxPercentage = "//input[@name='taxRate']";
+    public String stateTaxPercentage = "//input[@name='stateTax']";
+    public String cityTaxPercentage = "//input[@name='cityTax']";
+    public String countyTaxPercentage = "//input[@name='countyTax']";
+    public String customTaxPercentage = "//input[@name='customTax']";
+    public String district1TaxPercentage = "//input[@name='districtTax1']";
+    public String district2TaxPercentage = "//input[@name='districtTax2']";
+    public String district3TaxPercentage = "//input[@name='districtTax3']";
+    public String district4TaxPercentage = "//input[@name='districtTax4']";
+    public String district5TaxPercentage = "//input[@name='districtTax5']";
     public String divisionDropDown = "//select[@name= 'divisionID']";
     public String info = "//a[text()= 'Info']";
     public String clickSave = "//button[@id='globalCustomerSaveButton']//span[text()='Save']";
@@ -180,6 +191,8 @@ public class CreateCustomerDIalog {
         Utilities.clickElement(purpleDragonCheckBox, ElementType.XPath);
     }
 
+    public void clickOverrideTaxCheckBox() { Utilities.clickElement(taxPercentageOverrideCheckbox, ElementType.XPath); }
+
     /*
      * Setter methods Below methods insert text in the input fields
      */
@@ -247,6 +260,10 @@ public class CreateCustomerDIalog {
 
     public String getNewCustTitle() {
         return Utilities.getElementTextValue(newCustTitle, ElementType.XPath);
+    }
+
+    public String getTaxRate(String needTaxField) {
+        return Utilities.getElementTextValue(needTaxField, ElementType.XPath);
     }
 
 }

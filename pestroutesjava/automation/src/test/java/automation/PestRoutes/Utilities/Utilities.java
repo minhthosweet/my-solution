@@ -41,6 +41,7 @@ public class Utilities {
 		System.out.println(size);
 		for (int i = 0; i <= size; i++) {
 			driver.switchTo().frame(i);
+			Utilities.waitUntileElementIsVisible(needXpath);
 			int elem = driver.findElements(By.xpath(needXpath)).size();
 			System.out.println(elem);
 			if (elem != 0) {
@@ -276,7 +277,7 @@ public class Utilities {
 				try {
 					WebElement attribute;
 					if (order) {
-						 attribute = locateElements(needAttribute, Attribute_Type);
+						attribute = locateElements(needAttribute, Attribute_Type);
 					} else {
 						attribute = locateElement(needAttribute, Attribute_Type);
 					}
@@ -310,8 +311,7 @@ public class Utilities {
 		}
 	}
 
-	public static void navigateToUrl(String needURL) {
-		driver.get(needURL);
+	public static void navigateToUrl(String needURL) { driver.get(needURL);
 	}
 
 	@And("I quit driver")
