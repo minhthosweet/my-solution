@@ -146,14 +146,7 @@ public class CreateNewCustomer extends AppData {
     @And("I search customer")
     public void searchCustomer() throws Exception {
         header = new Header();
-        try {
-            header.Search_A_Customer(fName + " " + lName);
-        } catch (Exception e) {
-            CustomerViewDialog_Header overviewHeader;
-            overviewHeader = new CustomerViewDialog_Header();
-            overviewHeader.clickSaveButton();
-            header.Search_A_Customer(fName + " " + lName);
-        }
+        header.searchCustomer( lName+ ", " + fName);
     }
 
     @When("I create customer with first name, last name, email and address")

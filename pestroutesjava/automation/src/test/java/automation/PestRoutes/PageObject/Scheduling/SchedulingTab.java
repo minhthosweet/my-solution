@@ -16,19 +16,19 @@ public class SchedulingTab extends AppData {
 
     public void clickScheduleDay() {
         String date = Utilities.currentDate("M/d/yyyy");
-        Utilities.clickElement("//div[@date='"+ date +"']", ElementType.XPath);
+        Utilities.jsClickElement("//div[@date='"+ date +"']", ElementType.XPath);
     }
 
     public void clickScheduleSameDay() {
-        Utilities.clickElement(scheduleSameDay, ElementType.XPath);
+        Utilities.jsClickElement(scheduleSameDay, ElementType.XPath);
     }
 
     public void clickScheduleDaysBefore(String days) {
-        Utilities.clickElement("//div[@style='border:1px solid;']/preceding-sibling::div[" + days + "]", ElementType.XPath);
+        Utilities.jsClickElement("//div[@style='border:1px solid;']/preceding-sibling::div[" + days + "]", ElementType.XPath);
     }
 
     public void clickScheduleDaysAfter(String days) {
-        Utilities.clickElement("//div[@style='border:1px solid;']/following-sibling::div[" + days + "]", ElementType.XPath);
+        Utilities.jsClickElement("//div[@style='border:1px solid;']/following-sibling::div[" + days + "]", ElementType.XPath);
     }
 
     public void addScheduleDateToProperties() throws Exception {

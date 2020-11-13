@@ -42,7 +42,7 @@ public class NotesValidation extends AppData {
 	
 	private void navigateToCustomerCard() throws Exception {
 		mainHeader = new Header();
-		mainHeader.Search_A_Customer(getData("customerName", generalData));
+		mainHeader.searchCustomer(getData("customerName", generalData));
 	}
 	
 	private void addNotes() {

@@ -195,7 +195,7 @@ public class CreateTrigger_Reminder extends AppData {
 		triggerAdmin.selectDropdown(appointmentTab.subscriptionType_schedulinTab,
 				appointmentTab.standAloneService_Scheduling);
 		confirmAppt.clickScheduleButton();
-		header.Search_A_Customer(getData("userID", generalData));
+		header.searchCustomer(getData("userID", generalData));
 		overviewHeader.navigateTo(overviewHeader.appointmentsTabInDialog);
 		appointmentTab.clickScheduledService(serviceType);
 		appointmentTab.clickStatusButton();
@@ -211,7 +211,7 @@ public class CreateTrigger_Reminder extends AppData {
 	public void assertLog() throws IOException, Exception {
 		header = new Header();
 		reminder = new ReminderTab();
-		header.Search_A_Customer(getData("userID", generalData));
+		header.searchCustomer(getData("userID", generalData));
 		overviewHeader = new CustomerViewDialog_Header();
 		overviewHeader.navigateTo(overviewHeader.notesTabInDialog);
 		overviewHeader.clickCustomerContactsInNotesTab();
