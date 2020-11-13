@@ -3,7 +3,7 @@
 Feature: Renewal
 
   Scenario: Validate Renewal
-  	Given I sign in to pestroutes domain
+    Given I sign in to pestroutes domain
     Given I add a renewal service
     When I create customer with first name, last name and address
     And I validate if renewal fields display in Subscription tab if I choose renewal as service type
@@ -23,6 +23,9 @@ Feature: Renewal
     And I search customer
     Then I validate if renewal date and account status changed
     And I validate if there are errors exist in the list
+    Given I close customer card
+    And I navigate to scheduling tab
+    Then I delete a routing group
 
   Scenario: Close browser
     And I quit driver

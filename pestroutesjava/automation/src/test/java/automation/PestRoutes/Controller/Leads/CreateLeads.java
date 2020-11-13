@@ -5,7 +5,6 @@ import java.util.List;
 
 import automation.PestRoutes.Utilities.*;
 import io.cucumber.java.en.And;
-import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import org.testng.annotations.Test;
 
@@ -45,7 +44,7 @@ public class CreateLeads extends AppData {
 	public void test() throws Exception {
 		Header header = new Header();
 		CustomerViewDialog_Header customerCart = new CustomerViewDialog_Header();
-		header.Search_A_Customer(getData("customerName", generalData));
+		header.searchCustomer(getData("customerName", generalData));
 		customerCart.navigateTo(customerCart.leadsTabInDialog);
 		leadCreation();
 		validateInvoices();

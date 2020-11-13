@@ -279,7 +279,7 @@ public class CreateTrigger_SubscriptionDueForService extends AppData {
         Utilities.navigateToUrl("https://adityam.pestroutes.com/");
         header = new Header();
         reminder = new ReminderTab();
-        header.Search_A_Customer(getData("customerName", generalData));
+        header.searchCustomer(getData("customerName", generalData));
         overviewHeader = new CustomerViewDialog_Header();
         overviewHeader.navigateTo(overviewHeader.notesTabInDialog);
         result(SMSMAppointmentSubscriptionNote + getData("phoneNumber", generalData),
@@ -293,7 +293,7 @@ public class CreateTrigger_SubscriptionDueForService extends AppData {
         header = new Header();
         reminder = new ReminderTab();
         createCustomer = new CreateNewCustomer();
-        header.Search_A_Customer(getData("customerName", generalData));
+        header.searchCustomer(getData("customerName", generalData));
         overviewHeader = new CustomerViewDialog_Header();
         overviewHeader.navigateTo(overviewHeader.notesTabInDialog);
         result("Sent to: " + createCustomer.email, reminder.getEmailValue(), "Email Notification Affirmative",
@@ -305,7 +305,7 @@ public class CreateTrigger_SubscriptionDueForService extends AppData {
         Utilities.navigateToUrl("https://adityam.pestroutes.com/");
         header = new Header();
         reminder = new ReminderTab();
-        header.Search_A_Customer(getData("customerName", generalData));
+        header.searchCustomer(getData("customerName", generalData));
         overviewHeader = new CustomerViewDialog_Header();
         overviewHeader.navigateTo(overviewHeader.notesTabInDialog);
         result(SMSMAppointmentSubscriptionNote + getData("phoneNumber", generalData), reminder.getVoiceText(),
@@ -318,7 +318,7 @@ public class CreateTrigger_SubscriptionDueForService extends AppData {
         header = new Header();
         reminder = new ReminderTab();
         createCustomer = new CreateNewCustomer();
-        header.Search_A_Customer(getData("customerName", generalData));
+        header.searchCustomer(getData("customerName", generalData));
         overviewHeader = new CustomerViewDialog_Header();
         overviewHeader.navigateTo(overviewHeader.notesTabInDialog);
         result("Sent to: " + createCustomer.streetAddress, reminder.getSnailMailValue(),
@@ -331,7 +331,7 @@ public class CreateTrigger_SubscriptionDueForService extends AppData {
         header = new Header();
         reminder = new ReminderTab();
         createCustomer = new CreateNewCustomer();
-        header.Search_A_Customer(getData("customerName", generalData));
+        header.searchCustomer(getData("customerName", generalData));
         overviewHeader = new CustomerViewDialog_Header();
         overviewHeader.navigateTo(overviewHeader.notesTabInDialog);
         result("Sent to: " + employeeEmailValue, reminder.getEmployeeEMailValue(employeeEmailValue),
@@ -344,7 +344,7 @@ public class CreateTrigger_SubscriptionDueForService extends AppData {
         header = new Header();
         reminder = new ReminderTab();
         createCustomer = new CreateNewCustomer();
-        header.Search_A_Customer(getData("customerName", generalData));
+        header.searchCustomer(getData("customerName", generalData));
         overviewHeader = new CustomerViewDialog_Header();
         overviewHeader.navigateTo(overviewHeader.notesTabInDialog);
         result(alertTextinNotes, reminder.getAlertValue(), "Alert Notification Affirmative",
@@ -358,7 +358,7 @@ public class CreateTrigger_SubscriptionDueForService extends AppData {
         reminder = new ReminderTab();
         createCustomer = new CreateNewCustomer();
         footer = new Footer();
-        header.Search_A_Customer(getData("customerName", generalData));
+        header.searchCustomer(getData("customerName", generalData));
         overviewHeader = new CustomerViewDialog_Header();
         overviewHeader.navigateTo(overviewHeader.notesTabInDialog);
         result(taskTextinNotes, reminder.getTaskValue(), "Task Notification Affirmative",
@@ -374,7 +374,7 @@ public class CreateTrigger_SubscriptionDueForService extends AppData {
         header = new Header();
         reminder = new ReminderTab();
         createCustomer = new CreateNewCustomer();
-        header.Search_A_Customer(getData("customerName", generalData));
+        header.searchCustomer(getData("customerName", generalData));
         overviewHeader = new CustomerViewDialog_Header();
         overviewHeader.navigateTo(overviewHeader.notesTabInDialog);
         result(employeeVoiceinNotes, reminder.getEmployeeVoiceValue(), "Employee Voice Notification Affirmative",
@@ -387,7 +387,7 @@ public class CreateTrigger_SubscriptionDueForService extends AppData {
         header = new Header();
         reminder = new ReminderTab();
         createCustomer = new CreateNewCustomer();
-        header.Search_A_Customer(getData("customerName", generalData));
+        header.searchCustomer(getData("customerName", generalData));
         overviewHeader = new CustomerViewDialog_Header();
         overviewHeader.navigateTo(overviewHeader.notesTabInDialog);
         result(removePaymentinNotes, reminder.getRemovedPaymentValue(), "Remove Payment Notification Affirmative",

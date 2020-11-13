@@ -18,17 +18,15 @@ public class Header {
 	public String adminTab = "Admin";
 	public String SearchField = "//input[@id='customerSearch']";
 	public String FirstSearchResult = "//ul[@id='ui-id-15']/li[1]";
+	public String ACCESS_HISTORY = "//div[@id='toggleAccessHistory']";
 	
 	public void NavigateTo(String chooseTabFromConst) {
 		Utilities.waitUntileElementIsVisible("//a[text() = '"+chooseTabFromConst+"']");
 		Utilities.clickElement("//a[text() = '"+chooseTabFromConst+"']", ElementType.XPath);
 	}
 	
-	public void Search_A_Customer(String needCustomerFullName) throws Exception {
-		Thread.sleep(3000);
-		Utilities.waitUntileElementIsVisible(SearchField);
-		FindElement.elementByAttribute(SearchField, InputType.XPath).sendKeys(needCustomerFullName);
-		Thread.sleep(2000);
-		Utilities.clickElement(FirstSearchResult, ElementType.XPath);
+	public void searchCustomer(String needCustomerFullName) throws Exception {
+		Utilities.jsClickElement(ACCESS_HISTORY, ElementType.XPath);
+		Utilities.clickElement("//span[text()='" + needCustomerFullName + "']", ElementType.XPath);
 	}	
 }

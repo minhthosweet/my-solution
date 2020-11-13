@@ -72,7 +72,7 @@ public class ScheduleAppt extends AppData {
     public void changeToMultiUnit(String userID) throws IOException, Exception {
         overviewHeader = new CustomerViewDialog_Header();
         customer = new CreateCustomerDIalog();
-        header.Search_A_Customer(userID);
+        header.searchCustomer(userID);
         overviewHeader.navigateTo(overviewHeader.infoTabInDialog);
         customer.clickInfo();
         unitsTab.selectUnit("Multi Unit");
@@ -93,7 +93,7 @@ public class ScheduleAppt extends AppData {
 
     @And("I add an appointment")
     public void addAppointment(String needUserID, String needServieType, String needTimeSlot) throws Exception {
-        header.Search_A_Customer(needUserID);
+        header.searchCustomer(needUserID);
         scheduleDay = new SchedulingTab();
         scheduleDay.clickScheduleButton();
         int totalCount = Utilities.getElementCount(routes);
@@ -122,7 +122,7 @@ public class ScheduleAppt extends AppData {
     @And("I add chemical")
     public void addChemical(String userID) throws Exception {
         overviewHeader = new CustomerViewDialog_Header();
-        header.Search_A_Customer(userID);
+        header.searchCustomer(userID);
         overviewHeader.navigateTo(overviewHeader.appointmentsTabInDialog);
         appointmentTab.clickScheduledService(serviceType);
         appointmentTab.clickStatusButton();
