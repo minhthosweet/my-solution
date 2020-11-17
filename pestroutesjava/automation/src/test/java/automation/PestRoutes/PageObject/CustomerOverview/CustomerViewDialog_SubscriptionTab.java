@@ -427,8 +427,8 @@ public class CustomerViewDialog_SubscriptionTab {
 	}
 
 	public double getRecurringService_NewTicketItemPrice(String needTicketItem) {
-		WebElement elm = FindElement.elementByAttribute("//div[@id='recurringServices']//div[text() = '" + needTicketItem + "']/following-sibling::div/input", InputType.XPath);
-		String val = elm.getAttribute("value");
+		String ticketValue = Utilities.getElementTextValue("//div[@id='recurringServices']//div[text() = '" + needTicketItem + "']/following-sibling::div/select[@name='quantity']/following-sibling::div",ElementType.XPath);
+		String val = ticketValue.substring(3, ticketValue.length());
 		double attributeValue = Double.parseDouble(val);
 		return attributeValue;
 	}

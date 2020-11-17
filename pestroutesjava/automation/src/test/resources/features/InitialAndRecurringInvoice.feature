@@ -1,5 +1,5 @@
 #Author Aditya
-@InitialAndRecurringInvoices
+@InitialAndRecurringInvoice
 Feature: Initial And Recurring Invoices
 
   Scenario: Create initial and recurring invoice and validate them

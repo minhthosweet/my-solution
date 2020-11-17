@@ -9,4 +9,4 @@ mvn test -Dtest=automation.PestRoutes.TestRunner.Regression.Renewal;
 mvn test -Dtest=automation.PestRoutes.TestRunner.Regression.Sales;
 mvn test -Dtest=automation.PestRoutes.TestRunner.Regression.Structures;
 mvn test -Dtest=automation.PestRoutes.TestRunner.Regression.TaxRate;
-mvn test -Dtest=automation.PestRoutes.TestRunner.Regression.CustomSchedule;
+mvn test -Dtest=automation.PestRoutes.TestRunner.Regression.InitialAndRecurringInvoice;

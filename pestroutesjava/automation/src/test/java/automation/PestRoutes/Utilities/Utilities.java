@@ -168,9 +168,9 @@ public class Utilities {
 		String date1 = dateFormat.format(date);
 		if(date1.startsWith("0") && needFormat.startsWith("d")){
 			date1 = date1.substring(1,date1.length());
-		}
-		else{
-			date1 = date1.substring(0,3) + date1.substring(4, date1.length());
+			if(date1.charAt(4)=='0') {
+				date1 = date1.substring(0,3) + date1.substring(4, date1.length());
+			}
 		}
 		return date1;
 	}

@@ -5,8 +5,8 @@ import io.cucumber.testng.CucumberOptions;
 import org.testng.annotations.DataProvider;
 
 @CucumberOptions(features = { "src/test/resources/features" }, plugin = {"json:target/cucumber.json", "html:target/site/cucumber-pretty", "pretty"}, glue = {
-        "automation.PestRoutes"}, tags = "@InitialAndRecurringInvoices")
-public class InitialAndRecurringInvoices extends AbstractTestNGCucumberTests {
+        "automation.PestRoutes"}, tags = "@InitialAndRecurringInvoice")
+public class InitialAndRecurringInvoice extends AbstractTestNGCucumberTests {
 
     @Override
     @DataProvider

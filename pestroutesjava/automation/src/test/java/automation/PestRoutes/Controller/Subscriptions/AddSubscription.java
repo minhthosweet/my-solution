@@ -21,7 +21,7 @@ public class AddSubscription extends AppData {
 
 	public String ticketItem = "bed";
 	public String initialQuote = "120.00";
-	public String recurringQuote = "240";
+	public Double recurringQuote = 240.00;
 	public String initialDiscount = "20.00";
 	private String customDateInCustomSchedule = Utilities.getCurrentDate();
 	public static String newContractValue = null;
@@ -150,15 +150,13 @@ public class AddSubscription extends AppData {
 
 	@Then("I validate recurring invoice template values")
 	public void validateRecurringInvoice() throws Exception {
-		subscription.setServiceQuote(getData("serviceDescription", generalData), recurringQuote);
+		subscription.setServiceQuote(getData("serviceDescription", generalData), Double.toString(recurringQuote));
 		subscription.selectAdditionalItem_ToRecurringInvoice(ticketItem);
-		double serviceAmount = Double.parseDouble(recurringQuote);
 		double ticketAmount = subscription.getRecurringService_NewTicketItemPrice(ticketItem);
 		double actualServiceSubtotal = subscription.getRecurringSubTotal();
 		double serviceTax = subscription.getRecurringTax();
 		double serviceTotal = subscription.getRecurringTotal();
-
-		double subTotal = serviceAmount + ticketAmount;
+		double subTotal = recurringQuote + ticketAmount;
 		String expectedSubTotal = Double.toString(subTotal);
 		String actual_ServiceSubTotal = Double.toString(actualServiceSubtotal);
 		Reporter.status("Service invoice sub total validation ", expectedSubTotal, actual_ServiceSubTotal,

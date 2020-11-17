@@ -174,7 +174,7 @@ public class InvoicingTab extends AppData {
 				"Invoice Validation");
 		invImplementation.clickRecurringInvoice(recurringInvoiceValue);
 
-		result(addSubscription.recurringQuote,invImplementation.getServiceCostBeforeTax(), "Service Cost Before Tax Validation",
+		result(Double.toString(addSubscription.recurringQuote),invImplementation.getServiceCostBeforeTax(), "Service Cost Before Tax Validation",
 				"Invoice Validation");
 		result(Double.toString(subscriptionTab.getInitialService_NewTicketItemPrice(addSubscription.ticketItem)),invImplementation.getAddOnValue(addSubscription.ticketItem), "Item Cost Validation",
 				"Invoice Validation");
