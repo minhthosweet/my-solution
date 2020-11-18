@@ -272,6 +272,7 @@ public class CustomerViewDialog_SubscriptionTab {
 	}
 
 	public void selectAdditionalItem_ToInitialInvoice(String needItem) {
+		Utilities.scrollToElementJS(initialTotalValue);
 		Utilities.clickElement(initialInvoice_AddTicketItemButton, ElementType.XPath);
 		if (SystemUtils.IS_OS_LINUX) {
 			Utilities.acceptAlertLinux();
@@ -352,6 +353,7 @@ public class CustomerViewDialog_SubscriptionTab {
 	}
 
 	public void setInitialServiceDiscount(String needAmount) {
+		Utilities.scrollToElementJS(initialTotalValue);
 		FindElement.elementByAttribute(initialDiscountInputField, InputType.XPath).clear();
 		Utilities.highLight(initialDiscountInputField);
 		if (SystemUtils.IS_OS_LINUX) {
