@@ -19,7 +19,7 @@ public class GetWebDriver {
 			if(SystemUtils.IS_OS_MAC_OSX) {
 				System.setProperty("webdriver.chrome.driver",
 						"src/test/java/automation/PestRoutes/Utilities/Driver/chromedriver.mac");
-				//options.addArguments("--headless", "--disable-gpu");
+				options.addArguments("--headless", "--disable-gpu");
 				driver = new ChromeDriver(options);
 				driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 			} else if(SystemUtils.IS_OS_WINDOWS) {
