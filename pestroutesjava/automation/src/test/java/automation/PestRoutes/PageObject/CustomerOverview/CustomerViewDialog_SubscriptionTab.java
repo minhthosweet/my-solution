@@ -352,6 +352,8 @@ public class CustomerViewDialog_SubscriptionTab {
 	}
 
 	public void setInitialServiceDiscount(String needAmount) {
+		Utilities.scrollToElementJS(initialTotalValue);
+		Utilities.waitUntileElementIsVisible(initialTotalValue);
 		FindElement.elementByAttribute(initialDiscountInputField, InputType.XPath).clear();
 		Utilities.highLight(initialDiscountInputField);
 		if (SystemUtils.IS_OS_LINUX) {
@@ -427,8 +429,8 @@ public class CustomerViewDialog_SubscriptionTab {
 	}
 
 	public double getRecurringService_NewTicketItemPrice(String needTicketItem) {
-		WebElement elm = FindElement.elementByAttribute("//div[@id='recurringServices']//div[text() = '" + needTicketItem + "']/following-sibling::div/input", InputType.XPath);
-		String val = elm.getAttribute("value");
+		String ticketValue = Utilities.getElementTextValue("//div[@id='recurringServices']//div[text() = '" + needTicketItem + "']/following-sibling::div/select[@name='quantity']/following-sibling::div",ElementType.XPath);
+		String val = ticketValue.substring(3, ticketValue.length());
 		double attributeValue = Double.parseDouble(val);
 		return attributeValue;
 	}
@@ -480,6 +482,10 @@ public class CustomerViewDialog_SubscriptionTab {
 
 	public String getInitialInvoiceValue() {
 		return Utilities.getElementTextValue(initialTotalValue, ElementType.XPath);
+	}
+
+	public String getRecurringInvoiceValue() {
+		return Utilities.getElementTextValue(recurringTotalValue, ElementType.XPath);
 	}
 
 	public String getBilling_initialBillingDate() {
