@@ -77,6 +77,7 @@ public class AddSubscription extends AppData {
 		subscription.selectServiceType(getData("serviceDescription", generalData));
 		subscription.setCustomDate(getData("customDate", quarterlyPreferredDayData));
 		subscription.setInitialInvoiceType(initialInvoiceType);
+		subscription.selectAdditionalItem_ToInitialInvoice(ticketItem);
 		customerDialogHeader.clickSaveButton();
 		initialInvoiceValue = subscription.getInitialInvoiceValue();
 	}
