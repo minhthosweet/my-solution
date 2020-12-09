@@ -14,6 +14,7 @@ Feature: Customer Status
     And I schedule an service appointment
     And I search customer
     And I complete an appointment
+    And I close customer card
     And I search customer
     And I validate initial invoice created on invoice tab
     And I validate if there are errors exist in the list

@@ -278,6 +278,7 @@ public class CustomerViewDialog_SubscriptionTab {
 		}
 		Utilities.waitUntileElementIsVisible("//span[text()=  '" + needItem + "']");
 		Utilities.clickElement("//span[text()=  '" + needItem + "']", ElementType.XPath);
+		Utilities.waitUntileElementIsVisible("//div[text()='"+needItem+"']");
 	}
 
 	public void selectAdditionalItem_ToRecurringInvoice(String needItem) {
