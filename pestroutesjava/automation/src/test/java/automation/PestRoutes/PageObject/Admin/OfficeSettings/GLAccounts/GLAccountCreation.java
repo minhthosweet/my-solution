@@ -1,13 +1,16 @@
 package automation.PestRoutes.PageObject.Admin.OfficeSettings.GLAccounts;
 
+import automation.PestRoutes.Controller.Admin.Preferences.OfficeSettings.GLAccounts.CreateGLAccount;
 import automation.PestRoutes.PageObject.Admin.OfficeSettings.OfficeSettingsObjects;
 import automation.PestRoutes.PageObject.Admin.OfficeSettings.TriggerTypes.TriggerRules;
 import automation.PestRoutes.Utilities.FindElement;
 import automation.PestRoutes.Utilities.Utilities;
+import org.openqa.selenium.WebElement;
 
 public class GLAccountCreation {
     TriggerRules triggerAdmin;
     OfficeSettingsObjects officeSettingsObjects;
+    CreateGLAccount createGLAccount;
 
     public String plusGLAccount = "//div[text()='+ GL Account']";
     public String glAccountNumberTextBox = "//div[@id='preferenceHeader']/following-sibling::form//input[@name='glNumber']";
@@ -61,6 +64,22 @@ public class GLAccountCreation {
     public void searchGLAccount() {
         Utilities.waitUntileElementIsVisible(searchBox);
         FindElement.elementByAttribute(searchBox, FindElement.InputType.XPath).sendKeys(getCorrectedGLAccountNumber());
+    }
+
+    public void searchGLAccountByDescription(String descriptionText) {
+        Utilities.waitUntileElementIsVisible(searchBox);
+        FindElement.elementByAttribute(searchBox, FindElement.InputType.XPath).sendKeys(descriptionText);
+        try {
+            WebElement elm = FindElement.elementByAttribute("//span[text()='"+descriptionText+"']", FindElement.InputType.XPath);
+            if (elm.isDisplayed()) {
+                System.out.println("GL Account is visible");
+            }
+
+        } catch (Exception e) {
+            System.out.println("GL Account is not visible");
+            createGLAccount = new CreateGLAccount();
+            createGLAccount.createGLAccount(descriptionText);
+        }
     }
 
     public String getGLAccountNumber() {
