@@ -293,7 +293,6 @@ public class ValidateRenewal extends AppData {
         String total = subscriptionTotal();
         overviewHeader.navigateTo(overviewHeader.invoicesTabInDialog);
         invoicing.clickAddPayment();
-        System.out.println("clicked");
         for (int i = 0; i < 10; i++) {
             //System.out.println(i);
             try {

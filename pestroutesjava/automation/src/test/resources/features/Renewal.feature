@@ -18,14 +18,15 @@ Feature: Renewal
     Then I validate if the renewal date has posted
     And I freeze the subscription
     And I get the subscription total
+    And I navigate to Subscription Tab
     And I search customer
     And I pay the subscription
     And I search customer
     Then I validate if renewal date and account status changed
-    And I validate if there are errors exist in the list
     Given I close customer card
     And I navigate to scheduling tab
     Then I delete a routing group
+    And I validate if there are errors exist in the list
 
   Scenario: Close browser
     And I quit driver
