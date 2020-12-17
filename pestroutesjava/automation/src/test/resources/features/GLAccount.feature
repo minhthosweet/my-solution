@@ -1,5 +1,5 @@
 #Author Aditya
-@GLAccountOnServiceType
+@GLAccountAssignedToServiceType
 Feature: GLAccount creation, adding to service type and subscription and validation
 
   @GLAccountOnServiceType
