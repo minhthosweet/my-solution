@@ -1,16 +1,15 @@
 package automation.PestRoutes.PageObject.Admin.OfficeSettings.GLAccounts;
 
-import automation.PestRoutes.Controller.Admin.Preferences.OfficeSettings.GLAccounts.CreateGLAccount;
 import automation.PestRoutes.PageObject.Admin.OfficeSettings.OfficeSettingsObjects;
 import automation.PestRoutes.PageObject.Admin.OfficeSettings.TriggerTypes.TriggerRules;
+import automation.PestRoutes.PageObject.Admin.Preferences.ServiceTypes;
 import automation.PestRoutes.Utilities.FindElement;
 import automation.PestRoutes.Utilities.Utilities;
-import org.openqa.selenium.WebElement;
 
 public class GLAccountCreation {
     TriggerRules triggerAdmin;
     OfficeSettingsObjects officeSettingsObjects;
-    CreateGLAccount createGLAccount;
+    ServiceTypes serviceTypes;
 
     public String plusGLAccount = "//div[text()='+ GL Account']";
     public String glAccountNumberTextBox = "//div[@id='preferenceHeader']/following-sibling::form//input[@name='glNumber']";
@@ -22,6 +21,7 @@ public class GLAccountCreation {
     public String glAccountNumberFieldValue = "//li[not(contains(@style,'display: none;'))]//input[@name='glNumber']/preceding-sibling::div[text()]";
     public String titleFieldValue = "//li[not(contains(@style,'display: none;'))]//input[@name='title']/preceding-sibling::span[text()]";
     public String descriptionFieldValue = "//li[not(contains(@style,'display: none;'))]//input[@name='description']/preceding-sibling::span[text()]";
+    public String glAccountNumberInServiceType = "//li[not(contains(@style,'display: none;'))]//div[@data-global]/preceding-sibling::div[1]";
 
     public void navigateToGLAccount() {
         triggerAdmin = new TriggerRules();
@@ -61,29 +61,17 @@ public class GLAccountCreation {
         Utilities.clickElement(saveButton, Utilities.ElementType.XPath);
     }
 
-    public void searchGLAccount() {
-        Utilities.waitUntileElementIsVisible(searchBox);
-        FindElement.elementByAttribute(searchBox, FindElement.InputType.XPath).sendKeys(getCorrectedGLAccountNumber());
-    }
-
     public void searchGLAccountByDescription(String descriptionText) {
         Utilities.waitUntileElementIsVisible(searchBox);
         FindElement.elementByAttribute(searchBox, FindElement.InputType.XPath).sendKeys(descriptionText);
-        try {
-            WebElement elm = FindElement.elementByAttribute("//span[text()='"+descriptionText+"']", FindElement.InputType.XPath);
-            if (elm.isDisplayed()) {
-                System.out.println("GL Account is visible");
-            }
-
-        } catch (Exception e) {
-            System.out.println("GL Account is not visible");
-            createGLAccount = new CreateGLAccount();
-            createGLAccount.createGLAccount(descriptionText);
-        }
     }
 
     public String getGLAccountNumber() {
         return Utilities.getElementTextValue(glAccountNumberFieldValue, Utilities.ElementType.XPath).trim();
+    }
+
+    public String getGLAccountNumberInServiceType() {
+        return Utilities.getElementTextValue(glAccountNumberInServiceType, Utilities.ElementType.XPath).trim();
     }
 
     public String getGLTitle() {
@@ -92,6 +80,26 @@ public class GLAccountCreation {
 
     public String getGLDescription() {
         return Utilities.getElementTextValue(descriptionFieldValue, Utilities.ElementType.XPath);
+    }
+
+    public void editService(String needDescription) {
+        serviceTypes = new ServiceTypes();
+        serviceTypes.clickEditButton(needDescription);
+    }
+
+    public void clickGLAccountOnServiceType(String needServiceType) {
+        Utilities.waitUntileElementIsVisible("//input[@value='" + needServiceType + "']/following-sibling::select[@placeholder='GL Account']");
+        Utilities.clickElement("//input[@value='" + needServiceType + "']/following-sibling::select[@placeholder='GL Account']", Utilities.ElementType.XPath);
+    }
+
+    public void selectGLAccountFromDropDown(String needServiceType, String needGLNumber) {
+        Utilities.waitUntileElementIsVisible("//input[@value='" + needServiceType + "']/following-sibling::select[@placeholder='GL Account']/option[text()='" + needGLNumber + "']");
+        Utilities.clickElement("//input[@value='" + needServiceType + "']/following-sibling::select[@placeholder='GL Account']/option[text()='" + needGLNumber + "']", Utilities.ElementType.XPath);
+    }
+
+    public void saveService() {
+        serviceTypes = new ServiceTypes();
+        serviceTypes.clickSave();
     }
 }
 

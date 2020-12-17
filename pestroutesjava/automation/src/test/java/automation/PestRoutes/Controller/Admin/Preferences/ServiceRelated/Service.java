@@ -1,12 +1,12 @@
 package automation.PestRoutes.Controller.Admin.Preferences.ServiceRelated;
 
 import automation.PestRoutes.Utilities.AppData;
+import io.cucumber.java.en.And;
 import org.openqa.selenium.WebElement;
 import automation.PestRoutes.PageObject.Header;
 import automation.PestRoutes.PageObject.Admin.AdminMainPage;
 import automation.PestRoutes.PageObject.Admin.Preferences.PreferencesPage;
 import automation.PestRoutes.PageObject.Admin.Preferences.ServiceTypes;
-import automation.PestRoutes.Utilities.BaseClass;
 import io.cucumber.java.en.Given;
 
 public class Service extends AppData {
@@ -33,6 +33,7 @@ public class Service extends AppData {
         }
     }
 
+    @And("I navigate to Service Types")
     public void navigateToServiceType() throws InterruptedException {
         admin = new AdminMainPage();
         header = new Header();
@@ -43,6 +44,7 @@ public class Service extends AppData {
         preferences.navigateTo(preferences.serviceRelatedNav, preferences.serviceTypesText);
     }
 
+    @And("I search for the service type {string}")
     public void searchService(String needServiceDescription) {
         service = new ServiceTypes();
         service.setSearch(needServiceDescription);
