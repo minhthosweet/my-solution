@@ -103,17 +103,30 @@ public class RoutePage {
         }
 
         @Then("I delete a routing group")
-        public void deleteGroup () {
-            Utilities.waitUntileElementIsVisible("//h3[text() = 'TestRoutes']");
-            Utilities.clickElement("//h3[text() = 'TestRoutes']", ElementType.XPath);
-            Utilities.waitUntileElementIsVisible("//h3[text() = 'TestRoutes']/following-sibling::div[@class = 'clickToEdit']");
-            Utilities.clickElement("//h3[text() = 'TestRoutes']/following-sibling::div[@class = 'clickToEdit']", ElementType.XPath);
-            Utilities.waitUntileElementIsVisible("//div[@id = 'editGroupDialog']/following-sibling::div[1]//span[text()='Delete']");
-            Utilities.clickElement("//div[@id = 'editGroupDialog']/following-sibling::div[1]//span[text()='Delete']", ElementType.XPath);
-            Utilities.waitUntileElementIsVisible("//span[text()='Delete Group?']/ancestor::div//span[text()='Delete Group']");
-            Utilities.clickElement("//span[text()='Delete Group?']/ancestor::div//span[text()='Delete Group']", ElementType.XPath, false, true);
-    }
+        public void deleteGroup () throws Exception {
+            validateRenewal = new ValidateRenewal();
+            try {
+                validateRenewal.navigateToSchedulingTab();
+                WebElement elm = getDescription("TestRoutes");
+                if (!elm.isDisplayed()) {
+                    int elementCount = Utilities.getElementCount("//h3[text() = 'TestRoutes']");
+                    for (int i = elementCount; i>0; i--) {
+                        Utilities.waitUntileElementIsVisible("//h3[text() = 'TestRoutes']");
+                        Utilities.clickElement("//h3[text() = 'TestRoutes']", ElementType.XPath);
+                        Utilities.waitUntileElementIsVisible("//h3[text() = 'TestRoutes']/following-sibling::div[@class = 'clickToEdit']");
+                        Utilities.clickElement("//h3[text() = 'TestRoutes']/following-sibling::div[@class = 'clickToEdit']", ElementType.XPath);
+                        Utilities.waitUntileElementIsVisible("//div[@id = 'editGroupDialog']/following-sibling::div[1]//span[text()='Delete']");
+                        Utilities.clickElement("//div[@id = 'editGroupDialog']/following-sibling::div[1]//span[text()='Delete']", ElementType.XPath);
+                        Utilities.waitUntileElementIsVisible("//span[text()='Delete Group?']/ancestor::div//span[text()='Delete Group']");
+                        Utilities.clickElement("//span[text()='Delete Group?']/ancestor::div//span[text()='Delete Group']", ElementType.XPath, false, true);
+                        validateRenewal.navigateToSchedulingTab();
+                    }
+                }
+            }
+            catch (Exception e){
 
+            }
+        }
     public void deleteFirstRoute() throws InterruptedException {
         Utilities.waitUntileElementIsVisible("//div[@class='routes']//div[@groupid][1]//div[text()='Route Actions']");
         Utilities.clickElement("//div[@class='routes']//div[@groupid][1]//div[text()='Route Actions']", ElementType.XPath);
@@ -121,6 +134,10 @@ public class RoutePage {
         Utilities.clickElement("//div[@class='routes']//div[@groupid][1]//div[text()='Route Actions']//following-sibling::div//p[text()='Delete Route']", ElementType.XPath);
         Utilities.waitUntileElementIsVisible("//div[@class='ui-widget-overlay ui-front']//following-sibling::div//span[text()='Delete Route']");
         Utilities.clickElement("//div[@class='ui-widget-overlay ui-front']//following-sibling::div//span[text()='Delete Route']", ElementType.XPath);
+    }
+
+    public WebElement getDescription(String needText) {
+        return FindElement.elementByAttribute("//h3[contains (text(), '"+needText+"')]", InputType.XPath);
     }
 
 }

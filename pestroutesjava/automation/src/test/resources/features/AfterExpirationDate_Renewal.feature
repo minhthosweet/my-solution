@@ -1,6 +1,6 @@
 #Author Aditya
 @TriggerRules
-Feature: Renewal
+Feature: TriggerRenewal_AfterExpirationDate
 
   Scenario: Validate Trigger Renewal of type After Expiration Date
     Given I sign in to pestroutes domain

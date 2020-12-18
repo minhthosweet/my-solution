@@ -4,6 +4,7 @@ Feature: New sales report
 
   Scenario: Validate sales report totals
      Given I sign in to pestroutes domain
+     Given I delete a routing group
      Given I create a new user if it is not already existing "Office Staff"
      Given I add a renewal service
      Given I add a new generic flag if it is not already existing "Fire" and "Its lit" and "Subscription"
