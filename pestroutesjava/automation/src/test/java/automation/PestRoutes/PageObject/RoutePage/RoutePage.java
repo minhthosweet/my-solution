@@ -108,7 +108,7 @@ public class RoutePage {
             try {
                 validateRenewal.navigateToSchedulingTab();
                 WebElement elm = getDescription("TestRoutes");
-                if (!elm.isDisplayed()) {
+                if (elm.isDisplayed()) {
                     int elementCount = Utilities.getElementCount("//h3[text() = 'TestRoutes']");
                     for (int i = elementCount; i>0; i--) {
                         Utilities.waitUntileElementIsVisible("//h3[text() = 'TestRoutes']");
