@@ -1,7 +1,6 @@
 package automation.PestRoutes.PageObject.Admin.Preferences;
 
 import org.openqa.selenium.WebElement;
-
 import automation.PestRoutes.Utilities.FindElement;
 import automation.PestRoutes.Utilities.Utilities;
 import automation.PestRoutes.Utilities.FindElement.InputType;
@@ -33,6 +32,7 @@ public class ServiceTypes {
 		public String saveButton = "//div[@id='preferenceHeader']/following-sibling::form//div[text()='save']";
 		
 		public void clickEditButton(String needDescription) {
+			Utilities.waitUntileElementIsVisible("//div[contains (text(), '"+needDescription+"')]/ancestor::form//div[text()='edit']");
 			Utilities.clickElement("//div[contains (text(), '"+needDescription+"')]/ancestor::form//div[text()='edit']", ElementType.XPath);
 		}
 		public void clickAddServiceButton() {
