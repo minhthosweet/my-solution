@@ -4,6 +4,7 @@ Feature: Initial And Recurring Invoices
 
   Scenario: Create initial and recurring invoice and validate them
     Given I sign in to pestroutes domain
+    Given I delete a routing group
     When I create customer with first name, last name and address
     Then I validate if customer name and address match in overview tab
     And I create a subscription of type "After Initial Completion"
@@ -31,7 +32,6 @@ Feature: Initial And Recurring Invoices
     And I search customer
     And I validate recurring invoice created on invoice tab
     Then I close customer card
-    And I delete a routing group
     And I validate if there are errors exist in the list
 
   Scenario: Close browser

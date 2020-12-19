@@ -3,6 +3,7 @@
   Feature: Add Equipment on customer card
     Scenario: Add equipment type on customer card
       Given I sign in to pestroutes domain
+      Given I delete a routing group
       Given I add equipment type "ID1" and "Automation Test1" and "Yes"
       When I create customer with first name, last name and address
       And I add new equipment with barcode required "Automation" and "Automation Test1" and "DE1" and "1234" and "Injection" and "Test123" and "Bed" and "Bed Bugs" and "Special Product"

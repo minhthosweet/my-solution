@@ -4,6 +4,7 @@
   Feature: Test Lead Creation
     Scenario: Create new lead
       Given I sign in to pestroutes domain
+      Given I delete a routing group
       When I create customer with first name, last name and address
       And I create a new lead
       Then I validate lead creation invoices

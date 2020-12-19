@@ -5,6 +5,7 @@ Feature: Structures
   @CreateStructureandChemical
   Scenario: Structure and Chemical Validation
     Given I sign in to pestroutes domain
+    Given I delete a routing group
     When I create customer with first name, last name, address, email and Structure
     And I add structure and sub structures
     When I create a subscription with Sales Rep assigned "Jared Green - Office" and "Fire"
@@ -21,7 +22,6 @@ Feature: Structures
     And I validate if there are errors exist in the list
     And I close customer card
     And I navigate to scheduling tab
-    Then I delete a routing group
 
   Scenario: Close browser
     And I quit driver

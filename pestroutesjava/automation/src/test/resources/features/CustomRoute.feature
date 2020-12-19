@@ -4,6 +4,7 @@ Feature: Route Tempalte
 
   Scenario: Create a route template
     Given I sign in to pestroutes domain
+    Given I delete a routing group
     Then I navigate to Route Templates
     When I create a route template
     Then I generate route from "4":"30" to "18":"30" with interval "60"

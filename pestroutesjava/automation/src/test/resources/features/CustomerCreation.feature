@@ -5,6 +5,7 @@ Feature: Create customer scenarios
 
   Scenario: Create a customer without address
     Given I sign in to pestroutes domain
+    Given I delete a routing group
     When I create customer without required last name field
     Then I validate alert
     When I create customer with first name, last name and address
