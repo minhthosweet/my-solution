@@ -8,8 +8,10 @@ import automation.PestRoutes.Utilities.Utilities.ElementType;
 public class InvoiceImplementation {
 
     // Values on Invoicing Landing Page
-    private String invoiceAccountSummaryClick = "//ul[@id='invoiceGroupListContainer']/ul/li";
+    public String accountSummaryButton = "//div[@id='billingPanel']//li[contains(text(),'Account Summary')]";
+    public String invoiceAccountSummaryClick = "//ul[@id='invoiceGroupListContainer']/ul/li";
     public String initialInvoice = "//span[text()='Initial Balance']";
+    public String accountStatementReport = "//li[text()='Account Statement Report']";
 
     // Invoice Amount
     private String newInvoice = "//form[@id=\"newInvoiceParams\"]//input[@type=\"number\"]";
@@ -24,7 +26,7 @@ public class InvoiceImplementation {
     // Payment Status
     //Do not have any other XPath for initialPaymentStatus
     private String initialPaymentStatus = "//ul[@id=\"invoiceGroupListContainer\"]/ul/li[1]/div[2]/div[2]";
-    private String paymentBalance = "//form[@id = \"singlePaymentForm\"]//div[@id = \"SubStatus\"]";
+    private String paymentBalance = "//form[@id = 'singlePaymentForm']//div[@id = 'SubStatus']";
 
     //Distribution Details
     public String limitedToCustomer = "//span[text()='Any Customer']";
@@ -32,6 +34,7 @@ public class InvoiceImplementation {
     public String applyToFirst = "//span[text()='Any Invoice']";
     public String paymentWarning = "//div[text()='Prepayment Amount: ']/following-sibling::div[2]";
     public String renewalDateField = "//div[text()='Renewal Date: ']/following-sibling::input[@name = 'renewalDate']";
+
     // Cash tab
     private String paymentAmountField = "//div[text() = 'Payment Amount:']/following-sibling::input[@name = 'amount']";
     public String confirmPymtAmtField = "//input[@name = 'confirmCashAmount']";
@@ -46,7 +49,7 @@ public class InvoiceImplementation {
     private String createNewInvoice_date = "//input[@name='date']";
 
     //Account Summary Objects
-    public String accountBalance = "//div[text()='Email']/parent::div/following-sibling::div[1]//div";
+    public String accountBalance = "//div[@id='billingPanel']//div[@id='SubStatus']";
 
     //Initial Invoice Objects
     public String paymentsBalance = "//div[text()='Balance']/following-sibling::div";
@@ -63,7 +66,15 @@ public class InvoiceImplementation {
     public String dueDate = "//div[text()='Due Date']/following-sibling::div[1]";
     public String appointmentDate = "//div[text()='Appointment Date']/following-sibling::div[1]";
 
+    // Account Statement Report Objects
+    public String dateRange = "//input[@name='dateRange-accountStatementFilterParams']";
+    public String reportType = "//select[@name='filterType']";
+    public String refreshButton = "//div[text()='Refresh']";
+    public String scrollLeftButton = "//div[@id='accountStatementReportScrollButtons']//div[contains(@class,'scrollLeft')]//i";
+    public String scrollRightButton = "//div[@id='accountStatementReportScrollButtons']//div[contains(@class,'scrollRight')]//i";
+
     // Getter Methods
+
     public int getInvoiceCost() {
         Utilities.waitUntileElementIsVisible(invoiceCost);
         return Utilities.removeSpecialChars(invoiceCost);
@@ -79,6 +90,30 @@ public class InvoiceImplementation {
         return Utilities.removeSpecialChars(chargesTotalValue);
     }
 
+    public String getInvoiceDate_accountStatementReport(String needServiceType){
+        Utilities.waitUntileElementIsVisible("//td[contains(text(),'"+needServiceType+"')]/following-sibling::td[text()][2]");
+        return Utilities.getElementTextValue("//td[contains(text(),'"+needServiceType+"')]/following-sibling::td[text()][2]", ElementType.XPath);
+    }
+
+    public String getInvoiceAmount_accountStatementReport(String needServiceType){
+        Utilities.waitUntileElementIsVisible("//td[contains(text(),'"+needServiceType+"')]/following-sibling::td[text()][4]");
+        return Utilities.getElementTextValue("//td[contains(text(),'"+needServiceType+"')]/following-sibling::td[text()][4]", ElementType.XPath);
+    }
+
+    public String getInvoiceBalance_accountStatementReport(String needServiceType){
+        Utilities.waitUntileElementIsVisible("//td[contains(text(),'"+needServiceType+"')]/following-sibling::td[text()][5]");
+        return Utilities.getElementTextValue("//td[contains(text(),'"+needServiceType+"')]/following-sibling::td[text()][5]", ElementType.XPath);
+    }
+
+    public String getBalance(String balanceType){
+        Utilities.waitUntileElementIsVisible("//td[contains(text(),'"+balanceType+"')]/following-sibling::td[text()]");
+        return Utilities.getElementTextValue("//td[contains(text(),'"+balanceType+"')]/following-sibling::td[text()]", ElementType.XPath);
+    }
+
+    public String getResponsibleBalance(String balanceType){
+        Utilities.waitUntileElementIsVisible("//td[contains(text(),'"+balanceType+"')]/following-sibling::td[text()]/following-sibling::td");
+        return Utilities.getElementTextValue("//td[contains(text(),'"+balanceType+"')]/following-sibling::td[text()]/following-sibling::td", ElementType.XPath);
+    }
     public String checkPaymentStatus() {
         Utilities.waitUntileElementIsVisible(initialPaymentStatus);
         return Utilities.getElementTextValue(initialPaymentStatus, ElementType.XPath);
@@ -138,7 +173,7 @@ public class InvoiceImplementation {
         Utilities.clickElement(recordPayment, ElementType.XPath);
     }
 
-    public void InvoiceAccountSummaryClick() {
+    public void invoiceAccountSummaryClick() {
         Utilities.waitUntileElementIsVisible(invoiceAccountSummaryClick);
         Utilities.clickElement(invoiceAccountSummaryClick, ElementType.XPath);
     }
@@ -156,6 +191,38 @@ public class InvoiceImplementation {
     public void clickRecurringInvoice(String recurringInvoiceTotal){
         Utilities.waitUntileElementIsVisible("//ul[@id='invoiceGroupListContainer']//span[text()='Remaining Balance']/parent::div[contains(text(),'"+recurringInvoiceTotal+"')]");
         Utilities.clickElement("//ul[@id='invoiceGroupListContainer']//span[text()='Remaining Balance']/parent::div[contains(text(),'"+recurringInvoiceTotal+"')]", ElementType.XPath);
+    }
+
+    public void clickAccountStatementReport(){
+        Utilities.waitUntileElementIsVisible(accountStatementReport);
+        Utilities.clickElement(accountStatementReport, ElementType.XPath);
+    }
+
+    public void clickAccountSummary(){
+        Utilities.waitUntileElementIsVisible(accountSummaryButton);
+        Utilities.clickElement(accountSummaryButton, ElementType.XPath);
+    }
+
+    public void selectDateRange(String day){
+        Utilities.waitUntileElementIsVisible(dateRange);
+        Utilities.clickElement(dateRange, ElementType.XPath);
+        Utilities.waitUntileElementIsVisible( "//div[contains(@style,'block')]//li[text()='"+day+"']");
+        Utilities.clickElement( "//div[contains(@style,'block')]//li[text()='"+day+"']", ElementType.XPath);
+    }
+
+    public void selectReportType(String needReportType){
+        Utilities.waitUntileElementIsVisible(reportType);
+        Utilities.selectValueFromDropDownByValue(reportType, needReportType);
+    }
+
+    public void scrollRight(){
+        Utilities.waitUntileElementIsVisible(scrollRightButton);
+        Utilities.clickElement(scrollRightButton, ElementType.XPath);
+    }
+
+    public void refreshAccountStatementReport(){
+        Utilities.waitUntileElementIsVisible(refreshButton);
+        Utilities.clickElement(refreshButton, ElementType.XPath);
     }
 
     public String getAccountBalance(){
