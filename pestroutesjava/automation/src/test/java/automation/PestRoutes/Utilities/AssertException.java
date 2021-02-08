@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+import com.aventstack.extentreports.Status;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 
@@ -67,4 +68,18 @@ public class AssertException {
 		Reporter.status(stepName, expected, actual, testName);
 	}
 
+	public static void validateFieldEnabled(String[] needArray) {
+		for (int i = 0; i < needArray.length; i++) {
+			WebElement field = FindElement.elementByAttribute(needArray[i], FindElement.InputType.XPath);
+			if (field.isEnabled()) {
+				Assert.assertTrue(true);
+				Reporter.getInstance("Validate fields in account receivable").log(Status.PASS, needArray[i] + " displayed");
+			} else {
+				Reporter.getInstance("Validate fields in account receivable").log(Status.FAIL, needArray[i] + " is missing");
+				Assert.assertFalse(true);
+			}
+		}
+
+	}
 }
+
