@@ -41,7 +41,7 @@ public class CreateGLAccount extends AppData {
     public void navigateToGLAccount() {
         header = new Header();
         adminMainPage = new AdminMainPage();
-        header.NavigateTo(header.adminTab);
+        header.navigateTo(header.adminTab);
         adminMainPage.navigateTo(adminMainPage.preferences);
         glAccountCreation.navigateToGLAccount();
     }

@@ -7,7 +7,6 @@ import java.util.List;
 import automation.PestRoutes.Utilities.*;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
-import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import automation.PestRoutes.Controller.Admin.Users.AddUser;
@@ -16,7 +15,6 @@ import automation.PestRoutes.Controller.Schedules.ScheduleAppt;
 import automation.PestRoutes.Controller.Subscriptions.AddSubscription;
 import automation.PestRoutes.PageObject.Header;
 import automation.PestRoutes.PageObject.Admin.AdminMainPage;
-import automation.PestRoutes.PageObject.Admin.UsersPage.AddUserDialog;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_OverviewTab;
 import automation.PestRoutes.PageObject.Customers.CustomersMainPage;
 import automation.PestRoutes.PageObject.Customers.SalesReport.SalesReportPage;
@@ -86,7 +84,7 @@ public class SalesReport extends AppData {
 		String includeServiceTypeCategories = getData("includeServiceTypeCategories", generalData);
 		String excludeServiceTypeCategories = getData("excludeServiceTypeCategories", generalData);
 
-		header.NavigateTo(header.customersTab);
+		header.navigateTo(header.customersTab);
 		customersMainPage.NavigateTo(customersMainPage.salesReport);
 		salesReportPage.selectTodaysDate(salesReportPage.selectToday);
 		salesReportPage.selectFilter(salesReportPage.selectEmployeeType, employeeType);

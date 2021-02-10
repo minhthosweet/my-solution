@@ -27,7 +27,7 @@ public class AccountReceivable extends BaseClass {
     public void navigateToAccountReceivablePage(){
         billingModule = new BillingModule();
         header = new Header();
-        header.NavigateTo(header.billingTab);
+        header.navigateTo(header.billingTab);
         billingModule.navigate(billingModule.accountsReceivable);
     }
     @Then("I validate if all fields are displaying and are enabled")

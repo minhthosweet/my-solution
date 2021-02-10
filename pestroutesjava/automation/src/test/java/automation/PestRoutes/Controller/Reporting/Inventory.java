@@ -40,7 +40,7 @@ public class Inventory extends BaseClass {
 
 	//Search Product
 	public void searchProduct() {
-		header.NavigateTo(header.reportingTab);
+		header.navigateTo(header.reportingTab);
 		reportingMainPage.navigateTo(reportingMainPage.inventory);
 		inventory.selectInventory(inventory.allProductsInventory);
 		inventory.selectVisibility(inventory.allProductsVisibility);

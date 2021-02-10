@@ -89,7 +89,7 @@ public class CreateTrigger_SubscriptionDueForService extends AppData {
         subscriptionStatus = new SubscriptionStatusTab();
         ar = new ARTab();
         subscriptionDueForService = new SubscriptionDueForServiceTab();
-        header.NavigateTo(header.adminTab);
+        header.navigateTo(header.adminTab);
         adminMainPage.navigateTo(adminMainPage.preferences);
         triggerAdmin.navigateToTriggerRules();
         triggerAdmin.clickAddTrigerButton();

@@ -24,7 +24,7 @@ public class GenericFlags {
         formObjects = new FormObjects();
         service = new Service();
 
-        header.NavigateTo(header.adminTab);
+        header.navigateTo(header.adminTab);
         adminPage.navigateTo(adminPage.preferences);
         preferences.navigateTo(preferences.customerPreferencesRelatedNav, preferences.genericFlags);
         service.searchService(needGenericFlagCode);

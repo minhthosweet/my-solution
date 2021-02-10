@@ -47,7 +47,7 @@ public class CreateTrigger_AR extends AppData {
         adminMainPage = new AdminMainPage();
         renewalTab = new RenewalTab();
         ar = new ARTab();
-        header.NavigateTo(header.adminTab);
+        header.navigateTo(header.adminTab);
         adminMainPage.navigateTo(adminMainPage.preferences);
         triggerAdmin.navigateToTriggerRules();
         triggerAdmin.clickAddTrigerButton();
@@ -70,7 +70,7 @@ public class CreateTrigger_AR extends AppData {
     public void searchTrigger_AR(String descriptionName) {
         header = new Header();
         adminMainPage = new AdminMainPage();
-        header.NavigateTo(header.adminTab);
+        header.navigateTo(header.adminTab);
         adminMainPage.navigateTo(adminMainPage.preferences);
         triggerAdmin.navigateToTriggerRules();
         triggerAdmin.searchTrigger(descriptionName);

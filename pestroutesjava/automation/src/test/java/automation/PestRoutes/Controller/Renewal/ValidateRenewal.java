@@ -105,7 +105,7 @@ public class ValidateRenewal extends AppData {
     public void navigateToSchedulingTab() throws Exception {
         header = new Header();
         scheduleDay = new SchedulingTab();
-        header.NavigateTo(header.schedulingTab);
+        header.navigateTo(header.schedulingTab);
         scheduleDay.addScheduleDateToProperties();
         scheduleDay.clickScheduleDay();
     }
@@ -114,7 +114,7 @@ public class ValidateRenewal extends AppData {
     public void navigateToSchedulingSameDayTab() throws Exception {
         header = new Header();
         scheduleDay = new SchedulingTab();
-        header.NavigateTo(header.schedulingTab);
+        header.navigateTo(header.schedulingTab);
         scheduleDay.addScheduleDateToProperties();
         scheduleDay.clickScheduleSameDay();
     }
@@ -123,7 +123,7 @@ public class ValidateRenewal extends AppData {
     public void navigateToSchedulingPreviousDayTab(String daysBefore) throws Exception {
         header = new Header();
         scheduleDay = new SchedulingTab();
-        header.NavigateTo(header.schedulingTab);
+        header.navigateTo(header.schedulingTab);
         scheduleDay.addScheduleDateToProperties();
         scheduleDay.clickScheduleDaysBefore(daysBefore);
     }
@@ -166,7 +166,7 @@ public class ValidateRenewal extends AppData {
         confirmAppt = new SchedulingAppointmentDialog();
         scheduleDay = new SchedulingTab();
 
-        header.NavigateTo(header.schedulingTab);
+        header.navigateTo(header.schedulingTab);
         scheduleDay.addScheduleDateToProperties();
         scheduleDay.clickScheduleDay();
         route.addGroup();
@@ -269,7 +269,6 @@ public class ValidateRenewal extends AppData {
 
     @And("I get the subscription total")
     public String subscriptionTotal() throws Exception {
-        System.out.println(currentDate);
         subscription.setServiceQuote(serviceType, "200");
         Thread.sleep(500);
         subscription.selectBillingFrequency("Renewal");
@@ -277,7 +276,6 @@ public class ValidateRenewal extends AppData {
         subscription.setRenewalDate(currentDate);
         double val = subscription.getRecurringTotal();
         String total = value.format(val);
-        System.out.println(total);
         overviewHeader.clickSaveButton();
         return total;
     }
@@ -289,12 +287,10 @@ public class ValidateRenewal extends AppData {
         paymentPage = new InvoiceImplementation();
         overviewHeader = new CustomerViewDialog_Header();
         header = new Header();
-        //header.Search_A_Customer(getData("userID", generalData));
         String total = subscriptionTotal();
         overviewHeader.navigateTo(overviewHeader.invoicesTabInDialog);
         invoicing.clickAddPayment();
         for (int i = 0; i < 10; i++) {
-            //System.out.println(i);
             try {
                 invHeader.navigate(invHeader.cash);
                 break;

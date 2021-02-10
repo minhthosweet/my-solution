@@ -8,7 +8,7 @@ import automation.PestRoutes.Utilities.FindElement.InputType;
 import automation.PestRoutes.Utilities.Utilities.ElementType;
 import org.openqa.selenium.WebElement;
 
-public class CreateCustomerDIalog {
+public class CreateCustomerDialog {
     // **********Objects**********
     public String dialogTitle = "//span[@id = 'ui-id-11']";
     public String newCustTitle = "//div[@id= 'customerPanel']/h3";

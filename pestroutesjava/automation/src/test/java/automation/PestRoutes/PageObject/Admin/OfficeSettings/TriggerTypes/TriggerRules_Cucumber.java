@@ -20,7 +20,7 @@ public class TriggerRules_Cucumber {
 
 	@And("I navigate to trigger rules")
 	public void i_navigate_to_trigger_rules() throws InterruptedException {
-		header.NavigateTo(header.adminTab);
+		header.navigateTo(header.adminTab);
 		adminMainPage.navigateTo(adminMainPage.preferences);
 		triggerAdmin.navigateToTriggerRules();
 	}

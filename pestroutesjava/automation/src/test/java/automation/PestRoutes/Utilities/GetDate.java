@@ -25,7 +25,6 @@ public class GetDate {
 		LocalDate localDate = instant.atZone(ZoneId.systemDefault()).toLocalDate();
 		LocalDate yearLater = localDate.plusYears(1);
 		String formattedDate = yearLater.format(DateTimeFormatter.ofPattern("M/dd/yyyy"));
-		System.out.println(formattedDate);
 		return formattedDate;
 
 	}

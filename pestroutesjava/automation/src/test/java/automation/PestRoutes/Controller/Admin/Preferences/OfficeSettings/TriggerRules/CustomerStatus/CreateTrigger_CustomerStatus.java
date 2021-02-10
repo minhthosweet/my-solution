@@ -60,7 +60,7 @@ public class CreateTrigger_CustomerStatus extends AppData {
         renewalTab = new RenewalTab();
         subscriptionStatus = new SubscriptionStatusTab();
         ar = new ARTab();
-        header.NavigateTo(header.adminTab);
+        header.navigateTo(header.adminTab);
         adminMainPage.navigateTo(adminMainPage.preferences);
         triggerAdmin.navigateToTriggerRules();
         triggerAdmin.clickAddTrigerButton();
@@ -83,7 +83,7 @@ public class CreateTrigger_CustomerStatus extends AppData {
     public void searchTrigger_appointmentStatus(String descriptionName) {
         header = new Header();
         adminMainPage = new AdminMainPage();
-        header.NavigateTo(header.adminTab);
+        header.navigateTo(header.adminTab);
         adminMainPage.navigateTo(adminMainPage.preferences);
         triggerAdmin.navigateToTriggerRules();
         triggerAdmin.searchTrigger(descriptionName);
