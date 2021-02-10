@@ -194,7 +194,6 @@ public class CreateNewCustomer extends AppData {
     @Given("I close customer card")
     public void closeCustomerCard() {
         dialog = new CustomerViewDialog_Header();
-        dialog = new CustomerViewDialog_Header();
         dialog.clickCloseButton();
         dialog.discardChanges();
     }
