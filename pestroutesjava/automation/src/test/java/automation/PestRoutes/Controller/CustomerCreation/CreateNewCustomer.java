@@ -299,4 +299,11 @@ public class CreateNewCustomer extends AppData {
         return customerViewDialog_infoTab.getFirstName() + " " + customerViewDialog_infoTab.getLastName();
     }
 
+    public String getCustomerName(){
+        overview = new CustomerViewDialog_OverviewTab();
+        String customerNameInHeader = overview.getCustomerNameFromHeader();
+        return customerNameInHeader;
+
+    }
+
 }

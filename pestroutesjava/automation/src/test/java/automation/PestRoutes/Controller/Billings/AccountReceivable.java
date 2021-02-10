@@ -1,19 +1,32 @@
 package automation.PestRoutes.Controller.Billings;
+import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_Admin;
+import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_Header;
+import automation.PestRoutes.Controller.CustomerCreation.CreateNewCustomer;
 import automation.PestRoutes.PageObject.Billing.BillingModule.AccountReceivablePage;
 import automation.PestRoutes.PageObject.Billing.BillingModule.BillingModule;
 import automation.PestRoutes.Utilities.AssertException;
 import automation.PestRoutes.Utilities.BaseClass;
 import automation.PestRoutes.PageObject.Header;
+import automation.PestRoutes.Utilities.Reporter;
+import automation.PestRoutes.Utilities.Utilities;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import org.testng.annotations.Test;
 import automation.PestRoutes.Controller.Login.SignIn;
+import automation.PestRoutes.Controller.Renewal.ValidateRenewal;
+import java.util.ArrayList;
+import java.util.List;
 
 public class AccountReceivable extends BaseClass {
     BillingModule billingModule;
     AccountReceivablePage accountReceivable = new AccountReceivablePage();
-    Header header;
+    Header header = new Header();
     SignIn signin;
+    CustomerViewDialog_Header customerCardHeader;
+    CustomerViewDialog_Admin admin;
+    CreateNewCustomer customer;
+    ValidateRenewal subscription;
+    List list = new ArrayList<String>();
 
     @Test
     public void test() throws Exception {
@@ -26,7 +39,6 @@ public class AccountReceivable extends BaseClass {
     @And("I navigate to account receivable under Billings")
     public void navigateToAccountReceivablePage(){
         billingModule = new BillingModule();
-        header = new Header();
         header.navigateTo(header.billingTab);
         billingModule.navigate(billingModule.accountsReceivable);
     }
@@ -40,5 +52,54 @@ public class AccountReceivable extends BaseClass {
         accountReceivable.inclFlagsDropdown, accountReceivable.exclFlagsDropdown};
         accountReceivable.click(accountReceivable.advanceFilterLink);
         AssertException.validateFieldEnabled(fields);
+    }
+
+    @Then("I validate if the customer displays once account status is Active")
+    public void validateAccountStatus() throws Exception {
+
+        customer = new CreateNewCustomer();
+        admin = new CustomerViewDialog_Admin();
+        customerCardHeader = new CustomerViewDialog_Header();
+        accountReceivable.select(accountReceivable.accountStatusDropdown, "Active");
+        accountReceivable.insert(accountReceivable.asOfDateInputField, Utilities.currentDate("MM/dd/yyyy"));
+        accountReceivable.click(accountReceivable.refreshButton);
+        String customerName = customer.getCustomerName("1");
+        customer.closeCustomerCard();
+        accountReceivable.insert(accountReceivable.searchInputField, customerName);
+        String actualName = accountReceivable.getValueFromTable("2");
+        String expectedName = customerName;
+        result(expectedName, actualName, " Validate customer name", "Validate Account receivable");
+
+        header.searchCustomerInOrder("1");
+        customerCardHeader.navigateTo(customerCardHeader.adminTabInDialog);
+        admin.changeAccountStatus_Frozen(admin.cancelServiceProps);
+        customer.closeCustomerCard();
+
+        String[] accountStatus = {"Frozen", "All"};
+        for (int i = 0; i < accountStatus.length; i++){
+
+            accountReceivable.select(accountReceivable.accountStatusDropdown, accountStatus[i]);
+            accountReceivable.click(accountReceivable.refreshButton);
+            accountReceivable.insert(accountReceivable.searchInputField, customerName);
+            String actualNameWithStatus = accountReceivable.getValueFromTable("2");
+            result(expectedName, actualNameWithStatus, " Validate customer name", "Validate Account receivable");
+
+        }
+
+
+
+    }
+
+    private void result(String expected, String actual, String stepName, String testName) {
+        if (AssertException.result(expected, actual, stepName).size() > 0) {
+            list.add(AssertException.result(expected, actual, stepName));
+        }
+        Reporter.status(stepName, expected, actual, testName);
+    }
+
+    private String customerName(){
+        customer = new CreateNewCustomer();
+        String name = customer.getCustomerName();
+        return name;
     }
 }

@@ -51,6 +51,10 @@ public class AccountReceivablePage {
         Utilities.clickElement(needButton, Utilities.ElementType.XPath);
     }
 
+    public void clickButtonsInTable(String needColumnNumber){
+        Utilities.clickElement("//table[@id='balancesTable']/tbody//tr[1]/td['" + needColumnNumber + "']", Utilities.ElementType.XPath);
+    }
+
     public void select(String needDropDown, String needText){
         Utilities.selectValueFromDropDownByValue(needDropDown, needText);
     }
@@ -59,6 +63,9 @@ public class AccountReceivablePage {
         FindElement.elementByAttribute(needField, FindElement.InputType.XPath).sendKeys(needValue);
     }
 
-
+    public String getValueFromTable(String needColumnNumber){
+        String value = Utilities.getElementTextValue("//table[@id='balancesTable']/tbody//tr[1]/td['" + needColumnNumber + "']", Utilities.ElementType.XPath);
+        return value;
+    }
 
 }

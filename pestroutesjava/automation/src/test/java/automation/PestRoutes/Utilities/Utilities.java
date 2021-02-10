@@ -103,6 +103,10 @@ public class Utilities {
 
 	}
 
+	public void search(String needXpath, String needText){
+		FindElement.elementByAttribute(needXpath, InputType.XPath).sendKeys(needText);
+	}
+
 	public static void scrollToElement(String needXpath) {
 		for (int i = 0; i < 10; i++) {
 			try {
