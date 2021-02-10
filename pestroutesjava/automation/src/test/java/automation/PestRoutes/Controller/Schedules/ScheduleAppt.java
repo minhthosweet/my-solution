@@ -5,7 +5,7 @@ import automation.PestRoutes.PageObject.Scheduling.SchedulingTab;
 import automation.PestRoutes.Utilities.*;
 import org.testng.annotations.Test;
 import automation.PestRoutes.PageObject.Header;
-import automation.PestRoutes.PageObject.CreateCustomer.CreateCustomerDIalog;
+import automation.PestRoutes.PageObject.CreateCustomer.CreateCustomerDialog;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_Header;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerviewDialog_AppointmentsTab;
 import automation.PestRoutes.PageObject.RoutePage.RoutePage;
@@ -33,7 +33,7 @@ public class ScheduleAppt extends AppData {
     SchedulingAppointmentDialog confirmAppt = new SchedulingAppointmentDialog();
     RoutePage route;
     Header header = new Header();
-    CreateCustomerDIalog customer;
+    CreateCustomerDialog customer;
     UnitsTab unitsTab = new UnitsTab();
     SchedulingTab scheduleDay;
     CustomRoute customRoute;
@@ -71,7 +71,7 @@ public class ScheduleAppt extends AppData {
     @And("I change customer type to multi unit")
     public void changeToMultiUnit(String userID) throws IOException, Exception {
         overviewHeader = new CustomerViewDialog_Header();
-        customer = new CreateCustomerDIalog();
+        customer = new CreateCustomerDialog();
         header.searchCustomer(userID);
         overviewHeader.navigateTo(overviewHeader.infoTabInDialog);
         customer.clickInfo();

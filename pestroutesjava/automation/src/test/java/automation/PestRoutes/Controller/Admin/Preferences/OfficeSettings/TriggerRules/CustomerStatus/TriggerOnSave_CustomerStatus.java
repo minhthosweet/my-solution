@@ -17,7 +17,7 @@ import automation.PestRoutes.Controller.CustomerCreation.CreateNewCustomer;
 import automation.PestRoutes.PageObject.Header;
 import automation.PestRoutes.PageObject.Admin.OfficeSettings.TriggerTypes.TriggerRules;
 import automation.PestRoutes.PageObject.Admin.OfficeSettings.TriggerTypes.SubscriptionStatusTab;
-import automation.PestRoutes.PageObject.CreateCustomer.CreateCustomerDIalog;
+import automation.PestRoutes.PageObject.CreateCustomer.CreateCustomerDialog;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_Admin;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_Header;
 
@@ -30,7 +30,7 @@ public class TriggerOnSave_CustomerStatus extends AppData {
     CreateTrigger_SubscriptionDueForService subscriptionDueForService = new CreateTrigger_SubscriptionDueForService();
     CustomerViewDialog_Admin customerAdmin;
     CustomerViewDialog_Header overviewHeader;
-    CreateCustomerDIalog customer;
+    CreateCustomerDialog customer;
     Billing billing;
     Header header;
 
@@ -193,7 +193,7 @@ public class TriggerOnSave_CustomerStatus extends AppData {
         newCustomer = new CreateNewCustomer();
         header = new Header();
         overviewHeader = new CustomerViewDialog_Header();
-        customer = new CreateCustomerDIalog();
+        customer = new CreateCustomerDialog();
         newCustomer.createCustomerWithEmail();
         header.searchCustomer(getData("customerName", generalData));
         overviewHeader.navigateTo(overviewHeader.infoTabInDialog);

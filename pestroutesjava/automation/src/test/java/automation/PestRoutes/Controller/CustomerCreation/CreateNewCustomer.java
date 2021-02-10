@@ -3,6 +3,7 @@ package automation.PestRoutes.Controller.CustomerCreation;
 import java.util.ArrayList;
 import java.util.List;
 
+import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_InfoTab;
 import automation.PestRoutes.Utilities.*;
 import io.cucumber.java.en.Given;
 import org.openqa.selenium.Alert;
@@ -10,7 +11,7 @@ import org.openqa.selenium.NoAlertPresentException;
 import org.testng.annotations.Test;
 import com.aventstack.extentreports.ExtentTest;
 import automation.PestRoutes.PageObject.Header;
-import automation.PestRoutes.PageObject.CreateCustomer.CreateCustomerDIalog;
+import automation.PestRoutes.PageObject.CreateCustomer.CreateCustomerDialog;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_Header;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_OverviewTab;
 import automation.PestRoutes.Utilities.Utilities.ElementType;
@@ -20,11 +21,12 @@ import io.cucumber.java.en.When;
 
 public class CreateNewCustomer extends AppData {
     static ExtentTest test;
-    CreateCustomerDIalog customer;
+    CreateCustomerDialog customer;
     CustomerViewDialog_Header dialog;
     CustomerViewDialog_OverviewTab overview;
     Header header;
     CustomerViewDialog_Header customerDialogHeader;
+    CustomerViewDialog_InfoTab customerViewDialog_infoTab;
     List list = new ArrayList<String>();
 
     public String fName = Utilities.generateRandomString(7);
@@ -49,10 +51,10 @@ public class CreateNewCustomer extends AppData {
     public void createCustomerWithOutRequiredField() {
         String fName = Utilities.generateRandomString(7);
         dialog = new CustomerViewDialog_Header();
-        customer = new CreateCustomerDIalog();
+        customer = new CreateCustomerDialog();
         overview = new CustomerViewDialog_OverviewTab();
         header = new Header();
-        header.NavigateTo(header.newCustomerTab);
+        header.navigateTo(header.newCustomerTab);
         customer.setFirstName(fName);
         customer.selectUnit("Multi Unit");
         dialog.clickSaveButton();
@@ -68,10 +70,10 @@ public class CreateNewCustomer extends AppData {
     @When("I create customer with first name, last name and address")
     public void createCustomerWithAddress() throws Exception {
         dialog = new CustomerViewDialog_Header();
-        customer = new CreateCustomerDIalog();
+        customer = new CreateCustomerDialog();
         overview = new CustomerViewDialog_OverviewTab();
         header = new Header();
-        header.NavigateTo(header.newCustomerTab);
+        header.navigateTo(header.newCustomerTab);
         customer.setFirstName(fName);
         customer.setLastName(lName);
         customer.selectUnit("Multi Unit");
@@ -93,10 +95,10 @@ public class CreateNewCustomer extends AppData {
                 String needCityTax, String needCountyTax, String needCustomTax, String needDistrict1Tax, String needDistrict2Tax,
                 String needDistrict3Tax, String needDistrict4Tax, String needDistrict5Tax) throws Exception {
         dialog = new CustomerViewDialog_Header();
-        customer = new CreateCustomerDIalog();
+        customer = new CreateCustomerDialog();
         overview = new CustomerViewDialog_OverviewTab();
         header = new Header();
-        header.NavigateTo(header.newCustomerTab);
+        header.navigateTo(header.newCustomerTab);
         customer.setFirstName(fName);
         customer.setLastName(lName);
         customer.setAddress(needStreetAddress);
@@ -123,10 +125,10 @@ public class CreateNewCustomer extends AppData {
     @When("I create customer with first name, last name, address and generic flag {string} and {string}")
     public void createCustomerWithGenericFlag(String needFlagName, String needSource) throws Exception {
         dialog = new CustomerViewDialog_Header();
-        customer = new CreateCustomerDIalog();
+        customer = new CreateCustomerDialog();
         overview = new CustomerViewDialog_OverviewTab();
         header = new Header();
-        header.NavigateTo(header.newCustomerTab);
+        header.navigateTo(header.newCustomerTab);
         customer.setFirstName(fName);
         customer.setLastName(lName);
         customer.selectUnit("Multi Unit");
@@ -144,7 +146,7 @@ public class CreateNewCustomer extends AppData {
     }
 
     @And("I search customer")
-    public void searchCustomer() throws Exception {
+    public void searchCustomer() throws Exception{
         header = new Header();
         header.searchCustomer( lName+ ", " + fName);
     }
@@ -152,10 +154,10 @@ public class CreateNewCustomer extends AppData {
     @When("I create customer with first name, last name, email and address")
     public void createCustomerWithEmail() throws Exception {
         dialog = new CustomerViewDialog_Header();
-        customer = new CreateCustomerDIalog();
+        customer = new CreateCustomerDialog();
         overview = new CustomerViewDialog_OverviewTab();
         header = new Header();
-        header.NavigateTo(header.newCustomerTab);
+        header.navigateTo(header.newCustomerTab);
         customer.setFirstName(fName);
         customer.setLastName(lName);
         customer.setEmailAddress(email);
@@ -175,10 +177,10 @@ public class CreateNewCustomer extends AppData {
     public void createCustomerWithoutAddress() throws Exception {
 
         dialog = new CustomerViewDialog_Header();
-        customer = new CreateCustomerDIalog();
+        customer = new CreateCustomerDialog();
         overview = new CustomerViewDialog_OverviewTab();
         header = new Header();
-        header.NavigateTo(header.newCustomerTab);
+        header.navigateTo(header.newCustomerTab);
         customer.setFirstName(fName);
         customer.setLastName(lName);
         customer.selectUnit("Multi Unit");
@@ -191,19 +193,19 @@ public class CreateNewCustomer extends AppData {
 
     @Given("I close customer card")
     public void closeCustomerCard() {
-        CustomerViewDialog_Header overviewHeader;
-        overviewHeader = new CustomerViewDialog_Header();
-        overviewHeader.clickCloseButton();
-        overviewHeader.discardChanges();
+        dialog = new CustomerViewDialog_Header();
+        dialog = new CustomerViewDialog_Header();
+        dialog.clickCloseButton();
+        dialog.discardChanges();
     }
 
     @When("I create customer with first name, last name, address, email and Structure")
     public void createCustomerWithStructure() throws Exception {
         dialog = new CustomerViewDialog_Header();
-        customer = new CreateCustomerDIalog();
+        customer = new CreateCustomerDialog();
         overview = new CustomerViewDialog_OverviewTab();
         header = new Header();
-        header.NavigateTo(header.newCustomerTab);
+        header.navigateTo(header.newCustomerTab);
         customer.setFirstName(fName);
         customer.setLastName(lName);
         customer.setEmailAddress(email);
@@ -288,6 +290,16 @@ public class CreateNewCustomer extends AppData {
         String newId = id.replaceAll("[^a-zA-Z0-9]+", "");
         addData("userID", newId, generalData);
         addData("customerName", fName + " " + lName, generalData);
+    }
+
+    public String getCustomerName(String previosCustomerNumber) throws Exception {
+        header = new Header();
+        header.searchCustomerInOrder(previosCustomerNumber);
+        dialog = new CustomerViewDialog_Header();
+        customerViewDialog_infoTab = new CustomerViewDialog_InfoTab();
+        dialog.navigateTo(dialog.infoTabInDialog);
+        System.out.print(customerViewDialog_infoTab.getFirstName() + " " + customerViewDialog_infoTab.getLastName());
+        return customerViewDialog_infoTab.getFirstName() + " " + customerViewDialog_infoTab.getLastName();
     }
 
 }

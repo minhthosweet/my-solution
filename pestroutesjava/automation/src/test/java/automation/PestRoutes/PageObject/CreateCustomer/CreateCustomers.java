@@ -20,7 +20,7 @@ public class CreateCustomers extends AppData {
 
 	WebDriver driver = GetWebDriver.getInstance();
 	SignIn signInPage;
-	CreateCustomerDIalog customer;
+	CreateCustomerDialog customer;
 	CustomerViewDialog_Header dialog;
 	CustomerViewDialog_OverviewTab overview;
 	Header header;
@@ -54,10 +54,10 @@ public class CreateCustomers extends AppData {
 	public void click_on_New_Customer() {
 
 		dialog = new CustomerViewDialog_Header();
-		customer = new CreateCustomerDIalog();
+		customer = new CreateCustomerDialog();
 		overview = new CustomerViewDialog_OverviewTab();
 		header = new Header();
-		header.NavigateTo(header.newCustomerTab);
+		header.navigateTo(header.newCustomerTab);
 	}
 
 	@When("I enter firstname and lastname")

@@ -8,14 +8,14 @@ import automation.PestRoutes.Utilities.*;
 import org.testng.annotations.Test;
 import com.aventstack.extentreports.ExtentTest;
 import automation.PestRoutes.PageObject.Header;
-import automation.PestRoutes.PageObject.CreateCustomer.CreateCustomerDIalog;
+import automation.PestRoutes.PageObject.CreateCustomer.CreateCustomerDialog;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_Header;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_OverviewTab;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_Admin;
 
 public class AccountStatus extends AppData {
 	static ExtentTest test;
-	CreateCustomerDIalog customer = new CreateCustomerDIalog();
+	CreateCustomerDialog customer = new CreateCustomerDialog();
 	CustomerViewDialog_Header dialog = new CustomerViewDialog_Header();
 	CustomerViewDialog_OverviewTab overview = new CustomerViewDialog_OverviewTab();
 	Header header = new Header();
@@ -35,7 +35,7 @@ public class AccountStatus extends AppData {
 		String expectedAlert = "Required: You must fill in the customer's last name or company name!";
 		String fName = Utilities.generateRandomString(7);
 		String lName = Utilities.generateRandomString(6);
-		header.NavigateTo(header.newCustomerTab);
+		header.navigateTo(header.newCustomerTab);
 		customer.setFirstName(fName);
 		customer.selectUnit("Multi Unit");
 		dialog.clickSaveButton();

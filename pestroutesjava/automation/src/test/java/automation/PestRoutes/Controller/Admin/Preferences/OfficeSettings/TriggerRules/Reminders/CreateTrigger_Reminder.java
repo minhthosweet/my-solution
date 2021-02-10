@@ -76,7 +76,7 @@ public class CreateTrigger_Reminder extends AppData {
 		ar = new ARTab();
 		triggerActions = new Trigger_Actions();
 		subscriptionStatus = new SubscriptionStatusTab();
-		header.NavigateTo(header.adminTab);
+		header.navigateTo(header.adminTab);
 		adminMainPage.navigateTo(adminMainPage.preferences);
 		triggerAdmin.navigateToTriggerRules();
 		triggerAdmin.clickAddTrigerButton();
@@ -100,7 +100,7 @@ public class CreateTrigger_Reminder extends AppData {
 	public void searchTrigger_Reminder(String descriptionName) {
 		header = new Header();
 		adminMainPage = new AdminMainPage();
-		header.NavigateTo(header.adminTab);
+		header.navigateTo(header.adminTab);
 		adminMainPage.navigateTo(adminMainPage.preferences);
 		triggerAdmin.navigateToTriggerRules();
 		triggerAdmin.searchTrigger(descriptionName);
@@ -175,7 +175,7 @@ public class CreateTrigger_Reminder extends AppData {
 
 	public void createCustomer() throws Exception {
 		header = new Header();
-		header.NavigateTo(header.schedulingTab);
+		header.navigateTo(header.schedulingTab);
 		createCustomer = new CreateNewCustomer();
 		createCustomer.createCustomerWithAddress();
 		createCustomer.validateCreatedCustomerNameAndAddress();

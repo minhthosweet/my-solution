@@ -62,7 +62,7 @@ public class CreateTrigger_AppointmentStatus extends AppData {
 		subscriptionStatus = new SubscriptionStatusTab();
 		ar = new ARTab();
 		reminder = new ReminderTab();
-		header.NavigateTo(header.adminTab);
+		header.navigateTo(header.adminTab);
 		adminMainPage.navigateTo(adminMainPage.preferences);
 		triggerAdmin.navigateToTriggerRules();
 		triggerAdmin.clickAddTrigerButton();
@@ -87,7 +87,7 @@ public class CreateTrigger_AppointmentStatus extends AppData {
 	public void searchTrigger_appointmentStatus(String descriptionName) {
 		header = new Header();
 		adminMainPage = new AdminMainPage();
-		header.NavigateTo(header.adminTab);
+		header.navigateTo(header.adminTab);
 		adminMainPage.navigateTo(adminMainPage.preferences);
 		triggerAdmin.navigateToTriggerRules();
 		triggerAdmin.searchTrigger(descriptionName);

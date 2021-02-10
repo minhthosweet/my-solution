@@ -32,7 +32,7 @@ public class RouteTemplate {
     public void navigateToRouteTemplate() {
         header = new Header();
         adminMainPage = new AdminMainPage();
-        header.NavigateTo(header.adminTab);
+        header.navigateTo(header.adminTab);
         adminMainPage.navigateTo(adminMainPage.routeTemplates);
     }
 

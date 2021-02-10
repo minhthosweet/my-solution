@@ -31,7 +31,7 @@ public class ECA {
         admin = new AdminMainPage();
         header = new Header();
         preferences = new PreferencesPage();
-        header.NavigateTo(header.adminTab);
+        header.navigateTo(header.adminTab);
         admin.navigateTo(admin.preferences);
         preferences.navigateTo(preferences.customerPreferencesRelatedNav, preferences.customerCommunication);
     }

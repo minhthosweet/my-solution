@@ -1,0 +1,139 @@
+package automation.PestRoutes.PageObject.ReportingPage.OfficePage;
+
+import automation.PestRoutes.Controller.CustomerCreation.CreateNewCustomer;
+import automation.PestRoutes.Controller.Reporting.Office.OfficeObjects;
+import automation.PestRoutes.PageObject.Header;
+import automation.PestRoutes.PageObject.ReportingPage.ReportingMainPage;
+import automation.PestRoutes.Utilities.FindElement;
+import automation.PestRoutes.Utilities.Utilities;
+
+public class BillingByServiceTypeTab {
+
+    Header header;
+    ReportingMainPage reportingMainPage;
+    OfficeObjects officeObjs;
+    CreateNewCustomer createNewCustomer;
+
+    public String dateParams = "//input[@name='dateRange-officeParams']";
+    public String groupBy = "//select[@name='groupBy']";
+    public String subGroupOne = "//select[@name='groupBy2']";
+    public String subGroupTwo = "//select[@name='groupBy3']";
+    public String asOfDate = "//input[@name='paymentAsOfDate']";
+    public String productionValue = "//select[@name='useProductionValue']";
+    public String writeOffs = "//select[@name='writeOff']";
+    public String aPayType_bbst = "//select[@name='aPay']";
+    public String aPayStatus_bbst = "//select[@name='paymentAccountStatus']";
+    public String propType_bbst = "//select[@name='propertyType']";
+    public String prefersPaper = "//select[@name='prefersPaper']";
+    public String balance_bbst = "//input[@name='balance']";
+    public String balanceAge_bbst = "//select[@name='balanceAge']";
+    public String soldDateRange = "//input[@placeholder='Sold Date Range']";
+    public String search_bbst = "//input[@type='search' and @placeholder='Search...']";
+    public String refresh_bbst = "//div[text()=' Refresh ']";
+
+    public static String filterType(String type) {
+        String str = "//input[@type='text' and @id = 's2id_autogen']";
+        /*String invoice = null;
+        String serviceType = null;
+        String customerSource = null;
+        String inclCollections = null;
+        String subSource = null;
+        String regions = null;
+        String divisions = null;*/
+
+        String ch = null;
+        StringBuilder sb = new StringBuilder();
+       /* if (type == invoice) {
+            ch = "1";
+        }
+        if (type == serviceType) {
+            ch = "2";
+        }
+        if (type == customerSource) {
+            ch = "3";
+        }
+        if (type == inclCollections) {
+            ch = "4";
+        }
+        if (type == subSource) {
+            ch = "5";
+        }
+        if (type == regions) {
+            ch = "6";
+        }
+        if (type == divisions) {
+            ch = "6";
+        }*/
+        switch (type) {
+            case "invoice":
+                ch = "1";
+                break;
+            case "serviceType":
+                ch = "2";
+                break;
+            case "customerSource":
+                ch = "3";
+                break;
+            case "inclCollections":
+                ch = "4";
+                break;
+            case "subSource":
+                ch = "5";
+                break;
+            case "regions":
+                ch = "6";
+                break;
+            case "divisions":
+                ch = "7";
+                break;
+            case "offices":
+                ch = "8";
+                break;
+            case "includeFlags":
+                ch = "9";
+                break;
+            case "excludeFlags":
+                ch = "10";
+                break;
+            case "scheduledBy":
+                ch = "11";
+                break;
+            case "soldByTeam":
+                ch = "12";
+                break;
+            case "soldbySalesRep":
+                ch = "13";
+                break;
+            default:
+                throw new IllegalStateException("Unexpected value: " + type);
+        }
+        return str.substring(0, str.length() - 2) + sb.append(ch) + str.substring(str.length() - 2);
+    }
+
+    public void mainGroupBy(){
+        officeObjs = new OfficeObjects();
+        Utilities.waitUntileElementIsVisible(groupBy);
+        Utilities.selectValueFromDropDownByValue(groupBy,"Customer Name");
+        officeObjs.navigateTo(officeObjs.billingByServiceType);
+    }
+
+    public void navigateToBillingByServiceTypePage(){
+        header = new Header();
+        reportingMainPage = new ReportingMainPage();
+        officeObjs = new OfficeObjects();
+        header.navigateTo(header.reportingTab);
+        reportingMainPage.navigateTo(reportingMainPage.office);
+        officeObjs.navigateTo(officeObjs.billingByServiceType);
+    }
+
+    public void searchNewCustomer() throws Exception {
+        createNewCustomer = new CreateNewCustomer();
+        Utilities.waitUntileElementIsVisible(refresh_bbst);
+        Utilities.clickElement(refresh_bbst, Utilities.ElementType.XPath);
+        String customerName = createNewCustomer.getCustomerName("1");
+        createNewCustomer.closeCustomerCard();
+        Utilities.waitUntileElementIsVisible(search_bbst);
+        Utilities.clickElement(search_bbst, Utilities.ElementType.XPath);
+        FindElement.elementByAttribute(search_bbst, FindElement.InputType.XPath).sendKeys(customerName);
+    }
+}

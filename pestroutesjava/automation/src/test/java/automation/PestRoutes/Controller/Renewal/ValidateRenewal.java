@@ -105,7 +105,7 @@ public class ValidateRenewal extends AppData {
     public void navigateToSchedulingTab() throws Exception {
         header = new Header();
         scheduleDay = new SchedulingTab();
-        header.NavigateTo(header.schedulingTab);
+        header.navigateTo(header.schedulingTab);
         scheduleDay.addScheduleDateToProperties();
         scheduleDay.clickScheduleDay();
     }
@@ -114,7 +114,7 @@ public class ValidateRenewal extends AppData {
     public void navigateToSchedulingSameDayTab() throws Exception {
         header = new Header();
         scheduleDay = new SchedulingTab();
-        header.NavigateTo(header.schedulingTab);
+        header.navigateTo(header.schedulingTab);
         scheduleDay.addScheduleDateToProperties();
         scheduleDay.clickScheduleSameDay();
     }
@@ -123,7 +123,7 @@ public class ValidateRenewal extends AppData {
     public void navigateToSchedulingPreviousDayTab(String daysBefore) throws Exception {
         header = new Header();
         scheduleDay = new SchedulingTab();
-        header.NavigateTo(header.schedulingTab);
+        header.navigateTo(header.schedulingTab);
         scheduleDay.addScheduleDateToProperties();
         scheduleDay.clickScheduleDaysBefore(daysBefore);
     }
@@ -166,7 +166,7 @@ public class ValidateRenewal extends AppData {
         confirmAppt = new SchedulingAppointmentDialog();
         scheduleDay = new SchedulingTab();
 
-        header.NavigateTo(header.schedulingTab);
+        header.navigateTo(header.schedulingTab);
         scheduleDay.addScheduleDateToProperties();
         scheduleDay.clickScheduleDay();
         route.addGroup();

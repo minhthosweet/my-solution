@@ -67,7 +67,7 @@ public class CreateTrigger_Renewal extends AppData {
 		inventory = new InventoryTab();
 		renewalTab = new RenewalTab();
 		triggerActions = new Trigger_Actions();
-		header.NavigateTo(header.adminTab);
+		header.navigateTo(header.adminTab);
 		adminMainPage.navigateTo(adminMainPage.preferences);
 		triggerAdmin.navigateToTriggerRules();
 		triggerAdmin.clickAddTrigerButton();
@@ -93,7 +93,7 @@ public class CreateTrigger_Renewal extends AppData {
 	public void searchTrigger_Renewal(String descriptionName) {
 		header = new Header();
 		adminMainPage = new AdminMainPage();
-		header.NavigateTo(header.adminTab);
+		header.navigateTo(header.adminTab);
 		adminMainPage.navigateTo(adminMainPage.preferences);
 		triggerAdmin.navigateToTriggerRules();
 		triggerAdmin.searchTrigger(descriptionName);
@@ -195,7 +195,7 @@ public class CreateTrigger_Renewal extends AppData {
 	// Create customer with Renewal Subscription
 	public void createCustomer() throws Exception {
 		header = new Header();
-		header.NavigateTo(header.schedulingTab);
+		header.navigateTo(header.schedulingTab);
 		createCustomer = new CreateNewCustomer();
 		createCustomer.createCustomerWithAddress();
 		createCustomer.validateCreatedCustomerNameAndAddress();

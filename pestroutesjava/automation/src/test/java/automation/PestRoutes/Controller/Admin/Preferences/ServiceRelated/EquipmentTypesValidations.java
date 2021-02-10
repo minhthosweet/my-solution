@@ -15,7 +15,6 @@ import automation.PestRoutes.PageObject.Admin.Preferences.PreferencesPage;
 import automation.PestRoutes.PageObject.Admin.Preferences.ServiceTypes;
 import automation.PestRoutes.Utilities.AssertException;
 import automation.PestRoutes.Utilities.BaseClass;
-import automation.PestRoutes.Utilities.Utilities;
 
 public class EquipmentTypesValidations extends BaseClass {
 	AdminMainPage main;
@@ -34,7 +33,7 @@ public class EquipmentTypesValidations extends BaseClass {
 		service = new ServiceTypes();
 		header = new Header();
 		
-		header.NavigateTo(header.adminTab);
+		header.navigateTo(header.adminTab);
 		main.navigateTo(main.preferences);
 		preferences.navigateTo(preferences.serviceRelatedNav, preferences.equipmentTypesText);
 		try {

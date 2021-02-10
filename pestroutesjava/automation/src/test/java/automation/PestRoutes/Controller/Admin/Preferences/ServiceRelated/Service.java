@@ -39,7 +39,7 @@ public class Service extends AppData {
         header = new Header();
         preferences = new PreferencesPage();
         service = new ServiceTypes();
-        header.NavigateTo(header.adminTab);
+        header.navigateTo(header.adminTab);
         admin.navigateTo(admin.preferences);
         preferences.navigateTo(preferences.serviceRelatedNav, preferences.serviceTypesText);
     }

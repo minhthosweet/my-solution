@@ -35,7 +35,7 @@ public class Product extends BaseClass {
 
 	//Create product
 	public void createProduct() throws InterruptedException {
-		header.NavigateTo(header.adminTab);
+		header.navigateTo(header.adminTab);
 		adminMainPage.navigateTo(adminMainPage.preferences);
 		preferences.navigateTo(preferences.serviceRelatedNav, preferences.productsText);
 		productAdmin.clickAddProductButton();
@@ -61,7 +61,7 @@ public class Product extends BaseClass {
 
 	//Assert the product created
 	private void assertCreatedProduct() throws InterruptedException {
-		header.NavigateTo(header.adminTab);
+		header.navigateTo(header.adminTab);
 		adminMainPage.navigateTo(adminMainPage.preferences);
 		preferences.navigateTo(preferences.serviceRelatedNav, preferences.productsText);
 		serviceTypes.setSearch(productName);
@@ -75,7 +75,7 @@ public class Product extends BaseClass {
 
 	//Edit Product
 	private void editProductUnit() throws InterruptedException {
-		header.NavigateTo(header.adminTab);
+		header.navigateTo(header.adminTab);
 		adminMainPage.navigateTo(adminMainPage.preferences);
 		preferences.navigateTo(preferences.serviceRelatedNav, preferences.productsText);
 		serviceTypes.setSearch(productName);

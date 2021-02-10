@@ -1,8 +1,5 @@
 package automation.PestRoutes.PageObject;
 
-
-import automation.PestRoutes.Utilities.FindElement;
-import automation.PestRoutes.Utilities.FindElement.InputType;
 import automation.PestRoutes.Utilities.Utilities;
 import automation.PestRoutes.Utilities.Utilities.ElementType;;
 
@@ -19,14 +16,20 @@ public class Header {
 	public String SearchField = "//input[@id='customerSearch']";
 	public String FirstSearchResult = "//ul[@id='ui-id-15']/li[1]";
 	public String ACCESS_HISTORY = "//div[@id='toggleAccessHistory']";
+
 	
-	public void NavigateTo(String chooseTabFromConst) {
+	public void navigateTo(String chooseTabFromConst) {
 		Utilities.waitUntileElementIsVisible("//a[text() = '"+chooseTabFromConst+"']");
 		Utilities.clickElement("//a[text() = '"+chooseTabFromConst+"']", ElementType.XPath);
 	}
 	
-	public void searchCustomer(String needCustomerFullName) throws Exception {
+	public void searchCustomer(String needCustomerFullName){
 		Utilities.jsClickElement(ACCESS_HISTORY, ElementType.XPath);
 		Utilities.clickElement("//span[text()='" + needCustomerFullName + "']", ElementType.XPath);
-	}	
+	}
+
+	public void searchCustomerInOrder(String customerNumber){
+		Utilities.jsClickElement(ACCESS_HISTORY, ElementType.XPath);
+		Utilities.clickElement("//h3[text()='Customer Access History']/following-sibling::div//li["+customerNumber+"]//span["+customerNumber+"]", ElementType.XPath);
+	}
 }

@@ -12,7 +12,6 @@ import automation.PestRoutes.PageObject.Header;
 import automation.PestRoutes.PageObject.Admin.AdminMainPage;
 import automation.PestRoutes.PageObject.Admin.UsersPage.AddUserDialog;
 import automation.PestRoutes.PageObject.CreateCustomer.CreateCustomers;
-import automation.PestRoutes.Utilities.BaseClass;
 import automation.PestRoutes.Utilities.FindElement;
 import automation.PestRoutes.Utilities.FindElement.InputType;
 
@@ -33,7 +32,7 @@ public class AddUser extends AppData {
 		String userLastName = getData("userLastName", generalData);
 
 		// Navigate to the users page
-		header.NavigateTo(header.adminTab);
+		header.navigateTo(header.adminTab);
 		adminPage.navigateTo(adminPage.users);
 
 		// Click on the User button
@@ -54,7 +53,7 @@ public class AddUser extends AppData {
 		addUserDialog = new AddUserDialog();
 		adminPage = new AdminMainPage();
 
-		header.NavigateTo(header.adminTab);
+		header.navigateTo(header.adminTab);
 		adminPage.navigateTo(adminPage.users);
 		try {
 			Utilities.scrollToElementJS(adminPage.preExistingUser);
