@@ -233,7 +233,6 @@ public class CreateNewCustomer extends AppData {
         String expectedAddress = streetAddress + " " + city + ", TX " + zipcode;
         Utilities.waitUntileElementIsVisible(overview.overviewTab_Address);
         String customerNameInHeader = overview.getCustomerNameFromHeader();
-        System.out.println("Customer Name found is " + customerNameInHeader);
         String actualAddress = overview.getAddress();
         result(fName, customerNameInHeader, "Created customer name ", "Customer creation");
         result(expectedAddress, actualAddress, "Created customer address", "Customer creation");
@@ -298,7 +297,6 @@ public class CreateNewCustomer extends AppData {
         dialog = new CustomerViewDialog_Header();
         customerViewDialog_infoTab = new CustomerViewDialog_InfoTab();
         dialog.navigateTo(dialog.infoTabInDialog);
-        System.out.print(customerViewDialog_infoTab.getFirstName() + " " + customerViewDialog_infoTab.getLastName());
         return customerViewDialog_infoTab.getFirstName() + " " + customerViewDialog_infoTab.getLastName();
     }
 
