@@ -31,39 +31,27 @@ public class BillingByServiceTypeTab {
     public String search_bbst = "//input[@type='search' and @placeholder='Search...']";
     public String refresh_bbst = "//div[text()=' Refresh ']";
 
-    public static String filterType(String type) {
+    public String invoice_bbst = "//input[@type='text' and @id = 's2id_autogen1']";
+    public String serviceType_bbst = "//input[@type='text' and @id = 's2id_autogen2']";
+    public String customerSource_bbst = "//input[@type='text' and @id = 's2id_autogen3']";
+    public String inclCollections = "//input[@type='text' and @id = 's2id_autogen4']";
+    public String subSource_bbst = "//input[@type='text' and @id = 's2id_autogen5']";
+    public String regions_bbst = "//input[@type='text' and @id = 's2id_autogen6']";
+    public String divisions_bbst = "//input[@type='text' and @id = 's2id_autogen7']";
+    public String offices_bbst = "//input[@type='text' and @id = 's2id_autogen8']";
+    public String includeFlags_bbst = "//input[@type='text' and @id = 's2id_autogen9']";
+    public String excludeFlags_bbst = "//input[@type='text' and @id = 's2id_autogen10']";
+    public String scheduledBy_bbst = "//input[@type='text' and @id = 's2id_autogen11']";
+    public String soldByTeam_bbst = "//input[@type='text' and @id = 's2id_autogen12']";
+    public String soldbySalesRep_bbst = "//input[@type='text' and @id = 's2id_autogen13']";
+
+    /*public static String filterType(String type) {
         String str = "//input[@type='text' and @id = 's2id_autogen']";
-        /*String invoice = null;
-        String serviceType = null;
-        String customerSource = null;
-        String inclCollections = null;
-        String subSource = null;
-        String regions = null;
-        String divisions = null;*/
+
 
         String ch = null;
         StringBuilder sb = new StringBuilder();
-       /* if (type == invoice) {
-            ch = "1";
-        }
-        if (type == serviceType) {
-            ch = "2";
-        }
-        if (type == customerSource) {
-            ch = "3";
-        }
-        if (type == inclCollections) {
-            ch = "4";
-        }
-        if (type == subSource) {
-            ch = "5";
-        }
-        if (type == regions) {
-            ch = "6";
-        }
-        if (type == divisions) {
-            ch = "6";
-        }*/
+
         switch (type) {
             case "invoice":
                 ch = "1";
@@ -108,7 +96,7 @@ public class BillingByServiceTypeTab {
                 throw new IllegalStateException("Unexpected value: " + type);
         }
         return str.substring(0, str.length() - 2) + sb.append(ch) + str.substring(str.length() - 2);
-    }
+    }*/
 
     public void mainGroupBy(){
         officeObjs = new OfficeObjects();
@@ -136,4 +124,33 @@ public class BillingByServiceTypeTab {
         Utilities.clickElement(search_bbst, Utilities.ElementType.XPath);
         FindElement.elementByAttribute(search_bbst, FindElement.InputType.XPath).sendKeys(customerName);
     }
+       /*String invoice = null;
+        String serviceType = null;
+        String customerSource = null;
+        String inclCollections = null;
+        String subSource = null;
+        String regions = null;
+        String divisions = null;*/
+
+     /* if (type == invoice) {
+            ch = "1";
+        }
+        if (type == serviceType) {
+            ch = "2";
+        }
+        if (type == customerSource) {
+            ch = "3";
+        }
+        if (type == inclCollections) {
+            ch = "4";
+        }
+        if (type == subSource) {
+            ch = "5";
+        }
+        if (type == regions) {
+            ch = "6";
+        }
+        if (type == divisions) {
+            ch = "6";
+        }*/
 }
