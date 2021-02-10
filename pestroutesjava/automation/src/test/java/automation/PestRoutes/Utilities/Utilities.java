@@ -53,7 +53,7 @@ public class Utilities {
 			}
 		}
 	}
-	
+
 	public static void switchToIframeByXpath(WebElement needElement) {
 		WebDriverWait wait = new WebDriverWait(driver, 20);
 		//wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath(needXpath)));
@@ -103,7 +103,7 @@ public class Utilities {
 
 	}
 
-	public void search(String needXpath, String needText){
+	public static void search(String needXpath, String needText){
 		FindElement.elementByAttribute(needXpath, InputType.XPath).sendKeys(needText);
 	}
 

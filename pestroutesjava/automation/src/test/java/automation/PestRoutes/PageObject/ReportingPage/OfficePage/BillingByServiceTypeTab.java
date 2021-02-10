@@ -6,6 +6,7 @@ import automation.PestRoutes.PageObject.Header;
 import automation.PestRoutes.PageObject.ReportingPage.ReportingMainPage;
 import automation.PestRoutes.Utilities.FindElement;
 import automation.PestRoutes.Utilities.Utilities;
+import java.util.*;
 
 public class BillingByServiceTypeTab {
 
@@ -31,6 +32,23 @@ public class BillingByServiceTypeTab {
     public String search_bbst = "//input[@type='search' and @placeholder='Search...']";
     public String refresh_bbst = "//div[text()=' Refresh ']";
 
+    Map<String, String> filter_Types = new HashMap<String, String>();
+    public void filterTypes(){
+        filter_Types.put("invoice_bbst", "//input[@type='text' and @id = 's2id_autogen1']");
+        filter_Types.put("serviceType_bbst", "//input[@type='text' and @id = 's2id_autogen2']");
+        filter_Types.put("customerSource_bbst", "//input[@type='text' and @id = 's2id_autogen3']");
+        filter_Types.put("inclCollections", "//input[@type='text' and @id = 's2id_autogen4']");
+        filter_Types.put("subSource_bbst", "//input[@type='text' and @id = 's2id_autogen5']");
+        filter_Types.put("regions_bbst", "//input[@type='text' and @id = 's2id_autogen6']");
+        filter_Types.put("divisions_bbst", "//input[@type='text' and @id = 's2id_autogen7']");
+        filter_Types.put("offices_bbst", "//input[@type='text' and @id = 's2id_autogen8']");
+        filter_Types.put("includeFlags_bbst", "//input[@type='text' and @id = 's2id_autogen9']");
+        filter_Types.put("excludeFlags_bbst", "//input[@type='text' and @id = 's2id_autogen10']");
+        filter_Types.put("scheduledBy_bbst", "//input[@type='text' and @id = 's2id_autogen11']");
+        filter_Types.put("soldByTeam_bbst", "//input[@type='text' and @id = 's2id_autogen12']");
+        filter_Types.put("soldbySalesRep_bbst", "//input[@type='text' and @id = 's2id_autogen13']");
+    }
+/*
     public String invoice_bbst = "//input[@type='text' and @id = 's2id_autogen1']";
     public String serviceType_bbst = "//input[@type='text' and @id = 's2id_autogen2']";
     public String customerSource_bbst = "//input[@type='text' and @id = 's2id_autogen3']";
@@ -44,7 +62,7 @@ public class BillingByServiceTypeTab {
     public String scheduledBy_bbst = "//input[@type='text' and @id = 's2id_autogen11']";
     public String soldByTeam_bbst = "//input[@type='text' and @id = 's2id_autogen12']";
     public String soldbySalesRep_bbst = "//input[@type='text' and @id = 's2id_autogen13']";
-
+*/
     /*public static String filterType(String type) {
         String str = "//input[@type='text' and @id = 's2id_autogen']";
 
