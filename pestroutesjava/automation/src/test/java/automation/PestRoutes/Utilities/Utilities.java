@@ -64,7 +64,12 @@ public class Utilities {
 	public static void switchToIframeByIndex(int needIndex) {
 		driver.switchTo().frame(needIndex);
 	}
-	
+
+	public static void switchToNewWindowOpened() {
+		for (String windowHandle : driver.getWindowHandles()) {
+			driver.switchTo().window(windowHandle);
+		}
+	}
 	public static void switchBackToDom() {
 		driver.switchTo().defaultContent();
 	}
@@ -216,6 +221,12 @@ public class Utilities {
 		WebElement element = driver.findElement(By.id(needID));
 		JavascriptExecutor executor = (JavascriptExecutor) driver;
 		executor.executeScript("arguments[0].click();", element);
+	}
+
+	public static void hoverElement(String needElementToHover, String needAttributeToClick) {
+		Actions action = new Actions(driver);
+		action.moveToElement(driver.findElement(By.xpath(needElementToHover))).
+				moveToElement(driver.findElement(By.xpath(needAttributeToClick))).click().perform();
 	}
 
 	private static WebElement locateElement(String needAttribute, ElementType Attribute_Type) {
