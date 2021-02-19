@@ -18,6 +18,7 @@ Feature: Customer Status
     And Validating beginning balance for invoice created "Today" of report type "Account Transactions"
     And Validating ending balance for invoice created "Today" of report type "Account Transactions"
     And Validating invoice balance for invoice created "Today" of report type "Account Transactions"
+    And I print report and validate totals and enter notes "Automation Testing"
     And I validate if there are errors exist in the list
 
   Scenario: Close browser

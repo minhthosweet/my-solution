@@ -50,9 +50,11 @@ public class InvoiceImplementation {
 
     //Account Summary Objects
     public String accountBalance = "//div[@id='billingPanel']//div[@id='SubStatus']";
+    public String printInvoiceAmounDue = "//th[text()='Amount Due']//following-sibling::td[1]";
 
     //Initial Invoice Objects
     public String paymentsBalance = "//div[text()='Balance']/following-sibling::div";
+    public String printInvoicePaymentBalance = "//th[text()='Amount Paid']//following-sibling::td[1]";
 
     // Charges Objects
     public String serviceCostBeforeTax  = "//div[not(@ticketid='0')and@subscriptionid='0']//div[@serviceid]/input";
@@ -72,6 +74,16 @@ public class InvoiceImplementation {
     public String refreshButton = "//div[text()='Refresh']";
     public String scrollLeftButton = "//div[@id='accountStatementReportScrollButtons']//div[contains(@class,'scrollLeft')]//i";
     public String scrollRightButton = "//div[@id='accountStatementReportScrollButtons']//div[contains(@class,'scrollRight')]//i";
+    public String invoiceActionButton = "//div[@class='toggleActions right tableButton']";
+    public String invoicePrintButton = "//div[@id='printInvoiceButton']";
+    public String statementActionButton = "//div[@id='conditionsActionsBtn']";
+    public String statementPrintButton = "//div[text()='Print']";
+
+    //Print Invoice Objects
+    public String additionalNotes ="//div[@class='additional-notes']//following-sibling::div[@class='field']/textarea";
+    public String markLetterSentButton = "//div[@id='markPrintButton']";
+    public String printInvoiceDate = "//div[@class='invoice-summary']//following-sibling::tr[6]";
+    public String printInvoiceMainAmounDue = "//table[@class='invoice-amount']//following-sibling::tr[3]";
 
     // Getter Methods
 
@@ -225,14 +237,47 @@ public class InvoiceImplementation {
         Utilities.clickElement(refreshButton, ElementType.XPath);
     }
 
+    public void printInvoice(){
+        Utilities.waitUntileElementIsVisible(invoiceActionButton);
+        Utilities.hoverElement(invoiceActionButton, invoicePrintButton);
+    }
+
+    public void printAccountStatement(){
+        Utilities.waitUntileElementIsVisible(accountStatementReport);
+        Utilities.clickElement(accountStatementReport, ElementType.XPath);
+        Utilities.hoverElement(statementActionButton, statementPrintButton);
+    }
+
+    public void setAdditionalNotes(String needNotes){
+        Utilities.scrollToElementJS(additionalNotes);
+        Utilities.waitUntileElementIsVisible(additionalNotes);
+        Utilities.clickElement(additionalNotes, ElementType.XPath);
+        FindElement.elementByAttribute(additionalNotes, InputType.XPath).sendKeys(needNotes);
+    }
+
+    public void markLetterAsSent(){
+        Utilities.waitUntileElementIsVisible(markLetterSentButton);
+        Utilities.clickElement(markLetterSentButton, ElementType.XPath);
+    }
+
     public String getAccountBalance(){
         Utilities.waitUntileElementIsVisible(accountBalance);
         return Utilities.getElementTextValue(accountBalance, ElementType.XPath);
     }
 
+    public String getAccountTotalAmountDue(){
+        Utilities.waitUntileElementIsVisible(printInvoiceAmounDue);
+        return Utilities.getElementTextValue(printInvoiceAmounDue, ElementType.XPath);
+    }
+
     public String getChargesBalance(){
         Utilities.waitUntileElementIsVisible(invoiceDate);
         return Utilities.getElementTextValue(chargesTotalValue, ElementType.XPath);
+    }
+
+    public String getPrintInvoiceMainAmounDue() {
+        Utilities.waitUntileElementIsVisible(printInvoiceDate);
+        return Utilities.getElementTextValue(printInvoiceMainAmounDue, ElementType.XPath);
     }
 
     public String getChargesBalance_customSchedule(String initialAmountWithoutTax){
@@ -243,6 +288,11 @@ public class InvoiceImplementation {
     public String getPaymentsBalance(){
         Utilities.waitUntileElementIsVisible(invoiceDate);
         return Utilities.getElementTextValue(paymentsBalance, ElementType.XPath);
+    }
+
+    public String getPrintInvoicePaymentBalance() {
+        Utilities.waitUntileElementIsVisible(printInvoicePaymentBalance);
+        return Utilities.getElementTextValue(printInvoicePaymentBalance, ElementType.XPath);
     }
 
     public String getServiceCostBeforeTax(){
