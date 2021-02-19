@@ -85,6 +85,7 @@ public class InvoiceImplementation {
     public String printInvoiceDate = "//div[@class='invoice-summary']//following-sibling::tr[6]";
     public String printInvoiceMainAmounDue = "//table[@class='invoice-amount']//following-sibling::tr[3]";
 
+
     // Getter Methods
 
     public int getInvoiceCost() {

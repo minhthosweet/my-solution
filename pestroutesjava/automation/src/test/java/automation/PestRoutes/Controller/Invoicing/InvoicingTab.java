@@ -35,9 +35,11 @@ public class InvoicingTab extends AppData {
     private String successfulFullCharge = "Successfully Charged Cash!$5,450.00";
     List list = new ArrayList<String>();
     private String invoiceDate = "1";
+
     public static String invoiceCharges = null;
     public static String invoiceValue = null;
     public static String invoiceBalance = null;
+
     @Test
     public void CustomerInvoicing() throws Exception {
 
@@ -175,10 +177,8 @@ public class InvoicingTab extends AppData {
         invImplementation.refreshAccountStatementReport();
     }
 
-
     @And("I validate the Beginning balance and Ending balance for a day before the invoice was created")
     public void validateBeginningEndingBalance_Yesterday_AccountStatementReport() {
-//        invImplementation.scrollRight();
         result(invImplementation.getBalance("Beginning Balance"), "$0.00", "Balance Validation",
                 "Account Statement Report Validation");
         result(invImplementation.getResponsibleBalance("Beginning Balance"), "$0.00", "Responsible Balance Validation",
@@ -192,7 +192,6 @@ public class InvoicingTab extends AppData {
     @And("Validating beginning balance for invoice created {string} of report type {string}")
     public void validateBeginningBalance_AccountStatementReport(String day, String reportType) throws InterruptedException {
         generateAccountStatementReport(reportType, day);
-//        invImplementation.scrollRight();
         result(invImplementation.getBalance("Beginning Balance"), "$0.00", "Balance Validation",
                 "Account Statement Report Validation");
         result(invImplementation.getResponsibleBalance("Beginning Balance"), "$0.00", "Responsible Balance Validation",
@@ -205,7 +204,6 @@ public class InvoicingTab extends AppData {
         invoiceCharges = invImplementation.getChargesBalance();
         invoiceBalance = invImplementation.getPaymentsBalance();
         generateAccountStatementReport(reportType, day);
-//        invImplementation.scrollRight();
         result(invImplementation.getInvoiceDate_accountStatementReport(getData("serviceDescription", generalData)), Utilities.currentDate("MM/dd/YYYY"), "Invoice Date",
                 "Account Statement Report Validation");
         result(invImplementation.getInvoiceAmount_accountStatementReport(getData("serviceDescription", generalData)), invoiceCharges, "Invoice Value",
@@ -219,7 +217,6 @@ public class InvoicingTab extends AppData {
         invImplementation.clickAccountSummary();
         invoiceValue = invImplementation.getAccountBalance();
         generateAccountStatementReport(reportType, day);
-//        invImplementation.scrollRight();
         result(invImplementation.getBalance("Ending Balance"), invoiceValue, "Balance Validation",
                 "Account Statement Report Validation");
         result(invImplementation.getResponsibleBalance("Ending Balance"), invoiceValue, "Responsible Balance Validation",
