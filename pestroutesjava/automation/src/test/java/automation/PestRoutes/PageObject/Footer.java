@@ -16,13 +16,7 @@ public class Footer {
 	public String helpWizard = "Help Wizard";
 	public String clock = "Clock";
 	public String mapCodeWizard = "Map Code Wizard";
-
 	public String logout = "//div[@class='dockLogoutButton']";
-
-	public void NavigateTo(String chooseTabFromConst) {
-		Utilities.waitUntileElementIsVisible("//div[@id='dock']//p[text()='" + chooseTabFromConst + "']");
-		Utilities.clickElement("//div[@id='dock']//p[text()='" + chooseTabFromConst + "']", ElementType.XPath);
-	}
 
 	public void logoutPortal() {
 		Utilities.waitUntileElementIsVisible(logout);

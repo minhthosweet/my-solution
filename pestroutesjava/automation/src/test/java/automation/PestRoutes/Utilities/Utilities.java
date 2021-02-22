@@ -389,4 +389,8 @@ public class Utilities {
 	public enum ElementType {
 		XPath, ID, ClassName, PartialLink, LinkText
 	}
+
+	public static void clickAdvancedFilters(){
+		clickElement("//div[@id = 'advancedFilterToggleButton']", ElementType.XPath);
+	}
 }

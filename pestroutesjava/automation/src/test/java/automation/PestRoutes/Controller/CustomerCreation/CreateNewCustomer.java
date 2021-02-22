@@ -1,5 +1,6 @@
 package automation.PestRoutes.Controller.CustomerCreation;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -173,6 +174,18 @@ public class CreateNewCustomer extends AppData {
         captureUserIdAndFullName();
     }
 
+    @And("I add additional properties to the customer")
+    public void addAdditionalProperties() throws IOException {
+        dialog = new CustomerViewDialog_Header();
+        customer = new CreateCustomerDialog();
+        customer.selectSource(getData("customerSource", generalData));
+        customer.selectProperty(customer.commercialProperty);
+        customer.clickPrefersPaperCheckBox();
+        customer.selectDivision(getData("division", generalData));
+        customer.selectGenericFlag(getData("flag", generalData));
+        dialog.clickSaveButton();
+    }
+
     @When("I create customer with first name and last name")
     public void createCustomerWithoutAddress() throws Exception {
 
@@ -290,9 +303,9 @@ public class CreateNewCustomer extends AppData {
         addData("customerName", fName + " " + lName, generalData);
     }
 
-    public String getCustomerName(String previosCustomerNumber) throws Exception {
+    public String getCustomerName(String previousCustomerNumber) throws Exception {
         header = new Header();
-        header.searchCustomerInOrder(previosCustomerNumber);
+        header.searchCustomerInOrder(previousCustomerNumber);
         dialog = new CustomerViewDialog_Header();
         customerViewDialog_infoTab = new CustomerViewDialog_InfoTab();
         dialog.navigateTo(dialog.infoTabInDialog);

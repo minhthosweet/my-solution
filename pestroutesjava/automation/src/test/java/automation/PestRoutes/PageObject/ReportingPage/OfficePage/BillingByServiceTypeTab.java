@@ -2,11 +2,16 @@ package automation.PestRoutes.PageObject.ReportingPage.OfficePage;
 
 import automation.PestRoutes.Controller.CustomerCreation.CreateNewCustomer;
 import automation.PestRoutes.Controller.Reporting.Office.OfficeObjects;
+import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_Header;
 import automation.PestRoutes.PageObject.Header;
 import automation.PestRoutes.PageObject.ReportingPage.ReportingMainPage;
 import automation.PestRoutes.Utilities.FindElement;
 import automation.PestRoutes.Utilities.Utilities;
-import java.util.*;
+import org.openqa.selenium.WebElement;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class BillingByServiceTypeTab {
 
@@ -14,6 +19,9 @@ public class BillingByServiceTypeTab {
     ReportingMainPage reportingMainPage;
     OfficeObjects officeObjs;
     CreateNewCustomer createNewCustomer;
+    CustomerViewDialog_Header dialog;
+
+    String customerName = getCustomerName_CustomerCard_InfoTab();
 
     public String dateParams = "//input[@name='dateRange-officeParams']";
     public String groupBy = "//select[@name='groupBy']";
@@ -31,99 +39,42 @@ public class BillingByServiceTypeTab {
     public String soldDateRange = "//input[@placeholder='Sold Date Range']";
     public String search_bbst = "//input[@type='search' and @placeholder='Search...']";
     public String refresh_bbst = "//div[text()=' Refresh ']";
+    public String toggleChart = "//div[text() = 'Toggle Chart']";
+    public String billedServices_Report = "//tr[@detailvalues]//span[@class='revenue']";
+    public String billedServices_Customer = "//tr[@onmouseup]//td[13]";
+    public String tax_Report = "//tr[@detailvalues]//td[6]";
+    public String tax_Customer = "//tr[@onmouseup]//td[10]";
 
-    Map<String, String> filter_Types = new HashMap<String, String>();
-    public void filterTypes(){
-        filter_Types.put("invoice_bbst", "//input[@type='text' and @id = 's2id_autogen1']");
-        filter_Types.put("serviceType_bbst", "//input[@type='text' and @id = 's2id_autogen2']");
-        filter_Types.put("customerSource_bbst", "//input[@type='text' and @id = 's2id_autogen3']");
-        filter_Types.put("inclCollections", "//input[@type='text' and @id = 's2id_autogen4']");
-        filter_Types.put("subSource_bbst", "//input[@type='text' and @id = 's2id_autogen5']");
-        filter_Types.put("regions_bbst", "//input[@type='text' and @id = 's2id_autogen6']");
-        filter_Types.put("divisions_bbst", "//input[@type='text' and @id = 's2id_autogen7']");
-        filter_Types.put("offices_bbst", "//input[@type='text' and @id = 's2id_autogen8']");
-        filter_Types.put("includeFlags_bbst", "//input[@type='text' and @id = 's2id_autogen9']");
-        filter_Types.put("excludeFlags_bbst", "//input[@type='text' and @id = 's2id_autogen10']");
-        filter_Types.put("scheduledBy_bbst", "//input[@type='text' and @id = 's2id_autogen11']");
-        filter_Types.put("soldByTeam_bbst", "//input[@type='text' and @id = 's2id_autogen12']");
-        filter_Types.put("soldbySalesRep_bbst", "//input[@type='text' and @id = 's2id_autogen13']");
+    public Map<String, String> filter_Types = new HashMap<String, String>();
+
+    public BillingByServiceTypeTab() throws Exception {
     }
-/*
-    public String invoice_bbst = "//input[@type='text' and @id = 's2id_autogen1']";
-    public String serviceType_bbst = "//input[@type='text' and @id = 's2id_autogen2']";
-    public String customerSource_bbst = "//input[@type='text' and @id = 's2id_autogen3']";
-    public String inclCollections = "//input[@type='text' and @id = 's2id_autogen4']";
-    public String subSource_bbst = "//input[@type='text' and @id = 's2id_autogen5']";
-    public String regions_bbst = "//input[@type='text' and @id = 's2id_autogen6']";
-    public String divisions_bbst = "//input[@type='text' and @id = 's2id_autogen7']";
-    public String offices_bbst = "//input[@type='text' and @id = 's2id_autogen8']";
-    public String includeFlags_bbst = "//input[@type='text' and @id = 's2id_autogen9']";
-    public String excludeFlags_bbst = "//input[@type='text' and @id = 's2id_autogen10']";
-    public String scheduledBy_bbst = "//input[@type='text' and @id = 's2id_autogen11']";
-    public String soldByTeam_bbst = "//input[@type='text' and @id = 's2id_autogen12']";
-    public String soldbySalesRep_bbst = "//input[@type='text' and @id = 's2id_autogen13']";
-*/
-    /*public static String filterType(String type) {
-        String str = "//input[@type='text' and @id = 's2id_autogen']";
 
+    public String filterTypes(String key) {
+        filter_Types.put("invoice_bbst", "//label[text()='Invoice']//following-sibling::div//input");
+        filter_Types.put("serviceType_bbst", "//label[text()='Service Type']//following-sibling::div//input");
+        filter_Types.put("customerSource_bbst", "//label[text()='Cust Source']//following-sibling::div//input");
+        filter_Types.put("inclCollections", "//label[text()='Incl. Collections']//following-sibling::div//input");
+        filter_Types.put("subSource_bbst", "//label[text()='Sub Source']//following-sibling::div//input");
+        filter_Types.put("regions_bbst", "//label[text()='Regions']//following-sibling::div//input");
+        filter_Types.put("divisions_bbst", "//label[text()='Divisions']//following-sibling::div//input");
+        filter_Types.put("offices_bbst", "//label[text()='Offices']//following-sibling::div//input");
+        filter_Types.put("includeFlags_bbst", "//label[text()='Incl. Flags']//following-sibling::div//input");
+        filter_Types.put("excludeFlags_bbst", "//label[text()='Excl. Flags']//following-sibling::div//input");
+        filter_Types.put("scheduledBy_bbst", "//label[text()='Scheduler']//following-sibling::div//input");
+        filter_Types.put("soldByTeam_bbst", "//label[text()='Sale Teams']//following-sibling::div//input");
+        filter_Types.put("soldbySalesRep_bbst", "//label[text()='Sales Rep']//following-sibling::div//input");
+        return filter_Types.get(key);
+    }
 
-        String ch = null;
-        StringBuilder sb = new StringBuilder();
-
-        switch (type) {
-            case "invoice":
-                ch = "1";
-                break;
-            case "serviceType":
-                ch = "2";
-                break;
-            case "customerSource":
-                ch = "3";
-                break;
-            case "inclCollections":
-                ch = "4";
-                break;
-            case "subSource":
-                ch = "5";
-                break;
-            case "regions":
-                ch = "6";
-                break;
-            case "divisions":
-                ch = "7";
-                break;
-            case "offices":
-                ch = "8";
-                break;
-            case "includeFlags":
-                ch = "9";
-                break;
-            case "excludeFlags":
-                ch = "10";
-                break;
-            case "scheduledBy":
-                ch = "11";
-                break;
-            case "soldByTeam":
-                ch = "12";
-                break;
-            case "soldbySalesRep":
-                ch = "13";
-                break;
-            default:
-                throw new IllegalStateException("Unexpected value: " + type);
-        }
-        return str.substring(0, str.length() - 2) + sb.append(ch) + str.substring(str.length() - 2);
-    }*/
-
-    public void mainGroupBy(){
+    public void mainGroupBy(String groupByType) {
         officeObjs = new OfficeObjects();
         Utilities.waitUntileElementIsVisible(groupBy);
-        Utilities.selectValueFromDropDownByValue(groupBy,"Customer Name");
+        Utilities.selectValueFromDropDownByValue(groupBy, groupByType);
         officeObjs.navigateTo(officeObjs.billingByServiceType);
     }
 
-    public void navigateToBillingByServiceTypePage(){
+    public void navigateToBillingByServiceTypePage() {
         header = new Header();
         reportingMainPage = new ReportingMainPage();
         officeObjs = new OfficeObjects();
@@ -132,43 +83,137 @@ public class BillingByServiceTypeTab {
         officeObjs.navigateTo(officeObjs.billingByServiceType);
     }
 
-    public void searchNewCustomer() throws Exception {
+    public void editCustomerPerFilters() throws InterruptedException, IOException {
         createNewCustomer = new CreateNewCustomer();
-        Utilities.waitUntileElementIsVisible(refresh_bbst);
-        Utilities.clickElement(refresh_bbst, Utilities.ElementType.XPath);
-        String customerName = createNewCustomer.getCustomerName("1");
-        createNewCustomer.closeCustomerCard();
+        dialog = new CustomerViewDialog_Header();
+        header = new Header();
+        header.searchCustomerInOrder("1");
+        dialog.navigateTo(dialog.infoTabInDialog);
+        createNewCustomer.addAdditionalProperties();
+    }
+
+    public String getCustomerName_CustomerCard_InfoTab() throws Exception {
+        createNewCustomer = new CreateNewCustomer();
+        dialog = new CustomerViewDialog_Header();
+        customerName = createNewCustomer.getCustomerName("1");
+        dialog.Click_X_Button();
+        return customerName;
+    }
+
+    public String getBilledServiceValue_Report() {
+        return Utilities.getElementTextValue(billedServices_Report, Utilities.ElementType.XPath);
+    }
+
+    public String getBilledTaxValue_Report() {
+        return Utilities.getElementTextValue(tax_Report, Utilities.ElementType.XPath).replace("\n", "");
+    }
+
+    public String getBilledTaxValue_Customer() {
+        return Utilities.getElementTextValue(tax_Customer, Utilities.ElementType.XPath).replace("\n", "");
+    }
+
+    public String getBilledServiceValue_Customer() {
+        return Utilities.getElementTextValue(billedServices_Customer, Utilities.ElementType.XPath).replace("\n", "");
+    }
+
+    public void searchNewCustomer() {
         Utilities.waitUntileElementIsVisible(search_bbst);
         Utilities.clickElement(search_bbst, Utilities.ElementType.XPath);
         FindElement.elementByAttribute(search_bbst, FindElement.InputType.XPath).sendKeys(customerName);
     }
-       /*String invoice = null;
-        String serviceType = null;
-        String customerSource = null;
-        String inclCollections = null;
-        String subSource = null;
-        String regions = null;
-        String divisions = null;*/
 
-     /* if (type == invoice) {
-            ch = "1";
+    public void click(String needButton) {
+        Utilities.clickElement(needButton, Utilities.ElementType.XPath);
+    }
+
+    public void clickAdvancedFilters() {
+        Utilities.clickAdvancedFilters();
+    }
+
+    public void setInvoiceType(String invoiceType) {
+        FindElement.elementByAttribute(filterTypes("invoice_bbst"), FindElement.InputType.XPath).sendKeys(invoiceType);
+        Utilities.clickElement("//span[text()='" + invoiceType + "']", Utilities.ElementType.XPath);
+    }
+
+    public void setServiceType(String serviceTypeName) {
+        FindElement.elementByAttribute(filterTypes("serviceType_bbst"), FindElement.InputType.XPath).sendKeys(serviceTypeName);
+        Utilities.clickElement("//span[text()='" + serviceTypeName + "']", Utilities.ElementType.XPath);
+    }
+
+    public void setCustomerSource(String serviceTypeName) {
+        FindElement.elementByAttribute(filterTypes("customerSource_bbst"), FindElement.InputType.XPath).sendKeys(serviceTypeName);
+        Utilities.clickElement("//span[text()='" + serviceTypeName + "']", Utilities.ElementType.XPath);
+    }
+
+    public void setIncludeCollections(String includeCollections) {
+        FindElement.elementByAttribute(filterTypes("inclCollections"), FindElement.InputType.XPath).sendKeys(includeCollections);
+    }
+
+    public void setSubscriptionSource(String subscriptionSource) {
+        FindElement.elementByAttribute(filterTypes("subSource_bbst"), FindElement.InputType.XPath).sendKeys(subscriptionSource);
+    }
+
+    public void setRegions(String regions) {
+        FindElement.elementByAttribute(filterTypes("regions_bbst"), FindElement.InputType.XPath).sendKeys(regions);
+    }
+
+    public void setDivisions(String divisions) {
+        FindElement.elementByAttribute(filterTypes("divisions_bbst"), FindElement.InputType.XPath).sendKeys(divisions);
+        Utilities.clickElement("//span[text()='" + divisions + "']", Utilities.ElementType.XPath);
+    }
+
+    public void setOffice_bbst(String office) {
+        FindElement.elementByAttribute(filterTypes("offices_bbst"), FindElement.InputType.XPath).sendKeys(office);
+    }
+
+    public void setIncludeFlags(String includeFlags) {
+        FindElement.elementByAttribute(filterTypes("includeFlags_bbst"), FindElement.InputType.XPath).sendKeys(includeFlags);
+        Utilities.clickElement("//span[text()='" + includeFlags + "']", Utilities.ElementType.XPath);
+    }
+
+    public void setExcludeFlags(String excludeFlags) {
+        FindElement.elementByAttribute(filterTypes("excludeFlags_bbst"), FindElement.InputType.XPath).sendKeys(excludeFlags);
+    }
+
+    public void setScheduledBy(String scheduledBy) {
+        FindElement.elementByAttribute(filterTypes("scheduledBy_bbst"), FindElement.InputType.XPath).sendKeys(scheduledBy);
+    }
+
+    public void setSoldBy(String soldBy) {
+        FindElement.elementByAttribute(filterTypes("soldByTeam_bbst"), FindElement.InputType.XPath).sendKeys(soldBy);
+    }
+
+    public void setSoldbySalesRep(String soldbySalesRep) {
+        FindElement.elementByAttribute(filterTypes("soldbySalesRep_bbst"), FindElement.InputType.XPath).sendKeys(soldbySalesRep);
+    }
+
+    public void setSoldDateRange() {
+        Utilities.waitUntileElementIsVisible(soldDateRange);
+        FindElement.elementByAttribute(soldDateRange, FindElement.InputType.XPath).sendKeys(Utilities.currentDate("MM/dd/yyyy") + " - " + Utilities.currentDate("MM/dd/yyyy"));
+    }
+
+    public void clickRefreshButton() {
+        Utilities.waitUntileElementIsVisible(refresh_bbst);
+        Utilities.clickElement(refresh_bbst, Utilities.ElementType.XPath);
+    }
+
+    public void clickDescription_reportDetails() {
+        System.out.println(customerName);
+        Utilities.scrollToElementJS("//tr[@detailvalues]//td[text()='" + customerName + "']");
+        Utilities.clickElement("//tr[@detailvalues]//td[text()='" + customerName + "']", Utilities.ElementType.XPath);
+    }
+
+    public void customerDetails() {
+        String customerName_detailed = "//tr[@onmouseup]//td[text()='"+customerName+"']";
+        try {
+            WebElement elm = FindElement.elementByAttribute(customerName_detailed, FindElement.InputType.XPath);
+            if (elm.isDisplayed()) {
+                Utilities.scrollToElementJS(customerName_detailed);
+                Utilities.clickElement(customerName_detailed, Utilities.ElementType.XPath);
+            }
+        } catch (Exception e) {
+            System.out.println("Customer Card doesn't open");
         }
-        if (type == serviceType) {
-            ch = "2";
-        }
-        if (type == customerSource) {
-            ch = "3";
-        }
-        if (type == inclCollections) {
-            ch = "4";
-        }
-        if (type == subSource) {
-            ch = "5";
-        }
-        if (type == regions) {
-            ch = "6";
-        }
-        if (type == divisions) {
-            ch = "6";
-        }*/
+    }
+
 }

@@ -48,7 +48,6 @@ public class ECA {
         try {
             WebElement elm = FindElement.elementByAttribute(uncheckedECA, FindElement.InputType.XPath);
             if (elm.isDisplayed()) {
-                System.out.println("ECA Disabled");
             }
         } catch (Exception e) {
             Utilities.clickElement(checkBox, Utilities.ElementType.XPath);
