@@ -1,6 +1,7 @@
 mvn test -Dtest=automation.PestRoutes.TestRunner.Regression.AccountReceivableFieldsValidation;
 mvn test -Dtest=automation.PestRoutes.TestRunner.Regression.AfterAgreementSigned;
 mvn test -Dtest=automation.PestRoutes.TestRunner.Regression.AfterInitialCompletion;
+mvn test -Dtest=automation.PestRoutes.TestRunner.Regression.BillingByServiceType;
 mvn test -Dtest=automation.PestRoutes.TestRunner.Regression.CreateCustomer;
 mvn test -Dtest=automation.PestRoutes.TestRunner.Regression.CustomDate;
 mvn test -Dtest=automation.PestRoutes.TestRunner.Regression.CustomRoute;

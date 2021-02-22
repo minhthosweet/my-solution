@@ -1,6 +1,6 @@
 #Author: Aditya
 @Regression
-@FieldsValidationInBillingByServiceType
+@BillingByServiceTypeReport
 Feature: Validate if all fields present and are enabled
 
   Scenario: Fields validation
