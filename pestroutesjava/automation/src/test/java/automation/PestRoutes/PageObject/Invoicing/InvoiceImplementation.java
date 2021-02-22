@@ -52,12 +52,12 @@ public class InvoiceImplementation {
     //Account Summary Objects
     public String accountBalance = "//div[@id='billingPanel']//div[@id='SubStatus']";
     public String printInvoiceAmountDue = "//th[text()='Amount Due']//following-sibling::td[1]";
-    public String printInvoiceAmountDue1= "//table[@class='balance right half']//tr//span[2]";
+    public String printInvoiceAmountDue1= "//span[text()='Sub Total']/parent::th/following-sibling::td/span[2]";
 
     //Initial Invoice Objects
     public String paymentsBalance = "//div[text()='Balance']/following-sibling::div";
     public String printInvoicePaymentBalance = "//th[text()='Amount Paid']//following-sibling::td[1]";
-    public String printInvoicePaymentBalance1= "//table[@class='balance right half']//following-sibling::tr[2]//following-sibling::span[@class='field']";
+    public String printInvoicePaymentBalance1= "//span[text()='Amount Paid']/parent::th/following-sibling::td/span[@class='field']";
 
     // Charges Objects
     public String serviceCostBeforeTax  = "//div[not(@ticketid='0')and@subscriptionid='0']//div[@serviceid]/input";
