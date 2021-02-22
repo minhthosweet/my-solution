@@ -4,6 +4,7 @@ import automation.PestRoutes.Utilities.FindElement;
 import automation.PestRoutes.Utilities.FindElement.InputType;
 import automation.PestRoutes.Utilities.Utilities;
 import automation.PestRoutes.Utilities.Utilities.ElementType;
+import org.openqa.selenium.WebElement;
 
 public class InvoiceImplementation {
 
@@ -50,11 +51,13 @@ public class InvoiceImplementation {
 
     //Account Summary Objects
     public String accountBalance = "//div[@id='billingPanel']//div[@id='SubStatus']";
-    public String printInvoiceAmounDue = "//th[text()='Amount Due']//following-sibling::td[1]";
+    public String printInvoiceAmountDue = "//th[text()='Amount Due']//following-sibling::td[1]";
+    public String printInvoiceAmountDue1= "//table[@class='balance right half']//tr//span[2]";
 
     //Initial Invoice Objects
     public String paymentsBalance = "//div[text()='Balance']/following-sibling::div";
     public String printInvoicePaymentBalance = "//th[text()='Amount Paid']//following-sibling::td[1]";
+    public String printInvoicePaymentBalance1= "//table[@class='balance right half']//following-sibling::tr[2]//following-sibling::span[@class='field']";
 
     // Charges Objects
     public String serviceCostBeforeTax  = "//div[not(@ticketid='0')and@subscriptionid='0']//div[@serviceid]/input";
@@ -84,70 +87,13 @@ public class InvoiceImplementation {
     public String markLetterSentButton = "//div[@id='markPrintButton']";
     public String printInvoiceDate = "//div[@class='invoice-summary']//following-sibling::tr[6]";
     public String printInvoiceMainAmounDue = "//table[@class='invoice-amount']//following-sibling::tr[3]";
+    public String printInvoiceMainAmounDue1= "//table[@class='balance right half']//following-sibling::tr[3]//following-sibling::span[1]";
 
-    // Getter Methods
-
-    public int getInvoiceCost() {
-        Utilities.waitUntileElementIsVisible(invoiceCost);
-        return Utilities.removeSpecialChars(invoiceCost);
-    }
-
-    public Integer getTotalValueCharges() {
-        Utilities.waitUntileElementIsVisible(totalValueCharges);
-        return Utilities.removeSpecialChars(totalValueCharges);
-    }
-
-    public Integer getTotalValuePayments() {
-        Utilities.waitUntileElementIsVisible(chargesTotalValue);
-        return Utilities.removeSpecialChars(chargesTotalValue);
-    }
-
-    public String getInvoiceDate_accountStatementReport(String needServiceType){
-        Utilities.waitUntileElementIsVisible("//td[contains(text(),'"+needServiceType+"')]/following-sibling::td[text()][2]");
-        return Utilities.getElementTextValue("//td[contains(text(),'"+needServiceType+"')]/following-sibling::td[text()][2]", ElementType.XPath);
-    }
-
-    public String getInvoiceAmount_accountStatementReport(String needServiceType){
-        Utilities.waitUntileElementIsVisible("//td[contains(text(),'"+needServiceType+"')]/following-sibling::td[text()][4]");
-        return Utilities.getElementTextValue("//td[contains(text(),'"+needServiceType+"')]/following-sibling::td[text()][4]", ElementType.XPath);
-    }
-
-    public String getInvoiceBalance_accountStatementReport(String needServiceType){
-        Utilities.waitUntileElementIsVisible("//td[contains(text(),'"+needServiceType+"')]/following-sibling::td[text()][5]");
-        return Utilities.getElementTextValue("//td[contains(text(),'"+needServiceType+"')]/following-sibling::td[text()][5]", ElementType.XPath);
-    }
-
-    public String getBalance(String balanceType){
-        Utilities.waitUntileElementIsVisible("//td[contains(text(),'"+balanceType+"')]/following-sibling::td[text()]");
-        return Utilities.getElementTextValue("//td[contains(text(),'"+balanceType+"')]/following-sibling::td[text()]", ElementType.XPath);
-    }
-
-    public String getResponsibleBalance(String balanceType){
-        Utilities.waitUntileElementIsVisible("//td[contains(text(),'"+balanceType+"')]/following-sibling::td[text()]/following-sibling::td");
-        return Utilities.getElementTextValue("//td[contains(text(),'"+balanceType+"')]/following-sibling::td[text()]/following-sibling::td", ElementType.XPath);
-    }
     public String checkPaymentStatus() {
         Utilities.waitUntileElementIsVisible(initialPaymentStatus);
         return Utilities.getElementTextValue(initialPaymentStatus, ElementType.XPath);
 
     }
-
-    public String getSuccessfulChargeAmount() {
-        String successfulChargeText = Utilities.getElementTextValue(successfulCharge, ElementType.XPath)
-                + Utilities.getElementTextValue(successfulChargeAmount, ElementType.XPath);
-        System.out.println("Charge is successful " + successfulChargeText);
-        return successfulChargeText;
-    }
-
-    public int getPaymentBalance() {
-        return Utilities.removeSpecialChars(paymentBalance);
-    }
-
-    public String getPaymentWarning() {
-        return Utilities.getElementTextValue(paymentWarning, ElementType.XPath);
-    }
-
-    // Setter
 
     public void newInvoiceDetails(String amount, String date) {
         Utilities.waitUntileElementIsVisible(createNewInvoice_date);
@@ -173,11 +119,6 @@ public class InvoiceImplementation {
         Utilities.waitUntileElementIsVisible(custPaymentNotes);
         FindElement.elementByAttribute(custPaymentNotes, InputType.XPath).sendKeys("This is just a test");
 
-    }
-
-    public void setLimitedToSubscription(String needServiceName) {
-        Utilities.clickElement(limitedToSubscription, ElementType.XPath);
-        Utilities.clickElement("//label[contains (text(), '" + needServiceName + " Subscription Invoices')]", ElementType.XPath);
     }
 
     public void clickrecordPayment() {
@@ -248,16 +189,66 @@ public class InvoiceImplementation {
         Utilities.hoverElement(statementActionButton, statementPrintButton);
     }
 
-    public void setAdditionalNotes(String needNotes){
-        Utilities.scrollToElementJS(additionalNotes);
-        Utilities.waitUntileElementIsVisible(additionalNotes);
-        Utilities.clickElement(additionalNotes, ElementType.XPath);
-        FindElement.elementByAttribute(additionalNotes, InputType.XPath).sendKeys(needNotes);
-    }
-
     public void markLetterAsSent(){
         Utilities.waitUntileElementIsVisible(markLetterSentButton);
         Utilities.clickElement(markLetterSentButton, ElementType.XPath);
+    }
+
+    // Getters
+
+    public int getInvoiceCost() {
+        Utilities.waitUntileElementIsVisible(invoiceCost);
+        return Utilities.removeSpecialChars(invoiceCost);
+    }
+
+    public Integer getTotalValueCharges() {
+        Utilities.waitUntileElementIsVisible(totalValueCharges);
+        return Utilities.removeSpecialChars(totalValueCharges);
+    }
+
+    public Integer getTotalValuePayments() {
+        Utilities.waitUntileElementIsVisible(chargesTotalValue);
+        return Utilities.removeSpecialChars(chargesTotalValue);
+    }
+
+    public String getInvoiceDate_accountStatementReport(String needServiceType){
+        Utilities.waitUntileElementIsVisible("//td[contains(text(),'"+needServiceType+"')]/following-sibling::td[text()][2]");
+        return Utilities.getElementTextValue("//td[contains(text(),'"+needServiceType+"')]/following-sibling::td[text()][2]", ElementType.XPath);
+    }
+
+    public String getInvoiceAmount_accountStatementReport(String needServiceType){
+        Utilities.waitUntileElementIsVisible("//td[contains(text(),'"+needServiceType+"')]/following-sibling::td[text()][4]");
+        return Utilities.getElementTextValue("//td[contains(text(),'"+needServiceType+"')]/following-sibling::td[text()][4]", ElementType.XPath);
+    }
+
+    public String getInvoiceBalance_accountStatementReport(String needServiceType){
+        Utilities.waitUntileElementIsVisible("//td[contains(text(),'"+needServiceType+"')]/following-sibling::td[text()][5]");
+        return Utilities.getElementTextValue("//td[contains(text(),'"+needServiceType+"')]/following-sibling::td[text()][5]", ElementType.XPath);
+    }
+
+    public String getBalance(String balanceType){
+        Utilities.waitUntileElementIsVisible("//td[contains(text(),'"+balanceType+"')]/following-sibling::td[text()]");
+        return Utilities.getElementTextValue("//td[contains(text(),'"+balanceType+"')]/following-sibling::td[text()]", ElementType.XPath);
+    }
+
+    public String getResponsibleBalance(String balanceType){
+        Utilities.waitUntileElementIsVisible("//td[contains(text(),'"+balanceType+"')]/following-sibling::td[text()]/following-sibling::td");
+        return Utilities.getElementTextValue("//td[contains(text(),'"+balanceType+"')]/following-sibling::td[text()]/following-sibling::td", ElementType.XPath);
+    }
+
+    public String getSuccessfulChargeAmount() {
+        String successfulChargeText = Utilities.getElementTextValue(successfulCharge, ElementType.XPath)
+                + Utilities.getElementTextValue(successfulChargeAmount, ElementType.XPath);
+        System.out.println("Charge is successful " + successfulChargeText);
+        return successfulChargeText;
+    }
+
+    public int getPaymentBalance() {
+        return Utilities.removeSpecialChars(paymentBalance);
+    }
+
+    public String getPaymentWarning() {
+        return Utilities.getElementTextValue(paymentWarning, ElementType.XPath);
     }
 
     public String getAccountBalance(){
@@ -266,8 +257,13 @@ public class InvoiceImplementation {
     }
 
     public String getAccountTotalAmountDue(){
-        Utilities.waitUntileElementIsVisible(printInvoiceAmounDue);
-        return Utilities.getElementTextValue(printInvoiceAmounDue, ElementType.XPath);
+        try {
+            Utilities.waitUntileElementIsVisible(printInvoiceAmountDue);
+            return Utilities.getElementTextValue(printInvoiceAmountDue, ElementType.XPath);
+        } catch (Exception e) {
+            Utilities.waitUntileElementIsVisible(printInvoiceAmountDue1);
+            return Utilities.getElementTextValue(printInvoiceAmountDue1, ElementType.XPath);
+        }
     }
 
     public String getChargesBalance(){
@@ -275,9 +271,14 @@ public class InvoiceImplementation {
         return Utilities.getElementTextValue(chargesTotalValue, ElementType.XPath);
     }
 
-    public String getPrintInvoiceMainAmounDue() {
-        Utilities.waitUntileElementIsVisible(printInvoiceDate);
-        return Utilities.getElementTextValue(printInvoiceMainAmounDue, ElementType.XPath);
+    public String getPrintInvoiceMainAmountDue() {
+        try {
+            Utilities.waitUntileElementIsVisible(printInvoiceDate);
+            return Utilities.getElementTextValue(printInvoiceMainAmounDue, ElementType.XPath);
+        } catch(Exception e){
+            Utilities.waitUntileElementIsVisible(printInvoiceMainAmounDue1);
+            return Utilities.getElementTextValue(printInvoiceMainAmounDue1, ElementType.XPath);
+        }
     }
 
     public String getChargesBalance_customSchedule(String initialAmountWithoutTax){
@@ -291,8 +292,13 @@ public class InvoiceImplementation {
     }
 
     public String getPrintInvoicePaymentBalance() {
-        Utilities.waitUntileElementIsVisible(printInvoicePaymentBalance);
-        return Utilities.getElementTextValue(printInvoicePaymentBalance, ElementType.XPath);
+        try {
+            Utilities.waitUntileElementIsVisible(printInvoicePaymentBalance);
+            return Utilities.getElementTextValue(printInvoicePaymentBalance, ElementType.XPath);
+        } catch (Exception e) {
+            Utilities.waitUntileElementIsVisible(printInvoicePaymentBalance1);
+            return Utilities.getElementTextValue(printInvoicePaymentBalance1, ElementType.XPath);
+        }
     }
 
     public String getServiceCostBeforeTax(){
@@ -332,6 +338,26 @@ public class InvoiceImplementation {
     public String getAppointmentDate(){
         Utilities.waitUntileElementIsVisible(invoiceDate);
         return Utilities.getElementTextValue(appointmentDate, ElementType.XPath);
+    }
+
+    // Setters
+
+    public void setAdditionalNotes(String needNotes){
+        try {
+            WebElement elm = FindElement.elementByAttribute(additionalNotes, InputType.XPath);
+            Utilities.scrollToElementJS(additionalNotes);
+            Utilities.waitUntileElementIsVisible(additionalNotes);
+            Utilities.clickElement(additionalNotes, ElementType.XPath);
+            FindElement.elementByAttribute(additionalNotes, InputType.XPath).sendKeys(needNotes);
+        } catch (Exception e) {
+            Utilities.scrollToElementJS(printInvoicePaymentBalance1);
+            System.out.println("Unable to find additional notes section");
+        }
+    }
+
+    public void setLimitedToSubscription(String needServiceName) {
+        Utilities.clickElement(limitedToSubscription, ElementType.XPath);
+        Utilities.clickElement("//label[contains (text(), '" + needServiceName + " Subscription Invoices')]", ElementType.XPath);
     }
 
 }
