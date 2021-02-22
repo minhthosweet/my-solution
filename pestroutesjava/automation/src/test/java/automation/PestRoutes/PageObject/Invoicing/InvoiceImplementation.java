@@ -89,6 +89,7 @@ public class InvoiceImplementation {
     public String printInvoiceMainAmounDue = "//table[@class='invoice-amount']//following-sibling::tr[3]";
     public String printInvoiceMainAmounDue1= "//table[@class='balance right half']//following-sibling::tr[3]//following-sibling::span[1]";
 
+
     public String checkPaymentStatus() {
         Utilities.waitUntileElementIsVisible(initialPaymentStatus);
         return Utilities.getElementTextValue(initialPaymentStatus, ElementType.XPath);
