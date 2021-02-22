@@ -290,7 +290,7 @@ public class InvoicingTab extends AppData {
                 "Initial Invoice Validation");
         result(invoiceValue, invImplementation.getAccountTotalAmountDue(), "Total Invoice Value",
                 "Total Invoice Validation");
-        result(invoiceCharges, invImplementation.getPrintInvoiceMainAmounDue(), "Total Invoice Value",
+        result(invoiceCharges, invImplementation.getPrintInvoiceMainAmountDue(), "Total Invoice Value",
                 "Initial Invoice Validation");
 
 
