@@ -15,3 +15,6 @@ Feature: TriggerRenewal_AfterExpirationDate
     When I run the trigger renewal script
     Then I assert the renewal trigger rules log
     And I validate if there are errors exist in the list
+
+  Scenario: Close browser
+    And I quit driver

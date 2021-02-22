@@ -363,7 +363,7 @@ public class CreateTrigger_SubscriptionDueForService extends AppData {
         overviewHeader.navigateTo(overviewHeader.notesTabInDialog);
         result(taskTextinNotes, reminder.getTaskValue(), "Task Notification Affirmative",
                 "Subscription Due For Service Creation");
-        footer.NavigateTo(footer.tasks);
+        header.navigateTo(footer.tasks);
         result(getData("customerName", generalData), reminder.customerNameinTask(getData("customerName", generalData)),
                 "Task Notification Affirmative", "Subscription Due For Service Creation");
     }

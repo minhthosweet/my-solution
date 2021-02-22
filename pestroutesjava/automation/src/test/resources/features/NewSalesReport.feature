@@ -23,6 +23,6 @@ Feature: New sales report
      And I validate sales report totals
      Then I deactivate the existing user
      And I validate if there are errors exist in the list
-     
+
    Scenario: Close browser
       And I quit driver

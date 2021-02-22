@@ -192,6 +192,7 @@ public class InvoiceImplementation {
         Utilities.waitUntileElementIsVisible(invoiceDate);
         return Utilities.getElementTextValue(subTotalValue, ElementType.XPath);
     }
+
     public String getTaxValue(){
         Utilities.waitUntileElementIsVisible(invoiceDate);
         return Utilities.getElementTextValue(taxValue, ElementType.XPath);

@@ -19,3 +19,6 @@ Feature: GLAccount creation, adding to service type and subscription and validat
     Examples:
       | description   |
       | testGLAccount |
+
+  Scenario: Close browser
+    And I quit driver

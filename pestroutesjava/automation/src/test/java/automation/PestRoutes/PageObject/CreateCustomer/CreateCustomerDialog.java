@@ -58,6 +58,10 @@ public class CreateCustomerDialog {
     public String clickSave = "//button[@id='globalCustomerSaveButton']//span[text()='Save']";
     public String clickAddFlag = "//span[text()='Add Flag']";
 
+    // Property Types
+    public String residentialProperty = "Residential Property";
+    public String commercialProperty = "Commercial Property";
+
     // Constructors
     CustomerViewDialog_Admin customerAdmin;
 
@@ -80,7 +84,7 @@ public class CreateCustomerDialog {
     }
 
     public void selectGenericFlag(String needFlag) {
-        Utilities.selectValueFromDropDownByValue(genericFlagsDropDown, needFlag);
+        FindElement.elementByAttribute(genericFlagsDropDown, InputType.XPath).sendKeys(needFlag);
     }
 
     public void selectState(String needState) {
