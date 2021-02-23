@@ -57,7 +57,7 @@ public class InvoiceImplementation {
     //Initial Invoice Objects
     public String paymentsBalance = "//div[text()='Balance']/following-sibling::div";
     public String printInvoicePaymentBalance = "//th[text()='Amount Paid']//following-sibling::td[1]";
-    public String printInvoicePaymentBalance1= "//span[text()='Amount Paid']/parent::th/following-sibling::td/span[@class='field']";
+    public String printInvoicePaymentBalance1= "//span[text()='Amount Paid']/parent::th/following-sibling::td/span[2]";
 
     // Charges Objects
     public String serviceCostBeforeTax  = "//div[not(@ticketid='0')and@subscriptionid='0']//div[@serviceid]/input";
@@ -77,17 +77,17 @@ public class InvoiceImplementation {
     public String refreshButton = "//div[text()='Refresh']";
     public String scrollLeftButton = "//div[@id='accountStatementReportScrollButtons']//div[contains(@class,'scrollLeft')]//i";
     public String scrollRightButton = "//div[@id='accountStatementReportScrollButtons']//div[contains(@class,'scrollRight')]//i";
-    public String invoiceActionButton = "//div[@class='toggleActions right tableButton']";
+    public String invoiceActionButton = "//div[@id='billingPanel']//div[@class='toggleActions right tableButton']";
     public String invoicePrintButton = "//div[@id='printInvoiceButton']";
     public String statementActionButton = "//div[@id='conditionsActionsBtn']";
     public String statementPrintButton = "//div[text()='Print']";
 
     //Print Invoice Objects
-    public String additionalNotes ="//div[@class='additional-notes']//following-sibling::div[@class='field']/textarea";
+    public String additionalNotes ="//div[contains(@id,'additionalNotes')]//following-sibling::textarea";
     public String markLetterSentButton = "//div[@id='markPrintButton']";
-    public String printInvoiceDate = "//div[@class='invoice-summary']//following-sibling::tr[6]";
-    public String printInvoiceMainAmounDue = "//table[@class='invoice-amount']//following-sibling::tr[3]";
-    public String printInvoiceMainAmounDue1= "//table[@class='balance right half']//following-sibling::tr[3]//following-sibling::span[1]";
+    public String printInvoiceDate = "//div[contains(@id,'checkLen')]//following-sibling::div//tr[6]/td";
+    public String printInvoiceMainAmounDue = "//th[text()='Amount Due']//following-sibling::td";
+    public String printInvoiceMainAmounDue1= "//span[text()='Amount Due:']/ancestor::tr/td/span[2]";
 
 
     public String checkPaymentStatus() {
