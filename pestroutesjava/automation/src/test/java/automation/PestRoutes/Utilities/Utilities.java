@@ -282,9 +282,12 @@ public class Utilities {
 	}
 
 	public static void clickElement(String needAttribute, ElementType Attribute_Type) {
-		scrollToElement(needAttribute);
-		clickElement(needAttribute, Attribute_Type, false, false);
-	}
+			WebElement elm = FindElement.elementByAttribute(needAttribute, FindElement.InputType.XPath);
+			if (elm.isDisplayed()) {
+				scrollToElement(needAttribute);
+				clickElement(needAttribute, Attribute_Type, false, false);
+			}
+		}
 
 	public static void clickElement(String needAttribute, ElementType Attribute_Type, Boolean simple, Boolean order) {
 		if (simple) {
