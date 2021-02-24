@@ -4,7 +4,6 @@ Feature: Customer Status
   @CreateInitialInvoiceAfterAgreementSigned
   Scenario: Create Initial Invoice of type After Agreement Signed
     Given I sign in to pestroutes domain
-    Given I delete a routing group
     Given I have disabled ECA
     When I create customer with first name, last name, email and address
     Then I validate if customer name and address match in overview tab
@@ -14,6 +13,12 @@ Feature: Customer Status
     And I validate the if agreement is created
     And I search customer
     And I validate initial invoice created on invoice tab
+    Then I generate Account Statement Report of report type "Account Transactions" for "Yesterday"
+    And I validate the Beginning balance and Ending balance for a day before the invoice was created
+    And Validating beginning balance for invoice created "Today" of report type "Account Transactions"
+    And Validating ending balance for invoice created "Today" of report type "Account Transactions"
+    And Validating invoice balance for invoice created "Today" of report type "Account Transactions"
+    And I print report and validate totals and enter notes "Automation Testing"
     And I validate if there are errors exist in the list
 
   Scenario: Close browser
