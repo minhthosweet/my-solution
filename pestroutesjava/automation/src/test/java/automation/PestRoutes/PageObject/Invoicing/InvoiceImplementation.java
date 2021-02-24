@@ -89,6 +89,7 @@ public class InvoiceImplementation {
     public String printInvoiceMainAmounDue = "//th[text()='Amount Due']//following-sibling::td";
     public String printInvoiceMainAmounDue1= "//span[text()='Amount Due:']/ancestor::tr/td/span[2]";
 
+
     public String checkPaymentStatus() {
         Utilities.waitUntileElementIsVisible(initialPaymentStatus);
         return Utilities.getElementTextValue(initialPaymentStatus, ElementType.XPath);
