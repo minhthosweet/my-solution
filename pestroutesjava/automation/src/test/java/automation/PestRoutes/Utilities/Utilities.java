@@ -282,9 +282,17 @@ public class Utilities {
 	}
 
 	public static void clickElement(String needAttribute, ElementType Attribute_Type) {
-		scrollToElement(needAttribute);
-		clickElement(needAttribute, Attribute_Type, false, false);
-	}
+			WebElement elm = FindElement.elementByAttribute(needAttribute, FindElement.InputType.XPath);
+			try {
+				if (elm.isDisplayed()) {
+					scrollToElement(needAttribute);
+					clickElement(needAttribute, Attribute_Type, false, false);
+				}
+			}
+			catch(Exception e){
+				System.out.println("Locator not visible");
+				}
+		}
 
 	public static void clickElement(String needAttribute, ElementType Attribute_Type, Boolean simple, Boolean order) {
 		if (simple) {

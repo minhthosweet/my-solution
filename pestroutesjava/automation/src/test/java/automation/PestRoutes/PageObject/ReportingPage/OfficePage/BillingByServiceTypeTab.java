@@ -44,6 +44,9 @@ public class BillingByServiceTypeTab {
     public String billedServices_Customer = "//tr[@onmouseup]//td[13]";
     public String tax_Report = "//tr[@detailvalues]//td[6]";
     public String tax_Customer = "//tr[@onmouseup]//td[10]";
+    public String exportDetailsToCSV_button = "//div[@id='serviceTypeDetail']//div[text()='Export details to CSV']";
+    public String search_lineItem = "//div[@id='serviceTypeDetail']//input[@placeholder='Search...']";
+    public String pageNumber_lineItem = "//span[text()='Page ']//input[@type='text']";
 
     public Map<String, String> filter_Types = new HashMap<String, String>();
 
@@ -51,6 +54,8 @@ public class BillingByServiceTypeTab {
     }
 
     public String filterTypes(String key) {
+
+        // filter fields
         filter_Types.put("invoice_bbst", "//label[text()='Invoice']//following-sibling::div//input");
         filter_Types.put("serviceType_bbst", "//label[text()='Service Type']//following-sibling::div//input");
         filter_Types.put("customerSource_bbst", "//label[text()='Cust Source']//following-sibling::div//input");
@@ -64,6 +69,38 @@ public class BillingByServiceTypeTab {
         filter_Types.put("scheduledBy_bbst", "//label[text()='Scheduler']//following-sibling::div//input");
         filter_Types.put("soldByTeam_bbst", "//label[text()='Sale Teams']//following-sibling::div//input");
         filter_Types.put("soldbySalesRep_bbst", "//label[text()='Sales Rep']//following-sibling::div//input");
+
+        // bbst report fields
+        filter_Types.put("description_bbstReport", "//table[@id='revenueByServiceType']//div[text()='Description']");
+        filter_Types.put("services_bbstReport", "//table[@id='revenueByServiceType']//div[text()='Services']");
+        filter_Types.put("lineItemQuantity_bbstReport", "//table[@id='revenueByServiceType']//div[text()='Line Item Quantity']");
+        filter_Types.put("totalCollected_bbstReport", "//table[@id='revenueByServiceType']//div[text()='Total Collected']");
+        filter_Types.put("taxCollected_bbstReport", "//table[@id='revenueByServiceType']//div[text()='Tax Collected']");
+        filter_Types.put("taxInvoiced_bbstReport", "//table[@id='revenueByServiceType']//div[text()='Tax Invoiced']");
+        filter_Types.put("paymentsCollected_bbstReport", "//table[@id='revenueByServiceType']//div[text()='Payments Collected']");
+        filter_Types.put("billedServices_bbstReport", "//table[@id='revenueByServiceType']//div[text()='Billed Services']");
+
+        // individual line item fields
+        filter_Types.put("customerID_lineItem", "//th[@data-orderby='customerID']");
+        filter_Types.put("customerName_lineItem", "//th[@data-orderby='customerName']");
+        filter_Types.put("invoiceID_lineItem", "//th[@data-orderby='ticketID']");
+        filter_Types.put("date_lineItem", "//th[@data-orderby='ticketDate']");
+        filter_Types.put("serviceDescription_lineItem", "//th[@data-orderby='serviceDescription']");
+        filter_Types.put("billingFrequency_lineItem", "//th[@data-orderby='billingFrequency']");
+        filter_Types.put("itemsQuantity_lineItem", "//th[@data-orderby='itemsQuantity']");
+        filter_Types.put("totalCollected_lineItem", "//th[@data-orderby='totalCollected']");
+        filter_Types.put("taxCollected_lineItem", "//th[@data-orderby='taxCollected']");
+        filter_Types.put("tax_lineItem", "//th[@data-orderby='tax']");
+        filter_Types.put("appliedPaymentsBeforeTax_lineItem", "//th[@data-orderby='revenueCollected']");
+        filter_Types.put("dateCollected_lineItem", "//th[@data-orderby='dateCollected']");
+        filter_Types.put("billedServices_lineItem", "//th[@data-orderby='revenue']");
+
+        // Line Item navigation buttons
+        filter_Types.put("first_page", "//div[@id='serviceTypeDetail']//span[text()='First']");
+        filter_Types.put("previous_page", "//div[@id='serviceTypeDetail']//span[text()='Previous']");
+        filter_Types.put("next_page", "//div[@id='serviceTypeDetail']//span[text()='Next']");
+        filter_Types.put("last_page", "//div[@id='serviceTypeDetail']//span[text()='Last']");
+
         return filter_Types.get(key);
     }
 
@@ -118,7 +155,6 @@ public class BillingByServiceTypeTab {
 
     public void searchNewCustomer() {
         Utilities.waitUntileElementIsVisible(search_bbst);
-        Utilities.clickElement(search_bbst, Utilities.ElementType.XPath);
         FindElement.elementByAttribute(search_bbst, FindElement.InputType.XPath).sendKeys(customerName);
     }
 
@@ -198,13 +234,12 @@ public class BillingByServiceTypeTab {
     }
 
     public void clickDescription_reportDetails() {
-        System.out.println(customerName);
         Utilities.scrollToElementJS("//tr[@detailvalues]//td[text()='" + customerName + "']");
         Utilities.clickElement("//tr[@detailvalues]//td[text()='" + customerName + "']", Utilities.ElementType.XPath);
     }
 
     public void customerDetails() {
-        String customerName_detailed = "//tr[@onmouseup]//td[text()='"+customerName+"']";
+        String customerName_detailed = "//tr[@onmouseup]//td[text()='" + customerName + "']";
         try {
             WebElement elm = FindElement.elementByAttribute(customerName_detailed, FindElement.InputType.XPath);
             if (elm.isDisplayed()) {
