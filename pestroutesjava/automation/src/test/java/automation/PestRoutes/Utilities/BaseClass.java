@@ -30,7 +30,6 @@ public class BaseClass {
 
     @AfterClass
     public void afterTest() {
-
         Reporter.flushReport();
         driver.close();
     }
