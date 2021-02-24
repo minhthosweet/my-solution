@@ -29,14 +29,14 @@ public class BaseClass {
     }
 
     @AfterClass
-    public void afterTest() throws IOException {
+    public void afterTest() {
 
         Reporter.flushReport();
         driver.close();
     }
 
     @AfterTest
-    public void captureFailedScreenshot(Scenario scenario) throws IOException {
+    public void captureFailedScreenshot(Scenario scenario) {
         if (scenario.isFailed()) {
             final byte[] screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
             scenario.attach(screenshot,"image/png","scrrr");
