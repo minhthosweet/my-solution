@@ -8,6 +8,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
+import io.cucumber.java.After;
+import io.cucumber.java.Scenario;
 import io.cucumber.java.en.And;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -338,6 +340,16 @@ public class Utilities {
 	}
 
 	public static void navigateToUrl(String needURL) { driver.get(needURL);
+	}
+
+	@After
+	public static void screenshotFail(Scenario scenario){
+		driver = GetWebDriver.getInstance();
+		if (scenario.isFailed()) {
+			byte[] screenshot = (byte[])((TakesScreenshot)driver).getScreenshotAs(OutputType.BYTES);
+			scenario.attach(screenshot, "image/png", "scrrr");
+		}
+		driver.close();
 	}
 
 	@And("I quit driver")

@@ -1,5 +1,4 @@
 #Author: Aditya
-@Regression
 @BillingByServiceTypeReport
 Feature: Validate if all fields present and are enabled
 
