@@ -1,5 +1,6 @@
 package automation.PestRoutes.Controller.Billings;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_Admin;
+import automation.PestRoutes.PageObject.CustomerOverview.BillingPage;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_Header;
 import automation.PestRoutes.Controller.CustomerCreation.CreateNewCustomer;
 import automation.PestRoutes.PageObject.Billing.BillingModule.AccountReceivablePage;
@@ -19,6 +20,7 @@ import java.util.List;
 
 public class AccountReceivable extends BaseClass {
     BillingModule billingModule;
+    BillingPage customerCardBillingTab;
     AccountReceivablePage accountReceivable = new AccountReceivablePage();
     Header header = new Header();
     SignIn signin;
@@ -86,7 +88,36 @@ public class AccountReceivable extends BaseClass {
 
         }
 
+    }
+    @Then("I validate auto pay customer display")
+    public void validateAutoPayCustomer() throws Exception {
+        customer = new CreateNewCustomer();
+        customerCardBillingTab = new BillingPage();
+        customerCardHeader = new CustomerViewDialog_Header();
+        String customerName = customer.getCustomerName("1");
+        customerCardHeader.navigateTo(customerCardHeader.billingTabInDialog);
+        customerCardBillingTab.clickElement(customerCardBillingTab.addPaymentMethodButton);
+        customerCardBillingTab.clickElement(customerCardBillingTab.addCreditCardButton);
+        String[] iFrame = {customerCardBillingTab.iFrameCc, customerCardBillingTab.iFrameExp, customerCardBillingTab.iFrameCvv};
+        String[] fields = {customerCardBillingTab.ccCardNumberInputField, customerCardBillingTab.ccExpirationInputField, customerCardBillingTab.ccCvvInputField};
+        String[] input = {"4111111111111111", "0222", "123"};
+        for (int i = 0; i < iFrame.length; i++){
+            Utilities.switchToIframeByXpath(iFrame[i]);
+            customerCardBillingTab.setInputField(fields[i], input[i]);
+            Utilities.switchBackToDom();
+        }
 
+        customerCardBillingTab.clickElement(customerCardBillingTab.savePaymentMethodButton);
+        customerCardBillingTab.clickElement(customerCardBillingTab.billingInfoButton);
+        Utilities.selectValueFromDropDownByIndex(customerCardBillingTab.autoPayDropdown, 1);
+        customerCardBillingTab.clickElement(customerCardBillingTab.saveBillingInfoButton);
+        customer.closeCustomerCard();
+        accountReceivable.select(accountReceivable.autoPayDropdown, "CC Auto Pay");
+        accountReceivable.click(accountReceivable.refreshButton);
+        accountReceivable.insert(accountReceivable.searchInputField, customerName);
+        String expectedName = customerName;
+        String actualNameWithStatus = accountReceivable.getValueFromTable("2");
+        result(expectedName, actualNameWithStatus, " Validate customer name", "Validate Account receivable");
 
     }
 

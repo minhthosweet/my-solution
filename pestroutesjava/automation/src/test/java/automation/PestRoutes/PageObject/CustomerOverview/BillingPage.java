@@ -11,10 +11,14 @@ public class BillingPage {
 	
 	//**********Left navigation objects**********
 	public String billingInfoButton = "//li[text()='Billing Info']";
+	public String addPaymentMethodButton = "//li[text()='+ Add Payment Method']";
 	public String creditCardButton = "//li[text()='Credit Card ']";
 	public String bankAccountButton = "//li[text()='Bank Account ']";
 	
 	//**********Billing information objects**********
+	//Billing info dropdown
+	public String autoPayDropdown = "//div[@id='billingSwitches']//select[@name='autoPayPaymentProfileID']";
+
 	//***Check Boxes***
 	public String additionalContactSmsCheckBox = "//div[@class='row no-gutters']//input[@name='additional-smsReminders']";
 	public String additionalContactEmailCheckBox = "//div[@class='row no-gutters']//input[@name='additional-emailReminders']";
@@ -40,7 +44,7 @@ public class BillingPage {
 	public String billingEmailInputField = "//input[@placeholder='Billing Email']";
 	public String billingCompanyNameInputField = "//input[@placeholder='Billing Company Name']";
 	public String paymentHoldDateInputField = "//input[@name='paymentHoldDate']";
-	public String maxMonthChargeInputFIeld = "//input[@name='maxMonthlyCharge']";
+	public String maxMonthChargeInputFIeld = "//div[@id='billingSwitches']//input[@name='maxMonthlyCharge']";
 	public String additionalContactFirstNameInputField = "";
 	public String additionalContactLastNameInputField = "";
 	public String additionalContactCompanyNameInputField = "";
@@ -59,23 +63,33 @@ public class BillingPage {
 	public String additionalContactTypeDropdown = "";
 	public String additionalContactRelationDropdown = "";
 	
-	//**********Credit card objects**********
+	//**********Add Payment method objects**********
+	public String addCreditCardButton = "//div[@id='billingInfoContent']//div[text()='Credit Card']";
+	public String addBankAccountButton = "//div[@id='billingInfoContent']//div[text()='Bank Account']";
+
+	//**********Credit card objects*************
+	//***Iframe***
+	public String iFrameCc = "payFields-iframe-number";
+	public String iFrameExp = "payFields-iframe-expiration";
+	public String iFrameCvv = "payFields-iframe-cvv";
 	//***Buttons***
+	public String savePaymentMethodButton = "//button[@id='secureCardSaveButton']";
 	public String ccSecurelyEnterCardInfoButton = "//div[text()='Securely Enter Card Info']";
 	public String ccRemoveAccountButton = "//div[text()='Remove Account']";
 	public String ccCopyAccountButton = "//div[text()='Copy Account']";
 	public String ccSaveCardButton = "//button[@id='submit-payment']";
 	public String cc_X_ButtonInAddCreditCardDialog = "//form[@id='lightbox']//div[@class='x-container']";
 	//***Input Fields***
-	public String ccCardNumberInputField = "//input[@id='credit-card-number']";
-	public String ccExpirationInputField = "//input[@id='cc-exp']";
-	public String ccCvvInputField = "//input[@id='cc-cvv']";
+	public String ccCardNumberInputField = "//input[@id='payment_number']";
+	public String ccExpirationInputField = "//input[@id='expiration']";
+	public String ccCvvInputField = "//input[@id='payment_cvv']";
 	//***Drop downs***
 	public String ccMonthDropdown = "//select[@name='expMonth']";
 	public String ccYearDropdown = "//select[@name='expYear']";
 	
 	//**********Bank Account objects**********
 	//***Buttons***
+	public String saveBankAccountButton = "//button[@id='ach_saving_button']";
 	public String bankAccountSaveAddressAndNameButton = "//div[text()='Save Address / Name']";
 	public String bankAccountUpdateAccountNumberButton = "//div[text()='Update Account Numbers']";
 	//***Input Fields***
