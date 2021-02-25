@@ -4,7 +4,13 @@ import java.io.File;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+import java.util.Random;
 
+import io.cucumber.java.After;
+import io.cucumber.java.Scenario;
 import io.cucumber.java.en.And;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -430,4 +436,13 @@ public class Utilities {
 		clickElement("//div[@id = 'advancedFilterToggleButton']", ElementType.XPath);
 	}
 
+	@After
+	public static void endScenario(Scenario scenario){
+		driver = GetWebDriver.getInstance();
+		if (scenario.isFailed()) {
+			byte[] screenshot = (byte[])((TakesScreenshot)driver).getScreenshotAs(OutputType.BYTES);
+			scenario.attach(screenshot, "image/png", "scrrr");
+		}
+		driver.close();
+	}
 }

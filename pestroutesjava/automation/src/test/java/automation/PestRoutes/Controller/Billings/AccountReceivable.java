@@ -92,8 +92,8 @@ public class AccountReceivable extends BaseClass {
 
         }
 
-
     }
+
     @Then("I validate auto pay customer display")
     public void validateAutoPayCustomer() throws Exception {
         customer = new CreateNewCustomer();
@@ -111,7 +111,6 @@ public class AccountReceivable extends BaseClass {
             customerCardBillingTab.setInputField(fields[i], input[i]);
             Utilities.switchBackToDom();
         }
-
         customerCardBillingTab.clickElement(customerCardBillingTab.savePaymentMethodButton);
         customerCardBillingTab.clickElement(customerCardBillingTab.billingInfoButton);
         Utilities.selectValueFromDropDownByIndex(customerCardBillingTab.autoPayDropdown, 1);
@@ -123,7 +122,6 @@ public class AccountReceivable extends BaseClass {
         String expectedName = customerName.toLowerCase(Locale.ROOT);
         String actualNameWithStatus = accountReceivable.getValueFromTable("2").toLowerCase(Locale.ROOT);
         result(expectedName, actualNameWithStatus, " Validate customer name", "Validate Account receivable");
-
 
     }
     @Then("I validate customer type in account receivable")
