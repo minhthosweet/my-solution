@@ -1,8 +1,7 @@
 package automation.PestRoutes.Controller.Schedules;
 
+
 import automation.PestRoutes.Controller.CustomerCreation.CreateNewCustomer;
-import automation.PestRoutes.PageObject.CreateCustomer.CreateCustomerDialog;
-import automation.PestRoutes.PageObject.Customers.CustomersMainPage;
 import automation.PestRoutes.PageObject.Header;
 import automation.PestRoutes.PageObject.Scheduling.JobPoolTab;
 import automation.PestRoutes.PageObject.Scheduling.SchedulingTab;
@@ -12,6 +11,7 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import java.io.IOException;
 import static automation.PestRoutes.Utilities.AssertException.result;
+
 
 public class JobPool extends AppData {
 
@@ -127,6 +127,5 @@ public class JobPool extends AppData {
 
 
     }
-
-    }
+}
 

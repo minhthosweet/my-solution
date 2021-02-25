@@ -115,7 +115,3 @@ public class JobPoolTab extends AppData {
     }
 
 }
-
-
-
-
