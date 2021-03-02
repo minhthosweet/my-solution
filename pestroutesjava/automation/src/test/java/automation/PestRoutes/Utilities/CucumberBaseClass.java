@@ -21,7 +21,7 @@ public class CucumberBaseClass extends AppData {
 
     @Before(order = 1)
     public void beforeTest() {
-        GetWebDriver.getInstance();
+        driver = GetWebDriver.getInstance();
     }
 
     @Before(order = 2)
@@ -47,7 +47,6 @@ public class CucumberBaseClass extends AppData {
 
     @After
     public static void endScenario(Scenario scenario) {
-        driver = GetWebDriver.getInstance();
         if (scenario.isFailed()) {
             byte[] screenshot = (byte[]) ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
             scenario.attach(screenshot, "image/png", "Error Image");
@@ -60,7 +59,6 @@ public class CucumberBaseClass extends AppData {
                 }
             }
             catch(Exception e){
-
             }
         }
     }
