@@ -1,5 +1,5 @@
 @AfterInitialCompletion
-Feature: Customer Status
+Feature: After Initial Appointment Completion
 
   @CreateInitialInvoiceAfterInitialCompletion
   Scenario: Create Initial Invoice of type After Initial Completion

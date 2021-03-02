@@ -316,7 +316,6 @@ public class CreateNewCustomer extends AppData {
         overview = new CustomerViewDialog_OverviewTab();
         String customerNameInHeader = overview.getCustomerNameFromHeader();
         return customerNameInHeader;
-
     }
 
 }

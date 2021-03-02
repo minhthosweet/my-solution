@@ -17,7 +17,6 @@ public class Service extends AppData {
 
     @Given("I add a renewal service")
     public void workWithService() throws Exception {
-        // Utilities.navigateToUrl(getData("betaUrl", generalData));
         navigateToServiceType();
         searchService(getData("serviceDescription", generalData));
         try {
@@ -66,9 +65,6 @@ public class Service extends AppData {
         service.selectFromDropdown(service.displayRenewalDateDropDown, "Yes");
         service.selectFromDropdown(service.renewalFrequencyDropDown, "Annually");
         service.selectFromDropdown(service.setRenewalDateDropDown, "On Initial Service Completion");
-//		service.setServiceCharge("0");
-//		service.setServiceCommission("0");
-//		service.setMinInitialCharge("0.00");
         service.clickSave();
     }
 

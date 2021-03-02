@@ -17,13 +17,12 @@ public class CreateLeads extends AppData {
 	CustomerViewDialog_Header header;
 	String additialItem = "bed";
 	
-	String assignto = "   - Office ";
+	String assignto = "Aditya Morugadi - Office ";
 	String source = "Current Customer.";
 	String contractLength = "12 months";
 	String reasonLost = "";
 	String dateAssigned = "";
 	String value = "1000";
-	
 	String serviceType = "Quarterly";
 	String followup = "2 Months";
 	String frequency = "Alternate Monthly";
