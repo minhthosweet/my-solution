@@ -1,6 +1,5 @@
 package automation.PestRoutes.Controller.Schedules;
 
-
 import automation.PestRoutes.Controller.CustomerCreation.CreateNewCustomer;
 import automation.PestRoutes.PageObject.Header;
 import automation.PestRoutes.PageObject.Scheduling.JobPoolTab;
@@ -19,6 +18,8 @@ public class JobPool extends AppData {
     SchedulingTab scheduleDay;
     JobPoolTab jobPoolTab;
     CreateNewCustomer customer;
+    AssertException assertException;
+
 
     @And("I navigate to the job pool tab")
     public void navigateToJobPool() {
@@ -117,6 +118,7 @@ public class JobPool extends AppData {
         String expectedRegion = getData("region", generalData);
         String expectedServiceType = getData("inclServiceType", generalData);
 
+
         result(expectedCustomerName, jobPoolTab.getCustomerName(expectedCustomerName), "validate customer name", "validate customer");
         result(expectedPhoneNumber, jobPoolTab.getCustomerPhone(expectedCustomerName), "validate customer phone", "validate customer");
         result(expectedStreetAddress, jobPoolTab.getCustomerStreet(expectedCustomerName), "validate customer street", "validate customer");
@@ -124,7 +126,6 @@ public class JobPool extends AppData {
         result(expectedZipCode, jobPoolTab.getCustomerZip(expectedCustomerName), "validate customer zip", "validate customer");
         result(expectedRegion, jobPoolTab.getCustomerRegion(expectedCustomerName), "validate customer region", "validate customer");
         result(expectedServiceType, jobPoolTab.getServiceType(expectedCustomerName), "validate customer serviceType", "validate customer");
-
 
     }
 }

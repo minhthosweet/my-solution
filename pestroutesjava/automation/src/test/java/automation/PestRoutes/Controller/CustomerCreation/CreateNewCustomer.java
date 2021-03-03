@@ -33,6 +33,7 @@ public class CreateNewCustomer extends AppData {
     public String fName = Utilities.generateRandomString(7);
     public String lName = Utilities.generateRandomString(6);
     String expectedAlert = "Required: You must fill in the customer's last name or company name!";
+
     public String streetAddress = Integer.toString(Utilities.generateRandomNumber(4)) + " " + Utilities.generateRandomString(5) + " " + Utilities.generateRandomString(5);
     public String city = Utilities.generateRandomString(4);
     public String zipcode = "7" + Utilities.generateRandomNumber(4);
@@ -290,6 +291,7 @@ public class CreateNewCustomer extends AppData {
         customer.clickPrefersPaperCheckBox();
         customer.selectProperty(customer.residentialProperty);
         customerDialog_Header.clickSaveButton();
+        customer.setMapCode(getData("mapCode", generalData));
         alertCondition();
         captureUserIdAndFullName();
 

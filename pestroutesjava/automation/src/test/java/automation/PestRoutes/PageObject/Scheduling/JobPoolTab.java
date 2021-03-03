@@ -13,9 +13,7 @@ public class JobPoolTab extends AppData {
     public String advanceToggleButton = "//div[@id='cdContentWrapper']//div[@id='advancedFilterToggleButton']";
     public String refreshButton = "//div[@id='cdContentWrapper']//input[@type='submit']";
     public String SearchField = "//div[@id='cdContentWrapper']//input[@type='search']";
-
     public Map<String, String> filter_Types = new HashMap<String, String>();
-
     public String filterTypes(String key) {
         // filters
         filter_Types.put("IncludeCustomersWithSpecialRequests", "//div[@id='cdContentWrapper']//select[@name='filterSpecial']");
@@ -115,3 +113,7 @@ public class JobPoolTab extends AppData {
     }
 
 }
+
+
+
+
