@@ -34,8 +34,8 @@ public class CreateNewCustomer extends AppData {
     public String lName = Utilities.generateRandomString(6);
     String expectedAlert = "Required: You must fill in the customer's last name or company name!";
     public String streetAddress = Integer.toString(Utilities.generateRandomNumber(4)) + " " + Utilities.generateRandomString(5) + " " + Utilities.generateRandomString(5);
-    String zipcode = "7" + Utilities.generateRandomNumber(4);
     public String city = Utilities.generateRandomString(4);
+    public String zipcode = "7" + Utilities.generateRandomNumber(4);
     public String email = Utilities.generateRandomString(5)+"."+Utilities.generateRandomString(5)+""+"@gmail.com";
     public String primaryPhoneNumber = "6" + Integer.toString(Utilities.generateRandomNumber(9));
 
@@ -264,6 +264,7 @@ public class CreateNewCustomer extends AppData {
         customer.clickVoiceCheckBox();
         customer.clickPrefersPaperCheckBox();
         customerDialog_Header.clickSaveButton();
+        customer.setMapCode(getData("mapCode", generalData));
         alertCondition();
         captureUserIdAndFullName();
 
