@@ -43,11 +43,13 @@ public class CustomerViewDialog_Header {
         Utilities.clickElement(tranferButtonInDialog, ElementType.XPath);
     }
 
-    public void clickSaveButton() {
+    public void clickSaveButton() throws InterruptedException {
         Utilities.clickElement(saveButton, ElementType.XPath);
+        Thread.sleep(400);
     }
 
     public void clickCloseButton() {
+        Utilities.waitUntileElementIsVisible(closeButton);
         Utilities.clickElement(closeButton, ElementType.XPath);
     }
 

@@ -3,38 +3,6 @@
 @FieldsValidationInAccountReceivable
 Feature: Validate if all fields present and are enabled
 
-#  Scenario: Fields validations
-#    Given I sign in to pestroutes domain
-#    Given I delete a routing group
-#    When I create customer with first name, last name and address
-#    And I validate if renewal fields display in Subscription tab if I choose renewal as service type
-#    And I create a renewal subscription
-#    And I navigate to scheduling tab
-#    And I add a route
-#    And I search customer
-#    And I schedule an service appointment
-#    And I search customer
-#    And I complete an appointment
-#    And I navigate to account receivable under Billings
-#    Then I validate if all fields are displaying and are enabled
-#    Then I validate if the customer displays once account status is Active
-#
-  Scenario: Fields validations
-    Given I delete a routing group
-    When I create customer with first name, last name and address
-    And I validate if renewal fields display in Subscription tab if I choose renewal as service type
-    And I create a renewal subscription
-    And I navigate to scheduling tab
-    And I add a route
-    And I search customer
-    And I schedule an service appointment
-    And I search customer
-    And I complete an appointment
-    And I navigate to account receivable under Billings
-    Then I validate if all fields are displaying and are enabled
-    Then I validate if the customer displays once account status is Active
-
-
   Scenario: Fields validations
     Given I delete a routing group
     Given I have disabled ECA
@@ -49,7 +17,7 @@ Feature: Validate if all fields present and are enabled
     Then I validate if all fields are displaying and are enabled
     Then I validate if the customer displays once account status is Active
 
-  Scenario: Fields validations
+  Scenario: Customer type validation
     Then I validate customer type in account receivable
 
   Scenario: Close browser

@@ -49,7 +49,7 @@ public class CreateNewCustomer extends AppData {
     }
 
     @When("I create customer without required last name field")
-    public void createCustomerWithOutRequiredField() {
+    public void createCustomerWithOutRequiredField() throws InterruptedException {
         String fName = Utilities.generateRandomString(7);
         dialog = new CustomerViewDialog_Header();
         customer = new CreateCustomerDialog();
@@ -255,7 +255,7 @@ public class CreateNewCustomer extends AppData {
     }
 
     @And("I add additional properties to the customer")
-    public void addAdditionalProperties() throws IOException {
+    public void addAdditionalProperties() throws IOException, InterruptedException {
         dialog = new CustomerViewDialog_Header();
         customer = new CreateCustomerDialog();
         customer.selectSource(getData("customerSource", generalData));

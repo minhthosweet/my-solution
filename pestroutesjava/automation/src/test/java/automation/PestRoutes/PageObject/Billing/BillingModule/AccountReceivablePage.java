@@ -60,6 +60,7 @@ public class AccountReceivablePage {
     }
 
     public void insert(String needField, String needValue){
+        Utilities.waitUntileElementIsVisible(needField);
         FindElement.elementByAttribute(needField, FindElement.InputType.XPath).sendKeys(needValue);
     }
 

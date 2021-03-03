@@ -68,7 +68,7 @@ public class AccountReceivable extends BaseClass {
         accountReceivable.insert(accountReceivable.asOfDateInputField, Utilities.currentDate("MM/dd/yyyy"));
         accountReceivable.click(accountReceivable.refreshButton);
         String customerName = customer.getCustomerName("1");
-        customer.closeCustomerCard();
+        customerCardHeader.clickCloseButton();
         accountReceivable.insert(accountReceivable.searchInputField, customerName);
         String actualName = accountReceivable.getValueFromTable("2");
         String expectedName = customerName;
@@ -129,6 +129,7 @@ public class AccountReceivable extends BaseClass {
         customerCardHeader = new CustomerViewDialog_Header();
         infoTab = new CreateCustomerDialog();
         customer = new CreateNewCustomer();
+        admin = new CustomerViewDialog_Admin();
         String[] typeOfCustomer = {infoTab.commercialProperty, infoTab.residentialProperty};
         String[] propType = {"Commercial Only", "Residential Only"};
         for (int i = 0; i < typeOfCustomer.length; i++){
@@ -136,7 +137,7 @@ public class AccountReceivable extends BaseClass {
             customerCardHeader.navigateTo(customerCardHeader.infoTabInDialog);
             infoTab.selectProperty(typeOfCustomer[i]);
             customerCardHeader.clickSaveButton();
-            customer.closeCustomerCard();
+            customerCardHeader.clickCloseButton();
             navigateToAccountReceivablePage();
             accountReceivable.select(accountReceivable.propertyDropdown, propType[i]);
             accountReceivable.click(accountReceivable.refreshButton);
@@ -145,6 +146,21 @@ public class AccountReceivable extends BaseClass {
             String actualNameWithStatus = accountReceivable.getValueFromTable("2");
             result(expectedName, actualNameWithStatus, " Validate customer name", "Validate Account receivable");
         }
+        String customerName = customer.getCustomerName("1");
+        customerCardHeader.navigateTo(customerCardHeader.adminTabInDialog);
+        admin.changeAccountStatus_Active();
+        customerCardHeader.clickCloseButton();
+        String[] accountStatus = {"Active", "All"};
+        for (int i = 0; i < accountStatus.length; i++){
+            accountReceivable.select(accountReceivable.accountStatusDropdown, accountStatus[i]);
+            accountReceivable.click(accountReceivable.refreshButton);
+            accountReceivable.insert(accountReceivable.searchInputField, customerName);
+            String expectedName = customerName;
+            String actualNameWithStatus = accountReceivable.getValueFromTable("2");
+            result(expectedName, actualNameWithStatus, " Validate customer name", "Validate Account receivable");
+
+        }
+
 
 
     }

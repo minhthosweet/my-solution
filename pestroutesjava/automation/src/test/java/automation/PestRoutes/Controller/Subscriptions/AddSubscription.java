@@ -220,7 +220,7 @@ public class AddSubscription extends AppData {
 	}
 
 	@And("I set today as custom billing date")
-	public void setCurrentDateAsCustomBillingDate_InitialAppointment(){
+	public void setCurrentDateAsCustomBillingDate_InitialAppointment() throws InterruptedException {
 		customerDialogHeader = new CustomerViewDialog_Header();
 		subscription.clickEditCustomInitialScheduleButton();
 		subscription.clickSpecificDateButton_initialCustomSchedule();
@@ -242,7 +242,7 @@ public class AddSubscription extends AppData {
 	}
 
 	@And("I add a custom frequency recurring service")
-	public void customFrequencyRecurringService(){
+	public void customFrequencyRecurringService() throws InterruptedException {
 		subscription.clearCustomDate();
 		subscription.selectServiceFrequency("Custom Schedule");
 		subscription.clickEditCustomRecurringScheduleButton();

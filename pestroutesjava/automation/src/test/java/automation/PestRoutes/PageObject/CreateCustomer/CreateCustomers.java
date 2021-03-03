@@ -72,7 +72,7 @@ public class CreateCustomers extends AppData {
 	}
 
 	@Then("click save button")
-	public void click_save_button() {
+	public void click_save_button() throws InterruptedException {
 		dialog.clickSaveButton();
 	}
 }
