@@ -3,7 +3,10 @@
 @FieldsValidationInAccountReceivable
 Feature: Validate if all fields present and are enabled
 
+
+
   Scenario: Fields validations
+    Given I delete a routing group
     Given I have disabled ECA
     When I create customer with first name, last name, email and address
     Then I validate if customer name and address match in overview tab

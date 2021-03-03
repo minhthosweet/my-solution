@@ -92,6 +92,7 @@ public class AccountReceivable extends BaseClass {
 
         }
 
+
     }
 
     @Then("I validate auto pay customer display")
@@ -122,6 +123,7 @@ public class AccountReceivable extends BaseClass {
         String expectedName = customerName.toLowerCase(Locale.ROOT);
         String actualNameWithStatus = accountReceivable.getValueFromTable("2").toLowerCase(Locale.ROOT);
         result(expectedName, actualNameWithStatus, " Validate customer name", "Validate Account receivable");
+
 
     }
     @Then("I validate customer type in account receivable")
