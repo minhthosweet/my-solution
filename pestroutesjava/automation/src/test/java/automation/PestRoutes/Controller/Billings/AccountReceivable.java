@@ -90,6 +90,7 @@ public class AccountReceivable extends BaseClass {
 
         }
 
+
     }
     @Then("I validate auto pay customer display")
     public void validateAutoPayCustomer() throws Exception {
@@ -120,6 +121,7 @@ public class AccountReceivable extends BaseClass {
         String expectedName = customerName;
         String actualNameWithStatus = accountReceivable.getValueFromTable("2");
         result(expectedName, actualNameWithStatus, " Validate customer name", "Validate Account receivable");
+
 
     }
     @Then("I validate customer type in account receivable")

@@ -123,7 +123,9 @@ public class Utilities {
 
 	}
 
+
 	public static void search(String needXpath, String needText){
+
 		FindElement.elementByAttribute(needXpath, InputType.XPath).sendKeys(needText);
 	}
 
