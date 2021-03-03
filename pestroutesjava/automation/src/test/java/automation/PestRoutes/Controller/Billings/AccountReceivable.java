@@ -138,6 +138,7 @@ public class AccountReceivable extends BaseClass {
             infoTab.selectProperty(typeOfCustomer[i]);
             customerCardHeader.clickSaveButton();
             customerCardHeader.clickCloseButton();
+            customer.closeCustomerCard();
             navigateToAccountReceivablePage();
             accountReceivable.select(accountReceivable.propertyDropdown, propType[i]);
             accountReceivable.click(accountReceivable.refreshButton);
@@ -158,8 +159,8 @@ public class AccountReceivable extends BaseClass {
             String expectedName = customerName.toLowerCase(Locale.ROOT);
             String actualNameWithStatus = accountReceivable.getValueFromTable("2").toLowerCase(Locale.ROOT);
             result(expectedName, actualNameWithStatus, " Validate customer name", "Validate Account receivable");
-
         }
+
 
     }
     @Then("I validate customer with balance")
