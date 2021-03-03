@@ -11,7 +11,7 @@
       And I create a subscription with Sales Rep assigned "Automation User - Office" and "Fire"
       And I navigate to the job pool tab
       And I validate if all fields are displaying and are enabled in Job Pool
-      Then I add all the fields in the job pool page
+      Then I add all the fields in the job pool page "Include Customers With Special Requests" and "Show pre-planed" and "Include One Time Services" and "Include Potential Customers" and "Include Followup Services" and "Exclude Pending Cancels" and "All Property Types" and "Show All Flags" and "Only Non-Measured Services"
       Then I validate the job pool results
       And I validate if there are errors exist in the list
 
