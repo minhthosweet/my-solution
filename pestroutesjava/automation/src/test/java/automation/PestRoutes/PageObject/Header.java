@@ -1,5 +1,6 @@
 package automation.PestRoutes.PageObject;
 
+import automation.PestRoutes.Utilities.FindElement;
 import automation.PestRoutes.Utilities.Utilities;
 import automation.PestRoutes.Utilities.Utilities.ElementType;;
 
@@ -17,7 +18,6 @@ public class Header {
 	public String FirstSearchResult = "//ul[@id='ui-id-15']/li[1]";
 	public String ACCESS_HISTORY = "//div[@id='toggleAccessHistory']";
 
-	
 	public void navigateTo(String chooseTabFromConst) {
 		Utilities.waitUntileElementIsVisible("//a[text() = '"+chooseTabFromConst+"']");
 		Utilities.clickElement("//a[text() = '"+chooseTabFromConst+"']", ElementType.XPath);
@@ -31,5 +31,10 @@ public class Header {
 	public void searchCustomerInOrder(String customerNumber){
 		Utilities.jsClickElement(ACCESS_HISTORY, ElementType.XPath);
 		Utilities.clickElement("//h3[text()='Customer Access History']/following-sibling::div//li["+customerNumber+"]//span["+customerNumber+"]", ElementType.XPath);
+	}
+
+	public void searchCustomer_SearchField(String customerDetails){
+		Utilities.jsClickElement(SearchField, ElementType.XPath);
+		FindElement.elementByAttribute(SearchField, FindElement.InputType.XPath).sendKeys(customerDetails);
 	}
 }

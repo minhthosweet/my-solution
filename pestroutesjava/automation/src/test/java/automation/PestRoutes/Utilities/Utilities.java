@@ -170,6 +170,11 @@ public class Utilities {
 		return m + new Random().nextInt((int) (9 * m));
 	}
 
+	public static int generateRandomNumber(int needLength) {
+		int m = (int)Math.pow(10, needLength - 1);
+		return m + new Random().nextInt((int) (9 * m));
+	}
+
 	public static String currentDate(String needFormat) {
 		DateFormat dateFormat = new SimpleDateFormat(needFormat);
 		Date date = new Date();

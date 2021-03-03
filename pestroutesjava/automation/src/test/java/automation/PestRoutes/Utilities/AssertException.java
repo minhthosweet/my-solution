@@ -17,11 +17,11 @@ public class AssertException {
 	public static List<String> result(String expected, String actual, String testName) {
 		List list = new ArrayList<String>();
 		try {
-			assertTrue(actual.contains(expected));
+			assertTrue((actual.replaceAll("\\s", "")).equals(expected.replaceAll("\\s", "")));
 		} catch (AssertionError e) {
-//			if(e.getMessage()!=null) {
-//				list.add(testName + ":" + e.getMessage());
-//			}
+			System.out.println(testName);
+			System.out.println("Expected was : '" + expected.replaceAll("\\s", "") + "'");
+			System.out.println("Actual is : '" + actual.replaceAll("\\s", "") + "'");
 			list.add(testName + ":" + e.getMessage());
 		}
 		return list;
@@ -56,7 +56,6 @@ public class AssertException {
 			System.out.println(needListName.size());
 			System.out.println(needListName);
 			throw new AssertionError();
-
 		}
 	}
 
