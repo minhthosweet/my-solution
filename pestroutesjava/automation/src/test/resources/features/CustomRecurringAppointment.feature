@@ -1,5 +1,5 @@
 #Author Aditya
-@CustomDate
+@CustomAppointmentDate
 Feature: Customer Status
 
   @CreateAndValidateCustomRecurringAppointments

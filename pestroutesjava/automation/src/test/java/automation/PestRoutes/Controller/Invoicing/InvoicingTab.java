@@ -292,8 +292,7 @@ public class InvoicingTab extends AppData {
                 "Total Invoice Validation");
         result(invoiceCharges, invImplementation.getPrintInvoiceMainAmountDue(), "Total Invoice Value",
                 "Initial Invoice Validation");
-
-
+        Utilities.switchToOldWindowOpened();
     }
 
     private void result(String expected, String actual, String stepName, String testName) {

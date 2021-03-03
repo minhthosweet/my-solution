@@ -1,9 +1,8 @@
 #Author Aditya
 @CustomRoute
-Feature: Route Tempalte
+Feature: Route Template
 
   Scenario: Create a route template
-    Given I sign in to pestroutes domain
     Given I delete a routing group
     Then I navigate to Route Templates
     When I create a route template

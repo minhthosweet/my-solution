@@ -7,9 +7,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
-
-import io.cucumber.java.After;
-import io.cucumber.java.Scenario;
 import io.cucumber.java.en.And;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -32,7 +29,7 @@ import automation.PestRoutes.Utilities.Driver.GetWebDriver;
 import org.apache.commons.lang3.time.DateUtils;
 
 public class Utilities {
-	static WebDriver driver = GetWebDriver.getInstance();;
+	static WebDriver driver = GetWebDriver.getInstance();
 
 	public static String getAlertText() {
 		return driver.switchTo().alert().getText();
@@ -72,6 +69,13 @@ public class Utilities {
 			driver.switchTo().window(windowHandle);
 		}
 	}
+
+	public static String winHandleBefore = driver.getWindowHandle();
+
+	public static void switchToOldWindowOpened(){
+		driver.switchTo().window(winHandleBefore);
+	}
+
 	public static void switchBackToDom() {
 		driver.switchTo().defaultContent();
 	}
@@ -413,15 +417,5 @@ public class Utilities {
 
 	public static void clickAdvancedFilters(){
 		clickElement("//div[@id = 'advancedFilterToggleButton']", ElementType.XPath);
-	}
-
-	@After
-	public static void endScenario(Scenario scenario){
-		driver = GetWebDriver.getInstance();
-		if (scenario.isFailed()) {
-			byte[] screenshot = (byte[])((TakesScreenshot)driver).getScreenshotAs(OutputType.BYTES);
-			scenario.attach(screenshot, "image/png", "scrrr");
-		}
-		driver.close();
 	}
 }
