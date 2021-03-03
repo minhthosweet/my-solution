@@ -26,11 +26,16 @@ public class CustomerViewDialog_OverviewTab {
 	}
 	
 	public String getCustomerIDFromHeader() {
-		return Utilities.getElementTextValue(customerID_InDialogHeader, ElementType.XPath);
+		return Utilities.getElementTextValue(customerID_InDialogHeader, ElementType.XPath).replaceAll("[^a-zA-Z0-9]+", "");
 	}
 	
-	public String getAddress() {
+	public String getFullAddress() {
 		return Utilities.getElementTextValue(overviewTab_Address, ElementType.XPath);
+	}
+
+	public String getCity(){
+		String str =  Utilities.getElementTextValue(overviewTab_Address, ElementType.XPath);
+		return str.substring(str.indexOf(" ")+1, str.indexOf(","));
 	}
 
 }

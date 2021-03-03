@@ -4,7 +4,6 @@
 Feature: Validate if all fields present and are enabled
 
   Scenario: Fields validations
-    Given I sign in to pestroutes domain
     Given I delete a routing group
     When I create customer with first name, last name and address
     And I validate if renewal fields display in Subscription tab if I choose renewal as service type

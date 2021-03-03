@@ -5,12 +5,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_InfoTab;
+import automation.PestRoutes.PageObject.Search.SearchBox;
 import automation.PestRoutes.Utilities.*;
 import io.cucumber.java.en.Given;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.NoAlertPresentException;
 import org.testng.annotations.Test;
-import com.aventstack.extentreports.ExtentTest;
 import automation.PestRoutes.PageObject.Header;
 import automation.PestRoutes.PageObject.CreateCustomer.CreateCustomerDialog;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_Header;
@@ -21,22 +21,22 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
 public class CreateNewCustomer extends AppData {
-    static ExtentTest test;
     CreateCustomerDialog customer;
     CustomerViewDialog_Header dialog;
     CustomerViewDialog_OverviewTab overview;
     Header header;
     CustomerViewDialog_Header customerDialogHeader;
     CustomerViewDialog_InfoTab customerViewDialog_infoTab;
+    SearchBox searchBox;
     List list = new ArrayList<String>();
 
     public String fName = Utilities.generateRandomString(7);
     public String lName = Utilities.generateRandomString(6);
     String expectedAlert = "Required: You must fill in the customer's last name or company name!";
-    public String streetAddress = "4500 W Eldorado Pkwy STE 3200";
-    String city = "McKinney";
-    String zipcode = "75070";
-    public String email = "test@gmail.com";
+    public String streetAddress = Integer.toString(Utilities.generateRandomNumber(4)) + " " + Utilities.generateRandomString(5) + " " + Utilities.generateRandomString(5);
+    String zipcode = "7" + Utilities.generateRandomNumber(4);
+    public String email = Utilities.generateRandomString(5)+"."+Utilities.generateRandomString(5)+""+"@gmail.com";
+    public String primaryPhoneNumber = "6" + Integer.toString(Utilities.generateRandomNumber(9));
 
     @Test
     public void createCustomer() throws Exception {
@@ -80,13 +80,93 @@ public class CreateNewCustomer extends AppData {
         customer.selectUnit("Multi Unit");
         customer.setAddress(streetAddress);
         customer.setZipCode(zipcode);
-        customer.setCellPhone(getData("phoneNumber", generalData));
+        customer.setEmailAddress(email);
+        customer.setCellPhone(primaryPhoneNumber);
         customer.clickSmsCheckBox();
         customer.clickEmailCheckBox();
         customer.clickVoiceCheckBox();
         dialog.clickSaveButton();
         alertCondition();
         captureUserIdAndFullName();
+    }
+
+    @And("I validate search customer with first name")
+    public void validateFirstNameInSearch() throws InterruptedException {
+        customerDialogHeader = new CustomerViewDialog_Header();
+        customerDialogHeader.navigateTo(customerDialogHeader.infoTabInDialog);
+        header = new Header();
+        customerViewDialog_infoTab = new CustomerViewDialog_InfoTab();
+        header.searchCustomer_SearchField(customerViewDialog_infoTab.getFirstName());
+        searchBox = new SearchBox();
+        result(fName, searchBox.autoCompleteSearch(fName), "Validate first name in search", "Customer creation");
+    }
+
+    @And("I validate search customer with last name")
+    public void validateLastNameInSearch() throws InterruptedException {
+        customerDialogHeader = new CustomerViewDialog_Header();
+        customerDialogHeader.navigateTo(customerDialogHeader.infoTabInDialog);
+        header = new Header();
+        customerViewDialog_infoTab = new CustomerViewDialog_InfoTab();
+        header.searchCustomer_SearchField(customerViewDialog_infoTab.getLastName());
+        searchBox = new SearchBox();
+        result(lName, searchBox.autoCompleteSearch(lName), "Validate last name in search", "Customer creation");
+    }
+
+    @And("I validate search customer with phone number")
+    public void validatePhoneNumberInSearch() throws InterruptedException {
+        customerDialogHeader = new CustomerViewDialog_Header();
+        customerDialogHeader.navigateTo(customerDialogHeader.infoTabInDialog);
+        header = new Header();
+        customerViewDialog_infoTab = new CustomerViewDialog_InfoTab();
+        header.searchCustomer_SearchField(customerViewDialog_infoTab.getPrimaryPhoneNumber().replaceAll("[^0-9]",""));
+        searchBox = new SearchBox();
+        String phoneNumberInSearchBox = searchBox.autoCompleteSearch(customerViewDialog_infoTab.getPrimaryPhoneNumber()).substring(0,13);
+        result(customerViewDialog_infoTab.getPrimaryPhoneNumber(), phoneNumberInSearchBox, "Validate phone number in search", "Customer creation");
+    }
+
+    @And("I validate search customer with last four of phone number")
+    public void validateSearchLastFourPhoneNumber() throws InterruptedException {
+        customerDialogHeader = new CustomerViewDialog_Header();
+        customerDialogHeader.navigateTo(customerDialogHeader.infoTabInDialog);
+        header = new Header();
+        customerViewDialog_infoTab = new CustomerViewDialog_InfoTab();
+        header.searchCustomer_SearchField(customerViewDialog_infoTab.getPrimaryPhoneNumber().replaceAll("[^0-9]","").substring(6,10));
+        searchBox = new SearchBox();
+        String phoneNumberInSearchBox = searchBox.autoCompleteSearch(customerViewDialog_infoTab.getPrimaryPhoneNumber().substring(0,9)).substring(0,9);
+        result(customerViewDialog_infoTab.getPrimaryPhoneNumber().substring(0,9), phoneNumberInSearchBox, "Validate with last four of phone number in search", "Customer creation");
+    }
+
+    @And("I validate search customer with zip code")
+        public void validateZipCodeInSearch() throws InterruptedException {
+            customerDialogHeader = new CustomerViewDialog_Header();
+            customerDialogHeader.navigateTo(customerDialogHeader.infoTabInDialog);
+            header = new Header();
+            customerViewDialog_infoTab = new CustomerViewDialog_InfoTab();
+            header.searchCustomer_SearchField(customerViewDialog_infoTab.getZip());
+            searchBox = new SearchBox();
+            result(zipcode, searchBox.autoCompleteSearch(zipcode), "Validate zip code in search", "Customer creation");
+        }
+
+    @And("I validate search customer with CustomerID")
+    public void validateCustomerIDInSearch() throws InterruptedException {
+        customerDialogHeader = new CustomerViewDialog_Header();
+        customerDialogHeader.navigateTo(customerDialogHeader.infoTabInDialog);
+        header = new Header();
+        overview = new CustomerViewDialog_OverviewTab();
+        header.searchCustomer_SearchField(overview.getCustomerIDFromHeader());
+        searchBox = new SearchBox();
+        result(overview.getCustomerIDFromHeader(), searchBox.autoCompleteSearch(overview.getCustomerIDFromHeader()), "Validate customer ID in search", "Customer creation");
+    }
+
+    @And("I validate search customer with street address")
+    public void validateStreetAddressInSearch() throws InterruptedException {
+        customerDialogHeader = new CustomerViewDialog_Header();
+        customerDialogHeader.navigateTo(customerDialogHeader.infoTabInDialog);
+        header = new Header();
+        customerViewDialog_infoTab = new CustomerViewDialog_InfoTab();
+        header.searchCustomer_SearchField(customerViewDialog_infoTab.getStreetAddress());
+        searchBox = new SearchBox();
+        result(streetAddress, searchBox.autoCompleteSearch(streetAddress), "Validate street address in search", "Customer creation");
     }
 
    @Then("^I create customer with address and ZipCode and I verify Main Tax, State Tax, City Tax, County Tax, Custom Tax, District1 Tax, District2 Tax" +
@@ -234,20 +314,26 @@ public class CreateNewCustomer extends AppData {
         Utilities.waitUntileElementIsVisible(overview.overviewTab_Address);
         String customerNameInHeader = overview.getCustomerNameFromHeader();
         result(fName, customerNameInHeader, "Created customer ", "Structure Validation");
-        String id = overview.getCustomerIDFromHeader();
-        String newId = id.replaceAll("[^a-zA-Z0-9]+", "");
+        String newId = overview.getCustomerIDFromHeader();
         addData("strutureUID", newId, generalData);
         AssertException.assertFailure(list);
     }
 
     @Then("I validate if customer name and address match in overview tab")
-    public void validateCreatedCustomerNameAndAddress() {
-        String expectedAddress = streetAddress + " " + city + ", TX " + zipcode;
+    public void validateCreatedCustomerNameAndAddress() throws InterruptedException {
+        customerDialogHeader = new CustomerViewDialog_Header();
+        overview = new CustomerViewDialog_OverviewTab();
+        customerViewDialog_infoTab = new CustomerViewDialog_InfoTab();
+        customerDialogHeader.navigateTo(customerDialogHeader.infoTabInDialog);
+        String expectedAddress = streetAddress + " " + customerViewDialog_infoTab.getCity() + ", " +customerViewDialog_infoTab.getState() +" " + zipcode;
+        customerDialogHeader.navigateTo(customerDialogHeader.overviewTabInDialog);
         Utilities.waitUntileElementIsVisible(overview.overviewTab_Address);
-        String customerNameInHeader = overview.getCustomerNameFromHeader();
-        String actualAddress = overview.getAddress();
-        result(fName, customerNameInHeader, "Created customer name ", "Customer creation");
+        String actualAddress = overview.getFullAddress();
         result(expectedAddress, actualAddress, "Created customer address", "Customer creation");
+        customerDialogHeader.navigateTo(customerDialogHeader.infoTabInDialog);
+        String customerNameInInfo = customerViewDialog_infoTab.getFirstName() + " " + customerViewDialog_infoTab.getLastName();
+        String actualName = fName + " " + lName;
+        result(actualName, customerNameInInfo, "Created customer name ", "Customer creation");
     }
 
     @Then("I validate if customer name match in overview tab")
@@ -297,8 +383,7 @@ public class CreateNewCustomer extends AppData {
     }
 
     private void captureUserIdAndFullName() throws Exception {
-        String id = overview.getCustomerIDFromHeader();
-        String newId = id.replaceAll("[^a-zA-Z0-9]+", "");
+        String newId = overview.getCustomerIDFromHeader();
         addData("userID", newId, generalData);
         addData("customerName", fName + " " + lName, generalData);
     }

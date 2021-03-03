@@ -48,8 +48,7 @@ public class AccountStatus extends AppData {
 		String customerNameInHeader = overview.getCustomerNameFromHeader();
 		System.out.println("Customer Name found is " + customerNameInHeader);
 		list.add(AssertException.result(fName, customerNameInHeader, "Validate Customer Creation"));
-		String id = overview.getCustomerIDFromHeader();
-		String newId = id.replaceAll("[^a-zA-Z0-9]+", "");
+		String newId = overview.getCustomerIDFromHeader();
 		System.out.println(newId);
 		addData("userID", newId, generalData);
 	}
