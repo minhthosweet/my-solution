@@ -11,14 +11,12 @@ import io.cucumber.java.en.Then;
 import java.io.IOException;
 import static automation.PestRoutes.Utilities.AssertException.result;
 
-
 public class JobPool extends AppData {
 
     Header header;
     SchedulingTab scheduleDay;
     JobPoolTab jobPoolTab;
     CreateNewCustomer customer;
-    AssertException assertException;
 
 
     @And("I navigate to the job pool tab")
@@ -119,15 +117,16 @@ public class JobPool extends AppData {
         String expectedRegion = getData("region", generalData);
         String expectedServiceType = getData("inclServiceType", generalData);
 
-        result(expectedCustomerName, jobPoolTab.getCustomerName(expectedCustomerName), "validate customer name");
-        result(expectedPhoneNumber, jobPoolTab.getCustomerPhone(expectedCustomerName), "validate customer phone");
-        result(expectedStreetAddress, jobPoolTab.getCustomerStreet(expectedCustomerName), "validate customer street");
-        result(expectedCity, jobPoolTab.getCustomerCity(expectedCustomerName), "validate customer city");
-        result(expectedZipCode, jobPoolTab.getCustomerZip(expectedCustomerName), "validate customer zip");
-        result(expectedRegion, jobPoolTab.getCustomerRegion(expectedCustomerName), "validate customer region");
-        result(expectedServiceType, jobPoolTab.getServiceType(expectedCustomerName), "validate customer serviceType");
+        result(expectedCustomerName, jobPoolTab.getCustomerName(expectedCustomerName), "validate customer name", "validate customer");
+        result(expectedPhoneNumber, jobPoolTab.getCustomerPhone(expectedCustomerName), "validate customer phone", "validate customer");
+        result(expectedStreetAddress, jobPoolTab.getCustomerStreet(expectedCustomerName), "validate customer street", "validate customer");
+        result(expectedCity, jobPoolTab.getCustomerCity(expectedCustomerName), "validate customer city", "validate customer");
+        result(expectedZipCode, jobPoolTab.getCustomerZip(expectedCustomerName), "validate customer zip", "validate customer");
+        result(expectedRegion, jobPoolTab.getCustomerRegion(expectedCustomerName), "validate customer region", "validate customer");
+        result(expectedServiceType, jobPoolTab.getServiceType(expectedCustomerName), "validate customer serviceType", "validate customer");
 
 
     }
 }
+
 
