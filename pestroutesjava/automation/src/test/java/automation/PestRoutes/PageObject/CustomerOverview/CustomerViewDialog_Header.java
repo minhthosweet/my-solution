@@ -34,7 +34,7 @@ public class CustomerViewDialog_Header {
     }
 
     public void navigateTo(String chooseTabFromConst) throws InterruptedException {
-        Thread.sleep(500);
+        Thread.sleep(800);
         Utilities.waitUntileElementIsVisible("//li[@name= '" + chooseTabFromConst + "']");
         Utilities.clickElement("//li[@name = '" + chooseTabFromConst + "']", ElementType.XPath, true, false);
     }

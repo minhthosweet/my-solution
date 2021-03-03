@@ -1,5 +1,6 @@
 package automation.PestRoutes.Controller.Billings;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_Admin;
+import automation.PestRoutes.PageObject.CreateCustomer.CreateCustomerDialog;
 import automation.PestRoutes.PageObject.CustomerOverview.BillingPage;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_Header;
 import automation.PestRoutes.Controller.CustomerCreation.CreateNewCustomer;
@@ -19,6 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AccountReceivable extends BaseClass {
+    CreateCustomerDialog infoTab;
     BillingModule billingModule;
     BillingPage customerCardBillingTab;
     AccountReceivablePage accountReceivable = new AccountReceivablePage();
@@ -118,6 +120,30 @@ public class AccountReceivable extends BaseClass {
         String expectedName = customerName;
         String actualNameWithStatus = accountReceivable.getValueFromTable("2");
         result(expectedName, actualNameWithStatus, " Validate customer name", "Validate Account receivable");
+
+    }
+    @Then("I validate customer type in account receivable")
+    public void validateCustomerByPropType() throws Exception {
+        customerCardHeader = new CustomerViewDialog_Header();
+        infoTab = new CreateCustomerDialog();
+        customer = new CreateNewCustomer();
+        String[] typeOfCustomer = {infoTab.commercialProperty, infoTab.residentialProperty};
+        String[] propType = {"Commercial Only", "Residential Only"};
+        for (int i = 0; i < typeOfCustomer.length; i++){
+            String customerName = customer.getCustomerName("1");
+            customerCardHeader.navigateTo(customerCardHeader.infoTabInDialog);
+            infoTab.selectProperty(typeOfCustomer[i]);
+            customerCardHeader.clickSaveButton();
+            customer.closeCustomerCard();
+            navigateToAccountReceivablePage();
+            accountReceivable.select(accountReceivable.propertyDropdown, propType[i]);
+            accountReceivable.click(accountReceivable.refreshButton);
+            accountReceivable.insert(accountReceivable.searchInputField, customerName);
+            String expectedName = customerName;
+            String actualNameWithStatus = accountReceivable.getValueFromTable("2");
+            result(expectedName, actualNameWithStatus, " Validate customer name", "Validate Account receivable");
+        }
+
 
     }
 
