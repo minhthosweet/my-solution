@@ -436,13 +436,13 @@ public class Utilities {
 		clickElement("//div[@id = 'advancedFilterToggleButton']", ElementType.XPath);
 	}
 
-	@After
-	public static void endScenario(Scenario scenario){
-		driver = GetWebDriver.getInstance();
-		if (scenario.isFailed()) {
-			byte[] screenshot = (byte[])((TakesScreenshot)driver).getScreenshotAs(OutputType.BYTES);
-			scenario.attach(screenshot, "image/png", "scrrr");
-		}
-		driver.close();
-	}
+//	@After
+//	public static void endScenario(Scenario scenario){
+//		driver = GetWebDriver.getInstance();
+//		if (scenario.isFailed()) {
+//			byte[] screenshot = (byte[])((TakesScreenshot)driver).getScreenshotAs(OutputType.BYTES);
+//			scenario.attach(screenshot, "image/png", "scrrr");
+//		}
+//		driver.close();
+//	}
 }

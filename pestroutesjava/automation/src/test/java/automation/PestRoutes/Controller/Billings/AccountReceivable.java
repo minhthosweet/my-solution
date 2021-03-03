@@ -164,6 +164,7 @@ public class AccountReceivable extends BaseClass {
         }
 
 
+
     }
     @Then("I validate customer with balance")
     public void validateBalance() throws Exception {
