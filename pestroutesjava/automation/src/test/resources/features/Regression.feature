@@ -67,6 +67,9 @@ Feature: End to end testing on the application
 
   @BillingByServiceTypeReport2
   Scenario: Validating filters and fields generated with single group by and its line items
+    Given I add a new generic flag if it is not already existing "Automation Flag" and "Its lit" and "Customer"
+    Given I add a new customer source if it is not already existing
+    Given I add a new division if it is not already existing
     When I create customer with first name, last name, email and address
     And I add additional properties to customer
     And I create a subscription of type "After Agreement Signed"
