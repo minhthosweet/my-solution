@@ -267,7 +267,7 @@ public class CreateCustomerDialog {
     }
 
     public String getTaxRate(String needTaxField) {
-        return Utilities.getElementTextValue(needTaxField, ElementType.XPath);
+        return Utilities.getAttributeValue(needTaxField, "value");
     }
 
 }

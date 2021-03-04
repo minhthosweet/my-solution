@@ -6,6 +6,7 @@ import automation.PestRoutes.PageObject.Admin.FormsPage.FormObjects;
 import automation.PestRoutes.PageObject.Admin.Preferences.PreferencesPage;
 import automation.PestRoutes.PageObject.Header;
 import automation.PestRoutes.Utilities.FindElement;
+import automation.PestRoutes.Utilities.Utilities;
 import io.cucumber.java.en.Given;
 import org.openqa.selenium.WebElement;
 
@@ -32,11 +33,11 @@ public class GenericFlags {
         try {
             WebElement elm = FindElement.elementByAttribute("//div[contains(text(),'"+needGenericFlagCode+"')]", FindElement.InputType.XPath);
         } catch(Exception e ) {
-            formObjects.clickButton(formObjects.addFlagButton);
+            Utilities.clickElement(formObjects.addFlagButton, Utilities.ElementType.XPath);
             formObjects.setInputField(formObjects.flagCodeField, needGenericFlagCode);
             formObjects.setInputField(formObjects.nameField, needFlagDescription);
             formObjects.selectValueFromDropdown(formObjects.flagType, needFlagType);
-            formObjects.clickButton(formObjects.saveButton);
+            Utilities.clickElement(formObjects.saveButton, Utilities.ElementType.XPath);
         }
 
     }
