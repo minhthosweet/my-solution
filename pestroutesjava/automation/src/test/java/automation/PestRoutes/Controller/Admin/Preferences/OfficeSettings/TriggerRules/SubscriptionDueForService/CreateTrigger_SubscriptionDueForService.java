@@ -12,13 +12,13 @@ import automation.PestRoutes.Controller.CustomerCreation.CreateNewCustomer;
 import automation.PestRoutes.PageObject.Footer;
 import automation.PestRoutes.PageObject.Header;
 import automation.PestRoutes.PageObject.Admin.AdminMainPage;
-import automation.PestRoutes.PageObject.Admin.OfficeSettings.TriggerTypes.Trigger_Actions;
-import automation.PestRoutes.PageObject.Admin.OfficeSettings.TriggerTypes.TriggerRules;
-import automation.PestRoutes.PageObject.Admin.OfficeSettings.TriggerTypes.ARTab;
-import automation.PestRoutes.PageObject.Admin.OfficeSettings.TriggerTypes.ReminderTab;
-import automation.PestRoutes.PageObject.Admin.OfficeSettings.TriggerTypes.RenewalTab;
-import automation.PestRoutes.PageObject.Admin.OfficeSettings.TriggerTypes.SubscriptionDueForServiceTab;
-import automation.PestRoutes.PageObject.Admin.OfficeSettings.TriggerTypes.SubscriptionStatusTab;
+import automation.PestRoutes.PageObject.Admin.PreferencesTab.OfficeSettingsTab.TriggerTypes.Trigger_Actions;
+import automation.PestRoutes.PageObject.Admin.PreferencesTab.OfficeSettingsTab.TriggerTypes.TriggerRules;
+import automation.PestRoutes.PageObject.Admin.PreferencesTab.OfficeSettingsTab.TriggerTypes.ARTab;
+import automation.PestRoutes.PageObject.Admin.PreferencesTab.OfficeSettingsTab.TriggerTypes.ReminderTab;
+import automation.PestRoutes.PageObject.Admin.PreferencesTab.OfficeSettingsTab.TriggerTypes.RenewalTab;
+import automation.PestRoutes.PageObject.Admin.PreferencesTab.OfficeSettingsTab.TriggerTypes.SubscriptionDueForServiceTab;
+import automation.PestRoutes.PageObject.Admin.PreferencesTab.OfficeSettingsTab.TriggerTypes.SubscriptionStatusTab;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_Header;
 
 public class CreateTrigger_SubscriptionDueForService extends AppData {

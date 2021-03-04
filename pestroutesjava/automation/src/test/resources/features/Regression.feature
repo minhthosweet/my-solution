@@ -3,23 +3,6 @@ Feature: End to end testing on the application
 
   @FieldsValidationInAccountReceivable1
   Scenario: Fields validations
-    Given I delete a routing group
-    When I create customer with first name, last name and address
-    And I validate if renewal fields display in Subscription tab if I choose renewal as service type
-    And I create a renewal subscription
-    And I navigate to scheduling tab
-    And I add a route
-    And I search customer
-    And I schedule an service appointment
-    And I search customer
-    And I complete an appointment
-    And I navigate to account receivable under Billings
-    Then I validate if all fields are displaying and are enabled
-    Then I validate if the customer displays once account status is Active
-
-  @FieldsValidationInAccountReceivable2
-  Scenario: Fields validations
-    Given I delete a routing group
     Given I have disabled ECA
     When I create customer with first name, last name, email and address
     Then I validate if customer name and address match in overview tab
@@ -31,6 +14,12 @@ Feature: End to end testing on the application
     And I navigate to account receivable under Billings
     Then I validate if all fields are displaying and are enabled
     Then I validate if the customer displays once account status is Active
+    And I validate if there are errors exist in the list
+
+  @FieldsValidationInAccountReceivable2
+  Scenario: Fields validations
+    Then I validate customer type in account receivable
+    And I validate if there are errors exist in the list
 
   @AfterAgreementSigned
   Scenario: Create Initial Invoice of type After Agreement Signed
@@ -74,6 +63,7 @@ Feature: End to end testing on the application
   Scenario: Fields validation
     And I navigate to Billing by Service Type
     Then I validate if all fields are displaying and are enabled in Billing by service type
+    And I validate if there are errors exist in the list
 
   @BillingByServiceTypeReport2
   Scenario: Validating filters and fields generated with single group by and its line items
@@ -90,6 +80,7 @@ Feature: End to end testing on the application
     Then I validate if the report is linked to the customer card
     And I validate billing by service type report
     And I validate the fields are displayed in individual line items
+    And I validate if there are errors exist in the list
 
   @CreateCustomerAndSearchValidation
   Scenario: Create a customer and validate in on overview and search box
@@ -100,7 +91,6 @@ Feature: End to end testing on the application
     And I validate search customer with first name
     And I validate search customer with last name
     And I validate search customer with phone number
-    And I validate search customer with last four of phone number
     And I validate search customer with zip code
     And I validate search customer with CustomerID
     And I validate search customer with street address
@@ -108,7 +98,6 @@ Feature: End to end testing on the application
 
   @CustomAppointmentDate
   Scenario: Create Initial Invoice of type On Initial Billing Date
-    Given I delete a routing group
     When I create customer with first name, last name and address
     Then I validate if customer name and address match in overview tab
     And I create a subscription of type "After Initial Completion"
@@ -117,10 +106,10 @@ Feature: End to end testing on the application
     And I add a custom frequency recurring service
     Then I validate upcoming appointments for custom recurring appointments
     And I close customer card
+    And I validate if there are errors exist in the list
 
   @CustomRoute
   Scenario: Create a route template
-    Given I delete a routing group
     Then I navigate to Route Templates
     When I create a route template
     Then I generate route from "4":"30" to "18":"30" with interval "60"
@@ -132,7 +121,6 @@ Feature: End to end testing on the application
 
   @Equipment
   Scenario: Add equipment type on customer card
-    Given I delete a routing group
     Given I add equipment type "ID1" and "Automation Test1" and "Yes"
     When I create customer with first name, last name and address
     And I add new equipment with barcode required "Automation" and "Automation Test1" and "DE1" and "1234" and "Injection" and "Test123" and "Bed" and "Bed Bugs" and "Special Product"
@@ -196,7 +184,6 @@ Feature: End to end testing on the application
 
   @Leads
   Scenario: Create new lead
-    Given I delete a routing group
     When I create customer with first name, last name and address
     And I create a new lead
     Then I validate lead creation invoices
@@ -267,9 +254,8 @@ Feature: End to end testing on the application
     And I add chemicals to substructures
     Then I verify chemical in structure
     Then I verify chemical in substructure
-    And I validate if there are errors exist in the list
     And I close customer card
-    And I navigate to scheduling tab
+    And I validate if there are errors exist in the list
 
   @TaxRate
   Scenario: Create customer and verify all tax rates

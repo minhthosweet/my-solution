@@ -2,8 +2,8 @@ package automation.PestRoutes.Controller.Admin.Preferences.CustomerPreferences;
 
 import automation.PestRoutes.Controller.Admin.Preferences.ServiceRelated.Service;
 import automation.PestRoutes.PageObject.Admin.AdminMainPage;
-import automation.PestRoutes.PageObject.Admin.FormsPage.FormObjects;
-import automation.PestRoutes.PageObject.Admin.Preferences.PreferencesPage;
+import automation.PestRoutes.PageObject.Admin.PreferencesTab.CustomerPreferencesTab.FormObjects;
+import automation.PestRoutes.PageObject.Admin.PreferencesTab.PreferencesPage;
 import automation.PestRoutes.PageObject.Header;
 import automation.PestRoutes.Utilities.FindElement;
 import io.cucumber.java.en.Given;

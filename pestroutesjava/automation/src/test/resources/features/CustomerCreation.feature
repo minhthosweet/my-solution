@@ -1,7 +1,8 @@
 #Author: Aarbi
+
 @Regression
 @NewCustomerValidation
-Feature: Create ans search customer with validation
+Feature: Create and search customer with validation
 
   @CreateCustomerValidation
   Scenario: Create a customer
@@ -12,7 +13,6 @@ Feature: Create ans search customer with validation
     And I validate search customer with first name
     And I validate search customer with last name
     And I validate search customer with phone number
-    And I validate search customer with last four of phone number
     And I validate search customer with zip code
     And I validate search customer with CustomerID
     And I validate search customer with street address

@@ -8,11 +8,11 @@ import automation.PestRoutes.Utilities.*;
 import org.testng.annotations.Test;
 import automation.PestRoutes.PageObject.Header;
 import automation.PestRoutes.PageObject.Admin.AdminMainPage;
-import automation.PestRoutes.PageObject.Admin.OfficeSettings.TriggerTypes.Trigger_Actions;
-import automation.PestRoutes.PageObject.Admin.OfficeSettings.TriggerTypes.TriggerRules;
-import automation.PestRoutes.PageObject.Admin.OfficeSettings.TriggerTypes.ARTab;
-import automation.PestRoutes.PageObject.Admin.OfficeSettings.TriggerTypes.RenewalTab;
-import automation.PestRoutes.PageObject.Admin.OfficeSettings.TriggerTypes.SubscriptionStatusTab;
+import automation.PestRoutes.PageObject.Admin.PreferencesTab.OfficeSettingsTab.TriggerTypes.Trigger_Actions;
+import automation.PestRoutes.PageObject.Admin.PreferencesTab.OfficeSettingsTab.TriggerTypes.TriggerRules;
+import automation.PestRoutes.PageObject.Admin.PreferencesTab.OfficeSettingsTab.TriggerTypes.ARTab;
+import automation.PestRoutes.PageObject.Admin.PreferencesTab.OfficeSettingsTab.TriggerTypes.RenewalTab;
+import automation.PestRoutes.PageObject.Admin.PreferencesTab.OfficeSettingsTab.TriggerTypes.SubscriptionStatusTab;
 
 public class CreateTrigger_CustomerStatus extends AppData {
     Header header;

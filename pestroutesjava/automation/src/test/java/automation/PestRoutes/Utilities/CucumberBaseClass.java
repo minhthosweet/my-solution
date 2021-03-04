@@ -55,7 +55,7 @@ public class CucumberBaseClass extends AppData {
             try {
                 WebElement elm = FindElement.elementByAttribute(customerViewDialog_header.infoTabInDialog, FindElement.InputType.XPath);
                 if (elm.isDisplayed()) {
-                    createNewCustomer.closeCustomerCard();
+                    customerViewDialog_header.clickCloseButton();
                 }
             }
             catch(Exception e){

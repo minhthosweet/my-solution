@@ -1,12 +1,16 @@
 #Author: Aditya
-@BillingByServiceTypeReport
+@BillingByServiceTypeReports
 Feature: Validate if all fields present and are enabled
 
   Scenario: Fields validation
     And I navigate to Billing by Service Type
     Then I validate if all fields are displaying and are enabled in Billing by service type
+    And I validate if there are errors exist in the list
 
   Scenario: Validating filters and fields generated with single group by and its line items
+    Given I add a new generic flag if it is not already existing "Automation Flag" and "Its lit" and "Customer"
+    Given I add a new customer source if it is not already existing
+    Given I add a new division if it is not already existing
     When I create customer with first name, last name, email and address
     And I add additional properties to customer
     And I create a subscription of type "After Agreement Signed"
@@ -20,6 +24,7 @@ Feature: Validate if all fields present and are enabled
     Then I validate if the report is linked to the customer card
     And I validate billing by service type report
     And I validate the fields are displayed in individual line items
+    And I validate if there are errors exist in the list
 
   Scenario: Close browser
     And I quit driver

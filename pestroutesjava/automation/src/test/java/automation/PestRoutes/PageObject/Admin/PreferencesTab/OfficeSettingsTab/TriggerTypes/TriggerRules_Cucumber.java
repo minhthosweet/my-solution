@@ -1,4 +1,4 @@
-package automation.PestRoutes.PageObject.Admin.OfficeSettings.TriggerTypes;
+package automation.PestRoutes.PageObject.Admin.PreferencesTab.OfficeSettingsTab.TriggerTypes;
 
 import automation.PestRoutes.PageObject.Header;
 import automation.PestRoutes.PageObject.Admin.AdminMainPage;

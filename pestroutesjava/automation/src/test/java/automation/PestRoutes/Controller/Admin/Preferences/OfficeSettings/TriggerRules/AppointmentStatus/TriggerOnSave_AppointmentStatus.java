@@ -10,7 +10,7 @@ import org.testng.annotations.Test;
 import automation.PestRoutes.Controller.Admin.Preferences.OfficeSettings.TriggerRules.SubscriptionDueForService.CreateTrigger_SubscriptionDueForService;
 import automation.PestRoutes.Controller.Admin.Preferences.OfficeSettings.TriggerRules.CustomerStatus.TriggerOnSave_CustomerStatus;
 import automation.PestRoutes.Controller.Renewal.ValidateRenewal;
-import automation.PestRoutes.PageObject.Admin.OfficeSettings.TriggerTypes.TriggerRules;
+import automation.PestRoutes.PageObject.Admin.PreferencesTab.OfficeSettingsTab.TriggerTypes.TriggerRules;
 import automation.PestRoutes.Utilities.Utilities;
 
 public class TriggerOnSave_AppointmentStatus extends AppData {

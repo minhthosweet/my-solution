@@ -1,4 +1,4 @@
-package automation.PestRoutes.PageObject.Admin.Preferences;
+package automation.PestRoutes.PageObject.Admin.PreferencesTab.ServiceRelatedTab;
 
 import org.openqa.selenium.WebElement;
 import automation.PestRoutes.Utilities.FindElement;

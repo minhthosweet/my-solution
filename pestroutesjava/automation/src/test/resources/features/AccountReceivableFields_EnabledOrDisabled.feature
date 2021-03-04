@@ -16,9 +16,11 @@ Feature: Validate if all fields present and are enabled
     And I navigate to account receivable under Billings
     Then I validate if all fields are displaying and are enabled
     Then I validate if the customer displays once account status is Active
+    And I validate if there are errors exist in the list
 
   Scenario: Customer type validation
     Then I validate customer type in account receivable
+    And I validate if there are errors exist in the list
 
   Scenario: Close browser
     And I quit driver
