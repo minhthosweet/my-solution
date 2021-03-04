@@ -15,7 +15,7 @@ public class AdminMainPage {
 	public String preferences = "Preferences";
 	public String billing = "Billing";
 	public String userButton = "//div[text()='+ User']";
-	public String mergeuserButton = "//div[text()='Merge Users']";
+	public String mergeUserButton = "//div[text()='Merge Users']";
 	public String existingUser = "//div[contains(text(),'Automation User')]";
 	public String preExistingUser = "//div[contains(text(),'Automation User')]/parent::div/preceding-sibling::div[2]";
 
