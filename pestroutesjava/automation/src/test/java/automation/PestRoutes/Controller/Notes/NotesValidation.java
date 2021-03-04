@@ -42,7 +42,7 @@ public class NotesValidation extends AppData {
 	
 	private void navigateToCustomerCard() throws Exception {
 		mainHeader = new Header();
-		mainHeader.searchCustomer(getData("customerName", generalData));
+		mainHeader.searchCustomer_History(getData("customerName", generalData));
 	}
 	
 	private void addNotes() {

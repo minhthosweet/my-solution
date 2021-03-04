@@ -43,7 +43,7 @@ public class CreateLeads extends AppData {
 	public void test() throws Exception {
 		Header header = new Header();
 		CustomerViewDialog_Header customerCart = new CustomerViewDialog_Header();
-		header.searchCustomer(getData("customerName", generalData));
+		header.searchCustomer_History(getData("customerName", generalData));
 		customerCart.navigateTo(customerCart.leadsTabInDialog);
 		leadCreation();
 		validateInvoices();

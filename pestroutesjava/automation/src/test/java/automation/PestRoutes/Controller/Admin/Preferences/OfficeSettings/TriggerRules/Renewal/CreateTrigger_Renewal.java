@@ -236,7 +236,7 @@ public class CreateTrigger_Renewal extends AppData {
 		Utilities.navigateToUrl("https://adityam.pestroutes.com/");
 		header = new Header();
 		reminder = new ReminderTab();
-		header.searchCustomer(getData("userID", generalData));
+		header.searchCustomer_History(getData("userID", generalData));
 		overviewHeader = new CustomerViewDialog_Header();
 		overviewHeader.navigateTo(overviewHeader.notesTabInDialog);
 		overviewHeader.clickCustomerContactsInNotesTab();

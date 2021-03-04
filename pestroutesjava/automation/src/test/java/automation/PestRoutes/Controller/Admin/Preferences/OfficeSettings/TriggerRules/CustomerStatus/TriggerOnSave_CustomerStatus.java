@@ -164,7 +164,7 @@ public class TriggerOnSave_CustomerStatus extends AppData {
         overviewHeader.navigateTo(overviewHeader.adminTabInDialog);
         customerAdmin.changeAccountStatus_Active();
         header = new Header();
-        header.searchCustomer(getData("customerName", generalData));
+        header.searchCustomer_History(getData("customerName", generalData));
         overviewHeader.navigateTo(overviewHeader.adminTabInDialog);
         customerAdmin.changeAccountStatus_Frozen(customerAdmin.reassignServicePropertiesToNewBillingAccount);
     }
@@ -195,7 +195,7 @@ public class TriggerOnSave_CustomerStatus extends AppData {
         overviewHeader = new CustomerViewDialog_Header();
         customer = new CreateCustomerDialog();
         newCustomer.createCustomerWithEmail();
-        header.searchCustomer(getData("customerName", generalData));
+        header.searchCustomer_History(getData("customerName", generalData));
         overviewHeader.navigateTo(overviewHeader.infoTabInDialog);
         customer.clickPendingCancelCheckBox();
     }
