@@ -26,12 +26,6 @@ public class AdminMainPage {
 		Utilities.clickElement("//p[text() = '"+needTab+"']", ElementType.XPath);
 	}
 
-	public void clickButton(String needButton) {
-		Utilities.waitUntileElementIsVisible(needButton);
-		Utilities.scrollToElement(needButton);
-		Utilities.clickElement(needButton, ElementType.XPath);
-	}
-
 	//Setters
 	public void setInputValue(String needInputField, String keysToSend) {
 		FindElement.elementByAttribute(needInputField, InputType.XPath).sendKeys(keysToSend);
