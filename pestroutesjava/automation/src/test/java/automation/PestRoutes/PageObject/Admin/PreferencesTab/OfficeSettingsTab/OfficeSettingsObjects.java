@@ -1,4 +1,4 @@
-package automation.PestRoutes.PageObject.Admin.OfficeSettings;
+package automation.PestRoutes.PageObject.Admin.PreferencesTab.OfficeSettingsTab;
 
 public class OfficeSettingsObjects {
 

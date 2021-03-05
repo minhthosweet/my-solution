@@ -1,4 +1,4 @@
-package automation.PestRoutes.PageObject.Admin.FormsPage;
+package automation.PestRoutes.PageObject.Admin.PreferencesTab.CustomerPreferencesTab;
 
 import automation.PestRoutes.Utilities.FindElement;
 import automation.PestRoutes.Utilities.FindElement.InputType;
@@ -13,7 +13,7 @@ public class FormObjects {
 	public String previewButton = "//div[@id='preferenceHeader']/following-sibling::form//div[text()='preview']";
 	public String deleteButton = "//div[@id='preferenceHeader']/following-sibling::form//div[text()='delete']";
 	public String cancelButton = "//div[@id='preferenceHeader']/following-sibling::form//div[text()='cancel']";
-	public String saveButton = "//div[@id='preferenceHeader']/following-sibling::form//div[text()='save']";
+	public static String saveButton = "//div[@id='preferenceHeader']/following-sibling::form//div[text()='save']";
 	
 	//Form objects
 	public String nameField = "//div[@id='preferenceHeader']/following-sibling::form//input[@name='description']";
@@ -22,10 +22,7 @@ public class FormObjects {
 	public String requiredApprovalDropdown = "//div[@id='preferenceHeader']/following-sibling::form//select[@name='requireApproval']";
 	public String htmlInputField = "//div[@id='preferenceHeader']/following-sibling::form//textarea[@name = 'content']";
 	public String existingFlag = "//div[contains(text(),'Fire')]";
-	
-	
-	
-	
+
 	public void clickButton(String needAttribute) {
 		Utilities.waitUntileElementIsVisible(needAttribute);
 		Utilities.clickElement(needAttribute, ElementType.XPath);

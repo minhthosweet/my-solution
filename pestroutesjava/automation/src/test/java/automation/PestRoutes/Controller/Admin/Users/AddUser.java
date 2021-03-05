@@ -39,7 +39,7 @@ public class AddUser extends AppData {
 		try {
 			WebElement elm = FindElement.elementByAttribute(adminPage.existingUser, InputType.XPath);
 		} catch(Exception e ) {
-			adminPage.clickButton(adminPage.userButton);
+			Utilities.clickElement(adminPage.userButton, Utilities.ElementType.XPath);
 			addUserDialog.setInputValue(addUserDialog.firstNameInputField, userFirstName);
 			addUserDialog.setInputValue(addUserDialog.lastNameInputField, userLastName);
 			addUserDialog.selectValueFromDropDown(addUserDialog.accountTypeDropDown, needAccountType);
@@ -57,7 +57,7 @@ public class AddUser extends AppData {
 		adminPage.navigateTo(adminPage.users);
 		try {
 			Utilities.scrollToElementJS(adminPage.preExistingUser);
-			adminPage.clickButton(adminPage.existingUser);
+			Utilities.clickElement(adminPage.existingUser, Utilities.ElementType.XPath);
 			addUserDialog.clickButton(addUserDialog.deactivateLink);
 			addUserDialog.clickButton(addUserDialog.deactivateSaveButton);
 			Thread.sleep(3000);

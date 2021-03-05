@@ -2,7 +2,7 @@ package automation.PestRoutes.Controller.Admin.Preferences.OfficeSettings.GLAcco
 
 import automation.PestRoutes.Controller.Admin.Preferences.ServiceRelated.Service;
 import automation.PestRoutes.PageObject.Admin.AdminMainPage;
-import automation.PestRoutes.PageObject.Admin.OfficeSettings.GLAccounts.GLAccountCreation;
+import automation.PestRoutes.PageObject.Admin.PreferencesTab.OfficeSettingsTab.GLAccounts.GLAccountCreation;
 import automation.PestRoutes.PageObject.Header;
 import automation.PestRoutes.Utilities.*;
 import io.cucumber.java.en.Then;

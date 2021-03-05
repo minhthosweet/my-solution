@@ -6,9 +6,9 @@ import org.testng.annotations.Test;
 
 import automation.PestRoutes.PageObject.Header;
 import automation.PestRoutes.PageObject.Admin.AdminMainPage;
-import automation.PestRoutes.PageObject.Admin.Preferences.ProductTypes;
-import automation.PestRoutes.PageObject.Admin.Preferences.PreferencesPage;
-import automation.PestRoutes.PageObject.Admin.Preferences.ServiceTypes;
+import automation.PestRoutes.PageObject.Admin.PreferencesTab.ServiceRelatedTab.ProductTypes;
+import automation.PestRoutes.PageObject.Admin.PreferencesTab.PreferencesPage;
+import automation.PestRoutes.PageObject.Admin.PreferencesTab.ServiceRelatedTab.ServiceTypes;
 import automation.PestRoutes.Utilities.AssertException;
 import automation.PestRoutes.Utilities.BaseClass;
 import automation.PestRoutes.Utilities.Utilities;

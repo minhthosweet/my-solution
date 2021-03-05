@@ -1,6 +1,6 @@
-package automation.PestRoutes.PageObject.Admin.OfficeSettings.TriggerTypes;
+package automation.PestRoutes.PageObject.Admin.PreferencesTab.OfficeSettingsTab.TriggerTypes;
 
-import automation.PestRoutes.PageObject.Admin.OfficeSettings.OfficeSettingsObjects;
+import automation.PestRoutes.PageObject.Admin.PreferencesTab.OfficeSettingsTab.OfficeSettingsObjects;
 import automation.PestRoutes.Utilities.FindElement;
 import automation.PestRoutes.Utilities.Utilities;
 import automation.PestRoutes.Utilities.FindElement.InputType;

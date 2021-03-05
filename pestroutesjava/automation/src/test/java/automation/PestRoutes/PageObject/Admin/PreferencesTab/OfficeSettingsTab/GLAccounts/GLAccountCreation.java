@@ -1,8 +1,8 @@
-package automation.PestRoutes.PageObject.Admin.OfficeSettings.GLAccounts;
+package automation.PestRoutes.PageObject.Admin.PreferencesTab.OfficeSettingsTab.GLAccounts;
 
-import automation.PestRoutes.PageObject.Admin.OfficeSettings.OfficeSettingsObjects;
-import automation.PestRoutes.PageObject.Admin.OfficeSettings.TriggerTypes.TriggerRules;
-import automation.PestRoutes.PageObject.Admin.Preferences.ServiceTypes;
+import automation.PestRoutes.PageObject.Admin.PreferencesTab.OfficeSettingsTab.OfficeSettingsObjects;
+import automation.PestRoutes.PageObject.Admin.PreferencesTab.OfficeSettingsTab.TriggerTypes.TriggerRules;
+import automation.PestRoutes.PageObject.Admin.PreferencesTab.ServiceRelatedTab.ServiceTypes;
 import automation.PestRoutes.Utilities.FindElement;
 import automation.PestRoutes.Utilities.Utilities;
 

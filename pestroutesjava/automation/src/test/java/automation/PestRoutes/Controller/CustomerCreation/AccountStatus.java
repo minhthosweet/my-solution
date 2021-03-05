@@ -55,7 +55,7 @@ public class AccountStatus extends AppData {
 
 	// Change the account to Active and assert
 	private void validateActiveStatus() throws Exception {
-		header.searchCustomer(getData("userID", generalData));
+		header.searchCustomer_History(getData("userID", generalData));
 		dialog.navigateTo(dialog.adminTabInDialog);
 		statusChange.changeAccountStatus_Active();
 		statusChange.getAccountStatus();
@@ -66,7 +66,7 @@ public class AccountStatus extends AppData {
 
 	// Change the account to Frozen and assert
 	private void validateFrozenStatus() throws IOException, Exception {
-		header.searchCustomer(getData("userID", generalData));
+		header.searchCustomer_History(getData("userID", generalData));
 		dialog.navigateTo(dialog.adminTabInDialog);
 		statusChange.changeAccountStatus_Frozen(statusChange.cancelServiceProps);
 		statusChange.getAccountStatus();

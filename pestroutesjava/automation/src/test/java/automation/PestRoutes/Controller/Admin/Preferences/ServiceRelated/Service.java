@@ -5,8 +5,8 @@ import io.cucumber.java.en.And;
 import org.openqa.selenium.WebElement;
 import automation.PestRoutes.PageObject.Header;
 import automation.PestRoutes.PageObject.Admin.AdminMainPage;
-import automation.PestRoutes.PageObject.Admin.Preferences.PreferencesPage;
-import automation.PestRoutes.PageObject.Admin.Preferences.ServiceTypes;
+import automation.PestRoutes.PageObject.Admin.PreferencesTab.PreferencesPage;
+import automation.PestRoutes.PageObject.Admin.PreferencesTab.ServiceRelatedTab.ServiceTypes;
 import io.cucumber.java.en.Given;
 
 public class Service extends AppData {
@@ -24,7 +24,6 @@ public class Service extends AppData {
             WebElement elm = service.getDescription(getData("serviceDescription", generalData));
             if (elm.isDisplayed()) {
                 editService(getData("serviceDescription", generalData));
-
             }
         } catch (Exception e) {
             System.out.println("did not find renewal service");

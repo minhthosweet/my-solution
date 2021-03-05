@@ -11,12 +11,12 @@ import automation.PestRoutes.Controller.CustomerCreation.CreateNewCustomer;
 import automation.PestRoutes.Controller.Schedules.ScheduleAppt;
 import automation.PestRoutes.PageObject.Header;
 import automation.PestRoutes.PageObject.Admin.AdminMainPage;
-import automation.PestRoutes.PageObject.Admin.OfficeSettings.TriggerTypes.Trigger_Actions;
-import automation.PestRoutes.PageObject.Admin.OfficeSettings.TriggerTypes.TriggerRules;
-import automation.PestRoutes.PageObject.Admin.OfficeSettings.TriggerTypes.ARTab;
-import automation.PestRoutes.PageObject.Admin.OfficeSettings.TriggerTypes.ReminderTab;
-import automation.PestRoutes.PageObject.Admin.OfficeSettings.TriggerTypes.RenewalTab;
-import automation.PestRoutes.PageObject.Admin.OfficeSettings.TriggerTypes.SubscriptionStatusTab;
+import automation.PestRoutes.PageObject.Admin.PreferencesTab.OfficeSettingsTab.TriggerTypes.Trigger_Actions;
+import automation.PestRoutes.PageObject.Admin.PreferencesTab.OfficeSettingsTab.TriggerTypes.TriggerRules;
+import automation.PestRoutes.PageObject.Admin.PreferencesTab.OfficeSettingsTab.TriggerTypes.ARTab;
+import automation.PestRoutes.PageObject.Admin.PreferencesTab.OfficeSettingsTab.TriggerTypes.ReminderTab;
+import automation.PestRoutes.PageObject.Admin.PreferencesTab.OfficeSettingsTab.TriggerTypes.RenewalTab;
+import automation.PestRoutes.PageObject.Admin.PreferencesTab.OfficeSettingsTab.TriggerTypes.SubscriptionStatusTab;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_Header;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerviewDialog_AppointmentsTab;
 import automation.PestRoutes.PageObject.Scheduling.SchedulingAppointmentDialog;
@@ -195,7 +195,7 @@ public class CreateTrigger_Reminder extends AppData {
 		triggerAdmin.selectDropdown(appointmentTab.subscriptionType_schedulinTab,
 				appointmentTab.standAloneService_Scheduling);
 		confirmAppt.clickScheduleButton();
-		header.searchCustomer(getData("userID", generalData));
+		header.searchCustomer_History(getData("userID", generalData));
 		overviewHeader.navigateTo(overviewHeader.appointmentsTabInDialog);
 		appointmentTab.clickScheduledService(serviceType);
 		appointmentTab.clickStatusButton();
@@ -211,7 +211,7 @@ public class CreateTrigger_Reminder extends AppData {
 	public void assertLog() throws IOException, Exception {
 		header = new Header();
 		reminder = new ReminderTab();
-		header.searchCustomer(getData("userID", generalData));
+		header.searchCustomer_History(getData("userID", generalData));
 		overviewHeader = new CustomerViewDialog_Header();
 		overviewHeader.navigateTo(overviewHeader.notesTabInDialog);
 		overviewHeader.clickCustomerContactsInNotesTab();

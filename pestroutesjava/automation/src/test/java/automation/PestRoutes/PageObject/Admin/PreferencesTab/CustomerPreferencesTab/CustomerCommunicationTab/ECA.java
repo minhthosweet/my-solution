@@ -1,6 +1,7 @@
-package automation.PestRoutes.PageObject.Admin.Preferences;
+package automation.PestRoutes.PageObject.Admin.PreferencesTab.CustomerPreferencesTab.CustomerCommunicationTab;
 
 import automation.PestRoutes.PageObject.Admin.AdminMainPage;
+import automation.PestRoutes.PageObject.Admin.PreferencesTab.PreferencesPage;
 import automation.PestRoutes.PageObject.Header;
 import automation.PestRoutes.Utilities.FindElement;
 import automation.PestRoutes.Utilities.Utilities;
