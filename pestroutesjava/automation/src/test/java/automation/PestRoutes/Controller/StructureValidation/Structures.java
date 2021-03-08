@@ -1,8 +1,7 @@
 package automation.PestRoutes.Controller.StructureValidation;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+
 import automation.PestRoutes.Controller.CustomerCreation.CreateNewCustomer;
 import automation.PestRoutes.Utilities.*;
 import io.cucumber.java.en.And;
@@ -17,7 +16,6 @@ public class Structures extends AppData {
     CustomerViewDialog_Header dialog = new CustomerViewDialog_Header();
     StructuresTab structures = new StructuresTab();
     CustomerviewDialog_AppointmentsTab appointmentTab = new CustomerviewDialog_AppointmentsTab();
-    List list = new ArrayList<String>();
 
     private String mainStructureName = Utilities.generateRandomString(5);
     private String product = "UP-STAR";
@@ -27,14 +25,13 @@ public class Structures extends AppData {
     private String subSubUnit = Utilities.generateRandomString(5);
 
     @Test
-
     public void validateStructures() throws Exception {
         createStructureCustomer();
         createStructure();
         addChemicalMainStructureTab();
         addChemicalSubStructureTab();
-        verifyChemicalinUnit();
-        verifySubChemicalinUnit();
+        verifyChemicalInUnit();
+        verifySubChemicalInUnit();
     }
 
     public void createStructureCustomer() throws Exception {
@@ -78,7 +75,7 @@ public class Structures extends AppData {
     }
 
     @Then("I verify chemical in structure")
-    public void verifyChemicalinUnit() throws IOException, Exception {
+    public void verifyChemicalInUnit() throws IOException, Exception {
         dialog.navigateTo(dialog.structuresTabInDialog);
         appointmentTab.clickScheduledStructuredService(mainStructureName);
         structures.clickProductsAptTab();
@@ -87,13 +84,13 @@ public class Structures extends AppData {
         String actualStructureArea = appointmentTab.getStructureAreaTreated();
         String actualStructureIssues = appointmentTab.getStructureIssuesTreated();
         String actualStructureProductUsed = appointmentTab.getStructureChemicalName();
-        result(product, actualStructureArea, "Chemical for Structure", "Structure Validation");
+        result(product, actualStructureArea.replace(actualStructureArea.substring(actualStructureArea.length()-1), ""), "Chemical for Structure", "Structure Validation");
         result(product, actualStructureProductUsed, "Product for Structure", "Structure Validation");
-        result(targetIssue, actualStructureIssues, "Target issue for Structure", "Structure Validation");
+        result(targetIssue, actualStructureIssues.replace(actualStructureIssues.substring(actualStructureIssues.length()-1),"").substring(actualStructureIssues.length()-(targetIssue.length()+1)), "Target issue for Structure", "Structure Validation");
     }
 
     @Then("I verify chemical in substructure")
-    public void verifySubChemicalinUnit() throws IOException, Exception {
+    public void verifySubChemicalInUnit() throws InterruptedException {
         dialog.navigateTo(dialog.structuresTabInDialog);
         appointmentTab.clickSubScheduledStructuredService(mainStructureName, subUnit);
         structures.clickProductsAptTab();
@@ -102,15 +99,15 @@ public class Structures extends AppData {
         String actualStructureArea = appointmentTab.getStructureAreaTreated();
         String actualStructureIssues = appointmentTab.getStructureIssuesTreated();
         String actualStructureProductUsed = appointmentTab.getStructureChemicalName();
-        result(product, actualStructureArea, "Chemical for Structure", "Structure Validation");
+        result(product, actualStructureArea.replace(actualStructureArea.substring(actualStructureArea.length()-1),""), "Chemical for Structure", "Structure Validation");
         result(product, actualStructureProductUsed, "Product for Structure", "Structure Validation");
-        result(targetIssue, actualStructureIssues, "Target issue for Structure", "Structure Validation");
+        result(targetIssue, actualStructureIssues.replace(actualStructureIssues.substring(actualStructureIssues.length()-1),"").substring(actualStructureIssues.length()-(targetIssue.length()+1)), "Target issue for Structure", "Structure Validation");
     }
 
     @SuppressWarnings("unchecked")
     private void result(String expected, String actual, String stepName, String testName) {
         if (AssertException.result(expected, actual, stepName).size() > 0) {
-            list.add(AssertException.result(expected, actual, stepName));
+            Utilities.list.add(AssertException.result(expected, actual, stepName));
         }
         Reporter.status(stepName, expected, actual, testName);
     }

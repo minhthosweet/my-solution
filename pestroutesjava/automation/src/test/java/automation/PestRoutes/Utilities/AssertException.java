@@ -1,21 +1,18 @@
 package automation.PestRoutes.Utilities;
 
+import static automation.PestRoutes.Utilities.Utilities.list;
 import static org.testng.Assert.assertTrue;
-import static org.testng.Assert.fail;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
-import java.util.stream.Collectors;
 
 import com.aventstack.extentreports.Status;
+import io.cucumber.java.en.And;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 
 public class AssertException {
-	// public static List list = new ArrayList<String>();
 	public static List<String> result(String expected, String actual, String testName) {
-		List list = new ArrayList<String>();
 		try {
 			assertTrue((actual.replaceAll("\\s", "")).equals(expected.replaceAll("\\s", "")));
 		} catch (AssertionError e) {
@@ -50,8 +47,6 @@ public class AssertException {
 	}
 
 	public static void assertFailure(List needListName) {
-		List list = new ArrayList<String>();
-		System.out.println(needListName);
 		if (needListName.size() > 0) {
 			System.out.println(needListName.size());
 			System.out.println(needListName);
@@ -79,6 +74,11 @@ public class AssertException {
 			}
 		}
 
+	}
+
+	@And("I validate if there are errors exist in the list")
+	public static void validateIfFailureExist() {
+		AssertException.assertFailure(list);
 	}
 }
 

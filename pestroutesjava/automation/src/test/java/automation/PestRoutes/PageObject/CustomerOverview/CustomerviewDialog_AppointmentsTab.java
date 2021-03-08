@@ -41,7 +41,8 @@ public class CustomerviewDialog_AppointmentsTab {
     private String structureName = "//div[@id='appointmentContainor']//div[contains (text(), 'Structure:')]";
     public String structureNameObject = "//h3[text() = 'Structure Inspected']/parent::div//div[@class='left bold']";
     public String areaStructureTreated = "//div[contains (text(), 'Target Areas:')]/following-sibling::div[1]";
-    public String issuesStrutureTreated = "//div[contains (text(), 'Target Issues:')]/following-sibling::div[1]";
+    public String issuesStructureTreated = "//select[@name='saveAppointmentSubscription']//following-sibling::div";
+
     // **********Functions**********
 
     /*
@@ -203,8 +204,8 @@ public class CustomerviewDialog_AppointmentsTab {
     }
 
     public String getStructureIssuesTreated() {
-        Utilities.waitUntileElementIsVisible(issuesStrutureTreated);
-        return Utilities.getElementTextValue(issuesStrutureTreated, ElementType.XPath);
+        Utilities.waitUntileElementIsVisible(issuesStructureTreated);
+        return Utilities.getElementTextValue(issuesStructureTreated, ElementType.XPath);
     }
 
 }

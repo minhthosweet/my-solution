@@ -30,7 +30,6 @@ public class AccountReceivable extends BaseClass {
     CustomerViewDialog_Admin admin;
     CreateNewCustomer customer;
     ValidateRenewal subscription;
-    List list = new ArrayList<String>();
 
     @Test
     public void test() throws Exception {
@@ -167,7 +166,7 @@ public class AccountReceivable extends BaseClass {
 
     private void result(String expected, String actual, String stepName, String testName) {
         if (AssertException.result(expected, actual, stepName).size() > 0) {
-            list.add(AssertException.result(expected, actual, stepName));
+            Utilities.list.add(AssertException.result(expected, actual, stepName));
         }
         Reporter.status(stepName, expected, actual, testName);
     }

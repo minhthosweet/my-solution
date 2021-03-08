@@ -2,8 +2,6 @@ package automation.PestRoutes.Controller.Renewal;
 
 import java.io.IOException;
 import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.List;
 
 import automation.PestRoutes.Utilities.*;
 import io.cucumber.java.en.Then;
@@ -38,7 +36,7 @@ public class ValidateRenewal extends AppData {
     SchedulingTab scheduleDay;
     SchedulingAppointmentDialog confirmAppt;
     ScheduleAppt appt;
-    List list = new ArrayList<String>();
+
     private static DecimalFormat value = new DecimalFormat("0.00");
     public String serviceType;
 
@@ -57,13 +55,10 @@ public class ValidateRenewal extends AppData {
     public void test() throws Exception {
         renewalFieldsValidation();
         createRenewalSubscription();
-        //scheduleSubscription("06:30",getData("customerName", generalData));
         completeSchedulesService();
         validateRenewalDate();
-        //freezeSubscription();
         addPayment();
         validateActivationOfSubscription();
-        AssertException.assertFailure(list);
     }
 
     @And("I validate if renewal fields display in Subscription tab if I choose renewal as service type")
@@ -75,17 +70,17 @@ public class ValidateRenewal extends AppData {
         subscription.selectServiceType(serviceType);
         WebElement renewalDateField = FindElement.elementByAttribute(subscription.renewalDateField, InputType.XPath);
         if (AssertException.conditionResult(renewalDateField).size() > 0) {
-            list.add(AssertException.conditionResult(renewalDateField));
+            Utilities.list.add(AssertException.conditionResult(renewalDateField));
         }
         Reporter.conditionStatus(renewalDateField, "renewal date field", "Renewal in subscription");
         WebElement setRenewalDate = FindElement.elementByAttribute(subscription.setRenewalDateDropdown, InputType.XPath);
         if (AssertException.conditionResult(setRenewalDate).size() > 0) {
-            list.add(AssertException.conditionResult(setRenewalDate));
+            Utilities.list.add(AssertException.conditionResult(setRenewalDate));
         }
         Reporter.conditionStatus(setRenewalDate, "Set renewal date field", "Renewal in subscription");
         WebElement renewalFrequencyField = FindElement.elementByAttribute(subscription.renewalFrequencyDropdown, InputType.XPath);
         if (AssertException.conditionResult(renewalFrequencyField).size() > 0) {
-            list.add(AssertException.conditionResult(renewalFrequencyField));
+            Utilities.list.add(AssertException.conditionResult(renewalFrequencyField));
         }
         Reporter.conditionStatus(renewalFrequencyField, "Renewal date field", "Renewal in subscription");
     }
@@ -332,7 +327,7 @@ public class ValidateRenewal extends AppData {
     @SuppressWarnings({"unchecked"})
     private void result(String expected, String actual, String stepName, String testName) {
         if (AssertException.result(expected, actual, stepName).size() > 0) {
-            list.add(AssertException.result(expected, actual, stepName));
+            Utilities.list.add(AssertException.result(expected, actual, stepName));
         }
         Reporter.status(stepName, expected, actual, testName);
     }

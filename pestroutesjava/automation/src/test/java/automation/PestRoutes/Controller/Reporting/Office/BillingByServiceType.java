@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import automation.PestRoutes.Utilities.Reporter;
+import automation.PestRoutes.Utilities.Utilities;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import org.testng.annotations.Test;
@@ -23,8 +24,6 @@ public class BillingByServiceType extends AppData {
     BillingByServiceTypeTab billingByServiceType = new BillingByServiceTypeTab();
     CustomerViewDialog_Header dialog;
     Header header;
-
-    List list = new ArrayList<String>();
 
     public BillingByServiceType() throws Exception {
     }
@@ -160,13 +159,9 @@ public class BillingByServiceType extends AppData {
 
     private void result(String expected, String actual, String stepName, String testName) {
         if (AssertException.result(expected, actual, stepName).size() > 0) {
-            list.add(AssertException.result(expected, actual, stepName));
+            Utilities.list.add(AssertException.result(expected, actual, stepName));
         }
         Reporter.status(stepName, expected, actual, testName);
-    }
-
-    public void validateIfFailureExist() {
-        AssertException.assertFailure(list);
     }
 }
 
