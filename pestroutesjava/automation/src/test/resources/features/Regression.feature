@@ -224,6 +224,7 @@ Feature: End to end testing on the application
     Given I add a renewal service
     Given I add a new generic flag if it is not already existing "Fire" and "Its lit" and "Subscription"
     Given I add a new generic flag if it is not already existing "Test4Life" and "Test4Life" and "Customer"
+    Given I add a new generic flag if it is not already existing "Automation Flag" and "Flag" and "Customer"
     When I create customer with first name, last name, address and generic flag "Test4Life" and "Door to Door"
     And I create a subscription with Sales Rep assigned "Automation User - Office" and "Fire"
     And I navigate to scheduling tab
