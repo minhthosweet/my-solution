@@ -18,7 +18,7 @@ public class CreateLeads extends AppData {
 	String additialItem = "bed";
 	
 	String assignto = "Automation User - Office";
-	String source = "Current Customer";
+	String source = "Customer Referral";
 	String contractLength = "12 months";
 	String reasonLost = "";
 	String dateAssigned = "";
@@ -92,10 +92,10 @@ public class CreateLeads extends AppData {
 		double recurringSubtotal = Double.parseDouble(recurringServiceQuote)+recurringItemValue;
 		double recurringTotal = recurringSubtotal+Double.parseDouble(recurringTax);
 		
-		String[] actualValue = {leads.getValueOfAnElement(leads.initialSubTotalValue),
-				leads.getValueOfAnElement(leads.initialTotalValue),
-				leads.getValueOfAnElement(leads.recurringSubTotalValue),
-				leads.getValueOfAnElement(leads.recurringTotalValue)};
+		String[] actualValue = {leads.getValueOfAnElement(leads.initialSubTotalValue).replace("$", ""),
+				leads.getValueOfAnElement(leads.initialTotalValue).replace("$", ""),
+				leads.getValueOfAnElement(leads.recurringSubTotalValue).replace("$", ""),
+				leads.getValueOfAnElement(leads.recurringTotalValue).replace("$", "")};
 		double[] expectedValue = {initialSubTotal, initialTotal, recurringSubtotal, recurringTotal};
 		String[] stepName = {"Initial Subtotal ", "Initial total ", "Recurring subtotal ", "Recurring total "};
 		
@@ -109,7 +109,7 @@ public class CreateLeads extends AppData {
 		public void convertLeadToSubscription() throws InterruptedException {
 		header = new CustomerViewDialog_Header();
 		CustomerViewDialog_Header customerCart = new CustomerViewDialog_Header();
-		String subscriptionTitle = "//h3[contains (text(), '" + serviceType + "')]";
+		String subscriptionTitle= "//li[@class='subscriptionListMenuItem']/following-sibling::li/div[text()='"+ serviceType +"']";
 		Utilities.waitUntileElementIsVisible(leads.newButton);
 		leads.clickButton(leads.convertToLeadButton);
 		customerCart.navigateTo(customerCart.subscriptionTabInDialog);

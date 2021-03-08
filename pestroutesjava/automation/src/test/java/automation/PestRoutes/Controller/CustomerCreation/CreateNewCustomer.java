@@ -190,16 +190,16 @@ public class CreateNewCustomer extends AppData {
         captureUserIdAndFullName();
         dialog.navigateTo(dialog.infoTabInDialog);
         customer.clickOverrideTaxCheckBox();
-        result(customer.getTaxRate(customer.mainTaxPercentage), needMainTax, "Entered ZipCode" , "Tax Rate Validation");
-        result(customer.getTaxRate(customer.stateTaxPercentage), needStateTax, "Entered ZipCode" , "StateTax Rate Validation");
-        result(customer.getTaxRate(customer.cityTaxPercentage), needCityTax, "Entered ZipCode" , "CityTax Rate Validation");
-        result(customer.getTaxRate(customer.countyTaxPercentage), needCountyTax, "Entered ZipCode" , "CountyTax Rate Validation");
-        result(customer.getTaxRate(customer.customTaxPercentage), needCustomTax, "Entered ZipCode" , "CustomTax Rate Validation");
-        result(customer.getTaxRate(customer.district1TaxPercentage), needDistrict1Tax, "Entered ZipCode" , "District1 Tax Rate Validation");
-        result(customer.getTaxRate(customer.district2TaxPercentage), needDistrict2Tax, "Entered ZipCode" , "District2 Tax Rate Validation");
-        result(customer.getTaxRate(customer.district3TaxPercentage), needDistrict3Tax, "Entered ZipCode" , "District3 Tax Rate Validation");
-        result(customer.getTaxRate(customer.district4TaxPercentage), needDistrict4Tax, "Entered ZipCode" , "District4 Tax Rate Validation");
-        result(customer.getTaxRate(customer.district5TaxPercentage), needDistrict5Tax, "Entered ZipCode" , "District5 Tax Rate Validation");
+        result(needMainTax, customer.getTaxRate(customer.mainTaxPercentage),"Entered ZipCode" , "Tax Rate Validation");
+        result(needStateTax, customer.getTaxRate(customer.stateTaxPercentage), "Entered ZipCode" , "StateTax Rate Validation");
+        result(needCityTax, customer.getTaxRate(customer.cityTaxPercentage), "Entered ZipCode" , "CityTax Rate Validation");
+        result(needCountyTax, customer.getTaxRate(customer.countyTaxPercentage), "Entered ZipCode" , "CountyTax Rate Validation");
+        result(needCustomTax, customer.getTaxRate(customer.customTaxPercentage), "Entered ZipCode" , "CustomTax Rate Validation");
+        result(needDistrict1Tax, customer.getTaxRate(customer.district1TaxPercentage), "Entered ZipCode" , "District1 Tax Rate Validation");
+        result(needDistrict2Tax, customer.getTaxRate(customer.district2TaxPercentage), "Entered ZipCode" , "District2 Tax Rate Validation");
+        result(needDistrict3Tax, customer.getTaxRate(customer.district3TaxPercentage), "Entered ZipCode" , "District3 Tax Rate Validation");
+        result(needDistrict4Tax, customer.getTaxRate(customer.district4TaxPercentage), "Entered ZipCode" , "District4 Tax Rate Validation");
+        result(needDistrict5Tax,customer.getTaxRate(customer.district5TaxPercentage), "Entered ZipCode" , "District5 Tax Rate Validation");
         customer.clickOverrideTaxCheckBox();
     }
 
