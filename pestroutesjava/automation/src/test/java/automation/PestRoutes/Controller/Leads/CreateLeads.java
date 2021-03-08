@@ -108,7 +108,7 @@ public class CreateLeads extends AppData {
 		public void convertLeadToSubscription() throws InterruptedException {
 		header = new CustomerViewDialog_Header();
 		CustomerViewDialog_Header customerCart = new CustomerViewDialog_Header();
-		String subscriptionTitle= "//li[@class='subscriptionListMenuItem']/following-sibling::li/div[text()='"+ serviceType +"']";
+		String subscriptionTitle= "//li[@subscriptionid]//div[text()='"+ serviceType +"']";
 		Utilities.waitUntileElementIsVisible(leads.newButton);
 		leads.clickButton(leads.convertToLeadButton);
 		customerCart.navigateTo(customerCart.subscriptionTabInDialog);
