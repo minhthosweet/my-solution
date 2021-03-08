@@ -39,7 +39,7 @@ public class AddUser extends AppData {
 		try {
 			WebElement elm = FindElement.elementByAttribute(adminPage.existingUser, InputType.XPath);
 			deactivateUser();
-			adminPage.clickButton(adminPage.userButton);
+			Utilities.clickElement(adminPage.userButton, Utilities.ElementType.XPath);
 			addUserDialog.setInputValue(addUserDialog.firstNameInputField, userFirstName);
 			addUserDialog.setInputValue(addUserDialog.lastNameInputField, userLastName);
 			addUserDialog.selectValueFromDropDown(addUserDialog.accountTypeDropDown, needAccountType);

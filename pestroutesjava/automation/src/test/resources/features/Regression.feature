@@ -133,6 +133,7 @@ Feature: End to end testing on the application
     And I add new equipment with barcode required "Automation2" and "Automation Test2" and "DE2" and "1234" and "Injection" and "" and "Bed" and "Bed Bugs" and "Special Product"
     And I search customer
     And I verify that the equipment was added "Automation Test2"
+    And I validate if there are errors exist in the list
 
   @GLAccountAssignedToServiceType
   Scenario Outline: Create a GL Account
@@ -185,6 +186,7 @@ Feature: End to end testing on the application
 
   @Leads
   Scenario: Create new lead
+    Given I create a new user if it is not already existing "Office Staff"
     When I create customer with first name, last name and address
     And I create a new lead
     Then I validate lead creation invoices
