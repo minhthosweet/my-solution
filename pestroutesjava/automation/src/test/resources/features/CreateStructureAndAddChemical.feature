@@ -3,7 +3,7 @@
 Feature: Structures
 
   @CreateStructureandChemical
-  Scenario: Structure and Chemical Validationss
+  Scenario: Structure and Chemical Validation
     Given I delete a routing group
     When I create customer with first name, last name, address, email and Structure
     And I add structure and sub structures
