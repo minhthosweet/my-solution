@@ -7,8 +7,6 @@ import automation.PestRoutes.Utilities.*;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import java.util.ArrayList;
-import java.util.List;
 import org.testng.annotations.Test;
 
 public class AddSubscription extends AppData {
@@ -16,8 +14,6 @@ public class AddSubscription extends AppData {
 	CustomerViewDialog_SubscriptionTab subscription = new CustomerViewDialog_SubscriptionTab();
 	CustomerViewDialog_Header customerDialogHeader;
 	Header header;
-
-	List list = new ArrayList<String>();
 
 	public String ticketItem = "bed";
 	public String initialQuote = "120.00";
@@ -36,7 +32,6 @@ public class AddSubscription extends AppData {
 		validateRecurringInvoice();
 		validateBillingFrequencyByMonthly();
 		validateBillingFrequencyByAnnually();
-		AssertException.assertFailure(list);
 
 	}
 
@@ -257,7 +252,7 @@ public class AddSubscription extends AppData {
 	@SuppressWarnings("unchecked")
 	private void result(String expected, String actual, String stepName, String testName) {
 		if (AssertException.result(expected, actual, stepName).size() > 0) {
-			list.add(AssertException.result(expected, actual, stepName));
+			Utilities.list.add(AssertException.result(expected, actual, stepName));
 		}
 		Reporter.status(stepName, expected, actual, testName);
 	}

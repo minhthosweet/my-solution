@@ -22,7 +22,6 @@ public class CreateGLAccount extends AppData {
 
     public String glAccountNumber = glAccountCreation.randomGLAccountNumber;
     public String title = Utilities.generateRandomString(5);
-    List list = new ArrayList<String>();
 
     @Test
     public void createGLAccounts() {
@@ -100,13 +99,9 @@ public class CreateGLAccount extends AppData {
 
     private void result(String expected, String actual, String stepName, String testName) {
         if (AssertException.result(expected, actual, stepName).size() > 0) {
-            list.add(AssertException.result(expected, actual, stepName));
+            Utilities.list.add(AssertException.result(expected, actual, stepName));
         }
         Reporter.status(stepName, expected, actual, testName);
-    }
-
-    public void validateIfFailureExist() {
-        AssertException.assertFailure(list);
     }
 
 }

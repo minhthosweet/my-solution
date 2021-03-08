@@ -3,10 +3,8 @@ package automation.PestRoutes.Utilities;
 import java.io.File;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
+
 import io.cucumber.java.en.And;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -30,6 +28,7 @@ import org.apache.commons.lang3.time.DateUtils;
 
 public class Utilities {
 	static WebDriver driver = GetWebDriver.getInstance();
+	public static List list= new ArrayList<String>();
 
 	public static String getAlertText() {
 		return driver.switchTo().alert().getText();
@@ -55,7 +54,6 @@ public class Utilities {
 
 	public static void switchToIframeByXpath(String needElement) {
 		WebDriverWait wait = new WebDriverWait(driver, 20);
-		//wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath(needXpath)));
 		String elm = needElement;
 		driver.switchTo().frame(elm);
 	}

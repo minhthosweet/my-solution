@@ -16,7 +16,6 @@ public class AddEquipment {
     CustomerViewDialog_Header customerDialogHeader;
     CustomerViewDialog_Equipment customerViewDialogEquipment;
     AssertException assertException;
-    List list = new ArrayList<String>();
 
     @And("I add new equipment with barcode required {string} and {string} and {string} and {string} and {string} and {string} " +
             "and {string} and {string} and {string}")
@@ -57,6 +56,5 @@ public class AddEquipment {
         String expectedEquipmentFlagType = needEquipmentFlagType;
         String actualEquipmentFlagType = customerViewDialogEquipment.getItem();
         assertException.result(expectedEquipmentFlagType, actualEquipmentFlagType, "Validate equipment added", "add equipment");
-        System.out.println(actualEquipmentFlagType);
     }
 }

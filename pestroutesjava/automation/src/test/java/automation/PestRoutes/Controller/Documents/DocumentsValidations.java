@@ -23,7 +23,6 @@ public class DocumentsValidations extends AppData {
 	CreateNewCustomer newCustomer;
 	ValidateRenewal subscription;
 	FormTemplates forms;
-	List list = new ArrayList<String>();
 	String formName = "Automation Test";
 
 	public void signAgreement() throws Exception{
@@ -104,7 +103,7 @@ public class DocumentsValidations extends AppData {
 	@SuppressWarnings("unchecked")
 	private void result(String expected, String actual, String stepName, String testName) {
 		if (AssertException.result(expected, actual, stepName).size() > 0) {
-			list.add(AssertException.result(expected, actual, stepName));
+			Utilities.list.add(AssertException.result(expected, actual, stepName));
 		}
 		Reporter.status(stepName, expected, actual, testName);
 	}

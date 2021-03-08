@@ -120,7 +120,6 @@ Feature: End to end testing on the application
     And I have a route template
     When I navigate to Route Templates
     Then I delete the route template
-    And I validate if there are errors exist in the list
 
   @Equipment
   Scenario: Add equipment type on customer card
@@ -134,7 +133,6 @@ Feature: End to end testing on the application
     And I add new equipment with barcode required "Automation2" and "Automation Test2" and "DE2" and "1234" and "Injection" and "" and "Bed" and "Bed Bugs" and "Special Product"
     And I search customer
     And I verify that the equipment was added "Automation Test2"
-    And I validate if there are errors exist in the list
 
   @GLAccountAssignedToServiceType
   Scenario Outline: Create a GL Account

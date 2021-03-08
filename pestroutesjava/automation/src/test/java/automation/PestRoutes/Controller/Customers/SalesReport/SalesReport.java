@@ -32,7 +32,6 @@ public class SalesReport extends AppData {
 	CustomerViewDialog_OverviewTab overview;
 	AssertException assertException;
 
-	List list = new ArrayList<String>();
 	double customerContractValue;
 
 	@Test

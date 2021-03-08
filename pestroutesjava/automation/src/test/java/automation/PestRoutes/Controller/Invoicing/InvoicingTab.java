@@ -33,7 +33,6 @@ public class InvoicingTab extends AppData {
     private Integer partialPaymentAmount = Integer.parseInt(treatmentAmount) / 2;
     private String successfulPartialCharge = "Successfully Charged Cash!$450.00";
     private String successfulFullCharge = "Successfully Charged Cash!$5,450.00";
-    List list = new ArrayList<String>();
     private String invoiceDate = "1";
     public static String invoiceCharges = null;
     public static String invoiceValue = null;
@@ -297,12 +296,9 @@ public class InvoicingTab extends AppData {
 
     private void result(String expected, String actual, String stepName, String testName) {
         if (AssertException.result(expected, actual, stepName).size() > 0) {
-            list.add(AssertException.result(expected, actual, stepName));
+            Utilities.list.add(AssertException.result(expected, actual, stepName));
         }
         Reporter.status(stepName, expected, actual, testName);
     }
 
-    public void validateIfFailureExist() {
-        AssertException.assertFailure(list);
-    }
 }
