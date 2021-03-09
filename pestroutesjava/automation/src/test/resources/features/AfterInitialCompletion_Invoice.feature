@@ -1,8 +1,8 @@
 @AfterInitialCompletion
 Feature: After Initial Appointment Completion
 
-  @CreateInitialInvoiceAfterInitialCompletion12
-  Scenario: Create Initial Invoice of type After Initial Completion12
+  @CreateInitialInvoiceAfterInitialCompletion
+  Scenario: Create Initial Invoice of type After Initial Completion
     Given I delete a routing group
     Given I add a renewal service
     When I create customer with first name, last name and address
