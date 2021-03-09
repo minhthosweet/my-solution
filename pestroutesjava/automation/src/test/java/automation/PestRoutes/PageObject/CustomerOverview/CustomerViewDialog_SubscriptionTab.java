@@ -24,7 +24,7 @@ public class CustomerViewDialog_SubscriptionTab {
 	public String statusText = "//div[@id='subStatusBox']//div[@id='SubStatus']";
 	public String ActivateDeactivateButton = "//div[@id='subStatusBox']/span[@id='SubStatusAction']";
 	public String contractValue = "//span[contains(text(),'Contract Value')]";
-	public String cencellationCategoryDropdown_cancelSubscriptionDialog = "//select[@id='cancelSubCategory']";
+	public String cancellationCategoryDropdown_cancelSubscriptionDialog = "//select[@id='cancelSubCategory']";
 	public String cancelNotesInputField = "//textarea[@id='cancelSubNotes']";
 	public String freezeSubscriptionButton = "//span[text()='Freeze Subscription']";
 	public String cancelButton_cancelSubscriptionDialog = "//span[text()='Freeze Subscription']/parent::button/preceding-sibling::button[1]/span[text()='Cancel']";
@@ -47,6 +47,7 @@ public class CustomerViewDialog_SubscriptionTab {
 	public String netBillingDaysInputField = "//input[@name='netBillingDaysDisplay']";
 	public String billingFrequencyDropdown = "//select[@name='billingFrequency']";
 	public String billingInitialInvoiceDropdown = "//select[@name='initialInvoice']";
+	public String selectedBillingInitialInvoiceDropdown = "//select[@name='initialInvoice']/option[@selected]";
 	public String initialBillingDateInputField = "//input[@name='initialBillingDate']";
 	public String editCustomInitialScheduleButton = "//div[@id='editInitialCustomScheduleButton']";
 	public String editCustomRecurringScheduleButton = "//div[@id='editCustomScheduleButton']";
@@ -186,8 +187,8 @@ public class CustomerViewDialog_SubscriptionTab {
 	}
 
 	public void selectCancellationCategory(String needCategory) {
-		Utilities.waitUntileElementIsVisible(cencellationCategoryDropdown_cancelSubscriptionDialog);
-		Utilities.selectValueFromDropDownByValue(cencellationCategoryDropdown_cancelSubscriptionDialog, needCategory);
+		Utilities.waitUntileElementIsVisible(cancellationCategoryDropdown_cancelSubscriptionDialog);
+		Utilities.selectValueFromDropDownByValue(cancellationCategoryDropdown_cancelSubscriptionDialog, needCategory);
 	}
 
 	public void selectSalesRep(String needSalesRap) {
@@ -552,5 +553,9 @@ public class CustomerViewDialog_SubscriptionTab {
 			++counter;
 		} while (counter != 7);
 		return datesResult[appointmentNumber-1];
+	}
+
+	public String getServiceType() {
+		return Utilities.getElementTextValue(selectedBillingInitialInvoiceDropdown, ElementType.XPath);
 	}
 }

@@ -13,6 +13,7 @@ public class CustomerViewDialog_InfoTab {
     public String zip = "//input[@name='zip']";
     public String primaryPhoneNumber = "//input[@name='phone1']";
     public String state = "//select[@name='state']//option[@selected]";
+    public String email = "//input[@name='email']";
 
     public String getTaxRate() {
         String taxRatePercentage = Utilities.getAttributeValue(taxRate, "value");
@@ -45,5 +46,9 @@ public class CustomerViewDialog_InfoTab {
 
     public String getPrimaryPhoneNumber(){
         return Utilities.getAttributeValue(primaryPhoneNumber,"value");
+    }
+
+    public String getEmail(){
+        return Utilities.getAttributeValue(email, "value");
     }
 }

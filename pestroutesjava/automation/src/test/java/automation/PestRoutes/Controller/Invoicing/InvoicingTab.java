@@ -16,8 +16,6 @@ import automation.PestRoutes.PageObject.Invoicing.RoutePageInvoicing;
 import automation.PestRoutes.Utilities.Reporter;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class InvoicingTab extends AppData {
 
@@ -136,6 +134,7 @@ public class InvoicingTab extends AppData {
         header = new CustomerViewDialog_Header();
         subscriptionTab = new CustomerViewDialog_SubscriptionTab();
         header.navigateTo(header.subscriptionTabInDialog);
+        String serviceType = subscriptionTab.getServiceType();
         String initialInvoiceValue = subscriptionTab.getInitialInvoiceValue();
         String initialSubTotal = Double.toString(subscriptionTab.getInitialSubTotal());
         String taxAmount = Double.toString(subscriptionTab.getInitialTax());
@@ -159,12 +158,17 @@ public class InvoicingTab extends AppData {
                 "Invoice Validation");
         result(initialInvoiceValue, invImplementation.getPaymentsBalance(), "Total Invoice Value in Payments Validation",
                 "Invoice Validation");
-        result(Utilities.currentDateWithZeroDelimiterOnDate("MM/dd/yy"), invImplementation.getInvoiceDate(), "Invoice Date Validation",
+        result(Utilities.currentDate("MM/dd/yy").replaceAll("0", ""), invImplementation.getInvoiceDate().replaceAll("0", ""), "Invoice Date Validation",
                 "Invoice Validation");
-        result(Utilities.currentDateWithZeroDelimiterOnDate("MM/dd/yy"), invImplementation.getDueDate(), "Due Date Validation",
+        result(Utilities.currentDate("MM/dd/yy").replaceAll("0", ""), invImplementation.getDueDate().replaceAll("0", ""), "Due Date Validation",
                 "Invoice Validation");
-        result(Utilities.currentDateWithZeroDelimiterOnDate("MM/dd/yy"), invImplementation.getAppointmentDate(), "Appointment Date Validation",
-                "Invoice Validation");
+        if (serviceType.equals("After Agreement Signed")) {
+            result("N/A", "N/A", "Appointment Date Validation",
+                    "Invoice Validation");
+        } else {
+            result(Utilities.currentDate("MM/dd/yy").replaceAll("0", ""), invImplementation.getAppointmentDate().replaceAll("0", ""), "Appointment Date Validation",
+                    "Invoice Validation");
+        }
     }
 
     @And("I generate Account Statement Report of report type {string} for {string}")
@@ -177,7 +181,6 @@ public class InvoicingTab extends AppData {
 
     @And("I validate the Beginning balance and Ending balance for a day before the invoice was created")
     public void validateBeginningEndingBalance_Yesterday_AccountStatementReport() {
-//        invImplementation.scrollRight();
         result(invImplementation.getBalance("Beginning Balance"), "$0.00", "Balance Validation",
                 "Account Statement Report Validation");
         result(invImplementation.getResponsibleBalance("Beginning Balance"), "$0.00", "Responsible Balance Validation",
@@ -203,7 +206,7 @@ public class InvoicingTab extends AppData {
         invoiceCharges = invImplementation.getChargesBalance();
         invoiceBalance = invImplementation.getPaymentsBalance();
         generateAccountStatementReport(reportType, day);
-        result(invImplementation.getInvoiceDate_accountStatementReport(getData("serviceDescription", generalData)), Utilities.currentDate("MM/dd/YYYY"), "Invoice Date",
+        result(invImplementation.getInvoiceDate_accountStatementReport(getData("serviceDescription", generalData)), Utilities.currentDate("MM/dd/YY").replaceAll("0", ""), "Invoice Date",
                 "Account Statement Report Validation");
         result(invImplementation.getInvoiceAmount_accountStatementReport(getData("serviceDescription", generalData)), invoiceCharges, "Invoice Value",
                 "Account Statement Report Validation");

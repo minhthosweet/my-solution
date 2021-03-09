@@ -2,8 +2,7 @@
 Feature: Customer Status
 
   @CreateInitialInvoiceAfterAgreementSigned
-  Scenario: Create Initial Invoice of type After Agreement Signed
-    Given I sign in to pestroutes domain
+  Scenario: Create Initial Invoice of type After Agreement Signed12
     Given I have disabled ECA
     When I create customer with first name, last name, email and address
     Then I validate if customer name and address match in overview tab
