@@ -241,7 +241,7 @@ public class InvoicingTab extends AppData {
                 "Invoice Validation");
         invImplementation.clickRecurringInvoice(recurringInvoiceValue);
 
-        result(Double.toString(addSubscription.recurringQuote), invImplementation.getServiceCostBeforeTax(), "Service Cost Before Tax Validation",
+        result(Double.toString(addSubscription.recurringQuote), invImplementation.getServiceCostBeforeTax().substring(0, invImplementation.getServiceCostBeforeTax().length() - 1), "Service Cost Before Tax Validation",
                 "Invoice Validation");
         result(Double.toString(subscriptionTab.getInitialService_NewTicketItemPrice(addSubscription.ticketItem)), invImplementation.getAddOnValue(addSubscription.ticketItem), "Item Cost Validation",
                 "Invoice Validation");
@@ -253,11 +253,11 @@ public class InvoicingTab extends AppData {
                 "Invoice Validation");
         result("$" + recurringInvoiceValue, invImplementation.getPaymentsBalance(), "Total Invoice Value in Payments Validation",
                 "Invoice Validation");
-        result(Utilities.currentDateWithZeroDelimiterOnDate("MM/dd/yy"), invImplementation.getInvoiceDate(), "Invoice Date Validation",
+        result(Utilities.currentDate("MM/dd/yy").replaceAll("0", ""), invImplementation.getInvoiceDate().replaceAll("0", ""), "Invoice Date Validation",
                 "Invoice Validation");
-        result(Utilities.currentDateWithZeroDelimiterOnDate("MM/dd/yy"), invImplementation.getDueDate(), "Due Date Validation",
+        result(Utilities.currentDate("MM/dd/yy").replaceAll("0", ""), invImplementation.getDueDate().replaceAll("0", ""), "Due Date Validation",
                 "Invoice Validation");
-        result(Utilities.currentDateWithZeroDelimiterOnDate("MM/dd/yy"), invImplementation.getAppointmentDate(), "Appointment Date Validation",
+        result(Utilities.currentDate("MM/dd/yy").replaceAll("0", ""), invImplementation.getAppointmentDate().replaceAll("0", ""), "Appointment Date Validation",
                 "Invoice Validation");
     }
 

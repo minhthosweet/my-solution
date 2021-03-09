@@ -18,6 +18,8 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
+import static automation.PestRoutes.Utilities.AssertException.result;
+
 public class CreateNewCustomer extends AppData {
     CreateCustomerDialog customer;
     CustomerViewDialog_Header customerDialog_Header;
@@ -384,14 +386,6 @@ public class CreateNewCustomer extends AppData {
         overview = new CustomerViewDialog_OverviewTab();
         String customerNameInHeader = overview.getCustomerNameFromHeader();
         return customerNameInHeader;
-    }
-
-    @SuppressWarnings("unchecked")
-    private void result(String expected, String actual, String stepName, String testName) {
-        if (AssertException.result(expected, actual, stepName).size() > 0) {
-            Utilities.list.add(AssertException.result(expected, actual, stepName));
-        }
-        Reporter.status(stepName, expected, actual, testName);
     }
 
 }
