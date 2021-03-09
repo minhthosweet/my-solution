@@ -1,13 +1,14 @@
 #Author: Aditya
-@BillingByServiceTypeReports
+@BillingByServiceTypeReports12
 Feature: Validate if all fields present and are enabled
 
-  Scenario: Fields validation
+  Scenario: Fields validation12
+    Given I add a renewal service
     And I navigate to Billing by Service Type
     Then I validate if all fields are displaying and are enabled in Billing by service type
     And I validate if there are errors exist in the list
 
-  Scenario: Validating filters and fields generated with single group by and its line items
+  Scenario: Validating filters and fields generated with single group by and its line items12
     Given I add a new generic flag if it is not already existing "Automation Flag" and "Its lit" and "Customer"
     Given I add a new customer source if it is not already existing
     Given I add a new division if it is not already existing
