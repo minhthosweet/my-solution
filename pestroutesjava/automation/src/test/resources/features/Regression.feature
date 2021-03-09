@@ -38,8 +38,8 @@ Feature: End to end testing on the application
     And Validating ending balance for invoice created "Today" of report type "Account Transactions"
     And Validating invoice balance for invoice created "Today" of report type "Account Transactions"
     And I print report and validate totals and enter notes "Automation Testing"
-    And I validate if there are errors exist in the list
     And I close customer card
+    And I validate if there are errors exist in the list
 
   @AfterInitialCompletion
   Scenario: Create Initial Invoice of type After Initial Completion
@@ -133,6 +133,7 @@ Feature: End to end testing on the application
     And I add new equipment with barcode required "Automation2" and "Automation Test2" and "DE2" and "1234" and "Injection" and "" and "Bed" and "Bed Bugs" and "Special Product"
     And I search customer
     And I verify that the equipment was added "Automation Test2"
+    And I validate if there are errors exist in the list
 
   @GLAccountAssignedToServiceType
   Scenario Outline: Create a GL Account

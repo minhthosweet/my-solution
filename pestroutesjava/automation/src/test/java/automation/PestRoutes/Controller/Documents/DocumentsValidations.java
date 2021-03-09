@@ -1,9 +1,8 @@
 package automation.PestRoutes.Controller.Documents;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
+import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_InfoTab;
 import automation.PestRoutes.Utilities.*;
 import io.cucumber.java.en.And;
 import org.testng.annotations.Test;
@@ -23,6 +22,7 @@ public class DocumentsValidations extends AppData {
 	CreateNewCustomer newCustomer;
 	ValidateRenewal subscription;
 	FormTemplates forms;
+	CustomerViewDialog_InfoTab customerViewDialog_infoTab;
 	String formName = "Automation Test";
 
 	public void signAgreement() throws Exception{
@@ -48,7 +48,7 @@ public class DocumentsValidations extends AppData {
 
 	@And("I sign the agreement for subscription of type After Agreement Signed")
 	public void signAgreement_AfterAgreementSignedSubscription() throws Exception{
-		String expectedSuccessEmailMessage = "The agreement has been successfully signed!";
+		customerViewDialog_infoTab = new CustomerViewDialog_InfoTab();
 		documents = new DocumentsPage();
 		customerCardHeader = new CustomerViewDialog_Header();
 		customerCardHeader.navigateTo(customerCardHeader.documentsTabInDIalog);
@@ -57,9 +57,17 @@ public class DocumentsValidations extends AppData {
 		documents.clickButton(documents.createSignedAgreementButton);
 		documents.sign(documents.agreementSignBox);
 		documents.clickButton(documents.signButton);
+		customerCardHeader.navigateTo(customerCardHeader.infoTabInDialog);
+		String emailID = customerViewDialog_infoTab.getEmail();
+		String expectedSuccessEmailMessage = "The agreement has been successfully signed! A copy has been emailed to: " + emailID;
+		customerCardHeader.navigateTo(customerCardHeader.documentsTabInDIalog);
+/*
 		String actualSuccessMessage = documents.getMessage(documents.message);
+		actualSuccessMessage is not reachable
 		result(expectedSuccessEmailMessage, actualSuccessMessage, "New emailed agreement message", "Documents tab validations");
-
+*/
+		String[] fields = {documents.message, documents.newAgreementButton, documents.newFormButton, documents.uploadDocumentsButton};
+		AssertException.validateFieldEnabled(fields);
 
 	}
 	@Test

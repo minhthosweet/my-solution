@@ -3,6 +3,7 @@
 Feature: Validate if all fields present and are enabled
 
   Scenario: Fields validation
+    Given I add a renewal service
     And I navigate to Billing by Service Type
     Then I validate if all fields are displaying and are enabled in Billing by service type
     And I validate if there are errors exist in the list
