@@ -1,10 +1,10 @@
 @AfterInitialCompletion
 Feature: After Initial Appointment Completion
 
-  @CreateInitialInvoiceAfterInitialCompletion
-  Scenario: Create Initial Invoice of type After Initial Completion
-    Given I sign in to pestroutes domain
+  @CreateInitialInvoiceAfterInitialCompletion12
+  Scenario: Create Initial Invoice of type After Initial Completion12
     Given I delete a routing group
+    Given I add a renewal service
     When I create customer with first name, last name and address
     Then I validate if customer name and address match in overview tab
     And I create a subscription of type "After Initial Completion"
