@@ -15,9 +15,9 @@ import io.cucumber.java.en.Then;
 import org.testng.annotations.Test;
 import automation.PestRoutes.Controller.Login.SignIn;
 import automation.PestRoutes.Controller.Renewal.ValidateRenewal;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Locale;
+
+import static automation.PestRoutes.Utilities.AssertException.result;
 
 public class AccountReceivable extends BaseClass {
     RoutePageInvoicing invoice;
@@ -250,12 +250,6 @@ public class AccountReceivable extends BaseClass {
 
     }
 
-    private void result(String expected, String actual, String stepName, String testName) {
-        if (AssertException.result(expected, actual, stepName).size() > 0) {
-            Utilities.list.add(AssertException.result(expected, actual, stepName));
-        }
-        Reporter.status(stepName, expected, actual, testName);
-    }
 
     private String customerName(){
         customer = new CreateNewCustomer();

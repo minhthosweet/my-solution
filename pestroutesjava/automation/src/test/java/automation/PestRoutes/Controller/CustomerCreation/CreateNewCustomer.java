@@ -283,7 +283,7 @@ public class CreateNewCustomer extends AppData {
     public void closeCustomerCard() {
         customerDialog_Header = new CustomerViewDialog_Header();
         customerDialog_Header.clickCloseButton();
-        customerDialog_Header.discardChanges();
+        //customerDialog_Header.discardChanges();
     }
 
     @When("I create customer with first name, last name, address, email and Structure")

@@ -23,7 +23,7 @@ public class Header {
 		Utilities.clickElement("//a[text() = '"+chooseTabFromConst+"']", ElementType.XPath);
 	}
 	
-	public void searchCustomer(String needCustomerFullName){
+	public void searchCustomer_History(String needCustomerFullName){
 		Utilities.waitUntileElementIsVisible(ACCESS_HISTORY);
 		Utilities.jsClickElement(ACCESS_HISTORY, ElementType.XPath);
 		Utilities.clickElement("//span[text()='" + needCustomerFullName + "']", ElementType.XPath);
