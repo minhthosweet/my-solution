@@ -1,7 +1,7 @@
 @RegressionTest
 Feature: End to end testing on the application
 
-  @FieldsValidationInAccountReceivable1
+  @AccountReceivableFieldsValidation
   Scenario: Fields validations
     Given I have disabled ECA
     When I create customer with first name, last name, email and address
@@ -16,9 +16,15 @@ Feature: End to end testing on the application
     Then I validate if the customer displays once account status is Active
     And I validate if there are errors exist in the list
 
-  @FieldsValidationInAccountReceivable2
+  @AccountReceivableCustomerTypeValidation
   Scenario: Fields validations
     Then I validate customer type in account receivable
+    And I validate if there are errors exist in the list
+
+  @AccountReceivableCustomerBalanceValidation
+  Scenario: Customer balance validations
+    Then I validate customer with balance
+    Then I validate customer with balance age, payment due, and days overdue
     And I validate if there are errors exist in the list
 
   @AfterAgreementSigned
@@ -59,7 +65,7 @@ Feature: End to end testing on the application
     And I validate initial invoice created on invoice tab
     And I validate if there are errors exist in the list
 
-  @BillingByServiceTypeReport1
+  @BillingByServiceTypeFieldValidation
   Scenario: Fields validation
     And I navigate to Billing by Service Type
     Then I validate if all fields are displaying and are enabled in Billing by service type

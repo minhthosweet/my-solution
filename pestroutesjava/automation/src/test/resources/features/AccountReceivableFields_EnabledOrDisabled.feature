@@ -3,8 +3,6 @@
 @FieldsValidationInAccountReceivable
 Feature: Validate if all fields present and are enabled
 
-
-
   Scenario: Fields validations
     Given I have disabled ECA
     When I create customer with first name, last name, email and address
