@@ -19,7 +19,6 @@ import java.util.Locale;
 
 import static automation.PestRoutes.Utilities.AssertException.result;
 
-
 public class AccountReceivable extends BaseClass {
     RoutePageInvoicing invoice;
     CreateCustomerDialog infoTab;
@@ -162,9 +161,6 @@ public class AccountReceivable extends BaseClass {
             String actualNameWithStatus = accountReceivable.getValueFromTable("2").toLowerCase(Locale.ROOT);
             result(expectedName, actualNameWithStatus, " Validate customer name", "Validate Account receivable");
         }
-
-
-
     }
     @Then("I validate customer with balance")
     public void validateBalance() throws Exception {

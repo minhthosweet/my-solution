@@ -6,7 +6,6 @@ Feature: Validate if all fields present and are enabled
 
 
   Scenario: Fields validations
-    Given I delete a routing group
     Given I have disabled ECA
     When I create customer with first name, last name, email and address
     Then I validate if customer name and address match in overview tab
@@ -28,6 +27,10 @@ Feature: Validate if all fields present and are enabled
     Then I validate customer with balance
     Then I validate customer with balance age, payment due, and days overdue
     And I validate if there are errors exist in the list
+
+  Scenario: Customer balance validations
+    Then I validate customer with balance
+    Then I validate customer with balance age, payment due, and days overdue
 
   Scenario: Close browser
     And I quit driver
