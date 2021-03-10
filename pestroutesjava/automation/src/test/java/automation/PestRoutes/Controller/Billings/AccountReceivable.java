@@ -231,7 +231,7 @@ public class AccountReceivable extends BaseClass {
             if(monthPastDue > 1 && yearsPastDue == 0){
                 accountReceivable.click(accountReceivable.paymentDueDropdown);
                 accountReceivable.click(accountReceivable.thisYear);
-            }else if (yearsPastDue > 0){
+            }else if (monthPastDue > 0 && yearsPastDue > 0){
                 accountReceivable.click(accountReceivable.paymentDueDropdown);
                 accountReceivable.click(accountReceivable.lastYear);
             }else if (monthPastDue == 1 && yearsPastDue == 0){
