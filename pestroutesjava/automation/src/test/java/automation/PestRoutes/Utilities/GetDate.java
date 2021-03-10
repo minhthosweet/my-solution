@@ -1,5 +1,6 @@
 package automation.PestRoutes.Utilities;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.LocalDate;
@@ -82,5 +83,21 @@ public class GetDate {
 		System.out.println(formattedDate);
 		return formattedDate;
 
+	}
+
+	public static int getMonth(String needDate) throws ParseException {
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+		String date = needDate;
+		LocalDate localDate = LocalDate.parse(date, formatter);
+		int month = localDate.getMonthValue();
+		return month;
+	}
+
+	public static int getYear(String needDate){
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+		String date = needDate;
+		LocalDate localDate = LocalDate.parse(date, formatter);
+		int year = localDate.getYear();
+		return year;
 	}
 }

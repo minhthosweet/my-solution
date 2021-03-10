@@ -9,6 +9,11 @@ public class AccountReceivablePage {
     public String refreshButton = "//div[@id= 'balanceFilterWrapper']//div[contains (text(), 'Refresh')]";
     public String basicFilterLink ="//div[@id= 'balanceFilterWrapper']//div[@id='advancedFilterToggleButton']";
     public String advanceFilterLink = "//div[@id= 'balanceFilterWrapper']//div[@id='advancedFilterToggleButton']";
+    public String thisYear = "//li[text()='This Year']";
+    public String thisMonth = "//li[text()='This Month']";
+    public String lastMonth = "//li[text()='Last Month']";
+    public String lastYear = "//li[text()='Last Year']";
+    public String lastWeek = "//li[text()='Last Week']";
 
     //Actions buttons
     public String actionsButton = "//div[@id = 'balancesTableActions']";
@@ -61,11 +66,12 @@ public class AccountReceivablePage {
 
     public void insert(String needField, String needValue){
         Utilities.waitUntileElementIsVisible(needField);
+        Utilities.highLight(needField);
         FindElement.elementByAttribute(needField, FindElement.InputType.XPath).sendKeys(needValue);
     }
 
     public String getValueFromTable(String needColumnNumber){
-        String value = Utilities.getElementTextValue("//table[@id='balancesTable']/tbody//tr[1]/td['" + needColumnNumber + "']", Utilities.ElementType.XPath);
+        String value = Utilities.getElementTextValue("//table[@id='balancesTable']/tbody/tr[1]/td[" + needColumnNumber + "]", Utilities.ElementType.XPath);
         return value;
     }
 

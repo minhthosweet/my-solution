@@ -10,9 +10,9 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.When;
 import org.testng.annotations.Test;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_Header;
-import automation.PestRoutes.PageObject.Invoicing.InvoiceImplementation;
-import automation.PestRoutes.PageObject.Invoicing.Invoice_Header;
-import automation.PestRoutes.PageObject.Invoicing.RoutePageInvoicing;
+import automation.PestRoutes.PageObject.CustomerOverview.Invoicing.InvoiceImplementation;
+import automation.PestRoutes.PageObject.CustomerOverview.Invoicing.Invoice_Header;
+import automation.PestRoutes.PageObject.CustomerOverview.Invoicing.RoutePageInvoicing;
 import automation.PestRoutes.Utilities.Reporter;
 
 import java.io.IOException;

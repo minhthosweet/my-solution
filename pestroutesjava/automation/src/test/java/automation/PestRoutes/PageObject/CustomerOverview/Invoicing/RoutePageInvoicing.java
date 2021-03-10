@@ -1,4 +1,4 @@
-package automation.PestRoutes.PageObject.Invoicing;
+package automation.PestRoutes.PageObject.CustomerOverview.Invoicing;
 
 import automation.PestRoutes.Utilities.Utilities;
 import automation.PestRoutes.Utilities.Utilities.ElementType;
@@ -6,7 +6,7 @@ import automation.PestRoutes.Utilities.Utilities.ElementType;
 public class RoutePageInvoicing {
 
 	public String addPayment = "//div[text()='+ Add Payment']";
-	public String addNewInvoice = "+ New Invoice";
+	public String addNewInvoice = "//li[text()='+ New Invoice']";
 	public String accountStatementReport = "Account Statement Report";
 	public String accountSummary = "Account Summary";
 	public String addTicketItem = "//div[contains(@class,'grayButton full aCenter  serviceTicketButton left') and contains(text(),'Add Ticket Item')]";
@@ -16,8 +16,7 @@ public class RoutePageInvoicing {
 	// Setter
 
 	public void clickAddNewInvoice(String needTab) {
-		Utilities.clickElement("//li[contains(@class,'shortItem') and contains(text(),'" + needTab + "')]",
-				ElementType.XPath);
+		Utilities.clickElement(needTab,ElementType.XPath);
 
 	}
 

@@ -21,10 +21,12 @@ public class CustomerViewDialog_InfoTab {
     }
 
     public String getFirstName() {
+        Utilities.waitUntileElementIsVisible(firstName);
         return Utilities.getAttributeValue(firstName, "value");
     }
 
     public String getLastName() {
+        Utilities.waitUntileElementIsVisible(lastName);
         return Utilities.getAttributeValue(lastName, "value");
     }
 

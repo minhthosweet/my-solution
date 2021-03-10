@@ -3,7 +3,7 @@ package automation.PestRoutes.Controller.Reporting.Office;
 import automation.PestRoutes.PageObject.CreateCustomer.CreateCustomerDialog;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_Header;
 import automation.PestRoutes.PageObject.Header;
-import automation.PestRoutes.PageObject.Invoicing.InvoiceImplementation;
+import automation.PestRoutes.PageObject.CustomerOverview.Invoicing.InvoiceImplementation;
 import automation.PestRoutes.PageObject.ReportingPage.OfficePage.BillingByServiceTypeTab;
 import automation.PestRoutes.Utilities.AppData;
 import automation.PestRoutes.Utilities.AssertException;

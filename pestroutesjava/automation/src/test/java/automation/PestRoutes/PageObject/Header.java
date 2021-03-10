@@ -23,12 +23,14 @@ public class Header {
 		Utilities.clickElement("//a[text() = '"+chooseTabFromConst+"']", ElementType.XPath);
 	}
 	
-	public void searchCustomer_History(String needCustomerFullName){
+	public void searchCustomer(String needCustomerFullName){
+		Utilities.waitUntileElementIsVisible(ACCESS_HISTORY);
 		Utilities.jsClickElement(ACCESS_HISTORY, ElementType.XPath);
 		Utilities.clickElement("//span[text()='" + needCustomerFullName + "']", ElementType.XPath);
 	}
 
 	public void searchCustomerInOrder(String customerNumber){
+		Utilities.waitUntileElementIsVisible(ACCESS_HISTORY);
 		Utilities.jsClickElement(ACCESS_HISTORY, ElementType.XPath);
 		Utilities.clickElement("//h3[text()='Customer Access History']/following-sibling::div//li["+customerNumber+"]//span["+customerNumber+"]", ElementType.XPath);
 	}

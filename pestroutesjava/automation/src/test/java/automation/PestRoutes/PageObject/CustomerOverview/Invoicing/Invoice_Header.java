@@ -1,4 +1,4 @@
-package automation.PestRoutes.PageObject.Invoicing;
+package automation.PestRoutes.PageObject.CustomerOverview.Invoicing;
 
 import automation.PestRoutes.Utilities.Utilities;
 import automation.PestRoutes.Utilities.Utilities.ElementType;
