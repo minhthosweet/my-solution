@@ -129,11 +129,13 @@ Feature: End to end testing on the application
 
   @Equipment
   Scenario: Add equipment type on customer card
+    Given I add a new generic flag if it is not already existing "DE1" and "Test4Life" and "Equipment"
     Given I add equipment type "ID1" and "Automation Test1" and "Yes"
     When I create customer with first name, last name and address
     And I add new equipment with barcode required "Automation" and "Automation Test1" and "DE1" and "1234" and "Injection" and "Test123" and "Bed" and "Bed Bugs" and "Special Product"
     And I search customer
     And I verify that the equipment was added "Automation Test1"
+    Given I add a new generic flag if it is not already existing "DE2" and "Test4Life" and "Equipment"
     Given I add equipment type "ID2" and "Automation Test2" and "No"
     When I create customer with first name, last name and address
     And I add new equipment with barcode required "Automation2" and "Automation Test2" and "DE2" and "1234" and "Injection" and "" and "Bed" and "Bed Bugs" and "Special Product"
@@ -192,6 +194,7 @@ Feature: End to end testing on the application
 
   @Leads
   Scenario: Create new lead
+    Given I create a new user if it is not already existing "Office Staff"
     When I create customer with first name, last name and address
     And I create a new lead
     Then I validate lead creation invoices
@@ -231,6 +234,7 @@ Feature: End to end testing on the application
     Given I add a renewal service
     Given I add a new generic flag if it is not already existing "Fire" and "Its lit" and "Subscription"
     Given I add a new generic flag if it is not already existing "Test4Life" and "Test4Life" and "Customer"
+    Given I add a new generic flag if it is not already existing "Automation Flag" and "Flag" and "Customer"
     When I create customer with first name, last name, address and generic flag "Test4Life" and "Door to Door"
     And I create a subscription with Sales Rep assigned "Automation User - Office" and "Fire"
     And I navigate to scheduling tab

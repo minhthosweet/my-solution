@@ -11,11 +11,12 @@ import io.cucumber.java.en.And;
 import java.util.ArrayList;
 import java.util.List;
 
+import static automation.PestRoutes.Utilities.AssertException.result;
+
 public class AddEquipment {
 
     CustomerViewDialog_Header customerDialogHeader;
     CustomerViewDialog_Equipment customerViewDialogEquipment;
-    AssertException assertException;
 
     @And("I add new equipment with barcode required {string} and {string} and {string} and {string} and {string} and {string} " +
             "and {string} and {string} and {string}")
@@ -50,11 +51,11 @@ public class AddEquipment {
     public void verifyEquipmentWithBarcodeAdded(String needEquipmentFlagType) throws InterruptedException {
         customerDialogHeader = new CustomerViewDialog_Header();
         customerViewDialogEquipment = new CustomerViewDialog_Equipment();
-        assertException = new AssertException();
 
         customerDialogHeader.navigateTo(customerDialogHeader.equipmentTabInDialog);
         String expectedEquipmentFlagType = needEquipmentFlagType;
         String actualEquipmentFlagType = customerViewDialogEquipment.getItem();
-        assertException.result(expectedEquipmentFlagType, actualEquipmentFlagType, "Validate equipment added", "add equipment");
+        result(expectedEquipmentFlagType, actualEquipmentFlagType, "Validate equipment added", "add equipment");
+
     }
 }

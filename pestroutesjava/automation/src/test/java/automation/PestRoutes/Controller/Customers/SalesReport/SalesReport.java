@@ -1,8 +1,6 @@
 package automation.PestRoutes.Controller.Customers.SalesReport;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import automation.PestRoutes.Utilities.*;
 import io.cucumber.java.en.And;
@@ -19,6 +17,8 @@ import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_Over
 import automation.PestRoutes.PageObject.Customers.CustomersMainPage;
 import automation.PestRoutes.PageObject.Customers.SalesReport.SalesReportPage;
 
+import static automation.PestRoutes.Utilities.AssertException.result;
+
 public class SalesReport extends AppData {
 
 	Header header;
@@ -30,7 +30,6 @@ public class SalesReport extends AppData {
 	CustomersMainPage customersMainPage;
 	ScheduleAppt scheduleAppt;
 	CustomerViewDialog_OverviewTab overview;
-	AssertException assertException;
 
 	double customerContractValue;
 
@@ -112,25 +111,23 @@ public class SalesReport extends AppData {
 	@And("I validate subscription flag column")
 	public void validateSubscriptionFlagColumn() throws Exception {
 		salesReportPage = new SalesReportPage();
-		assertException = new AssertException();
 		String currentSubscriptionFlagName = salesReportPage.getCurrentSubscriptionFlagName(getData("serviceDescription", generalData));
 		String expectedSubscriptionFlagName = getData("subscriptionFlagName", generalData);
 		salesReportPage.subscriptionFlagColumnPresent();
-		assertException.result(expectedSubscriptionFlagName, currentSubscriptionFlagName, "validate flags", "validate salesReport");
+		result(expectedSubscriptionFlagName, currentSubscriptionFlagName, "validate flags", "validate salesReport");
 	}
 
 	@Then("I validate sales report totals")
 	public void validateSalesReportTotals() throws Exception {
 		addNewSubscription = new AddSubscription();
 		salesReportPage = new SalesReportPage();
-		assertException = new AssertException();
 		double currentReportTotalContractValue = salesReportPage.getSalesReportTotalContractValue();
 		String currentReportTotalContractValueConverted = Double.toString(currentReportTotalContractValue);
 		double expectedReportTotalContractValue = salesReportPage
 				.getSalesReportTotalSingleContractValue(getData("serviceDescription", generalData));
 		String expectedReportTotalContractValueConverted = Double.toString(expectedReportTotalContractValue);
-		assertException.result(addNewSubscription.newContractValue, currentReportTotalContractValueConverted, "validate contractValue", "validate salesReport" );
-		assertException.result(expectedReportTotalContractValueConverted, currentReportTotalContractValueConverted, "validate totalContractValue", "validate salesReport" );
+		result(addNewSubscription.newContractValue, currentReportTotalContractValueConverted, "validate contractValue", "validate salesReport" );
+		result(expectedReportTotalContractValueConverted, currentReportTotalContractValueConverted, "validate totalContractValue", "validate salesReport" );
 	}
 
 }

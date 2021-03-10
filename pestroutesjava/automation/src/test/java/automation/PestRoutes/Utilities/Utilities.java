@@ -379,6 +379,10 @@ public class Utilities {
 
 	}
 
+	public static void clearField(String needElement) {
+		FindElement.elementByAttribute(needElement, InputType.XPath).clear();
+	}
+
 	public static int removeSpecialChars(String needAttribute) {
 		String cases = getElementTextValue(needAttribute, ElementType.XPath);
 

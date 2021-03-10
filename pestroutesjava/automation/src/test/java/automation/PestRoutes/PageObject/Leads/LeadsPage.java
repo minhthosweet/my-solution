@@ -88,7 +88,8 @@ public class LeadsPage {
 	 */
 	public void setInputField(String needInputField, String needValue) {
 		Utilities.waitUntileElementIsVisible(needInputField);
-		FindElement.elementByAttribute(needInputField, InputType.XPath).sendKeys(Keys.CONTROL,"a");
+		Utilities.clearField(needInputField);
+		Utilities.highLight(needInputField);
 		FindElement.elementByAttribute(needInputField, InputType.XPath).sendKeys(needValue);
 	}
 	
@@ -103,5 +104,6 @@ public class LeadsPage {
 	public String getValueOfAnElementByAttribute(String needElement) {
 		Utilities.waitUntileElementIsVisible(needElement);
 		return Utilities.getAttributeValue(needElement, "value");
+
 	}
 }
