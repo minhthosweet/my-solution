@@ -15,7 +15,6 @@ import io.cucumber.java.en.Then;
 import org.testng.annotations.Test;
 import automation.PestRoutes.Controller.Login.SignIn;
 import automation.PestRoutes.Controller.Renewal.ValidateRenewal;
-
 import java.util.Locale;
 
 import static automation.PestRoutes.Utilities.AssertException.result;
