@@ -4,7 +4,6 @@ import automation.PestRoutes.Controller.CustomerCreation.CreateNewCustomer;
 import automation.PestRoutes.Controller.Subscriptions.AddSubscription;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_SubscriptionTab;
 import automation.PestRoutes.Utilities.AppData;
-import automation.PestRoutes.Utilities.AssertException;
 import automation.PestRoutes.Utilities.Utilities;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.When;
@@ -16,6 +15,8 @@ import automation.PestRoutes.PageObject.Invoicing.RoutePageInvoicing;
 import automation.PestRoutes.Utilities.Reporter;
 
 import java.io.IOException;
+
+import static automation.PestRoutes.Utilities.AssertException.result;
 
 public class InvoicingTab extends AppData {
 
@@ -295,13 +296,6 @@ public class InvoicingTab extends AppData {
         result(invoiceCharges, invImplementation.getPrintInvoiceMainAmountDue(), "Total Invoice Value",
                 "Initial Invoice Validation");
         Utilities.switchToOldWindowOpened();
-    }
-
-    private void result(String expected, String actual, String stepName, String testName) {
-        if (AssertException.result(expected, actual, stepName).size() > 0) {
-            Utilities.list.add(AssertException.result(expected, actual, stepName));
-        }
-        Reporter.status(stepName, expected, actual, testName);
     }
 
 }
