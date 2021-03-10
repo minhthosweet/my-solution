@@ -1,8 +1,5 @@
 package automation.PestRoutes.Controller.Leads;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import automation.PestRoutes.Utilities.*;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
