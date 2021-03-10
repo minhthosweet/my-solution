@@ -222,6 +222,28 @@ public class CreateNewCustomer extends AppData {
         alertCondition();
         captureUserIdAndFullName();
     }
+    @When("I create customer with pref paper")
+    public void createCustomerWithPrefPaper() throws Exception {
+        customerDialog_Header = new CustomerViewDialog_Header();
+        customer = new CreateCustomerDialog();
+        overview = new CustomerViewDialog_OverviewTab();
+        header = new Header();
+        header.navigateTo(header.newCustomerTab);
+        customer.setFirstName(fName);
+        customer.setLastName(lName);
+        customer.selectUnit("Multi Unit");
+        customer.setAddress(streetAddress);
+        customer.setZipCode(zipcode);
+        customer.setCellPhone(getData("phoneNumber", generalData));
+        customer.clickSmsCheckBox();
+        customer.clickEmailCheckBox();
+        customer.clickVoiceCheckBox();
+        customer.clickPrefersPaperCheckBox();
+        customerDialog_Header.clickSaveButton();
+        alertCondition();
+        captureUserIdAndFullName();
+
+    }
 
     @And("I search customer")
     public void searchCustomer() throws Exception{
@@ -282,7 +304,7 @@ public class CreateNewCustomer extends AppData {
     }
 
     @Given("I close customer card")
-    public void closeCustomerCard() {
+    public void closeCustomerCard() throws InterruptedException {
         customerDialog_Header = new CustomerViewDialog_Header();
         customerDialog_Header.clickCloseButton();
     }

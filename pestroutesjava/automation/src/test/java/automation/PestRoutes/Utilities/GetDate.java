@@ -86,7 +86,7 @@ public class GetDate {
 	}
 
 	public static int getMonth(String needDate) throws ParseException {
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/dd/yyyy");
 		String date = needDate;
 		LocalDate localDate = LocalDate.parse(date, formatter);
 		int month = localDate.getMonthValue();
@@ -94,7 +94,7 @@ public class GetDate {
 	}
 
 	public static int getYear(String needDate){
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/dd/yyyy");
 		String date = needDate;
 		LocalDate localDate = LocalDate.parse(date, formatter);
 		int year = localDate.getYear();

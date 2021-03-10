@@ -87,7 +87,7 @@ public class AccountReceivable extends BaseClass {
             accountReceivable.click(accountReceivable.refreshButton);
             accountReceivable.insert(accountReceivable.searchInputField, customerName);
             String actualNameWithStatus = accountReceivable.getValueFromTable("2").toLowerCase(Locale.ROOT);
-            result(expectedName, actualNameWithStatus, " Validate customer name", "Validate Account receivable");
+            result(expectedName, actualNameWithStatus, " Validate customer name with account status", "Validate Account receivable");
 
         }
 
@@ -121,7 +121,7 @@ public class AccountReceivable extends BaseClass {
         accountReceivable.insert(accountReceivable.searchInputField, customerName);
         String expectedName = customerName.toLowerCase(Locale.ROOT);
         String actualNameWithStatus = accountReceivable.getValueFromTable("2").toLowerCase(Locale.ROOT);
-        result(expectedName, actualNameWithStatus, " Validate customer name", "Validate Account receivable");
+        result(expectedName, actualNameWithStatus, " Validate customer name with auto pay", "Validate Account receivable");
 
 
     }
@@ -138,7 +138,6 @@ public class AccountReceivable extends BaseClass {
             customerCardHeader.navigateTo(customerCardHeader.infoTabInDialog);
             infoTab.selectProperty(typeOfCustomer[i]);
             customerCardHeader.clickSaveButton();
-            customerCardHeader.clickCloseButton();
             customer.closeCustomerCard();
             navigateToAccountReceivablePage();
             accountReceivable.select(accountReceivable.propertyDropdown, propType[i]);
@@ -159,7 +158,7 @@ public class AccountReceivable extends BaseClass {
             accountReceivable.insert(accountReceivable.searchInputField, customerName);
             String expectedName = customerName.toLowerCase(Locale.ROOT);
             String actualNameWithStatus = accountReceivable.getValueFromTable("2").toLowerCase(Locale.ROOT);
-            result(expectedName, actualNameWithStatus, " Validate customer name", "Validate Account receivable");
+            result(expectedName, actualNameWithStatus, " Validate customer name with prop type", "Validate Account receivable");
         }
     }
     @Then("I validate customer with balance")
@@ -169,7 +168,6 @@ public class AccountReceivable extends BaseClass {
         newInvoice = new CreateNewInvoicePopUp();
         admin = new CustomerViewDialog_Admin();
         String amount = "400";
-        header.navigateTo(header.newCustomerTab);
         customer.createCustomerWithAddress();
         customerCardHeader.navigateTo(customerCardHeader.invoicesTabInDialog);
         invoice = new RoutePageInvoicing();
@@ -180,15 +178,16 @@ public class AccountReceivable extends BaseClass {
         newInvoice.click(newInvoice.createButton);
         customerCardHeader.navigateTo(customerCardHeader.adminTabInDialog);
         admin.changeAccountStatus_Active();
+        customer.closeCustomerCard();
         String customerName = customer.getCustomerName("1").toLowerCase(Locale.ROOT);
-        customerCardHeader.clickCloseButton();
+        customer.closeCustomerCard();
         navigateToAccountReceivablePage();
         accountReceivable.select(accountReceivable.accountStatusDropdown, "Active");
         accountReceivable.insert(accountReceivable.balanceInputField, "300");
         accountReceivable.click(accountReceivable.refreshButton);
         accountReceivable.insert(accountReceivable.searchInputField, customerName);
         String actualNameWithStatus = accountReceivable.getValueFromTable("2").toLowerCase(Locale.ROOT);
-        result(customerName, actualNameWithStatus, " Validate customer name", "Validate Account receivable");
+        result(customerName, actualNameWithStatus, " Validate customer name with balance", "Validate Account receivable");
 
     }
     @Then("I validate customer with balance age, payment due, and days overdue")
@@ -202,7 +201,6 @@ public class AccountReceivable extends BaseClass {
         String[] daysOverDue = {"7+ Days Overdue", "30+ Days Overdue", "90+ Days Overdue"};
         int[] invoiceDaysPastDue = {7,30,90};
         for(int i = 0; i < balanceAge.length; i++){
-            header.navigateTo(header.newCustomerTab);
             customer.createCustomerWithAddress();
             customerCardHeader.navigateTo(customerCardHeader.invoicesTabInDialog);
             invoice = new RoutePageInvoicing();
@@ -231,7 +229,7 @@ public class AccountReceivable extends BaseClass {
             if(monthPastDue > 1 && yearsPastDue == 0){
                 accountReceivable.click(accountReceivable.paymentDueDropdown);
                 accountReceivable.click(accountReceivable.thisYear);
-            }else if (monthPastDue > 0 && yearsPastDue > 0){
+            }else if (yearsPastDue > 0){
                 accountReceivable.click(accountReceivable.paymentDueDropdown);
                 accountReceivable.click(accountReceivable.lastYear);
             }else if (monthPastDue == 1 && yearsPastDue == 0){
@@ -245,15 +243,32 @@ public class AccountReceivable extends BaseClass {
             accountReceivable.click(accountReceivable.refreshButton);
             accountReceivable.insert(accountReceivable.searchInputField, customerName);
             String actualNameWithStatus = accountReceivable.getValueFromTable("2").toLowerCase(Locale.ROOT);
-            result(customerName, actualNameWithStatus, " Validate customer name", "Validate Account receivable");
+            result(customerName, actualNameWithStatus, " Validate customer name with past due balance", "Validate Account receivable");
         }
 
     }
-
-
-    private String customerName(){
+    @Then("I validate customer with pref paper")
+    public void validatePrefPaperCustomer() throws Exception {
         customer = new CreateNewCustomer();
-        String name = customer.getCustomerName();
-        return name;
+        customerCardHeader = new CustomerViewDialog_Header();
+        newInvoice = new CreateNewInvoicePopUp();
+        String amount = "400";
+        String customerName = customer.getCustomerName("1").toLowerCase(Locale.ROOT);
+        customerCardHeader.navigateTo(customerCardHeader.invoicesTabInDialog);
+        invoice = new RoutePageInvoicing();
+        invoice.clickAddNewInvoice(invoice.addNewInvoice);
+        newInvoice.set(newInvoice.dateField, Utilities.currentDate("MM/dd/yyyy"));
+        newInvoice.set(newInvoice.amountInputField, amount);
+        newInvoice.select(newInvoice.serviceTypeDropdown, "AA Petst1");
+        newInvoice.click(newInvoice.createButton);
+        customer.closeCustomerCard();
+        navigateToAccountReceivablePage();
+        accountReceivable.click(accountReceivable.advanceFilterLink);
+        accountReceivable.select(accountReceivable.prefPaperDropdown, "Yes");
+        accountReceivable.click(accountReceivable.refreshButton);
+        accountReceivable.insert(accountReceivable.searchInputField, customerName);
+        String actualCustomer = accountReceivable.getValueFromTable("2").toLowerCase(Locale.ROOT);
+        result(customerName, actualCustomer, " Validate customer name for pref paper", "Validate Account receivable");
+
     }
 }

@@ -17,13 +17,18 @@ Feature: Validate if all fields present and are enabled
     Then I validate if the customer displays once account status is Active
     And I validate if there are errors exist in the list
 
-  Scenario: Customer type validation
+  Scenario: Customer with prop type validation
     Then I validate customer type in account receivable
     And I validate if there are errors exist in the list
 
   Scenario: Customer balance validations
     Then I validate customer with balance
     Then I validate customer with balance age, payment due, and days overdue
+    And I validate if there are errors exist in the list
+
+  Scenario: Customer with pref paper validation
+    When I create customer with pref paper
+    Then I validate customer with pref paper
     And I validate if there are errors exist in the list
 
   Scenario: Close browser

@@ -48,7 +48,8 @@ public class CustomerViewDialog_Header {
         Thread.sleep(400);
     }
 
-    public void clickCloseButton() {
+    public void clickCloseButton() throws InterruptedException {
+        Thread.sleep(500);
         Utilities.waitUntileElementIsVisible(closeButton);
         Utilities.clickElement(closeButton, ElementType.XPath);
     }
