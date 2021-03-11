@@ -106,9 +106,10 @@ public class JobPool extends AppData {
 
     @Then("I validate the job pool results")
     public void validateJobPoolResult() throws IOException {
+        header = new Header();
         jobPoolTab = new JobPoolTab();
         customer = new CreateNewCustomer();
-        jobPoolTab.searchCustomer_SearchField(customer.fName+ ", " + customer.lName);
+        header.searchCustomer_SearchField(customer.fName+ ", " + customer.lName);
 
         String expectedCustomerName = customer.fName+ ", " + customer.lName;
         String expectedPhoneNumber = getData("phoneNumber", generalData);
@@ -118,14 +119,14 @@ public class JobPool extends AppData {
         String expectedRegion = getData("region", generalData);
         String expectedServiceType = getData("inclServiceType", generalData);
 
+        result(expectedCustomerName, jobPoolTab.getCustomerName(expectedCustomerName), "validate customer name");
+        result(expectedPhoneNumber, jobPoolTab.getCustomerPhone(expectedCustomerName), "validate customer phone");
+        result(expectedStreetAddress, jobPoolTab.getCustomerStreet(expectedCustomerName), "validate customer street");
+        result(expectedCity, jobPoolTab.getCustomerCity(expectedCustomerName), "validate customer city");
+        result(expectedZipCode, jobPoolTab.getCustomerZip(expectedCustomerName), "validate customer zip");
+        result(expectedRegion, jobPoolTab.getCustomerRegion(expectedCustomerName), "validate customer region");
+        result(expectedServiceType, jobPoolTab.getServiceType(expectedCustomerName), "validate customer serviceType");
 
-        result(expectedCustomerName, jobPoolTab.getCustomerName(expectedCustomerName), "validate customer name", "validate customer");
-        result(expectedPhoneNumber, jobPoolTab.getCustomerPhone(expectedCustomerName), "validate customer phone", "validate customer");
-        result(expectedStreetAddress, jobPoolTab.getCustomerStreet(expectedCustomerName), "validate customer street", "validate customer");
-        result(expectedCity, jobPoolTab.getCustomerCity(expectedCustomerName), "validate customer city", "validate customer");
-        result(expectedZipCode, jobPoolTab.getCustomerZip(expectedCustomerName), "validate customer zip", "validate customer");
-        result(expectedRegion, jobPoolTab.getCustomerRegion(expectedCustomerName), "validate customer region", "validate customer");
-        result(expectedServiceType, jobPoolTab.getServiceType(expectedCustomerName), "validate customer serviceType", "validate customer");
 
     }
 }
