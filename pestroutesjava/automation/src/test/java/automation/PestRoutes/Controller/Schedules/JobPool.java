@@ -12,6 +12,11 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 
 import java.io.IOException;
+<<<<<<< Updated upstream
+=======
+
+import static automation.PestRoutes.Utilities.AssertException.result;
+>>>>>>> Stashed changes
 
 public class JobPool extends AppData {
 
@@ -63,6 +68,7 @@ public class JobPool extends AppData {
                 jobPoolTab.filterTypes("excludeCustomerFlags"),
                 jobPoolTab.filterTypes("includeSubscriptionFlags"),
                 jobPoolTab.filterTypes("excludeSubscriptionFlags")};
+<<<<<<< Updated upstream
 
         jobPoolTab.clickRefreshButton();
         AssertException.validateFieldEnabled(fields);
@@ -129,9 +135,79 @@ public class JobPool extends AppData {
         assertException.result(expectedRegion, jobPoolTab.getCustomerRegion(expectedCustomerName), "validate customer region");
         assertException.result(expectedServiceType, jobPoolTab.getServiceType(expectedCustomerName), "validate customer serviceType");
 
+=======
+>>>>>>> Stashed changes
+
+        jobPoolTab.clickRefreshButton();
+        AssertException.validateFieldEnabled(fields);
+        }
+
+    @Then("I add all the fields in the job pool page")
+    public void completeAllJobPoolFields(String needScheduling, String needPrePlanned, String needOneTimeServices, String needPotential,
+                                         String needFollowUpServices, String needPendingCancels, String needPropertyType, String needFlag,
+                                         String needMeasurement)
+                                         throws IOException {
+        jobPoolTab.selectFilter(jobPoolTab.filterTypes("IncludeCustomersWithSpecialRequests"), needScheduling);
+        jobPoolTab.selectFilter(jobPoolTab.filterTypes("showPrePlanned"), needPrePlanned);
+        jobPoolTab.selectFilter(jobPoolTab.filterTypes("excludeOneTimeServices"), needOneTimeServices);
+        jobPoolTab.setDate(jobPoolTab.filterTypes("dueBetween"));
+        jobPoolTab.setDate(jobPoolTab.filterTypes("dueEnd"));
+        jobPoolTab.setDate(jobPoolTab.filterTypes("followUpDueBetween"));
+        jobPoolTab.setDate(jobPoolTab.filterTypes("followUpDueEnd"));
+        jobPoolTab.selectFilter(jobPoolTab.filterTypes("filterPotential"), needPotential);
+        jobPoolTab.selectFilter(jobPoolTab.filterTypes("filterFollowUp"), needFollowUpServices);
+        jobPoolTab.selectFilter(jobPoolTab.filterTypes("pendingCancels"), needPendingCancels);
+        jobPoolTab.selectFilter(jobPoolTab.filterTypes("propertyType"), needPropertyType);
+        jobPoolTab.setInputFilter(jobPoolTab.filterTypes("filterBalances"),getData("balance", generalData));
+        jobPoolTab.setInputFilter(jobPoolTab.filterTypes("balanceAge"),getData("balanceAge", generalData));
+        jobPoolTab.setInputFilter(jobPoolTab.filterTypes("mapPages"),getData("mapCode", generalData));
+        jobPoolTab.setInputFilter(jobPoolTab.filterTypes("zipCodes"),getData("zipCode", generalData));
+        jobPoolTab.selectFilter(jobPoolTab.filterTypes("includeServiceTypes"),getData("inclServiceType", generalData));
+        jobPoolTab.selectFilter(jobPoolTab.filterTypes("excludeServiceTypes"),getData("exclServiceType", generalData));
+        jobPoolTab.selectFilter(jobPoolTab.filterTypes("hideAllFlags"), needFlag);
+        jobPoolTab.selectFilter(jobPoolTab.filterTypes("cities"),getData("city", generalData));
+        jobPoolTab.selectFilter(jobPoolTab.filterTypes("preferredTech"),getData("techName", generalData));
+        jobPoolTab.selectFilter(jobPoolTab.filterTypes("preferredDays"),getData("day", generalData));
+        jobPoolTab.selectFilter(jobPoolTab.filterTypes("filterRegion"),getData("region", generalData));
+        jobPoolTab.selectFilter(jobPoolTab.filterTypes("measurement"), needMeasurement);
+        jobPoolTab.selectFilter(jobPoolTab.filterTypes("serviceCategory"),getData("serviceTypeCategory", generalData));
+        jobPoolTab.clickAdvanceFilterButton();
+        jobPoolTab.selectFilter(jobPoolTab.filterTypes("includeCustomerFlags"),getData("subscriptionFlagName", generalData));
+        jobPoolTab.selectFilter(jobPoolTab.filterTypes("excludeCustomerFlags"),getData("excludeSubscriptionFlag", generalData));
+        jobPoolTab.selectFilter(jobPoolTab.filterTypes("includeSubscriptionFlags"),getData("includeCustomerFlag", generalData));
+        jobPoolTab.selectFilter(jobPoolTab.filterTypes("excludeSubscriptionFlags"),getData("excludeCustomerFlag", generalData));
+        jobPoolTab.clickRefreshButton();
+    }
+
+<<<<<<< Updated upstream
+=======
+    @Then("I validate the job pool results")
+    public void validateJobPoolResult() throws IOException {
+        header = new Header();
+        jobPoolTab = new JobPoolTab();
+        customer = new CreateNewCustomer();
+        header.searchCustomer_SearchField(customer.fName+ ", " + customer.lName);
+
+        String expectedCustomerName = customer.fName+ ", " + customer.lName;
+        String expectedPhoneNumber = getData("phoneNumber", generalData);
+        String expectedStreetAddress = customer.streetAddress;
+        String expectedCity = customer.city;
+        String expectedZipCode = customer.zipcode;
+        String expectedRegion = getData("region", generalData);
+        String expectedServiceType = getData("inclServiceType", generalData);
+
+        result(expectedCustomerName, jobPoolTab.getCustomerName(expectedCustomerName), "validate customer name");
+        result(expectedPhoneNumber, jobPoolTab.getCustomerPhone(expectedCustomerName), "validate customer phone");
+        result(expectedStreetAddress, jobPoolTab.getCustomerStreet(expectedCustomerName), "validate customer street");
+        result(expectedCity, jobPoolTab.getCustomerCity(expectedCustomerName), "validate customer city");
+        result(expectedZipCode, jobPoolTab.getCustomerZip(expectedCustomerName), "validate customer zip");
+        result(expectedRegion, jobPoolTab.getCustomerRegion(expectedCustomerName), "validate customer region");
+        result(expectedServiceType, jobPoolTab.getServiceType(expectedCustomerName), "validate customer serviceType");
+
 
     }
 
+>>>>>>> Stashed changes
 
     }
 
