@@ -27,6 +27,12 @@ Feature: End to end testing on the application
     Then I validate customer with balance age, payment due, and days overdue
     And I validate if there are errors exist in the list
 
+  @AccountReceivableCustomerWithPrefPaperValidation
+  Scenario: Customer with pref paper validation
+    When I create customer with pref paper
+    Then I validate customer with pref paper
+    And I validate if there are errors exist in the list
+
   @AfterAgreementSigned
   Scenario: Create Initial Invoice of type After Agreement Signed
     Given I have disabled ECA
