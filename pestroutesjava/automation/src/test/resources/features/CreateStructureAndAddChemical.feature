@@ -1,8 +1,8 @@
 #Author Aditya
-@Structures
+@StructuresValidation
 Feature: Structures
 
-  @CreateStructureandChemical
+  @CreateStructureAndChemical
   Scenario: Structure and Chemical Validation
     Given I delete a routing group
     When I create customer with first name, last name, address, email and Structure

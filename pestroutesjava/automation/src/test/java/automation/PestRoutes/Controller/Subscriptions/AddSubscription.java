@@ -76,6 +76,7 @@ public class AddSubscription extends AppData {
 		subscription.setInitialInvoiceType(initialInvoiceType);
 		subscription.setInitialServiceQuote(initialQuote);
 		subscription.setInitialServiceDiscount(initialDiscount);
+		subscription.selectAdditionalItem_ToInitialInvoice(ticketItem);
 		customerDialogHeader.clickSaveButton();
 		initialInvoiceValue = subscription.getInitialInvoiceValue();
 	}

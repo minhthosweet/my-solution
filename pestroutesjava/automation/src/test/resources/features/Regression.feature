@@ -28,6 +28,7 @@ Feature: End to end testing on the application
     And I validate if there are errors exist in the list
 
   @AccountReceivableCustomerWithPrefPaperValidation
+
   Scenario: Customer with pref paper validation
     When I create customer with pref paper
     Then I validate customer with pref paper
@@ -133,20 +134,23 @@ Feature: End to end testing on the application
     When I navigate to Route Templates
     Then I delete the route template
 
-  @Equipment
-  Scenario: Add equipment type on customer card
-    Given I add a new generic flag if it is not already existing "DE1" and "Test4Life" and "Equipment"
-    Given I add equipment type "ID1" and "Automation Test1" and "Yes"
-    When I create customer with first name, last name and address
-    And I add new equipment with barcode required "Automation" and "Automation Test1" and "DE1" and "1234" and "Injection" and "Test123" and "Bed" and "Bed Bugs" and "Special Product"
+  @CreateStructureAndChemical
+  Scenario: Structure and Chemical Validation
+    Given I delete a routing group
+    When I create customer with first name, last name, address, email and Structure
+    And I add structure and sub structures
+    When I create a subscription of type "After Agreement Signed"
+    And I close customer card
+    And I navigate to scheduling tab
+    And I add a route
     And I search customer
-    And I verify that the equipment was added "Automation Test1"
-    Given I add a new generic flag if it is not already existing "DE2" and "Test4Life" and "Equipment"
-    Given I add equipment type "ID2" and "Automation Test2" and "No"
-    When I create customer with first name, last name and address
-    And I add new equipment with barcode required "Automation2" and "Automation Test2" and "DE2" and "1234" and "Injection" and "" and "Bed" and "Bed Bugs" and "Special Product"
+    And I schedule an service appointment
     And I search customer
-    And I verify that the equipment was added "Automation Test2"
+    And I add chemicals to main structure
+    And I add chemicals to substructures
+    Then I verify chemical in structure
+    Then I verify chemical in substructure
+    And I close customer card
     And I validate if there are errors exist in the list
 
   @GLAccountAssignedToServiceType
@@ -196,6 +200,22 @@ Feature: End to end testing on the application
     And I search customer
     And I validate recurring invoice created on invoice tab
     Then I close customer card
+    And I validate if there are errors exist in the list
+
+  @Equipment
+  Scenario: Add equipment type on customer card
+    Given I add a new generic flag if it is not already existing "DE1" and "Test4Life" and "Equipment"
+    Given I add equipment type "ID1" and "Automation Test1" and "Yes"
+    When I create customer with first name, last name and address
+    And I add new equipment with barcode required "Automation" and "Automation Test1" and "DE1" and "1234" and "Injection" and "Test123" and "Bed" and "Bed Bugs" and "Special Product"
+    And I search customer
+    And I verify that the equipment was added "Automation Test1"
+    Given I add a new generic flag if it is not already existing "DE2" and "Test4Life" and "Equipment"
+    Given I add equipment type "ID2" and "Automation Test2" and "No"
+    When I create customer with first name, last name and address
+    And I add new equipment with barcode required "Automation2" and "Automation Test2" and "DE2" and "1234" and "Injection" and "" and "Bed" and "Bed Bugs" and "Special Product"
+    And I search customer
+    And I verify that the equipment was added "Automation Test2"
     And I validate if there are errors exist in the list
 
   @Leads
@@ -254,25 +274,6 @@ Feature: End to end testing on the application
     And I validate subscription flag column
     And I validate sales report totals
     Then I deactivate the existing user
-    And I validate if there are errors exist in the list
-
-  @CreateStructureAndChemical
-  Scenario: Structure and Chemical Validation
-    Given I delete a routing group
-    When I create customer with first name, last name, address, email and Structure
-    And I add structure and sub structures
-    When I create a subscription with Sales Rep assigned "Jared Green - Office" and "Fire"
-    And I close customer card
-    And I navigate to scheduling tab
-    And I add a route group if not already existing
-    And I search customer
-    And I schedule an service appointment
-    And I search customer
-    And I add chemicals to main structure
-    And I add chemicals to substructures
-    Then I verify chemical in structure
-    Then I verify chemical in substructure
-    And I close customer card
     And I validate if there are errors exist in the list
 
   @TaxRate
