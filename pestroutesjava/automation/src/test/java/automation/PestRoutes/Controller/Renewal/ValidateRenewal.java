@@ -306,6 +306,7 @@ public class ValidateRenewal extends AppData {
         String paymentWarning = paymentPage.getPaymentWarning();
         result(expectedWarning, paymentWarning, "payment warning to renew subscription", "Subscription Renewal");
         paymentPage.insertPaymentAmount(total, total);
+        paymentPage.doubleClickRenewalDateCheckBox();
         String expectedRenewalDateAttributeValue = "display: block;";
         String renewalDateAttributeValue = Utilities.getAttributeValue(paymentPage.renewalDateField, "style");
         result(expectedRenewalDateAttributeValue, renewalDateAttributeValue, "if renewal date is checked", "Subscription Renewal");

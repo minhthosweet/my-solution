@@ -35,6 +35,7 @@ public class InvoiceImplementation {
     public String applyToFirst = "//span[text()='Any Invoice']";
     public String paymentWarning = "//div[text()='Prepayment Amount: ']/following-sibling::div[2]";
     public String renewalDateField = "//div[text()='Renewal Date: ']/following-sibling::input[@name = 'renewalDate']";
+    public String renewalDateCheckbox = "//div[text()='Renewal Date: ']/following-sibling::input[@name = 'updateRenewalDate']";
 
     // Cash tab
     private String paymentAmountField = "//div[text() = 'Payment Amount:']/following-sibling::input[@name = 'amount']";
@@ -140,6 +141,12 @@ public class InvoiceImplementation {
     public void clickInitialInvoice(){
         Utilities.waitUntileElementIsVisible(initialInvoice);
         Utilities.clickElement(initialInvoice, ElementType.XPath);
+    }
+
+    public void doubleClickRenewalDateCheckBox() throws InterruptedException {
+        Utilities.clickElement(renewalDateCheckbox, ElementType.XPath);
+        Thread.sleep(100);
+        Utilities.clickElement(renewalDateCheckbox, ElementType.XPath);
     }
 
     public void clickRecurringInvoice(String recurringInvoiceTotal){
