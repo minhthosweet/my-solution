@@ -1,8 +1,8 @@
 #Author Aditya
 @CustomAppointmentDate
-Feature: Customer Status
+@RegressionADI
+Feature: Custom Recurring Appointments
 
-  @CreateAndValidateCustomRecurringAppointments
   Scenario: Create Initial Invoice of type On Initial Billing Date
     When I create customer with first name, last name and address
     Then I validate if customer name and address match in overview tab
@@ -13,6 +13,3 @@ Feature: Customer Status
     Then I validate upcoming appointments for custom recurring appointments
     And I close customer card
     And I validate if there are errors exist in the list
-
-  Scenario: Close browser
-    And I quit driver

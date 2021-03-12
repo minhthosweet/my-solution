@@ -21,8 +21,6 @@ public class BillingByServiceTypeTab {
     CreateNewCustomer createNewCustomer;
     CustomerViewDialog_Header dialog;
 
-    String customerName = getCustomerName_CustomerCard_InfoTab();
-
     public String dateParams = "//input[@name='dateRange-officeParams']";
     public String groupBy = "//select[@name='groupBy']";
     public String subGroupOne = "//select[@name='groupBy2']";
@@ -132,7 +130,7 @@ public class BillingByServiceTypeTab {
     public String getCustomerName_CustomerCard_InfoTab() throws Exception {
         createNewCustomer = new CreateNewCustomer();
         dialog = new CustomerViewDialog_Header();
-        customerName = createNewCustomer.getCustomerName("1");
+        String customerName = createNewCustomer.getCustomerName("1");
         dialog.Click_X_Button();
         return customerName;
     }
@@ -153,9 +151,9 @@ public class BillingByServiceTypeTab {
         return Utilities.getElementTextValue(billedServices_Customer, Utilities.ElementType.XPath).replace("\n", "");
     }
 
-    public void searchNewCustomer() {
+    public void searchNewCustomer() throws Exception {
         Utilities.waitUntileElementIsVisible(search_bbst);
-        FindElement.elementByAttribute(search_bbst, FindElement.InputType.XPath).sendKeys(customerName);
+        FindElement.elementByAttribute(search_bbst, FindElement.InputType.XPath).sendKeys(getCustomerName_CustomerCard_InfoTab());
     }
 
     public void click(String needButton) {
@@ -233,13 +231,13 @@ public class BillingByServiceTypeTab {
         Utilities.clickElement(refresh_bbst, Utilities.ElementType.XPath);
     }
 
-    public void clickDescription_reportDetails() {
-        Utilities.scrollToElementJS("//tr[@detailvalues]//td[text()='" + customerName + "']");
-        Utilities.clickElement("//tr[@detailvalues]//td[text()='" + customerName + "']", Utilities.ElementType.XPath);
+    public void clickDescription_reportDetails() throws Exception {
+        Utilities.scrollToElementJS("//tr[@detailvalues]//td[text()='" + getCustomerName_CustomerCard_InfoTab() + "']");
+        Utilities.clickElement("//tr[@detailvalues]//td[text()='" + getCustomerName_CustomerCard_InfoTab() + "']", Utilities.ElementType.XPath);
     }
 
-    public void customerDetails() {
-        String customerName_detailed = "//tr[@onmouseup]//td[text()='" + customerName + "']";
+    public void customerDetails() throws Exception {
+        String customerName_detailed = "//tr[@onmouseup]//td[text()='" + getCustomerName_CustomerCard_InfoTab() + "']";
         try {
             WebElement elm = FindElement.elementByAttribute(customerName_detailed, FindElement.InputType.XPath);
             if (elm.isDisplayed()) {
@@ -251,4 +249,13 @@ public class BillingByServiceTypeTab {
         }
     }
 
+    public void setPropType(String needPropertyType){
+        Utilities.waitUntileElementIsVisible(propType_bbst);
+        Utilities.selectValueFromDropDownByValue(propType_bbst, needPropertyType);
+    }
+
+    public void setPrefersPaper(String needPreferPaperSelection){
+        Utilities.waitUntileElementIsVisible(prefersPaper);
+        Utilities.selectValueFromDropDownByValue(prefersPaper, needPreferPaperSelection);
+    }
 }

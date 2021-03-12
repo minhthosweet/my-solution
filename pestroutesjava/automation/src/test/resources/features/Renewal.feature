@@ -1,9 +1,9 @@
 #Author Aarbi
+@RegressionARB
 @Renewal
 Feature: Renewal
 
   Scenario: Validate Renewal
-    Given I sign in to pestroutes domain
     Given I delete a routing group
     Given I add a renewal service
     When I create customer with first name, last name and address
@@ -26,6 +26,3 @@ Feature: Renewal
     Then I validate if renewal date and account status changed
     Given I close customer card
     And I validate if there are errors exist in the list
-
-  Scenario: Close browser
-    And I quit driver

@@ -1,10 +1,8 @@
-#Author: Aarbi
-
-@Regression
+#Author: Aditya
+@RegressionADI
 @NewCustomerValidation
 Feature: Create and search customer with validation
 
-  @CreateCustomerValidation
   Scenario: Create a customer
     When I create customer without required last name field
     Then I validate alert
@@ -17,6 +15,3 @@ Feature: Create and search customer with validation
     And I validate search customer with CustomerID
     And I validate search customer with street address
     And I validate if there are errors exist in the list
-
-  Scenario: Close browser
-    And I quit driver

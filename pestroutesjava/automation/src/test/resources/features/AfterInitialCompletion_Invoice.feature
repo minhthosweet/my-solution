@@ -1,7 +1,8 @@
+# Author : Adi
 @AfterInitialCompletion
+@RegressionADI
 Feature: After Initial Appointment Completion
 
-  @CreateInitialInvoiceAfterInitialCompletion
   Scenario: Create Initial Invoice of type After Initial Completion
     Given I delete a routing group
     Given I add a renewal service
@@ -19,6 +20,3 @@ Feature: After Initial Appointment Completion
     And I search customer
     And I validate initial invoice created on invoice tab
     And I validate if there are errors exist in the list
-
-  Scenario: Close browser
-    And I quit driver

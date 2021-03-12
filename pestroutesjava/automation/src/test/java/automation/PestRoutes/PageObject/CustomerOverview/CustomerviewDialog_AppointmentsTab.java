@@ -43,6 +43,9 @@ public class CustomerviewDialog_AppointmentsTab {
     public String areaStructureTreated = "//div[contains (text(), 'Target Areas:')]/following-sibling::div[1]";
     public String issuesStructureTreated = "//select[@name='saveAppointmentSubscription']//following-sibling::div";
 
+    //Scheduling Notice Objects
+    public String closeSchedulingNotice = "//div[@id='schedulingNotice']//span[text()='X']";
+
     // **********Functions**********
 
     /*
@@ -143,6 +146,11 @@ public class CustomerviewDialog_AppointmentsTab {
     public void clickUnitName() {
         Utilities.waitUntileElementIsVisible(unitName);
         Utilities.clickElement(unitName, ElementType.XPath);
+    }
+
+    public void clickCloseSchedulingNoticeButton(){
+        Utilities.waitUntileElementIsVisible(closeSchedulingNotice);
+        Utilities.clickElement(closeSchedulingNotice, ElementType.XPath);
     }
 
     /*

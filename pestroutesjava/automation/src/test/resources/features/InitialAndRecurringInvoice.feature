@@ -1,5 +1,6 @@
 #Author Aditya
 @InitialAndRecurringInvoices
+@RegressionADI
 Feature: Initial And Recurring Invoices
 
   Scenario: Create initial and recurring invoice and validate
@@ -32,6 +33,3 @@ Feature: Initial And Recurring Invoices
     And I validate recurring invoice created on invoice tab
     Then I close customer card
     And I validate if there are errors exist in the list
-
-  Scenario: Close browser
-    And I quit driver

@@ -2,6 +2,7 @@ package automation.PestRoutes.PageObject.CustomerOverview.Invoicing;
 
 import automation.PestRoutes.Utilities.FindElement;
 import automation.PestRoutes.Utilities.Utilities;
+import org.apache.commons.lang3.SystemUtils;
 
 public class CreateNewInvoicePopUp {
 
@@ -16,6 +17,9 @@ public class CreateNewInvoicePopUp {
     public void set(String needInputField, String needValue){
         Utilities.waitUntileElementIsVisible(needInputField);
         Utilities.highLight(needInputField);
+        if (SystemUtils.IS_OS_MAC_OSX){
+            FindElement.elementByAttribute(needInputField, FindElement.InputType.XPath).clear();
+        }
         FindElement.elementByAttribute(needInputField, FindElement.InputType.XPath).sendKeys(needValue);
     }
 
