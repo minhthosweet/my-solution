@@ -1,7 +1,7 @@
+@RegressionFRK
 @AfterAgreementSigned
 Feature: Customer Status
 
-  @CreateInitialInvoiceAfterAgreementSigned
   Scenario: Create Initial Invoice of type After Agreement Signed
     Given I have disabled ECA
     When I create customer with first name, last name, email and address
@@ -19,6 +19,3 @@ Feature: Customer Status
     And Validating invoice balance for invoice created "Today" of report type "Account Transactions"
     And I print report and validate totals and enter notes "Automation Testing"
     And I validate if there are errors exist in the list
-
-  Scenario: Close browser
-    And I quit driver

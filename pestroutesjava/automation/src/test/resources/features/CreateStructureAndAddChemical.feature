@@ -1,8 +1,8 @@
 #Author Aditya
 @StructuresValidation
+@RegressionADI
 Feature: Structures
 
-  @CreateStructureAndChemical
   Scenario: Structure and Chemical Validation
     Given I delete a routing group
     When I create customer with first name, last name, address, email and Structure
@@ -20,6 +20,3 @@ Feature: Structures
     Then I verify chemical in substructure
     And I close customer card
     And I validate if there are errors exist in the list
-
-  Scenario: Close browser
-    And I quit driver

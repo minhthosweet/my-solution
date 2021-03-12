@@ -1,8 +1,8 @@
 #Author Aditya
 @GLAccountAssignedToServiceType
+@RegressionADI
 Feature: GLAccount creation, adding to service type and subscription and validation
 
-  @GLAccountOnServiceType
   Scenario Outline: Create a GL Account
     When I navigate to GLAccounts
     Then I check if GLAccount is available "<description>" and validate the GL Account
@@ -19,5 +19,3 @@ Feature: GLAccount creation, adding to service type and subscription and validat
       | description   |
       | testGLAccount |
 
-  Scenario: Close browser
-    And I quit driver

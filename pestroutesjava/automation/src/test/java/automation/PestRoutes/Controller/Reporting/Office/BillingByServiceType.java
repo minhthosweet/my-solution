@@ -1,7 +1,11 @@
 package automation.PestRoutes.Controller.Reporting.Office;
 
+import automation.PestRoutes.Controller.CustomerCreation.CreateNewCustomer;
 import automation.PestRoutes.PageObject.CreateCustomer.CreateCustomerDialog;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_Header;
+import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_InfoTab;
+import automation.PestRoutes.PageObject.CustomerOverview.Invoicing.CreateNewInvoicePopUp;
+import automation.PestRoutes.PageObject.CustomerOverview.Invoicing.RoutePageInvoicing;
 import automation.PestRoutes.PageObject.Header;
 import automation.PestRoutes.PageObject.CustomerOverview.Invoicing.InvoiceImplementation;
 import automation.PestRoutes.PageObject.ReportingPage.OfficePage.BillingByServiceTypeTab;
@@ -9,29 +13,33 @@ import automation.PestRoutes.Utilities.AppData;
 import automation.PestRoutes.Utilities.AssertException;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
-import automation.PestRoutes.Utilities.Reporter;
 import automation.PestRoutes.Utilities.Utilities;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 import org.testng.annotations.Test;
+
+import static automation.PestRoutes.Utilities.AssertException.result;
 
 public class BillingByServiceType extends AppData {
     CreateCustomerDialog createCustomerDIalog;
     InvoiceImplementation invImplementation;
     BillingByServiceTypeTab billingByServiceType = new BillingByServiceTypeTab();
-    CustomerViewDialog_Header dialog;
+    CustomerViewDialog_Header customerCardHeader;
     Header header;
-
-    public BillingByServiceType() throws Exception {
-    }
+    CreateNewCustomer createNewCustomer;
+    RoutePageInvoicing invoice;
+    CreateNewInvoicePopUp newInvoice;
+    CustomerViewDialog_InfoTab customerViewDialog_infoTab;
 
     @Test
     @And("I navigate to Billing by Service Type")
     public void navigateToBillingByServiceType() {
         billingByServiceType.navigateToBillingByServiceTypePage();
+    }
+
+    public BillingByServiceType() throws Exception {
     }
 
     @And("I group by customer name")
@@ -91,7 +99,7 @@ public class BillingByServiceType extends AppData {
     }
 
     @And("I validate if the report is linked to the customer card")
-    public void validateLink_customerCard() {
+    public void validateLink_customerCard() throws Exception {
         billingByServiceType.clickDescription_reportDetails();
         billingByServiceType.customerDetails();
     }
@@ -99,10 +107,10 @@ public class BillingByServiceType extends AppData {
     @And("I validate billing by service type report")
     public void validateBBSTReport() throws InterruptedException {
         invImplementation = new InvoiceImplementation();
-        dialog = new CustomerViewDialog_Header();
+        customerCardHeader = new CustomerViewDialog_Header();
         header = new Header();
         header.searchCustomerInOrder("1");
-        dialog.navigateTo(dialog.invoicesTabInDialog);
+        customerCardHeader.navigateTo(customerCardHeader.invoicesTabInDialog);
         invImplementation.clickInitialInvoice();
         String subTotalValue = invImplementation.getSubTotalValue();
         String taxValue = invImplementation.getTaxValue();
@@ -157,11 +165,37 @@ public class BillingByServiceType extends AppData {
         AssertException.validateFieldEnabled(fields);
     }
 
-    private void result(String expected, String actual, String stepName, String testName) {
-        if (AssertException.result(expected, actual, stepName).size() > 0) {
-            Utilities.list.add(AssertException.result(expected, actual, stepName));
-        }
-        Reporter.status(stepName, expected, actual, testName);
+    @When("I create customer with balance with prefers paper and residential property type")
+    public void createCustomerWithBalancePrefersPaper() throws Exception {
+        String amount = "400";
+        createNewCustomer = new CreateNewCustomer();
+        customerCardHeader = new CustomerViewDialog_Header();
+        invoice = new RoutePageInvoicing();
+        newInvoice = new CreateNewInvoicePopUp();
+        customerViewDialog_infoTab = new CustomerViewDialog_InfoTab();
+        createNewCustomer.createCustomerWithPrefPaperAndResidentialProperty();
+        customerCardHeader.navigateTo(customerCardHeader.infoTabInDialog);
+        String customerName = customerViewDialog_infoTab.getLastName() + " " + customerViewDialog_infoTab.getFirstName();
+        customerCardHeader.navigateTo(customerCardHeader.invoicesTabInDialog);
+        invoice = new RoutePageInvoicing();
+        invoice.clickAddNewInvoice(invoice.addNewInvoice);
+        newInvoice.set(newInvoice.dateField, Utilities.currentDate("MM/dd/yyyy"));
+        newInvoice.set(newInvoice.amountInputField, amount);
+        newInvoice.select(newInvoice.serviceTypeDropdown, "AA Petst1");
+        newInvoice.click(newInvoice.createButton);
+        createNewCustomer.closeCustomerCard();
     }
+
+    @And("I search for customer with pref paper and residential property in BST")
+    public void filterByPrefPaperAndProperty() throws Exception {
+        billingByServiceType.navigateToBillingByServiceTypePage();
+        billingByServiceType.mainGroupBy("Customer Name");
+        billingByServiceType.clickAdvancedFilters();
+        billingByServiceType.setPropType("Residential Only");
+        billingByServiceType.setPrefersPaper("Yes");
+        billingByServiceType.clickRefreshButton();
+        billingByServiceType.searchNewCustomer();
+    }
+
 }
 

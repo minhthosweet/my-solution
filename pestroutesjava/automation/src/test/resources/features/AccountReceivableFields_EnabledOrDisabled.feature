@@ -1,5 +1,5 @@
 #Author: Aarbi
-@Regression
+@RegressionARB
 @FieldsValidationInAccountReceivable
 Feature: Validate if all fields present and are enabled
 
@@ -30,7 +30,3 @@ Feature: Validate if all fields present and are enabled
     When I create customer with pref paper
     Then I validate customer with pref paper
     And I validate if there are errors exist in the list
-
-
-  Scenario: Close browser
-    And I quit driver
