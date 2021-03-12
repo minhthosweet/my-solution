@@ -47,7 +47,7 @@ public class CucumberBaseClass extends AppData {
         }
     }
 
-    @After(order = 2)
+    @After
     public static void endScenario(Scenario scenario) {
         if (scenario.isFailed()) {
             byte[] screenshot = (byte[]) ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
