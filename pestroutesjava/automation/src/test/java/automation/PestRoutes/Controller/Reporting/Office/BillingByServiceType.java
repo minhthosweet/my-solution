@@ -1,7 +1,9 @@
 package automation.PestRoutes.Controller.Reporting.Office;
 
+import automation.PestRoutes.Controller.Billings.AccountReceivable;
 import automation.PestRoutes.Controller.CustomerCreation.CreateNewCustomer;
 import automation.PestRoutes.PageObject.CreateCustomer.CreateCustomerDialog;
+import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_Admin;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_Header;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_InfoTab;
 import automation.PestRoutes.PageObject.CustomerOverview.Invoicing.CreateNewInvoicePopUp;
@@ -14,6 +16,7 @@ import automation.PestRoutes.Utilities.AssertException;
 
 import java.io.IOException;
 
+import automation.PestRoutes.Utilities.GetDate;
 import automation.PestRoutes.Utilities.Utilities;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
@@ -32,6 +35,8 @@ public class BillingByServiceType extends AppData {
     RoutePageInvoicing invoice;
     CreateNewInvoicePopUp newInvoice;
     CustomerViewDialog_InfoTab customerViewDialog_infoTab;
+    CustomerViewDialog_Admin customerViewDialog_admin;
+    AccountReceivable accountReceivable;
 
     @Test
     @And("I navigate to Billing by Service Type")
@@ -50,7 +55,7 @@ public class BillingByServiceType extends AppData {
     @And("I search for the billing customer")
     public void searchCustomer() throws Exception {
         createCustomerDIalog = new CreateCustomerDialog();
-        billingByServiceType.clickRefreshButton();
+        billingByServiceType.click(billingByServiceType.refresh_bbst);
         billingByServiceType.searchNewCustomer();
     }
 
@@ -90,12 +95,12 @@ public class BillingByServiceType extends AppData {
     @And("I add all the filters")
     public void addAllFilters() throws IOException {
         billingByServiceType.clickAdvancedFilters();
-        billingByServiceType.setInvoiceType("Initial Invoice");
-        billingByServiceType.setServiceType(getData("serviceDescription", generalData));
-        billingByServiceType.setCustomerSource(getData("customerSource", generalData));
-        billingByServiceType.setDivisions(getData("division", generalData));
-        billingByServiceType.setIncludeFlags(getData("flag", generalData));
-        billingByServiceType.setSoldDateRange();
+        billingByServiceType.setType("invoice_bbst", "Initial Invoice");
+        billingByServiceType.setType("serviceType_bbst", getData("serviceDescription", generalData));
+        billingByServiceType.setType("customerSource_bbst", getData("customerSource", generalData));
+        billingByServiceType.setType("divisions_bbst", getData("division", generalData));
+        billingByServiceType.setType("includeFlags_bbst", getData("flag", generalData));
+        billingByServiceType.setDateRange(billingByServiceType.dateParams, "Today");
     }
 
     @And("I validate if the report is linked to the customer card")
@@ -172,30 +177,95 @@ public class BillingByServiceType extends AppData {
         customerCardHeader = new CustomerViewDialog_Header();
         invoice = new RoutePageInvoicing();
         newInvoice = new CreateNewInvoicePopUp();
+        accountReceivable = new AccountReceivable();
         customerViewDialog_infoTab = new CustomerViewDialog_InfoTab();
         createNewCustomer.createCustomerWithPrefPaperAndResidentialProperty();
         customerCardHeader.navigateTo(customerCardHeader.infoTabInDialog);
-        String customerName = customerViewDialog_infoTab.getLastName() + " " + customerViewDialog_infoTab.getFirstName();
-        customerCardHeader.navigateTo(customerCardHeader.invoicesTabInDialog);
-        invoice = new RoutePageInvoicing();
-        invoice.clickAddNewInvoice(invoice.addNewInvoice);
-        newInvoice.set(newInvoice.dateField, Utilities.currentDate("MM/dd/yyyy"));
-        newInvoice.set(newInvoice.amountInputField, amount);
-        newInvoice.select(newInvoice.serviceTypeDropdown, "AA Petst1");
-        newInvoice.click(newInvoice.createButton);
+        accountReceivable.createStandAloneServiceInvoice(amount, Utilities.currentDate("MM/dd/yyyy"), "AA Petst1");
         createNewCustomer.closeCustomerCard();
     }
 
     @And("I search for customer with pref paper and residential property in BST")
-    public void filterByPrefPaperAndProperty() throws Exception {
+    public void filterByPrefPaperAndResidentialProperty() throws Exception {
         billingByServiceType.navigateToBillingByServiceTypePage();
         billingByServiceType.mainGroupBy("Customer Name");
         billingByServiceType.clickAdvancedFilters();
-        billingByServiceType.setPropType("Residential Only");
-        billingByServiceType.setPrefersPaper("Yes");
-        billingByServiceType.clickRefreshButton();
+        billingByServiceType.set(billingByServiceType.propType_bbst, "Residential Only");
+        billingByServiceType.set(billingByServiceType.prefersPaper, "Yes");
+        billingByServiceType.click(billingByServiceType.refresh_bbst);
         billingByServiceType.searchNewCustomer();
     }
 
+    @And("I search for customer without pref paper and commercial property in BST")
+    public void filterByNotPrefPaperAndCommercialProperty() throws Exception {
+        billingByServiceType.navigateToBillingByServiceTypePage();
+        billingByServiceType.mainGroupBy("Customer Name");
+        billingByServiceType.clickAdvancedFilters();
+        billingByServiceType.set(billingByServiceType.propType_bbst, "Commercial Only");
+        billingByServiceType.set(billingByServiceType.prefersPaper, "No");
+        billingByServiceType.click(billingByServiceType.refresh_bbst);
+        billingByServiceType.searchNewCustomer();
+    }
+
+    @When("I edit customer to commercial property and not require paper")
+    public void editCustomer_notRequirePaper_CommercialProperty() throws IOException, InterruptedException {
+        billingByServiceType.editCustomer_NoPaper_Commercial();
+    }
+
+    @Then("I validate customer with balance age in BST")
+    public void validateBalanceAge() throws Exception {
+        createNewCustomer = new CreateNewCustomer();
+        customerCardHeader = new CustomerViewDialog_Header();
+        customerViewDialog_admin = new CustomerViewDialog_Admin();
+        accountReceivable = new AccountReceivable();
+        String[] balanceAge = {"7+ Days Old", "30+ Days Old (Past Due)", "90+ Days Old (Way, Way Past Due)"};
+        int[] invoiceDaysPastDue = {7, 30, 90};
+        for (int i = 0; i < balanceAge.length; i++) {
+            createNewCustomer.createCustomerWithAddress();
+            int currentMonth = GetDate.getMonth(Utilities.currentDate("MM/dd/yyyy"));
+            int currentYear = GetDate.getYear(Utilities.currentDate("MM/dd/yyyy"));
+            String dateOfInvoice = GetDate.minusGenericDayToDate(Utilities.currentDate("MM/dd/yyyy"), invoiceDaysPastDue[i]);
+            int monthOfInv = GetDate.getMonth(dateOfInvoice);
+            int yearOfInv = GetDate.getYear(dateOfInvoice);
+            accountReceivable.createStandAloneServiceInvoice("400", dateOfInvoice, "AA Petst1");
+            customerCardHeader.navigateTo(customerCardHeader.adminTabInDialog);
+            customerViewDialog_admin.changeAccountStatus_Active();
+            createNewCustomer.closeCustomerCard();
+            billingByServiceType.navigateToBillingByServiceTypePage();
+            billingByServiceType.mainGroupBy("Customer Name");
+            billingByServiceType.clickAdvancedFilters();
+            billingByServiceType.setBalance_bbst("400");
+            billingByServiceType.set(billingByServiceType.balanceAge_bbst, balanceAge[i]);
+            int monthPastDue = currentMonth - monthOfInv;
+            int yearsPastDue = currentYear - yearOfInv;
+            if (monthPastDue == 0 && yearsPastDue == 0) {
+                billingByServiceType.setDateRange(billingByServiceType.dateParams, "Last Week");
+            } else if (monthPastDue == 1 && yearsPastDue == 0) {
+                billingByServiceType.setDateRange(billingByServiceType.dateParams, "Last Month");
+            } else if (yearsPastDue > 0) {
+                billingByServiceType.setDateRange(billingByServiceType.dateParams, "Last Year");
+            } else if (monthPastDue > 1 && yearsPastDue == 0) {
+                billingByServiceType.setDateRange(billingByServiceType.dateParams, "This Year");
+            }
+            billingByServiceType.click(billingByServiceType.refresh_bbst);
+            billingByServiceType.searchNewCustomer();
+            validateFields_BBSTReport();
+            validateLink_customerCard();
+            validateBBSTReport();
+            validateFields_BBSTLineItem();
+        }
+    }
+
+    @And("I set filter for sold date, scheduler, sale teams and sales reps")
+    public void validate_soldDate_Scheduler_SaleTeams_SalesReps() {
+        billingByServiceType.navigateToBillingByServiceTypePage();
+        billingByServiceType.mainGroupBy("Customer Name");
+        billingByServiceType.clickAdvancedFilters();
+        billingByServiceType.setDateRange(billingByServiceType.soldDateRange, "Today");
+        billingByServiceType.setType("scheduledBy_bbst", "All Office Staff");
+        billingByServiceType.setType("soldByTeam_bbst", "All Office Staff");
+        billingByServiceType.setSalesRep("soldbySalesRep_bbst", "Automation User - Office");
+        billingByServiceType.click(billingByServiceType.refresh_bbst);
+    }
 }
 

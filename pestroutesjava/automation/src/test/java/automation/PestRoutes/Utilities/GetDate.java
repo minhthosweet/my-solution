@@ -36,7 +36,6 @@ public class GetDate {
 		LocalDate localDate = LocalDate.parse(input, formatter);
 		LocalDate yearLater = localDate.minusYears(1);
 		String formattedDate = yearLater.format(DateTimeFormatter.ofPattern("M/dd/yyyy"));
-		System.out.println(formattedDate);
 		return formattedDate;
 
 	}
@@ -47,7 +46,6 @@ public class GetDate {
 		LocalDate localDate = LocalDate.parse(input, formatter);
 		LocalDate yearLater = localDate.minusWeeks(1);
 		String formattedDate = yearLater.format(DateTimeFormatter.ofPattern("M/dd/yyyy"));
-		System.out.println(formattedDate);
 		return formattedDate;
 
 	}
@@ -58,7 +56,6 @@ public class GetDate {
 		LocalDate localDate = LocalDate.parse(input, formatter);
 		LocalDate yearLater = localDate.plusDays(1);
 		String formattedDate = yearLater.format(DateTimeFormatter.ofPattern("M/dd/yyyy"));
-		System.out.println(formattedDate);
 		return formattedDate;
 
 	}
@@ -69,7 +66,6 @@ public class GetDate {
 		LocalDate localDate = LocalDate.parse(input, formatter);
 		LocalDate yearLater = localDate.minusDays(1);
 		String formattedDate = yearLater.format(DateTimeFormatter.ofPattern("M/dd/yyyy"));
-		System.out.println(formattedDate);
 		return formattedDate;
 
 	}
