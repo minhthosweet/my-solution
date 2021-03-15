@@ -1,5 +1,5 @@
 #Auther: Faraz Khan
-@Scheduling
+@JobPool
   Feature: Job Pool Filters
 
     Scenario: Validate All Job Pool Filters

@@ -28,6 +28,7 @@ public class SalesReport extends AppData {
 	AddSubscription addNewSubscription;
 	SalesReportPage salesReportPage;
 	CustomersMainPage customersMainPage;
+	CreateNewCustomer customer;
 	ScheduleAppt scheduleAppt;
 	CustomerViewDialog_OverviewTab overview;
 
@@ -63,6 +64,7 @@ public class SalesReport extends AppData {
 		header = new Header();
 		salesReportPage = new SalesReportPage();
 		customersMainPage = new CustomersMainPage();
+		customer = new CreateNewCustomer();
 
 		String employeeType = getData("employeeType", generalData);
 		String initialStatus = getData("initialStatus", generalData);
@@ -105,6 +107,7 @@ public class SalesReport extends AppData {
 		salesReportPage.selectFilter(salesReportPage.includeServiceTypeCategories, includeServiceTypeCategories);
 		salesReportPage.selectFilter(salesReportPage.excludeServiceTypeCategories, excludeServiceTypeCategories);
 		salesReportPage.ClickRefreshButton();
+		header.searchCustomer_SearchField(customer.fName+ ", " + customer.lName);
 
 	}
 
