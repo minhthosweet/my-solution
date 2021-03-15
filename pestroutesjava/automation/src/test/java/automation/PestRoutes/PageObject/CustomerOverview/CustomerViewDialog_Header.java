@@ -37,6 +37,7 @@ public class CustomerViewDialog_Header {
         Thread.sleep(800);
         Utilities.waitUntileElementIsVisible("//li[@name= '" + chooseTabFromConst + "']");
         Utilities.clickElement("//li[@name = '" + chooseTabFromConst + "']", ElementType.XPath, true, false);
+        Thread.sleep(100);
     }
 
     public void ClickTranferButton() {

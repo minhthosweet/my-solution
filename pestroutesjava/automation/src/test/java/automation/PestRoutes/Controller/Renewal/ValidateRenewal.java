@@ -239,7 +239,8 @@ public class ValidateRenewal extends AppData {
         header = new Header();
         overviewHeader = new CustomerViewDialog_Header();
         overviewHeader.navigateTo(overviewHeader.subscriptionTabInDialog);
-        String expectedRenewalDate = GetDate.addOneYearToDate(getData("scheduleDate", generalData));
+        String currentDate = Utilities.currentDate("MM/dd/yyyy");
+        String expectedRenewalDate = GetDate.addOneYearToDate(currentDate);
         String renewalDate = subscription.getRenewalDate();
         result(expectedRenewalDate, renewalDate, "if renewal date is posted", "Subscription Renewal");
     }

@@ -17,7 +17,13 @@ Feature: Validate if all fields present and are enabled
     Then I validate if the customer displays once account status is Active
     And I validate if there are errors exist in the list
 
+  Scenario: Customer with billing validation
+    When I create customer with first name, last name, email and address
+    Then I validate auto pay customer display
+    And I validate if there are errors exist in the list
+
   Scenario: Customer with prop type validation
+    When I create customer with first name, last name, email and address
     Then I validate customer type in account receivable
     And I validate if there are errors exist in the list
 
@@ -25,8 +31,13 @@ Feature: Validate if all fields present and are enabled
     Then I validate customer with balance
     Then I validate customer with balance age, payment due, and days overdue
     And I validate if there are errors exist in the list
-
+#
   Scenario: Customer with pref paper validation
     When I create customer with pref paper
     Then I validate customer with pref paper
+    And I validate if there are errors exist in the list
+
+  Scenario: Customer has email validation
+    When I create customer with first name, last name, email and address
+    Then I validate customer has email
     And I validate if there are errors exist in the list

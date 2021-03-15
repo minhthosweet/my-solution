@@ -6,9 +6,11 @@ import automation.PestRoutes.Utilities.FindElement;
 import automation.PestRoutes.Utilities.FindElement.InputType;
 import automation.PestRoutes.Utilities.Utilities;
 import automation.PestRoutes.Utilities.Utilities.ElementType;
+import org.openqa.selenium.WebElement;
 
 public class BillingPage {
-	
+	//Page title objects
+	public String addPaymentMethodTitle = "//div[@id='billingInfoContent']//h3";
 	//**********Left navigation objects**********
 	public String billingInfoButton = "//li[text()='Billing Info']";
 	public String addPaymentMethodButton = "//li[text()='+ Add Payment Method']";
@@ -69,20 +71,17 @@ public class BillingPage {
 
 	//**********Credit card objects*************
 	//***Iframe***
-	public String iFrameCc = "payFields-iframe-number";
-	public String iFrameExp = "payFields-iframe-expiration";
-	public String iFrameCvv = "payFields-iframe-cvv";
+
+
 	//***Buttons***
-	public String savePaymentMethodButton = "//button[@id='secureCardSaveButton']";
+
 	public String ccSecurelyEnterCardInfoButton = "//div[text()='Securely Enter Card Info']";
 	public String ccRemoveAccountButton = "//div[text()='Remove Account']";
 	public String ccCopyAccountButton = "//div[text()='Copy Account']";
 	public String ccSaveCardButton = "//button[@id='submit-payment']";
 	public String cc_X_ButtonInAddCreditCardDialog = "//form[@id='lightbox']//div[@class='x-container']";
 	//***Input Fields***
-	public String ccCardNumberInputField = "//input[@id='payment_number']";
-	public String ccExpirationInputField = "//input[@id='expiration']";
-	public String ccCvvInputField = "//input[@id='payment_cvv']";
+
 	//***Drop downs***
 	public String ccMonthDropdown = "//select[@name='expMonth']";
 	public String ccYearDropdown = "//select[@name='expYear']";
@@ -99,16 +98,62 @@ public class BillingPage {
 	//***Drop downs***
 	public String bankAcountAccountTypeDropdown = "//select[@name='accountType']";
 	public String bankAccountCheckTypeDropdown = "//select[@name='checkType']";
+
+	//***Gateway Types
+	public String paymentGatewayType = "//form[@id='paymentProfileForm']//i";
+	//Brain tree
+	public String brainCcIframe = "braintree-hosted-field-number";
+	public String brainExpMonthIframe = "braintree-hosted-field-expirationMonth";
+	public String brainExpYearIframe = "braintree-hosted-field-expirationYear";
+	public String brainCvvIframe = "braintree-hosted-field-cvv";
+	public String brainCcNumberInputField = "//input[@id='credit-card-number']";
+	public String brainExpMonthInputField = "//input[@id='expiration-month']";
+	public String brainExpYearInputField = "//input[@id='expiration-year']";
+	public String brainCvvInputField = "//input[@id='cvv']";
+	//PestRoutes Payments
+	public String pestRoutesIframeCc = "payFields-iframe-number";
+	public String pestRoutesIframeExp = "payFields-iframe-expiration";
+	public String pestRoutesIframeCvv = "payFields-iframe-cvv";
+	public String pestRoutesCcNumberInputField = "//input[@id='payment_number']";
+	public String pestRoutesCcExpirationInputField = "//input[@id='expiration']";
+	public String pestRoutesCcCvvInputField = "//input[@id='payment_cvv']";
+	public String savePaymentMethodButton = "//button[@id='secureCardSaveButton']";
+	//Element
+	public String elementEnterCcButton = "//button[@id='renderSecureCardFormButton']";
+	public String elementIframe = "elementFrame";
+	public String elementCcNumberInputField = "//input[@id='cardNumber']";
+	public String elementExpMonthDropdown = "//select[@id='ddlExpirationMonth']";
+	public String elementExpYearDropdown = "//select[@id='ddlExpirationYear']";
+	public String elementSaveCcButton = "//a[@id='submit']";
+	//Spreedly
+	public String spreedlyCcNumberIframe = "//div[@id='spreedly-card-number']/iframe";
+	public String spreedlyCvvIframe = "//div[@id='spreedly-cvv']/iframe";
+	public String spreedlyCcInputField = "//input[@id='card_number']";
+	public String spreedlyExpMonthDropdown = "//select[@name='expMonth']";
+	public String spreedlyExpYearDropdown = "//select[@name='expYear']";
+	public String spreedlyCvvInputField = "//input[@id='cvv']";
+	//NMI
+	public String nmiCcNumberIframe = "CollectJSInlineccnumber";
+	public String nmiExpIframe = "CollectJSInlineccexp";
+	public String nmiCvvIframe = "CollectJSInlinecvv";
+	public String nmiCcNumberInputField = "//input[@id='ccnumber']";
+	public String nmiExpInputField = "//input[@id='ccexp']";
+	public String nmiCvvInputField = "//input[@id='cvv']";
+	public String nmiSavedCc = "//input[@name='accountNumber']";
+
 	
 	/* 
 	 * Below methods click or select element
 	 */
 	
-	public void clickElement(String needElement) {
+	public void clickElement(String needElement) throws InterruptedException {
 		Utilities.clickElement(needElement, ElementType.XPath);
+		Thread.sleep(100);
 	}
 	
-	public void selectDropdown(String needDropdown, String needValue) {
+	public void selectDropdown(String needDropdown, String needValue) throws InterruptedException {
+		Thread.sleep(100);
+		Utilities.waitUntileElementIsVisible(needDropdown);
 		Utilities.selectValueFromDropDownByValue(needDropdown, needValue);
 	}
 	

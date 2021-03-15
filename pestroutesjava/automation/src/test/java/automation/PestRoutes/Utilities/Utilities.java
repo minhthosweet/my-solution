@@ -63,6 +63,12 @@ public class Utilities {
 		String elm = needElement;
 		driver.switchTo().frame(elm);
 	}
+
+	public static String getInnerText(String needElement){
+		WebElement elm = driver.findElement(By.xpath(needElement));
+		return (String) ((JavascriptExecutor) driver).executeScript(
+				"return jQuery(arguments[0]).text();", elm);
+	}
 	
 	public static void switchToIframeByIndex(int needIndex) {
 		driver.switchTo().frame(needIndex);

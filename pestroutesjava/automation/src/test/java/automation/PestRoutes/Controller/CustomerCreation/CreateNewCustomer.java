@@ -33,6 +33,7 @@ public class CreateNewCustomer extends AppData {
     String expectedAlert = "Required: You must fill in the customer's last name or company name!";
     public String streetAddress = Integer.toString(Utilities.generateRandomNumber(4)) + " " + Utilities.generateRandomString(5) + " " + Utilities.generateRandomString(5);
     String zipcode = "7" + Utilities.generateRandomNumber(4);
+    public String city = Utilities.generateRandomString(4);
     public String email = Utilities.generateRandomString(5)+"."+Utilities.generateRandomString(5)+""+"@gmail.com";
     public String primaryPhoneNumber = "6" + Integer.toString(Utilities.generateRandomNumber(9));
 
@@ -288,6 +289,7 @@ public class CreateNewCustomer extends AppData {
         customer.selectUnit("Multi Unit");
         customer.setAddress(streetAddress);
         customer.setZipCode(zipcode);
+        customer.setCity(city);
         customer.setCellPhone(getData("phoneNumber", generalData));
         customer.clickSmsCheckBox();
         customer.clickEmailCheckBox();
