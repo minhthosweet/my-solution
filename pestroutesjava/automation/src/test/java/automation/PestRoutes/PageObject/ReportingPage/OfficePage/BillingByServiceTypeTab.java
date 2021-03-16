@@ -51,6 +51,7 @@ public class BillingByServiceTypeTab {
     public BillingByServiceTypeTab() throws Exception {
     }
 
+    //Author: Aditya
     public String filterTypes(String key) {
 
         // filter fields
@@ -102,6 +103,7 @@ public class BillingByServiceTypeTab {
         return filter_Types.get(key);
     }
 
+    //Author: Aditya
     public void mainGroupBy(String groupByType) {
         officeObjs = new OfficeObjects();
         Utilities.waitUntileElementIsVisible(groupBy);
@@ -109,6 +111,7 @@ public class BillingByServiceTypeTab {
         officeObjs.navigateTo(officeObjs.billingByServiceType);
     }
 
+    //Author: Aditya
     public void navigateToBillingByServiceTypePage() {
         header = new Header();
         reportingMainPage = new ReportingMainPage();
@@ -118,6 +121,7 @@ public class BillingByServiceTypeTab {
         officeObjs.navigateTo(officeObjs.billingByServiceType);
     }
 
+    //Author: Aditya
     public void editCustomerPerFilters() throws InterruptedException, IOException {
         createNewCustomer = new CreateNewCustomer();
         dialog = new CustomerViewDialog_Header();
@@ -127,6 +131,7 @@ public class BillingByServiceTypeTab {
         createNewCustomer.addAdditionalProperties();
     }
 
+    //Author: Aditya
     public void editCustomer_NoPaper_Commercial() throws InterruptedException, IOException {
         createNewCustomer = new CreateNewCustomer();
         dialog = new CustomerViewDialog_Header();
@@ -173,6 +178,7 @@ public class BillingByServiceTypeTab {
         Utilities.clickAdvancedFilters();
     }
 
+    //Author: Aditya
     public void setType(String key, String type) {
         FindElement.elementByAttribute(filterTypes(key), FindElement.InputType.XPath).sendKeys(type);
         Utilities.clickElement("//span[text()='" + type + "']", Utilities.ElementType.XPath);
@@ -220,6 +226,7 @@ public class BillingByServiceTypeTab {
         Utilities.clickElement("//tr[@detailvalues]//td[text()='" + getCustomerName_CustomerCard_InfoTab() + "']", Utilities.ElementType.XPath);
     }
 
+    //Author: Aditya
     public void customerDetails() throws Exception {
         String customerName_detailed = "//tr[@onmouseup]//td[text()='" + getCustomerName_CustomerCard_InfoTab() + "']";
         try {
@@ -243,6 +250,7 @@ public class BillingByServiceTypeTab {
         FindElement.elementByAttribute(balance_bbst, FindElement.InputType.XPath).sendKeys(balance);
     }
 
+    //Author: Aditya
     public void setDateRange(String type, String dateRange){
         Utilities.waitUntileElementIsVisible(type);
         Utilities.clickElement(type, Utilities.ElementType.XPath);
