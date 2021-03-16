@@ -12,7 +12,7 @@ public class JobPoolTab extends AppData {
     //Buttons
     public String advanceToggleButton = "//div[@id='cdContentWrapper']//div[@id='advancedFilterToggleButton']";
     public String refreshButton = "//div[@id='cdContentWrapper']//input[@type='submit']";
-    public String searchButton = "//input[@type='search']";
+    public String SearchField = "//div[@id='cdContentWrapper']//input[@type='search']";
 
     public Map<String, String> filter_Types = new HashMap<String, String>();
 
@@ -64,9 +64,9 @@ public class JobPoolTab extends AppData {
         Utilities.clickElement(advanceToggleButton, Utilities.ElementType.XPath);
     }
 
-    public void clickSearchButton() {
-        Utilities.waitUntileElementIsVisible(searchButton);
-        FindElement.elementByAttribute(searchButton, FindElement.InputType.XPath).sendKeys();
+    public void searchCustomer_SearchField(String customerDetails){
+        Utilities.jsClickElement(SearchField, Utilities.ElementType.XPath);
+        FindElement.elementByAttribute(SearchField, FindElement.InputType.XPath).sendKeys(customerDetails);
     }
 
     public void setDate(String needFilterType) {

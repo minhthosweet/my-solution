@@ -1,6 +1,7 @@
 package automation.PestRoutes.PageObject.Customers.SalesReport;
 
 import automation.PestRoutes.Utilities.BaseClass;
+import automation.PestRoutes.Utilities.FindElement;
 import automation.PestRoutes.Utilities.Utilities;
 import automation.PestRoutes.Utilities.Utilities.ElementType;
 
@@ -29,14 +30,16 @@ public class SalesReportPage extends BaseClass{
 	public String excludeCustomerSources = "//select[@name='excludeCustomerSources']";
 	public String includeServiceTypeCategories = "//select[@name='serviceTypeCategories']";
 	public String excludeServiceTypeCategories = "//select[@name='excludeServiceTypeCategories']";
+	public String SearchField = "//div[@id='soldCustomers']//input[@type='search']";
 
 	String refreshButton = "//div[@onmouseup='loadSoldCustomers();']";
 	String exportButton = "//div[text()='Export to Excel']";
 	String salesReportTotalContractValue = "//div[contains(text(),'Total Contract Value')]/preceding-sibling::h3";
 
-	
-
-
+	public void searchCustomer_SearchField(String customerDetails) {
+		Utilities.jsClickElement(SearchField, ElementType.XPath);
+		FindElement.elementByAttribute(SearchField, FindElement.InputType.XPath).sendKeys(customerDetails);
+	}
 	public void selectTodaysDate(String needDate) {
 		Utilities.waitUntileElementIsVisible(selectDateField);
 		Utilities.clickElement(selectDateField, ElementType.XPath);

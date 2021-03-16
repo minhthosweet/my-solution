@@ -22,7 +22,6 @@ public class JobPool extends AppData {
 
     @And("I navigate to the job pool tab")
     public void navigateToJobPool() {
-        header = new Header();
         scheduleDay = new SchedulingTab();
         jobPoolTab = new JobPoolTab();
         header.navigateTo(header.schedulingTab);
@@ -106,10 +105,9 @@ public class JobPool extends AppData {
 
     @Then("I validate the job pool results")
     public void validateJobPoolResult() throws IOException {
-        header = new Header();
         jobPoolTab = new JobPoolTab();
         customer = new CreateNewCustomer();
-        header.searchCustomer_SearchField(customer.fName+ ", " + customer.lName);
+        jobPoolTab.searchCustomer_SearchField(customer.fName+ ", " + customer.lName);
 
         String expectedCustomerName = customer.fName+ ", " + customer.lName;
         String expectedPhoneNumber = getData("phoneNumber", generalData);
