@@ -396,6 +396,15 @@ public class CreateNewCustomer extends AppData {
         customerDialog_Header.navigateTo(customerDialog_Header.subscriptionTabInDialog);
     }
 
+    public void editCustomer_NoPaper_CommercialProperty() throws InterruptedException {
+        customer = new CreateCustomerDialog();
+        customerDialog_Header = new CustomerViewDialog_Header();
+        customerDialog_Header.navigateTo(customerDialog_Header.infoTabInDialog);
+        customer.clickPrefersPaperCheckBox();
+        customer.selectProperty(customer.commercialProperty);
+        customerDialog_Header.clickSaveButton();
+    }
+
     private void alertCondition() throws Exception {
         int i = 0;
         while (i++ < 5) {

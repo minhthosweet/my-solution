@@ -31,9 +31,13 @@ public class Header {
 	}
 
 	public void searchCustomerInOrder(String customerNumber){
+		clickAccessHistory();
+		Utilities.clickElement("//h3[text()='Customer Access History']/following-sibling::div//li["+customerNumber+"]//span["+customerNumber+"]", ElementType.XPath);
+	}
+
+	public void clickAccessHistory(){
 		Utilities.waitUntileElementIsVisible(ACCESS_HISTORY);
 		Utilities.jsClickElement(ACCESS_HISTORY, ElementType.XPath);
-		Utilities.clickElement("//h3[text()='Customer Access History']/following-sibling::div//li["+customerNumber+"]//span["+customerNumber+"]", ElementType.XPath);
 	}
 
 	public void searchCustomer_SearchField(String customerDetails){

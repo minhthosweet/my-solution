@@ -51,6 +51,7 @@ public class BillingByServiceTypeTab {
     public BillingByServiceTypeTab() throws Exception {
     }
 
+    //Author: Aditya
     public String filterTypes(String key) {
 
         // filter fields
@@ -66,7 +67,7 @@ public class BillingByServiceTypeTab {
         filter_Types.put("excludeFlags_bbst", "//label[text()='Excl. Flags']//following-sibling::div//input");
         filter_Types.put("scheduledBy_bbst", "//label[text()='Scheduler']//following-sibling::div//input");
         filter_Types.put("soldByTeam_bbst", "//label[text()='Sale Teams']//following-sibling::div//input");
-        filter_Types.put("soldbySalesRep_bbst", "//label[text()='Sales Rep']//following-sibling::div//input");
+        filter_Types.put("soldbySalesRep_bbst", "//label[text()='Sales Rep']//following-sibling::div//select");
 
         // bbst report fields
         filter_Types.put("description_bbstReport", "//table[@id='revenueByServiceType']//div[text()='Description']");
@@ -102,6 +103,7 @@ public class BillingByServiceTypeTab {
         return filter_Types.get(key);
     }
 
+    //Author: Aditya
     public void mainGroupBy(String groupByType) {
         officeObjs = new OfficeObjects();
         Utilities.waitUntileElementIsVisible(groupBy);
@@ -109,6 +111,7 @@ public class BillingByServiceTypeTab {
         officeObjs.navigateTo(officeObjs.billingByServiceType);
     }
 
+    //Author: Aditya
     public void navigateToBillingByServiceTypePage() {
         header = new Header();
         reportingMainPage = new ReportingMainPage();
@@ -118,6 +121,7 @@ public class BillingByServiceTypeTab {
         officeObjs.navigateTo(officeObjs.billingByServiceType);
     }
 
+    //Author: Aditya
     public void editCustomerPerFilters() throws InterruptedException, IOException {
         createNewCustomer = new CreateNewCustomer();
         dialog = new CustomerViewDialog_Header();
@@ -125,6 +129,16 @@ public class BillingByServiceTypeTab {
         header.searchCustomerInOrder("1");
         dialog.navigateTo(dialog.infoTabInDialog);
         createNewCustomer.addAdditionalProperties();
+    }
+
+    //Author: Aditya
+    public void editCustomer_NoPaper_Commercial() throws InterruptedException, IOException {
+        createNewCustomer = new CreateNewCustomer();
+        dialog = new CustomerViewDialog_Header();
+        header = new Header();
+        header.clickAccessHistory();
+        header.searchCustomerInOrder("1");
+        createNewCustomer.editCustomer_NoPaper_CommercialProperty();
     }
 
     public String getCustomerName_CustomerCard_InfoTab() throws Exception {
@@ -164,19 +178,10 @@ public class BillingByServiceTypeTab {
         Utilities.clickAdvancedFilters();
     }
 
-    public void setInvoiceType(String invoiceType) {
-        FindElement.elementByAttribute(filterTypes("invoice_bbst"), FindElement.InputType.XPath).sendKeys(invoiceType);
-        Utilities.clickElement("//span[text()='" + invoiceType + "']", Utilities.ElementType.XPath);
-    }
-
-    public void setServiceType(String serviceTypeName) {
-        FindElement.elementByAttribute(filterTypes("serviceType_bbst"), FindElement.InputType.XPath).sendKeys(serviceTypeName);
-        Utilities.clickElement("//span[text()='" + serviceTypeName + "']", Utilities.ElementType.XPath);
-    }
-
-    public void setCustomerSource(String serviceTypeName) {
-        FindElement.elementByAttribute(filterTypes("customerSource_bbst"), FindElement.InputType.XPath).sendKeys(serviceTypeName);
-        Utilities.clickElement("//span[text()='" + serviceTypeName + "']", Utilities.ElementType.XPath);
+    //Author: Aditya
+    public void setType(String key, String type) {
+        FindElement.elementByAttribute(filterTypes(key), FindElement.InputType.XPath).sendKeys(type);
+        Utilities.clickElement("//span[text()='" + type + "']", Utilities.ElementType.XPath);
     }
 
     public void setIncludeCollections(String includeCollections) {
@@ -191,18 +196,8 @@ public class BillingByServiceTypeTab {
         FindElement.elementByAttribute(filterTypes("regions_bbst"), FindElement.InputType.XPath).sendKeys(regions);
     }
 
-    public void setDivisions(String divisions) {
-        FindElement.elementByAttribute(filterTypes("divisions_bbst"), FindElement.InputType.XPath).sendKeys(divisions);
-        Utilities.clickElement("//span[text()='" + divisions + "']", Utilities.ElementType.XPath);
-    }
-
     public void setOffice_bbst(String office) {
         FindElement.elementByAttribute(filterTypes("offices_bbst"), FindElement.InputType.XPath).sendKeys(office);
-    }
-
-    public void setIncludeFlags(String includeFlags) {
-        FindElement.elementByAttribute(filterTypes("includeFlags_bbst"), FindElement.InputType.XPath).sendKeys(includeFlags);
-        Utilities.clickElement("//span[text()='" + includeFlags + "']", Utilities.ElementType.XPath);
     }
 
     public void setExcludeFlags(String excludeFlags) {
@@ -221,14 +216,9 @@ public class BillingByServiceTypeTab {
         FindElement.elementByAttribute(filterTypes("soldbySalesRep_bbst"), FindElement.InputType.XPath).sendKeys(soldbySalesRep);
     }
 
-    public void setSoldDateRange() {
+    public void setSoldDateRange(String dateRange) {
         Utilities.waitUntileElementIsVisible(soldDateRange);
-        FindElement.elementByAttribute(soldDateRange, FindElement.InputType.XPath).sendKeys(Utilities.currentDate("MM/dd/yyyy") + " - " + Utilities.currentDate("MM/dd/yyyy"));
-    }
-
-    public void clickRefreshButton() {
-        Utilities.waitUntileElementIsVisible(refresh_bbst);
-        Utilities.clickElement(refresh_bbst, Utilities.ElementType.XPath);
+        FindElement.elementByAttribute(soldDateRange, FindElement.InputType.XPath).sendKeys(dateRange);
     }
 
     public void clickDescription_reportDetails() throws Exception {
@@ -236,6 +226,7 @@ public class BillingByServiceTypeTab {
         Utilities.clickElement("//tr[@detailvalues]//td[text()='" + getCustomerName_CustomerCard_InfoTab() + "']", Utilities.ElementType.XPath);
     }
 
+    //Author: Aditya
     public void customerDetails() throws Exception {
         String customerName_detailed = "//tr[@onmouseup]//td[text()='" + getCustomerName_CustomerCard_InfoTab() + "']";
         try {
@@ -249,13 +240,27 @@ public class BillingByServiceTypeTab {
         }
     }
 
-    public void setPropType(String needPropertyType){
-        Utilities.waitUntileElementIsVisible(propType_bbst);
-        Utilities.selectValueFromDropDownByValue(propType_bbst, needPropertyType);
+    public void set(String needTag, String needType){
+        Utilities.waitUntileElementIsVisible(needTag);
+        Utilities.selectValueFromDropDownByValue(needTag, needType);
     }
 
-    public void setPrefersPaper(String needPreferPaperSelection){
-        Utilities.waitUntileElementIsVisible(prefersPaper);
-        Utilities.selectValueFromDropDownByValue(prefersPaper, needPreferPaperSelection);
+    public void setBalance_bbst(String balance) {
+        Utilities.waitUntileElementIsVisible(balance_bbst);
+        FindElement.elementByAttribute(balance_bbst, FindElement.InputType.XPath).sendKeys(balance);
     }
+
+    //Author: Aditya
+    public void setDateRange(String type, String dateRange){
+        Utilities.waitUntileElementIsVisible(type);
+        Utilities.clickElement(type, Utilities.ElementType.XPath);
+        Utilities.waitUntileElementIsVisible("//div[contains(@style,'block')]//li[text()='"+dateRange+"']");
+        Utilities.clickElement("//div[contains(@style,'block')]//li[text()='"+dateRange+"']", Utilities.ElementType.XPath);
+    }
+
+    public void setSalesRep(String salesRepTab, String salesRepType){
+        Utilities.waitUntileElementIsVisible(filterTypes(salesRepTab));
+        Utilities.selectValueFromDropDownByValue(filterTypes(salesRepTab), salesRepType);
+    }
+
 }
