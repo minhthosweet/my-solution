@@ -2,8 +2,9 @@
 @RegressionARB
 @FieldsValidationInAccountReceivable
 Feature: Validate if all fields present and are enabled
-
+  @FieldValidations_AccountReceivable
   Scenario: Fields validations
+    Given I add a renewal service
     Given I have disabled ECA
     When I create customer with first name, last name, email and address
     Then I validate if customer name and address match in overview tab
@@ -13,31 +14,36 @@ Feature: Validate if all fields present and are enabled
     And I validate the if agreement is created
     And I close customer card
     And I navigate to account receivable under Billings
-    Then I validate if all fields are displaying and are enabled
-    Then I validate if the customer displays once account status is Active
+    Then I validate if all fields are displaying and are enabled in account receivable page
+    Then I validate if the customer displays once account status is Active in account receivable page
     And I validate if there are errors exist in the list
-
+  @AutoPay_Customer_AccountReceivable
   Scenario: Customer with billing validation
     When I create customer with first name, last name, email and address
-    Then I validate auto pay customer display
+    Then I validate auto pay customer display in account receivable page
     And I validate if there are errors exist in the list
-
+  @Customer_PropType_AccountReceivable
   Scenario: Customer with prop type validation
     When I create customer with first name, last name, email and address
-    Then I validate customer type in account receivable
+    Then I validate customer by prop type in account receivable page
     And I validate if there are errors exist in the list
-
+  @CustomerWithBalance_BalanceAge_PaymentDue_DaysOverDue_AccountReceivable
   Scenario: Customer balance validations
-    Then I validate customer with balance
-    Then I validate customer with balance age, payment due, and days overdue
+    Then I validate customer with balance in account receivable page
+    Then I validate customer with balance age, payment due, and days overdue in account receivable page
     And I validate if there are errors exist in the list
-#
+  @CustomerWithPrefPaper_AccountReceivable
   Scenario: Customer with pref paper validation
     When I create customer with pref paper
-    Then I validate customer with pref paper
+    Then I validate customer with pref paper in account receivable page
     And I validate if there are errors exist in the list
-
+  @CustomerWithEmail_AccountReceivable
   Scenario: Customer has email validation
     When I create customer with first name, last name, email and address
-    Then I validate customer has email
+    Then I validate customer has email in account receivable page
+    And I validate if there are errors exist in the list
+  @CustomerWithMaxMonthlyLimit_AccountReceivable
+  Scenario: Auto pay customer with max monthly validation
+    When I create customer with first name, last name, email and address
+    Then I validate autopay customer with max monthly in account receivable page
     And I validate if there are errors exist in the list

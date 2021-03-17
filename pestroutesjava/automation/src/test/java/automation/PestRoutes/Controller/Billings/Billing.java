@@ -1,13 +1,16 @@
 package automation.PestRoutes.Controller.Billings;
 
 import automation.PestRoutes.PageObject.CustomerOverview.BillingPage;
+import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_Header;
 import automation.PestRoutes.Utilities.AppData;
 import automation.PestRoutes.Utilities.Utilities;
-import org.openqa.selenium.WebElement;
+import io.cucumber.java.en.When;
 
 public class Billing extends AppData {
 	
 	BillingPage billing = new BillingPage();
+	CustomerViewDialog_Header customerCardHeader;
+	BillingPage customerCardBillingTab;
 	
 	//***Navigations***
 	public void navigateToBillingInfo() throws InterruptedException {
@@ -35,6 +38,10 @@ public class Billing extends AppData {
 	}
 	//**Author Aarbi
 	public void addPaymentCC() throws InterruptedException {
+		customerCardHeader = new CustomerViewDialog_Header();
+		customerCardBillingTab = new BillingPage();
+		customerCardHeader.navigateTo(customerCardHeader.billingTabInDialog);
+		customerCardBillingTab.clickElement(customerCardBillingTab.addPaymentMethodButton);
 		String paymentMethod = billing.getTextValue(billing.addPaymentMethodTitle);
 		if (paymentMethod.equals("Add Payment Method")){
 			billing.clickElement(billing.addCreditCardButton);
@@ -106,6 +113,23 @@ public class Billing extends AppData {
 		billing.selectDropdown(billing.bankAcountAccountTypeDropdown, "Checking Account");
 		billing.selectDropdown(billing.bankAccountCheckTypeDropdown, "Personal Account");
 		billing.clickElement(billing.bankAccountUpdateAccountNumberButton);
+	}
+	//Author:Aarbi
+	@When("I add an customer in auto pay with credit card")
+	public void addCustomerOnAutoPayCC() throws InterruptedException {
+		customerCardBillingTab = new BillingPage();
+		customerCardBillingTab.clickElement(customerCardBillingTab.billingInfoButton);
+		Utilities.selectValueFromDropDownByIndex(customerCardBillingTab.autoPayDropdown, 1);
+		customerCardBillingTab.clickElement(customerCardBillingTab.saveBillingInfoButton);
+	}
+	//Author Aarbi
+	@When("I add an customer in auto pay with credit card and max limit")
+	public void addCustomerOnAutoPayCCWithMaxLimit(String needMaxLimit) throws InterruptedException {
+		customerCardBillingTab = new BillingPage();
+		customerCardBillingTab.clickElement(customerCardBillingTab.billingInfoButton);
+		Utilities.selectValueFromDropDownByIndex(customerCardBillingTab.autoPayDropdown, 1);
+		customerCardBillingTab.setInputField(customerCardBillingTab.maxMonthlyChargeInputField,"400");
+		customerCardBillingTab.clickElement(customerCardBillingTab.saveBillingInfoButton);
 	}
 
 }

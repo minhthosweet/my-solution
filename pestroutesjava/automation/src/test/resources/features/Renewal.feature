@@ -2,7 +2,7 @@
 @RegressionARB
 @Renewal
 Feature: Renewal
-
+  @RenewalSubscription
   Scenario: Validate Renewal
     Given I delete a routing group
     Given I add a renewal service

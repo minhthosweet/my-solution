@@ -18,9 +18,6 @@ public class BillingPage {
 	public String bankAccountButton = "//li[text()='Bank Account ']";
 	
 	//**********Billing information objects**********
-	//Billing info dropdown
-	public String autoPayDropdown = "//div[@id='billingSwitches']//select[@name='autoPayPaymentProfileID']";
-
 	//***Check Boxes***
 	public String additionalContactSmsCheckBox = "//div[@class='row no-gutters']//input[@name='additional-smsReminders']";
 	public String additionalContactEmailCheckBox = "//div[@class='row no-gutters']//input[@name='additional-emailReminders']";
@@ -46,7 +43,7 @@ public class BillingPage {
 	public String billingEmailInputField = "//input[@placeholder='Billing Email']";
 	public String billingCompanyNameInputField = "//input[@placeholder='Billing Company Name']";
 	public String paymentHoldDateInputField = "//input[@name='paymentHoldDate']";
-	public String maxMonthChargeInputFIeld = "//div[@id='billingSwitches']//input[@name='maxMonthlyCharge']";
+	public String maxMonthlyChargeInputField = "//input[@name='maxMonthlyCharge']";
 	public String additionalContactFirstNameInputField = "";
 	public String additionalContactLastNameInputField = "";
 	public String additionalContactCompanyNameInputField = "";
@@ -57,6 +54,7 @@ public class BillingPage {
 	public String additionalContactCityInputField = "";
 	public String additionalContactZipcodeInputField = "";
 	//***Drop downs***
+	public String autoPayDropdown = "//div[@id='billingSwitches']//select[@name='autoPayPaymentProfileID']";
 	public String stateDropdown = "//select[@name='billingState']";
 	public String countryDropdown = "//select[@name='billingCountryID']";
 	public String preferredBillingDateDropdown = "//select[@name='preferredBillingDate']";
@@ -68,12 +66,6 @@ public class BillingPage {
 	//**********Add Payment method objects**********
 	public String addCreditCardButton = "//div[@id='billingInfoContent']//div[text()='Credit Card']";
 	public String addBankAccountButton = "//div[@id='billingInfoContent']//div[text()='Bank Account']";
-
-	//**********Credit card objects*************
-	//***Iframe***
-
-
-	//***Buttons***
 
 	public String ccSecurelyEnterCardInfoButton = "//div[text()='Securely Enter Card Info']";
 	public String ccRemoveAccountButton = "//div[text()='Remove Account']";
@@ -99,6 +91,7 @@ public class BillingPage {
 	public String bankAcountAccountTypeDropdown = "//select[@name='accountType']";
 	public String bankAccountCheckTypeDropdown = "//select[@name='checkType']";
 
+	//**********Credit card objects*************
 	//***Gateway Types
 	public String paymentGatewayType = "//form[@id='paymentProfileForm']//i";
 	//Brain tree
