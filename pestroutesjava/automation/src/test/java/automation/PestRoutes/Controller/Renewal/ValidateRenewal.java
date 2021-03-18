@@ -311,7 +311,7 @@ public class ValidateRenewal extends AppData {
         String expectedRenewalDateAttributeValue = "display: block;";
         String renewalDateAttributeValue = Utilities.getAttributeValue(paymentPage.renewalDateField, "style");
         result(expectedRenewalDateAttributeValue, renewalDateAttributeValue, "if renewal date is checked", "Subscription Renewal");
-        paymentPage.clickrecordPayment();
+        paymentPage.clickRecordPayment();
     }
 
     @Then("I validate if renewal date and account status changed")

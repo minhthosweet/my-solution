@@ -2,7 +2,8 @@ package automation.PestRoutes.PageObject;
 
 import automation.PestRoutes.Utilities.FindElement;
 import automation.PestRoutes.Utilities.Utilities;
-import automation.PestRoutes.Utilities.Utilities.ElementType;;
+import automation.PestRoutes.Utilities.Utilities.ElementType;
+import io.cucumber.java.en.When;;
 
 public class Header {
 	public String newCustomerTab = "New Customer";
@@ -30,6 +31,7 @@ public class Header {
 		Utilities.clickElement("//span[text()='" + needCustomerFullName + "']", ElementType.XPath);
 	}
 
+	@When("I search the number {string} customer in History tab")
 	public void searchCustomerInOrder(String customerNumber){
 		clickAccessHistory();
 		Utilities.clickElement("//h3[text()='Customer Access History']/following-sibling::div//li["+customerNumber+"]//span["+customerNumber+"]", ElementType.XPath);

@@ -8,10 +8,10 @@ import automation.PestRoutes.Utilities.Driver.GetWebDriver;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import io.cucumber.java.en.Given;
+import org.openqa.selenium.*;
+
+import java.util.Collection;
 
 public class CucumberBaseClass extends AppData {
 
@@ -20,6 +20,7 @@ public class CucumberBaseClass extends AppData {
     static CustomerViewDialog_Header customerViewDialog_header;
     static CreateNewCustomer createNewCustomer;
     static CustomerviewDialog_AppointmentsTab customerviewDialog_appointmentsTab;
+    static Scenario scenario;
 
     @Before(order = 1)
     public void beforeTest() {
@@ -48,10 +49,12 @@ public class CucumberBaseClass extends AppData {
     }
 
     @After
-    public static void endScenario(Scenario scenario) {
-        if (scenario.isFailed()) {
+    public static void endScenario(Scenario sc) {
+        if (sc.isFailed()) {
+            System.out.println("Failed Scenario is :" + sc.getName());
+            System.out.println("Failed tags are :" + sc.getSourceTagNames());
             byte[] screenshot = (byte[]) ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
-            scenario.attach(screenshot, "image/png", "Error Image");
+            sc.attach(screenshot, "image/png", "Error Image");
             customerViewDialog_header = new CustomerViewDialog_Header();
             customerviewDialog_appointmentsTab = new CustomerviewDialog_AppointmentsTab();
             createNewCustomer = new CreateNewCustomer();
@@ -60,13 +63,26 @@ public class CucumberBaseClass extends AppData {
                 WebElement schedulingAppointment = FindElement.elementByAttribute(customerviewDialog_appointmentsTab.closeSchedulingNotice, FindElement.InputType.XPath);
                 if (customerCard.isDisplayed()) {
                     customerViewDialog_header.clickCloseButton();
-                }
-                else if (schedulingAppointment.isDisplayed()){
+                } else if (schedulingAppointment.isDisplayed()) {
                     customerviewDialog_appointmentsTab.clickCloseSchedulingNoticeButton();
                 }
-            }
-            catch(Exception e){
+            } catch (Exception e) {
             }
         }
+    }
+
+    @Before(order = 3)
+    public void before(Scenario scenario) {
+        this.scenario = scenario;
+    }
+
+    @Given("I get scenario name")
+    public static String scenarioName() {
+        return scenario.getName();
+    }
+
+    @Given("I get tag name")
+    public static Collection<String> tagName() {
+        return scenario.getSourceTagNames();
     }
 }

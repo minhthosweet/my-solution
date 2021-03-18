@@ -7,17 +7,15 @@ import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_Admi
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_Header;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_InfoTab;
 import automation.PestRoutes.PageObject.CustomerOverview.Invoicing.CreateNewInvoicePopUp;
+import automation.PestRoutes.Utilities.*;
+import automation.PestRoutes.PageObject.CustomerOverview.Invoicing.CreditMemoTab;
 import automation.PestRoutes.PageObject.CustomerOverview.Invoicing.RoutePageInvoicing;
 import automation.PestRoutes.PageObject.Header;
 import automation.PestRoutes.PageObject.CustomerOverview.Invoicing.InvoiceImplementation;
 import automation.PestRoutes.PageObject.ReportingPage.OfficePage.BillingByServiceTypeTab;
-import automation.PestRoutes.Utilities.AppData;
-import automation.PestRoutes.Utilities.AssertException;
 
 import java.io.IOException;
 
-import automation.PestRoutes.Utilities.GetDate;
-import automation.PestRoutes.Utilities.Utilities;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -37,6 +35,9 @@ public class BillingByServiceType extends AppData {
     CustomerViewDialog_InfoTab customerViewDialog_infoTab;
     CustomerViewDialog_Admin customerViewDialog_admin;
     AccountReceivable accountReceivable;
+    CreditMemoTab creditMemoTab;
+
+    public String standAloneInvoiceAmount = "400.00";
 
     //Author: Aditya
     @Test
@@ -121,21 +122,38 @@ public class BillingByServiceType extends AppData {
     public void validateBBSTReport() throws InterruptedException {
         invImplementation = new InvoiceImplementation();
         customerCardHeader = new CustomerViewDialog_Header();
+        creditMemoTab = new CreditMemoTab();
         header = new Header();
         header.searchCustomerInOrder("1");
         customerCardHeader.navigateTo(customerCardHeader.invoicesTabInDialog);
-        invImplementation.clickInitialInvoice();
+        if (CucumberBaseClass.scenarioName().equals("Credit memo validation is BST")) {
+            billingByServiceType.click(creditMemoTab.getTicketID());
+            creditMemoTab.clickAppliedCharge_invoiceApplications();
+        } else {
+            invImplementation.clickInitialInvoice();
+        }
         String subTotalValue = invImplementation.getSubTotalValue();
         String taxValue = invImplementation.getTaxValue();
 
-        result("$" + billingByServiceType.getBilledServiceValue_Report(), subTotalValue, "Sub Total Value Validation",
-                "BBST Report Validation");
-        result(billingByServiceType.getBilledTaxValue_Report(), taxValue, "Tax Value Validation",
-                "BBST Report Validation");
-        result(billingByServiceType.getBilledServiceValue_Customer(), subTotalValue, "Sub Total Value Validation",
-                "BBST Report Validation");
-        result(billingByServiceType.getBilledTaxValue_Customer(), taxValue, "Tax Value Validation",
-                "BBST Report Validation");
+        if (CucumberBaseClass.scenarioName().equals("Credit memo validation is BST")) {
+            result(billingByServiceType.getBilledServiceValue_Report(), "-" + (subTotalValue.substring(1)), "Sub Total Value Validation",
+                    "BBST Report Validation");
+            result(billingByServiceType.getBilledTaxValue_Report(), taxValue, "Tax Value Validation",
+                    "BBST Report Validation");
+            result(billingByServiceType.getBilledServiceValue_Customer(), "$-" + (subTotalValue.substring(1)), "Sub Total Value Validation",
+                    "BBST Report Validation");
+            result(billingByServiceType.getBilledTaxValue_Customer(), taxValue, "Tax Value Validation",
+                    "BBST Report Validation");
+        } else {
+            result("$" + billingByServiceType.getBilledServiceValue_Report(), subTotalValue, "Sub Total Value Validation",
+                    "BBST Report Validation");
+            result(billingByServiceType.getBilledTaxValue_Report(), taxValue, "Tax Value Validation",
+                    "BBST Report Validation");
+            result(billingByServiceType.getBilledServiceValue_Customer(), subTotalValue, "Sub Total Value Validation",
+                    "BBST Report Validation");
+            result(billingByServiceType.getBilledTaxValue_Customer(), taxValue, "Tax Value Validation",
+                    "BBST Report Validation");
+        }
     }
 
     //Author: Aditya
@@ -183,7 +201,6 @@ public class BillingByServiceType extends AppData {
     //Author: Aditya
     @When("I create customer with balance with prefers paper and residential property type")
     public void createCustomerWithBalancePrefersPaper() throws Exception {
-        String amount = "400";
         createNewCustomer = new CreateNewCustomer();
         customerCardHeader = new CustomerViewDialog_Header();
         invoice = new RoutePageInvoicing();
@@ -192,7 +209,7 @@ public class BillingByServiceType extends AppData {
         customerViewDialog_infoTab = new CustomerViewDialog_InfoTab();
         createNewCustomer.createCustomerWithPrefPaperAndResidentialProperty();
         customerCardHeader.navigateTo(customerCardHeader.infoTabInDialog);
-        accountReceivable.createStandAloneServiceInvoice(amount, Utilities.currentDate("MM/dd/yyyy"), "AA Petst1");
+        accountReceivable.createStandAloneServiceInvoice(standAloneInvoiceAmount, Utilities.currentDate("MM/dd/yyyy"), getData("serviceDescription", generalData));
         createNewCustomer.closeCustomerCard();
     }
 
@@ -249,6 +266,7 @@ public class BillingByServiceType extends AppData {
             billingByServiceType.navigateToBillingByServiceTypePage();
             billingByServiceType.mainGroupBy("Customer Name");
             billingByServiceType.clickAdvancedFilters();
+            billingByServiceType.setType("invoice_bbst", "Stand-Alone Invoices");
             billingByServiceType.setBalance_bbst("400");
             billingByServiceType.set(billingByServiceType.balanceAge_bbst, balanceAge[i]);
             int monthPastDue = currentMonth - monthOfInv;
@@ -272,7 +290,7 @@ public class BillingByServiceType extends AppData {
     }
 
     //Author: Aditya
-    @And("I set filter for sold date, scheduler, sale teams and sales reps")
+    @And("I set filter for sold date, scheduler, sale teams, sales reps and service invoice")
     public void validate_soldDate_Scheduler_SaleTeams_SalesReps() {
         billingByServiceType.navigateToBillingByServiceTypePage();
         billingByServiceType.mainGroupBy("Customer Name");
@@ -280,8 +298,20 @@ public class BillingByServiceType extends AppData {
         billingByServiceType.setDateRange(billingByServiceType.soldDateRange, "Today");
         billingByServiceType.setType("scheduledBy_bbst", "All Office Staff");
         billingByServiceType.setType("soldByTeam_bbst", "All Office Staff");
+        billingByServiceType.setType("invoice_bbst", "Service Invoices");
         billingByServiceType.setSalesRep("soldbySalesRep_bbst", "Automation User - Office");
         billingByServiceType.click(billingByServiceType.refresh_bbst);
     }
+
+    @And("I search credit memo customer on the BST report")
+    public void validateCreditMemo() throws Exception {
+        billingByServiceType.navigateToBillingByServiceTypePage();
+        billingByServiceType.mainGroupBy("Customer Name");
+        billingByServiceType.clickAdvancedFilters();
+        billingByServiceType.setType("invoice_bbst", "Credit Memo");
+        billingByServiceType.click(billingByServiceType.refresh_bbst);
+        billingByServiceType.searchNewCustomer();
+    }
+
 }
 

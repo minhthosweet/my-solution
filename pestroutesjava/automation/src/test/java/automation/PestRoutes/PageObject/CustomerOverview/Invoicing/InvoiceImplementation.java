@@ -79,9 +79,12 @@ public class InvoiceImplementation {
     public String scrollLeftButton = "//div[@id='accountStatementReportScrollButtons']//div[contains(@class,'scrollLeft')]//i";
     public String scrollRightButton = "//div[@id='accountStatementReportScrollButtons']//div[contains(@class,'scrollRight')]//i";
     public String invoiceActionButton = "//div[@id='billingPanel']//div[@class='toggleActions right tableButton']";
-    public String invoicePrintButton = "//div[@id='printInvoiceButton']";
     public String statementActionButton = "//div[@id='conditionsActionsBtn']";
     public String statementPrintButton = "//div[text()='Print']";
+
+    // Invoice Action Objects
+    public String invoicePrintButton = "//div[@id='printInvoiceButton']";
+    public String creditMemoButton = "//div[@id='creditMemoButton']";
 
     //Print Invoice Objects
     public String additionalNotes ="//div[contains(@id,'additionalNotes')]//following-sibling::textarea";
@@ -89,7 +92,6 @@ public class InvoiceImplementation {
     public String printInvoiceDate = "//div[contains(@id,'checkLen')]//following-sibling::div//tr[6]/td";
     public String printInvoiceMainAmounDue = "//th[text()='Amount Due']//following-sibling::td";
     public String printInvoiceMainAmounDue1= "//span[text()='Amount Due:']/ancestor::tr/td/span[2]";
-
 
     public String checkPaymentStatus() {
         Utilities.waitUntileElementIsVisible(initialPaymentStatus);
@@ -123,7 +125,7 @@ public class InvoiceImplementation {
 
     }
 
-    public void clickrecordPayment() {
+    public void clickRecordPayment() {
         Utilities.waitUntileElementIsVisible(recordPayment);
         Utilities.clickElement(recordPayment, ElementType.XPath);
     }
@@ -138,7 +140,8 @@ public class InvoiceImplementation {
         Utilities.clickElement("//ul[@id='invoiceGroupListContainer']//div[contains(text(),'" + needServiceName + "')]", ElementType.XPath);
     }
 
-    public void clickInitialInvoice(){
+    public void clickInitialInvoice() throws InterruptedException {
+        Thread.sleep(100);
         Utilities.waitUntileElementIsVisible(initialInvoice);
         Utilities.clickElement(initialInvoice, ElementType.XPath);
     }
@@ -349,8 +352,17 @@ public class InvoiceImplementation {
         return Utilities.getElementTextValue(appointmentDate, ElementType.XPath);
     }
 
-    // Setters
+    public void clickCreditMemoButton(){
+        Utilities.waitUntileElementIsVisible(invoiceActionButton);
+        Utilities.hoverElement(invoiceActionButton, creditMemoButton);
+    }
 
+    public void click(String needObject){
+        Utilities.waitUntileElementIsVisible(needObject);
+        Utilities.clickElement(needObject, ElementType.XPath);
+    }
+
+    // Setters
     public void setAdditionalNotes(String needNotes){
         try {
             WebElement elm = FindElement.elementByAttribute(additionalNotes, InputType.XPath);
