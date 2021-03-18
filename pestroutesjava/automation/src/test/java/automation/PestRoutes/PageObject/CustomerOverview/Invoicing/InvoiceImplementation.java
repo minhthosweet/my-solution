@@ -53,8 +53,9 @@ public class InvoiceImplementation {
 
     //Account Summary Objects
     public String accountBalance = "//div[@id='billingPanel']//div[@id='SubStatus']";
+    public String accountBalance1 = "//div[@id='billingPanel']//div[@data-balance]";
     public String printInvoiceAmountDue = "//th[text()='Amount Due']//following-sibling::td[1]";
-    public String printInvoiceAmountDue1= "//span[text()='Sub Total']/parent::th/following-sibling::td/span[2]";
+    public String printInvoiceAmountDue1= "//span[text()='Amount Due:']/parent::th/following-sibling::td/span[2]";
 
     //Initial Invoice Objects
     public String printInvoicePaymentBalance = "//th[text()='Amount Paid']//following-sibling::td[1]";
@@ -62,6 +63,8 @@ public class InvoiceImplementation {
 
     //Active Invoice Objects
     public String activeInvoiceOnTheLeft = "//li[@class='listItem appleMenuActive']";
+    public String paymentsBalance = "//div[text()='Balance']/following-sibling::div";
+
 
     // Charges Objects
     public String serviceCostBeforeTax  = "//div[not(@ticketid='0')and@subscriptionid='0']//div[@serviceid]/input";
@@ -270,8 +273,13 @@ public class InvoiceImplementation {
     }
 
     public String getAccountBalance(){
-        Utilities.waitUntileElementIsVisible(accountBalance);
-        return Utilities.getElementTextValue(accountBalance, ElementType.XPath);
+        try {
+            Utilities.waitUntileElementIsVisible(accountBalance);
+            return Utilities.getElementTextValue(accountBalance, ElementType.XPath);
+        } catch (Exception e) {
+            Utilities.waitUntileElementIsVisible(accountBalance1);
+            return Utilities.getElementTextValue(accountBalance1, ElementType.XPath);
+        }
     }
 
     public String getAccountTotalAmountDue(){

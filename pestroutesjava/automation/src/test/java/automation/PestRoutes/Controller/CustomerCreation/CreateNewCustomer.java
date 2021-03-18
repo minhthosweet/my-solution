@@ -209,7 +209,6 @@ public class CreateNewCustomer extends AppData {
         customer.setCellPhone(getData("phoneNumber", generalData));
         customerDialog_Header.clickSaveButton();
         alertCondition();
-        captureUserIdAndFullName();
         customerDialog_Header.navigateTo(customerDialog_Header.infoTabInDialog);
         customer.clickOverrideTaxCheckBox();
         result(needMainTax, customer.getTaxRate(customer.mainTaxPercentage),"Entered Main Tax" , "Tax Rate Validation");
@@ -222,7 +221,6 @@ public class CreateNewCustomer extends AppData {
         result(needDistrict3Tax, customer.getTaxRate(customer.district3TaxPercentage), "Entered District3 Tax" , "Tax Rate Validation");
         result(needDistrict4Tax, customer.getTaxRate(customer.district4TaxPercentage), "Entered District4 Tax" , "Tax Rate Validation");
         result(needDistrict5Tax,customer.getTaxRate(customer.district5TaxPercentage), "Entered District5 Tax" , "Tax Rate Validation");
-        customer.clickOverrideTaxCheckBox();
     }
 
     @When("I create customer with first name, last name, address and generic flag {string} and {string}")

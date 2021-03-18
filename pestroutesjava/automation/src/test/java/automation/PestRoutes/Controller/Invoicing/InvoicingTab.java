@@ -207,8 +207,6 @@ public class InvoicingTab extends AppData {
         invoiceCharges = invImplementation.getChargesBalance();
         invoiceBalance = invImplementation.getBalanceInPayments();
         generateAccountStatementReport(reportType, day);
-        result(invImplementation.getInvoiceDate_accountStatementReport(getData("serviceDescription", generalData)), Utilities.currentDate("MM/dd/YY").replaceAll("0", ""), "Invoice Date",
-                "Account Statement Report Validation");
         result(invImplementation.getInvoiceAmount_accountStatementReport(getData("serviceDescription", generalData)), invoiceCharges, "Invoice Value",
                 "Account Statement Report Validation");
         result(invImplementation.getInvoiceBalance_accountStatementReport(getData("serviceDescription", generalData)), invoiceBalance, "Invoice Value",
@@ -289,11 +287,11 @@ public class InvoicingTab extends AppData {
         Utilities.switchToNewWindowOpened();
         invImplementation.setAdditionalNotes(needNotes);
         invImplementation.markLetterAsSent();
-        result(invoiceBalance, invImplementation.getPrintInvoicePaymentBalance(), "Total Invoice Value",
+        result(invoiceBalance.replace("$", ""), invImplementation.getPrintInvoicePaymentBalance().replace("$", ""), "Total Invoice Print Value",
                 "Initial Invoice Validation");
-        result(invoiceValue, invImplementation.getAccountTotalAmountDue(), "Total Invoice Value",
+        result(invoiceValue.replace("$", ""), invImplementation.getAccountTotalAmountDue().replace("$", ""), "Total Invoice Account Value",
                 "Total Invoice Validation");
-        result(invoiceCharges, invImplementation.getPrintInvoiceMainAmountDue(), "Total Invoice Value",
+        result(invoiceCharges.replace("$", ""), invImplementation.getPrintInvoiceMainAmountDue().replace("$", ""), "Total Main Invoice Value",
                 "Initial Invoice Validation");
         Utilities.switchToOldWindowOpened();
     }
