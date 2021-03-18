@@ -23,7 +23,7 @@ public class InvoicingTab extends AppData {
     InvoiceImplementation invImplementation = new InvoiceImplementation();
     CreateNewCustomer createCustomer;
     RoutePageInvoicing invoiceRoutesTab = new RoutePageInvoicing();
-    CustomerViewDialog_Header header;
+    CustomerViewDialog_Header customerCardHeader;
     Invoice_Header invoiceHeader;
     AddSubscription addSubscription;
     CustomerViewDialog_SubscriptionTab subscriptionTab;
@@ -55,8 +55,8 @@ public class InvoicingTab extends AppData {
         createCustomer = new CreateNewCustomer();
         createCustomer.createCustomerWithEmail();
         createCustomer.searchCustomer();
-        header = new CustomerViewDialog_Header();
-        header.navigateTo(header.invoicesTabInDialog);
+        customerCardHeader = new CustomerViewDialog_Header();
+        customerCardHeader.navigateTo(customerCardHeader.invoicesTabInDialog);
         invoiceRoutesTab.clickAddPayment();
         invoiceRoutesTab.clickAddNewInvoice(invoiceRoutesTab.addNewInvoice);
         invImplementation.newInvoiceDetails(treatmentAmount, date);
@@ -89,7 +89,7 @@ public class InvoicingTab extends AppData {
     // Assert - Partial payment
     private void assertPartialCharge(Integer pAmount, Integer cAmount) {
         invImplementation.insertPaymentAmount(Integer.toString(pAmount), Integer.toString(cAmount));
-        invImplementation.clickrecordPayment();
+        invImplementation.clickRecordPayment();
         Reporter.status("", successfulPartialCharge, invImplementation.getSuccessfulChargeAmount(), "Charged successfully");
         Reporter.status("", "PARTIALLY PAID", invImplementation.checkPaymentStatus(),
                 "The payment status is PARTIALLY PAID");
@@ -100,7 +100,7 @@ public class InvoicingTab extends AppData {
     private void assertFullCharge() {
         invImplementation.insertPaymentAmount(Integer.toString(invImplementation.getPaymentBalance()),
                 Integer.toString(invImplementation.getPaymentBalance()));
-        invImplementation.clickrecordPayment();
+        invImplementation.clickRecordPayment();
         Reporter.status("", successfulFullCharge, invImplementation.getSuccessfulChargeAmount(), "Charged successfully");
         Reporter.status("", "FULLY PAID", invImplementation.checkPaymentStatus(), "The payment status is FULLY PAID");
         invImplementation.invoiceAccountSummaryClick();
@@ -108,18 +108,18 @@ public class InvoicingTab extends AppData {
 
     @When("I navigate to Invoice Tab")
     public void navigateToInvoiceTab() throws InterruptedException {
-        header = new CustomerViewDialog_Header();
-        header.navigateTo(header.invoicesTabInDialog);
+        customerCardHeader = new CustomerViewDialog_Header();
+        customerCardHeader.navigateTo(customerCardHeader.invoicesTabInDialog);
     }
 
     @And("I validate invoice")
     public void validateInvoice() throws IOException, InterruptedException {
         addSubscription = new AddSubscription();
-        header = new CustomerViewDialog_Header();
+        customerCardHeader = new CustomerViewDialog_Header();
         subscriptionTab = new CustomerViewDialog_SubscriptionTab();
-        header.navigateTo(header.subscriptionTabInDialog);
+        customerCardHeader.navigateTo(customerCardHeader.subscriptionTabInDialog);
         String initialInvoiceValue = subscriptionTab.getInitialInvoiceValue();
-        header.navigateTo(header.invoicesTabInDialog);
+        customerCardHeader.navigateTo(customerCardHeader.invoicesTabInDialog);
         result(initialInvoiceValue, "$" + invImplementation.getAccountBalance(), "Total Initial Invoice Value",
                 "Invoice Validation");
         invImplementation.clickInvoice(getData("serviceDescription", generalData));
@@ -132,15 +132,15 @@ public class InvoicingTab extends AppData {
     @And("I validate initial invoice created on invoice tab")
     public void validateInitialInvoice() throws InterruptedException {
         addSubscription = new AddSubscription();
-        header = new CustomerViewDialog_Header();
+        customerCardHeader = new CustomerViewDialog_Header();
         subscriptionTab = new CustomerViewDialog_SubscriptionTab();
-        header.navigateTo(header.subscriptionTabInDialog);
+        customerCardHeader.navigateTo(customerCardHeader.subscriptionTabInDialog);
         String serviceType = subscriptionTab.getServiceType();
         String initialInvoiceValue = subscriptionTab.getInitialInvoiceValue();
         String initialSubTotal = Double.toString(subscriptionTab.getInitialSubTotal());
         String taxAmount = Double.toString(subscriptionTab.getInitialTax());
 
-        header.navigateTo(header.invoicesTabInDialog);
+        customerCardHeader.navigateTo(customerCardHeader.invoicesTabInDialog);
         result(initialInvoiceValue, invImplementation.getAccountBalance(), "Total Account Balance Validation",
                 "Invoice Validation");
         invImplementation.clickInitialInvoice();
@@ -229,15 +229,15 @@ public class InvoicingTab extends AppData {
     @And("I validate recurring invoice created on invoice tab")
     public void validateRecurringInvoice() throws InterruptedException {
         addSubscription = new AddSubscription();
-        header = new CustomerViewDialog_Header();
+        customerCardHeader = new CustomerViewDialog_Header();
         subscriptionTab = new CustomerViewDialog_SubscriptionTab();
-        header.navigateTo(header.subscriptionTabInDialog);
+        customerCardHeader.navigateTo(customerCardHeader.subscriptionTabInDialog);
         String initialInvoiceValue = subscriptionTab.getInitialInvoiceValue().substring(1, subscriptionTab.getInitialInvoiceValue().length());
         String recurringInvoiceValue = subscriptionTab.getRecurringInvoiceValue().substring(1, subscriptionTab.getRecurringInvoiceValue().length());
         String accountPendingBalance = Double.toString(Double.parseDouble(recurringInvoiceValue) + Double.parseDouble(initialInvoiceValue));
         String recurringSubTotal = Double.toString(subscriptionTab.getRecurringSubTotal());
         String taxAmount = Double.toString(subscriptionTab.getRecurringTax());
-        header.navigateTo(header.invoicesTabInDialog);
+        customerCardHeader.navigateTo(customerCardHeader.invoicesTabInDialog);
         result("$" + accountPendingBalance, invImplementation.getAccountBalance(), "Total Invoice Value Validation",
                 "Invoice Validation");
         invImplementation.clickRecurringInvoice(recurringInvoiceValue);
@@ -265,12 +265,12 @@ public class InvoicingTab extends AppData {
     @And("I validate initial invoice created on invoice tab from custom schedule")
     public void validateInitialInvoice_customSchedule() throws InterruptedException {
         addSubscription = new AddSubscription();
-        header = new CustomerViewDialog_Header();
+        customerCardHeader = new CustomerViewDialog_Header();
         subscriptionTab = new CustomerViewDialog_SubscriptionTab();
-        header.navigateTo(header.subscriptionTabInDialog);
-        String iniitialIvoiceValueWithoutTax = subscriptionTab.getInitialInvoiceAmountWithoutTax_CustomSchedule();
+        customerCardHeader.navigateTo(customerCardHeader.subscriptionTabInDialog);
+        String initialInvoiceValueWithoutTax = subscriptionTab.getInitialInvoiceAmountWithoutTax_CustomSchedule();
         String initialInvoiceValue = "$" + subscriptionTab.getInitialInvoiceTotalAmount_CustomerSchedule();
-        header.navigateTo(header.invoicesTabInDialog);
+        customerCardHeader.navigateTo(customerCardHeader.invoicesTabInDialog);
         result(initialInvoiceValue, invImplementation.getAccountBalance(), "Total Initial Invoice Value",
                 "Initial Invoice Validation");
         invImplementation.clickInitialInvoice();
@@ -282,8 +282,8 @@ public class InvoicingTab extends AppData {
 
     @And("I print report and validate totals and enter notes {string}")
     public void printAndValidateReport(String needNotes) throws InterruptedException {
-        header = new CustomerViewDialog_Header();
-        header.navigateTo(header.invoicesTabInDialog);
+        customerCardHeader = new CustomerViewDialog_Header();
+        customerCardHeader.navigateTo(customerCardHeader.invoicesTabInDialog);
         invImplementation.clickInitialInvoice();
         invImplementation.printInvoice();
         Utilities.switchToNewWindowOpened();
