@@ -40,6 +40,8 @@ public class CreateNewCustomer extends AppData {
     public String email = Utilities.generateRandomString(5)+"."+Utilities.generateRandomString(5)+""+"@gmail.com";
     public String primaryPhoneNumber = "6" + Integer.toString(Utilities.generateRandomNumber(9));
 
+    public String customerName = null;
+
     @Test
     public void createCustomer() throws Exception {
         createCustomerWithOutRequiredField();
@@ -243,7 +245,10 @@ public class CreateNewCustomer extends AppData {
         customer.clickVoiceCheckBox();
         customerDialog_Header.clickSaveButton();
         alertCondition();
-        captureUserIdAndFullName();
+        customerName = fName +" "+ lName;
+
+
+
     }
     @When("I create customer with pref paper")
     public void createCustomerWithPrefPaper() throws Exception {
@@ -481,6 +486,11 @@ public class CreateNewCustomer extends AppData {
         Utilities.clickElement(adminTab.removeButton, ElementType.XPath);
         Utilities.waitUntileElementIsVisible(adminTab.confirmRemoveButton);
         Utilities.clickElement(adminTab.confirmRemoveButton, ElementType.XPath);
+    }
+
+    public void searchCustomer_SearchField(String needSearchField) {
+        Utilities.jsClickElement(needSearchField, ElementType.XPath);
+        FindElement.elementByAttribute(needSearchField, FindElement.InputType.XPath).sendKeys(lName+ ", " + fName);
     }
 
 }

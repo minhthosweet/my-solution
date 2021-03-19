@@ -34,7 +34,7 @@ public class SchedulingTab extends AppData {
 
     public void clickJobPool() {
         Utilities.waitUntileElementIsVisible(jobPool);
-        Utilities.clickElement(jobPool, ElementType.XPath);
+        Utilities.clickElement(jobPool, ElementType.XPath, true, true);
     }
 
     public void addScheduleDateToProperties() throws Exception {

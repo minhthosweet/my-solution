@@ -21,8 +21,9 @@ public class JobPool extends AppData {
 
     @And("I navigate to the job pool tab")
     public void navigateToJobPool() {
+        header = new Header();
         scheduleDay = new SchedulingTab();
-        jobPoolTab = new JobPoolTab();
+
         header.navigateTo(header.schedulingTab);
         scheduleDay.clickJobPool();
     }
@@ -61,15 +62,19 @@ public class JobPool extends AppData {
                 jobPoolTab.filterTypes("includeSubscriptionFlags"),
                 jobPoolTab.filterTypes("excludeSubscriptionFlags")};
 
-        jobPoolTab.clickRefreshButton();
         AssertException.validateFieldEnabled(fields);
         }
 
-    @Then("I add all the fields in the job pool page {string} and {string} and {string} and {string} and {string} and {string} and {string} and {string} and {string}")
+    @Then("I add all the fields in the job pool page {string} and {string} and {string} and {string} and {string} and {string} and {string} and {string} and " +
+            "{string} and {string} and {string} and {string} and {string}")
     public void completeAllJobPoolFields(String needScheduling, String needPrePlanned, String needOneTimeServices, String needPotential,
                                          String needFollowUpServices, String needPendingCancels, String needPropertyType, String needFlag,
-                                         String needMeasurement)
+                                         String needMeasurement, String needIncludeCustomerFlag, String needExcludeCustomerFlage,
+                                         String needIncludeSubscriptionFlag, String needExcludeSubscriptionFlag)
                                          throws IOException {
+        customer = new CreateNewCustomer();
+        customer.searchCustomer_SearchField(jobPoolTab.SearchField);
+
         jobPoolTab.selectFilter(jobPoolTab.filterTypes("IncludeCustomersWithSpecialRequests"), needScheduling);
         jobPoolTab.selectFilter(jobPoolTab.filterTypes("showPrePlanned"), needPrePlanned);
         jobPoolTab.selectFilter(jobPoolTab.filterTypes("excludeOneTimeServices"), needOneTimeServices);
@@ -84,7 +89,7 @@ public class JobPool extends AppData {
         jobPoolTab.setInputFilter(jobPoolTab.filterTypes("filterBalances"),getData("balance", generalData));
         jobPoolTab.setInputFilter(jobPoolTab.filterTypes("balanceAge"),getData("balanceAge", generalData));
         jobPoolTab.setInputFilter(jobPoolTab.filterTypes("mapPages"),getData("mapCode", generalData));
-        jobPoolTab.setInputFilter(jobPoolTab.filterTypes("zipCodes"),getData("zipCode", generalData));
+        jobPoolTab.setInputFilter(jobPoolTab.filterTypes("zipCodes"),customer.zipcode);
         jobPoolTab.selectFilter(jobPoolTab.filterTypes("includeServiceTypes"),getData("inclServiceType", generalData));
         jobPoolTab.selectFilter(jobPoolTab.filterTypes("excludeServiceTypes"),getData("exclServiceType", generalData));
         jobPoolTab.selectFilter(jobPoolTab.filterTypes("hideAllFlags"), needFlag);
@@ -94,11 +99,12 @@ public class JobPool extends AppData {
         jobPoolTab.selectFilter(jobPoolTab.filterTypes("filterRegion"),getData("region", generalData));
         jobPoolTab.selectFilter(jobPoolTab.filterTypes("measurement"), needMeasurement);
         jobPoolTab.selectFilter(jobPoolTab.filterTypes("serviceCategory"),getData("serviceTypeCategory", generalData));
-        jobPoolTab.clickAdvanceFilterButton();
-        jobPoolTab.selectFilter(jobPoolTab.filterTypes("includeCustomerFlags"),getData("subscriptionFlagName", generalData));
-        jobPoolTab.selectFilter(jobPoolTab.filterTypes("excludeCustomerFlags"),getData("excludeSubscriptionFlag", generalData));
-        jobPoolTab.selectFilter(jobPoolTab.filterTypes("includeSubscriptionFlags"),getData("includeCustomerFlag", generalData));
-        jobPoolTab.selectFilter(jobPoolTab.filterTypes("excludeSubscriptionFlags"),getData("excludeCustomerFlag", generalData));
+        //Set Advance Filters
+        jobPoolTab.selectFilter(jobPoolTab.filterTypes("includeCustomerFlags"),needIncludeCustomerFlag);
+        jobPoolTab.selectFilter(jobPoolTab.filterTypes("excludeCustomerFlags"),needExcludeCustomerFlage);
+        jobPoolTab.selectFilter(jobPoolTab.filterTypes("includeSubscriptionFlags"),needIncludeSubscriptionFlag);
+        jobPoolTab.selectFilter(jobPoolTab.filterTypes("excludeSubscriptionFlags"),needExcludeSubscriptionFlag);
+
         jobPoolTab.clickRefreshButton();
     }
 
@@ -107,7 +113,7 @@ public class JobPool extends AppData {
         header = new Header();
         jobPoolTab = new JobPoolTab();
         customer = new CreateNewCustomer();
-        header.searchCustomer_SearchField(customer.fName+ ", " + customer.lName);
+        jobPoolTab.searchCustomer_SearchField(customer.fName+ ", " + customer.lName);
 
         String expectedCustomerName = customer.fName+ ", " + customer.lName;
         String expectedPhoneNumber = getData("phoneNumber", generalData);

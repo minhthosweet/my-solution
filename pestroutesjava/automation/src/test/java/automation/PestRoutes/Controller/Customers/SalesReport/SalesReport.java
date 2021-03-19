@@ -107,7 +107,7 @@ public class SalesReport extends AppData {
 		salesReportPage.selectFilter(salesReportPage.includeServiceTypeCategories, includeServiceTypeCategories);
 		salesReportPage.selectFilter(salesReportPage.excludeServiceTypeCategories, excludeServiceTypeCategories);
 		salesReportPage.ClickRefreshButton();
-		salesReportPage.searchCustomer_SearchField(customer.fName+ ", " + customer.lName);
+		customer.searchCustomer_SearchField(salesReportPage.SearchField);
 
 	}
 

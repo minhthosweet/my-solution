@@ -68,7 +68,8 @@ public class JobPoolTab extends AppData {
     }
 
     public void setDate(String needFilterType) {
-        String todaysDate = Utilities.getCurrentDate();
+        String todaysDate = Utilities.currentDate("MM/dd/yy");
+        Utilities.clearField(needFilterType);
         Utilities.highLight(needFilterType);
         FindElement.elementByAttribute(needFilterType, FindElement.InputType.XPath).sendKeys(todaysDate);
     }
