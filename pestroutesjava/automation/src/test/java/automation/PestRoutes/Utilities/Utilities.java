@@ -444,4 +444,10 @@ public class Utilities {
 		clickElement("//div[@id = 'advancedFilterToggleButton']", ElementType.XPath);
 	}
 
+	public static void doubleClick(String needXpath){
+		Actions actions = new Actions(driver);
+		WebElement elementLocator = driver.findElement(By.xpath(needXpath));
+		actions.doubleClick(elementLocator).perform();
+	}
+
 }

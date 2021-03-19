@@ -19,7 +19,6 @@ public class AssertException {
 			System.out.println(testName);
 			System.out.println("Expected was : '" + expected.replaceAll("\\s", "") + "'");
 			System.out.println("Actual is : '" + actual.replaceAll("\\s", "") + "'");
-			list.add(testName + ":" + e.getMessage());
 		}
 		return list;
 	}
@@ -65,10 +64,11 @@ public class AssertException {
 	public static void validateFieldEnabled(String[] needArray) {
 		for (int i = 0; i < needArray.length; i++) {
 			WebElement field = FindElement.elementByAttribute(needArray[i], FindElement.InputType.XPath);
-			if (field.isEnabled()) {
+			if (field.isEnabled() && field.isDisplayed()) {
 				Assert.assertTrue(true);
 				Reporter.getInstance("Validate fields in account receivable").log(Status.PASS, needArray[i] + " displayed");
 			} else {
+				System.out.println(needArray[i] + " is missing");
 				Reporter.getInstance("Validate fields in account receivable").log(Status.FAIL, needArray[i] + " is missing");
 				Assert.assertFalse(true);
 			}

@@ -13,6 +13,7 @@ public class InvoiceImplementation {
     public String invoiceAccountSummaryClick = "//ul[@id='invoiceGroupListContainer']/ul/li";
     public String initialInvoice = "//span[text()='Initial Balance']";
     public String accountStatementReport = "//li[text()='Account Statement Report']";
+    public String remainingBalanceAmount = "//div[contains(text(),'UNPAID')]//following-sibling::div";
 
     // Invoice Amount
     private String newInvoice = "//form[@id=\"newInvoiceParams\"]//input[@type=\"number\"]";
@@ -26,7 +27,7 @@ public class InvoiceImplementation {
 
     // Payment Status
     //Do not have any other XPath for initialPaymentStatus
-    private String initialPaymentStatus = "//ul[@id=\"invoiceGroupListContainer\"]/ul/li[1]/div[2]/div[2]";
+    private String initialPaymentStatus = "//li[@ticketid]//div[@class='payment-status paid']";
     private String paymentBalance = "//form[@id = 'singlePaymentForm']//div[@id = 'SubStatus']";
 
     //Distribution Details
@@ -350,6 +351,11 @@ public class InvoiceImplementation {
     public String getAppointmentDate(){
         Utilities.waitUntileElementIsVisible(invoiceDate);
         return Utilities.getElementTextValue(appointmentDate, ElementType.XPath);
+    }
+
+    public String getRemainingBalanceAmount(){
+        Utilities.waitUntileElementIsVisible(remainingBalanceAmount);
+        return (Utilities.getElementTextValue(remainingBalanceAmount, ElementType.XPath)).replaceAll("[^0-9.]","");
     }
 
     public void clickCreditMemoButton(){
