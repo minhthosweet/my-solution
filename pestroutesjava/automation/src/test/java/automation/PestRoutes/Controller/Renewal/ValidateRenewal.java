@@ -3,6 +3,7 @@ package automation.PestRoutes.Controller.Renewal;
 import java.io.IOException;
 import java.text.DecimalFormat;
 
+import automation.PestRoutes.Controller.CustomerCreation.CreateNewCustomer;
 import automation.PestRoutes.Utilities.*;
 import io.cucumber.java.en.Then;
 import org.openqa.selenium.WebElement;
@@ -28,6 +29,7 @@ public class ValidateRenewal extends AppData {
 
     CustomerViewDialog_SubscriptionTab subscription = new CustomerViewDialog_SubscriptionTab();
     CustomerViewDialog_Header customerDialogHeader;
+    CreateNewCustomer customer;
     CustomerviewDialog_AppointmentsTab appointmentTab;
     CustomerViewDialog_Header overviewHeader;
     InvoiceImplementation paymentPage;
@@ -318,6 +320,7 @@ public class ValidateRenewal extends AppData {
     public void validateActivationOfSubscription() throws Exception {
         header = new Header();
         overviewHeader = new CustomerViewDialog_Header();
+        customer = new CreateNewCustomer();
         String expectedRenewalDate = GetDate.addOneYearToDate(currentDate);
         //header.Search_A_Customer(getData("customerName", generalData));
         overviewHeader.navigateTo(overviewHeader.subscriptionTabInDialog);
@@ -326,6 +329,10 @@ public class ValidateRenewal extends AppData {
         String expectedStatus = "Active";
         String actualStatus = subscription.getStatusText();
         result(expectedStatus, actualStatus, "Renewal - Validate if status gets active", "Subscription Renewal");
+        String customerName = customer.getCustomerFullName();
+        customer.closeCustomerCard();
+        overviewHeader.discardChanges();
+        customer.removeCustomer(customerName);
     }
 
 }

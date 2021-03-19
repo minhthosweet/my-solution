@@ -221,7 +221,7 @@ public class Utilities {
 	}
 
 	public static void waitUntileElementIsVisible(String needXpath) {
-		WebDriverWait wait = new WebDriverWait(driver, 40);
+		WebDriverWait wait = new WebDriverWait(driver, 80);
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(needXpath)));
 	}
 

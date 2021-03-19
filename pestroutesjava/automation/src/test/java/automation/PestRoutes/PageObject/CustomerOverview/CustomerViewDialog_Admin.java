@@ -12,6 +12,11 @@ import automation.PestRoutes.Utilities.Utilities.ElementType;
 public class CustomerViewDialog_Admin {
 
 	static WebDriver driver = GetWebDriver.getInstance();;
+
+	//Remove Customer
+	public String removeButton = "//div[text()='Remove']";
+	public String confirmRemoveButton = "//span[text()='Remove Customer?']/ancestor::div//span[text() = 'Confirm Remove']";
+
 	public String accountStatusChange = "//div[@id='completeButton']/span";
 
 	// Cancel Category

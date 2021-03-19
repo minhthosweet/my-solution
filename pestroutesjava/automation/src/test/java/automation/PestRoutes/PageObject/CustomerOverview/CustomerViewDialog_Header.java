@@ -58,11 +58,17 @@ public class CustomerViewDialog_Header {
     public void Click_X_Button() {
         Utilities.clickElement(closeXButton, ElementType.XPath);
     }
-
+//Author Aarbi
     public void discardChanges() {
-        if (Utilities.elementIsVisible(discardChange)) {
-            Utilities.clickElement(discardChange, ElementType.XPath);
+        try{
+            if (Utilities.elementIsVisible(discardChange)) {
+                Utilities.clickElement(discardChange, ElementType.XPath);
+                Thread.sleep(500);
+            }
+        }catch (Exception e){
+
         }
+
     }
 
     public void saveAnyways() {

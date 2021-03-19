@@ -47,3 +47,14 @@ Feature: Validate if all fields present and are enabled
     When I create customer with first name, last name, email and address
     Then I validate autopay customer with max monthly in account receivable page
     And I validate if there are errors exist in the list
+
+
+#  *************Please keep below scenario commented
+  #  @CustomerWithFlags_AccountReceivable
+#  Scenario: Customer with flag validation
+#    Given I add a new generic flag if it is not already existing "Fire" and "Its lit" and "Subscription"
+#    Given I add a new generic flag if it is not already existing "Test4Life" and "Test4Life" and "Customer"
+#    Given I add a new generic flag if it is not already existing "flags" and "equipment" and "Equipment"
+#    When I create customer with first name, last name, email and address
+#    Then I validate autopay customer with max monthly in account receivable page
+#    And I validate if there are errors exist in the list

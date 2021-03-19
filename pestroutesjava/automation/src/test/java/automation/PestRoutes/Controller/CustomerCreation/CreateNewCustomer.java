@@ -13,6 +13,7 @@ import automation.PestRoutes.PageObject.Header;
 import automation.PestRoutes.PageObject.CreateCustomer.CreateCustomerDialog;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_Header;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_OverviewTab;
+import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_Admin;
 import automation.PestRoutes.Utilities.Utilities.ElementType;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
@@ -24,6 +25,7 @@ public class CreateNewCustomer extends AppData {
     CreateCustomerDialog customer;
     CustomerViewDialog_Header customerDialog_Header;
     CustomerViewDialog_OverviewTab overview;
+    CustomerViewDialog_Admin adminTab;
     Header header;
     CustomerViewDialog_InfoTab customerViewDialog_infoTab;
     SearchBox searchBox;
@@ -86,6 +88,27 @@ public class CreateNewCustomer extends AppData {
         customerDialog_Header.clickSaveButton();
         alertCondition();
         captureUserIdAndFullName();
+    }
+
+    //**Author Aarbi
+    public void createACustomer(String needFirstName, String lastName) throws Exception {
+        customerDialog_Header = new CustomerViewDialog_Header();
+        customer = new CreateCustomerDialog();
+        overview = new CustomerViewDialog_OverviewTab();
+        header = new Header();
+        header.navigateTo(header.newCustomerTab);
+        customer.setFirstName(needFirstName);
+        customer.setLastName(lastName);
+        customer.selectUnit("Multi Unit");
+        customer.setAddress(streetAddress);
+        customer.setZipCode(zipcode);
+        customer.setEmailAddress(email);
+        customer.setCellPhone(primaryPhoneNumber);
+        customer.clickSmsCheckBox();
+        customer.clickEmailCheckBox();
+        customer.clickVoiceCheckBox();
+        customerDialog_Header.clickSaveButton();
+        alertCondition();
     }
 
     @And("I validate search customer with first name")
@@ -438,11 +461,24 @@ public class CreateNewCustomer extends AppData {
         customerDialog_Header.navigateTo(customerDialog_Header.infoTabInDialog);
         return customerViewDialog_infoTab.getFirstName() + " " + customerViewDialog_infoTab.getLastName();
     }
-
-    public String getCustomerName(){
+    public String getCustomerFullName() throws InterruptedException {
+        customerDialog_Header = new CustomerViewDialog_Header();
+        customerViewDialog_infoTab = new CustomerViewDialog_InfoTab();
+        customerDialog_Header.navigateTo(customerDialog_Header.infoTabInDialog);
+        return customerViewDialog_infoTab.getFirstName()+ " " + customerViewDialog_infoTab.getLastName();
+    }
+    @Then("I remove customer")
+    public void removeCustomer(String customerName) throws InterruptedException {
+        header = new Header();
+        customerDialog_Header = new CustomerViewDialog_Header();
+        adminTab = new CustomerViewDialog_Admin();
         overview = new CustomerViewDialog_OverviewTab();
-        String customerNameInHeader = overview.getCustomerNameFromHeader();
-        return customerNameInHeader;
+        header.searchCustomerWithName(customerName);
+        customerDialog_Header.navigateTo(customerDialog_Header.adminTabInDialog);
+        Utilities.waitUntileElementIsVisible(adminTab.removeButton);
+        Utilities.clickElement(adminTab.removeButton, ElementType.XPath);
+        Utilities.waitUntileElementIsVisible(adminTab.confirmRemoveButton);
+        Utilities.clickElement(adminTab.confirmRemoveButton, ElementType.XPath);
     }
 
 }

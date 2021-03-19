@@ -3,6 +3,7 @@ package automation.PestRoutes.PageObject.CustomerOverview;
 import automation.PestRoutes.Utilities.Utilities;
 
 public class CustomerViewDialog_InfoTab {
+    CustomerViewDialog_Header customerDialog_Header;
     public String infoTab_AddAdditionalContactButton = "";
     public String infoTab_AddFromBusinessContactsButton = "";
     public String taxRate = "//input[@name='taxRate']";

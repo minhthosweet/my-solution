@@ -22,7 +22,5 @@ Feature: Renewal
     And I navigate to Subscription Tab
     And I search customer
     And I pay the subscription
-    And I search customer
     Then I validate if renewal date and account status changed
-    Given I close customer card
     And I validate if there are errors exist in the list

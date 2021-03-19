@@ -3,7 +3,7 @@ package automation.PestRoutes.PageObject;
 import automation.PestRoutes.Utilities.FindElement;
 import automation.PestRoutes.Utilities.Utilities;
 import automation.PestRoutes.Utilities.Utilities.ElementType;
-import io.cucumber.java.en.When;;
+import io.cucumber.java.en.And;;
 
 public class Header {
 	public String newCustomerTab = "New Customer";
@@ -31,10 +31,16 @@ public class Header {
 		Utilities.clickElement("//span[text()='" + needCustomerFullName + "']", ElementType.XPath);
 	}
 
-	@When("I search the number {string} customer in History tab")
 	public void searchCustomerInOrder(String customerNumber){
 		clickAccessHistory();
 		Utilities.clickElement("//h3[text()='Customer Access History']/following-sibling::div//li["+customerNumber+"]//span["+customerNumber+"]", ElementType.XPath);
+	}
+	//**Author Aarbi
+	@And("I search customer with name")
+	public void searchCustomerWithName(String needCustomerName){
+		clickAccessHistory();
+		String name = convertName(needCustomerName);
+		Utilities.clickElement("//span[text()='"+name+"']", ElementType.XPath);
 	}
 
 	public void clickAccessHistory(){
@@ -45,5 +51,12 @@ public class Header {
 	public void searchCustomer_SearchField(String customerDetails){
 		Utilities.jsClickElement(SearchField, ElementType.XPath);
 		FindElement.elementByAttribute(SearchField, FindElement.InputType.XPath).sendKeys(customerDetails);
+	}
+	//**Author Aarbi
+	public static String convertName(String name) {
+		String firstName = name.substring(0, name.indexOf(" "));
+		String lastName = name.substring(name.indexOf(" ") + 1);
+		String cName =  lastName + ", " +firstName;
+		return cName;
 	}
 }
