@@ -17,10 +17,15 @@ Feature: Validate if all fields present and are enabled
     Then I validate if all fields are displaying and are enabled in account receivable page
     Then I validate if the customer displays once account status is Active in account receivable page
     And I validate if there are errors exist in the list
-  @AutoPay_Customer_AccountReceivable
-  Scenario: Customer with billing validation
+  @AutoPayCC_Customer_AccountReceivable
+  Scenario: Customer with CC Auto Pay validation
     When I create customer with first name, last name, email and address
-    Then I validate auto pay customer display in account receivable page
+    Then I validate CC auto pay customer display in account receivable page
+    And I validate if there are errors exist in the list
+  @AutoPayACH_Customer_AccountReceivable
+  Scenario: Customer with ACH Auto Pay validation
+    When I create customer with first name, last name, email and address
+    Then I validate ACH auto pay customer display in account receivable page
     And I validate if there are errors exist in the list
   @Customer_PropType_AccountReceivable
   Scenario: Customer with prop type validation
@@ -47,10 +52,8 @@ Feature: Validate if all fields present and are enabled
     When I create customer with first name, last name, email and address
     Then I validate autopay customer with max monthly in account receivable page
     And I validate if there are errors exist in the list
-
-
-#  *************Please keep below scenario commented
-  #  @CustomerWithFlags_AccountReceivable
+#
+#  @CustomerWithFlags_AccountReceivable
 #  Scenario: Customer with flag validation
 #    Given I add a new generic flag if it is not already existing "Fire" and "Its lit" and "Subscription"
 #    Given I add a new generic flag if it is not already existing "Test4Life" and "Test4Life" and "Customer"

@@ -156,10 +156,10 @@ public class TriggerOnSave_CustomerStatus extends AppData {
         overviewHeader = new CustomerViewDialog_Header();
         billing = new Billing();
         newCustomer.createCustomerWithEmail();
-        overviewHeader.navigateTo(overviewHeader.billingTabInDialog);
-        billing.navigateToCC();
-        billing.addCC();
-        billing.navigateToBankAccount();
+//        overviewHeader.navigateTo(overviewHeader.billingTabInDialog);
+//        billing.navigateToCC();
+        billing.addPaymentCC();
+//        billing.navigateToBankAccount();
         billing.addBankAccount();
         overviewHeader.navigateTo(overviewHeader.adminTabInDialog);
         customerAdmin.changeAccountStatus_Active();
