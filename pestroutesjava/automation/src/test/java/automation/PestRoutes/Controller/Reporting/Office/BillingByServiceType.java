@@ -173,7 +173,10 @@ public class BillingByServiceType extends AppData {
 
     //Author: Aditya
     @And("I validate the fields are displayed in individual line items")
-    public void validateFields_BBSTLineItem() {
+    public void validateFields_BBSTLineItem() throws InterruptedException {
+        createNewCustomer = new CreateNewCustomer();
+        header = new Header();
+
         String[] fields = {billingByServiceType.search_lineItem,
                 billingByServiceType.pageNumber_lineItem,
                 billingByServiceType.filterTypes("customerID_lineItem"),
@@ -196,6 +199,11 @@ public class BillingByServiceType extends AppData {
 
         billingByServiceType.click(billingByServiceType.exportDetailsToCSV_button);
         AssertException.validateFieldEnabled(fields);
+
+        String customerName = createNewCustomer.getCustomerFullName();
+        header.clickAccessHistory();
+        createNewCustomer.removeCustomer(customerName);
+
     }
 
     //Author: Aditya
@@ -304,11 +312,22 @@ public class BillingByServiceType extends AppData {
     }
 
     @And("I search credit memo customer on the BST report")
-    public void validateCreditMemo() throws Exception {
+    public void searchCreditMemo_BST() throws Exception {
         billingByServiceType.navigateToBillingByServiceTypePage();
         billingByServiceType.mainGroupBy("Customer Name");
         billingByServiceType.clickAdvancedFilters();
         billingByServiceType.setType("invoice_bbst", "Credit Memo");
+        billingByServiceType.click(billingByServiceType.refresh_bbst);
+        billingByServiceType.searchNewCustomer();
+    }
+
+    @And("I search standalone write off customer on the BST report")
+    public void validateStandAloneWriteOffCustomer_BST() throws Exception {
+        billingByServiceType.navigateToBillingByServiceTypePage();
+        billingByServiceType.mainGroupBy("Customer Name");
+        billingByServiceType.clickAdvancedFilters();
+        billingByServiceType.setType("invoice_bbst", "Stand-Alone Invoices");
+        billingByServiceType.set(billingByServiceType.writeOffs,"Yes");
         billingByServiceType.click(billingByServiceType.refresh_bbst);
         billingByServiceType.searchNewCustomer();
     }
