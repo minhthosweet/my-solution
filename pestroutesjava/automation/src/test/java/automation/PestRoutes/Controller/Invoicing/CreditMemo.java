@@ -55,10 +55,10 @@ public class CreditMemo extends AppData {
         customerCardHeader.navigateTo(customerCardHeader.invoicesTabInDialog);
         creditMemoTab.clickInitialInvoice();
         String totalInvoiceValue = (invImplementation.getChargesBalance()).substring(1);
-        String balance = invImplementation.getPaymentsBalance();
+        String balance = invImplementation.getBalanceInPayments();
         String taxAmount = invImplementation.getTaxValue();
         String chargesBalance = invImplementation.getChargesBalance();
-        String paymentBalance = invImplementation.getPaymentsBalance();
+        String paymentBalance = invImplementation.getBalanceInPayments();
         invImplementation.click(creditMemoTab.getTicketID());
         creditMemoTab.validateServiceTypeName();
         result("-" + totalInvoiceValue, creditMemoTab.getChargesAmount_creditMemo(), "Charges validation in Credit Memo", "Invoice Validation");
@@ -75,7 +75,7 @@ public class CreditMemo extends AppData {
                 "Invoice Validation");
         result(chargesBalance, invImplementation.getChargesBalance(), "Total Invoice Value in Charges Validation",
                 "Invoice Validation");
-        result(paymentBalance, invImplementation.getPaymentsBalance(), "Total Invoice Value in Payments Validation",
+        result(paymentBalance, invImplementation.getBalanceInPayments(), "Total Invoice Value in Payments Validation",
                 "Invoice Validation");
         result(Utilities.currentDate("MM/dd/yy").replaceAll("0", ""), invImplementation.getInvoiceDate().replaceAll("0", ""), "Invoice Date Validation",
                 "Invoice Validation");

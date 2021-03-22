@@ -7,7 +7,7 @@ Feature: Customer Status
     Given I add a trigger "TriggerOnSave_CustomerStatus"
     And I validate the new trigger "TriggerOnSave_CustomerStatus"
     Then I edit the trigger status on trigger on save "Created" of type "TriggerOnSave_CustomerStatus"
-    When I create customer with first name, last name, email and address
+    When I create customer with pref paper and residential property
     When I execute the trigger queue script
     Then I assert all the logs
     And I validate if there are errors exist in the list

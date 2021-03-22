@@ -125,7 +125,7 @@ public class InvoicingTab extends AppData {
         invImplementation.clickInvoice(getData("serviceDescription", generalData));
         result(initialInvoiceValue, "$" + invImplementation.getChargesBalance(), "Total Initial Invoice Value",
                 "Invoice Validation");
-        result(initialInvoiceValue, "$" + invImplementation.getPaymentsBalance(), "Total Initial Invoice Value",
+        result(initialInvoiceValue, "$" + invImplementation.getBalanceInPayments(), "Total Initial Invoice Value",
                 "Invoice Validation");
     }
 
@@ -157,7 +157,7 @@ public class InvoicingTab extends AppData {
                 "Invoice Validation");
         result(initialInvoiceValue, invImplementation.getChargesBalance(), "Total Invoice Value in Charges Validation",
                 "Invoice Validation");
-        result(initialInvoiceValue, invImplementation.getPaymentsBalance(), "Total Invoice Value in Payments Validation",
+        result(initialInvoiceValue, invImplementation.getBalanceInPayments(), "Total Invoice Value in Payments Validation",
                 "Invoice Validation");
         result(Utilities.currentDate("MM/dd/yy").replaceAll("0", ""), invImplementation.getInvoiceDate().replaceAll("0", ""), "Invoice Date Validation",
                 "Invoice Validation");
@@ -205,7 +205,7 @@ public class InvoicingTab extends AppData {
     public void validateEndingBalance_AccountStatementReport(String day, String reportType) throws InterruptedException, IOException {
         invImplementation.clickInitialInvoice();
         invoiceCharges = invImplementation.getChargesBalance();
-        invoiceBalance = invImplementation.getPaymentsBalance();
+        invoiceBalance = invImplementation.getBalanceInPayments();
         generateAccountStatementReport(reportType, day);
         result(invImplementation.getInvoiceDate_accountStatementReport(getData("serviceDescription", generalData)), Utilities.currentDate("MM/dd/YY").replaceAll("0", ""), "Invoice Date",
                 "Account Statement Report Validation");
@@ -252,7 +252,7 @@ public class InvoicingTab extends AppData {
                 "Invoice Validation");
         result("$" + recurringInvoiceValue, invImplementation.getChargesBalance(), "Total Invoice Value in Charges Validation",
                 "Invoice Validation");
-        result("$" + recurringInvoiceValue, invImplementation.getPaymentsBalance(), "Total Invoice Value in Payments Validation",
+        result("$" + recurringInvoiceValue, invImplementation.getBalanceInPayments(), "Total Invoice Value in Payments Validation",
                 "Invoice Validation");
         result(Utilities.currentDate("MM/dd/yy").replaceAll("0", ""), invImplementation.getInvoiceDate().replaceAll("0", ""), "Invoice Date Validation",
                 "Invoice Validation");
@@ -276,7 +276,7 @@ public class InvoicingTab extends AppData {
         invImplementation.clickInitialInvoice();
         result(initialInvoiceValue, invImplementation.getChargesBalance(), "Total Initial Invoice Value",
                 "Initial Invoice Validation");
-        result(initialInvoiceValue, invImplementation.getPaymentsBalance(), "Total Initial Invoice Value",
+        result(initialInvoiceValue, invImplementation.getBalanceInPayments(), "Total Initial Invoice Value",
                 "Initial Invoice Validation");
     }
 

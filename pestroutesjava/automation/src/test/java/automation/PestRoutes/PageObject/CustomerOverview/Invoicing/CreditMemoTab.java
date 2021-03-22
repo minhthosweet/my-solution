@@ -12,7 +12,7 @@ public class CreditMemoTab {
 
     //Credit Memo Objects
     private String initialInvoice = "//ul[@id='invoiceGroupListContainer']//li[2]";
-    //public String clickCreditMemoInvoice = "//ul[@id='invoiceGroupListContainer']//li[1]";
+    public String clickCreditMemoInvoice = "//ul[@id='invoiceGroupListContainer']//li[1]";
     public String chargeValue_creditMemo = "//input[@name='serviceCharge']";
     public String invoiceApplicationBox = "//div[@paymentID and @charge]";
     public String date_creditMemo = "//div[text()='Credit Memo Date']/following-sibling::div[1]";
@@ -80,7 +80,9 @@ public class CreditMemoTab {
     }
 
     //Author : Aditya
-    public String getTicketID(){
+    public String getTicketID() throws InterruptedException {
+        Thread.sleep(100);
+        Utilities.waitUntileElementIsVisible(clickCreditMemoInvoice);
         int ticketID1 = Integer.parseInt(Utilities.getAttributeValue("//ul[@id='invoiceGroupListContainer']//li[1]","ticketid"));
         int ticketID2 = Integer.parseInt(Utilities.getAttributeValue("//ul[@id='invoiceGroupListContainer']//li[2]","ticketid"));
         if(ticketID1>ticketID2){
