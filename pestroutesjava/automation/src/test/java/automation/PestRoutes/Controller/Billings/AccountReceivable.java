@@ -83,19 +83,38 @@ public class AccountReceivable extends BaseClass {
 
     }
     //**Author Aarbi**
-    @Then("I validate auto pay customer display in account receivable page")
-    public void validateAutoPayCustomer() throws Exception {
+    @Then("I validate CC auto pay customer display in account receivable page")
+    public void validateAutoPayCustomerWithCC() throws Exception {
         customer = new CreateNewCustomer();
         customerCardBillingTab = new BillingPage();
         customerCardHeader = new CustomerViewDialog_Header();
         billing = new Billing();
         String customerName = customer.getCustomerFullName();
         billing.addPaymentCC();
-        billing.addCustomerOnAutoPayCC();
+        billing.addCustomerOnAutoPay();
         createStandAloneServiceInvoice("400", Utilities.currentDate("MM/dd/yyyy"), "Automation Renewal");
         customer.closeCustomerCard();
         navigateToAccountReceivablePage();
         accountReceivable.select(accountReceivable.autoPayDropdown, "CC Auto Pay");
+        accountReceivable.click(accountReceivable.refreshButton);
+        searchAndValidateCustomer_AccountReceivable(customerName, " Customer with auto pay");
+        customer.removeCustomer(customerName);
+    }
+
+    //**Author Aarbi**
+    @Then("I validate ACH auto pay customer display in account receivable page")
+    public void validateAutoPayCustomerWithAch() throws Exception {
+        customer = new CreateNewCustomer();
+        customerCardBillingTab = new BillingPage();
+        customerCardHeader = new CustomerViewDialog_Header();
+        billing = new Billing();
+        String customerName = customer.getCustomerFullName();
+        billing.addBankAccount();
+        billing.addCustomerOnAutoPay();
+        createStandAloneServiceInvoice("400", Utilities.currentDate("MM/dd/yyyy"), "Automation Renewal");
+        customer.closeCustomerCard();
+        navigateToAccountReceivablePage();
+        accountReceivable.select(accountReceivable.autoPayDropdown, "CC or ACH Auto Pay");
         accountReceivable.click(accountReceivable.refreshButton);
         searchAndValidateCustomer_AccountReceivable(customerName, " Customer with auto pay");
         customer.removeCustomer(customerName);

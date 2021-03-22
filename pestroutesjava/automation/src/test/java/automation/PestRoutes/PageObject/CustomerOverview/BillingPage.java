@@ -10,7 +10,8 @@ import org.openqa.selenium.WebElement;
 
 public class BillingPage {
 	//Page title objects
-	public String addPaymentMethodTitle = "//div[@id='billingInfoContent']//h3";
+	public String paymentMethodTitle = "//div[@id='billingInfoContent']//h3";
+
 	//**********Left navigation objects**********
 	public String billingInfoButton = "//li[text()='Billing Info']";
 	public String addPaymentMethodButton = "//li[text()='+ Add Payment Method']";
@@ -90,6 +91,9 @@ public class BillingPage {
 	//***Drop downs***
 	public String bankAcountAccountTypeDropdown = "//select[@name='accountType']";
 	public String bankAccountCheckTypeDropdown = "//select[@name='checkType']";
+
+	//***Saved ach
+	public String savedBankName = "//input[@name='displayBankName']";
 
 	//**********Credit card objects*************
 	//***Gateway Types

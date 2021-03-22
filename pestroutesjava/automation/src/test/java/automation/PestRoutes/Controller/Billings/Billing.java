@@ -42,7 +42,7 @@ public class Billing extends AppData {
 		customerCardBillingTab = new BillingPage();
 		customerCardHeader.navigateTo(customerCardHeader.billingTabInDialog);
 		customerCardBillingTab.clickElement(customerCardBillingTab.addPaymentMethodButton);
-		String paymentMethod = billing.getTextValue(billing.addPaymentMethodTitle);
+		String paymentMethod = billing.getTextValue(billing.paymentMethodTitle);
 		if (paymentMethod.equals("Add Payment Method")){
 			billing.clickElement(billing.addCreditCardButton);
 		}
@@ -105,18 +105,25 @@ public class Billing extends AppData {
 
 		}
 	}
-	
+	//***Author Aarbi
 	public void addBankAccount() throws Exception {
-		billing.setInputField(billing.bankAccountBankNameInputField, getData("bankAccountName", generalData));
-		billing.setInputField(billing.bankAccountRoutingNumberInputField, getData("routingNumber", generalData));
-		billing.setInputField(billing.bankAccountAccountNumberInputField, getData("accountNumber", generalData));
+		customerCardHeader = new CustomerViewDialog_Header();
+		customerCardBillingTab = new BillingPage();
+		customerCardHeader.navigateTo(customerCardHeader.infoTabInDialog);
+		customerCardHeader.navigateTo(customerCardHeader.billingTabInDialog);
+		customerCardBillingTab.clickElement(customerCardBillingTab.addPaymentMethodButton);
+		billing.clickElement(billing.addBankAccountButton);
+		billing.setInputField(billing.bankAccountBankNameInputField, "JP Morgan");
+		billing.setInputField(billing.bankAccountRoutingNumberInputField, "111000614");
+		billing.setInputField(billing.bankAccountAccountNumberInputField, "111222333");
 		billing.selectDropdown(billing.bankAcountAccountTypeDropdown, "Checking Account");
 		billing.selectDropdown(billing.bankAccountCheckTypeDropdown, "Personal Account");
-		billing.clickElement(billing.bankAccountUpdateAccountNumberButton);
+		billing.clickElement(billing.saveBankAccountButton);
+		Utilities.waitUntileElementIsVisible(billing.savedBankName);
 	}
 	//Author:Aarbi
 	@When("I add an customer in auto pay with credit card")
-	public void addCustomerOnAutoPayCC() throws InterruptedException {
+	public void addCustomerOnAutoPay() throws InterruptedException {
 		customerCardBillingTab = new BillingPage();
 		customerCardBillingTab.clickElement(customerCardBillingTab.billingInfoButton);
 		Utilities.selectValueFromDropDownByIndex(customerCardBillingTab.autoPayDropdown, 1);

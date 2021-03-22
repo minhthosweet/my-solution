@@ -298,4 +298,14 @@ public class InvoicingTab extends AppData {
         Utilities.switchToOldWindowOpened();
     }
 
+    //**Author Aarbi
+
+    public void makeCCPayment(String gateway, String needServiceType){
+        invoiceHeader = new Invoice_Header();
+        invImplementation.clickInvoice(needServiceType);
+        invoiceRoutesTab.clickAddPayment();
+        invoiceHeader.navigate(invoiceHeader.creditCard);
+
+    }
+
 }
