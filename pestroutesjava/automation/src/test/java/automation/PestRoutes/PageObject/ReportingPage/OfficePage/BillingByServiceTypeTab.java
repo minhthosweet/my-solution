@@ -40,11 +40,17 @@ public class BillingByServiceTypeTab {
     public String toggleChart = "//div[text() = 'Toggle Chart']";
     public String billedServices_Report = "//tr[@detailvalues]//span[@class='revenue']";
     public String billedServices_Customer = "//tr[@onmouseup]//td[13]";
+    public String totalCollected_Report = "//tr[@detailvalues]//td[4]";
+    public String totalCollected_Customer = "//tr[@onmouseup]//td[8]";
     public String tax_Report = "//tr[@detailvalues]//td[6]";
     public String tax_Customer = "//tr[@onmouseup]//td[10]";
     public String exportDetailsToCSV_button = "//div[@id='serviceTypeDetail']//div[text()='Export details to CSV']";
     public String search_lineItem = "//div[@id='serviceTypeDetail']//input[@placeholder='Search...']";
     public String pageNumber_lineItem = "//span[text()='Page ']//input[@type='text']";
+    public String invoiceID_lineItem = "//tr[@onmouseup]//td[3]";
+    public String invoiceDate_lineItem = "//tr[@onmouseup]//td[4]";
+    public String paymentDate_lineItem = "//tr[@onmouseup]//td[12]";
+    public String serviceType_lineItem = "//tr[@onmouseup]//td[5]";
 
     public Map<String, String> filter_Types = new HashMap<String, String>();
 
@@ -149,8 +155,8 @@ public class BillingByServiceTypeTab {
         return customerName;
     }
 
-    public String getBilledServiceValue_Report() {
-        return Utilities.getElementTextValue(billedServices_Report, Utilities.ElementType.XPath);
+    public String get(String needIdentifier) {
+        return Utilities.getElementTextValue(needIdentifier, Utilities.ElementType.XPath);
     }
 
     public String getBilledTaxValue_Report() {
@@ -163,6 +169,10 @@ public class BillingByServiceTypeTab {
 
     public String getBilledServiceValue_Customer() {
         return Utilities.getElementTextValue(billedServices_Customer, Utilities.ElementType.XPath).replace("\n", "");
+    }
+
+    public String getAttributeValue(String needIdentifier, String needAttribute) {
+        return Utilities.getAttributeValue(needIdentifier, needAttribute);
     }
 
     public void searchNewCustomer() throws Exception {
@@ -240,7 +250,7 @@ public class BillingByServiceTypeTab {
         }
     }
 
-    public void set(String needTag, String needType){
+    public void set(String needTag, String needType) {
         Utilities.waitUntileElementIsVisible(needTag);
         Utilities.selectValueFromDropDownByValue(needTag, needType);
     }
@@ -251,14 +261,14 @@ public class BillingByServiceTypeTab {
     }
 
     //Author: Aditya
-    public void setDateRange(String type, String dateRange){
+    public void setDateRange(String type, String dateRange) {
         Utilities.waitUntileElementIsVisible(type);
         Utilities.clickElement(type, Utilities.ElementType.XPath);
-        Utilities.waitUntileElementIsVisible("//div[contains(@style,'block')]//li[text()='"+dateRange+"']");
-        Utilities.clickElement("//div[contains(@style,'block')]//li[text()='"+dateRange+"']", Utilities.ElementType.XPath);
+        Utilities.waitUntileElementIsVisible("//div[contains(@style,'block')]//li[text()='" + dateRange + "']");
+        Utilities.clickElement("//div[contains(@style,'block')]//li[text()='" + dateRange + "']", Utilities.ElementType.XPath);
     }
 
-    public void setSalesRep(String salesRepTab, String salesRepType){
+    public void setSalesRep(String salesRepTab, String salesRepType) {
         Utilities.waitUntileElementIsVisible(filterTypes(salesRepTab));
         Utilities.selectValueFromDropDownByValue(filterTypes(salesRepTab), salesRepType);
     }

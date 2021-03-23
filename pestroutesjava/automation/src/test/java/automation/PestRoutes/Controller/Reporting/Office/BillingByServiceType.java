@@ -15,6 +15,7 @@ import automation.PestRoutes.PageObject.CustomerOverview.Invoicing.InvoiceImplem
 import automation.PestRoutes.PageObject.ReportingPage.OfficePage.BillingByServiceTypeTab;
 
 import java.io.IOException;
+import java.util.Locale;
 
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
@@ -119,7 +120,7 @@ public class BillingByServiceType extends AppData {
 
     //Author: Aditya
     @And("I validate billing by service type report")
-    public void validateBBSTReport() throws InterruptedException {
+    public void validateBBSTReport() throws InterruptedException, IOException {
         invImplementation = new InvoiceImplementation();
         customerCardHeader = new CustomerViewDialog_Header();
         creditMemoTab = new CreditMemoTab();
@@ -134,26 +135,36 @@ public class BillingByServiceType extends AppData {
         }
         String subTotalValue = invImplementation.getSubTotalValue();
         String taxValue = invImplementation.getTaxValue();
+        String totalCollected = billingByServiceType.get(invImplementation.paymentsInPayments);
 
         if (CucumberBaseClass.scenarioName().equals("Credit memo validation is BST")) {
-            result(billingByServiceType.getBilledServiceValue_Report(), "-" + (subTotalValue.substring(1)), "Sub Total Value Validation",
+            result("$-" + totalCollected.substring(1), billingByServiceType.get(billingByServiceType.totalCollected_Report), "Total Collected in the report", "BBST Report Validation");
+            result(billingByServiceType.get(billingByServiceType.billedServices_Report), "-" + (subTotalValue.substring(1)), "Sub Total Value Validation in report",
                     "BBST Report Validation");
-            result(billingByServiceType.getBilledTaxValue_Report(), taxValue, "Tax Value Validation",
+            result(billingByServiceType.getBilledTaxValue_Report(), "$0.00", "Tax Value Validation in report",
                     "BBST Report Validation");
-            result(billingByServiceType.getBilledServiceValue_Customer(), "$-" + (subTotalValue.substring(1)), "Sub Total Value Validation",
+            result("$-" + totalCollected.substring(1), billingByServiceType.get(billingByServiceType.totalCollected_Customer), "Total Collected in the detail report", "BBST Report Validation");
+            result(billingByServiceType.getBilledServiceValue_Customer(), "$-" + (subTotalValue.substring(1)), "Sub Total Value Validation in detailed report",
                     "BBST Report Validation");
-            result(billingByServiceType.getBilledTaxValue_Customer(), taxValue, "Tax Value Validation",
+            result(billingByServiceType.getBilledTaxValue_Customer(), "$0.00", "Tax Value Validation in detailed report",
                     "BBST Report Validation");
+            result(billingByServiceType.getAttributeValue(invImplementation.activeInvoiceOnTheLeft, "ticketid"), billingByServiceType.get(billingByServiceType.invoiceID_lineItem), "Invoice ID validation in detail report", "BBST Report Validation");
+            result(Utilities.currentDate("MM-dd-yyyy"), billingByServiceType.get(billingByServiceType.paymentDate_lineItem), "Payment Date Validation in Detail Report", "BBST Report Validation");
         } else {
-            result("$" + billingByServiceType.getBilledServiceValue_Report(), subTotalValue, "Sub Total Value Validation",
+            result(totalCollected, billingByServiceType.get(billingByServiceType.totalCollected_Report), "Total Collected in the report", "BBST Report Validation");
+            result("$" + billingByServiceType.get(billingByServiceType.billedServices_Report), subTotalValue, "Sub Total Value Validation in report",
                     "BBST Report Validation");
-            result(billingByServiceType.getBilledTaxValue_Report(), taxValue, "Tax Value Validation",
+            result(billingByServiceType.getBilledTaxValue_Report(), taxValue, "Tax Value Validation in report",
                     "BBST Report Validation");
-            result(billingByServiceType.getBilledServiceValue_Customer(), subTotalValue, "Sub Total Value Validation",
+            result(totalCollected, billingByServiceType.get(billingByServiceType.totalCollected_Customer), "Total Collected in the detail report", "BBST Report Validation");
+            result(billingByServiceType.getBilledServiceValue_Customer(), subTotalValue, "Sub Total Value Validation in detailed report",
                     "BBST Report Validation");
-            result(billingByServiceType.getBilledTaxValue_Customer(), taxValue, "Tax Value Validation",
+            result(billingByServiceType.getBilledTaxValue_Customer(), taxValue, "Tax Value Validation in detailed report",
                     "BBST Report Validation");
         }
+        result(getData("serviceDescription", generalData), billingByServiceType.get(billingByServiceType.serviceType_lineItem), "Service Type in detail report validation", "BBST Report Validation");
+        result(Utilities.currentDate("MM-dd-yyyy"), billingByServiceType.get(billingByServiceType.invoiceDate_lineItem), "Invoice Date Validation", "BBST Report Validation");
+
     }
 
     //Author: Aditya
@@ -199,11 +210,8 @@ public class BillingByServiceType extends AppData {
 
         billingByServiceType.click(billingByServiceType.exportDetailsToCSV_button);
         AssertException.validateFieldEnabled(fields);
-
-        String customerName = createNewCustomer.getCustomerFullName();
         header.clickAccessHistory();
-        createNewCustomer.removeCustomer(customerName);
-
+        createNewCustomer.removeCustomer(createNewCustomer.getCustomerFullName());
     }
 
     //Author: Aditya
@@ -261,7 +269,10 @@ public class BillingByServiceType extends AppData {
         String[] balanceAge = {"7+ Days Old", "30+ Days Old (Past Due)", "90+ Days Old (Way, Way Past Due)"};
         int[] invoiceDaysPastDue = {7, 30, 90};
         for (int i = 0; i < balanceAge.length; i++) {
-            createNewCustomer.createCustomerWithAddress();
+            String fname = Utilities.generateRandomString(7).toLowerCase(Locale.ROOT);
+            String lname = Utilities.generateRandomString(6).toLowerCase(Locale.ROOT);
+            Thread.sleep(100);
+            createNewCustomer.createACustomer(fname, lname);
             int currentMonth = GetDate.getMonth(Utilities.currentDate("MM/dd/yyyy"));
             int currentYear = GetDate.getYear(Utilities.currentDate("MM/dd/yyyy"));
             String dateOfInvoice = GetDate.minusGenericDayToDate(Utilities.currentDate("MM/dd/yyyy"), invoiceDaysPastDue[i]);
@@ -327,7 +338,7 @@ public class BillingByServiceType extends AppData {
         billingByServiceType.mainGroupBy("Customer Name");
         billingByServiceType.clickAdvancedFilters();
         billingByServiceType.setType("invoice_bbst", "Stand-Alone Invoices");
-        billingByServiceType.set(billingByServiceType.writeOffs,"Yes");
+        billingByServiceType.set(billingByServiceType.writeOffs, "Yes");
         billingByServiceType.click(billingByServiceType.refresh_bbst);
         billingByServiceType.searchNewCustomer();
     }
