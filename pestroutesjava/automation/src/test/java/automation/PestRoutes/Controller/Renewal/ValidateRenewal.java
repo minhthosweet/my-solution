@@ -104,9 +104,11 @@ public class ValidateRenewal extends AppData {
     public void navigateToSchedulingTab() throws Exception {
         header = new Header();
         scheduleDay = new SchedulingTab();
+        appointmentTab = new CustomerviewDialog_AppointmentsTab();
         header.navigateTo(header.schedulingTab);
         scheduleDay.addScheduleDateToProperties();
         scheduleDay.clickScheduleDay();
+
     }
 
     @And("I navigate to scheduling on same Day")
@@ -332,7 +334,7 @@ public class ValidateRenewal extends AppData {
         String customerName = customer.getCustomerFullName();
         customer.closeCustomerCard();
         overviewHeader.discardChanges();
-        customer.removeCustomer(customerName);
+        customer.removeCustomer();
     }
 
 }

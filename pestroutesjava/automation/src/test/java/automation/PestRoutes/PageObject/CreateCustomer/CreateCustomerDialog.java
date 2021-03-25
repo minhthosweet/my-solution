@@ -275,4 +275,16 @@ public class CreateCustomerDialog {
         return Utilities.getAttributeValue(needTaxField, "value");
     }
 
+    public String getAddress() {
+        return Utilities.getAttributeValue(addressInputField, "value");
+    }
+
+    public String getZipCode() {
+        return Utilities.getAttributeValue(zipCodeInputField, "value");
+    }
+
+    public String getCity() {
+        return Utilities.getAttributeValue(cityInputField, "value");
+    }
+
 }

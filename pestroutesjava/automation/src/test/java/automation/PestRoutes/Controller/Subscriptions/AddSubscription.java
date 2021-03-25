@@ -65,6 +65,22 @@ public class AddSubscription extends AppData {
 		newContractValue = getContractValue();
 	}
 
+	@And("I create a dynamic subscription with Sales Rep assigned {string} and {string} and {string}")
+	public void startSubscriptionWithSalesRep(String needSalesmanName, String needSubscriptionFlagName, String needPreferredDay) throws Exception {
+		String preferredTech = getData("userFirstName", generalData) + " " + getData("userLastName", generalData);
+		customerDialogHeader = new CustomerViewDialog_Header();
+		header = new Header();
+		customerDialogHeader.navigateTo(customerDialogHeader.subscriptionTabInDialog);
+		subscription.clickNewSubscriptionButton();
+		subscription.selectServiceType(getData("serviceDescription", generalData));
+		subscription.selectSalesRep(needSalesmanName);
+		subscription.selectSubscriptionFlag(needSubscriptionFlagName);
+		subscription.selectPreferTechOption(preferredTech);
+		subscription.selectPreferredDayOption(needPreferredDay);
+		subscription.selectRoutineRegionOption(getData("region", generalData));
+		customerDialogHeader.clickSaveButton();
+	}
+
 	@And("I create a subscription of type {string}")
 	public void createSubscription(String initialInvoiceType) throws Exception {
 		customerDialogHeader = new CustomerViewDialog_Header();

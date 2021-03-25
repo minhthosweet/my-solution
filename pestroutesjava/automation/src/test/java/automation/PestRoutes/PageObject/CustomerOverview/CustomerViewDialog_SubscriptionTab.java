@@ -346,6 +346,7 @@ public class CustomerViewDialog_SubscriptionTab {
 	public void setCustomDate(String needCustomDate) {
 		Utilities.waitUntileElementIsVisible(customDateInputField);
 		FindElement.elementByAttribute(customDateInputField, InputType.XPath).sendKeys(needCustomDate);
+		FindElement.elementByAttribute(customDateInputField, InputType.XPath).sendKeys(Keys.ENTER);
 	}
 
 	public void setInitialServiceQuote(String needAmount) {

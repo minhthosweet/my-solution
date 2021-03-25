@@ -3,6 +3,7 @@ package automation.PestRoutes.PageObject.Scheduling;
 import automation.PestRoutes.Utilities.AppData;
 import automation.PestRoutes.Utilities.FindElement;
 import automation.PestRoutes.Utilities.Utilities;
+import org.openqa.selenium.Keys;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -39,7 +40,7 @@ public class JobPoolTab extends AppData {
         filter_Types.put("preferredDays", "//div[@id='cdContentWrapper']//select[@name='preferredDays']");
         filter_Types.put("filterRegion", "//div[@id='cdContentWrapper']//select[@name='regionID']");
         filter_Types.put("measurement", "//div[@id='cdContentWrapper']//select[@name='unitOfMeasure']");
-        filter_Types.put("serviceCategory", "//div[@id='cdContentWrapper']//select[@name='serviceCategories']");
+        filter_Types.put("serviceCategories", "//div[@id='cdContentWrapper']//select[@name='serviceCategories']");
         filter_Types.put("includeCustomerFlags", "//div[@id='cdContentWrapper']//select[@name='includeCustomerFlags']");
         filter_Types.put("excludeCustomerFlags", "//div[@id='cdContentWrapper']//select[@name='excludeCustomerFlags']");
         filter_Types.put("includeSubscriptionFlags", "//div[@id='cdContentWrapper']//select[@name='includeSubscriptionFlags']");
@@ -62,16 +63,18 @@ public class JobPoolTab extends AppData {
         Utilities.clickElement(advanceToggleButton, Utilities.ElementType.XPath);
     }
 
-    public void searchCustomer_SearchField(String customerDetails){
-        Utilities.jsClickElement(SearchField, Utilities.ElementType.XPath);
-        FindElement.elementByAttribute(SearchField, FindElement.InputType.XPath).sendKeys(customerDetails);
+    public void clickPlayButton(String chooseNameFromConst) {
+        Utilities.waitUntileElementIsVisible("//tr[@customername='"+chooseNameFromConst+"']//td/div");
+        Utilities.clickElement("//tr[@customername='"+chooseNameFromConst+"']//td/div", Utilities.ElementType.XPath);
     }
+
 
     public void setDate(String needFilterType) {
         String todaysDate = Utilities.currentDate("MM/dd/yy");
         Utilities.clearField(needFilterType);
         Utilities.highLight(needFilterType);
         FindElement.elementByAttribute(needFilterType, FindElement.InputType.XPath).sendKeys(todaysDate);
+        FindElement.elementByAttribute(needFilterType, FindElement.InputType.XPath).sendKeys(Keys.ENTER);
     }
 
     public void setInputFilter(String needFilterType, String needValue) {

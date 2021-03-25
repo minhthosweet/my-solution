@@ -4,7 +4,6 @@
 Feature: New sales report
 
   Scenario: Validate sales report totals
-    Given I delete a routing group
     Given I create a new user if it is not already existing "Office Staff"
     Given I add a renewal service
     Given I add a new generic flag if it is not already existing "Fire" and "Its lit" and "Subscription"
@@ -22,4 +21,6 @@ Feature: New sales report
     And I validate subscription flag column
     And I validate sales report totals
     Then I deactivate the existing user
+    And I remove the customer
     And I validate if there are errors exist in the list
+

@@ -98,7 +98,7 @@ public class AccountReceivable extends BaseClass {
         accountReceivable.select(accountReceivable.autoPayDropdown, "CC Auto Pay");
         accountReceivable.click(accountReceivable.refreshButton);
         searchAndValidateCustomer_AccountReceivable(customerName, " Customer with auto pay");
-        customer.removeCustomer(customerName);
+        customer.removeCustomer();
     }
 
     //**Author Aarbi**
@@ -150,7 +150,7 @@ public class AccountReceivable extends BaseClass {
             accountReceivable.click(accountReceivable.refreshButton);
             searchAndValidateCustomer_AccountReceivable(customerName, " Property type customer");
         }
-        customer.removeCustomer(customerName);
+        customer.removeCustomer();
     }
     //**Author Aarbi**
     @Then("I validate customer with balance in account receivable page")
@@ -172,7 +172,7 @@ public class AccountReceivable extends BaseClass {
         accountReceivable.insert(accountReceivable.balanceInputField, "300");
         accountReceivable.click(accountReceivable.refreshButton);
         searchAndValidateCustomer_AccountReceivable(customerName, " Customer with balance");
-        customer.removeCustomer(customerName);
+        customer.removeCustomer();
     }
     //**Author Aarbi**
     @Then("I validate customer with balance age, payment due, and days overdue in account receivable page")
@@ -206,7 +206,7 @@ public class AccountReceivable extends BaseClass {
             accountReceivable.select(accountReceivable.daysOverDueDropdown, daysOverDue[i]);
             accountReceivable.click(accountReceivable.refreshButton);
             searchAndValidateCustomer_AccountReceivable(fname+" "+lname, " Customer with Balance age, payment due and days overdue");
-            customer.removeCustomer(fname+" "+lname);
+            customer.removeCustomer();
         }
 
     }
@@ -222,7 +222,7 @@ public class AccountReceivable extends BaseClass {
         accountReceivable.select(accountReceivable.prefPaperDropdown, "Yes");
         accountReceivable.click(accountReceivable.refreshButton);
         searchAndValidateCustomer_AccountReceivable(customerName, " Customer with Pref paper");
-        customer.removeCustomer(customerName);
+        customer.removeCustomer();
     }
     //**Author Aarbi**
     @Then("I validate customer has email in account receivable page")
@@ -236,7 +236,7 @@ public class AccountReceivable extends BaseClass {
         accountReceivable.select(accountReceivable.hasEmailDropdown, "Yes");
         accountReceivable.click(accountReceivable.refreshButton);
         searchAndValidateCustomer_AccountReceivable(customerName, " Customer with email");
-        customer.removeCustomer(customerName);
+        customer.removeCustomer();
     }
     //**Author Aarbi**
     @Then("I validate autopay customer with max monthly in account receivable page")
@@ -256,7 +256,7 @@ public class AccountReceivable extends BaseClass {
         accountReceivable.select(accountReceivable.maxMonthlyDropdown, "Yes");
         accountReceivable.click(accountReceivable.refreshButton);
         searchAndValidateCustomer_AccountReceivable(customerName, " Customer with autopay and max monthly limit");
-        customer.removeCustomer(customerName);
+        customer.removeCustomer();
     }
 
     //**Author Aarbi**
