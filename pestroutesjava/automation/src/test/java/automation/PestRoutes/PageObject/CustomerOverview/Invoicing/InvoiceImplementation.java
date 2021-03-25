@@ -58,8 +58,8 @@ public class InvoiceImplementation {
     public String printInvoiceAmountDue1= "//span[text()='Amount Due:']/parent::th/following-sibling::td/span[2]";
 
     //Initial Invoice Objects
-    public String printInvoicePaymentBalance = "//th[text()='Amount Paid']//following-sibling::td[1]";
-    public String printInvoicePaymentBalance1 = "//span[text()='Amount Paid']/parent::th/following-sibling::td/span[2]";
+    public String printInvoicePaymentBalance = "//th[text()='Invoice Total']//following-sibling::td[1]";
+    public String printInvoicePaymentBalance1 = "//span[text()='Invoice Total']/parent::th/following-sibling::td/span[2]";
 
     //Active Invoice Objects
     public String activeInvoiceOnTheLeft = "//li[@class='listItem appleMenuActive']";
