@@ -117,7 +117,7 @@ public class AccountReceivable extends BaseClass {
         accountReceivable.select(accountReceivable.autoPayDropdown, "CC or ACH Auto Pay");
         accountReceivable.click(accountReceivable.refreshButton);
         searchAndValidateCustomer_AccountReceivable(customerName, " Customer with auto pay");
-        customer.removeCustomer(customerName);
+        customer.removeCustomer();
     }
     //**Author Aarbi**
     @Then("I validate customer by prop type in account receivable page")
