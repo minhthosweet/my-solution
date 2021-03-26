@@ -2,6 +2,7 @@ package automation.PestRoutes.PageObject.CustomerOverview.Invoicing;
 
 import automation.PestRoutes.Utilities.FindElement;
 import automation.PestRoutes.Utilities.Utilities;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebElement;
 
 public class CreditMemoTab {
@@ -34,13 +35,19 @@ public class CreditMemoTab {
 
     public void clickAppliedCharge_invoiceApplications() throws InterruptedException {
         Utilities.waitUntileElementIsVisible(date_creditMemo);
-        //becasue stagingdemobeta is slow I need to add 300 ms sleep here. 100 ms doesn't work
-        Thread.sleep(300);
         Utilities.clickElement(invoiceApplicationBox, Utilities.ElementType.XPath);
-        Utilities.waitUntileElementIsVisible(appointmentDate_creditMemo);
-   }
+        try {
+            WebElement elm = FindElement.elementByAttribute(appointmentDate_creditMemo, FindElement.InputType.XPath);
+            if (elm.isDisplayed());
+            else{
+                Utilities.clickElement(invoiceApplicationBox, Utilities.ElementType.XPath);
+            }
+        } catch (StaleElementReferenceException e) {
+            System.out.println("Element not found");
+        }
+    }
 
-    public String getInvoiceApplicationDate(){
+    public String getInvoiceApplicationDate() {
         Utilities.waitUntileElementIsVisible(date_invoiceApplication);
         return Utilities.getElementTextValue(date_invoiceApplication, Utilities.ElementType.XPath);
     }
@@ -55,7 +62,7 @@ public class CreditMemoTab {
         return Utilities.getAttributeValue(billedAccount_creditMemo, "value");
     }
 
-    public String getPaymentsBalance(){
+    public String getPaymentsBalance() {
         Utilities.waitUntileElementIsVisible(billedAccount_creditMemo);
         return Utilities.getElementTextValue(paymentsBalance, Utilities.ElementType.XPath);
     }
@@ -83,12 +90,11 @@ public class CreditMemoTab {
     public String getTicketID() throws InterruptedException {
         Thread.sleep(100);
         Utilities.waitUntileElementIsVisible(clickCreditMemoInvoice);
-        int ticketID1 = Integer.parseInt(Utilities.getAttributeValue("//ul[@id='invoiceGroupListContainer']//li[1]","ticketid"));
-        int ticketID2 = Integer.parseInt(Utilities.getAttributeValue("//ul[@id='invoiceGroupListContainer']//li[2]","ticketid"));
-        if(ticketID1>ticketID2){
+        int ticketID1 = Integer.parseInt(Utilities.getAttributeValue("//ul[@id='invoiceGroupListContainer']//li[1]", "ticketid"));
+        int ticketID2 = Integer.parseInt(Utilities.getAttributeValue("//ul[@id='invoiceGroupListContainer']//li[2]", "ticketid"));
+        if (ticketID1 > ticketID2) {
             return "//ul[@id='invoiceGroupListContainer']//li[1]";
-        }
-        else{
+        } else {
             return "//ul[@id='invoiceGroupListContainer']//li[2]";
         }
     }
