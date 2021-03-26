@@ -104,7 +104,6 @@ public class ValidateRenewal extends AppData {
     public void navigateToSchedulingTab() throws Exception {
         header = new Header();
         scheduleDay = new SchedulingTab();
-        appointmentTab = new CustomerviewDialog_AppointmentsTab();
         header.navigateTo(header.schedulingTab);
         scheduleDay.addScheduleDateToProperties();
         scheduleDay.clickScheduleDay();

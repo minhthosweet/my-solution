@@ -270,7 +270,6 @@ public class CreateNewCustomer extends AppData {
         customer.clickVoiceCheckBox();
         customer.clickPrefersPaperCheckBox();
         customerDialog_Header.clickSaveButton();
-        customer.setMapCode(getData("mapCode", generalData));
         alertCondition();
         customerName = getCustomerFullName();
 
@@ -296,7 +295,6 @@ public class CreateNewCustomer extends AppData {
         customer.clickPrefersPaperCheckBox();
         customer.selectProperty(customer.residentialProperty);
         customerDialog_Header.clickSaveButton();
-        customer.setMapCode(getData("mapCode", generalData));
         alertCondition();
         customerName = getCustomerFullName();
 
@@ -490,6 +488,7 @@ public class CreateNewCustomer extends AppData {
         Utilities.clickElement(adminTab.confirmRemoveButton, ElementType.XPath);
     }
 
+    //Author FK
     public void searchCustomer_SearchField(String needSearchField) {
         createNewCustomer = new CreateNewCustomer();
         header = new Header();
