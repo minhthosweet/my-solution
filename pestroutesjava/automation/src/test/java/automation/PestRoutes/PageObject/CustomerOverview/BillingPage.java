@@ -117,6 +117,8 @@ public class BillingPage {
 	public String pestRoutesCcCvvInputField = "//input[@id='payment_cvv']";
 	public String savePaymentMethodButton = "//button[@id='secureCardSaveButton']";
 	//Element
+	public String elementOneTimeCcIframe = "elementSingleChargeWrapper";
+	public String elementOneTimeCvvInputField = "//input[@id='CVV']";
 	public String elementEnterCcButton = "//button[@id='renderSecureCardFormButton']";
 	public String elementIframe = "elementFrame";
 	public String elementCcNumberInputField = "//input[@id='cardNumber']";
@@ -124,6 +126,8 @@ public class BillingPage {
 	public String elementExpYearDropdown = "//select[@id='ddlExpirationYear']";
 	public String elementSaveCcButton = "//a[@id='submit']";
 	//Spreedly
+	public String spreedlyOneTimeCcNumberIframe = "//div[@id='spreedly-onetime-number']/iframe";
+	public String spreedlyOneTimeCvvIframe = "//div[@id='spreedly-onetime-cvv']/iframe";
 	public String spreedlyCcNumberIframe = "//div[@id='spreedly-card-number']/iframe";
 	public String spreedlyCvvIframe = "//div[@id='spreedly-cvv']/iframe";
 	public String spreedlyCcInputField = "//input[@id='card_number']";
@@ -131,6 +135,11 @@ public class BillingPage {
 	public String spreedlyExpYearDropdown = "//select[@name='expYear']";
 	public String spreedlyCvvInputField = "//input[@id='cvv']";
 	//NMI
+	public String nmiOneTimeCcIframe = "CollectJSIframe";
+	public String nmiOneTimeCcNumberInputField = "//input[@id='cc-number']";
+	public String nmiOneTimeExpInputField = "//input[@id='cc-exp']";
+	public String nmiOneTimeCvvInputField = "//input[@id='cc-cvv']";
+	public String nmiOneTimeSubmitButton = "//button[@id='submit-payment']";
 	public String nmiCcNumberIframe = "CollectJSInlineccnumber";
 	public String nmiExpIframe = "CollectJSInlineccexp";
 	public String nmiCvvIframe = "CollectJSInlinecvv";
