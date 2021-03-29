@@ -4,6 +4,7 @@ import automation.PestRoutes.PageObject.CustomerOverview.BillingPage;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_Header;
 import automation.PestRoutes.Utilities.AppData;
 import automation.PestRoutes.Utilities.Utilities;
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.When;
 
 public class Billing extends AppData {
@@ -37,6 +38,7 @@ public class Billing extends AppData {
 		billing.clickElement(billing.ccSaveCardButton);
 	}
 	//**Author Aarbi
+	@And("I add a CC payment option")
 	public void addPaymentCC() throws InterruptedException {
 		customerCardHeader = new CustomerViewDialog_Header();
 		customerCardBillingTab = new BillingPage();
@@ -106,6 +108,7 @@ public class Billing extends AppData {
 		}
 	}
 	//***Author Aarbi
+	@And("I add a ACH payment option")
 	public void addBankAccount() throws Exception {
 		customerCardHeader = new CustomerViewDialog_Header();
 		customerCardBillingTab = new BillingPage();
@@ -130,12 +133,12 @@ public class Billing extends AppData {
 		customerCardBillingTab.clickElement(customerCardBillingTab.saveBillingInfoButton);
 	}
 	//Author Aarbi
-	@When("I add an customer in auto pay with credit card and max limit")
+	@When("I add an customer in auto pay with credit card and max limit {string}")
 	public void addCustomerOnAutoPayCCWithMaxLimit(String needMaxLimit) throws InterruptedException {
 		customerCardBillingTab = new BillingPage();
 		customerCardBillingTab.clickElement(customerCardBillingTab.billingInfoButton);
 		Utilities.selectValueFromDropDownByIndex(customerCardBillingTab.autoPayDropdown, 1);
-		customerCardBillingTab.setInputField(customerCardBillingTab.maxMonthlyChargeInputField,"400");
+		customerCardBillingTab.setInputField(customerCardBillingTab.maxMonthlyChargeInputField,needMaxLimit);
 		customerCardBillingTab.clickElement(customerCardBillingTab.saveBillingInfoButton);
 	}
 

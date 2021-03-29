@@ -1,5 +1,6 @@
 package automation.PestRoutes.PageObject.CustomerOverview;
 
+import org.apache.commons.lang3.SystemUtils;
 import org.openqa.selenium.Keys;
 
 import automation.PestRoutes.Utilities.FindElement;
@@ -161,7 +162,11 @@ public class BillingPage {
 	public void setInputField(String needInputField, String needValue) {
 		Utilities.waitUntileElementIsVisible(needInputField);
 		Utilities.clickElement(needInputField, ElementType.XPath);
-		FindElement.elementByAttribute(needInputField, InputType.XPath).sendKeys(Keys.CONTROL,"a");
+		if (SystemUtils.IS_OS_MAC_OSX){
+			Utilities.doubleClick(needInputField);
+		}else {
+			FindElement.elementByAttribute(needInputField, InputType.XPath).sendKeys(Keys.CONTROL, "a");
+		}
 		FindElement.elementByAttribute(needInputField, InputType.XPath).sendKeys(needValue);
 	}
 	
