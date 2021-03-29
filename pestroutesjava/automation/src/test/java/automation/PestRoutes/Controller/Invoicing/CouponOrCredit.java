@@ -95,7 +95,7 @@ public class CouponOrCredit {
         AssertException.result("FULLY PAID", invoiceImplementation.checkPaymentStatus(), "After Payment Status", "Coupon/Credit Validation");
         String customerName = createNewCustomer.getCustomerFullName();
         header.clickAccessHistory();
-        createNewCustomer.removeCustomer(customerName);
+        createNewCustomer.removeCustomer();
     }
 
 }
