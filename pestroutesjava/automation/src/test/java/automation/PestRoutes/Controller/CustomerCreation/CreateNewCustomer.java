@@ -281,6 +281,7 @@ public class CreateNewCustomer extends AppData {
         customer.selectUnit("Multi Unit");
         customer.setAddress(streetAddress);
         customer.setZipCode(zipcode);
+        customer.setEmailAddress(email);
         customer.setCellPhone(getData("phoneNumber", generalData));
         customer.clickSmsCheckBox();
         customer.clickEmailCheckBox();

@@ -19,8 +19,9 @@ public class BillingByServiceTypeTab {
     ReportingMainPage reportingMainPage;
     OfficeObjects officeObjs;
     CreateNewCustomer createNewCustomer;
-    CustomerViewDialog_Header dialog;
+    CustomerViewDialog_Header customerViewDialog_header;
 
+    // Report Fields
     public String dateParams = "//input[@name='dateRange-officeParams']";
     public String groupBy = "//select[@name='groupBy']";
     public String subGroupOne = "//select[@name='groupBy2']";
@@ -45,6 +46,8 @@ public class BillingByServiceTypeTab {
     public String tax_Report = "//tr[@detailvalues]//td[6]";
     public String tax_Customer = "//tr[@onmouseup]//td[10]";
     public String exportDetailsToCSV_button = "//div[@id='serviceTypeDetail']//div[text()='Export details to CSV']";
+
+    // Line Item Fields
     public String search_lineItem = "//div[@id='serviceTypeDetail']//input[@placeholder='Search...']";
     public String pageNumber_lineItem = "//span[text()='Page ']//input[@type='text']";
     public String invoiceID_lineItem = "//tr[@onmouseup]//td[3]";
@@ -54,7 +57,7 @@ public class BillingByServiceTypeTab {
 
     public Map<String, String> filter_Types = new HashMap<String, String>();
 
-    public BillingByServiceTypeTab() throws Exception {
+    public BillingByServiceTypeTab() {
     }
 
     //Author: Aditya
@@ -75,7 +78,7 @@ public class BillingByServiceTypeTab {
         filter_Types.put("soldByTeam_bbst", "//label[text()='Sale Teams']//following-sibling::div//input");
         filter_Types.put("soldbySalesRep_bbst", "//label[text()='Sales Rep']//following-sibling::div//select");
 
-        // bbst report fields
+        // bbst single group report fields
         filter_Types.put("description_bbstReport", "//table[@id='revenueByServiceType']//div[text()='Description']");
         filter_Types.put("services_bbstReport", "//table[@id='revenueByServiceType']//div[text()='Services']");
         filter_Types.put("lineItemQuantity_bbstReport", "//table[@id='revenueByServiceType']//div[text()='Line Item Quantity']");
@@ -84,6 +87,16 @@ public class BillingByServiceTypeTab {
         filter_Types.put("taxInvoiced_bbstReport", "//table[@id='revenueByServiceType']//div[text()='Tax Invoiced']");
         filter_Types.put("paymentsCollected_bbstReport", "//table[@id='revenueByServiceType']//div[text()='Payments Collected']");
         filter_Types.put("billedServices_bbstReport", "//table[@id='revenueByServiceType']//div[text()='Billed Services']");
+
+        // bbst multi group report fields
+        filter_Types.put("description_bbstReport_MultiGroup", "//table[@id='revenueByServiceType']//th[text()='Description']");
+        filter_Types.put("services_bbstReport_MultiGroup", "//table[@id='revenueByServiceType']//th[text()='Services']");
+        filter_Types.put("lineItemQuantity_bbstReport_MultiGroup", "//table[@id='revenueByServiceType']//th[text()='Line Item Quantity']");
+        filter_Types.put("totalCollected_bbstReport_MultiGroup", "//table[@id='revenueByServiceType']//th[text()='Total Collected']");
+        filter_Types.put("taxCollected_bbstReport_MultiGroup", "//table[@id='revenueByServiceType']//th[text()='Tax Collected']");
+        filter_Types.put("taxInvoiced_bbstReport_MultiGroup", "//table[@id='revenueByServiceType']//th[text()='Tax Invoiced']");
+        filter_Types.put("paymentsCollected_bbstReport_MultiGroup", "//table[@id='revenueByServiceType']//th[text()='Payments Collected']");
+        filter_Types.put("billedServices_bbstReport_MultiGroup", "//table[@id='revenueByServiceType']//th[text()='Billed Services']");
 
         // individual line item fields
         filter_Types.put("customerID_lineItem", "//th[@data-orderby='customerID']");
@@ -110,11 +123,10 @@ public class BillingByServiceTypeTab {
     }
 
     //Author: Aditya
-    public void mainGroupBy(String groupByType) {
+    public void setGroupFilter(String group, String groupByType) {
         officeObjs = new OfficeObjects();
-        Utilities.waitUntileElementIsVisible(groupBy);
-        Utilities.selectValueFromDropDownByValue(groupBy, groupByType);
-        officeObjs.navigateTo(officeObjs.billingByServiceType);
+        Utilities.waitUntileElementIsVisible(group);
+        Utilities.selectValueFromDropDownByValue(group, groupByType);
     }
 
     //Author: Aditya
@@ -124,23 +136,23 @@ public class BillingByServiceTypeTab {
         officeObjs = new OfficeObjects();
         header.navigateTo(header.reportingTab);
         reportingMainPage.navigateTo(reportingMainPage.office);
-        officeObjs.navigateTo(officeObjs.billingByServiceType);
+        officeObjs.click(officeObjs.billingByServiceType);
     }
 
     //Author: Aditya
     public void editCustomerPerFilters() throws InterruptedException, IOException {
         createNewCustomer = new CreateNewCustomer();
-        dialog = new CustomerViewDialog_Header();
+        customerViewDialog_header = new CustomerViewDialog_Header();
         header = new Header();
         header.searchCustomerInOrder("1");
-        dialog.navigateTo(dialog.infoTabInDialog);
+        customerViewDialog_header.navigateTo(customerViewDialog_header.infoTabInDialog);
         createNewCustomer.addAdditionalProperties();
     }
 
     //Author: Aditya
     public void editCustomer_NoPaper_Commercial() throws InterruptedException, IOException {
         createNewCustomer = new CreateNewCustomer();
-        dialog = new CustomerViewDialog_Header();
+        customerViewDialog_header = new CustomerViewDialog_Header();
         header = new Header();
         header.clickAccessHistory();
         header.searchCustomerInOrder("1");
@@ -149,9 +161,9 @@ public class BillingByServiceTypeTab {
 
     public String getCustomerName_CustomerCard_InfoTab() throws Exception {
         createNewCustomer = new CreateNewCustomer();
-        dialog = new CustomerViewDialog_Header();
+        customerViewDialog_header = new CustomerViewDialog_Header();
         String customerName = createNewCustomer.getCustomerName("1");
-        dialog.Click_X_Button();
+        customerViewDialog_header.Click_X_Button();
         return customerName;
     }
 
@@ -159,8 +171,12 @@ public class BillingByServiceTypeTab {
         return Utilities.getElementTextValue(needIdentifier, Utilities.ElementType.XPath);
     }
 
-    public String getBilledTaxValue_Report() {
-        return Utilities.getElementTextValue(tax_Report, Utilities.ElementType.XPath).replace("\n", "");
+    public String getBilledServices_MultiGroupReport(String customerIDDetail) {
+        return Utilities.getElementTextValue("//tr[@detailvalues]//td[text()='" + customerIDDetail + "']/following-sibling::td[7]", Utilities.ElementType.XPath);
+    }
+
+    public String getTaxRate_MultiGroupReport(String customerIDDetail) {
+        return Utilities.getElementTextValue("//tr[@detailvalues]//td[text()='"+customerIDDetail+"']/following-sibling::td[5]", Utilities.ElementType.XPath);
     }
 
     public String getBilledTaxValue_Customer() {
@@ -175,12 +191,14 @@ public class BillingByServiceTypeTab {
         return Utilities.getAttributeValue(needIdentifier, needAttribute);
     }
 
-    public void searchNewCustomer() throws Exception {
-        Utilities.waitUntileElementIsVisible(search_bbst);
-        FindElement.elementByAttribute(search_bbst, FindElement.InputType.XPath).sendKeys(getCustomerName_CustomerCard_InfoTab());
+    public void searchNewCustomer(String searchBox, String searchCustomerParameter) throws Exception {
+        Utilities.waitUntileElementIsVisible(searchBox);
+        FindElement.elementByAttribute(searchBox, FindElement.InputType.XPath).sendKeys(searchCustomerParameter);
     }
 
     public void click(String needButton) {
+        Utilities.waitUntileElementIsVisible(needButton);
+        Utilities.scrollToElementJS(needButton);
         Utilities.clickElement(needButton, Utilities.ElementType.XPath);
     }
 
