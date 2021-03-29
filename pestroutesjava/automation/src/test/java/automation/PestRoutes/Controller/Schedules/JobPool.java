@@ -7,9 +7,7 @@ import automation.PestRoutes.PageObject.CustomerOverview.CustomerviewDialog_Appo
 import automation.PestRoutes.PageObject.Header;
 import automation.PestRoutes.PageObject.Scheduling.JobPoolTab;
 import automation.PestRoutes.PageObject.Scheduling.SchedulingTab;
-import automation.PestRoutes.Utilities.AppData;
-import automation.PestRoutes.Utilities.AssertException;
-import automation.PestRoutes.Utilities.Utilities;
+import automation.PestRoutes.Utilities.*;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import java.io.IOException;
@@ -25,8 +23,7 @@ public class JobPool extends AppData {
     CreateCustomerDialog createCustomerDialog;
     CustomerviewDialog_AppointmentsTab createCustomerDialog_AppointmentsTab;
 
-    private String customerName_JobPool = "";
-
+    //Author: FK
     @And("I navigate to the job pool tab")
     public void navigateToJobPool() {
         header = new Header();
@@ -35,7 +32,7 @@ public class JobPool extends AppData {
         header.navigateTo(header.schedulingTab);
         scheduleDay.clickJobPool();
     }
-
+    //Author: FK
     @And("I validate if all fields are displaying and are enabled in Job Pool")
     public void verifyFilters() {
         jobPoolTab = new JobPoolTab();
@@ -71,8 +68,8 @@ public class JobPool extends AppData {
                 jobPoolTab.filterTypes("excludeSubscriptionFlags")};
 
         AssertException.validateFieldEnabled(fields);
-        }
-
+    }
+    //Author: FK
     @Then("I add all the fields in the job pool page {string} and {string} and {string} and {string} and {string} and {string} and {string} and {string} and " +
             "{string} and {string} and {string} and {string} and {string} and {string}")
     public void completeAllJobPoolFields(String needScheduling, String needPrePlanned, String needOneTimeServices, String needPotential,
@@ -89,13 +86,60 @@ public class JobPool extends AppData {
         customerDialog_Header.navigateTo(customerDialog_Header.infoTabInDialog);
         String customerZipCode = createCustomerDialog.getZipCode();
         String customerCity = createCustomerDialog.getCity();
+        String balance = getData("balance", generalData);
+        String balanceAge = getData("balanceAge", generalData);
+        String mapPages = getData("mapCode", generalData);
+        String inclServiceType = getData("inclServiceType", generalData);
+        String exclServiceType = getData("exclServiceType", generalData);
+        String preferredTech = getData("userFirstName", generalData) + " " + getData("userLastName", generalData);
+        String filterRegion = getData("region", generalData);
+        String serviceCategory = getData("serviceCategory", generalData);
         customerDialog_Header.clickCloseButton();
 
-        setFilters(needScheduling, needPrePlanned, needOneTimeServices, needPotential, needFollowUpServices,  needPendingCancels, needPropertyType, needFlag,
-                needPreferredDay, needMeasurement, needIncludeCustomerFlag, needExcludeCustomerFlage, needIncludeSubscriptionFlag, needExcludeSubscriptionFlag,
-                customerZipCode, customerCity);
-    }
+        String[] dropDownFields = {
+                jobPoolTab.filterTypes("IncludeCustomersWithSpecialRequests"),
+                jobPoolTab.filterTypes("showPrePlanned"),
+                jobPoolTab.filterTypes("excludeOneTimeServices"),
+                jobPoolTab.filterTypes("filterPotential"),
+                jobPoolTab.filterTypes("filterFollowUp"),
+                jobPoolTab.filterTypes("pendingCancels"),
+                jobPoolTab.filterTypes("propertyType"),
+                jobPoolTab.filterTypes("includeServiceTypes"),
+                jobPoolTab.filterTypes("excludeServiceTypes"),
+                jobPoolTab.filterTypes("hideAllFlags"),
+                jobPoolTab.filterTypes("cities"),
+                jobPoolTab.filterTypes("preferredTech"),
+                jobPoolTab.filterTypes("preferredDays"),
+                jobPoolTab.filterTypes("filterRegion"),
+                jobPoolTab.filterTypes("measurement"),
+                jobPoolTab.filterTypes("serviceCategories"),
+                jobPoolTab.filterTypes("includeCustomerFlags"),
+                jobPoolTab.filterTypes("excludeCustomerFlags"),
+                jobPoolTab.filterTypes("includeSubscriptionFlags"),
+                jobPoolTab.filterTypes("excludeSubscriptionFlags")};
+        String[] dropdownValues = {needScheduling, needPrePlanned, needOneTimeServices, needPotential, needFollowUpServices, needPendingCancels,
+                needPropertyType, inclServiceType, exclServiceType, needFlag, customerCity, preferredTech, needPreferredDay, filterRegion,
+                needMeasurement, serviceCategory, needIncludeCustomerFlag, needExcludeCustomerFlage, needIncludeSubscriptionFlag, needExcludeSubscriptionFlag};
 
+        String[] dateFields = {
+                jobPoolTab.filterTypes("dueBetween"),
+                jobPoolTab.filterTypes("dueEnd"),
+                jobPoolTab.filterTypes("followUpDueBetween"),
+                jobPoolTab.filterTypes("followUpDueEnd")};
+
+        String[] inputFields = {
+                jobPoolTab.filterTypes("filterBalances"),
+                jobPoolTab.filterTypes("balanceAge"),
+                jobPoolTab.filterTypes("mapPages"),
+                jobPoolTab.filterTypes("zipCodes")};
+        String[] inputValues = {balance, balanceAge, mapPages, customerZipCode};
+
+        setDropDownFilter(dropDownFields, dropdownValues);
+        setInputFilter(inputFields, inputValues);
+        setDateFilter(dateFields);
+        jobPoolTab.clickRefreshButton();
+    }
+    //Author: FK
     @Then("I validate the job pool results")
     public void validateJobPoolResult() throws IOException, InterruptedException {
         header = new Header();
@@ -119,51 +163,8 @@ public class JobPool extends AppData {
                 expectedRegion, expectedServiceType);
         clickPlayButton(expectedCustomerName);
     }
-
-    public void setFilters(String needScheduling, String needPrePlanned, String needOneTimeServices, String needPotential,
-                           String needFollowUpServices, String needPendingCancels, String needPropertyType, String needFlag,
-                           String needPreferredDay, String needMeasurement, String needIncludeCustomerFlag, String needExcludeCustomerFlage,
-                           String needIncludeSubscriptionFlag, String needExcludeSubscriptionFlag, String customerZipCode, String customerCity) throws IOException {
-        //Set Scheduling Filters
-        jobPoolTab.selectFilter(jobPoolTab.filterTypes("IncludeCustomersWithSpecialRequests"), needScheduling);
-        jobPoolTab.selectFilter(jobPoolTab.filterTypes("showPrePlanned"), needPrePlanned);
-        jobPoolTab.selectFilter(jobPoolTab.filterTypes("excludeOneTimeServices"), needOneTimeServices);
-        //Set Due Between Filters
-        jobPoolTab.setDate(jobPoolTab.filterTypes("dueBetween"));
-        jobPoolTab.setDate(jobPoolTab.filterTypes("dueEnd"));
-        jobPoolTab.setDate(jobPoolTab.filterTypes("followUpDueBetween"));
-        jobPoolTab.setDate(jobPoolTab.filterTypes("followUpDueEnd"));
-        //Set Customer Filters
-        jobPoolTab.selectFilter(jobPoolTab.filterTypes("filterPotential"), needPotential);
-        jobPoolTab.selectFilter(jobPoolTab.filterTypes("filterFollowUp"), needFollowUpServices);
-        jobPoolTab.selectFilter(jobPoolTab.filterTypes("pendingCancels"), needPendingCancels);
-        jobPoolTab.selectFilter(jobPoolTab.filterTypes("propertyType"), needPropertyType);
-        //Set Balance Filters
-        jobPoolTab.setInputFilter(jobPoolTab.filterTypes("filterBalances"),getData("balance", generalData));
-        jobPoolTab.setInputFilter(jobPoolTab.filterTypes("balanceAge"),getData("balanceAge", generalData));
-        jobPoolTab.setInputFilter(jobPoolTab.filterTypes("mapPages"),getData("mapCode", generalData));
-        jobPoolTab.setInputFilter(jobPoolTab.filterTypes("zipCodes"), customerZipCode);
-        //Set Service Type Filters
-        jobPoolTab.selectFilter(jobPoolTab.filterTypes("includeServiceTypes"),getData("inclServiceType", generalData));
-        jobPoolTab.selectFilter(jobPoolTab.filterTypes("excludeServiceTypes"),getData("exclServiceType", generalData));
-        jobPoolTab.selectFilter(jobPoolTab.filterTypes("hideAllFlags"), needFlag);
-        jobPoolTab.selectFilter(jobPoolTab.filterTypes("cities"),customerCity);
-        //Set Preferred Filters
-        jobPoolTab.selectFilter(jobPoolTab.filterTypes("preferredTech"),getData("userFirstName", generalData) + " " + getData("userLastName", generalData));
-        jobPoolTab.selectFilter(jobPoolTab.filterTypes("preferredDays"),needPreferredDay);
-        jobPoolTab.selectFilter(jobPoolTab.filterTypes("filterRegion"),getData("region", generalData));
-        //Set Measurement and Category Filters
-        jobPoolTab.selectFilter(jobPoolTab.filterTypes("measurement"), needMeasurement);
-        jobPoolTab.selectFilter(jobPoolTab.filterTypes("serviceCategories"),getData("serviceCategory", generalData));
-        //Set Advance Filters
-        jobPoolTab.selectFilter(jobPoolTab.filterTypes("includeCustomerFlags"),needIncludeCustomerFlag);
-        jobPoolTab.selectFilter(jobPoolTab.filterTypes("excludeCustomerFlags"),needExcludeCustomerFlage);
-        jobPoolTab.selectFilter(jobPoolTab.filterTypes("includeSubscriptionFlags"),needIncludeSubscriptionFlag);
-        jobPoolTab.selectFilter(jobPoolTab.filterTypes("excludeSubscriptionFlags"),needExcludeSubscriptionFlag);
-        jobPoolTab.clickRefreshButton();
-    }
-
-    public void checkResults(String expectedStreetAddress, String expectedZipCode, String expectedCity, String expectedCustomerName,
+    //Author: FK
+     public void checkResults(String expectedStreetAddress, String expectedZipCode, String expectedCity, String expectedCustomerName,
                              String expectedPhoneNumber, String expectedRegion, String expectedServiceType) {
         customer.searchCustomer_SearchField(jobPoolTab.SearchField);
         result(expectedCustomerName.toLowerCase(), jobPoolTab.getCustomerName(expectedCustomerName).toLowerCase(), "validate customer name", "validate customer");
@@ -174,11 +175,35 @@ public class JobPool extends AppData {
         result(expectedRegion, jobPoolTab.getCustomerRegion(expectedCustomerName), "validate customer region", "validate customer");
         result(expectedServiceType, jobPoolTab.getServiceType(expectedCustomerName), "validate customer serviceType", "validate customer");
     }
-
+    //Author: FK
     public void clickPlayButton(String expectedCustomerName) {
         createCustomerDialog_AppointmentsTab = new CustomerviewDialog_AppointmentsTab();
         jobPoolTab.clickPlayButton(expectedCustomerName);
         createCustomerDialog_AppointmentsTab.clickCloseSchedulingNoticeButton();
+    }
+    //Author: FK
+    public void setDropDownFilter(String[] needArray, String[] needValue) {
+        for (int i = 0; i < needArray.length; i++) {
+            if (needValue.length > 0) {
+                jobPoolTab.selectFilter(needArray[i], needValue[i]);
+            }
+        }
+    }
+    //Author: FK
+    public void setInputFilter(String[] needArray, String[] needValue) {
+        for (int i = 0; i < needArray.length; i++) {
+            if (needValue.length > 0) {
+                jobPoolTab.setInputFilter(needArray[i], needValue[i]);
+            }
+        }
+    }
+    //Author: FK
+    public void setDateFilter(String[] needArray) {
+        for (int i = 0; i < needArray.length; i++) {
+            if (needArray.length > 0) {
+                jobPoolTab.setDate(needArray[i]);
+            }
+        }
     }
 }
 
