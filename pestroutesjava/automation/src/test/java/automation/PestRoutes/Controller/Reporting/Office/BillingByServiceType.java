@@ -49,7 +49,7 @@ public class BillingByServiceType extends AppData {
         billingByServiceType.navigateToBillingByServiceTypePage();
     }
 
-    public BillingByServiceType() throws Exception {
+    public BillingByServiceType() {
     }
 
     //Author: Aditya
