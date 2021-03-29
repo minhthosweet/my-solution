@@ -19,7 +19,7 @@ public class BillingByServiceTypeTab {
     ReportingMainPage reportingMainPage;
     OfficeObjects officeObjs;
     CreateNewCustomer createNewCustomer;
-    CustomerViewDialog_Header dialog;
+    CustomerViewDialog_Header customerViewDialog_header;
 
     // Report Fields
     public String dateParams = "//input[@name='dateRange-officeParams']";
@@ -142,17 +142,17 @@ public class BillingByServiceTypeTab {
     //Author: Aditya
     public void editCustomerPerFilters() throws InterruptedException, IOException {
         createNewCustomer = new CreateNewCustomer();
-        dialog = new CustomerViewDialog_Header();
+        customerViewDialog_header = new CustomerViewDialog_Header();
         header = new Header();
         header.searchCustomerInOrder("1");
-        dialog.navigateTo(dialog.infoTabInDialog);
+        customerViewDialog_header.navigateTo(customerViewDialog_header.infoTabInDialog);
         createNewCustomer.addAdditionalProperties();
     }
 
     //Author: Aditya
     public void editCustomer_NoPaper_Commercial() throws InterruptedException, IOException {
         createNewCustomer = new CreateNewCustomer();
-        dialog = new CustomerViewDialog_Header();
+        customerViewDialog_header = new CustomerViewDialog_Header();
         header = new Header();
         header.clickAccessHistory();
         header.searchCustomerInOrder("1");
@@ -161,9 +161,9 @@ public class BillingByServiceTypeTab {
 
     public String getCustomerName_CustomerCard_InfoTab() throws Exception {
         createNewCustomer = new CreateNewCustomer();
-        dialog = new CustomerViewDialog_Header();
+        customerViewDialog_header = new CustomerViewDialog_Header();
         String customerName = createNewCustomer.getCustomerName("1");
-        dialog.Click_X_Button();
+        customerViewDialog_header.Click_X_Button();
         return customerName;
     }
 
