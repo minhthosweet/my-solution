@@ -221,7 +221,7 @@ public class BillingByServiceType extends AppData {
     public void validateFields_BBSTLineItem() throws InterruptedException {
         createNewCustomer = new CreateNewCustomer();
         header = new Header();
-
+        
         try {
             String[] fields = {billingByServiceTypeTab.search_lineItem,
                     billingByServiceTypeTab.pageNumber_lineItem,
@@ -250,7 +250,7 @@ public class BillingByServiceType extends AppData {
             if (!CucumberBaseClass.scenarioName().equals("Multi Group By filter validation in BBST")) {
                 header.clickAccessHistory();
             }
-            createNewCustomer.removeCustomer(customerName);
+            createNewCustomer.removeCustomer();
         }
     }
 

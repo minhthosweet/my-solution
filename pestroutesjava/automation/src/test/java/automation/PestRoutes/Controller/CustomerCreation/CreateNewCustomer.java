@@ -23,6 +23,7 @@ import static automation.PestRoutes.Utilities.AssertException.result;
 
 public class CreateNewCustomer extends AppData {
     CreateCustomerDialog customer;
+    CreateNewCustomer createNewCustomer;
     CustomerViewDialog_Header customerDialog_Header;
     CustomerViewDialog_OverviewTab overview;
     CustomerViewDialog_Admin adminTab;
@@ -33,11 +34,14 @@ public class CreateNewCustomer extends AppData {
     public String fName = Utilities.generateRandomString(7);
     public String lName = Utilities.generateRandomString(6);
     String expectedAlert = "Required: You must fill in the customer's last name or company name!";
+
     public String streetAddress = Integer.toString(Utilities.generateRandomNumber(4)) + " " + Utilities.generateRandomString(5) + " " + Utilities.generateRandomString(5);
-    String zipcode = "7" + Utilities.generateRandomNumber(4);
     public String city = Utilities.generateRandomString(4);
+    public String zipcode = "7" + Utilities.generateRandomNumber(4);
     public String email = Utilities.generateRandomString(5)+"."+Utilities.generateRandomString(5)+""+"@gmail.com";
     public String primaryPhoneNumber = "6" + Integer.toString(Utilities.generateRandomNumber(9));
+
+    public static String customerName = "";
 
     @Test
     public void createCustomer() throws Exception {
@@ -87,7 +91,7 @@ public class CreateNewCustomer extends AppData {
         customer.clickVoiceCheckBox();
         customerDialog_Header.clickSaveButton();
         alertCondition();
-        captureUserIdAndFullName();
+        customerName = getCustomerFullName();
     }
 
     //**Author Aarbi
@@ -109,6 +113,7 @@ public class CreateNewCustomer extends AppData {
         customer.clickVoiceCheckBox();
         customerDialog_Header.clickSaveButton();
         alertCondition();
+        customerName = getCustomerFullName();
     }
 
     @And("I validate search customer with first name")
@@ -208,7 +213,6 @@ public class CreateNewCustomer extends AppData {
         customer.setCellPhone(getData("phoneNumber", generalData));
         customerDialog_Header.clickSaveButton();
         alertCondition();
-        captureUserIdAndFullName();
         customerDialog_Header.navigateTo(customerDialog_Header.infoTabInDialog);
         customer.clickOverrideTaxCheckBox();
         result(needMainTax, customer.getTaxRate(customer.mainTaxPercentage),"Entered Main Tax" , "Tax Rate Validation");
@@ -221,7 +225,6 @@ public class CreateNewCustomer extends AppData {
         result(needDistrict3Tax, customer.getTaxRate(customer.district3TaxPercentage), "Entered District3 Tax" , "Tax Rate Validation");
         result(needDistrict4Tax, customer.getTaxRate(customer.district4TaxPercentage), "Entered District4 Tax" , "Tax Rate Validation");
         result(needDistrict5Tax,customer.getTaxRate(customer.district5TaxPercentage), "Entered District5 Tax" , "Tax Rate Validation");
-        customer.clickOverrideTaxCheckBox();
     }
 
     @When("I create customer with first name, last name, address and generic flag {string} and {string}")
@@ -236,15 +239,18 @@ public class CreateNewCustomer extends AppData {
         customer.selectUnit("Multi Unit");
         customer.setAddress(streetAddress);
         customer.setZipCode(zipcode);
+        customer.setCity(city);
         customer.setCellPhone(getData("phoneNumber", generalData));
         customer.selectSource(needSource);
         customer.selectGenericFlag(needFlagName);
+        customer.setMapCode(getData("mapCode", generalData));
         customer.clickSmsCheckBox();
         customer.clickEmailCheckBox();
         customer.clickVoiceCheckBox();
         customerDialog_Header.clickSaveButton();
         alertCondition();
-        captureUserIdAndFullName();
+        customerName = getCustomerFullName();
+
     }
     @When("I create customer with pref paper")
     public void createCustomerWithPrefPaper() throws Exception {
@@ -265,7 +271,7 @@ public class CreateNewCustomer extends AppData {
         customer.clickPrefersPaperCheckBox();
         customerDialog_Header.clickSaveButton();
         alertCondition();
-        captureUserIdAndFullName();
+        customerName = getCustomerFullName();
 
     }
 
@@ -290,7 +296,7 @@ public class CreateNewCustomer extends AppData {
         customer.selectProperty(customer.residentialProperty);
         customerDialog_Header.clickSaveButton();
         alertCondition();
-        captureUserIdAndFullName();
+        customerName = getCustomerFullName();
 
     }
 
@@ -320,7 +326,7 @@ public class CreateNewCustomer extends AppData {
         customer.clickVoiceCheckBox();
         customerDialog_Header.clickSaveButton();
         alertCondition();
-        captureUserIdAndFullName();
+        customerName = getCustomerFullName();
     }
 
     @And("I add additional properties to the customer")
@@ -350,7 +356,7 @@ public class CreateNewCustomer extends AppData {
         customer.clickSmsCheckBox();
         customerDialog_Header.clickSaveButton();
         alertCondition();
-        captureUserIdAndFullName();
+        customerName = getCustomerFullName();
     }
 
     @Given("I close customer card")
@@ -468,8 +474,8 @@ public class CreateNewCustomer extends AppData {
         customerDialog_Header.navigateTo(customerDialog_Header.infoTabInDialog);
         return customerViewDialog_infoTab.getFirstName()+ " " + customerViewDialog_infoTab.getLastName();
     }
-    @Then("I remove customer")
-    public void removeCustomer(String customerName) throws InterruptedException {
+    @Then("I remove the customer")
+    public void removeCustomer() throws InterruptedException {
         header = new Header();
         customerDialog_Header = new CustomerViewDialog_Header();
         adminTab = new CustomerViewDialog_Admin();
@@ -480,6 +486,15 @@ public class CreateNewCustomer extends AppData {
         Utilities.clickElement(adminTab.removeButton, ElementType.XPath);
         Utilities.waitUntileElementIsVisible(adminTab.confirmRemoveButton);
         Utilities.clickElement(adminTab.confirmRemoveButton, ElementType.XPath);
+    }
+
+    //Author FK
+    public void searchCustomer_SearchField(String needSearchField) {
+        createNewCustomer = new CreateNewCustomer();
+        header = new Header();
+        String convertedCustomerName = header.convertName(customerName);
+        Utilities.clickElement(needSearchField, ElementType.XPath);
+        FindElement.elementByAttribute(needSearchField, FindElement.InputType.XPath).sendKeys(convertedCustomerName);
     }
 
 }

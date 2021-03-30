@@ -3,16 +3,15 @@
 @RegressionFRK
 Feature: Add Equipment on customer card
 
-  Scenario: Add equipment type on customer card
-    Given I delete a routing group
-    Given I add equipment type "ID1" and "Automation Test1" and "Yes"
+  Scenario Outline: Add equipment type on customer card
+    Given I add equipment type "<ID>" and "<Description2>" and "<BarcodeRequired>"
     When I create customer with first name, last name and address
-    And I add new equipment with barcode required "Automation" and "Automation Test1" and "DE1" and "1234" and "Injection" and "Test123" and "Bed" and "Bed Bugs" and "Special Product"
+    And I add new equipment with barcode required "<Description1>" and "<Description2>" and "<Flags>" and "1234" and "Injection" and "<Barcode>" and "Bed" and "Bed Bugs" and "Special Product"
     And I search customer
-    And I verify that the equipment was added "Automation Test1"
-    Given I add equipment type "ID2" and "Automation Test2" and "No"
-    When I create customer with first name, last name and address
-    And I add new equipment with barcode required "Automation2" and "Automation Test2" and "DE2" and "1234" and "Injection" and "" and "Bed" and "Bed Bugs" and "Special Product"
-    And I search customer
-    And I verify that the equipment was added "Automation Test2"
+    And I verify that the equipment was added "<Description2>"
     And I validate if there are errors exist in the list
+
+    Examples:
+      | Description1 | Description2     | Flags | Barcode | ID | BarcodeRequired |
+      | Automation   | Automation Test1 | DE1   | Test123 | ID1| Yes             |
+      | Automation2  | Automation Test2 | DE2   |         | ID2| No              |

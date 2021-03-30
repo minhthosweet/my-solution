@@ -13,7 +13,6 @@ public class CreateLeads extends AppData {
 	
 	CustomerViewDialog_Header header;
 	String additialItem = "bed";
-	
 	String assignto = "Automation User - Office";
 	String source = "Customer Referral";
 	String contractLength = "12 months";

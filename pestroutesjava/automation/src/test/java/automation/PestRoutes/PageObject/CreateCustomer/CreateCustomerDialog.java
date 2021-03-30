@@ -55,6 +55,7 @@ public class CreateCustomerDialog {
     public String district5TaxPercentage = "//input[@name='districtTax5']";
     public String divisionDropDown = "//select[@name= 'divisionID']";
     public String info = "//a[text()= 'Info']";
+    public String mapCode = "//input[@name= 'mapCode']";
     public String clickSave = "//button[@id='globalCustomerSaveButton']//span[text()='Save']";
     public String clickAddFlag = "//span[text()='Add Flag']";
 
@@ -246,6 +247,10 @@ public class CreateCustomerDialog {
         FindElement.elementByAttribute(taxPercentageInputField, InputType.XPath).sendKeys(needTaxPercentage);
     }
 
+    public void setMapCode(String needMapCode) {
+        FindElement.elementByAttribute(mapCode, InputType.XPath).sendKeys(needMapCode);
+    }
+
     public void clickInfo() {
         Utilities.waitUntileElementIsVisible(info);
         Utilities.clickElement(info, ElementType.XPath);
@@ -268,6 +273,18 @@ public class CreateCustomerDialog {
 
     public String getTaxRate(String needTaxField) {
         return Utilities.getAttributeValue(needTaxField, "value");
+    }
+
+    public String getAddress() {
+        return Utilities.getAttributeValue(addressInputField, "value");
+    }
+
+    public String getZipCode() {
+        return Utilities.getAttributeValue(zipCodeInputField, "value");
+    }
+
+    public String getCity() {
+        return Utilities.getAttributeValue(cityInputField, "value");
     }
 
 }

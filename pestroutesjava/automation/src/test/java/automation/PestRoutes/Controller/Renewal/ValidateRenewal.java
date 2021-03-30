@@ -107,6 +107,7 @@ public class ValidateRenewal extends AppData {
         header.navigateTo(header.schedulingTab);
         scheduleDay.addScheduleDateToProperties();
         scheduleDay.clickScheduleDay();
+
     }
 
     @And("I navigate to scheduling on same Day")
@@ -332,7 +333,7 @@ public class ValidateRenewal extends AppData {
         String customerName = customer.getCustomerFullName();
         customer.closeCustomerCard();
         overviewHeader.discardChanges();
-        customer.removeCustomer(customerName);
+        customer.removeCustomer();
     }
 
 }

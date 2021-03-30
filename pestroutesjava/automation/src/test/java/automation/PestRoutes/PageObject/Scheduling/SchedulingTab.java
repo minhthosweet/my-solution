@@ -13,6 +13,7 @@ public class SchedulingTab extends AppData {
     public String scheduleSameDay = "//div[@style='border:1px solid;']";
     public String scheduleButtonInDialog = "//span[text()='Schedule']";
     public String closeRecommendedRoutes = "//span[text()='Recommended Routes']/following-sibling::button[@title='close']";
+    public String jobPool = "//p[text()='Job Pool']";
 
     public void clickScheduleDay() {
         String date = Utilities.currentDate("M/d/yyyy");
@@ -29,6 +30,11 @@ public class SchedulingTab extends AppData {
 
     public void clickScheduleDaysAfter(String days) {
         Utilities.jsClickElement("//div[@style='border:1px solid;']/following-sibling::div[" + days + "]", ElementType.XPath);
+    }
+
+    public void clickJobPool() {
+        Utilities.waitUntileElementIsVisible(jobPool);
+        Utilities.clickElement(jobPool, ElementType.XPath, true, true);
     }
 
     public void addScheduleDateToProperties() throws Exception {

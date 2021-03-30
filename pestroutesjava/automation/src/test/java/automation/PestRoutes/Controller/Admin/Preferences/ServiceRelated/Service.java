@@ -31,6 +31,20 @@ public class Service extends AppData {
         }
     }
 
+    //Author FK
+    @Given("I add a recurring renewal service type if it is not already existing {string}")
+    public void recurringServicetype(String needServiceDescription) throws Exception {
+        navigateToServiceType();
+        searchService(needServiceDescription);
+        try {
+            service = new ServiceTypes();
+            WebElement elm = service.getDescription(needServiceDescription);
+        } catch (Exception e) {
+            System.out.println("did not find recurring renewal service");
+            addRecurringRenewalServiceType(needServiceDescription);
+        }
+    }
+
     @And("I navigate to Service Types")
     public void navigateToServiceType() throws InterruptedException {
         admin = new AdminMainPage();
@@ -61,6 +75,26 @@ public class Service extends AppData {
         service.setAppointLegnth("60");
         service.selectFromDropdown(service.defaultContractLengthDropDown, "No Contract");
         service.selectFromDropdown(service.minimumContractLengthDropDown, "No Contract");
+        service.selectFromDropdown(service.displayRenewalDateDropDown, "Yes");
+        service.selectFromDropdown(service.renewalFrequencyDropDown, "Annually");
+        service.selectFromDropdown(service.setRenewalDateDropDown, "On Initial Service Completion");
+        service.clickSave();
+    }
+
+    //Author FK
+    public void addRecurringRenewalServiceType(String needServiceDescription) throws Exception {
+        service = new ServiceTypes();
+        service.clickAddServiceButton();
+        service.setDescription(needServiceDescription);
+        service.setCategory(getData("serviceCategory", generalData));
+        service.setAbbreviation(getData("serviceAbbreviation", generalData));
+        service.selectFromDropdown(service.globalDropDown, "Specific to this office");
+        service.selectFromDropdown(service.visibilityDropDown, "Visible");
+        service.selectFromDropdown(service.appointmentFrequencyDropDown, "Alternate Monthly");
+        service.selectFromDropdown(service.defaultFollowUpDelayDropDown, "1 Month");
+        service.setAppointLegnth("60");
+        service.selectFromDropdown(service.defaultContractLengthDropDown, "12 Months");
+        service.selectFromDropdown(service.minimumContractLengthDropDown, "12 Months");
         service.selectFromDropdown(service.displayRenewalDateDropDown, "Yes");
         service.selectFromDropdown(service.renewalFrequencyDropDown, "Annually");
         service.selectFromDropdown(service.setRenewalDateDropDown, "On Initial Service Completion");
