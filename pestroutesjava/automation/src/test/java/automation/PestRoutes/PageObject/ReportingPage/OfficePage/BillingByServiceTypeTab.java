@@ -130,16 +130,6 @@ public class BillingByServiceTypeTab {
     }
 
     //Author: Aditya
-    public void navigateToBillingByServiceTypePage() {
-        header = new Header();
-        reportingMainPage = new ReportingMainPage();
-        officeObjs = new OfficeObjects();
-        header.navigateTo(header.reportingTab);
-        reportingMainPage.navigateTo(reportingMainPage.office);
-        officeObjs.click(officeObjs.billingByServiceType);
-    }
-
-    //Author: Aditya
     public void editCustomerPerFilters() throws InterruptedException, IOException {
         createNewCustomer = new CreateNewCustomer();
         customerViewDialog_header = new CustomerViewDialog_Header();
