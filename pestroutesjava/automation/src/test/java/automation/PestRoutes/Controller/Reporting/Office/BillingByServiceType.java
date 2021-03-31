@@ -127,7 +127,8 @@ public class BillingByServiceType extends AppData {
         customerCardHeader = new CustomerViewDialog_Header();
         creditMemoTab = new CreditMemoTab();
         header = new Header();
-        header.searchCustomerWithName(customerName);
+        createNewCustomer = new CreateNewCustomer();
+        header.searchCustomerWithName(createNewCustomer.getCustomerFullName());
         customerCardHeader.navigateTo(customerCardHeader.invoicesTabInDialog);
         if (CucumberBaseClass.scenarioName().equals("Credit memo validation is BST")) {
             billingByServiceTypeTab.click(creditMemoTab.getTicketID());

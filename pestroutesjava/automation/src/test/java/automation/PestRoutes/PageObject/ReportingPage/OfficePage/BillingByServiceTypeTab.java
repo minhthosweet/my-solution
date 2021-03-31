@@ -181,7 +181,7 @@ public class BillingByServiceTypeTab {
         return Utilities.getAttributeValue(needIdentifier, needAttribute);
     }
 
-    public void searchNewCustomer(String searchBox, String searchCustomerParameter) throws Exception {
+    public void searchNewCustomer(String searchBox, String searchCustomerParameter) {
         Utilities.waitUntileElementIsVisible(searchBox);
         FindElement.elementByAttribute(searchBox, FindElement.InputType.XPath).sendKeys(searchCustomerParameter);
     }

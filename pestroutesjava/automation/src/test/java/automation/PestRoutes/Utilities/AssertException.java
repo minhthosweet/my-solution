@@ -19,6 +19,7 @@ public class AssertException {
 			System.out.println(testName);
 			System.out.println("Expected was : '" + expected.replaceAll("\\s", "") + "'");
 			System.out.println("Actual is : '" + actual.replaceAll("\\s", "") + "'");
+			list.add(testName + ":" + e.getMessage());
 		}
 		return list;
 	}
@@ -54,9 +55,7 @@ public class AssertException {
 	}
 
 	public static void result(String expected, String actual, String stepName, String testName) {
-		List list = new ArrayList<String>();
 		if (AssertException.result(expected, actual, stepName).size() > 0) {
-			list.add(AssertException.result(expected, actual, stepName));
 		}
 		Reporter.status(stepName, expected, actual, testName);
 	}

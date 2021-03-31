@@ -286,7 +286,10 @@ public class CreateNewCustomer extends AppData {
         customer.setLastName(lName);
         customer.selectUnit("Multi Unit");
         customer.setAddress(streetAddress);
-        customer.setZipCode(zipcode);
+        if (CucumberBaseClass.scenarioName().equals("AutoPay validation for ACH and CC or ACH is BST")) {
+            customer.setZipCode("77008");
+        }else{
+        customer.setZipCode(zipcode);}
         customer.setEmailAddress(email);
         customer.setCellPhone(getData("phoneNumber", generalData));
         customer.clickSmsCheckBox();
