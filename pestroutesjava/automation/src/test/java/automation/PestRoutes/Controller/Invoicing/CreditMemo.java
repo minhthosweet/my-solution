@@ -63,7 +63,7 @@ public class CreditMemo extends AppData {
         creditMemoTab.validateServiceTypeName();
         result("-" + totalInvoiceValue, creditMemoTab.getChargesAmount_creditMemo(), "Charges validation in Credit Memo", "Invoice Validation");
         result(customerName + "(SELF)", creditMemoTab.getBilledAccount(), "Billed To validation in Credit Memo", "Invoice Validation");
-        result(Utilities.currentDate("MM/dd/yy").replaceAll("0", ""), creditMemoTab.getCreditMemoDate(), "Credit Memo Date validation in Credit Memo", "Invoice Validation");
+        result(Utilities.currentDate("MM/dd/yy").replaceAll("0", ""), creditMemoTab.getCreditMemoDate().replaceAll("0", ""), "Credit Memo Date validation in Credit Memo", "Invoice Validation");
         result(creditMemoTab.getInvoiceApplicationDate(), creditMemoTab.getCreditMemoDate(), "Invoice Application Date validation in Credit Memo", "Invoice Validation");
         result(balance, creditMemoTab.getPaymentsBalance(), "Balance validation in Credit Memo", "Invoice Validation");
         creditMemoTab.clickAppliedCharge_invoiceApplications();
