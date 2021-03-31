@@ -96,6 +96,9 @@ public class InvoiceImplementation {
     public String invoicePrintButton = "//div[@id='printInvoiceButton']";
     public String creditMemoButton = "//div[@id='creditMemoButton']";
 
+    //Payments
+    public String addPaymentButton = "//div[text() = '+ Add Payment']";
+
     //Print Invoice Objects
     public String additionalNotes ="//div[contains(@id,'additionalNotes')]//following-sibling::textarea";
     public String markLetterSentButton = "//div[@id='markPrintButton']";

@@ -277,11 +277,10 @@ public class AccountReceivable extends BaseClass {
         invoice = new RoutePageInvoicing();
         newInvoice = new CreateNewInvoicePopUp();
         customerCardHeader = new CustomerViewDialog_Header();
-        String amount = needAmount;
         customerCardHeader.navigateTo(customerCardHeader.invoicesTabInDialog);
         invoice.clickAddNewInvoice(invoice.addNewInvoice);
         newInvoice.set(newInvoice.dateField, needDate);
-        newInvoice.set(newInvoice.amountInputField, amount);
+        newInvoice.set(newInvoice.amountInputField, needAmount);
         newInvoice.select(newInvoice.serviceTypeDropdown, needServiceType);
         newInvoice.click(newInvoice.createButton);
     }

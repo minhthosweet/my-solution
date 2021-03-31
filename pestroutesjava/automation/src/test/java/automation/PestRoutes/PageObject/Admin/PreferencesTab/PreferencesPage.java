@@ -8,12 +8,13 @@ public class PreferencesPage {
 	
 	//Office settings navigation
 	public String officeSettingsRelatedNav = "//h2[@id='office']";
-	public String customerPreferencesRelatedNav = "//h2[@id='customer']";
+
 	
 	//Partner Sited/Apps navigation
 	public String partnerSites_AppsRelatedNav = "//h2[@id='partner']";
 	
 	//Customer preferences navigation
+	public String customerPreferencesRelatedNav = "//h2[@id='customer']";
 	public String additionalContactTypes = "//li[text()='Additional Contact Types']";
 	public String cancellationReasons = "//li[text()='Cancellation Reasons']";
 	public String contractTemplates = "//li[text()='Contract Templates']";

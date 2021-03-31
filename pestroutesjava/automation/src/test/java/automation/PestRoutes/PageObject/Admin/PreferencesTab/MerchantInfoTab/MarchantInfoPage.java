@@ -1,13 +1,21 @@
 package automation.PestRoutes.PageObject.Admin.PreferencesTab.MerchantInfoTab;
 
+import automation.PestRoutes.Utilities.Utilities;
+
 public class MarchantInfoPage {
-    //**Left Nav in preferences
-    public String merchantInfoText = "//li[text()='Merchant Info']";
 
     //**Default vault settings
+    public String defaultSettingsEditButton = "//form[@name='defaultSettings']/div[text()='edit']";
+    public String defaultSettingsSaveButton = "//form[@name='defaultSettings']/div[text()='save']";
     public String ccGatewaysDropdown = "//select[@name='paymentGateway']";
     public String achGatewaysDropdown = "//select[@name='achGateway']";
-    public String defaultVaultEditButton = "//form[@name='defaultSettings']//div[text()='edit']";
-    public String defaultVaultSaveButton = "//form[@name='defaultSettings']//div[text()='save']";
+
+
+    public void select(String needDropdown, String needText){
+        Utilities.selectValueFromDropDownByValue(needDropdown, needText);
+    }
+    public void click(String needElement){
+        Utilities.clickElement(needElement, Utilities.ElementType.XPath);
+    }
 
 }

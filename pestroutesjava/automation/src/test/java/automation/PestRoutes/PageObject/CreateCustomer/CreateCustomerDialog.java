@@ -238,7 +238,8 @@ public class CreateCustomerDialog {
         FindElement.elementByAttribute(zipCodeInputField, InputType.XPath).sendKeys(needZipCode);
     }
 
-    public void setCity(String needCity) {
+    public void setCity(String needCity) throws InterruptedException {
+        Thread.sleep(200);
         FindElement.elementByAttribute(cityInputField, InputType.XPath).sendKeys(Keys.CONTROL, "a");
         FindElement.elementByAttribute(cityInputField, InputType.XPath).sendKeys(needCity);
     }

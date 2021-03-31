@@ -3,15 +3,20 @@ package automation.PestRoutes.Controller.Invoicing;
 import automation.PestRoutes.Controller.CustomerCreation.CreateNewCustomer;
 import automation.PestRoutes.Controller.Subscriptions.AddSubscription;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_SubscriptionTab;
+import automation.PestRoutes.PageObject.CustomerOverview.Invoicing.CreateNewInvoicePopUp;
 import automation.PestRoutes.Utilities.AppData;
+import automation.PestRoutes.Utilities.FindElement;
 import automation.PestRoutes.Utilities.Utilities;
 import io.cucumber.java.en.And;
+import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.testng.annotations.Test;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_Header;
 import automation.PestRoutes.PageObject.CustomerOverview.Invoicing.InvoiceImplementation;
 import automation.PestRoutes.PageObject.CustomerOverview.Invoicing.Invoice_Header;
 import automation.PestRoutes.PageObject.CustomerOverview.Invoicing.RoutePageInvoicing;
+import automation.PestRoutes.PageObject.CustomerOverview.Invoicing.CreditCard.CardOnFile;
+import automation.PestRoutes.PageObject.CustomerOverview.Invoicing.CreditCard.CreditCardConfirmationPage;
 import automation.PestRoutes.Utilities.Reporter;
 
 import java.io.IOException;
@@ -21,6 +26,7 @@ import static automation.PestRoutes.Utilities.AssertException.result;
 public class InvoicingTab extends AppData {
 
     InvoiceImplementation invImplementation = new InvoiceImplementation();
+    CreateNewInvoicePopUp newInvoice;
     CreateNewCustomer createCustomer;
     RoutePageInvoicing invoiceRoutesTab = new RoutePageInvoicing();
     CustomerViewDialog_Header customerCardHeader;
@@ -48,6 +54,19 @@ public class InvoicingTab extends AppData {
         assertPartialCharge(partialPaymentAmount, partialPaymentAmount);
         reducingBalance();
         assertFullCharge();
+    }
+
+    //**Author Aarbi**
+    @And("I create standalone service invoice {string}")
+    public void createStandAloneServiceInvoice_CurrentDate(String needAmount) throws InterruptedException {
+        newInvoice = new CreateNewInvoicePopUp();
+        customerCardHeader = new CustomerViewDialog_Header();
+        customerCardHeader.navigateTo(customerCardHeader.invoicesTabInDialog);
+        invoiceRoutesTab.clickAddNewInvoice(invoiceRoutesTab.addNewInvoice);
+        newInvoice.set(newInvoice.dateField, Utilities.currentDate("MM/dd/yyyy"));
+        newInvoice.set(newInvoice.amountInputField, needAmount);
+        newInvoice.select(newInvoice.serviceTypeDropdown, "Automation Renewal");
+        newInvoice.click(newInvoice.createButton);
     }
 
     // Add a new invoice to the customer
@@ -297,13 +316,24 @@ public class InvoicingTab extends AppData {
     }
 
     //**Author Aarbi
-
-    public void makeCCPayment(String gateway, String needServiceType){
+    @Then("I make payment with credit card on file {string}")
+    public void makeCardOnFile_CCPayment(String needServiceType){
         invoiceHeader = new Invoice_Header();
+        CardOnFile cardOnFile = new CardOnFile();
+        CreditCardConfirmationPage confirmationPage = new CreditCardConfirmationPage();
+        Utilities.waitUntileElementIsVisible(invoiceRoutesTab.addNewInvoice);
         invImplementation.clickInvoice(needServiceType);
         invoiceRoutesTab.clickAddPayment();
         invoiceHeader.navigate(invoiceHeader.creditCard);
-
+        Utilities.waitUntileElementIsVisible(cardOnFile.chargeCardButton);
+        String confirmAmount = Utilities.getAttributeValue(cardOnFile.paymentAmountInputField, "value");
+        FindElement.elementByAttribute(cardOnFile.confirmAmountInputField, FindElement.InputType.XPath).sendKeys(confirmAmount);
+        FindElement.elementByAttribute(cardOnFile.cvvCodeInputField, FindElement.InputType.XPath).sendKeys("123");
+        Utilities.clickElement(cardOnFile.chargeCardButton, Utilities.ElementType.XPath);
+        Utilities.waitUntileElementIsVisible(confirmationPage.paymentResultTitle);
+        String paymentConfirmation = Utilities.getElementTextValue(confirmationPage.confirmationMessage, Utilities.ElementType.XPath);
+        String expectedConfirmation = "Successfully Charged Credit Card!";
+        result(expectedConfirmation, paymentConfirmation, "Credit Card Confirmation", "Card on file payment");
     }
 
 }
