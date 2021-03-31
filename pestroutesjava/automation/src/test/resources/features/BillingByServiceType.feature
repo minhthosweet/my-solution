@@ -18,7 +18,6 @@ Feature: Billing by service Type report end to end validation
     And I add additional properties to customer
     And I create a subscription of type "After Agreement Signed"
     And I sign the agreement for subscription of type After Agreement Signed
-    And I close customer card
     Given I navigate to Report of type "Billing by Service Type"
     And I group by customer name
     And I add all the filters

@@ -37,7 +37,7 @@ public class CreateNewCustomer extends AppData {
 
     public String streetAddress = Integer.toString(Utilities.generateRandomNumber(4)) + " " + Utilities.generateRandomString(5) + " " + Utilities.generateRandomString(5);
     public String city = Utilities.generateRandomString(4);
-    public String zipcode = "77" + Utilities.generateRandomNumber(3);
+    public String zipcode = "7" + Utilities.generateRandomNumber(4);
     public String email = Utilities.generateRandomString(5)+"."+Utilities.generateRandomString(5)+""+"@gmail.com";
     public String primaryPhoneNumber = "6" + Integer.toString(Utilities.generateRandomNumber(9));
 
@@ -286,7 +286,10 @@ public class CreateNewCustomer extends AppData {
         customer.setLastName(lName);
         customer.selectUnit("Multi Unit");
         customer.setAddress(streetAddress);
-        customer.setZipCode(zipcode);
+        if (CucumberBaseClass.scenarioName().equals("AutoPay validation for ACH and CC or ACH is BST")) {
+            customer.setZipCode("77008");
+        }else{
+        customer.setZipCode(zipcode);}
         customer.setEmailAddress(email);
         customer.setCellPhone(getData("phoneNumber", generalData));
         customer.clickSmsCheckBox();
