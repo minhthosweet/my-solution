@@ -259,10 +259,35 @@ public class AccountReceivable extends BaseClass {
         customer.removeCustomer();
     }
 
-    //**Author Aarbi**
-    public void validateIncludeFlags() throws Exception {
+    //**FK**
+    @Then("I validate customer with including {string} and excluding {string} flags and groupBy {string} and collection {string} in account receivable page")
+    public void validateIncludeFlags(String needInclFlag, String needExclFlag, String needGroupBy, String needInclCollection) throws Exception {
         customer = new CreateNewCustomer();
-        customer.createCustomerWithGenericFlag("", "");
+        customerCardBillingTab = new BillingPage();
+        customerCardHeader = new CustomerViewDialog_Header();
+        billing = new Billing();
+        String customerName = customer.getCustomerFullName();
+        billing.addPaymentCC();
+        billing.addCustomerOnAutoPayCCWithMaxLimit("400");
+        createStandAloneServiceInvoice("400", Utilities.currentDate("MM/dd/yyyy"), "Automation Renewal");
+        customer.closeCustomerCard();
+        navigateToAccountReceivablePage();
+        accountReceivable.click(accountReceivable.advanceFilterLink);
+        if (needInclFlag.length() > 0) {
+            accountReceivable.select(accountReceivable.inclFlagsDropdown, needInclFlag);
+        }
+        if (needExclFlag.length() > 0) {
+            accountReceivable.select(accountReceivable.exclFlagsDropdown, needExclFlag);
+        }
+        if (needGroupBy.length() > 0) {
+            accountReceivable.select(accountReceivable.groupByDropdown, needGroupBy);
+        }
+        if (needInclCollection.length() > 0) {
+            accountReceivable.select(accountReceivable.inclCollectionDropdown, needInclCollection);
+        }
+        accountReceivable.click(accountReceivable.refreshButton);
+        searchAndValidateCustomer_AccountReceivable(customerName, " Customer with flags");
+        customer.removeCustomer();
     }
     //**Author Aarbi**
     @And("I navigate to account receivable under Billings")
