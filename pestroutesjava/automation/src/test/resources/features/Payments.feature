@@ -9,14 +9,14 @@ Feature: Validate all types of payments
     When I create customer with first name, last name, email and address
     And I add a CC payment option
     And I create standalone service invoice "<Amount>"
-    Then I make payment with credit card on file "<ServiceType>"
+    Then I make payment with credit card on file
     And I validate if there are errors exist in the list
     Then I remove the customer
 
     Examples:
-      |Gateway|Amount|ServiceType|
-      |Braintree|400|Automation Renewal|
-      |Element  |400|Automation Renewal|
-      |Spreedly |400|Automation Renewal|
-      |NMI |400|Automation Renewal|
-      |PestRoutes Payments |400|Automation Renewal|
+      |Gateway|Amount|
+      |Braintree|400|
+      |Element  |400|
+      |Spreedly |400|
+      |NMI |400|
+      |PestRoutes Payments |400|
