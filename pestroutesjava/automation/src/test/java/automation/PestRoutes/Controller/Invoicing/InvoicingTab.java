@@ -316,13 +316,15 @@ public class InvoicingTab extends AppData {
     }
 
     //**Author Aarbi
-    @Then("I make payment with credit card on file {string}")
-    public void makeCardOnFile_CCPayment(String needServiceType){
+    @Then("I make payment with credit card on file")
+    public void makeCardOnFile_CCPayment() throws InterruptedException {
         invoiceHeader = new Invoice_Header();
         CardOnFile cardOnFile = new CardOnFile();
         CreditCardConfirmationPage confirmationPage = new CreditCardConfirmationPage();
+        customerCardHeader = new CustomerViewDialog_Header();
+        customerCardHeader.navigateTo(customerCardHeader.invoicesTabInDialog);
         Utilities.waitUntileElementIsVisible(invoiceRoutesTab.addNewInvoice);
-        invImplementation.clickInvoice(needServiceType);
+        invImplementation.clickInitialInvoice();
         invoiceRoutesTab.clickAddPayment();
         invoiceHeader.navigate(invoiceHeader.creditCard);
         Utilities.waitUntileElementIsVisible(cardOnFile.chargeCardButton);
