@@ -38,7 +38,7 @@ public class CreateNewCustomer extends AppData {
     public String streetAddress = Integer.toString(Utilities.generateRandomNumber(4)) + " " + Utilities.generateRandomString(5) + " " + Utilities.generateRandomString(5);
     public String city = Utilities.generateRandomString(4);
     public String zipcode = "7" + Utilities.generateRandomNumber(4);
-    public String email = Utilities.generateRandomString(5)+"."+Utilities.generateRandomString(5)+""+"@gmail.com";
+    public String email = Utilities.generateRandomString(5) + "." + Utilities.generateRandomString(5) + "" + "@gmail.com";
     public String primaryPhoneNumber = "6" + Integer.toString(Utilities.generateRandomNumber(9));
 
     public static String customerName = "";
@@ -144,9 +144,9 @@ public class CreateNewCustomer extends AppData {
         customerDialog_Header.navigateTo(customerDialog_Header.infoTabInDialog);
         header = new Header();
         customerViewDialog_infoTab = new CustomerViewDialog_InfoTab();
-        header.searchCustomer_SearchField(customerViewDialog_infoTab.getPrimaryPhoneNumber().replaceAll("[^0-9]",""));
+        header.searchCustomer_SearchField(customerViewDialog_infoTab.getPrimaryPhoneNumber().replaceAll("[^0-9]", ""));
         searchBox = new SearchBox();
-        String phoneNumberInSearchBox = searchBox.autoCompleteSearch(customerViewDialog_infoTab.getPrimaryPhoneNumber()).substring(0,14);
+        String phoneNumberInSearchBox = searchBox.autoCompleteSearch(customerViewDialog_infoTab.getPrimaryPhoneNumber()).substring(0, 14);
         result(customerViewDialog_infoTab.getPrimaryPhoneNumber(), phoneNumberInSearchBox, "Validate phone number in search", "Customer creation");
     }
 
@@ -156,22 +156,22 @@ public class CreateNewCustomer extends AppData {
         customerDialog_Header.navigateTo(customerDialog_Header.infoTabInDialog);
         header = new Header();
         customerViewDialog_infoTab = new CustomerViewDialog_InfoTab();
-        header.searchCustomer_SearchField(customerViewDialog_infoTab.getPrimaryPhoneNumber().replaceAll("[^0-9]","").substring(6,10));
+        header.searchCustomer_SearchField(customerViewDialog_infoTab.getPrimaryPhoneNumber().replaceAll("[^0-9]", "").substring(6, 10));
         searchBox = new SearchBox();
-        String phoneNumberInSearchBox = searchBox.autoCompleteSearch(customerViewDialog_infoTab.getPrimaryPhoneNumber().substring(0,9)).substring(0,9);
-        result(customerViewDialog_infoTab.getPrimaryPhoneNumber().substring(0,9), phoneNumberInSearchBox, "Validate with last four of phone number in search", "Customer creation");
+        String phoneNumberInSearchBox = searchBox.autoCompleteSearch(customerViewDialog_infoTab.getPrimaryPhoneNumber().substring(0, 9)).substring(0, 9);
+        result(customerViewDialog_infoTab.getPrimaryPhoneNumber().substring(0, 9), phoneNumberInSearchBox, "Validate with last four of phone number in search", "Customer creation");
     }
 
     @And("I validate search customer with zip code")
-        public void validateZipCodeInSearch() throws InterruptedException {
-            customerDialog_Header = new CustomerViewDialog_Header();
-            customerDialog_Header.navigateTo(customerDialog_Header.infoTabInDialog);
-            header = new Header();
-            customerViewDialog_infoTab = new CustomerViewDialog_InfoTab();
-            header.searchCustomer_SearchField(customerViewDialog_infoTab.getZip());
-            searchBox = new SearchBox();
-            result(zipcode, searchBox.autoCompleteSearch(zipcode), "Validate zip code in search", "Customer creation");
-        }
+    public void validateZipCodeInSearch() throws InterruptedException {
+        customerDialog_Header = new CustomerViewDialog_Header();
+        customerDialog_Header.navigateTo(customerDialog_Header.infoTabInDialog);
+        header = new Header();
+        customerViewDialog_infoTab = new CustomerViewDialog_InfoTab();
+        header.searchCustomer_SearchField(customerViewDialog_infoTab.getZip());
+        searchBox = new SearchBox();
+        result(zipcode, searchBox.autoCompleteSearch(zipcode), "Validate zip code in search", "Customer creation");
+    }
 
     @And("I validate search customer with CustomerID")
     public void validateCustomerIDInSearch() throws InterruptedException {
@@ -195,12 +195,12 @@ public class CreateNewCustomer extends AppData {
         result(streetAddress, searchBox.autoCompleteSearch(streetAddress), "Validate street address in search", "Customer creation");
     }
 
-   @Then("^I create customer with address and ZipCode and I verify Main Tax, State Tax, City Tax, County Tax, Custom Tax, District1 Tax, District2 Tax" +
-           ", District3 Tax, District4 Tax, District5 Tax Rates \"([^\"]*)\" and \"([^\"]*)\" and \"([^\"]*)\" and \"([^\"]*)\" and \"([^\"]*)\" " +
-           "and \"([^\"]*)\" and \"([^\"]*)\" and \"([^\"]*)\" and \"([^\"]*)\" and \"([^\"]*)\" and \"([^\"]*)\" and \"([^\"]*)\"$")
+    @Then("^I create customer with address and ZipCode and I verify Main Tax, State Tax, City Tax, County Tax, Custom Tax, District1 Tax, District2 Tax" +
+            ", District3 Tax, District4 Tax, District5 Tax Rates \"([^\"]*)\" and \"([^\"]*)\" and \"([^\"]*)\" and \"([^\"]*)\" and \"([^\"]*)\" " +
+            "and \"([^\"]*)\" and \"([^\"]*)\" and \"([^\"]*)\" and \"([^\"]*)\" and \"([^\"]*)\" and \"([^\"]*)\" and \"([^\"]*)\"$")
     public void verifyCustomerWithAddressTaxRate(String needStreetAddress, String needZipCode, String needMainTax, String needStateTax,
-                String needCityTax, String needCountyTax, String needCustomTax, String needDistrict1Tax, String needDistrict2Tax,
-                String needDistrict3Tax, String needDistrict4Tax, String needDistrict5Tax) throws Exception {
+                                                 String needCityTax, String needCountyTax, String needCustomTax, String needDistrict1Tax, String needDistrict2Tax,
+                                                 String needDistrict3Tax, String needDistrict4Tax, String needDistrict5Tax) throws Exception {
         customerDialog_Header = new CustomerViewDialog_Header();
         customer = new CreateCustomerDialog();
         overview = new CustomerViewDialog_OverviewTab();
@@ -215,16 +215,16 @@ public class CreateNewCustomer extends AppData {
         alertCondition();
         customerDialog_Header.navigateTo(customerDialog_Header.infoTabInDialog);
         customer.clickOverrideTaxCheckBox();
-        result(needMainTax, customer.getTaxRate(customer.mainTaxPercentage),"Entered Main Tax" , "Tax Rate Validation");
-        result(needStateTax, customer.getTaxRate(customer.stateTaxPercentage), "Entered State Tax" , "Tax Rate Validation");
-        result(needCityTax, customer.getTaxRate(customer.cityTaxPercentage), "Entered City Tax" , "Tax Rate Validation");
-        result(needCountyTax, customer.getTaxRate(customer.countyTaxPercentage), "Entered County Tax" , "Tax Rate Validation");
-        result(needCustomTax, customer.getTaxRate(customer.customTaxPercentage), "Entered Custom Tax" , "Tax Rate Validation");
-        result(needDistrict1Tax, customer.getTaxRate(customer.district1TaxPercentage), "Entered District1 Tax" , "Tax Rate Validation");
-        result(needDistrict2Tax, customer.getTaxRate(customer.district2TaxPercentage), "Entered District2 Tax" , "Tax Rate Validation");
-        result(needDistrict3Tax, customer.getTaxRate(customer.district3TaxPercentage), "Entered District3 Tax" , "Tax Rate Validation");
-        result(needDistrict4Tax, customer.getTaxRate(customer.district4TaxPercentage), "Entered District4 Tax" , "Tax Rate Validation");
-        result(needDistrict5Tax,customer.getTaxRate(customer.district5TaxPercentage), "Entered District5 Tax" , "Tax Rate Validation");
+        result(needMainTax, customer.getTaxRate(customer.mainTaxPercentage), "Entered Main Tax", "Tax Rate Validation");
+        result(needStateTax, customer.getTaxRate(customer.stateTaxPercentage), "Entered State Tax", "Tax Rate Validation");
+        result(needCityTax, customer.getTaxRate(customer.cityTaxPercentage), "Entered City Tax", "Tax Rate Validation");
+        result(needCountyTax, customer.getTaxRate(customer.countyTaxPercentage), "Entered County Tax", "Tax Rate Validation");
+        result(needCustomTax, customer.getTaxRate(customer.customTaxPercentage), "Entered Custom Tax", "Tax Rate Validation");
+        result(needDistrict1Tax, customer.getTaxRate(customer.district1TaxPercentage), "Entered District1 Tax", "Tax Rate Validation");
+        result(needDistrict2Tax, customer.getTaxRate(customer.district2TaxPercentage), "Entered District2 Tax", "Tax Rate Validation");
+        result(needDistrict3Tax, customer.getTaxRate(customer.district3TaxPercentage), "Entered District3 Tax", "Tax Rate Validation");
+        result(needDistrict4Tax, customer.getTaxRate(customer.district4TaxPercentage), "Entered District4 Tax", "Tax Rate Validation");
+        result(needDistrict5Tax, customer.getTaxRate(customer.district5TaxPercentage), "Entered District5 Tax", "Tax Rate Validation");
     }
 
     @When("I create customer with first name, last name, address and generic flag {string} and {string}")
@@ -252,6 +252,7 @@ public class CreateNewCustomer extends AppData {
         customerName = getCustomerFullName();
 
     }
+
     @When("I create customer with pref paper")
     public void createCustomerWithPrefPaper() throws Exception {
         customerDialog_Header = new CustomerViewDialog_Header();
@@ -286,10 +287,7 @@ public class CreateNewCustomer extends AppData {
         customer.setLastName(lName);
         customer.selectUnit("Multi Unit");
         customer.setAddress(streetAddress);
-        if (CucumberBaseClass.scenarioName().equals("AutoPay validation for ACH and CC or ACH is BST")) {
-            customer.setZipCode("77008");
-        }else{
-        customer.setZipCode(zipcode);}
+        customer.setZipCode("77008");
         customer.setEmailAddress(email);
         customer.setCellPhone(getData("phoneNumber", generalData));
         customer.clickSmsCheckBox();
@@ -304,9 +302,9 @@ public class CreateNewCustomer extends AppData {
     }
 
     @And("I search customer")
-    public void searchCustomer() throws Exception{
+    public void searchCustomer() throws Exception {
         header = new Header();
-        header.searchCustomer_History( lName+ ", " + fName);
+        header.searchCustomer_History(lName + ", " + fName);
     }
 
     @When("I create customer with first name, last name, email and address")
@@ -404,7 +402,7 @@ public class CreateNewCustomer extends AppData {
         overview = new CustomerViewDialog_OverviewTab();
         customerViewDialog_infoTab = new CustomerViewDialog_InfoTab();
         customerDialog_Header.navigateTo(customerDialog_Header.infoTabInDialog);
-        String expectedAddress = streetAddress + " " + customerViewDialog_infoTab.getCity() + ", " +customerViewDialog_infoTab.getState() +" " + zipcode;
+        String expectedAddress = streetAddress + " " + customerViewDialog_infoTab.getCity() + ", " + customerViewDialog_infoTab.getState() + " " + zipcode;
         customerDialog_Header.navigateTo(customerDialog_Header.overviewTabInDialog);
         Utilities.waitUntileElementIsVisible(overview.overviewTab_Address);
         String actualAddress = overview.getFullAddress();
@@ -471,12 +469,14 @@ public class CreateNewCustomer extends AppData {
         customerDialog_Header.navigateTo(customerDialog_Header.infoTabInDialog);
         return customerViewDialog_infoTab.getFirstName() + " " + customerViewDialog_infoTab.getLastName();
     }
+
     public String getCustomerFullName() throws InterruptedException {
         customerDialog_Header = new CustomerViewDialog_Header();
         customerViewDialog_infoTab = new CustomerViewDialog_InfoTab();
         customerDialog_Header.navigateTo(customerDialog_Header.infoTabInDialog);
-        return customerViewDialog_infoTab.getFirstName()+ " " + customerViewDialog_infoTab.getLastName();
+        return customerViewDialog_infoTab.getFirstName() + " " + customerViewDialog_infoTab.getLastName();
     }
+
     @Then("I remove the customer")
     public void removeCustomer() throws InterruptedException {
         header = new Header();
