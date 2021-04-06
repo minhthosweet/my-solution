@@ -4,7 +4,6 @@ import automation.PestRoutes.Controller.CustomerCreation.CreateNewCustomer;
 import automation.PestRoutes.Controller.Reporting.Office.OfficeObjects;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_Header;
 import automation.PestRoutes.PageObject.Header;
-import automation.PestRoutes.PageObject.ReportingPage.ReportingMainPage;
 import automation.PestRoutes.Utilities.FindElement;
 import automation.PestRoutes.Utilities.Utilities;
 import org.openqa.selenium.WebElement;
@@ -16,7 +15,6 @@ import java.util.Map;
 public class BillingByServiceTypeTab {
 
     Header header;
-    ReportingMainPage reportingMainPage;
     OfficeObjects officeObjs;
     CreateNewCustomer createNewCustomer;
     CustomerViewDialog_Header customerViewDialog_header;
@@ -42,9 +40,7 @@ public class BillingByServiceTypeTab {
     public String billedServices_Report = "//tr[@detailvalues]//span[@class='revenue']";
     public String billedServices_Customer = "//tr[@onmouseup]//td[13]";
     public String totalCollected_Report = "//tr[@detailvalues]//td[4]";
-    public String totalCollected_Customer = "//tr[@onmouseup]//td[8]";
     public String tax_Report = "//tr[@detailvalues]//td[6]";
-    public String tax_Customer = "//tr[@onmouseup]//td[10]";
     public String exportDetailsToCSV_button = "//div[@id='serviceTypeDetail']//div[text()='Export details to CSV']";
 
     // Line Item Fields
@@ -54,72 +50,76 @@ public class BillingByServiceTypeTab {
     public String invoiceDate_lineItem = "//tr[@onmouseup]//td[4]";
     public String paymentDate_lineItem = "//tr[@onmouseup]//td[12]";
     public String serviceType_lineItem = "//tr[@onmouseup]//td[5]";
+    public String totalCollected_Customer = "//tr[@onmouseup]//td[8]";
+    public String tax_Customer = "//tr[@onmouseup]//td[10]";
+    public String customerID_lineItem = "//tr[@onmouseup]//td[1]";
+    public String customerName_lineItem = "//tr[@onmouseup]//td[2]";
 
-    public Map<String, String> filter_Types = new HashMap<String, String>();
+    public Map<String, String> filterTypes_BST = new HashMap<String, String>();
 
     public BillingByServiceTypeTab() {
     }
 
     //Author: Aditya
-    public String filterTypes(String key) {
+    public String filterTypes_BST(String key) {
 
         // filter fields
-        filter_Types.put("invoice_bbst", "//label[text()='Invoice']//following-sibling::div//input");
-        filter_Types.put("serviceType_bbst", "//label[text()='Service Type']//following-sibling::div//input");
-        filter_Types.put("customerSource_bbst", "//label[text()='Cust Source']//following-sibling::div//input");
-        filter_Types.put("inclCollections", "//label[text()='Incl. Collections']//following-sibling::div//input");
-        filter_Types.put("subSource_bbst", "//label[text()='Sub Source']//following-sibling::div//input");
-        filter_Types.put("regions_bbst", "//label[text()='Regions']//following-sibling::div//input");
-        filter_Types.put("divisions_bbst", "//label[text()='Divisions']//following-sibling::div//input");
-        filter_Types.put("offices_bbst", "//label[text()='Offices']//following-sibling::div//input");
-        filter_Types.put("includeFlags_bbst", "//label[text()='Incl. Flags']//following-sibling::div//input");
-        filter_Types.put("excludeFlags_bbst", "//label[text()='Excl. Flags']//following-sibling::div//input");
-        filter_Types.put("scheduledBy_bbst", "//label[text()='Scheduler']//following-sibling::div//input");
-        filter_Types.put("soldByTeam_bbst", "//label[text()='Sale Teams']//following-sibling::div//input");
-        filter_Types.put("soldbySalesRep_bbst", "//label[text()='Sales Rep']//following-sibling::div//select");
+        filterTypes_BST.put("invoice_bbst", "//label[text()='Invoice']//following-sibling::div//input");
+        filterTypes_BST.put("serviceType_bbst", "//label[text()='Service Type']//following-sibling::div//input");
+        filterTypes_BST.put("customerSource_bbst", "//label[text()='Cust Source']//following-sibling::div//input");
+        filterTypes_BST.put("inclCollections", "//label[text()='Incl. Collections']//following-sibling::div//input");
+        filterTypes_BST.put("subSource_bbst", "//label[text()='Sub Source']//following-sibling::div//input");
+        filterTypes_BST.put("regions_bbst", "//label[text()='Regions']//following-sibling::div//input");
+        filterTypes_BST.put("divisions_bbst", "//label[text()='Divisions']//following-sibling::div//input");
+        filterTypes_BST.put("offices_bbst", "//label[text()='Offices']//following-sibling::div//input");
+        filterTypes_BST.put("includeFlags_bbst", "//label[text()='Incl. Flags']//following-sibling::div//input");
+        filterTypes_BST.put("excludeFlags_bbst", "//label[text()='Excl. Flags']//following-sibling::div//input");
+        filterTypes_BST.put("scheduledBy_bbst", "//label[text()='Scheduler']//following-sibling::div//input");
+        filterTypes_BST.put("soldByTeam_bbst", "//label[text()='Sale Teams']//following-sibling::div//input");
+        filterTypes_BST.put("soldbySalesRep_bbst", "//label[text()='Sales Rep']//following-sibling::div//select");
 
         // bbst single group report fields
-        filter_Types.put("description_bbstReport", "//table[@id='revenueByServiceType']//div[text()='Description']");
-        filter_Types.put("services_bbstReport", "//table[@id='revenueByServiceType']//div[text()='Services']");
-        filter_Types.put("lineItemQuantity_bbstReport", "//table[@id='revenueByServiceType']//div[text()='Line Item Quantity']");
-        filter_Types.put("totalCollected_bbstReport", "//table[@id='revenueByServiceType']//div[text()='Total Collected']");
-        filter_Types.put("taxCollected_bbstReport", "//table[@id='revenueByServiceType']//div[text()='Tax Collected']");
-        filter_Types.put("taxInvoiced_bbstReport", "//table[@id='revenueByServiceType']//div[text()='Tax Invoiced']");
-        filter_Types.put("paymentsCollected_bbstReport", "//table[@id='revenueByServiceType']//div[text()='Payments Collected']");
-        filter_Types.put("billedServices_bbstReport", "//table[@id='revenueByServiceType']//div[text()='Billed Services']");
+        filterTypes_BST.put("description_bbstReport", "//table[@id='revenueByServiceType']//div[text()='Description']");
+        filterTypes_BST.put("services_bbstReport", "//table[@id='revenueByServiceType']//div[text()='Services']");
+        filterTypes_BST.put("lineItemQuantity_bbstReport", "//table[@id='revenueByServiceType']//div[text()='Line Item Quantity']");
+        filterTypes_BST.put("totalCollected_bbstReport", "//table[@id='revenueByServiceType']//div[text()='Total Collected']");
+        filterTypes_BST.put("taxCollected_bbstReport", "//table[@id='revenueByServiceType']//div[text()='Tax Collected']");
+        filterTypes_BST.put("taxInvoiced_bbstReport", "//table[@id='revenueByServiceType']//div[text()='Tax Invoiced']");
+        filterTypes_BST.put("paymentsCollected_bbstReport", "//table[@id='revenueByServiceType']//div[text()='Payments Collected']");
+        filterTypes_BST.put("billedServices_bbstReport", "//table[@id='revenueByServiceType']//div[text()='Billed Services']");
 
         // bbst multi group report fields
-        filter_Types.put("description_bbstReport_MultiGroup", "//table[@id='revenueByServiceType']//th[text()='Description']");
-        filter_Types.put("services_bbstReport_MultiGroup", "//table[@id='revenueByServiceType']//th[text()='Services']");
-        filter_Types.put("lineItemQuantity_bbstReport_MultiGroup", "//table[@id='revenueByServiceType']//th[text()='Line Item Quantity']");
-        filter_Types.put("totalCollected_bbstReport_MultiGroup", "//table[@id='revenueByServiceType']//th[text()='Total Collected']");
-        filter_Types.put("taxCollected_bbstReport_MultiGroup", "//table[@id='revenueByServiceType']//th[text()='Tax Collected']");
-        filter_Types.put("taxInvoiced_bbstReport_MultiGroup", "//table[@id='revenueByServiceType']//th[text()='Tax Invoiced']");
-        filter_Types.put("paymentsCollected_bbstReport_MultiGroup", "//table[@id='revenueByServiceType']//th[text()='Payments Collected']");
-        filter_Types.put("billedServices_bbstReport_MultiGroup", "//table[@id='revenueByServiceType']//th[text()='Billed Services']");
+        filterTypes_BST.put("description_bbstReport_MultiGroup", "//table[@id='revenueByServiceType']//th[text()='Description']");
+        filterTypes_BST.put("services_bbstReport_MultiGroup", "//table[@id='revenueByServiceType']//th[text()='Services']");
+        filterTypes_BST.put("lineItemQuantity_bbstReport_MultiGroup", "//table[@id='revenueByServiceType']//th[text()='Line Item Quantity']");
+        filterTypes_BST.put("totalCollected_bbstReport_MultiGroup", "//table[@id='revenueByServiceType']//th[text()='Total Collected']");
+        filterTypes_BST.put("taxCollected_bbstReport_MultiGroup", "//table[@id='revenueByServiceType']//th[text()='Tax Collected']");
+        filterTypes_BST.put("taxInvoiced_bbstReport_MultiGroup", "//table[@id='revenueByServiceType']//th[text()='Tax Invoiced']");
+        filterTypes_BST.put("paymentsCollected_bbstReport_MultiGroup", "//table[@id='revenueByServiceType']//th[text()='Payments Collected']");
+        filterTypes_BST.put("billedServices_bbstReport_MultiGroup", "//table[@id='revenueByServiceType']//th[text()='Billed Services']");
 
         // individual line item fields
-        filter_Types.put("customerID_lineItem", "//th[@data-orderby='customerID']");
-        filter_Types.put("customerName_lineItem", "//th[@data-orderby='customerName']");
-        filter_Types.put("invoiceID_lineItem", "//th[@data-orderby='ticketID']");
-        filter_Types.put("date_lineItem", "//th[@data-orderby='ticketDate']");
-        filter_Types.put("serviceDescription_lineItem", "//th[@data-orderby='serviceDescription']");
-        filter_Types.put("billingFrequency_lineItem", "//th[@data-orderby='billingFrequency']");
-        filter_Types.put("itemsQuantity_lineItem", "//th[@data-orderby='itemsQuantity']");
-        filter_Types.put("totalCollected_lineItem", "//th[@data-orderby='totalCollected']");
-        filter_Types.put("taxCollected_lineItem", "//th[@data-orderby='taxCollected']");
-        filter_Types.put("tax_lineItem", "//th[@data-orderby='tax']");
-        filter_Types.put("appliedPaymentsBeforeTax_lineItem", "//th[@data-orderby='revenueCollected']");
-        filter_Types.put("dateCollected_lineItem", "//th[@data-orderby='dateCollected']");
-        filter_Types.put("billedServices_lineItem", "//th[@data-orderby='revenue']");
+        filterTypes_BST.put("customerID_lineItem", "//th[@data-orderby='customerID']");
+        filterTypes_BST.put("customerName_lineItem", "//th[@data-orderby='customerName']");
+        filterTypes_BST.put("invoiceID_lineItem", "//th[@data-orderby='ticketID']");
+        filterTypes_BST.put("date_lineItem", "//th[@data-orderby='ticketDate']");
+        filterTypes_BST.put("serviceDescription_lineItem", "//th[@data-orderby='serviceDescription']");
+        filterTypes_BST.put("billingFrequency_lineItem", "//th[@data-orderby='billingFrequency']");
+        filterTypes_BST.put("itemsQuantity_lineItem", "//th[@data-orderby='itemsQuantity']");
+        filterTypes_BST.put("totalCollected_lineItem", "//th[@data-orderby='totalCollected']");
+        filterTypes_BST.put("taxCollected_lineItem", "//th[@data-orderby='taxCollected']");
+        filterTypes_BST.put("tax_lineItem", "//th[@data-orderby='tax']");
+        filterTypes_BST.put("appliedPaymentsBeforeTax_lineItem", "//th[@data-orderby='revenueCollected']");
+        filterTypes_BST.put("dateCollected_lineItem", "//th[@data-orderby='dateCollected']");
+        filterTypes_BST.put("billedServices_lineItem", "//th[@data-orderby='revenue']");
 
         // Line Item navigation buttons
-        filter_Types.put("first_page", "//div[@id='serviceTypeDetail']//span[text()='First']");
-        filter_Types.put("previous_page", "//div[@id='serviceTypeDetail']//span[text()='Previous']");
-        filter_Types.put("next_page", "//div[@id='serviceTypeDetail']//span[text()='Next']");
-        filter_Types.put("last_page", "//div[@id='serviceTypeDetail']//span[text()='Last']");
+        filterTypes_BST.put("first_page", "//div[@id='serviceTypeDetail']//span[text()='First']");
+        filterTypes_BST.put("previous_page", "//div[@id='serviceTypeDetail']//span[text()='Previous']");
+        filterTypes_BST.put("next_page", "//div[@id='serviceTypeDetail']//span[text()='Next']");
+        filterTypes_BST.put("last_page", "//div[@id='serviceTypeDetail']//span[text()='Last']");
 
-        return filter_Types.get(key);
+        return filterTypes_BST.get(key);
     }
 
     //Author: Aditya
@@ -166,7 +166,7 @@ public class BillingByServiceTypeTab {
     }
 
     public String getTaxRate_MultiGroupReport(String customerIDDetail) {
-        return Utilities.getElementTextValue("//tr[@detailvalues]//td[text()='"+customerIDDetail+"']/following-sibling::td[5]", Utilities.ElementType.XPath);
+        return Utilities.getElementTextValue("//tr[@detailvalues]//td[text()='" + customerIDDetail + "']/following-sibling::td[5]", Utilities.ElementType.XPath);
     }
 
     public String getBilledTaxValue_Customer() {
@@ -198,40 +198,40 @@ public class BillingByServiceTypeTab {
 
     //Author: Aditya
     public void setType(String key, String type) {
-        FindElement.elementByAttribute(filterTypes(key), FindElement.InputType.XPath).sendKeys(type);
+        FindElement.elementByAttribute(filterTypes_BST(key), FindElement.InputType.XPath).sendKeys(type);
         Utilities.clickElement("//span[text()='" + type + "']", Utilities.ElementType.XPath);
     }
 
     public void setIncludeCollections(String includeCollections) {
-        FindElement.elementByAttribute(filterTypes("inclCollections"), FindElement.InputType.XPath).sendKeys(includeCollections);
+        FindElement.elementByAttribute(filterTypes_BST("inclCollections"), FindElement.InputType.XPath).sendKeys(includeCollections);
     }
 
     public void setSubscriptionSource(String subscriptionSource) {
-        FindElement.elementByAttribute(filterTypes("subSource_bbst"), FindElement.InputType.XPath).sendKeys(subscriptionSource);
+        FindElement.elementByAttribute(filterTypes_BST("subSource_bbst"), FindElement.InputType.XPath).sendKeys(subscriptionSource);
     }
 
     public void setRegions(String regions) {
-        FindElement.elementByAttribute(filterTypes("regions_bbst"), FindElement.InputType.XPath).sendKeys(regions);
+        FindElement.elementByAttribute(filterTypes_BST("regions_bbst"), FindElement.InputType.XPath).sendKeys(regions);
     }
 
     public void setOffice_bbst(String office) {
-        FindElement.elementByAttribute(filterTypes("offices_bbst"), FindElement.InputType.XPath).sendKeys(office);
+        FindElement.elementByAttribute(filterTypes_BST("offices_bbst"), FindElement.InputType.XPath).sendKeys(office);
     }
 
     public void setExcludeFlags(String excludeFlags) {
-        FindElement.elementByAttribute(filterTypes("excludeFlags_bbst"), FindElement.InputType.XPath).sendKeys(excludeFlags);
+        FindElement.elementByAttribute(filterTypes_BST("excludeFlags_bbst"), FindElement.InputType.XPath).sendKeys(excludeFlags);
     }
 
     public void setScheduledBy(String scheduledBy) {
-        FindElement.elementByAttribute(filterTypes("scheduledBy_bbst"), FindElement.InputType.XPath).sendKeys(scheduledBy);
+        FindElement.elementByAttribute(filterTypes_BST("scheduledBy_bbst"), FindElement.InputType.XPath).sendKeys(scheduledBy);
     }
 
     public void setSoldBy(String soldBy) {
-        FindElement.elementByAttribute(filterTypes("soldByTeam_bbst"), FindElement.InputType.XPath).sendKeys(soldBy);
+        FindElement.elementByAttribute(filterTypes_BST("soldByTeam_bbst"), FindElement.InputType.XPath).sendKeys(soldBy);
     }
 
     public void setSoldbySalesRep(String soldbySalesRep) {
-        FindElement.elementByAttribute(filterTypes("soldbySalesRep_bbst"), FindElement.InputType.XPath).sendKeys(soldbySalesRep);
+        FindElement.elementByAttribute(filterTypes_BST("soldbySalesRep_bbst"), FindElement.InputType.XPath).sendKeys(soldbySalesRep);
     }
 
     public void setSoldDateRange(String dateRange) {
@@ -276,9 +276,10 @@ public class BillingByServiceTypeTab {
         Utilities.clickElement("//div[contains(@style,'block')]//li[text()='" + dateRange + "']", Utilities.ElementType.XPath);
     }
 
+    //Author: Aditya
     public void setSalesRep(String salesRepTab, String salesRepType) {
-        Utilities.waitUntileElementIsVisible(filterTypes(salesRepTab));
-        Utilities.selectValueFromDropDownByValue(filterTypes(salesRepTab), salesRepType);
+        Utilities.waitUntileElementIsVisible(filterTypes_BST(salesRepTab));
+        Utilities.selectValueFromDropDownByValue(filterTypes_BST(salesRepTab), salesRepType);
     }
 
 }

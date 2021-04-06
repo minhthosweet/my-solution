@@ -338,4 +338,29 @@ public class InvoicingTab extends AppData {
         result(expectedConfirmation, paymentConfirmation, "Credit Card Confirmation", "Card on file payment");
     }
 
+    //Author: Aditya
+    @Then("I make partial payment with credit card on file")
+    public void makeCardOnFile_PartialCCPayment() throws InterruptedException {
+        invoiceHeader = new Invoice_Header();
+        CardOnFile cardOnFile = new CardOnFile();
+        CreditCardConfirmationPage confirmationPage = new CreditCardConfirmationPage();
+        customerCardHeader = new CustomerViewDialog_Header();
+        customerCardHeader.navigateTo(customerCardHeader.invoicesTabInDialog);
+        Utilities.waitUntileElementIsVisible(invoiceRoutesTab.addNewInvoice);
+        invImplementation.clickInitialInvoice();
+        invoiceRoutesTab.clickAddPayment();
+        invoiceHeader.navigate(invoiceHeader.creditCard);
+        Utilities.waitUntileElementIsVisible(cardOnFile.chargeCardButton);
+        String paymentAmount = String.valueOf((int) (Double.parseDouble(Utilities.getAttributeValue(cardOnFile.paymentAmountInputField, "value"))) / 10);
+        FindElement.elementByAttribute(cardOnFile.paymentAmountInputField, FindElement.InputType.XPath).clear();
+        FindElement.elementByAttribute(cardOnFile.paymentAmountInputField, FindElement.InputType.XPath).sendKeys(paymentAmount);
+        FindElement.elementByAttribute(cardOnFile.confirmAmountInputField, FindElement.InputType.XPath).sendKeys(paymentAmount);
+        FindElement.elementByAttribute(cardOnFile.cvvCodeInputField, FindElement.InputType.XPath).sendKeys("123");
+        Utilities.clickElement(cardOnFile.chargeCardButton, Utilities.ElementType.XPath);
+        Utilities.waitUntileElementIsVisible(confirmationPage.paymentResultTitle);
+        String paymentConfirmation = Utilities.getElementTextValue(confirmationPage.confirmationMessage, Utilities.ElementType.XPath);
+        String expectedConfirmation = "Successfully Charged Credit Card!";
+        result(expectedConfirmation, paymentConfirmation, "Credit Card Confirmation", "Card on file payment");
+    }
+
 }
