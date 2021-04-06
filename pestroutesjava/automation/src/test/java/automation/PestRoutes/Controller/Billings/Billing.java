@@ -38,8 +38,8 @@ public class Billing extends AppData {
 		billing.clickElement(billing.ccSaveCardButton);
 	}
 	//**Author Aarbi
-	@And("I add a CC payment option")
-	public void addPaymentCC() throws InterruptedException {
+	@And("I add a CC payment option {string} and {string}")
+	public void addPaymentCC(String needRegularCC, String needNMICC) throws InterruptedException {
 		customerCardHeader = new CustomerViewDialog_Header();
 		customerCardBillingTab = new BillingPage();
 		customerCardHeader.navigateTo(customerCardHeader.billingTabInDialog);
@@ -52,7 +52,7 @@ public class Billing extends AppData {
 		if (gatewayType.equals("Vault: brain")){
 			String[] iFrame = {billing.brainCcIframe, billing.brainExpMonthIframe, billing.brainExpYearIframe, billing.brainCvvIframe};
 			String[] fields = {billing.brainCcNumberInputField, billing.brainExpMonthInputField, billing.brainExpYearInputField, billing.brainCvvInputField};
-			String[] input = {"4111111111111111", "02", "28", "123"};
+			String[] input = {needRegularCC, "02", "28", "123"};
 			for (int i = 0; i < iFrame.length; i++){
 				Utilities.switchToIframeByXpath(iFrame[i]);
 				billing.setInputField(fields[i], input[i]);
@@ -63,7 +63,7 @@ public class Billing extends AppData {
 		}else if (gatewayType.equals("Vault: PestRoutes Payments")){
 			String[] iFrame = {billing.pestRoutesIframeCc, billing.pestRoutesIframeExp, billing.pestRoutesIframeCvv};
 			String[] fields = {billing.pestRoutesCcNumberInputField, billing.pestRoutesCcExpirationInputField, billing.pestRoutesCcCvvInputField};
-			String[] input = {"4111111111111111", "0228", "123"};
+			String[] input = {needRegularCC, "0228", "123"};
 			for (int i = 0; i < iFrame.length; i++){
 				Utilities.switchToIframeByXpath(iFrame[i]);
 				billing.setInputField(fields[i], input[i]);
@@ -74,7 +74,7 @@ public class Billing extends AppData {
 		}else if (gatewayType.equals("Vault: element")){
 			billing.clickElement(billing.elementEnterCcButton);
 			Utilities.switchToIframeByXpath(billing.elementIframe);
-			billing.setInputField(billing.elementCcNumberInputField, "4111111111111111");
+			billing.setInputField(billing.elementCcNumberInputField, needRegularCC);
 			billing.selectDropdown(billing.elementExpMonthDropdown, "02");
 			billing.selectDropdown(billing.elementExpYearDropdown, "2028");
 			billing.clickElement(billing.elementSaveCcButton);
@@ -84,7 +84,7 @@ public class Billing extends AppData {
 			String ccIframe = billing.getAttributeValue(billing.spreedlyCcNumberIframe, "id");
 			String cvvIframe = billing.getAttributeValue(billing.spreedlyCvvIframe, "id");
 			Utilities.switchToIframeByXpath(ccIframe);
-			billing.setInputField(billing.spreedlyCcInputField, "4111111111111111");
+			billing.setInputField(billing.spreedlyCcInputField, needRegularCC);
 			Utilities.switchBackToDom();
 			billing.selectDropdown(billing.spreedlyExpMonthDropdown, "February");
 			billing.selectDropdown(billing.spreedlyExpYearDropdown, "2028");
@@ -96,7 +96,7 @@ public class Billing extends AppData {
 		} else if (gatewayType.equals("Vault: nmi")){
 			String[] iFrame = {billing.nmiCcNumberIframe, billing.nmiExpIframe, billing.nmiCvvIframe};
 			String[] fields = {billing.nmiCcNumberInputField, billing.nmiExpInputField, billing.nmiCvvInputField};
-			String[] input = {"5412750109056250", "022028", "123"};
+			String[] input = {needNMICC, "022028", "123"};
 			for (int i = 0; i < iFrame.length; i++){
 				Utilities.switchToIframeByXpath(iFrame[i]);
 				billing.setInputField(fields[i], input[i]);

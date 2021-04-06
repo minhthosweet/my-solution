@@ -90,7 +90,7 @@ public class AccountReceivable extends BaseClass {
         customerCardHeader = new CustomerViewDialog_Header();
         billing = new Billing();
         String customerName = customer.getCustomerFullName();
-        billing.addPaymentCC();
+        billing.addPaymentCC("4111111111111111" , "5412750109056250");
         billing.addCustomerOnAutoPay();
         createStandAloneServiceInvoice("400", Utilities.currentDate("MM/dd/yyyy"), "Automation Renewal");
         customer.closeCustomerCard();
@@ -246,7 +246,7 @@ public class AccountReceivable extends BaseClass {
         customerCardHeader = new CustomerViewDialog_Header();
         billing = new Billing();
         String customerName = customer.getCustomerFullName();
-        billing.addPaymentCC();
+        billing.addPaymentCC("4111111111111111" , "5412750109056250");
         billing.addCustomerOnAutoPayCCWithMaxLimit("400");
         createStandAloneServiceInvoice("400", Utilities.currentDate("MM/dd/yyyy"), "Automation Renewal");
         customer.closeCustomerCard();
@@ -260,14 +260,14 @@ public class AccountReceivable extends BaseClass {
     }
 
     //**FK**
-    @Then("I validate customer with including {string} and excluding {string} flags and groupBy {string} and collection {string} in account receivable page")
-    public void validateIncludeFlags(String needInclFlag, String needExclFlag, String needGroupBy, String needInclCollection) throws Exception {
+    @Then("I validate customer with including {string} and excluding {string} flags and groupBy {string} and collection {string} in account receivable page with CC {string} or {string}")
+    public void validateIncludeFlags(String needInclFlag, String needExclFlag, String needGroupBy, String needInclCollection, String needRegularCC, String needNMICC) throws Exception {
         customer = new CreateNewCustomer();
         customerCardBillingTab = new BillingPage();
         customerCardHeader = new CustomerViewDialog_Header();
         billing = new Billing();
         String customerName = customer.getCustomerFullName();
-        billing.addPaymentCC();
+        billing.addPaymentCC( needRegularCC, needNMICC);
         billing.addCustomerOnAutoPayCCWithMaxLimit("400");
         createStandAloneServiceInvoice("400", Utilities.currentDate("MM/dd/yyyy"), "Automation Renewal");
         customer.closeCustomerCard();
@@ -289,6 +289,28 @@ public class AccountReceivable extends BaseClass {
         searchAndValidateCustomer_AccountReceivable(customerName, " Customer with flags");
         customer.removeCustomer();
     }
+
+    //**FK**
+    @Then("I validate autopay customer {string} and with status {string} in account receivable page")
+    public void validateAutoPayCustomerWithMaxMonthly(String needAutopay, String needStatus) throws Exception {
+        customer = new CreateNewCustomer();
+        customerCardBillingTab = new BillingPage();
+        customerCardHeader = new CustomerViewDialog_Header();
+        billing = new Billing();
+        String customerName = customer.getCustomerFullName();
+        billing.addPaymentCC("4111111111111111" , "5412750109056250");
+        billing.addCustomerOnAutoPayCCWithMaxLimit("400");
+        createStandAloneServiceInvoice("400", Utilities.currentDate("MM/dd/yyyy"), "Automation Renewal");
+        customer.closeCustomerCard();
+        navigateToAccountReceivablePage();
+        accountReceivable.click(accountReceivable.advanceFilterLink);
+        accountReceivable.select(accountReceivable.autoPayDropdown, needAutopay);
+        accountReceivable.select(accountReceivable.statusDropdown, needStatus);
+        accountReceivable.click(accountReceivable.refreshButton);
+        searchAndValidateCustomer_AccountReceivable(customerName, " Customer with autopay and status successful");
+        customer.removeCustomer();
+    }
+
     //**Author Aarbi**
     @And("I navigate to account receivable under Billings")
     public void navigateToAccountReceivablePage(){
