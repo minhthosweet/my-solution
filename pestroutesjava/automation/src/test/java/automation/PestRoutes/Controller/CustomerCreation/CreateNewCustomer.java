@@ -101,6 +101,7 @@ public class CreateNewCustomer extends AppData {
         customer = new CreateCustomerDialog();
         overview = new CustomerViewDialog_OverviewTab();
         header = new Header();
+        header.navigateTo(header.adminTab);
         header.navigateTo(header.newCustomerTab);
         customer.setFirstName(needFirstName);
         customer.setLastName(lastName);
