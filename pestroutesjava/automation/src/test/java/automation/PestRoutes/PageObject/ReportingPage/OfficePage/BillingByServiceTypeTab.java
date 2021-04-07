@@ -161,12 +161,12 @@ public class BillingByServiceTypeTab {
         return Utilities.getElementTextValue(needIdentifier, Utilities.ElementType.XPath);
     }
 
-    public String getBilledServices_MultiGroupReport(String customerIDDetail) {
-        return Utilities.getElementTextValue("//tr[@detailvalues]//td[text()='" + customerIDDetail + "']/following-sibling::td[7]", Utilities.ElementType.XPath);
+    public String getBilledServices_MultiGroupReport(String needCustomerID) {
+        return Utilities.getElementTextValue("//td[text()='" + needCustomerID + "']/parent::tr[@detailvalues]//td[4]", Utilities.ElementType.XPath);
     }
 
-    public String getTaxRate_MultiGroupReport(String customerIDDetail) {
-        return Utilities.getElementTextValue("//tr[@detailvalues]//td[text()='" + customerIDDetail + "']/following-sibling::td[5]", Utilities.ElementType.XPath);
+    public String getTaxRate_MultiGroupReport(String needCustomerID) {
+        return Utilities.getElementTextValue("//td[text()='" + needCustomerID + "']/parent::tr[@detailvalues]//td[6]", Utilities.ElementType.XPath);
     }
 
     public String getBilledTaxValue_Customer() {

@@ -1,5 +1,6 @@
 package automation.PestRoutes.PageObject.ReportingPage.OfficePage;
 
+import automation.PestRoutes.Utilities.Utilities;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -44,7 +45,23 @@ public class PaymentsByServiceTypeTab {
         filterTypes_PST.put("invoiceID_lineItem", "//th[@data-orderby='invoiceID']");
         filterTypes_PST.put("totalPayment_lineItem", "//th[@data-orderby='total']");
 
+        // pst multi group report fields
+        filterTypes_PST.put("description_pstReport_MultiGroup", "//table[@id='cashByServiceType']//th[text()='Description']");
+        filterTypes_PST.put("appliedPaymentsBeforeTax_pstReport_MultiGroup", "//table[@id='cashByServiceType']//th[text()='Applied Payments before Tax']");
+        filterTypes_PST.put("tax_pstReport_MultiGroup", "//table[@id='cashByServiceType']//th[text()='Tax']");
+        filterTypes_PST.put("coupons_pstReport_MultiGroup", "//table[@id='cashByServiceType']//th[text()='Coupons']");
+        filterTypes_PST.put("cash_pstReport_MultiGroup", "//table[@id='cashByServiceType']//th[text()='Cash']");
+        filterTypes_PST.put("check_pstReport_MultiGroup", "//table[@id='cashByServiceType']//th[text()='Check']");
+        filterTypes_PST.put("cardType_pstReport_MultiGroup", "//table[@id='cashByServiceType']//th[text()='Visa/Master/Etc']");
+        filterTypes_PST.put("amexCard_pstReport_MultiGroup", "//table[@id='cashByServiceType']//th[text()='Amex']");
+        filterTypes_PST.put("ACH_pstReport_MultiGroup", "//table[@id='cashByServiceType']//th[text()='ACH']");
+        filterTypes_PST.put("totalCollected_pstReport_MultiGroup", "//table[@id='cashByServiceType']//th[text()='Total Collected']");
+
         return filterTypes_PST.get(key);
+    }
+
+    public String getAppliedPaymentsBeforeTax_MultiGroupReport(String needCustomerID) {
+        return Utilities.getElementTextValue("//td[text()='" + needCustomerID + "']/following-sibling::td[1]", Utilities.ElementType.XPath);
     }
 
 }
