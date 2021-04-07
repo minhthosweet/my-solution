@@ -105,7 +105,7 @@ public class InventoryTab {
 		return Utilities.getAlertText();
 	}
 
-	public void removeAlertAccept() {
+	public void removeAlertAccept() throws InterruptedException {
 		Utilities.acceptAlert();
 	}
 

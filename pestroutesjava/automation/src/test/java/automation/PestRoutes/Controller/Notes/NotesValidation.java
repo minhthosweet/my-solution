@@ -34,7 +34,7 @@ public class NotesValidation extends AppData {
 		("Validate notes creation", notesMessage, "General Notes", notes.notesDeleteButton);
 	}
 	
-	public void createTask() {
+	public void createTask() throws InterruptedException {
 		addTask();
 		validateCreation
 		("Validate tasks creation", taskMessage, "Tasks", notes.taskDeleteButton);
@@ -61,7 +61,7 @@ public class NotesValidation extends AppData {
 	}
 	
 	private void validateCreation
-	(String needStepName, String messageType, String needNoteType, String needDeleteButton) {
+	(String needStepName, String messageType, String needNoteType, String needDeleteButton) throws InterruptedException {
 		notes.navigateToNoteType(needNoteType);
 		FindElement.elementByAttribute(notes.searchField, InputType.XPath).sendKeys(Keys.CONTROL,"a");
 		notes.setInputField(notes.searchField, messageType);

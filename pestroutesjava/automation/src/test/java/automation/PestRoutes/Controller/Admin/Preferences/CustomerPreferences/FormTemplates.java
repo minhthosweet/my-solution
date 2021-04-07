@@ -73,7 +73,7 @@ public class FormTemplates extends AppData {
 		form.clickButton(form.saveButton);
 	}
 	
-	public void deleteForm(String needFormName) {
+	public void deleteForm(String needFormName) throws InterruptedException {
 		form = new FormObjects();
 		form.clickEditButton(needFormName);
 		form.clickButton(form.deleteButton);

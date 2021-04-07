@@ -71,7 +71,7 @@ public class ReminderTab {
 		return Utilities.getElementTextValue(voiceAction_actual, ElementType.XPath);
 	}
 
-	public String getAlertText_Notes() {
+	public String getAlertText_Notes() throws InterruptedException {
 		Utilities.waitUntileElementIsVisible(editNotes_Alert);
 		Utilities.clickElement(editNotes_Alert, ElementType.XPath);
 		String editNote_AlertText = Utilities.getAlertText();

@@ -96,7 +96,7 @@ public class Billing extends AppData {
 		} else if (gatewayType.equals("Vault: nmi")){
 			String[] iFrame = {billing.nmiCcNumberIframe, billing.nmiExpIframe, billing.nmiCvvIframe};
 			String[] fields = {billing.nmiCcNumberInputField, billing.nmiExpInputField, billing.nmiCvvInputField};
-			String[] input = {"4111111111111111", "022028", "123"};
+			String[] input = {"5412750109056250", "022028", "123"};
 			for (int i = 0; i < iFrame.length; i++){
 				Utilities.switchToIframeByXpath(iFrame[i]);
 				billing.setInputField(fields[i], input[i]);

@@ -29,7 +29,7 @@ public class Inventory extends BaseClass {
 			- Double.parseDouble(removedStockvalue));
 
 	@Test
-	public void validateProduct() {
+	public void validateProduct() throws InterruptedException {
 		searchProduct();
 		addAssertFluid();
 		insertAssertFluid();
@@ -70,7 +70,7 @@ public class Inventory extends BaseClass {
 		}
 	}
 
-	public void removeAssertFluid_Alert() {
+	public void removeAssertFluid_Alert() throws InterruptedException {
 		inventory.inventoryChange_Inventory(addedStockValue, productName);
 		inventory.inventoryChangeOption(inventory.inventoryChangeRemove, productName);
 		System.out.println(inventory.removeAlertText());

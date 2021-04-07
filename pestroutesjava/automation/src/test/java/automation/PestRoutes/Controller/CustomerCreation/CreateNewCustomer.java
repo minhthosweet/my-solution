@@ -8,6 +8,7 @@ import automation.PestRoutes.Utilities.*;
 import io.cucumber.java.en.Given;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.NoAlertPresentException;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.annotations.Test;
 import automation.PestRoutes.PageObject.Header;
 import automation.PestRoutes.PageObject.CreateCustomer.CreateCustomerDialog;
@@ -66,7 +67,7 @@ public class CreateNewCustomer extends AppData {
     }
 
     @Then("I validate alert")
-    public void validateRequiredFieldError() {
+    public void validateRequiredFieldError() throws InterruptedException {
         String alert = Utilities.getAlertText();
         Utilities.acceptAlert();
         result(expectedAlert, alert, "required field while creating customer ", "Customer creation");
@@ -320,6 +321,7 @@ public class CreateNewCustomer extends AppData {
         customer.selectUnit("Multi Unit");
         customer.setAddress(streetAddress);
         customer.setZipCode(zipcode);
+        Utilities.acceptAlert();
         customer.setCity(city);
         customer.setCellPhone(getData("phoneNumber", generalData));
         customer.clickSmsCheckBox();

@@ -126,8 +126,6 @@ public class BillingPage {
 	public String elementExpYearDropdown = "//select[@id='ddlExpirationYear']";
 	public String elementSaveCcButton = "//a[@id='submit']";
 	//Spreedly
-	public String spreedlyOneTimeCcNumberIframe = "//div[@id='spreedly-onetime-number']/iframe";
-	public String spreedlyOneTimeCvvIframe = "//div[@id='spreedly-onetime-cvv']/iframe";
 	public String spreedlyCcNumberIframe = "//div[@id='spreedly-card-number']/iframe";
 	public String spreedlyCvvIframe = "//div[@id='spreedly-cvv']/iframe";
 	public String spreedlyCcInputField = "//input[@id='card_number']";

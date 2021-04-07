@@ -88,8 +88,23 @@ public class Utilities {
 		driver.switchTo().defaultContent();
 	}
 
-	public static void acceptAlert() {
-		driver.switchTo().alert().accept();
+	public static void acceptAlert() throws InterruptedException {
+		//IAlert alert = driver.switchTo().alert().accept();
+			int i=0;
+			while(i++<5)
+			{
+				try
+				{
+					driver.switchTo().alert().accept();
+					break;
+				}
+				catch(Exception e)
+				{
+					Thread.sleep(100);
+					continue;
+				}
+			}
+
 	}
 
 	public static void acceptAlertLinux() {
