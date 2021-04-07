@@ -98,13 +98,18 @@ public class PaymentsByServiceType extends AppData {
         customerID_PST = customerViewDialog_overviewTab.getCustomerIDFromHeader();
         header.searchCustomerWithName(customerName_PST);
         customerCardHeader.navigateTo(customerCardHeader.invoicesTabInDialog);
-        invImplementation.clickInitialInvoice();
+        if (CucumberBaseClass.scenarioName().equals("Credit memo validation is PST")) {
+            billingByServiceTypeTab.click(creditMemoTab.getTicketID());
+            creditMemoTab.clickAppliedCharge_invoiceApplications();
+        } else {
+            invImplementation.clickInitialInvoice();
+        }
         subTotalValue = invImplementation.getSubTotalValue();
         taxValue = invImplementation.getTaxValue();
         totalCollected = billingByServiceTypeTab.get(invImplementation.paymentsInPayments);
-        if (CucumberBaseClass.scenarioName().equals("Balance Age validation PST with StandAlone Invoices")) {
-            subTotalValue = "$" + "" + String.valueOf(String.format("%.2f",Double.parseDouble(subTotalValue.substring(1))/10));
-            taxValue = "$" + "" + String.valueOf(String.format("%.2f",Double.parseDouble(taxValue.substring(1)) / 10));
+        if (CucumberBaseClass.scenarioName().equals("Balance Age validation PST with StandAlone Invoices") || CucumberBaseClass.scenarioName().equals("Credit memo validation is PST")) {
+            subTotalValue = "$" + "" + String.valueOf(String.format("%.2f", Double.parseDouble(subTotalValue.substring(1)) / 10));
+            taxValue = "$" + "" + String.valueOf(String.format("%.2f", Double.parseDouble(taxValue.substring(1)) / 10));
         }
         result(totalCollected, billingByServiceTypeTab.get(paymentsByServiceTypeTab.totalCollected_Report), "Total Collected in the report", "PST Report Validation");
         result(billingByServiceTypeTab.get(paymentsByServiceTypeTab.totalCollected_Report), billingByServiceTypeTab.get(paymentsByServiceTypeTab.totalCollected_VisaMasterEtc_Report), "Total Collected in the report", "PST Report Validation");
@@ -125,7 +130,7 @@ public class PaymentsByServiceType extends AppData {
                 "PST Report Validation");
         dateOfInvoice = (billingByServiceTypeTab.get(paymentsByServiceTypeTab.invoiceDate_lineItem)).substring(0, 8);
         result(Utilities.currentDate("MM/dd/YY"), dateOfInvoice, "Invoice Date Validation", "PST Report Validation");
-        result("Credit Card", billingByServiceTypeTab.get(paymentsByServiceTypeTab.paymentMethod), "Invoice ID validation in detail report", "PST Report Validation");
+        result("Credit Card", billingByServiceTypeTab.get(paymentsByServiceTypeTab.paymentMethod), "Payment Method validation in detail report", "PST Report Validation");
         result(billingByServiceTypeTab.getAttributeValue(invImplementation.activeInvoiceOnTheLeft, "ticketid"), billingByServiceTypeTab.get(paymentsByServiceTypeTab.invoiceID_lineItem), "Invoice ID validation in detail report", "PST Report Validation");
         result(getData("serviceDescription", generalData), billingByServiceTypeTab.get(billingByServiceTypeTab.serviceType_lineItem), "Service Type in detail report validation", "PST Report Validation");
         result(customerID_PST, billingByServiceTypeTab.get(billingByServiceTypeTab.customerID_lineItem), "Customer ID Validation", "BBST Report Validation");
