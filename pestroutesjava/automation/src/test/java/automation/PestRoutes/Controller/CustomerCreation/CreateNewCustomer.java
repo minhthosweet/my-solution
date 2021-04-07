@@ -305,7 +305,8 @@ public class CreateNewCustomer extends AppData {
     @And("I search customer")
     public void searchCustomer() throws Exception {
         header = new Header();
-        header.searchCustomer_History(lName + ", " + fName);
+        //header.searchCustomer_History(lName + ", " + fName);
+        header.searchCustomerWithName(customerName);
     }
 
     @When("I create customer with first name, last name, email and address")

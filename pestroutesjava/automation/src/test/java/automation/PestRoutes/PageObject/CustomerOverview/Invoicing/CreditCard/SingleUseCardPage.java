@@ -4,6 +4,7 @@ public class SingleUseCardPage {
 
     public String paymentAmountField = "//input[@name='amount']";
     public String confirmAmountField = "//input[@name='confirmCashAmount']";
+    public String notes = "//div[text()='Customer Payment Notes: ']";
     public String chargeSingleCard = "//input[@id='chargeSingleCardButton']";
     //Braintree
     public String payingWithCardButton = "//div[@aria-label='Paying with Card']";

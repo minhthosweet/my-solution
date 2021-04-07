@@ -11,6 +11,7 @@ import automation.PestRoutes.PageObject.CustomerOverview.Invoicing.RoutePageInvo
 import automation.PestRoutes.Utilities.FindElement;
 import automation.PestRoutes.Utilities.Utilities;
 import io.cucumber.java.en.Then;
+import org.openqa.selenium.WebElement;
 
 import static automation.PestRoutes.Utilities.AssertException.result;
 
@@ -30,7 +31,7 @@ public class SingleCardPayment {
     public void makeSingleCardPayment(String needCC, String needNmiCC) throws Exception {
         customerCard.closeCustomerCard();
         merchantInfo.navigateToMerchantInfo();
-        String gateWay = Utilities.getAttributeValue(merchant.ccGatewaysDropdown, "value");
+        String gateWay = Utilities.getElementTextValue(merchant.defaultPaymentGatewayValue, Utilities.ElementType.XPath);
         customerCard.searchCustomer();
         customerCardHeader.navigateTo(customerCardHeader.invoicesTabInDialog);
         Utilities.waitUntileElementIsVisible(invoiceRoutesTab.addNewInvoice);
@@ -41,9 +42,9 @@ public class SingleCardPayment {
         String confirmAmount = Utilities.getAttributeValue(payment.paymentAmountField, "value");
         FindElement.elementByAttribute(payment.confirmAmountField, FindElement.InputType.XPath).sendKeys(confirmAmount);
 
-        if (gateWay.contains("brain")){
+        if (gateWay.contains("Braintree")){
             chargeSignleBrainTreeCc(needCC);
-        }else if (gateWay.contains("element")){
+        }else if (gateWay.contains("Element")){
             chargeSingleElementCc(needCC);
         } else if(gateWay.contains("Spreedly")){
             chargeSignleSpreedlyCc(needCC);
@@ -56,17 +57,37 @@ public class SingleCardPayment {
     //***Author Aarbi
     @Then("I charge cc with braintree gateway {string}")
     public void chargeSignleBrainTreeCc(String needBrainTreeCC) throws InterruptedException {
-        Utilities.clickElement(payment.payingWithCardButton, Utilities.ElementType.XPath);
-        Utilities.switchToIframeByXpath(payment.brainTreeCcIframe);
-        FindElement.elementByAttribute(payment.ccNumberField, FindElement.InputType.XPath).sendKeys(needBrainTreeCC);
-        Utilities.switchBackToDom();
+        int i=0;
+        while(i++<5)
+        {
+            try
+            {
+                Utilities.switchToIframeByXpath(payment.brainTreeCcIframe);
+                FindElement.elementByAttribute(payment.ccNumberField, FindElement.InputType.XPath).sendKeys(needBrainTreeCC);
+                Utilities.switchBackToDom();
+                break;
+            }
+            catch(Exception e)
+            {
+                Thread.sleep(1000);
+                Utilities.switchBackToDom();
+                Utilities.clickElement(payment.payingWithCardButton, Utilities.ElementType.XPath);
+                continue;
+            }
+        }
+//        Utilities.waitUntileElementIsVisible(payment.notes);
+//        Thread.sleep(1000);
+//        Utilities.clickElement(payment.payingWithCardButton, Utilities.ElementType.XPath);
+//        Utilities.switchToIframeByXpath(payment.brainTreeCcIframe);
+//        FindElement.elementByAttribute(payment.ccNumberField, FindElement.InputType.XPath).sendKeys(needBrainTreeCC);
+//        Utilities.switchBackToDom();
         Utilities.switchToIframeByXpath(payment.brainTreeExpIframe);
         FindElement.elementByAttribute(payment.ccExpField, FindElement.InputType.XPath).sendKeys("0228");
         Utilities.switchBackToDom();
         Utilities.clickElement(payment.chargeSingleCard, Utilities.ElementType.XPath);
         Utilities.acceptAlert();
-        Utilities.waitUntileElementIsVisible(confirmationPage.paymentResultTitle);
-        String actualResult = Utilities.getElementTextValue(confirmationPage.confirmationMessage, Utilities.ElementType.XPath);
+        Utilities.waitUntileElementIsVisible(confirmationPage.singleCardPaymentResult);
+        String actualResult = Utilities.getElementTextValue(confirmationPage.singleCardPaymentResult, Utilities.ElementType.XPath);
         String expectedConfirmation = "Successfully Charged Credit Card!";
         result(expectedConfirmation, actualResult, "Credit Card Confirmation", "Card on file payment");
     }
@@ -82,26 +103,28 @@ public class SingleCardPayment {
         Utilities.clickElement(payment.elementProcessTransactionButton, Utilities.ElementType.XPath);
         Utilities.switchBackToDom();
         Utilities.acceptAlert();
-        Utilities.waitUntileElementIsVisible(confirmationPage.paymentResultTitle);
-        String actualResult = Utilities.getElementTextValue(confirmationPage.confirmationMessage, Utilities.ElementType.XPath);
+        Utilities.waitUntileElementIsVisible(confirmationPage.singleCardPaymentResult);
+        String actualResult = Utilities.getElementTextValue(confirmationPage.singleCardPaymentResult, Utilities.ElementType.XPath);
         String expectedConfirmation = "Successfully Charged Credit Card!";
         result(expectedConfirmation, actualResult, "Credit Card Confirmation", "Card on file payment");
     }
     //***Author Aarbi
     @Then("I charge cc with spreedly gateway {string}")
     public void chargeSignleSpreedlyCc(String needSpreedlyCC) throws InterruptedException {
-        Utilities.switchToIframeByXpath(payment.spreedlyOneTimeCcNumberIframe);
+        String spreedlyIframe = Utilities.getAttributeValue(payment.spreedlyOneTimeCcNumberIframe, "id");
+        Utilities.switchToIframeByXpath(spreedlyIframe);
         FindElement.elementByAttribute(payment.spreedlyOneTimeCardNumberInputField, FindElement.InputType.XPath).sendKeys(needSpreedlyCC);
         Utilities.switchBackToDom();
-        Utilities.switchToIframeByXpath(payment.spreedlyOneTimeCvvIframe);
+        String spreedlyCvvIframe = Utilities.getAttributeValue(payment.spreedlyOneTimeCvvIframe, "id");
+        Utilities.switchToIframeByXpath(spreedlyCvvIframe);
         FindElement.elementByAttribute(payment.spreedlyOneTimeCvvInputField, FindElement.InputType.XPath).sendKeys("123");
         Utilities.switchBackToDom();
         Utilities.selectValueFromDropDownByValue(payment.spreedlyOneTimeExpMonthDropdown, "February");
         Utilities.selectValueFromDropDownByValue(payment.spreedlyOneTimeExpYearDropdown, "2028");
         Utilities.clickElement(payment.chargeSingleCard, Utilities.ElementType.XPath);
         Utilities.acceptAlert();
-        Utilities.waitUntileElementIsVisible(confirmationPage.paymentResultTitle);
-        String actualResult = Utilities.getElementTextValue(confirmationPage.confirmationMessage, Utilities.ElementType.XPath);
+        Utilities.waitUntileElementIsVisible(confirmationPage.singleCardPaymentResult);
+        String actualResult = Utilities.getElementTextValue(confirmationPage.singleCardPaymentResult, Utilities.ElementType.XPath);
         String expectedConfirmation = "Successfully Charged Credit Card!";
         result(expectedConfirmation, actualResult, "Credit Card Confirmation", "Card on file payment");
     }
@@ -135,8 +158,8 @@ public class SingleCardPayment {
         Utilities.switchBackToDom();
         Utilities.clickElement(payment.chargeSingleCard, Utilities.ElementType.XPath);
         Utilities.acceptAlert();
-        Utilities.waitUntileElementIsVisible(confirmationPage.paymentResultTitle);
-        String actualResult = Utilities.getElementTextValue(confirmationPage.confirmationMessage, Utilities.ElementType.XPath);
+        Utilities.waitUntileElementIsVisible(confirmationPage.singleCardPaymentResult);
+        String actualResult = Utilities.getElementTextValue(confirmationPage.singleCardPaymentResult, Utilities.ElementType.XPath);
         String expectedConfirmation = "Successfully Charged Credit Card!";
         result(expectedConfirmation, actualResult, "Credit Card Confirmation", "Card on file payment");
     }

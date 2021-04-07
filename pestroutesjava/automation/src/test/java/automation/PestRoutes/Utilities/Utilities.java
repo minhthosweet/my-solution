@@ -100,7 +100,7 @@ public class Utilities {
 				}
 				catch(Exception e)
 				{
-					Thread.sleep(100);
+					Thread.sleep(1000);
 					continue;
 				}
 			}

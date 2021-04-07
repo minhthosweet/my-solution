@@ -7,6 +7,7 @@ public class MarchantInfoPage {
     //**Default vault settings
     public String defaultSettingsEditButton = "//form[@name='defaultSettings']/div[text()='edit']";
     public String defaultSettingsSaveButton = "//form[@name='defaultSettings']/div[text()='save']";
+    public String defaultPaymentGatewayValue = "//select[@name='paymentGateway']/preceding-sibling::span[1]";
     public String ccGatewaysDropdown = "//select[@name='paymentGateway']";
     public String achGatewaysDropdown = "//select[@name='achGateway']";
 
