@@ -8,7 +8,6 @@ import automation.PestRoutes.PageObject.CustomerOverview.Invoicing.CreditCard.Si
 import automation.PestRoutes.PageObject.CustomerOverview.Invoicing.InvoiceImplementation;
 import automation.PestRoutes.PageObject.CustomerOverview.Invoicing.Invoice_Header;
 import automation.PestRoutes.PageObject.CustomerOverview.Invoicing.RoutePageInvoicing;
-import automation.PestRoutes.PageObject.Header;
 import automation.PestRoutes.Utilities.FindElement;
 import automation.PestRoutes.Utilities.Utilities;
 import io.cucumber.java.en.Then;
@@ -55,7 +54,7 @@ public class SingleCardPayment {
         }
     }
     //***Author Aarbi
-    @Then("I charge cc with braintree gateway {String}")
+    @Then("I charge cc with braintree gateway {string}")
     public void chargeSignleBrainTreeCc(String needBrainTreeCC) throws InterruptedException {
         Utilities.clickElement(payment.payingWithCardButton, Utilities.ElementType.XPath);
         Utilities.switchToIframeByXpath(payment.brainTreeCcIframe);
@@ -72,7 +71,7 @@ public class SingleCardPayment {
         result(expectedConfirmation, actualResult, "Credit Card Confirmation", "Card on file payment");
     }
     //***Author Aarbi
-    @Then("I charge cc with element gateway {String}")
+    @Then("I charge cc with element gateway {string}")
     public void chargeSingleElementCc(String needElementCC) throws InterruptedException {
         Utilities.clickElement(payment.chargeSingleCard, Utilities.ElementType.XPath);
         Utilities.switchToIframeByXpath(payment.elementIframe);
@@ -89,7 +88,7 @@ public class SingleCardPayment {
         result(expectedConfirmation, actualResult, "Credit Card Confirmation", "Card on file payment");
     }
     //***Author Aarbi
-    @Then("I charge cc with spreedly gateway {String}")
+    @Then("I charge cc with spreedly gateway {string}")
     public void chargeSignleSpreedlyCc(String needSpreedlyCC) throws InterruptedException {
         Utilities.switchToIframeByXpath(payment.spreedlyOneTimeCcNumberIframe);
         FindElement.elementByAttribute(payment.spreedlyOneTimeCardNumberInputField, FindElement.InputType.XPath).sendKeys(needSpreedlyCC);
@@ -107,7 +106,7 @@ public class SingleCardPayment {
         result(expectedConfirmation, actualResult, "Credit Card Confirmation", "Card on file payment");
     }
     //***Author Aarbi
-    @Then("I charge cc with nmi gateway {String}")
+    @Then("I charge cc with nmi gateway {string}")
     public void chargeSingleNmiCc(String needNmiCC) throws InterruptedException {
         Utilities.clickElement(payment.nmiChargeSingleCardButton, Utilities.ElementType.XPath);
         Utilities.switchToIframeByXpath(payment.nmiIframe);
@@ -123,7 +122,7 @@ public class SingleCardPayment {
         result(expectedConfirmation, actualResult, "Credit Card Confirmation", "Card on file payment");
     }
     //***Author Aarbi
-    @Then("I charge cc with payrix gateway {String}")
+    @Then("I charge cc with payrix gateway {string}")
     public void chargeSinglePayrixCc(String needPayrixCC) throws InterruptedException {
         Utilities.switchToIframeByXpath(payment.payrixCcIframe);
         FindElement.elementByAttribute(payment.payrixCcNumberInputField, FindElement.InputType.XPath).sendKeys(needPayrixCC);
