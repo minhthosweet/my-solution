@@ -58,11 +58,13 @@ Feature: Validate if all fields present and are enabled
     Given I add a new generic flag if it is not already existing "Test4Life" and "Test4Life" and "Customer"
     And I create customer with first name, last name, address and generic flag "Test4Life" and "Door to Door"
     Then I validate customer with including "Test4Life" and excluding "Automation Flag" flags and groupBy "Group By Bill To" and collection "Not Set" in account receivable page with CC "4111111111111111" or "5412750109056250"
+    Then I send "SMS" message under actions with subject "TestSubject" and text "testText"
+    Then I remove the customer
     And I validate if there are errors exist in the list
   @CustomerWithStatus_AccountReceivable
    Scenario: Customer with status validation
     When I create customer with first name, last name, email and address
-    Then I create standalone service invoice
-    Then I make payment with credit card on file
     Then I validate autopay customer "CC Auto Pay" and with status "Successful" in account receivable page
+    Then I send "Voice" message under actions with subject "TestSubject" and text "testText"
+    Then I remove the customer
     And I validate if there are errors exist in the list

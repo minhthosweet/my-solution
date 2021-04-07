@@ -23,6 +23,20 @@ public class AccountReceivablePage {
     public String snailMailButton_UnderActions = "//div[@id = 'balancesTableActions']//div[text() = 'Snail Mail Statements']";
     public String emailStatementsButton_UnderActions = "//div[@id = 'balancesTableActions']//div[text() = 'Email Statements']";
 
+    //Send Message buttons
+    public String SMSradioButton = "//input[@id = 'smsMessageType']";
+    public String voiceRadioButton = "//input[@id = 'voiceMessageType']";
+    public String emailRadioButton = "//input[@id = 'emailMessageType']";
+    public String sendMessagesButton = "//span[text() = 'Send Messages']";
+    public String closeMessageButton = "//div[@id='customerMessageDialog']/following-sibling::div//span[text()='Close']";
+    public String ignoreContactPreferencesCheckBox = "//input[@name='ignorePreferences']";
+    public String getIgnoreMaxPerMinuteCheckBox = "//input[@name='ignoreMaxPerMinute']";
+
+    //Send Message fields
+    public String emailSubjectField = "//input[@name='subject']";
+    public String emailCategoryField = "//select[@name='emailCategoryID']";
+    public String emailTextField = "//textarea[@name='customerMessage']/preceding-sibling::div";
+
     //Toggle buttons
     public String toggleButton = "//div[@id = 'balanceToggleWrapper']";
     public String toggleAllPrintStatementsOnButton_UnderToggle = "//div[@id = 'balanceToggleWrapper']//div[text() = 'Toggle All Print Statements On']";
@@ -68,6 +82,18 @@ public class AccountReceivablePage {
         Utilities.waitUntileElementIsVisible(needField);
         Utilities.highLight(needField);
         FindElement.elementByAttribute(needField, FindElement.InputType.XPath).sendKeys(needValue);
+    }
+
+    public void setInputSubjectText(String needField, String needText){
+        Utilities.waitUntileElementIsVisible(needField);
+        FindElement.elementByAttribute(needField, FindElement.InputType.XPath).sendKeys(needText);
+    }
+
+    public void setInputEmailText(String needField, String needText){
+        Utilities.waitUntileElementIsVisible(needField);
+        Utilities.clearField(needField);
+        Utilities.highLight(needField);
+        FindElement.elementByAttribute(needField, FindElement.InputType.XPath).sendKeys(needText);
     }
 
     public String getValueFromTable(String needColumnNumber){
