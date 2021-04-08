@@ -226,7 +226,7 @@ public class PaymentsByServiceType extends AppData {
             if (CucumberBaseClass.scenarioName().equals("Balance Age validation PST with StandAlone Invoices")) {
                 billing = new Billing();
                 invoicingTab = new InvoicingTab();
-                billing.addPaymentCC();
+                billing.addPaymentCC("4111111111111111" , "5412750109056250");
                 invoicingTab.makeCardOnFile_PartialCCPayment();
             }
             createNewCustomer.closeCustomerCard();

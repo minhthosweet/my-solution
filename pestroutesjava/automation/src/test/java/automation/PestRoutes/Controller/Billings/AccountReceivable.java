@@ -244,6 +244,9 @@ public class AccountReceivable extends BaseClass {
         accountReceivable.select(accountReceivable.hasEmailDropdown, "Yes");
         accountReceivable.click(accountReceivable.refreshButton);
         searchAndValidateCustomer_AccountReceivable(customerName, " Customer with email");
+        Utilities.hoverElement(accountReceivable.actionsButton, accountReceivable.emailStatementsButton_UnderActions);
+        Utilities.acceptAlert();
+        Utilities.acceptAlert();
         customer.removeCustomer();
     }
 
@@ -265,6 +268,11 @@ public class AccountReceivable extends BaseClass {
         accountReceivable.select(accountReceivable.maxMonthlyDropdown, "Yes");
         accountReceivable.click(accountReceivable.refreshButton);
         searchAndValidateCustomer_AccountReceivable(customerName, " Customer with autopay and max monthly limit");
+        Utilities.hoverElement(accountReceivable.actionsButton, accountReceivable.exportToExcelButton_UnderActions);
+        Utilities.hoverElement(accountReceivable.actionsButton, accountReceivable.printStatementsButton_UnderActions);
+        Utilities.switchToOldWindowOpened();
+        Utilities.hoverElement(accountReceivable.actionsButton, accountReceivable.snailMailButton_UnderActions);
+        Utilities.acceptAlert();
         customer.removeCustomer();
     }
 
