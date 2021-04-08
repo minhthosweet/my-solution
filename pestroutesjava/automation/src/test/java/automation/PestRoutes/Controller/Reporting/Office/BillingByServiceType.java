@@ -40,7 +40,6 @@ public class BillingByServiceType extends AppData {
     OfficeObjects officeObjects = new OfficeObjects();
     Billing billing;
     InvoicingTab invoicingTab;
-    PaymentsByServiceType paymentsByServiceType;
 
     public String standAloneInvoiceAmount = "400.00";
     private String customerID_BST = "";
@@ -101,13 +100,22 @@ public class BillingByServiceType extends AppData {
     }
 
     //Author: Aditya
-    @And("I add additional properties to customer")
+    @And("I add properties invoice type, service type, customer source, divisions, include flags and date range to customer")
     public void addAdditionalProperties() throws IOException, InterruptedException {
         billingByServiceTypeTab.editCustomerPerFilters();
     }
 
+    //Author : Aditya
+    @And("I get customer name and customer ID details for Billing by service type report")
+    public void updateCustomerIDAndCustomerNameDetails() throws InterruptedException {
+        createNewCustomer = new CreateNewCustomer();
+        customerViewDialog_overviewTab = new CustomerViewDialog_OverviewTab();
+        customerName_BST = createNewCustomer.getCustomerFullName();
+        customerID_BST = customerViewDialog_overviewTab.getCustomerIDFromHeader();
+    }
+
     //Author: Aditya
-    @And("I add all the filters")
+    @And("I add filters invoice type, service type, customer source, divisions, include flags and date range")
     public void addAllFilters() throws IOException {
         billingByServiceTypeTab.clickAdvancedFilters();
         billingByServiceTypeTab.setType("invoice_bbst", "Initial Invoice");
@@ -119,10 +127,10 @@ public class BillingByServiceType extends AppData {
     }
 
     //Author: Aditya
-    @And("I validate if the report is linked to the customer card")
-    public void validateLink_customerCard() throws Exception {
-        billingByServiceTypeTab.clickDescription_reportDetails();
-        billingByServiceTypeTab.customerDetails();
+    @And("I validate if the billing by service type report is linked to the customer card")
+    public void validateLink_customerCard_BST() throws Exception {
+        billingByServiceTypeTab.clickDescription_reportDetails(customerName_BST);
+        billingByServiceTypeTab.customerDetails(customerName_BST);
     }
 
     //Author: Aditya
@@ -133,9 +141,7 @@ public class BillingByServiceType extends AppData {
         creditMemoTab = new CreditMemoTab();
         header = new Header();
         customerViewDialog_overviewTab = new CustomerViewDialog_OverviewTab();
-        createNewCustomer = new CreateNewCustomer();
         header.searchCustomerWithName(customerName_BST);
-        customerName_BST = createNewCustomer.getCustomerFullName();
         customerID_BST = customerViewDialog_overviewTab.getCustomerIDFromHeader();
         customerCardHeader.navigateTo(customerCardHeader.invoicesTabInDialog);
         if (CucumberBaseClass.scenarioName().equals("Credit memo validation is BST")) {
@@ -154,10 +160,8 @@ public class BillingByServiceType extends AppData {
                     "BBST Report Validation");
             result(billingByServiceTypeTab.get(billingByServiceTypeTab.tax_Report), "$0.00", "Tax Value Validation in report",
                     "BBST Report Validation");
-        } else if (CucumberBaseClass.scenarioName().equals("Multi Group By filter validation in BBST")) {
-            result(totalCollected, billingByServiceTypeTab.get(billingByServiceTypeTab.totalCollected_Report), "Total Collected in the report", "BBST Report Validation");
-            result(billingByServiceTypeTab.getBilledServices_MultiGroupReport(customerID_BST), subTotalValue, "Sub Total Value Validation in report",
-                    "BBST Report Validation");
+        } else if (CucumberBaseClass.scenarioName().equals("Multi Group By filter validation in BST")) {
+            result(totalCollected, billingByServiceTypeTab.getBilledServices_MultiGroupReport(customerID_BST), "Total Collected in the report", "BBST Report Validation");
             result(billingByServiceTypeTab.getTaxRate_MultiGroupReport(customerID_BST), taxValue, "Tax Value Validation in report",
                     "BBST Report Validation");
         } else {
@@ -202,28 +206,35 @@ public class BillingByServiceType extends AppData {
     }
 
     //Author: Aditya
+    @And("I validate the fields generated in multi group by billing by service type report")
+    public void validateFields_BillingServiceReport_MultiGroup() {
+        String[] fields;
+
+        fields = new String[]{billingByServiceTypeTab.filterTypes_BST("description_bbstReport_MultiGroup"),
+                billingByServiceTypeTab.filterTypes_BST("services_bbstReport_MultiGroup"),
+                billingByServiceTypeTab.filterTypes_BST("lineItemQuantity_bbstReport_MultiGroup"),
+                billingByServiceTypeTab.filterTypes_BST("totalCollected_bbstReport_MultiGroup"),
+                billingByServiceTypeTab.filterTypes_BST("taxCollected_bbstReport_MultiGroup"),
+                billingByServiceTypeTab.filterTypes_BST("taxInvoiced_bbstReport_MultiGroup"),
+                billingByServiceTypeTab.filterTypes_BST("paymentsCollected_bbstReport_MultiGroup"),
+                billingByServiceTypeTab.filterTypes_BST("billedServices_bbstReport_MultiGroup")};
+        AssertException.validateFieldEnabled(fields);
+    }
+
+    //Author: Aditya
     @And("I validate the fields generated by billing by service type report")
     public void validateFields_BillingServiceReport() {
         String[] fields;
-        if (CucumberBaseClass.scenarioName().equals("Multi Group By filter validation in BBST")) {
-            fields = new String[]{billingByServiceTypeTab.filterTypes_BST("description_bbstReport_MultiGroup"),
-                    billingByServiceTypeTab.filterTypes_BST("services_bbstReport_MultiGroup"),
-                    billingByServiceTypeTab.filterTypes_BST("lineItemQuantity_bbstReport_MultiGroup"),
-                    billingByServiceTypeTab.filterTypes_BST("totalCollected_bbstReport_MultiGroup"),
-                    billingByServiceTypeTab.filterTypes_BST("taxCollected_bbstReport_MultiGroup"),
-                    billingByServiceTypeTab.filterTypes_BST("taxInvoiced_bbstReport_MultiGroup"),
-                    billingByServiceTypeTab.filterTypes_BST("paymentsCollected_bbstReport_MultiGroup"),
-                    billingByServiceTypeTab.filterTypes_BST("billedServices_bbstReport_MultiGroup")};
-        } else {
-            fields = new String[]{billingByServiceTypeTab.filterTypes_BST("description_bbstReport"),
-                    billingByServiceTypeTab.filterTypes_BST("services_bbstReport"),
-                    billingByServiceTypeTab.filterTypes_BST("lineItemQuantity_bbstReport"),
-                    billingByServiceTypeTab.filterTypes_BST("totalCollected_bbstReport"),
-                    billingByServiceTypeTab.filterTypes_BST("taxCollected_bbstReport"),
-                    billingByServiceTypeTab.filterTypes_BST("taxInvoiced_bbstReport"),
-                    billingByServiceTypeTab.filterTypes_BST("paymentsCollected_bbstReport"),
-                    billingByServiceTypeTab.filterTypes_BST("billedServices_bbstReport")};
-        }
+
+        fields = new String[]{billingByServiceTypeTab.filterTypes_BST("description_bbstReport"),
+                billingByServiceTypeTab.filterTypes_BST("services_bbstReport"),
+                billingByServiceTypeTab.filterTypes_BST("lineItemQuantity_bbstReport"),
+                billingByServiceTypeTab.filterTypes_BST("totalCollected_bbstReport"),
+                billingByServiceTypeTab.filterTypes_BST("taxCollected_bbstReport"),
+                billingByServiceTypeTab.filterTypes_BST("taxInvoiced_bbstReport"),
+                billingByServiceTypeTab.filterTypes_BST("paymentsCollected_bbstReport"),
+                billingByServiceTypeTab.filterTypes_BST("billedServices_bbstReport")};
+
         AssertException.validateFieldEnabled(fields);
     }
 
@@ -269,17 +280,22 @@ public class BillingByServiceType extends AppData {
     @When("I create customer with balance with prefers paper and residential property type")
     public void createCustomerWithBalancePrefersPaper() throws Exception {
         createNewCustomer = new CreateNewCustomer();
-        accountReceivable = new AccountReceivable();
         header = new Header();
         customerViewDialog_overviewTab = new CustomerViewDialog_OverviewTab();
         invImplementation = new InvoiceImplementation();
         createNewCustomer.createCustomerWithPrefPaperAndResidentialProperty();
         customerName_BST = createNewCustomer.getCustomerFullName();
-        accountReceivable.createStandAloneServiceInvoice(standAloneInvoiceAmount, Utilities.currentDate("MM/dd/yyyy"), getData("serviceDescription", generalData));
+        createStandAloneInvoice();
         invoiceID = Utilities.getAttributeValue(invImplementation.invoiceAccountSummaryClick, "ticketid");
         customerID_BST = customerViewDialog_overviewTab.getCustomerIDFromHeader();
         createNewCustomer.closeCustomerCard();
         header.searchCustomerWithName(customerName_BST);
+    }
+
+    @And("I create a standalone invoice for current date")
+    public void createStandAloneInvoice() throws IOException, InterruptedException {
+        accountReceivable = new AccountReceivable();
+        accountReceivable.createStandAloneServiceInvoice(standAloneInvoiceAmount, Utilities.currentDate("MM/dd/yyyy"), getData("serviceDescription", generalData));
     }
 
     //Author: Aditya
@@ -317,8 +333,8 @@ public class BillingByServiceType extends AppData {
     }
 
     //Author: Aditya
-    @Then("I validate customer with balance age in {string}")
-    public void validateBalanceAge(String reportType) throws Exception {
+    @Then("I validate customer with balance age in Billing by Service Type")
+    public void validateBalanceAge() throws Exception {
         createNewCustomer = new CreateNewCustomer();
         customerCardHeader = new CustomerViewDialog_Header();
         customerViewDialog_admin = new CustomerViewDialog_Admin();
@@ -347,7 +363,7 @@ public class BillingByServiceType extends AppData {
                 invoicingTab.makeCardOnFile_PartialCCPayment();
             }
             createNewCustomer.closeCustomerCard();
-            officeObjects.navigateToReportType(reportType);
+            officeObjects.navigateToReportType("Billing by Service Type");
             billingByServiceTypeTab.setGroupFilter(billingByServiceTypeTab.groupBy, "Customer Name");
             billingByServiceTypeTab.clickAdvancedFilters();
             billingByServiceTypeTab.setType("invoice_bbst", "Stand-Alone Invoices");
@@ -368,27 +384,19 @@ public class BillingByServiceType extends AppData {
             }
             billingByServiceTypeTab.click(billingByServiceTypeTab.refresh_bbst);
             billingByServiceTypeTab.searchNewCustomer(billingByServiceTypeTab.search_bbst, billingByServiceTypeTab.getCustomerName_CustomerCard_InfoTab());
-            if (CucumberBaseClass.scenarioName().equals("Balance Age validation PST with StandAlone Invoices")) {
-                paymentsByServiceType = new PaymentsByServiceType();
-                paymentsByServiceType.validateFields_PaymentServiceReport();
-                validateLink_customerCard();
-                paymentsByServiceType.validateDataInPaymentsReport();
-                paymentsByServiceType.validateLineItemValues_PaymentReport();
-                paymentsByServiceType.validateFields_PSTLineItem();
-            } else {
-                validateFields_BillingServiceReport();
-                validateLink_customerCard();
-                validateDataInBillingReport();
-                validateLineItemValues_BillingReport();
-                validateFields_BSTLineItem();
-            }
+            validateFields_BillingServiceReport();
+            validateLink_customerCard_BST();
+            validateDataInBillingReport();
+            validateLineItemValues_BillingReport();
+            validateFields_BSTLineItem();
+
         }
     }
 
     //Author: Aditya
-    @And("I set filter for sold date, scheduler, sale teams, sales reps and service invoice")
-    public void validate_soldDate_Scheduler_SaleTeams_SalesReps() {
-        officeObjects.navigateToReportType("Billing by Service Type");
+    @And("I set filter for sold date, scheduler, sale teams, sales reps and service invoice in {string}")
+    public void validate_soldDate_Scheduler_SaleTeams_SalesReps(String needReportType) {
+        officeObjects.navigateToReportType(needReportType);
         billingByServiceTypeTab.setGroupFilter(billingByServiceTypeTab.groupBy, "Customer Name");
         billingByServiceTypeTab.clickAdvancedFilters();
         billingByServiceTypeTab.setDateRange(billingByServiceTypeTab.soldDateRange, "Today");
@@ -400,9 +408,9 @@ public class BillingByServiceType extends AppData {
     }
 
     //Author: Aditya
-    @And("I search credit memo customer on the BST report")
-    public void searchCreditMemo_BST() throws Exception {
-        officeObjects.navigateToReportType("Billing by Service Type");
+    @And("I search credit memo customer on {string}")
+    public void searchCreditMemo_BST(String needReportType) throws Exception {
+        officeObjects.navigateToReportType(needReportType);
         billingByServiceTypeTab.setGroupFilter(billingByServiceTypeTab.groupBy, "Customer Name");
         billingByServiceTypeTab.clickAdvancedFilters();
         billingByServiceTypeTab.setType("invoice_bbst", "Credit Memo");
@@ -411,9 +419,9 @@ public class BillingByServiceType extends AppData {
     }
 
     //Author: Aditya
-    @And("I search customer on the BST report with AutoPay as {string}")
-    public void searchCCAutoPay_BST(String needAutoPayType) throws Exception {
-        officeObjects.navigateToReportType("Billing by Service Type");
+    @And("I search customer on the {string} with AutoPay as {string}")
+    public void searchCCAutoPay_BST(String needReportType, String needAutoPayType) throws Exception {
+        officeObjects.navigateToReportType(needReportType);
         billingByServiceTypeTab.setGroupFilter(billingByServiceTypeTab.groupBy, "Customer Name");
         billingByServiceTypeTab.clickAdvancedFilters();
         billingByServiceTypeTab.set(billingByServiceTypeTab.aPayType_bbst, needAutoPayType);
@@ -435,9 +443,9 @@ public class BillingByServiceType extends AppData {
     }
 
     //Author: Aditya
-    @And("I set group by and subgroups to Billing Frequency, Customer ID and Invoice")
-    public void setAllThreeGroups() {
-        officeObjects.navigateToReportType("Billing by Service Type");
+    @And("I set group by and subgroups to Billing Frequency, Customer ID and Invoice in {string}")
+    public void setAllThreeGroups(String needReportType) {
+        officeObjects.navigateToReportType(needReportType);
         billingByServiceTypeTab.setGroupFilter(billingByServiceTypeTab.groupBy, "Billing Frequency");
         billingByServiceTypeTab.setGroupFilter(billingByServiceTypeTab.subGroupOne, "Customer ID");
         billingByServiceTypeTab.setGroupFilter(billingByServiceTypeTab.subGroupTwo, "Invoice");
@@ -445,7 +453,7 @@ public class BillingByServiceType extends AppData {
     }
 
     //Author: Aditya
-    @And("I validate Billing by service type report generated from Billing Frequency, Customer ID and Invoice")
+    @And("I validate Billing or Payment by service type report generated from Billing Frequency, Customer ID and Invoice")
     public void validateAllThreeGroups() {
         String customerID_BBSTReport = Utilities.getElementTextValue("//tr//td[text()='" + customerID_BST + "']", Utilities.ElementType.XPath);
         String billingFrequency_BBSTReport = Utilities.getElementTextValue("//tr//td[text()='" + customerID_BST + "']/parent::tr/preceding-sibling::tr[not(contains(@detailvalues,'customerID'))]/td[1]", Utilities.ElementType.XPath);
@@ -453,9 +461,13 @@ public class BillingByServiceType extends AppData {
         try {
             WebElement elm = FindElement.elementByAttribute("//tr//td[text()='" + customerID_BST + "']", FindElement.InputType.XPath);
             if (elm.isDisplayed()) {
-                result(customerID_BST, customerID_BBSTReport, "Customer ID validation", "BBST Report Validation");
-                result("After Service", billingFrequency_BBSTReport, "Billing Frequency Validation", "BBST Report Validation");
-                result(invoiceID, invoiceID_BBSTReport, "Invoice ID validation", "BBST Report Validation");
+                result(customerID_BST, customerID_BBSTReport, "Customer ID validation", "Report Validation");
+                if (CucumberBaseClass.scenarioName().equals("Multi Group By filter validation in PST")) {
+                    result("Billed After Service", billingFrequency_BBSTReport, "Billing Frequency Validation", "Report Validation");
+                } else {
+                    result("After Service", billingFrequency_BBSTReport, "Billing Frequency Validation", "Report Validation");
+                }
+                result(invoiceID, invoiceID_BBSTReport, "Invoice ID validation", "Report Validation");
             }
         } catch (StaleElementReferenceException e) {
             System.out.println(customerID_BST + " is not visible on Billing by Service Type report. " + e);
@@ -467,6 +479,18 @@ public class BillingByServiceType extends AppData {
     public void searchCustomerBillingFrequencyLineItem() throws Exception {
         billingByServiceTypeTab.click("//tr//td[text()='" + customerID_BST + "']");
         billingByServiceTypeTab.searchNewCustomer(billingByServiceTypeTab.search_lineItem, customerID_BST);
+    }
+
+    //Author: Aditya
+    @And("I search {string} invoice on {string}")
+    public void validateStandAloneWriteOffCustomer_BST(String needInvoiceType, String needReportType) throws
+            Exception {
+        officeObjects.navigateToReportType(needReportType);
+        billingByServiceTypeTab.setGroupFilter(billingByServiceTypeTab.groupBy, "Customer Name");
+        billingByServiceTypeTab.clickAdvancedFilters();
+        billingByServiceTypeTab.setType("invoice_bbst", needInvoiceType);
+        billingByServiceTypeTab.click(billingByServiceTypeTab.refresh_bbst);
+        billingByServiceTypeTab.searchNewCustomer(billingByServiceTypeTab.search_bbst, billingByServiceTypeTab.getCustomerName_CustomerCard_InfoTab());
     }
 
 }

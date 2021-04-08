@@ -63,6 +63,7 @@ public class InvoiceImplementation {
 
     //Active Invoice Objects
     public String activeInvoiceOnTheLeft = "//li[@class='listItem appleMenuActive']";
+    public String inactiveInvoiceOnTheLeft = "//li[@class='listItem']";
     public String paymentsBalance = "//div[text()='Balance']/following-sibling::div";
 
 
