@@ -158,7 +158,7 @@ public class TriggerOnSave_CustomerStatus extends AppData {
         newCustomer.createCustomerWithEmail();
 //        overviewHeader.navigateTo(overviewHeader.billingTabInDialog);
 //        billing.navigateToCC();
-        billing.addPaymentCC();
+        billing.addPaymentCC("4111111111111111", "5412750109056250");
 //        billing.navigateToBankAccount();
         billing.addBankAccount();
         overviewHeader.navigateTo(overviewHeader.adminTabInDialog);

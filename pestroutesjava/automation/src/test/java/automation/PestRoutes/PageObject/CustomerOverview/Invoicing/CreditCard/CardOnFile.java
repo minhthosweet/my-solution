@@ -9,4 +9,6 @@ public class CardOnFile {
     public String limitedToCustomerDropdown = "";
     public String limitedToSubscriptionInputField = "";
     public String chargeCardButton = "//div[@id='chargeCardButton']";
+    public String chargeSingleCardButton = "//input[@id='chargeSingleCardButton']";
+    public String cancelPaymentButton = "//div[text()='Cancel Payment']";
 }

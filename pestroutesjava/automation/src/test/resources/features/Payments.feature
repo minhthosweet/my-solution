@@ -8,7 +8,7 @@ Feature: Validate all types of payments
     When I navigate to merchant Info
     Then I set cc gateway "<Gateway>"
     When I create customer with first name, last name, email and address
-    And I add a CC payment option
+    And I add a CC payment option "4111111111111111" and "5412750109056250"
     And I create standalone service invoice "<Amount>"
     Then I make payment with credit card on file
     And I validate if there are errors exist in the list

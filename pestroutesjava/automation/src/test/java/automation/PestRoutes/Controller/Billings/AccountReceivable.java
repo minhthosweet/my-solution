@@ -39,18 +39,20 @@ public class AccountReceivable extends BaseClass {
         navigateToAccountReceivablePage();
         validateAllFieldsEnabled();
     }
+
     //**Author Aarbi**
     @Then("I validate if all fields are displaying and are enabled in account receivable page")
-    public void validateAllFieldsEnabled(){
+    public void validateAllFieldsEnabled() {
 
         String[] fields = {accountReceivable.asOfDateInputField, accountReceivable.accountStatusDropdown, accountReceivable.autoPayDropdown,
-        accountReceivable.statusDropdown, accountReceivable.propertyDropdown, accountReceivable.balanceInputField, accountReceivable.balanceAgeDropdown,
-        accountReceivable.paymentDueDropdown, accountReceivable.daysOverDueDropdown, accountReceivable.prefPaperDropdown, accountReceivable.hasEmailDropdown,
-        accountReceivable.maxMonthlyDropdown, accountReceivable.groupByDropdown, accountReceivable.inclCollectionDropdown,
-        accountReceivable.inclFlagsDropdown, accountReceivable.exclFlagsDropdown};
+                accountReceivable.statusDropdown, accountReceivable.propertyDropdown, accountReceivable.balanceInputField, accountReceivable.balanceAgeDropdown,
+                accountReceivable.paymentDueDropdown, accountReceivable.daysOverDueDropdown, accountReceivable.prefPaperDropdown, accountReceivable.hasEmailDropdown,
+                accountReceivable.maxMonthlyDropdown, accountReceivable.groupByDropdown, accountReceivable.inclCollectionDropdown,
+                accountReceivable.inclFlagsDropdown, accountReceivable.exclFlagsDropdown};
         accountReceivable.click(accountReceivable.advanceFilterLink);
         AssertException.validateFieldEnabled(fields);
     }
+
     //**Author Aarbi**
     @Then("I validate if the customer displays once account status is Active in account receivable page")
     public void validateAccountStatus() throws Exception {
@@ -72,7 +74,7 @@ public class AccountReceivable extends BaseClass {
         customer.closeCustomerCard();
 
         String[] accountStatus = {"Frozen", "All"};
-        for (int i = 0; i < accountStatus.length; i++){
+        for (int i = 0; i < accountStatus.length; i++) {
 
             accountReceivable.select(accountReceivable.accountStatusDropdown, accountStatus[i]);
             accountReceivable.click(accountReceivable.refreshButton);
@@ -82,6 +84,7 @@ public class AccountReceivable extends BaseClass {
 
 
     }
+
     //**Author Aarbi**
     @Then("I validate CC auto pay customer display in account receivable page")
     public void validateAutoPayCustomerWithCC() throws Exception {
@@ -90,7 +93,7 @@ public class AccountReceivable extends BaseClass {
         customerCardHeader = new CustomerViewDialog_Header();
         billing = new Billing();
         String customerName = customer.getCustomerFullName();
-        billing.addPaymentCC();
+        billing.addPaymentCC("4111111111111111", "5412750109056250");
         billing.addCustomerOnAutoPay();
         createStandAloneServiceInvoice("400", Utilities.currentDate("MM/dd/yyyy"), "Automation Renewal");
         customer.closeCustomerCard();
@@ -119,6 +122,7 @@ public class AccountReceivable extends BaseClass {
         searchAndValidateCustomer_AccountReceivable(customerName, " Customer with auto pay");
         customer.removeCustomer();
     }
+
     //**Author Aarbi**
     @Then("I validate customer by prop type in account receivable page")
     public void validateCustomerByPropType() throws Exception {
@@ -129,7 +133,7 @@ public class AccountReceivable extends BaseClass {
         String[] typeOfCustomer = {infoTab.commercialProperty, infoTab.residentialProperty};
         String[] propType = {"Commercial Only", "Residential Only"};
         String customerName = customer.getCustomerFullName();
-        for (int i = 0; i < typeOfCustomer.length; i++){
+        for (int i = 0; i < typeOfCustomer.length; i++) {
             customerCardHeader.navigateTo(customerCardHeader.infoTabInDialog);
             infoTab.selectProperty(typeOfCustomer[i]);
             customerCardHeader.clickSaveButton();
@@ -145,13 +149,14 @@ public class AccountReceivable extends BaseClass {
         admin.changeAccountStatus_Active();
         customerCardHeader.clickCloseButton();
         String[] accountStatus = {"Active", "All"};
-        for (int i = 0; i < accountStatus.length; i++){
+        for (int i = 0; i < accountStatus.length; i++) {
             accountReceivable.select(accountReceivable.accountStatusDropdown, accountStatus[i]);
             accountReceivable.click(accountReceivable.refreshButton);
             searchAndValidateCustomer_AccountReceivable(customerName, " Property type customer");
         }
         customer.removeCustomer();
     }
+
     //**Author Aarbi**
     @Then("I validate customer with balance in account receivable page")
     public void validateBalance() throws Exception {
@@ -174,6 +179,7 @@ public class AccountReceivable extends BaseClass {
         searchAndValidateCustomer_AccountReceivable(customerName, " Customer with balance");
         customer.removeCustomer();
     }
+
     //**Author Aarbi**
     @Then("I validate customer with balance age, payment due, and days overdue in account receivable page")
     public void validateBalanceAge() throws Exception {
@@ -182,11 +188,11 @@ public class AccountReceivable extends BaseClass {
         admin = new CustomerViewDialog_Admin();
         String[] balanceAge = {"7+ Days Old", "30+ Days Old (Past Due)", "90+ Days Old (Way, Way Past Due)"};
         String[] daysOverDue = {"7+ Days Overdue", "30+ Days Overdue", "90+ Days Overdue"};
-        int[] invoiceDaysPastDue = {7,30,90};
-        for(int i = 0; i < balanceAge.length; i++){
+        int[] invoiceDaysPastDue = {7, 30, 90};
+        for (int i = 0; i < balanceAge.length; i++) {
             String fname = Utilities.generateRandomString(7).toLowerCase(Locale.ROOT);
             String lname = Utilities.generateRandomString(6).toLowerCase(Locale.ROOT);
-            System.out.println(fname+" "+lname);
+            System.out.println(fname + " " + lname);
             customer.createACustomer(fname, lname);
             int currentMonth = GetDate.getMonth(Utilities.currentDate("MM/dd/yyyy"));
             int currentYear = GetDate.getYear(Utilities.currentDate("MM/dd/yyyy"));
@@ -205,11 +211,12 @@ public class AccountReceivable extends BaseClass {
             selectPaymentDue(currentMonth, monthOfInv, currentYear, yearOfInv);
             accountReceivable.select(accountReceivable.daysOverDueDropdown, daysOverDue[i]);
             accountReceivable.click(accountReceivable.refreshButton);
-            searchAndValidateCustomer_AccountReceivable(fname+" "+lname, " Customer with Balance age, payment due and days overdue");
+            searchAndValidateCustomer_AccountReceivable(fname + " " + lname, " Customer with Balance age, payment due and days overdue");
             customer.removeCustomer();
         }
 
     }
+
     //**Author Aarbi**
     @Then("I validate customer with pref paper in account receivable page")
     public void validatePrefPaperCustomer() throws Exception {
@@ -224,6 +231,7 @@ public class AccountReceivable extends BaseClass {
         searchAndValidateCustomer_AccountReceivable(customerName, " Customer with Pref paper");
         customer.removeCustomer();
     }
+
     //**Author Aarbi**
     @Then("I validate customer has email in account receivable page")
     public void validateCustomerWithEmail() throws Exception {
@@ -236,8 +244,12 @@ public class AccountReceivable extends BaseClass {
         accountReceivable.select(accountReceivable.hasEmailDropdown, "Yes");
         accountReceivable.click(accountReceivable.refreshButton);
         searchAndValidateCustomer_AccountReceivable(customerName, " Customer with email");
+        Utilities.hoverElement(accountReceivable.actionsButton, accountReceivable.emailStatementsButton_UnderActions);
+        Utilities.acceptAlert();
+        Utilities.acceptAlert();
         customer.removeCustomer();
     }
+
     //**Author Aarbi**
     @Then("I validate autopay customer with max monthly in account receivable page")
     public void validateAutoPayCustomerWithMaxMonthly() throws Exception {
@@ -246,7 +258,7 @@ public class AccountReceivable extends BaseClass {
         customerCardHeader = new CustomerViewDialog_Header();
         billing = new Billing();
         String customerName = customer.getCustomerFullName();
-        billing.addPaymentCC();
+        billing.addPaymentCC("4111111111111111", "5412750109056250");
         billing.addCustomerOnAutoPayCCWithMaxLimit("400");
         createStandAloneServiceInvoice("400", Utilities.currentDate("MM/dd/yyyy"), "Automation Renewal");
         customer.closeCustomerCard();
@@ -256,21 +268,71 @@ public class AccountReceivable extends BaseClass {
         accountReceivable.select(accountReceivable.maxMonthlyDropdown, "Yes");
         accountReceivable.click(accountReceivable.refreshButton);
         searchAndValidateCustomer_AccountReceivable(customerName, " Customer with autopay and max monthly limit");
+        Utilities.hoverElement(accountReceivable.actionsButton, accountReceivable.exportToExcelButton_UnderActions);
+        Utilities.hoverElement(accountReceivable.actionsButton, accountReceivable.printStatementsButton_UnderActions);
+        Utilities.switchToOldWindowOpened();
+        Utilities.hoverElement(accountReceivable.actionsButton, accountReceivable.snailMailButton_UnderActions);
+        Utilities.acceptAlert();
         customer.removeCustomer();
     }
 
-    //**Author Aarbi**
-    public void validateIncludeFlags() throws Exception {
+    //**FK**
+    @Then("I validate customer with including {string} and excluding {string} flags and groupBy {string} and collection {string} in account receivable page with CC {string} or {string}")
+    public void validateIncludeFlags(String needInclFlag, String needExclFlag, String needGroupBy, String needInclCollection, String needRegularCC, String needNMICC) throws Exception {
         customer = new CreateNewCustomer();
-        customer.createCustomerWithGenericFlag("", "");
+        customerCardBillingTab = new BillingPage();
+        customerCardHeader = new CustomerViewDialog_Header();
+        billing = new Billing();
+        String customerName = customer.getCustomerFullName();
+        billing.addPaymentCC(needRegularCC, needNMICC);
+        billing.addCustomerOnAutoPayCCWithMaxLimit("400");
+        createStandAloneServiceInvoice("400", Utilities.currentDate("MM/dd/yyyy"), "Automation Renewal");
+        customer.closeCustomerCard();
+        navigateToAccountReceivablePage();
+        accountReceivable.click(accountReceivable.advanceFilterLink);
+        if (needInclFlag.length() > 0) {
+            accountReceivable.select(accountReceivable.inclFlagsDropdown, needInclFlag);
+        }
+        if (needExclFlag.length() > 0) {
+            accountReceivable.select(accountReceivable.exclFlagsDropdown, needExclFlag);
+        }
+        if (needGroupBy.length() > 0) {
+            accountReceivable.select(accountReceivable.groupByDropdown, needGroupBy);
+        }
+        if (needInclCollection.length() > 0) {
+            accountReceivable.select(accountReceivable.inclCollectionDropdown, needInclCollection);
+        }
+        accountReceivable.click(accountReceivable.refreshButton);
+        searchAndValidateCustomer_AccountReceivable(customerName, " Customer with flags");
     }
+
+    //**FK**
+    @Then("I validate autopay customer {string} and with status {string} in account receivable page")
+    public void validateAutoPayCustomerWithMaxMonthly(String needAutopay, String needStatus) throws Exception {
+        customer = new CreateNewCustomer();
+        customerCardHeader = new CustomerViewDialog_Header();
+        billing = new Billing();
+        String customerName = customer.getCustomerFullName();
+        billing.addPaymentCC("4111111111111111", "5412750109056250");
+        billing.addCustomerOnAutoPayCCWithMaxLimit("400");
+        createStandAloneServiceInvoice("400", Utilities.currentDate("MM/dd/yyyy"), "Automation Renewal");
+        customer.closeCustomerCard();
+        navigateToAccountReceivablePage();
+        accountReceivable.click(accountReceivable.advanceFilterLink);
+        accountReceivable.select(accountReceivable.autoPayDropdown, needAutopay);
+        accountReceivable.select(accountReceivable.statusDropdown, needStatus);
+        accountReceivable.click(accountReceivable.refreshButton);
+        searchAndValidateCustomer_AccountReceivable(customerName, " Customer with autopay and status successful");
+    }
+
     //**Author Aarbi**
     @And("I navigate to account receivable under Billings")
-    public void navigateToAccountReceivablePage(){
+    public void navigateToAccountReceivablePage() {
         billingModule = new BillingModule();
         header.navigateTo(header.billingTab);
         billingModule.navigate(billingModule.accountsReceivable);
     }
+
     //**Author Aarbi**
     @And("I create standalone service invoice")
     public void createStandAloneServiceInvoice(String needAmount, String needDate, String needServiceType) throws InterruptedException {
@@ -284,31 +346,59 @@ public class AccountReceivable extends BaseClass {
         newInvoice.select(newInvoice.serviceTypeDropdown, needServiceType);
         newInvoice.click(newInvoice.createButton);
     }
+
     //Author Aarbi
     @And("I select payment due in account receivable")
-    public void selectPaymentDue(int needCurrentMonth, int needMonthOFInv, int needCurrentYear, int needYearOfInvoice){
+    public void selectPaymentDue(int needCurrentMonth, int needMonthOFInv, int needCurrentYear, int needYearOfInvoice) {
         int monthPastDue = needCurrentMonth - needMonthOFInv;
         int yearsPastDue = needCurrentYear - needYearOfInvoice;
-        if(monthPastDue > 1 && yearsPastDue == 0){
+        if (monthPastDue > 1 && yearsPastDue == 0) {
             accountReceivable.click(accountReceivable.paymentDueDropdown);
             accountReceivable.click(accountReceivable.thisYear);
-        }else if (yearsPastDue > 0){
+        } else if (yearsPastDue > 0) {
             accountReceivable.click(accountReceivable.paymentDueDropdown);
             accountReceivable.click(accountReceivable.lastYear);
-        }else if (monthPastDue == 1 && yearsPastDue == 0){
+        } else if (monthPastDue == 1 && yearsPastDue == 0) {
             accountReceivable.click(accountReceivable.paymentDueDropdown);
             accountReceivable.click(accountReceivable.lastMonth);
-        } else if (monthPastDue == 0 && yearsPastDue == 0){
+        } else if (monthPastDue == 0 && yearsPastDue == 0) {
             accountReceivable.click(accountReceivable.paymentDueDropdown);
             accountReceivable.click(accountReceivable.lastWeek);
         }
     }
+
     //Author Aarbi
     @Then("I search and validate customer in account receivable")
-    public void searchAndValidateCustomer_AccountReceivable(String needCustomerNameToSearch, String needTestName){
+    public void searchAndValidateCustomer_AccountReceivable(String needCustomerNameToSearch, String needTestName) {
         accountReceivable.insert(accountReceivable.searchInputField, needCustomerNameToSearch);
         String expectedName = needCustomerNameToSearch.toLowerCase(Locale.ROOT);
         String actualCustomer = accountReceivable.getValueFromTable("2").toLowerCase(Locale.ROOT);
         result(expectedName, actualCustomer, needTestName, "Validate Account receivable");
     }
+
+    //**FK
+    @Then("I send {string} message under actions with subject {string} and text {string}")
+    public void sendMessageUnderActions(String needMessageType, String needSubject, String needText) throws InterruptedException {
+        customer = new CreateNewCustomer();
+        Utilities.hoverElement(accountReceivable.actionsButton, accountReceivable.sendMessageButton_UnderActions);
+        Utilities.waitUntileElementIsVisible(accountReceivable.sendMessagesButton);
+        accountReceivable.click(accountReceivable.ignoreContactPreferencesCheckBox);
+        accountReceivable.click(accountReceivable.getIgnoreMaxPerMinuteCheckBox);
+        if (needMessageType.equals("Email")) {
+            accountReceivable.click(accountReceivable.emailRadioButton);
+            accountReceivable.setInputSubjectText(accountReceivable.emailSubjectField, needSubject);
+            accountReceivable.setInputEmailText(accountReceivable.emailTextField, needText);
+        } else if (needMessageType.equals("Voice")) {
+            accountReceivable.click(accountReceivable.voiceRadioButton);
+            accountReceivable.setInputEmailText(accountReceivable.emailTextField, needText);
+        } else if (needMessageType.equals("SMS")){
+            accountReceivable.click(accountReceivable.SMSradioButton);
+            accountReceivable.setInputEmailText(accountReceivable.emailTextField, needText);
+        }
+        accountReceivable.click(accountReceivable.sendMessagesButton);
+    }
 }
+
+
+
+
