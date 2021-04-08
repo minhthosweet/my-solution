@@ -11,6 +11,7 @@ public class PaymentsByServiceTypeTab {
     //Report Data Objects
     public String totalCollected_Report = "//tr[@detailvalues]//td[10]";
     public String totalCollected_VisaMasterEtc_Report = "//tr[@detailvalues]//td[7]";
+    public String totalCollected_ACH_Report = "//tr[@detailvalues]//td[9]";
     public String appliedPaymentBeforeTax_Report = "//tr[@detailvalues]//td[2]";
     public String tax_Report = "//tr[@detailvalues]//td[3]";
 

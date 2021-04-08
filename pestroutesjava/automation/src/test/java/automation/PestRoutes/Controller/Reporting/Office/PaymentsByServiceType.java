@@ -151,6 +151,31 @@ public class PaymentsByServiceType extends AppData {
         }
         result(totalCollected, billingByServiceTypeTab.get(paymentsByServiceTypeTab.totalCollected_Report), "Total Collected in the report", "PST Report Validation");
         result(billingByServiceTypeTab.get(paymentsByServiceTypeTab.totalCollected_Report), billingByServiceTypeTab.get(paymentsByServiceTypeTab.totalCollected_VisaMasterEtc_Report), "Total Collected via VISA/Master/Etc in the report", "PST Report Validation");
+        result("$0.00", billingByServiceTypeTab.get(paymentsByServiceTypeTab.totalCollected_ACH_Report), "Total Collected via ACH", "PST Report Validation");
+        result(billingByServiceTypeTab.get(paymentsByServiceTypeTab.appliedPaymentBeforeTax_Report), subTotalValue, "Sub Total Value Validation in report",
+                "PST Report Validation");
+        result(billingByServiceTypeTab.get(paymentsByServiceTypeTab.tax_Report), taxValue, "Tax Value Validation in report",
+                "PST Report Validation");
+    }
+
+    //Author: Aditya
+    @And("I validate data generated from ACH payments by service type report")
+    public void validateDataInPaymentsReport_ACH() throws InterruptedException {
+        invImplementation = new InvoiceImplementation();
+        customerCardHeader = new CustomerViewDialog_Header();
+        creditMemoTab = new CreditMemoTab();
+        header = new Header();
+        createNewCustomer = new CreateNewCustomer();
+        customerViewDialog_overviewTab = new CustomerViewDialog_OverviewTab();
+        header.searchCustomerWithName(customerName_PST);
+        customerCardHeader.navigateTo(customerCardHeader.invoicesTabInDialog);
+        invImplementation.clickInitialInvoice();
+        subTotalValue = invImplementation.getSubTotalValue();
+        taxValue = invImplementation.getTaxValue();
+        totalCollected = billingByServiceTypeTab.get(invImplementation.paymentsInPayments);
+        result(totalCollected, billingByServiceTypeTab.get(paymentsByServiceTypeTab.totalCollected_Report), "Total Collected in the report", "PST Report Validation");
+        result("$0.00", billingByServiceTypeTab.get(paymentsByServiceTypeTab.totalCollected_VisaMasterEtc_Report), "Total Collected via VISA/Master/Etc in the report", "PST Report Validation");
+        result(billingByServiceTypeTab.get(paymentsByServiceTypeTab.totalCollected_Report), billingByServiceTypeTab.get(paymentsByServiceTypeTab.totalCollected_ACH_Report), "Total Collected via ACH in the report", "PST Report Validation");
         result(billingByServiceTypeTab.get(paymentsByServiceTypeTab.appliedPaymentBeforeTax_Report), subTotalValue, "Sub Total Value Validation in report",
                 "PST Report Validation");
         result(billingByServiceTypeTab.get(paymentsByServiceTypeTab.tax_Report), taxValue, "Tax Value Validation in report",
@@ -226,7 +251,7 @@ public class PaymentsByServiceType extends AppData {
             if (CucumberBaseClass.scenarioName().equals("Balance Age validation PST with StandAlone Invoices")) {
                 billing = new Billing();
                 invoicingTab = new InvoicingTab();
-                billing.addPaymentCC("4111111111111111" , "5412750109056250");
+                billing.addPaymentCC("4111111111111111", "5412750109056250");
                 invoicingTab.makeCardOnFile_PartialCCPayment();
             }
             createNewCustomer.closeCustomerCard();
@@ -283,6 +308,24 @@ public class PaymentsByServiceType extends AppData {
         } else {
             result(billingByServiceTypeTab.getAttributeValue(invImplementation.activeInvoiceOnTheLeft, "ticketid"), billingByServiceTypeTab.get(paymentsByServiceTypeTab.invoiceID_lineItem), "Invoice ID validation in detail report", "PST Report Validation");
         }
+        result(getData("serviceDescription", generalData), billingByServiceTypeTab.get(billingByServiceTypeTab.serviceType_lineItem), "Service Type in detail report validation", "PST Report Validation");
+        result(customerID_PST, billingByServiceTypeTab.get(billingByServiceTypeTab.customerID_lineItem), "Customer ID Validation", "PST Report Validation");
+        result(customerName_PST, billingByServiceTypeTab.get(billingByServiceTypeTab.customerName_lineItem), "Customer Name Validation", "PST" +
+                "PST Report Validation");
+    }
+
+    //Author: Aditya
+    @And("I validate line item data for ACH payments in Payments by service type report")
+    public void validateLineItemValuesForACHPayment_PaymentReport() throws IOException {
+        result(totalCollected, billingByServiceTypeTab.get(paymentsByServiceTypeTab.totalCollected_Customer), "Total Collected in the detail report", "PST Report Validation");
+        result(billingByServiceTypeTab.get(paymentsByServiceTypeTab.tax_Customer), taxValue, "Tax Value Validation in detailed report",
+                "PST Report Validation");
+        result(billingByServiceTypeTab.get(paymentsByServiceTypeTab.appliedPaymentBeforeTax_Report), billingByServiceTypeTab.get(paymentsByServiceTypeTab.appliedPaymentBeforeTax_Customer), "Applied Payment Validation in detail report",
+                "PST Report Validation");
+        dateOfInvoice = (billingByServiceTypeTab.get(paymentsByServiceTypeTab.invoiceDate_lineItem)).substring(0, 8);
+        result(Utilities.currentDate("MM/dd/YY"), dateOfInvoice, "Invoice Date Validation", "PST Report Validation");
+        result("ACH", billingByServiceTypeTab.get(paymentsByServiceTypeTab.paymentMethod), "Payment Method validation in detail report", "PST Report Validation");
+        result(billingByServiceTypeTab.getAttributeValue(invImplementation.activeInvoiceOnTheLeft, "ticketid"), billingByServiceTypeTab.get(paymentsByServiceTypeTab.invoiceID_lineItem), "Invoice ID validation in detail report", "PST Report Validation");
         result(getData("serviceDescription", generalData), billingByServiceTypeTab.get(billingByServiceTypeTab.serviceType_lineItem), "Service Type in detail report validation", "PST Report Validation");
         result(customerID_PST, billingByServiceTypeTab.get(billingByServiceTypeTab.customerID_lineItem), "Customer ID Validation", "PST Report Validation");
         result(customerName_PST, billingByServiceTypeTab.get(billingByServiceTypeTab.customerName_lineItem), "Customer Name Validation", "PST" +

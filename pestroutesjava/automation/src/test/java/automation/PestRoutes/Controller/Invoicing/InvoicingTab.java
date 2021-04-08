@@ -33,6 +33,7 @@ public class InvoicingTab extends AppData {
     Invoice_Header invoiceHeader;
     AddSubscription addSubscription;
     CustomerViewDialog_SubscriptionTab subscriptionTab;
+    ACHOnFile achOnFile;
 
     private String treatmentAmount = "900";
     private Integer partialPaymentAmount = Integer.parseInt(treatmentAmount) / 2;
@@ -363,7 +364,46 @@ public class InvoicingTab extends AppData {
         result(expectedConfirmation, paymentConfirmation, "Credit Card Confirmation", "Card on file payment");
     }
 
+    //**Author Adi
+    @Then("I make payment with Use Account on file")
+    public void makePayment_ACHOnFile() throws InterruptedException {
+        invoiceHeader = new Invoice_Header();
+        CardOnFile cardOnFile = new CardOnFile();
+        achOnFile = new ACHOnFile();
+        CreditCardConfirmationPage confirmationPage = new CreditCardConfirmationPage();
+        customerCardHeader = new CustomerViewDialog_Header();
+        customerCardHeader.navigateTo(customerCardHeader.invoicesTabInDialog);
+        Utilities.waitUntileElementIsVisible(invoiceRoutesTab.addNewInvoice);
+        invImplementation.clickInitialInvoice();
+        invoiceRoutesTab.clickAddPayment();
+        invoiceHeader.navigate(invoiceHeader.achDraft);
+        String confirmAmount = Utilities.getAttributeValue(cardOnFile.paymentAmountInputField, "value");
+        FindElement.elementByAttribute(cardOnFile.confirmAmountInputField, FindElement.InputType.XPath).sendKeys(confirmAmount);
+        Utilities.clickElement(achOnFile.draftACHButton, Utilities.ElementType.XPath);
+        Utilities.waitUntileElementIsVisible(confirmationPage.paymentResultTitle);
+        String paymentConfirmation = Utilities.getElementTextValue(confirmationPage.confirmationMessage, Utilities.ElementType.XPath);
+        String expectedConfirmation = "Successfully Charged ACH Account!";
+        result(expectedConfirmation, paymentConfirmation, "ACH Confirmation", "ACH on file payment");
+    }
 
-
-
+    @Then("I make payment with Existing Transaction ACH on file")
+    public void makePayment_ExistingTransactionACHOnFile() throws InterruptedException {
+        invoiceHeader = new Invoice_Header();
+        CardOnFile cardOnFile = new CardOnFile();
+        achOnFile = new ACHOnFile();
+        CreditCardConfirmationPage confirmationPage = new CreditCardConfirmationPage();
+        customerCardHeader = new CustomerViewDialog_Header();
+        customerCardHeader.navigateTo(customerCardHeader.invoicesTabInDialog);
+        Utilities.waitUntileElementIsVisible(invoiceRoutesTab.addNewInvoice);
+        invImplementation.clickInitialInvoice();
+        invoiceRoutesTab.clickAddPayment();
+        invoiceHeader.navigate(invoiceHeader.achDraft);
+        String confirmAmount = Utilities.getAttributeValue(cardOnFile.paymentAmountInputField, "value");
+        FindElement.elementByAttribute(cardOnFile.confirmAmountInputField, FindElement.InputType.XPath).sendKeys(confirmAmount);
+        Utilities.clickElement(achOnFile.recordExistingButton, Utilities.ElementType.XPath);
+        Utilities.waitUntileElementIsVisible(confirmationPage.paymentResultTitle);
+        String paymentConfirmation = Utilities.getElementTextValue(confirmationPage.confirmationMessage, Utilities.ElementType.XPath);
+        String expectedConfirmation = "Successfully Charged ACH Account!";
+        result(expectedConfirmation, paymentConfirmation, "ACH Confirmation", "ACH on file payment");
+    }
 }
