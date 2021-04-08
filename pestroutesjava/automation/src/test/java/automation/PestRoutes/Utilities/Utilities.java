@@ -382,6 +382,11 @@ public class Utilities {
 	public static void navigateToUrl(String needURL) { driver.get(needURL);
 	}
 
+	public static String getCurrentUrl(){
+		String currentURL = driver.getCurrentUrl();
+		return currentURL;
+	}
+
 	@And("I quit driver")
 	public static void closeBrowser() {
 		driver.quit();

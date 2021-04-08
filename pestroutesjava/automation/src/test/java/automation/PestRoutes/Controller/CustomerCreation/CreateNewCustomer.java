@@ -85,6 +85,7 @@ public class CreateNewCustomer extends AppData {
         customer.selectUnit("Multi Unit");
         customer.setAddress(streetAddress);
         customer.setZipCode(zipcode);
+        Utilities.acceptAlert();
         customer.setEmailAddress(email);
         customer.setCellPhone(primaryPhoneNumber);
         customer.clickSmsCheckBox();
@@ -107,6 +108,7 @@ public class CreateNewCustomer extends AppData {
         customer.selectUnit("Multi Unit");
         customer.setAddress(streetAddress);
         customer.setZipCode("77008");
+        Utilities.acceptAlert();
         customer.setEmailAddress(email);
         customer.setCellPhone(primaryPhoneNumber);
         customer.clickSmsCheckBox();
@@ -240,6 +242,7 @@ public class CreateNewCustomer extends AppData {
         customer.selectUnit("Multi Unit");
         customer.setAddress(streetAddress);
         customer.setZipCode(zipcode);
+        Utilities.acceptAlert();
         customer.setCity(city);
         customer.setCellPhone(getData("phoneNumber", generalData));
         customer.selectSource(needSource);
@@ -266,6 +269,7 @@ public class CreateNewCustomer extends AppData {
         customer.selectUnit("Multi Unit");
         customer.setAddress(streetAddress);
         customer.setZipCode(zipcode);
+        Utilities.acceptAlert();
         customer.setCellPhone(getData("phoneNumber", generalData));
         customer.clickSmsCheckBox();
         customer.clickEmailCheckBox();
@@ -289,6 +293,7 @@ public class CreateNewCustomer extends AppData {
         customer.selectUnit("Multi Unit");
         customer.setAddress(streetAddress);
         customer.setZipCode("77008");
+        Utilities.acceptAlert();
         customer.setEmailAddress(email);
         customer.setCellPhone(getData("phoneNumber", generalData));
         customer.clickSmsCheckBox();
@@ -382,6 +387,7 @@ public class CreateNewCustomer extends AppData {
         customer.setEmailAddress(email);
         customer.setAddress(streetAddress);
         customer.setZipCode(zipcode);
+        Utilities.acceptAlert();
         customer.setCellPhone(getData("phoneNumber", generalData));
         customer.clickSmsCheckBox();
         customer.clickEmailCheckBox();

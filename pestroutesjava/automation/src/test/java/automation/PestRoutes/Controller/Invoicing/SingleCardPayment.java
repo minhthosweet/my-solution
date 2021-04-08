@@ -75,12 +75,6 @@ public class SingleCardPayment {
                 continue;
             }
         }
-//        Utilities.waitUntileElementIsVisible(payment.notes);
-//        Thread.sleep(1000);
-//        Utilities.clickElement(payment.payingWithCardButton, Utilities.ElementType.XPath);
-//        Utilities.switchToIframeByXpath(payment.brainTreeCcIframe);
-//        FindElement.elementByAttribute(payment.ccNumberField, FindElement.InputType.XPath).sendKeys(needBrainTreeCC);
-//        Utilities.switchBackToDom();
         Utilities.switchToIframeByXpath(payment.brainTreeExpIframe);
         FindElement.elementByAttribute(payment.ccExpField, FindElement.InputType.XPath).sendKeys("0228");
         Utilities.switchBackToDom();
