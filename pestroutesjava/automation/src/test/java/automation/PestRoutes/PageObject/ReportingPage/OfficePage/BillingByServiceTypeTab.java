@@ -239,14 +239,14 @@ public class BillingByServiceTypeTab {
         FindElement.elementByAttribute(soldDateRange, FindElement.InputType.XPath).sendKeys(dateRange);
     }
 
-    public void clickDescription_reportDetails() throws Exception {
-        Utilities.scrollToElementJS("//tr[@detailvalues]//td[text()='" + getCustomerName_CustomerCard_InfoTab() + "']");
-        Utilities.clickElement("//tr[@detailvalues]//td[text()='" + getCustomerName_CustomerCard_InfoTab() + "']", Utilities.ElementType.XPath);
+    public void clickDescription_reportDetails(String customerName) {
+        Utilities.scrollToElementJS("//tr[@detailvalues]//td[text()='" + customerName + "']");
+        Utilities.clickElement("//tr[@detailvalues]//td[text()='" + customerName + "']", Utilities.ElementType.XPath);
     }
 
     //Author: Aditya
-    public void customerDetails() throws Exception {
-        String customerName_detailed = "//tr[@onmouseup]//td[text()='" + getCustomerName_CustomerCard_InfoTab() + "']";
+    public void customerDetails(String customerName) throws Exception {
+        String customerName_detailed = "//tr[@onmouseup]//td[text()='" + customerName + "']";
         try {
             WebElement elm = FindElement.elementByAttribute(customerName_detailed, FindElement.InputType.XPath);
             if (elm.isDisplayed()) {
