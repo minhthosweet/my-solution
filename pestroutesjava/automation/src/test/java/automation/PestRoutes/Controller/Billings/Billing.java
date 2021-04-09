@@ -133,6 +133,7 @@ public class Billing extends AppData {
 		customerCardBillingTab.clickElement(customerCardBillingTab.saveBillingInfoButton);
 	}
 	//Author Aarbi
+	//needAutoPayType value can be "CC" or "ACH" or last four of CC or ACH
 	@When("I add an customer in auto pay with {string} and max limit {string}")
 	public void addCustomerOnAutoPayCCWithMaxLimit(String needAutoPayType, String needMaxLimit) throws InterruptedException {
 		customerCardBillingTab = new BillingPage();
