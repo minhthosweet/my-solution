@@ -9,7 +9,7 @@ Feature: Validate all types of payments
     Then I set ACH gateway "<Gateway>"
     When I create customer with balance with prefers paper and residential property type
     And I add an ACH payment option
-    Then I make payment with Use Account on file
+    Then I make payment with ACH Account on file
     And I validate if there are errors exist in the list
     Then I remove the customer
 

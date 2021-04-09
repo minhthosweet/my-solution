@@ -124,6 +124,7 @@ public class Utilities {
 	}
 
 	public static void selectValueFromDropDownByValue(String needXpath, String needValue) {
+		waitUntileElementIsVisible(needXpath);
 		Select dropdown = new Select(driver.findElement(By.xpath(needXpath)));
 		dropdown.selectByVisibleText(needValue);
 	}

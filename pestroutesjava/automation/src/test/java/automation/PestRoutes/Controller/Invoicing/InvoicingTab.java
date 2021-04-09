@@ -365,7 +365,7 @@ public class InvoicingTab extends AppData {
     }
 
     //**Author Adi
-    @Then("I make payment with Use Account on file")
+    @Then("I make payment with ACH Account on file")
     public void makePayment_ACHOnFile() throws InterruptedException {
         invoiceHeader = new Invoice_Header();
         CardOnFile cardOnFile = new CardOnFile();

@@ -359,7 +359,7 @@ public class BillingByServiceType extends AppData {
             if (CucumberBaseClass.scenarioName().equals("Balance Age validation PST with StandAlone Invoices")) {
                 billing = new Billing();
                 invoicingTab = new InvoicingTab();
-                billing.addPaymentCC("4111111111111111", "5412750109056250" );
+                billing.addPaymentCC("4111111111111111", "5412750109056250");
                 invoicingTab.makeCardOnFile_PartialCCPayment();
             }
             createNewCustomer.closeCustomerCard();
@@ -409,7 +409,7 @@ public class BillingByServiceType extends AppData {
 
     //Author: Aditya
     @And("I search credit memo customer on {string}")
-    public void searchCreditMemo_BST(String needReportType) throws Exception {
+    public void searchCreditMemo_BST(String needReportType) {
         officeObjects.navigateToReportType(needReportType);
         billingByServiceTypeTab.setGroupFilter(billingByServiceTypeTab.groupBy, "Customer Name");
         billingByServiceTypeTab.clickAdvancedFilters();
@@ -419,8 +419,21 @@ public class BillingByServiceType extends AppData {
     }
 
     //Author: Aditya
+    @And("I search customer on the {string} with AutoPay as {string} and Payment Status as {string}")
+    public void searchSuccessfulPaymentAutoPay_BST(String needReportType, String needAutoPayType, String needPaymentStatus) {
+        officeObjects.navigateToReportType(needReportType);
+        billingByServiceTypeTab.setGroupFilter(billingByServiceTypeTab.groupBy, "Customer Name");
+        billingByServiceTypeTab.clickAdvancedFilters();
+        billingByServiceTypeTab.set(billingByServiceTypeTab.aPayType_bbst, needAutoPayType);
+        billingByServiceTypeTab.set(billingByServiceTypeTab.aPayStatus_bbst, needPaymentStatus);
+        billingByServiceTypeTab.click(billingByServiceTypeTab.refresh_bbst);
+        billingByServiceTypeTab.searchNewCustomer(billingByServiceTypeTab.search_bbst, customerName_BST);
+
+    }
+
+    //Author: Aditya
     @And("I search customer on the {string} with AutoPay as {string}")
-    public void searchCCAutoPay_BST(String needReportType, String needAutoPayType) throws Exception {
+    public void searchCustomerAutoPay_BST(String needReportType, String needAutoPayType) throws Exception {
         officeObjects.navigateToReportType(needReportType);
         billingByServiceTypeTab.setGroupFilter(billingByServiceTypeTab.groupBy, "Customer Name");
         billingByServiceTypeTab.clickAdvancedFilters();

@@ -133,12 +133,13 @@ public class Billing extends AppData {
 		customerCardBillingTab.clickElement(customerCardBillingTab.saveBillingInfoButton);
 	}
 	//Author Aarbi
-	@When("I add an customer in auto pay with credit card and max limit {string}")
-	public void addCustomerOnAutoPayCCWithMaxLimit(String needMaxLimit) throws InterruptedException {
+	@When("I add an customer in auto pay with {string} and max limit {string}")
+	public void addCustomerOnAutoPayCCWithMaxLimit(String needAutoPayType, String needMaxLimit) throws InterruptedException {
 		customerCardBillingTab = new BillingPage();
 		customerCardBillingTab.clickElement(customerCardBillingTab.billingInfoButton);
-		Utilities.selectValueFromDropDownByIndex(customerCardBillingTab.autoPayDropdown, 1);
-		customerCardBillingTab.setInputField(customerCardBillingTab.maxMonthlyChargeInputField,needMaxLimit);
+		Utilities.clickElement(customerCardBillingTab.autoPayDropdown, Utilities.ElementType.XPath);
+		Utilities.clickElement("//div[@id='billingSwitches']//select[@name='autoPayPaymentProfileID']//option[contains(text(),'"+needAutoPayType+"')]", Utilities.ElementType.XPath);
+        customerCardBillingTab.setInputField(customerCardBillingTab.maxMonthlyChargeInputField,needMaxLimit);
 		customerCardBillingTab.clickElement(customerCardBillingTab.saveBillingInfoButton);
 	}
 
