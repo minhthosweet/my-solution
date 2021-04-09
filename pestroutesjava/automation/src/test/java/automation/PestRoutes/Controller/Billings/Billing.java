@@ -8,11 +8,11 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.When;
 
 public class Billing extends AppData {
-	
+
 	BillingPage billing = new BillingPage();
 	CustomerViewDialog_Header customerCardHeader;
 	BillingPage customerCardBillingTab;
-	
+
 	//***Navigations***
 	public void navigateToBillingInfo() throws InterruptedException {
 		billing.clickElement(billing.billingInfoButton);
@@ -23,13 +23,13 @@ public class Billing extends AppData {
 	public void navigateToBankAccount() throws InterruptedException {
 		billing.clickElement(billing.bankAccountButton);
 	}
-	
+
 	//********
-	
+
 	public void editBillingInfo() {
-		
+
 	}
-	
+
 	public void addCC() throws Exception {
 		billing.clickElement(billing.ccSecurelyEnterCardInfoButton);
 		billing.setInputField(billing.pestRoutesCcNumberInputField, getData("creditCardNumber", generalData));
@@ -108,7 +108,7 @@ public class Billing extends AppData {
 		}
 	}
 	//***Author Aarbi
-	@And("I add a ACH payment option")
+	@And("I add an ACH payment option")
 	public void addBankAccount() throws Exception {
 		customerCardHeader = new CustomerViewDialog_Header();
 		customerCardBillingTab = new BillingPage();
