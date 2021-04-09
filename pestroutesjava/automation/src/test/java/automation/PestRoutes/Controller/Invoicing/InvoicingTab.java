@@ -386,6 +386,7 @@ public class InvoicingTab extends AppData {
         result(expectedConfirmation, paymentConfirmation, "ACH Confirmation", "ACH on file payment");
     }
 
+    //**Author Adi
     @Then("I make payment with Existing Transaction ACH on file")
     public void makePayment_ExistingTransactionACHOnFile() throws InterruptedException {
         invoiceHeader = new Invoice_Header();
