@@ -259,7 +259,7 @@ public class AccountReceivable extends BaseClass {
         billing = new Billing();
         String customerName = customer.getCustomerFullName();
         billing.addPaymentCC("4111111111111111", "5412750109056250");
-        billing.addCustomerOnAutoPayCCWithMaxLimit("400");
+        billing.addCustomerOnAutoPayCCWithMaxLimit("CC","400");
         createStandAloneServiceInvoice("400", Utilities.currentDate("MM/dd/yyyy"), "Automation Renewal");
         customer.closeCustomerCard();
         navigateToAccountReceivablePage();
@@ -285,7 +285,7 @@ public class AccountReceivable extends BaseClass {
         billing = new Billing();
         String customerName = customer.getCustomerFullName();
         billing.addPaymentCC(needRegularCC, needNMICC);
-        billing.addCustomerOnAutoPayCCWithMaxLimit("400");
+        billing.addCustomerOnAutoPayCCWithMaxLimit("CC","400");
         createStandAloneServiceInvoice("400", Utilities.currentDate("MM/dd/yyyy"), "Automation Renewal");
         customer.closeCustomerCard();
         navigateToAccountReceivablePage();
@@ -314,7 +314,7 @@ public class AccountReceivable extends BaseClass {
         billing = new Billing();
         String customerName = customer.getCustomerFullName();
         billing.addPaymentCC("4111111111111111", "5412750109056250");
-        billing.addCustomerOnAutoPayCCWithMaxLimit("400");
+        billing.addCustomerOnAutoPayCCWithMaxLimit("CC","400");
         createStandAloneServiceInvoice("400", Utilities.currentDate("MM/dd/yyyy"), "Automation Renewal");
         customer.closeCustomerCard();
         navigateToAccountReceivablePage();
