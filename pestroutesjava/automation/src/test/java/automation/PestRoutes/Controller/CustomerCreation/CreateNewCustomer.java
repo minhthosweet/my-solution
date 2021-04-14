@@ -8,7 +8,6 @@ import automation.PestRoutes.Utilities.*;
 import io.cucumber.java.en.Given;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.NoAlertPresentException;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.annotations.Test;
 import automation.PestRoutes.PageObject.Header;
 import automation.PestRoutes.PageObject.CreateCustomer.CreateCustomerDialog;
@@ -400,6 +399,7 @@ public class CreateNewCustomer extends AppData {
         Utilities.waitUntileElementIsVisible(overview.overviewTab_Address);
         customerDialog_Header.navigateTo(customerDialog_Header.infoTabInDialog);
         String customerNameInHeader = customerViewDialog_infoTab.getFirstName();
+        customerName = getCustomerFullName();
         result(fName, customerNameInHeader, "Created customer ", "Structure Validation");
         String newId = overview.getCustomerIDFromHeader();
         addData("strutureUID", newId, generalData);

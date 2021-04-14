@@ -1,10 +1,12 @@
 #Author: Adi
 @RegressionADI
-@PaymentGatewayValidations
+@PaymentGatewayValidationsACH
 Feature: Validate all types of payments
 
-  Scenario Outline: ACH On File Payment Validation
+  Scenario: PreValidations
     Given I add a renewal service
+
+  Scenario Outline: ACH On File Payment Validation
     When I navigate to merchant Info
     Then I set ACH gateway "<Gateway>"
     When I create customer with balance with prefers paper and residential property type
@@ -21,7 +23,6 @@ Feature: Validate all types of payments
     #  | Authorize.net       |
 
   Scenario Outline: ACH Existing Transaction Payment Validation
-    Given I add a renewal service
     When I navigate to merchant Info
     Then I set ACH gateway "<Gateway>"
     When I create customer with balance with prefers paper and residential property type

@@ -4,6 +4,7 @@ import automation.PestRoutes.Controller.Billings.AccountReceivable;
 import automation.PestRoutes.Controller.Billings.Billing;
 import automation.PestRoutes.Controller.CustomerCreation.CreateNewCustomer;
 import automation.PestRoutes.Controller.Invoicing.InvoicingTab;
+import automation.PestRoutes.PageObject.CreateCustomer.CreateCustomerDialog;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_Admin;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_Header;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_OverviewTab;
@@ -33,6 +34,7 @@ public class PaymentsByServiceType extends AppData {
     CreateNewCustomer createNewCustomer;
     CreditMemoTab creditMemoTab;
     CustomerViewDialog_OverviewTab customerViewDialog_overviewTab;
+    CreateCustomerDialog createCustomerDialog;
 
     private String subTotalValue = "";
     private String taxValue = "";
@@ -130,10 +132,13 @@ public class PaymentsByServiceType extends AppData {
         creditMemoTab = new CreditMemoTab();
         header = new Header();
         createNewCustomer = new CreateNewCustomer();
+        createCustomerDialog = new CreateCustomerDialog();
         customerViewDialog_overviewTab = new CustomerViewDialog_OverviewTab();
         header.searchCustomerWithName(customerName_PST);
+        customerCardHeader.navigateTo(customerCardHeader.infoTabInDialog);
+        double taxPercent = Double.parseDouble(billingByServiceTypeTab.getAttributeValue(createCustomerDialog.mainTaxPercentage, "value").replaceAll("%", "")) / 100;
         customerCardHeader.navigateTo(customerCardHeader.invoicesTabInDialog);
-        if (CucumberBaseClass.scenarioName().equals("Credit memo validation is PST")) {
+        if (CucumberBaseClass.scenarioName().equals("Credit memo validation in PST")) {
             billingByServiceTypeTab.click(creditMemoTab.getTicketID());
             creditMemoTab.clickAppliedCharge_invoiceApplications();
         } else {
@@ -142,12 +147,20 @@ public class PaymentsByServiceType extends AppData {
         subTotalValue = invImplementation.getSubTotalValue();
         taxValue = invImplementation.getTaxValue();
         totalCollected = billingByServiceTypeTab.get(invImplementation.paymentsInPayments);
-        if (CucumberBaseClass.scenarioName().equals("Credit memo validation is PST")) {
-            totalCollected = "$" + String.valueOf(String.format("%.2f", Double.parseDouble(billingByServiceTypeTab.get(invImplementation.paymentsInPayments).substring(1)) / 10));
+        if (CucumberBaseClass.scenarioName().equals("Credit memo validation in PST")) {
+            totalCollected = "$" + String.format("%.2f", Double.parseDouble(billingByServiceTypeTab.get(invImplementation.paymentsInPayments).substring(1)) / 10);
         }
-        if (CucumberBaseClass.scenarioName().equals("Balance Age validation PST with StandAlone Invoices") || CucumberBaseClass.scenarioName().equals("Credit memo validation is PST")) {
-            subTotalValue = "$" + String.valueOf(String.format("%.2f", Double.parseDouble(subTotalValue.substring(1)) / 10));
-            taxValue = "$" + String.valueOf(String.format("%.2f", Double.parseDouble(taxValue.substring(1)) / 10));
+        if (CucumberBaseClass.scenarioName().equals("Balance Age validation PST with StandAlone Invoices")) {
+            subTotalValue = billingByServiceTypeTab.get(invImplementation.paymentsInPayments).substring(1);
+            taxPercent = 1 + taxPercent;
+            subTotalValue = "$" + String.format("%.2f", Double.parseDouble(subTotalValue) / (taxPercent));
+            taxValue = "$" + String.format("%.2f", (Double.parseDouble(totalCollected.substring(1)) - Double.parseDouble(subTotalValue.substring(1))));
+        }
+        if (CucumberBaseClass.scenarioName().equals("Credit memo validation in PST")) {
+            subTotalValue = billingByServiceTypeTab.get(invImplementation.paymentsInPayments).substring(1);
+            taxPercent = (1 + taxPercent) * 10;
+            subTotalValue = "$" + String.format("%.2f", Double.parseDouble(subTotalValue) / (taxPercent));
+            taxValue = "$" + String.format("%.2f", (Double.parseDouble(totalCollected.substring(1)) - Double.parseDouble(subTotalValue.substring(1))));
         }
         result(totalCollected, billingByServiceTypeTab.get(paymentsByServiceTypeTab.totalCollected_Report), "Total Collected in the report", "PST Report Validation");
         result(billingByServiceTypeTab.get(paymentsByServiceTypeTab.totalCollected_Report), billingByServiceTypeTab.get(paymentsByServiceTypeTab.totalCollected_VisaMasterEtc_Report), "Total Collected via VISA/Master/Etc in the report", "PST Report Validation");
@@ -155,6 +168,32 @@ public class PaymentsByServiceType extends AppData {
         result(billingByServiceTypeTab.get(paymentsByServiceTypeTab.appliedPaymentBeforeTax_Report), subTotalValue, "Sub Total Value Validation in report",
                 "PST Report Validation");
         result(billingByServiceTypeTab.get(paymentsByServiceTypeTab.tax_Report), taxValue, "Tax Value Validation in report",
+                "PST Report Validation");
+    }
+
+    //Author: Aditya
+    @And("I validate data generated from payments by service type report in multi groups")
+    public void validateDataInPaymentsReport_multiGroups() throws InterruptedException {
+        invImplementation = new InvoiceImplementation();
+        customerCardHeader = new CustomerViewDialog_Header();
+        creditMemoTab = new CreditMemoTab();
+        header = new Header();
+        createNewCustomer = new CreateNewCustomer();
+        createCustomerDialog = new CreateCustomerDialog();
+        customerViewDialog_overviewTab = new CustomerViewDialog_OverviewTab();
+        header.searchCustomerWithName(customerName_PST);
+        customerCardHeader.navigateTo(customerCardHeader.infoTabInDialog);
+        customerCardHeader.navigateTo(customerCardHeader.invoicesTabInDialog);
+        invImplementation.clickInitialInvoice();
+        subTotalValue = invImplementation.getSubTotalValue();
+        taxValue = invImplementation.getTaxValue();
+        totalCollected = billingByServiceTypeTab.get(invImplementation.paymentsInPayments);
+        result(totalCollected, paymentsByServiceTypeTab.getPaymentServices_MultiGroupReport(customerID_PST), "Total Collected in the report", "PST Report Validation");
+        result(billingByServiceTypeTab.get(paymentsByServiceTypeTab.totalCollected_Report), billingByServiceTypeTab.get(paymentsByServiceTypeTab.totalCollected_VisaMasterEtc_Report), "Total Collected via VISA/Master/Etc in the report", "PST Report Validation");
+        result("$0.00", billingByServiceTypeTab.get(paymentsByServiceTypeTab.totalCollected_ACH_Report), "Total Collected via ACH", "PST Report Validation");
+        result(paymentsByServiceTypeTab.getAppliedPaymentsBeforeTax_MultiGroupReport(customerID_PST), subTotalValue, "Sub Total Value Validation in report",
+                "PST Report Validation");
+        result(paymentsByServiceTypeTab.getTaxRate_MultiGroupReport(customerID_PST), taxValue, "Tax Value Validation in report",
                 "PST Report Validation");
     }
 
@@ -260,7 +299,8 @@ public class PaymentsByServiceType extends AppData {
             billingByServiceTypeTab.setGroupFilter(billingByServiceTypeTab.groupBy, "Customer Name");
             billingByServiceTypeTab.clickAdvancedFilters();
             billingByServiceTypeTab.setType("invoice_bbst", "Stand-Alone Invoices");
-            billingByServiceTypeTab.setBalance_bbst(amount);
+            String setAmount = Integer.toString(Integer.valueOf(amount) / 10);
+            billingByServiceTypeTab.setBalance_bbst(setAmount);
             billingByServiceTypeTab.set(billingByServiceTypeTab.balanceAge_bbst, balanceAge[i]);
             int monthPastDue = currentMonth - monthOfInv;
             int yearsPastDue = currentYear - yearOfInv;
@@ -303,7 +343,7 @@ public class PaymentsByServiceType extends AppData {
         dateOfInvoice = (billingByServiceTypeTab.get(paymentsByServiceTypeTab.invoiceDate_lineItem)).substring(0, 8);
         result(Utilities.currentDate("MM/dd/YY"), dateOfInvoice, "Invoice Date Validation", "PST Report Validation");
         result("Credit Card", billingByServiceTypeTab.get(paymentsByServiceTypeTab.paymentMethod), "Payment Method validation in detail report", "PST Report Validation");
-        if (CucumberBaseClass.scenarioName().equals("Credit memo validation is PST")) {
+        if (CucumberBaseClass.scenarioName().equals("Credit memo validation in PST")) {
             result(billingByServiceTypeTab.getAttributeValue(invImplementation.inactiveInvoiceOnTheLeft, "ticketid"), billingByServiceTypeTab.get(paymentsByServiceTypeTab.invoiceID_lineItem), "Invoice ID validation in detail report", "PST Report Validation");
         } else {
             result(billingByServiceTypeTab.getAttributeValue(invImplementation.activeInvoiceOnTheLeft, "ticketid"), billingByServiceTypeTab.get(paymentsByServiceTypeTab.invoiceID_lineItem), "Invoice ID validation in detail report", "PST Report Validation");

@@ -1,6 +1,6 @@
 #Author: Aarbi
 @RegressionARB
-@PaymentGatewayValidations
+@PaymentGatewayValidationsCC
 Feature: Validate all types of payments
 
   Scenario Outline: Card On FIle Payment Validation

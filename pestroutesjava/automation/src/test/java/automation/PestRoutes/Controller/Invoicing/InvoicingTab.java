@@ -352,7 +352,7 @@ public class InvoicingTab extends AppData {
         invoiceRoutesTab.clickAddPayment();
         invoiceHeader.navigate(invoiceHeader.creditCard);
         Utilities.waitUntileElementIsVisible(cardOnFile.chargeCardButton);
-        String paymentAmount = String.valueOf((int) (Double.parseDouble(Utilities.getAttributeValue(cardOnFile.paymentAmountInputField, "value"))) / 10);
+        String paymentAmount = String.format("%.2f", ((Double.parseDouble(Utilities.getAttributeValue(cardOnFile.paymentAmountInputField, "value"))) / 10));
         FindElement.elementByAttribute(cardOnFile.paymentAmountInputField, FindElement.InputType.XPath).clear();
         FindElement.elementByAttribute(cardOnFile.paymentAmountInputField, FindElement.InputType.XPath).sendKeys(paymentAmount);
         FindElement.elementByAttribute(cardOnFile.confirmAmountInputField, FindElement.InputType.XPath).sendKeys(paymentAmount);
