@@ -85,7 +85,7 @@ public class SalesReport extends AppData {
 		String excludeServiceTypeCategories = getData("excludeServiceTypeCategories", generalData);
 
 		header.navigateTo(header.customersTab);
-		customersMainPage.NavigateTo(customersMainPage.salesReport);
+		customersMainPage.navigateTo(customersMainPage.salesReport);
 		salesReportPage.selectTodaysDate(salesReportPage.selectToday);
 		salesReportPage.selectFilter(salesReportPage.selectEmployeeType, employeeType);
 		salesReportPage.selectFilter(salesReportPage.selectStatus, initialStatus);

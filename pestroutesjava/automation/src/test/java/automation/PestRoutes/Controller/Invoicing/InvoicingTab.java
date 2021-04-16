@@ -158,7 +158,7 @@ public class InvoicingTab extends AppData {
         String serviceType = subscriptionTab.getServiceType();
         String initialInvoiceValue = subscriptionTab.getInitialInvoiceValue();
         String initialSubTotal = Double.toString(subscriptionTab.getInitialSubTotal());
-        String taxAmount = Double.toString(subscriptionTab.getInitialTax());
+        String taxAmount = String.format("%.2f",(subscriptionTab.getInitialTax()));
 
         customerCardHeader.navigateTo(customerCardHeader.invoicesTabInDialog);
         result(initialInvoiceValue, invImplementation.getAccountBalance(), "Total Account Balance Validation",
@@ -352,7 +352,7 @@ public class InvoicingTab extends AppData {
         invoiceRoutesTab.clickAddPayment();
         invoiceHeader.navigate(invoiceHeader.creditCard);
         Utilities.waitUntileElementIsVisible(cardOnFile.chargeCardButton);
-        String paymentAmount = String.valueOf((int) (Double.parseDouble(Utilities.getAttributeValue(cardOnFile.paymentAmountInputField, "value"))) / 10);
+        String paymentAmount = String.format("%.2f", ((Double.parseDouble(Utilities.getAttributeValue(cardOnFile.paymentAmountInputField, "value"))) / 10));
         FindElement.elementByAttribute(cardOnFile.paymentAmountInputField, FindElement.InputType.XPath).clear();
         FindElement.elementByAttribute(cardOnFile.paymentAmountInputField, FindElement.InputType.XPath).sendKeys(paymentAmount);
         FindElement.elementByAttribute(cardOnFile.confirmAmountInputField, FindElement.InputType.XPath).sendKeys(paymentAmount);

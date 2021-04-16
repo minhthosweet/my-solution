@@ -5,15 +5,15 @@ import automation.PestRoutes.Utilities.Utilities.ElementType;
 
 public class CustomersMainPage {
 	
-	public String customerReport = "customerReport";
-	public String emailDashboard = "emailStats";
-	public String salesReport = "soldCustomers";
-	public String auditSales = "auditSales";
-	public String leads = "leads";
+	public String customerReport = "Customer Reports";
+	public String emailDashboard = "Email Dashboard";
+	public String salesReport = "Sales Report";
+	public String auditSales = "Audit Sales";
+	public String leads = "Leads";
 	private String actions = "//div[@id='customerReportTableActions']";
 	
-	public void NavigateTo(String chooseTabFromConst) {
+	public void navigateTo(String needReportType) {
 		Utilities.waitUntileElementIsVisible(actions);
-		Utilities.clickElement("//li[@for = '"+chooseTabFromConst+"']", ElementType.XPath);
+		Utilities.clickElement("//ul[@id='customerNav']//p[text()='"+needReportType+"']", ElementType.XPath);
 	}
 }

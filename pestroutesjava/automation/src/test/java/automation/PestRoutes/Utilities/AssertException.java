@@ -63,7 +63,7 @@ public class AssertException {
 	public static void validateFieldEnabled(String[] needArray) {
 		for (int i = 0; i < needArray.length; i++) {
 			WebElement field = FindElement.elementByAttribute(needArray[i], FindElement.InputType.XPath);
-			if (field.isEnabled() && field.isDisplayed()) {
+			if (field.isEnabled() || field.isDisplayed()) {
 				Assert.assertTrue(true);
 				Reporter.getInstance("Validate fields in account receivable").log(Status.PASS, needArray[i] + " displayed");
 			} else {

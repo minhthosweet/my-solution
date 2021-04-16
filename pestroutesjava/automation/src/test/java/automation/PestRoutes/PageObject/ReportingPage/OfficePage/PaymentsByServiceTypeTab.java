@@ -65,4 +65,12 @@ public class PaymentsByServiceTypeTab {
         return Utilities.getElementTextValue("//td[text()='" + needCustomerID + "']/following-sibling::td[1]", Utilities.ElementType.XPath);
     }
 
+    public String getPaymentServices_MultiGroupReport(String needCustomerID) {
+        return Utilities.getElementTextValue("//td[text()='" + needCustomerID + "']/parent::tr[@detailvalues]//td[10]", Utilities.ElementType.XPath);
+    }
+
+    public String getTaxRate_MultiGroupReport(String needCustomerID) {
+        return Utilities.getElementTextValue("//td[text()='" + needCustomerID + "']/parent::tr[@detailvalues]//td[3]", Utilities.ElementType.XPath);
+    }
+
 }
