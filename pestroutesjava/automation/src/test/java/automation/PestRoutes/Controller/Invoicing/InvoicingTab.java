@@ -158,7 +158,7 @@ public class InvoicingTab extends AppData {
         String serviceType = subscriptionTab.getServiceType();
         String initialInvoiceValue = subscriptionTab.getInitialInvoiceValue();
         String initialSubTotal = Double.toString(subscriptionTab.getInitialSubTotal());
-        String taxAmount = Double.toString(subscriptionTab.getInitialTax());
+        String taxAmount = String.format("%.2f",(subscriptionTab.getInitialTax()));
 
         customerCardHeader.navigateTo(customerCardHeader.invoicesTabInDialog);
         result(initialInvoiceValue, invImplementation.getAccountBalance(), "Total Account Balance Validation",

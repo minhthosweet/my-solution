@@ -19,4 +19,5 @@ Feature: After Initial Appointment Completion
     And I close customer card
     And I search customer
     And I validate initial invoice created on invoice tab
+    And I remove the customer
     And I validate if there are errors exist in the list

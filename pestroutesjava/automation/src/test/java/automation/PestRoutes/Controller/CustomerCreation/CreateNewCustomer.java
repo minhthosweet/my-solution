@@ -338,7 +338,7 @@ public class CreateNewCustomer extends AppData {
         customerName = getCustomerFullName();
     }
 
-    @And("I add additional properties to the customer")
+    @And("I add properties customer source, property type, prefers paper, division and generic flag to the customer")
     public void addAdditionalProperties() throws IOException, InterruptedException {
         customerDialog_Header = new CustomerViewDialog_Header();
         customer = new CreateCustomerDialog();

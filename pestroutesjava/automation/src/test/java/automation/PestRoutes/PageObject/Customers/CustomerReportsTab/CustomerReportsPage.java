@@ -1,11 +1,14 @@
 package automation.PestRoutes.PageObject.Customers.CustomerReportsTab;
 
+import automation.PestRoutes.Utilities.AppData;
+import automation.PestRoutes.Utilities.FindElement;
 import automation.PestRoutes.Utilities.Utilities;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CustomerReportsPage {
+public class CustomerReportsPage extends AppData {
 
     public String savedReports = "//div[text()='Saved Reports']";
     public String selectColumnsToDisplay = "//div[text()='Select Columns to Display']";
@@ -16,8 +19,9 @@ public class CustomerReportsPage {
     public String billingAccount = "//div[text()='Billing Account']";
     public String billingAddress = "//div[text()='Billing Address']";
     public String serviceAppointment = "//div[text()='Service Appointment']";
+    public String refreshButton = "//span[text()='Run Report']";
 
-    public Map<String, String> filterTypes_CR = new HashMap<String, String>();
+    public Map<String, String> filterTypes_CR = new HashMap<>();
 
     //Author: Aditya
     public String filterTypes_CR(String key) {
@@ -58,10 +62,12 @@ public class CustomerReportsPage {
         filterTypes_CR.put("lastName_CR", "//div[@key='lname']/input");
         filterTypes_CR.put("firstName_CR", "//div[@key='fname']/input");
         filterTypes_CR.put("companyName_CR", "//div[@key='companyName']/input");
-        filterTypes_CR.put("companyDivisions_CR", "//input[@id='s2id_autogen17']");
+        filterTypes_CR.put("companyDivisions_CR", "//div[@id='s2id_customerAccountCompanyDivisions']");
+        filterTypes_CR.put("companyDivisionsTextBox_CR", "//div[@id='s2id_customerAccountCompanyDivisions']//input");
         filterTypes_CR.put("includeFlagsCustomerAccount_CR", "//input[@id='s2id_autogen18']");
         filterTypes_CR.put("excludeFlagsCustomerAccount_CR", "//input[@id='s2id_autogen19']");
         filterTypes_CR.put("companySource_CR", "//div[@id='s2id_customerAccountCustomerSource']");
+        filterTypes_CR.put("companySourceTextBox_CR", "//div[@id='s2id_customerAccountCustomerSource']//input");
 
         // Leads Fields
         filterTypes_CR.put("leadStatus_CR", "//input[@id='s2id_autogen20']");
@@ -209,12 +215,42 @@ public class CustomerReportsPage {
         filterTypes_CR.put("imagesUploaded_CR", "//div[@key='imagesUploaded']/select");
 
         return filterTypes_CR.get(key);
-
     }
 
-    //Author: Aditya
     public void click(String needButton) {
         Utilities.waitUntileElementIsVisible(needButton);
         Utilities.clickElement(needButton, Utilities.ElementType.XPath);
+    }
+
+    public void setValueFromDropdown(String needXpath, String needValue) {
+        Utilities.waitUntileElementIsVisible(needXpath);
+        Utilities.scrollToElementJS(needXpath);
+        Utilities.selectValueFromDropDownByValue(needXpath, needValue);
+    }
+
+    public String getTextValue(String needXpath) {
+        Utilities.waitUntileElementIsVisible(needXpath);
+        Utilities.scrollToElementJS(needXpath);
+        return Utilities.getElementTextValue(needXpath, Utilities.ElementType.XPath);
+    }
+
+    public void setType(String needXpath, String type) throws InterruptedException {
+        Utilities.scrollToBottomElementJS(needXpath);
+        Utilities.clickElement(needXpath, Utilities.ElementType.XPath);
+        FindElement.elementByAttribute(needXpath, FindElement.InputType.XPath).sendKeys(type);
+    }
+
+    public void set(String needXpath, String needType) {
+        Utilities.waitUntileElementIsVisible(needXpath);
+        Utilities.scrollToElementJS(needXpath);
+        Utilities.waitUntileElementIsVisible(needXpath);
+        Utilities.selectValueFromDropDownByValue(needXpath, needType);
+    }
+
+    public void setProperty(String needXpath, String type) throws InterruptedException, IOException {
+        Utilities.scrollToBottomElementJS(needXpath);
+        Utilities.clickElement(needXpath, Utilities.ElementType.XPath);
+        FindElement.elementByAttribute(needXpath, FindElement.InputType.XPath).sendKeys(type);
+        Utilities.clickElement("//span[text()='" + type + "']", Utilities.ElementType.XPath);
     }
 }

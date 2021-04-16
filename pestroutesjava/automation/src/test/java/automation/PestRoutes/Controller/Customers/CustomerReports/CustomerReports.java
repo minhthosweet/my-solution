@@ -1,17 +1,36 @@
 package automation.PestRoutes.Controller.Customers.CustomerReports;
 
+import automation.PestRoutes.Controller.CustomerCreation.CreateNewCustomer;
+import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_InfoTab;
+import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_OverviewTab;
 import automation.PestRoutes.PageObject.Customers.CustomerReportsTab.CustomerReportsPage;
 import automation.PestRoutes.PageObject.Customers.CustomersMainPage;
 import automation.PestRoutes.PageObject.Header;
+import automation.PestRoutes.Utilities.AppData;
 import automation.PestRoutes.Utilities.AssertException;
 import automation.PestRoutes.Utilities.Utilities;
 import io.cucumber.java.en.And;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 import org.testng.annotations.Test;
 
-public class CustomerReports {
+import java.io.IOException;
+import java.util.Locale;
+
+import static automation.PestRoutes.Utilities.AssertException.result;
+
+public class CustomerReports extends AppData {
     Header header;
     CustomersMainPage customersMainPage;
     CustomerReportsPage customerReportsPage = new CustomerReportsPage();
+    CreateNewCustomer createNewCustomer;
+    CustomerViewDialog_OverviewTab customerViewDialog_overviewTab;
+    CustomerViewDialog_InfoTab customerViewDialog_infoTab;
+
+    private String customerName_CR;
+    private String customerID_CR;
+    private String fName_CR;
+    private String lName_CR;
 
     //Author: Aditya
     @Test
@@ -25,7 +44,7 @@ public class CustomerReports {
 
     //Author: Aditya
     @And("I validate if saved report fields are visible on the page")
-    public void validateSavedReportFieldsDisplayed() {
+    public void validateSavedReportFieldsDisplayed() throws InterruptedException {
         customerReportsPage.click(customerReportsPage.savedReports);
         String[] fields = {
                 customerReportsPage.filterTypes_CR("newReport_CR"),
@@ -37,7 +56,7 @@ public class CustomerReports {
 
     //Author: Aditya
     @And("I validate if select columns to display fields are visible on the page")
-    public void validateSelectColumnsToDisplayFieldsDisplayed() {
+    public void validateSelectColumnsToDisplayFieldsDisplayed() throws InterruptedException {
         customerReportsPage.click(customerReportsPage.selectColumnsToDisplay);
         String[] fields = {
                 customerReportsPage.filterTypes_CR("selectColumnsToShow"),
@@ -48,7 +67,7 @@ public class CustomerReports {
 
     //Author: Aditya
     @And("I validate if customer account fields are visible on the page")
-    public void validateCustomerAccountFieldsDisplayed() {
+    public void validateCustomerAccountFieldsDisplayed() throws InterruptedException {
         customerReportsPage.click(customerReportsPage.customerAccount);
         String[] fields_one = {customerReportsPage.filterTypes_CR("accountStatus_CR"),
                 customerReportsPage.filterTypes_CR("dateCanceledFrom_CR"),
@@ -95,7 +114,7 @@ public class CustomerReports {
 
     //Author: Aditya
     @And("I validate if leads fields are visible on the page")
-    public void validateLeadsFieldsDisplayed() {
+    public void validateLeadsFieldsDisplayed() throws InterruptedException {
         customerReportsPage.click(customerReportsPage.leads);
         String[] fields = {
                 customerReportsPage.filterTypes_CR("leadStatus_CR"),
@@ -116,7 +135,7 @@ public class CustomerReports {
 
     //Author: Aditya
     @And("I validate if service subscription fields are visible on the page")
-    public void validateServiceSubscriptionFieldsDisplayed() {
+    public void validateServiceSubscriptionFieldsDisplayed() throws InterruptedException {
         customerReportsPage.click(customerReportsPage.serviceSubscription);
         String[] fields_one = {
                 customerReportsPage.filterTypes_CR("activeSubscription_CR"),
@@ -196,7 +215,7 @@ public class CustomerReports {
 
     //Author: Aditya
     @And("I validate if customer location fields are visible on the page")
-    public void validateCustomerLocationFieldsDisplayed() {
+    public void validateCustomerLocationFieldsDisplayed() throws InterruptedException {
         customerReportsPage.click(customerReportsPage.customerLocation);
         String[] fields = {
                 customerReportsPage.filterTypes_CR("mapCode_CR"),
@@ -215,7 +234,7 @@ public class CustomerReports {
 
     //Author: Aditya
     @And("I validate if billing account fields are visible on the page")
-    public void validateBillingAccountFieldsDisplayed() {
+    public void validateBillingAccountFieldsDisplayed() throws InterruptedException {
         customerReportsPage.click(customerReportsPage.billingAccount);
         String[] fields_one = {
                 customerReportsPage.filterTypes_CR("balanceAgeAssignment_CR"),
@@ -250,7 +269,7 @@ public class CustomerReports {
 
     //Author: Aditya
     @And("I validate if billing address fields are visible on the page")
-    public void validateBillingAddressFieldsDisplayed() {
+    public void validateBillingAddressFieldsDisplayed() throws InterruptedException {
         customerReportsPage.click(customerReportsPage.billingAddress);
         String[] fields = {
                 customerReportsPage.filterTypes_CR("billingLName_CR"),
@@ -266,7 +285,7 @@ public class CustomerReports {
 
     //Author: Aditya
     @And("I validate if service appointment fields are visible on the page")
-    public void validateServiceAppointmentFieldsDisplayed() {
+    public void validateServiceAppointmentFieldsDisplayed() throws InterruptedException {
         customerReportsPage.click(customerReportsPage.serviceAppointment);
         String[] fields_one = {
                 customerReportsPage.filterTypes_CR("scheduledForFrom_CR"),
@@ -305,5 +324,43 @@ public class CustomerReports {
         };
         AssertException.validateFieldEnabled(fields_one);
         AssertException.validateFieldEnabled(fields_two);
+    }
+
+    //Author : Aditya
+    @And("I get customer name and customer ID details for customer reports")
+    public void updateCustomerIDAndCustomerNameDetails_CR() throws InterruptedException {
+        createNewCustomer = new CreateNewCustomer();
+        customerViewDialog_infoTab = new CustomerViewDialog_InfoTab();
+        customerViewDialog_overviewTab = new CustomerViewDialog_OverviewTab();
+        customerName_CR = createNewCustomer.getCustomerFullName();
+        fName_CR = customerViewDialog_infoTab.getFirstName();
+        lName_CR = customerViewDialog_infoTab.getLastName();
+        customerID_CR = customerViewDialog_overviewTab.getCustomerIDFromHeader();
+    }
+
+    //Author : Aditya
+    @When("I add filters to Customer Account in Customer Reports")
+    public void addFilters_customerReports() throws InterruptedException, IOException {
+        customerReportsPage.click(customerReportsPage.customerAccount);
+        customerReportsPage.setValueFromDropdown(customerReportsPage.filterTypes_CR("hasServiceSubscription_CR"), "Yes");
+        customerReportsPage.setType(customerReportsPage.filterTypes_CR("lastName_CR"), lName_CR);
+        customerReportsPage.setType(customerReportsPage.filterTypes_CR("firstName_CR"), fName_CR);
+        customerReportsPage.setValueFromDropdown(customerReportsPage.filterTypes_CR("accountType_CR"), "Commercial");
+        customerReportsPage.setValueFromDropdown(customerReportsPage.filterTypes_CR("unitType_CR"), "Multi Unit");
+        customerReportsPage.click(customerReportsPage.filterTypes_CR("companySource_CR"));
+        customerReportsPage.setProperty(customerReportsPage.filterTypes_CR("companySourceTextBox_CR"), getData("customerSource", generalData));
+        customerReportsPage.setProperty(customerReportsPage.filterTypes_CR("companyDivisionsTextBox_CR"), getData("division", generalData));
+        customerReportsPage.click(customerReportsPage.refreshButton);
+    }
+
+    //Author : Aditya
+    @Then("I validate customer account report in Customer Reports")
+    public void customerAccountReportValidations() throws IOException {
+        result(customerID_CR, customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[1]"), "Customer ID validation", " Customer Reports Validation");
+        result(lName_CR.toLowerCase(Locale.ROOT), (customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[2]")).toLowerCase(Locale.ROOT), "Customer last name validation", " Customer Reports Validation");
+        result(fName_CR, customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[3]"), "Customer first name validation", " Customer Reports Validation");
+        result("Multi Unit", customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[5]"), "Unit type validation", " Customer Reports Validation");
+        result(getData("division", generalData), customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[6]"), "Customer Division validation", " Customer Reports Validation");
+        result(getData("customerSource", generalData), customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[7]"), "Customer Source validation", " Customer Reports Validation");
     }
 }
