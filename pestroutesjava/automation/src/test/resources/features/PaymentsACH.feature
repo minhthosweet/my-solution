@@ -17,9 +17,9 @@ Feature: Validate all types of payments
 
     Examples:
       | Gateway             |
+      | PestRoutes Payments |
       | Element             |
       | NMI                 |
-      | PestRoutes Payments |
     #  | Authorize.net       |
 
   Scenario Outline: ACH Existing Transaction Payment Validation
@@ -32,7 +32,7 @@ Feature: Validate all types of payments
 
     Examples:
       | Gateway             |
+      | PestRoutes Payments |
       | Element             |
       | NMI                 |
-      | PestRoutes Payments |
     #  | Authorize.net       |
