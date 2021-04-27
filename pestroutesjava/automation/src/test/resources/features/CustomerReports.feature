@@ -38,8 +38,24 @@ Feature: Customer reports end to end validation
     And I create a new lead
     Then I validate lead creation invoices
     Then I get customer name and customer ID details for customer reports
+    And I change customer status
     Then I navigate to "Customer Reports" in Customers tab
     When I add filters to Leads in Customer Reports
     Then I validate leads report in Customer Reports
     And I validate if there are errors exist in the list
     And I remove the customer
+
+  @ServiceSubscription_CustomerReports
+  Scenario: Service Subscription validation in Customer Reports
+    Given I delete a routing group
+    When I create customer with pref paper and residential property
+    And I create a subscription of type "After Initial Completion"
+    And I navigate to scheduling on same Day
+    And I add a route
+    And I search customer
+    And I navigate to Subscription Tab
+    And I schedule an service appointment
+    And I search customer
+    And I complete an appointment
+    Then I get customer name and customer ID details for customer reports
+    Then I navigate to "Customer Reports" in Customers tab

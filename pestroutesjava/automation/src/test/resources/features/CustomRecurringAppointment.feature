@@ -13,3 +13,4 @@ Feature: Custom Recurring Appointments
     Then I validate upcoming appointments for custom recurring appointments
     And I close customer card
     And I validate if there are errors exist in the list
+    And I remove the customer

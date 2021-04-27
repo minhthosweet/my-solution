@@ -31,7 +31,6 @@ public class CustomerReports extends AppData {
     CustomerViewDialog_InfoTab customerViewDialog_infoTab;
     CreateLeads createLeads;
     CustomerViewDialog_Header customerCardHeader;
-    CustomerViewDialog_Admin customerViewDialog_admin;
 
     private String customerName_CR;
     private String customerID_CR;
@@ -340,7 +339,6 @@ public class CustomerReports extends AppData {
         createNewCustomer = new CreateNewCustomer();
         customerViewDialog_infoTab = new CustomerViewDialog_InfoTab();
         customerCardHeader = new CustomerViewDialog_Header();
-        customerViewDialog_admin = new CustomerViewDialog_Admin();
         customerViewDialog_overviewTab = new CustomerViewDialog_OverviewTab();
         customerName_CR = createNewCustomer.getCustomerFullName();
         fName_CR = customerViewDialog_infoTab.getFirstName();
@@ -348,8 +346,6 @@ public class CustomerReports extends AppData {
         customerID_CR = customerViewDialog_overviewTab.getCustomerIDFromHeader();
         email_CR = customerViewDialog_infoTab.getEmail();
         taxRate_CR = String.format("%2f", (Double.parseDouble(customerViewDialog_infoTab.getTaxRate()) / 100));
-        customerCardHeader.navigateTo(customerCardHeader.adminTabInDialog);
-        customerViewDialog_admin.changeAccountStatus_Active();
     }
 
     //Author : Aditya

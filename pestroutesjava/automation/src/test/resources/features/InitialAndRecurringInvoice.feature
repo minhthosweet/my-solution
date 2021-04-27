@@ -33,3 +33,4 @@ Feature: Initial And Recurring Invoices
     And I validate recurring invoice created on invoice tab
     Then I close customer card
     And I validate if there are errors exist in the list
+    And I remove the customer
