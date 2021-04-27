@@ -20,6 +20,7 @@ public class CustomerReportsPage extends AppData {
     public String billingAddress = "//div[text()='Billing Address']";
     public String serviceAppointment = "//div[text()='Service Appointment']";
     public String refreshButton = "//span[text()='Run Report']";
+    public String searchBox = "//input[@type='search' and @placeholder='Search...']";
 
     public Map<String, String> filterTypes_CR = new HashMap<>();
 
@@ -64,17 +65,17 @@ public class CustomerReportsPage extends AppData {
         filterTypes_CR.put("companyName_CR", "//div[@key='companyName']/input");
         filterTypes_CR.put("companyDivisions_CR", "//div[@id='s2id_customerAccountCompanyDivisions']");
         filterTypes_CR.put("companyDivisionsTextBox_CR", "//div[@id='s2id_customerAccountCompanyDivisions']//input");
-        filterTypes_CR.put("includeFlagsCustomerAccount_CR", "//input[@id='s2id_autogen18']");
-        filterTypes_CR.put("excludeFlagsCustomerAccount_CR", "//input[@id='s2id_autogen19']");
+        filterTypes_CR.put("includeFlagsCustomerAccount_CR", "//div[@id='s2id_customerAccountIncludeFlags']//input");
+        filterTypes_CR.put("excludeFlagsCustomerAccount_CR", "//div[@id='s2id_excludeCustomerGenericFlagID']//input");
         filterTypes_CR.put("companySource_CR", "//div[@id='s2id_customerAccountCustomerSource']");
         filterTypes_CR.put("companySourceTextBox_CR", "//div[@id='s2id_customerAccountCustomerSource']//input");
 
         // Leads Fields
-        filterTypes_CR.put("leadStatus_CR", "//input[@id='s2id_autogen20']");
-        filterTypes_CR.put("leadStage_CR", "//input[@id='s2id_autogen21']");
-        filterTypes_CR.put("leadAssignedTo_CR", "//input[@id='s2id_autogen22']");
-        filterTypes_CR.put("leadLostReason_CR", "//input[@id='s2id_autogen23']");
-        filterTypes_CR.put("leadSource_CR", "//input[@id='s2id_autogen24']");
+        filterTypes_CR.put("leadStatus_CR", "//div[@id='s2id_LeadsLeadStatus']//input");
+        filterTypes_CR.put("leadStage_CR", "//div[@id='s2id_LeadsLeadStage']//input");
+        filterTypes_CR.put("leadAssignedTo_CR", "//div[@id='s2id_LeadsLeadAssignedTo']//input");
+        filterTypes_CR.put("leadLostReason_CR", "//div[@id='s2id_leadsLeadLostReason']//input");
+        filterTypes_CR.put("leadSource_CR", "//div[@id='s2id_LeadsLeadSource']//input");
         filterTypes_CR.put("leadValue_CR", "//div[@key='leadValue']/input");
         filterTypes_CR.put("leadAssignment_CR", "//div[@key='leadValue']/select");
         filterTypes_CR.put("leadAddedFrom_CR", "//div[@key='leadAdded']/input[1]");
@@ -252,5 +253,10 @@ public class CustomerReportsPage extends AppData {
         Utilities.clickElement(needXpath, Utilities.ElementType.XPath);
         FindElement.elementByAttribute(needXpath, FindElement.InputType.XPath).sendKeys(type);
         Utilities.clickElement("//span[text()='" + type + "']", Utilities.ElementType.XPath);
+    }
+
+    public void searchCustomer_CustomerReports(String needXpath, String customerName) throws InterruptedException {
+        Utilities.scrollToBottomElementJS(needXpath);
+        FindElement.elementByAttribute(needXpath, FindElement.InputType.XPath).sendKeys(customerName);
     }
 }

@@ -350,6 +350,19 @@ public class CreateNewCustomer extends AppData {
         customerDialog_Header.clickSaveButton();
     }
 
+    @And("I add properties customer source, property type, prefers paper, division, purple dragon and generic flag to the customer")
+    public void addAdditionalPropertiesTwo() throws IOException, InterruptedException {
+        customerDialog_Header = new CustomerViewDialog_Header();
+        customer = new CreateCustomerDialog();
+        customer.selectSource(getData("customerSource", generalData));
+        customer.selectProperty(customer.commercialProperty);
+        customer.clickPrefersPaperCheckBox();
+        customer.selectDivision(getData("division", generalData));
+        customer.selectGenericFlag(getData("flag", generalData));
+        customer.clickPurpleDragonCheckBox();
+        customerDialog_Header.clickSaveButton();
+    }
+
     @When("I create customer with first name and last name")
     public void createCustomerWithoutAddress() throws Exception {
 

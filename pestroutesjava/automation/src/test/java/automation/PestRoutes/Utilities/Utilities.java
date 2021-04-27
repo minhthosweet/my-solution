@@ -40,7 +40,6 @@ public class Utilities {
 	
 	public static void clickElementInIframe(String needXpath) {
 		int size = driver.findElements(By.tagName("iframe")).size();
-		System.out.println(size);
 		for (int i = 0; i <= size; i++) {
 			driver.switchTo().frame(i);
 			Utilities.waitUntileElementIsVisible(needXpath);
@@ -336,6 +335,7 @@ public class Utilities {
 				System.out.println("Locator not visible");
 				}
 		}
+
 
 	public static void clickElement(String needAttribute, ElementType Attribute_Type, Boolean simple, Boolean order) {
 		if (simple) {

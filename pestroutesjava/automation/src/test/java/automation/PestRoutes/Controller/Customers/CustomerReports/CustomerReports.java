@@ -1,6 +1,9 @@
 package automation.PestRoutes.Controller.Customers.CustomerReports;
 
 import automation.PestRoutes.Controller.CustomerCreation.CreateNewCustomer;
+import automation.PestRoutes.Controller.Leads.CreateLeads;
+import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_Admin;
+import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_Header;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_InfoTab;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_OverviewTab;
 import automation.PestRoutes.PageObject.Customers.CustomerReportsTab.CustomerReportsPage;
@@ -26,11 +29,15 @@ public class CustomerReports extends AppData {
     CreateNewCustomer createNewCustomer;
     CustomerViewDialog_OverviewTab customerViewDialog_overviewTab;
     CustomerViewDialog_InfoTab customerViewDialog_infoTab;
+    CreateLeads createLeads;
+    CustomerViewDialog_Header customerCardHeader;
 
     private String customerName_CR;
     private String customerID_CR;
     private String fName_CR;
     private String lName_CR;
+    private String email_CR;
+    private String taxRate_CR;
 
     //Author: Aditya
     @Test
@@ -331,11 +338,14 @@ public class CustomerReports extends AppData {
     public void updateCustomerIDAndCustomerNameDetails_CR() throws InterruptedException {
         createNewCustomer = new CreateNewCustomer();
         customerViewDialog_infoTab = new CustomerViewDialog_InfoTab();
+        customerCardHeader = new CustomerViewDialog_Header();
         customerViewDialog_overviewTab = new CustomerViewDialog_OverviewTab();
         customerName_CR = createNewCustomer.getCustomerFullName();
         fName_CR = customerViewDialog_infoTab.getFirstName();
         lName_CR = customerViewDialog_infoTab.getLastName();
         customerID_CR = customerViewDialog_overviewTab.getCustomerIDFromHeader();
+        email_CR = customerViewDialog_infoTab.getEmail();
+        taxRate_CR = String.format("%2f", (Double.parseDouble(customerViewDialog_infoTab.getTaxRate()) / 100));
     }
 
     //Author : Aditya
@@ -343,24 +353,74 @@ public class CustomerReports extends AppData {
     public void addFilters_customerReports() throws InterruptedException, IOException {
         customerReportsPage.click(customerReportsPage.customerAccount);
         customerReportsPage.setValueFromDropdown(customerReportsPage.filterTypes_CR("hasServiceSubscription_CR"), "Yes");
+        customerReportsPage.setValueFromDropdown(customerReportsPage.filterTypes_CR("hasLinkedProperties_CR"), "No");
         customerReportsPage.setType(customerReportsPage.filterTypes_CR("lastName_CR"), lName_CR);
         customerReportsPage.setType(customerReportsPage.filterTypes_CR("firstName_CR"), fName_CR);
         customerReportsPage.setValueFromDropdown(customerReportsPage.filterTypes_CR("accountType_CR"), "Commercial");
         customerReportsPage.setValueFromDropdown(customerReportsPage.filterTypes_CR("unitType_CR"), "Multi Unit");
+        customerReportsPage.setValueFromDropdown(customerReportsPage.filterTypes_CR("hasEMail_CR"), "Has an Email");
         customerReportsPage.click(customerReportsPage.filterTypes_CR("companySource_CR"));
         customerReportsPage.setProperty(customerReportsPage.filterTypes_CR("companySourceTextBox_CR"), getData("customerSource", generalData));
         customerReportsPage.setProperty(customerReportsPage.filterTypes_CR("companyDivisionsTextBox_CR"), getData("division", generalData));
+        customerReportsPage.setType(customerReportsPage.filterTypes_CR("customerDateAddedFrom_CR"), Utilities.currentDate("MM/dd/yyyy"));
+        customerReportsPage.setType(customerReportsPage.filterTypes_CR("customerDateAddedTo_CR"), Utilities.currentDate("MM/dd/yyyy"));
+        customerReportsPage.setProperty(customerReportsPage.filterTypes_CR("includeFlagsCustomerAccount_CR"), getData("flag", generalData));
+        customerReportsPage.setValueFromDropdown(customerReportsPage.filterTypes_CR("purpleDragon_CR"), "Yes");
+        customerReportsPage.setValueFromDropdown(customerReportsPage.filterTypes_CR("signedElectronicAgreement_CR"), "No");
+        customerReportsPage.setValueFromDropdown(customerReportsPage.filterTypes_CR("zipTaxOverride_CR"), "No");
+        customerReportsPage.setValueFromDropdown(customerReportsPage.filterTypes_CR("systemTaxOverride_CR"), "Yes");
+        customerReportsPage.setValueFromDropdown(customerReportsPage.filterTypes_CR("hasZipTaxAssigned_CR"), "Yes");
         customerReportsPage.click(customerReportsPage.refreshButton);
     }
 
     //Author : Aditya
+    @When("I add filters to Leads in Customer Reports")
+    public void addFilters_leads() throws IOException, InterruptedException {
+        createLeads = new CreateLeads();
+        customerReportsPage.click(customerReportsPage.customerAccount);
+        customerReportsPage.setType(customerReportsPage.filterTypes_CR("lastName_CR"), lName_CR);
+        customerReportsPage.setType(customerReportsPage.filterTypes_CR("firstName_CR"), fName_CR);
+        customerReportsPage.click(customerReportsPage.leads);
+        customerReportsPage.setProperty(customerReportsPage.filterTypes_CR("leadStatus_CR"), "Open");
+        customerReportsPage.setProperty(customerReportsPage.filterTypes_CR("leadStage_CR"), "New");
+        customerReportsPage.setType(customerReportsPage.filterTypes_CR("leadValue_CR"), createLeads.lead_value);
+        customerReportsPage.setProperty(customerReportsPage.filterTypes_CR("leadAssignedTo_CR"), getData("assignto", generalData));
+        customerReportsPage.setProperty(customerReportsPage.filterTypes_CR("leadSource_CR"), getData("source", generalData));
+        customerReportsPage.click(customerReportsPage.refreshButton);
+    }
+
+    //Author : Aditya
+    @When("I search for customer in customer reports")
+    public void searchCustomer_customerReports() throws InterruptedException {
+        customerReportsPage.searchCustomer_CustomerReports(customerReportsPage.searchBox, fName_CR);
+    }
+
+    //Author : Aditya
     @Then("I validate customer account report in Customer Reports")
-    public void customerAccountReportValidations() throws IOException {
+    public void customerAccountReportValidations_customerReports() throws IOException {
         result(customerID_CR, customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[1]"), "Customer ID validation", " Customer Reports Validation");
         result(lName_CR.toLowerCase(Locale.ROOT), (customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[2]")).toLowerCase(Locale.ROOT), "Customer last name validation", " Customer Reports Validation");
-        result(fName_CR, customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[3]"), "Customer first name validation", " Customer Reports Validation");
+        result(fName_CR.toLowerCase(Locale.ROOT), (customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[3]")).toLowerCase(Locale.ROOT), "Customer first name validation", " Customer Reports Validation");
         result("Multi Unit", customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[5]"), "Unit type validation", " Customer Reports Validation");
-        result(getData("division", generalData), customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[6]"), "Customer Division validation", " Customer Reports Validation");
-        result(getData("customerSource", generalData), customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[7]"), "Customer Source validation", " Customer Reports Validation");
+        result(email_CR, customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[6]"), "Email validation", " Customer Reports Validation");
+        result(getData("division", generalData), customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[7]"), "Customer Division validation", " Customer Reports Validation");
+        result(Utilities.currentDate("MM/dd/yy"), (customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[8]")).substring(0, 8), "Customer Date validation", " Customer Reports Validation");
+        result(getData("customerSource", generalData), customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[9]"), "Customer Source validation", " Customer Reports Validation");
+        result(getData("flag", generalData), customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[10]"), "Customer Flag validation", " Customer Reports Validation");
+        result(taxRate_CR, customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[11]"), "Customer Source validation", " Customer Tax Validation");
+    }
+
+    //Author : Aditya
+    @Then("I validate leads report in Customer Reports")
+    public void leadsReportValidations_customerReports() throws IOException {
+        createLeads = new CreateLeads();
+        result(customerID_CR, customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[1]"), "Customer ID validation", " Customer Reports Validation");
+        result(lName_CR.toLowerCase(Locale.ROOT), (customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[2]")).toLowerCase(Locale.ROOT), "Customer last name validation", " Customer Reports Validation");
+        result(fName_CR.toLowerCase(Locale.ROOT), (customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[3]")).toLowerCase(Locale.ROOT), "Customer first name validation", " Customer Reports Validation");
+        result("Open", customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[4]"), "Lead Status validation", " Customer Reports Validation");
+        result("New", customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[5]"), "Lead Stage validation", " Customer Reports Validation");
+        result(createLeads.lead_value + ".00", customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[6]"), "Lead Value validation", " Customer Reports Validation");
+        result(getData("assignto", generalData), (customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[8]")) + "-Office", "Lead Assigned validation", " Customer Reports Validation");
+        result(getData("source", generalData), customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[9]"), "Lead Source validation", " Customer Reports Validation");
     }
 }

@@ -30,11 +30,13 @@ public class AccountStatus extends AppData {
 		AssertException.assertFailure(list);
 	}
 
+	private String fName;
+	private String lName;
 	// Creates customer
 	public void createCustomer() throws Exception {
 		String expectedAlert = "Required: You must fill in the customer's last name or company name!";
-		String fName = Utilities.generateRandomString(7);
-		String lName = Utilities.generateRandomString(6);
+		fName = Utilities.generateRandomString(7);
+		lName = Utilities.generateRandomString(6);
 		header.navigateTo(header.newCustomerTab);
 		customer.setFirstName(fName);
 		customer.selectUnit("Multi Unit");
@@ -54,8 +56,8 @@ public class AccountStatus extends AppData {
 	}
 
 	// Change the account to Active and assert
-	private void validateActiveStatus() throws Exception {
-		header.searchCustomer_History(getData("userID", generalData));
+	public void validateActiveStatus() throws Exception {
+		header.searchCustomer_History(fName + " " + lName);
 		dialog.navigateTo(dialog.adminTabInDialog);
 		statusChange.changeAccountStatus_Active();
 		statusChange.getAccountStatus();
@@ -74,7 +76,7 @@ public class AccountStatus extends AppData {
 		String actualStatus = statusChange.getAccountStatus().substring(16, 57);
 		result(expectedStatus, actualStatus, "Frozen Status ", "Account Status validation");
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	private void result(String expected, String actual, String stepName, String testName) {
 		if(AssertException.result(expected, actual, stepName).size()>0) {

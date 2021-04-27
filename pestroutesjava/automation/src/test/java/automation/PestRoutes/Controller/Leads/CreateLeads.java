@@ -9,16 +9,18 @@ import automation.PestRoutes.PageObject.Header;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_Header;
 import automation.PestRoutes.PageObject.Leads.LeadsPage;
 
+import java.io.IOException;
+
 public class CreateLeads extends AppData {
 	
 	CustomerViewDialog_Header header;
 	String additialItem = "bed";
-	String assignto = "Automation User - Office";
-	String source = "Customer Referral";
+	//String assignto = "Automation User - Office";
+	//String source = "Customer Referral";
 	String contractLength = "12 months";
 	String reasonLost = "";
 	String dateAssigned = "";
-	String value = "1000";
+	public String lead_value = "1000";
 	String serviceType = "Quarterly";
 	String followup = "2 Months";
 	String frequency = "Alternate Monthly";
@@ -45,7 +47,7 @@ public class CreateLeads extends AppData {
 	}
 
 	@And("I create a new lead")
-	public void leadCreation() throws InterruptedException {
+	public void leadCreation() throws InterruptedException, IOException {
 		header = new CustomerViewDialog_Header();
 		CustomerViewDialog_Header customerCart = new CustomerViewDialog_Header();
 		customerCart.navigateTo(customerCart.leadsTabInDialog);
@@ -53,10 +55,10 @@ public class CreateLeads extends AppData {
 		String[] dropdown = {leads.assignToDropdown,leads.sourceDropdown,
 				leads.contractDropdown, leads.serviceTypeDropdown,
 				leads.followUpDropdown, leads.frequencyDropdown, leads.seasonalDropdown, leads.billingDropdown};
-		String[] dropdownValue = {assignto, source, contractLength, serviceType, followup, frequency, seasonal, billing};
+		String[] dropdownValue = {getData("assignto", generalData), getData("source", generalData), contractLength, serviceType, followup, frequency, seasonal, billing};
 		String[] inputField = {leads.dateAssignedInputField, leads.valueInputField, leads.customStartDateInputField,
 				leads.initialQuoteInputField, leads.initialDiscountInputField, leads.recurringInvoiceInputField};
-		String[] inputValue = {dateAssigned, value, customStartDate, initialQuote, initialDiscount, recurringServiceQuote};
+		String[] inputValue = {dateAssigned, lead_value, customStartDate, initialQuote, initialDiscount, recurringServiceQuote};
 		for(int i = 0; i < dropdown.length; i++) {
 			leads.selectValueFromDropdown(dropdown[i], dropdownValue[i]);
 		}
@@ -69,7 +71,7 @@ public class CreateLeads extends AppData {
 		header.clickSaveButton();
 		Utilities.waitUntileElementIsVisible(leads.newButton);
 		leads.clickButton(leads.addLeadsNotesButton);
-		leads.setInputField(leads.notesInputField, source);
+		leads.setInputField(leads.notesInputField, getData("source", generalData));
 		leads.clickButton(leads.saveNotesButton);
 	}
 
