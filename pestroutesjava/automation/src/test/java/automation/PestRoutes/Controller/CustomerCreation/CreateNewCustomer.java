@@ -299,6 +299,7 @@ public class CreateNewCustomer extends AppData {
         customer.clickSmsCheckBox();
         customer.clickEmailCheckBox();
         customer.clickVoiceCheckBox();
+        customer.setMapCode(getData("mapCode", generalData));
         customer.clickPrefersPaperCheckBox();
         customer.selectProperty(customer.residentialProperty);
         customerDialog_Header.clickSaveButton();

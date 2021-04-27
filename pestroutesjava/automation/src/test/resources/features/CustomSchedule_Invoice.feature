@@ -13,4 +13,5 @@ Feature: Customer Status
     And I sign in to pestroutes domain
     When I search customer
     And I validate initial invoice created on invoice tab from custom schedule
+    And I remove the customer
     And I validate if there are errors exist in the list

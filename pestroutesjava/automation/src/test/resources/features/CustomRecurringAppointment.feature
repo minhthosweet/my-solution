@@ -12,5 +12,5 @@ Feature: Custom Recurring Appointments
     And I add a custom frequency recurring service
     Then I validate upcoming appointments for custom recurring appointments
     And I close customer card
-    And I validate if there are errors exist in the list
     And I remove the customer
+    And I validate if there are errors exist in the list

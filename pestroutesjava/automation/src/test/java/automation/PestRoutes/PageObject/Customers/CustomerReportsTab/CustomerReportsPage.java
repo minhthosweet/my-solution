@@ -21,6 +21,7 @@ public class CustomerReportsPage extends AppData {
     public String serviceAppointment = "//div[text()='Service Appointment']";
     public String refreshButton = "//span[text()='Run Report']";
     public String searchBox = "//input[@type='search' and @placeholder='Search...']";
+    public String customerReportFirstEntry = "//table[@id='customerReportTable']//td[1]";
 
     public Map<String, String> filterTypes_CR = new HashMap<>();
 
@@ -107,9 +108,9 @@ public class CustomerReportsPage extends AppData {
         filterTypes_CR.put("nextBillingDateTo_CR", "//div[@key='nextBillingDate']/input[2]");
         filterTypes_CR.put("subscriptionLastCompletedDateFrom_CR", "//div[@key='subscriptionLastCompletedDate']/input[1]");
         filterTypes_CR.put("subscriptionLastCompletedDateTo_CR", "//div[@key='subscriptionLastCompletedDate']/input[2]");
-        filterTypes_CR.put("soldBy_CR", "//input[@id='s2id_autogen26']");
-        filterTypes_CR.put("soldBy2_CR", "//input[@id='s2id_autogen27']");
-        filterTypes_CR.put("soldBy3_CR", "//input[@id='s2id_autogen28']");
+        filterTypes_CR.put("soldBy_CR", "//div[@id='s2id_serviceSubscriptionsSoldBy']//input");
+        filterTypes_CR.put("soldBy2_CR", "//div[@id='s2id_serviceSubscriptionsSoldBy2']//input");
+        filterTypes_CR.put("soldBy3_CR", "//div[@id='s2id_serviceSubscriptionsSoldBy3']//input");
         filterTypes_CR.put("preferredTech_CR", "//input[@id='s2id_autogen29']");
         filterTypes_CR.put("routeRegions_CR", "//input[@id='s2id_autogen30']");
         filterTypes_CR.put("subscriptionSource_CR", "//input[@id='s2id_autogen31']");
@@ -145,8 +146,8 @@ public class CustomerReportsPage extends AppData {
         filterTypes_CR.put("city_CR", "//div[@key='city']/input");
         filterTypes_CR.put("zip_CR", "//div[@key='zip']/input");
         filterTypes_CR.put("country_CR", "//div[@key='country']/select");
-        filterTypes_CR.put("state_CR", "//input[@id='s2id_autogen38']");
-        filterTypes_CR.put("county_CR", "//input[@id='s2id_autogen39']");
+        filterTypes_CR.put("state_CR", "//div[@id='s2id_customerLocationState']//input");
+        filterTypes_CR.put("county_CR", "//div[@id='s2id_customerLocationCounty']//input");
         filterTypes_CR.put("latitude_CR", "//div[@key='distance']/input[1]");
         filterTypes_CR.put("longitude_CR", "//div[@key='distance']/input[2]");
         filterTypes_CR.put("distance_CR", "//div[@key='distance']/input[3]");
@@ -237,7 +238,6 @@ public class CustomerReportsPage extends AppData {
 
     public void setType(String needXpath, String type) throws InterruptedException {
         Utilities.scrollToBottomElementJS(needXpath);
-        Utilities.clickElement(needXpath, Utilities.ElementType.XPath);
         FindElement.elementByAttribute(needXpath, FindElement.InputType.XPath).sendKeys(type);
     }
 
@@ -259,4 +259,11 @@ public class CustomerReportsPage extends AppData {
         Utilities.scrollToBottomElementJS(needXpath);
         FindElement.elementByAttribute(needXpath, FindElement.InputType.XPath).sendKeys(customerName);
     }
+
+    public void clickCustomerReport() {
+        Utilities.waitUntileElementIsVisible(customerReportFirstEntry);
+        Utilities.scrollToElementJS(searchBox);
+        Utilities.clickElement(customerReportFirstEntry, Utilities.ElementType.XPath);
+    }
+
 }

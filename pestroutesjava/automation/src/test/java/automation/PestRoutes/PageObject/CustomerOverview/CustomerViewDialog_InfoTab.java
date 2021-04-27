@@ -14,6 +14,8 @@ public class CustomerViewDialog_InfoTab {
     public String zip = "//input[@name='zip']";
     public String primaryPhoneNumber = "//input[@name='phone1']";
     public String state = "//select[@name='state']//option[@selected]";
+    public String country = "//select[@name='countryID']//option[@selected]";
+    public String county = "//select[@name='county']//option[@selected]";
     public String email = "//input[@name='email']";
 
     public String getTaxRate() {
@@ -45,6 +47,14 @@ public class CustomerViewDialog_InfoTab {
 
     public String getState(){
         return Utilities.getElementTextValue(state, Utilities.ElementType.XPath);
+    }
+
+    public String getCountry(){
+        return Utilities.getElementTextValue(country, Utilities.ElementType.XPath);
+    }
+
+    public String getCounty(){
+        return Utilities.getElementTextValue(county, Utilities.ElementType.XPath);
     }
 
     public String getPrimaryPhoneNumber(){

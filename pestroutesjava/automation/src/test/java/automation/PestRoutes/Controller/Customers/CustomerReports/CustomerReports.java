@@ -2,19 +2,21 @@ package automation.PestRoutes.Controller.Customers.CustomerReports;
 
 import automation.PestRoutes.Controller.CustomerCreation.CreateNewCustomer;
 import automation.PestRoutes.Controller.Leads.CreateLeads;
-import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_Admin;
-import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_Header;
-import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_InfoTab;
-import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_OverviewTab;
+import automation.PestRoutes.Controller.Reporting.Office.BillingByServiceType;
+import automation.PestRoutes.PageObject.CustomerOverview.*;
+import automation.PestRoutes.PageObject.CustomerOverview.Invoicing.CreditMemoTab;
+import automation.PestRoutes.PageObject.CustomerOverview.Invoicing.InvoiceImplementation;
 import automation.PestRoutes.PageObject.Customers.CustomerReportsTab.CustomerReportsPage;
 import automation.PestRoutes.PageObject.Customers.CustomersMainPage;
 import automation.PestRoutes.PageObject.Header;
 import automation.PestRoutes.Utilities.AppData;
 import automation.PestRoutes.Utilities.AssertException;
+import automation.PestRoutes.Utilities.FindElement;
 import automation.PestRoutes.Utilities.Utilities;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.openqa.selenium.WebElement;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
@@ -31,6 +33,12 @@ public class CustomerReports extends AppData {
     CustomerViewDialog_InfoTab customerViewDialog_infoTab;
     CreateLeads createLeads;
     CustomerViewDialog_Header customerCardHeader;
+    CustomerViewDialog_SubscriptionTab customerViewDialog_subscriptionTab;
+    CustomerviewDialog_AppointmentsTab customerviewDialog_appointmentsTab;
+    BillingByServiceType billingByServiceType;
+    InvoiceImplementation invoiceImplementation;
+    BillingPage billingPage;
+    CreditMemoTab creditMemoTab;
 
     private String customerName_CR;
     private String customerID_CR;
@@ -38,6 +46,12 @@ public class CustomerReports extends AppData {
     private String lName_CR;
     private String email_CR;
     private String taxRate_CR;
+    private String address_CR;
+    private String city_CR;
+    private String country_CR;
+    private String state_CR;
+    private String zipCode_CR;
+    private String county_CR;
 
     //Author: Aditya
     @Test
@@ -334,8 +348,8 @@ public class CustomerReports extends AppData {
     }
 
     //Author : Aditya
-    @And("I get customer name and customer ID details for customer reports")
-    public void updateCustomerIDAndCustomerNameDetails_CR() throws InterruptedException {
+    @And("I get customer details for customer reports")
+    public void getCustomerDetails_CR() throws InterruptedException {
         createNewCustomer = new CreateNewCustomer();
         customerViewDialog_infoTab = new CustomerViewDialog_InfoTab();
         customerCardHeader = new CustomerViewDialog_Header();
@@ -346,6 +360,12 @@ public class CustomerReports extends AppData {
         customerID_CR = customerViewDialog_overviewTab.getCustomerIDFromHeader();
         email_CR = customerViewDialog_infoTab.getEmail();
         taxRate_CR = String.format("%2f", (Double.parseDouble(customerViewDialog_infoTab.getTaxRate()) / 100));
+        address_CR = customerViewDialog_infoTab.getStreetAddress();
+        city_CR = customerViewDialog_infoTab.getCity();
+        country_CR = customerViewDialog_infoTab.getCountry();
+        state_CR = customerViewDialog_infoTab.getState();
+        zipCode_CR = customerViewDialog_infoTab.getZip();
+        county_CR = customerViewDialog_infoTab.getCounty();
     }
 
     //Author : Aditya
@@ -390,6 +410,83 @@ public class CustomerReports extends AppData {
     }
 
     //Author : Aditya
+    @When("I add filters to Service Subscription in Customer Reports")
+    public void addFilters_serviceSubscription() throws IOException, InterruptedException {
+        customerReportsPage.click(customerReportsPage.customerAccount);
+        customerReportsPage.setType(customerReportsPage.filterTypes_CR("lastName_CR"), lName_CR);
+        customerReportsPage.setType(customerReportsPage.filterTypes_CR("firstName_CR"), fName_CR);
+        customerReportsPage.click(customerReportsPage.serviceSubscription);
+        customerReportsPage.setValueFromDropdown(customerReportsPage.filterTypes_CR("activeSubscription_CR"), "Yes");
+        customerReportsPage.setValueFromDropdown(customerReportsPage.filterTypes_CR("subscriptionRecurring_CR"), "Yes");
+        customerReportsPage.setValueFromDropdown(customerReportsPage.filterTypes_CR("completedInitial_CR"), "Has Completed Initial Service");
+        customerReportsPage.setProperty(customerReportsPage.filterTypes_CR("soldBy_CR"), getData("assignto", generalData));
+        customerReportsPage.setProperty(customerReportsPage.filterTypes_CR("soldBy2_CR"), getData("assignto", generalData));
+        customerReportsPage.setProperty(customerReportsPage.filterTypes_CR("soldBy3_CR"), getData("assignto", generalData));
+        customerReportsPage.setProperty(customerReportsPage.filterTypes_CR("includeServiceTypes_CR"), getData("serviceDescription", generalData));
+        customerReportsPage.setValueFromDropdown(customerReportsPage.filterTypes_CR("frequency_CR"), "Custom Schedule");
+        customerReportsPage.setProperty(customerReportsPage.filterTypes_CR("includeFlagsServiceSubscription_CR"), getData("subscriptionFlagName", generalData));
+        customerReportsPage.setType(customerReportsPage.filterTypes_CR("soldDateFrom_CR"), Utilities.currentDate("MM/dd/yyyy"));
+        customerReportsPage.click(customerReportsPage.serviceSubscription);
+        customerReportsPage.click(customerReportsPage.refreshButton);
+    }
+
+    //Author : Aditya
+    @When("I add invoice filters to Service Subscription in Customer Reports")
+    public void addInvoiceFilters_serviceSubscription() throws InterruptedException {
+        customerReportsPage.clickCustomerReport();
+        createNewCustomer = new CreateNewCustomer();
+        createNewCustomer.navigateToSubscriptionTab();
+        customerViewDialog_subscriptionTab = new CustomerViewDialog_SubscriptionTab();
+        String initialPrice = String.valueOf(customerViewDialog_subscriptionTab.getInitialSubTotal());
+        String recurringPrice = String.valueOf(customerViewDialog_subscriptionTab.getRecurringSubTotal());
+        createNewCustomer.closeCustomerCard();
+        customerReportsPage.click(customerReportsPage.serviceSubscription);
+        customerReportsPage.setType(customerReportsPage.filterTypes_CR("initialPrice_CR"), initialPrice);
+        customerReportsPage.setType(customerReportsPage.filterTypes_CR("recurringPrice_CR"), recurringPrice);
+        customerReportsPage.click(customerReportsPage.refreshButton);
+    }
+
+    //Author : Aditya
+    @When("I add filters to Customer Location in Customer Reports")
+    public void addFilters_customerLocation() throws InterruptedException, IOException {
+        customerReportsPage.click(customerReportsPage.customerAccount);
+        customerReportsPage.setType(customerReportsPage.filterTypes_CR("lastName_CR"), lName_CR);
+        customerReportsPage.setType(customerReportsPage.filterTypes_CR("firstName_CR"), fName_CR);
+        customerReportsPage.click(customerReportsPage.customerLocation);
+        customerReportsPage.setType(customerReportsPage.filterTypes_CR("mapCode_CR"), getData("mapCode", generalData));
+        customerReportsPage.setType(customerReportsPage.filterTypes_CR("address_CR"), address_CR);
+        customerReportsPage.setType(customerReportsPage.filterTypes_CR("city_CR"), city_CR);
+        customerReportsPage.setValueFromDropdown(customerReportsPage.filterTypes_CR("country_CR"), country_CR);
+        customerReportsPage.setProperty(customerReportsPage.filterTypes_CR("state_CR"), state_CR);
+        customerReportsPage.setType(customerReportsPage.filterTypes_CR("zip_CR"), zipCode_CR);
+        customerReportsPage.setProperty(customerReportsPage.filterTypes_CR("county_CR"), county_CR);
+        customerReportsPage.click(customerReportsPage.refreshButton);
+    }
+
+    //Author : Aditya
+    @When("I add filters to Billing Account with max monthly as {string} in Customer Reports")
+    public void
+    addFilters_billingAccount(String maxMonthly) throws InterruptedException, IOException {
+        billingByServiceType = new BillingByServiceType();
+        customerReportsPage.click(customerReportsPage.customerAccount);
+        customerReportsPage.setType(customerReportsPage.filterTypes_CR("lastName_CR"), lName_CR);
+        customerReportsPage.setType(customerReportsPage.filterTypes_CR("firstName_CR"), fName_CR);
+        customerReportsPage.click(customerReportsPage.billingAccount);
+        customerReportsPage.setType(customerReportsPage.filterTypes_CR("balanceAge_CR"), "0");
+        customerReportsPage.setValueFromDropdown(customerReportsPage.filterTypes_CR("amountDueAssignment_CR"), ">");
+        customerReportsPage.setType(customerReportsPage.filterTypes_CR("amountDue_CR"), billingByServiceType.standAloneInvoiceAmount);
+        customerReportsPage.setType(customerReportsPage.filterTypes_CR("responsibleBalanceAge_CR"), "0");
+        customerReportsPage.setValueFromDropdown(customerReportsPage.filterTypes_CR("responsibleBalanceAssignment_CR"), ">");
+        customerReportsPage.setType(customerReportsPage.filterTypes_CR("responsibleBalance_CR"), billingByServiceType.standAloneInvoiceAmount);
+        customerReportsPage.setType(customerReportsPage.filterTypes_CR("maxMonthlyCharge_CR"), maxMonthly);
+        customerReportsPage.setValueFromDropdown(customerReportsPage.filterTypes_CR("customerAutoPay_CR"), "Credit Card");
+        customerReportsPage.setValueFromDropdown(customerReportsPage.filterTypes_CR("paymentProfileStatus_CR"), "Valid");
+        customerReportsPage.setValueFromDropdown(customerReportsPage.filterTypes_CR("customerHasCC_CR"), "Yes");
+        customerReportsPage.setValueFromDropdown(customerReportsPage.filterTypes_CR("customerHasACH_CR"), "Yes");
+        customerReportsPage.click(customerReportsPage.refreshButton);
+    }
+
+    //Author : Aditya
     @When("I search for customer in customer reports")
     public void searchCustomer_customerReports() throws InterruptedException {
         customerReportsPage.searchCustomer_CustomerReports(customerReportsPage.searchBox, fName_CR);
@@ -422,5 +519,84 @@ public class CustomerReports extends AppData {
         result(createLeads.lead_value + ".00", customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[6]"), "Lead Value validation", " Customer Reports Validation");
         result(getData("assignto", generalData), (customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[8]")) + "-Office", "Lead Assigned validation", " Customer Reports Validation");
         result(getData("source", generalData), customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[9]"), "Lead Source validation", " Customer Reports Validation");
+    }
+
+    //Author : Aditya
+    @Then("I validate service subscription report in Customer Reports")
+    public void serviceSubscriptionReportValidations_customerReports() throws IOException {
+        result(customerID_CR, customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[1]"), "Customer ID validation", " Customer Reports Validation");
+        result(lName_CR.toLowerCase(Locale.ROOT), (customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[2]")).toLowerCase(Locale.ROOT), "Customer last name validation", " Customer Reports Validation");
+        result(fName_CR.toLowerCase(Locale.ROOT), (customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[3]")).toLowerCase(Locale.ROOT), "Customer first name validation", " Customer Reports Validation");
+        result("Active", customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[4]"), "Subscription Status validation", " Customer Reports Validation");
+        result("Custom Schedule", customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[5]"), "Frequency Type validation", " Customer Reports Validation");
+        result(Utilities.currentDate("MM/dd/yy"), customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[6]"), "Initial Service Date validation", " Customer Reports Validation");
+        result(getData("serviceDescription", generalData), customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[7]"), "Subscription Type validation", " Customer Reports Validation");
+        String soldBy = customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[9]");
+        result(soldBy, customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[12]"), "Sold By 2 validation", " Customer Reports Validation");
+        result(soldBy, customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[15]"), "Sold By 3 validation", " Customer Reports Validation");
+        int indexOfComma = soldBy.indexOf(",");
+        soldBy = soldBy.substring(indexOfComma + 1) + soldBy.substring(0, indexOfComma);
+        result(getData("assignto", generalData), soldBy + "-Office", "Sold By 1 validation", " Customer Reports Validation");
+        result("Office Staff", customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[10]"), "Sold By Type 1 validation", " Customer Reports Validation");
+        result("Office Staff", customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[13]"), "Sold By Type 2 validation", " Customer Reports Validation");
+        result("Office Staff", customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[16]"), "Sold By Type 3 validation", " Customer Reports Validation");
+        try {
+            WebElement schedulingAppointment = FindElement.elementByAttribute(customerviewDialog_appointmentsTab.closeSchedulingNotice, FindElement.InputType.XPath);
+            if (schedulingAppointment.isDisplayed()) {
+                customerviewDialog_appointmentsTab = new CustomerviewDialog_AppointmentsTab();
+                customerviewDialog_appointmentsTab.clickCloseSchedulingNoticeButton();
+            }
+        } catch (Exception e) {
+        }
+    }
+
+    //Author : Aditya
+    @Then("I validate customer location report in Customer Reports")
+    public void customerLocationReportValidations_customerReports() throws IOException {
+        result(customerID_CR, customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[1]"), "Customer ID validation", " Customer Reports Validation");
+        result(lName_CR.toLowerCase(Locale.ROOT), (customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[2]")).toLowerCase(Locale.ROOT), "Customer last name validation", " Customer Reports Validation");
+        result(fName_CR.toLowerCase(Locale.ROOT), (customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[3]")).toLowerCase(Locale.ROOT), "Customer first name validation", " Customer Reports Validation");
+        result(getData("mapCode", generalData), (customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[4]")), "Map Code validation", " Customer Reports Validation");
+        result(address_CR, (customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[5]")), "Address validation", " Customer Reports Validation");
+        result(city_CR, (customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[6]")), "City validation", " Customer Reports Validation");
+        result(country_CR, (customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[7]")), "Country validation", " Customer Reports Validation");
+        result(state_CR, (customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[8]")), "State validation", " Customer Reports Validation");
+        result(zipCode_CR, (customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[9]")), "Zip Code validation", " Customer Reports Validation");
+        result(county_CR, (customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[10]")), "County validation", " Customer Reports Validation");
+    }
+
+    //Author : Aditya
+    @Then("I validate billing account report with max monthly as {string} in Customer Reports")
+    public void billingAccountReportValidations_customerReports(String maxMonthly) throws IOException, InterruptedException {
+        invoiceImplementation = new InvoiceImplementation();
+        customerReportsPage.clickCustomerReport();
+        customerCardHeader = new CustomerViewDialog_Header();
+        creditMemoTab = new CreditMemoTab();
+        createNewCustomer = new CreateNewCustomer();
+        customerCardHeader.navigateTo(customerCardHeader.invoicesTabInDialog);
+        invoiceImplementation.clickInvoice(getData("serviceDescription", generalData));
+        String balance = invoiceImplementation.getBalanceInPayments();
+        customerCardHeader.navigateTo(customerCardHeader.billingTabInDialog);
+        billingPage = new BillingPage();
+        String customerAutoPayValue = billingPage.getAutoPayValue();
+        String CCTokenNumber = (billingPage.getTokenValue(billingPage.ccOptionOnLeft, billingPage.tokenValue)).toLowerCase(Locale.ROOT);
+        String ACHTokenNumber = (billingPage.getTokenValue(billingPage.ACHOptionOnLeft, billingPage.tokenValue)).toLowerCase(Locale.ROOT);
+        createNewCustomer.closeCustomerCard();
+        result(customerID_CR, customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[1]"), "Customer ID validation", " Customer Reports Validation");
+        result(lName_CR.toLowerCase(Locale.ROOT), (customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[2]")).toLowerCase(Locale.ROOT), "Customer last name validation", " Customer Reports Validation");
+        result(fName_CR.toLowerCase(Locale.ROOT), (customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[3]")).toLowerCase(Locale.ROOT), "Customer first name validation", " Customer Reports Validation");
+        result("0", (customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[4]")), "A/R Aging validation", " Customer Reports Validation");
+        result(balance, "$" + (customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[5]")), "Account Balance validation", " Customer Reports Validation");
+        result("0", (customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[6]")), "Responsible A/R Aging validation", " Customer Reports Validation");
+        result(balance, "$" + (customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[7]")), "Responsible Account Balance validation", " Customer Reports Validation");
+        result(String.format("%.2f", Double.parseDouble(maxMonthly)), (customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[8]")), "Max Monthly validation", " Customer Reports Validation");
+        result(customerAutoPayValue, (customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[9]")), "Customer Auto Pay validation", " Customer Reports Validation");
+        result(CCTokenNumber, (customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[11]")).toLowerCase(Locale.ROOT), "Credit Card Token validation", " Customer Reports Validation");
+        String lastFourOfCC = customerAutoPayValue.substring(customerAutoPayValue.length() - 4, customerAutoPayValue.length());
+        result(lastFourOfCC, (customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[12]")), "Credit Card Last Four validation", " Customer Reports Validation");
+        String creditCardType = customerAutoPayValue.substring(customerAutoPayValue.indexOf("-") + 1, customerAutoPayValue.length() - 6);
+        result(creditCardType, customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[13]"), "Credit Card Type validation", " Customer Reports Validation");
+        result(ACHTokenNumber, (customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[15]")).toLowerCase(Locale.ROOT), "ACH Token validation", " Customer Reports Validation");
+
     }
 }
