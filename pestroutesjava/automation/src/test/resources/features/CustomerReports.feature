@@ -96,3 +96,15 @@ Feature: Customer reports end to end validation
     Then I validate billing account report with max monthly as "400" in Customer Reports
     And I remove the customer
     And I validate if there are errors exist in the list
+
+  @BillingAddressValidation_CustomerReports
+  Scenario: Billing Address validation in Customer Reports
+    When I create customer with pref paper and residential property
+    Then I get customer details for customer reports
+    And I add a CC payment option "4111111111111111" and "5412750109056250"
+    And I change customer status
+    Then I navigate to "Customer Reports" in Customers tab
+    When I add filters to Billing Address in Customer Reports
+    Then I validate billing address report in Customer Reports
+    And I remove the customer
+    And I validate if there are errors exist in the list

@@ -181,7 +181,7 @@ public class CustomerReportsPage extends AppData {
         filterTypes_CR.put("billingFName_CR", "//div[@key='billingFName']/input");
         filterTypes_CR.put("billingAddress_CR", "//div[@key='billingAddress']/input");
         filterTypes_CR.put("billingCity_CR", "//div[@key='billingCity']/input");
-        filterTypes_CR.put("billingState_CR", "//input[@id='s2id_autogen41']");
+        filterTypes_CR.put("billingState_CR", "//div[@id='s2id_billingAddressBillingState']//input");
         filterTypes_CR.put("billingZip_CR", "//div[@key='billingZip']/input");
         filterTypes_CR.put("billingCountry_CR", "//div[@key='billingCountry']/select");
 

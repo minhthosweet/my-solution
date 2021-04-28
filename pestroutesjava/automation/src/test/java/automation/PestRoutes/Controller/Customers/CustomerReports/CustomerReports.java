@@ -487,6 +487,25 @@ public class CustomerReports extends AppData {
     }
 
     //Author : Aditya
+    @When("I add filters to Billing Address in Customer Reports")
+    public void
+    addFilters_billingAddress() throws InterruptedException, IOException {
+        billingByServiceType = new BillingByServiceType();
+        customerReportsPage.click(customerReportsPage.customerAccount);
+        customerReportsPage.setType(customerReportsPage.filterTypes_CR("lastName_CR"), lName_CR);
+        customerReportsPage.setType(customerReportsPage.filterTypes_CR("firstName_CR"), fName_CR);
+        customerReportsPage.click(customerReportsPage.billingAddress);
+        customerReportsPage.setType(customerReportsPage.filterTypes_CR("billingLName_CR"), lName_CR);
+        customerReportsPage.setType(customerReportsPage.filterTypes_CR("billingFName_CR"), fName_CR);
+        customerReportsPage.setType(customerReportsPage.filterTypes_CR("billingAddress_CR"), address_CR);
+        customerReportsPage.setType(customerReportsPage.filterTypes_CR("billingCity_CR"), city_CR);
+        customerReportsPage.setProperty(customerReportsPage.filterTypes_CR("billingState_CR"), state_CR);
+        customerReportsPage.setType(customerReportsPage.filterTypes_CR("billingZip_CR"), zipCode_CR);
+        customerReportsPage.setValueFromDropdown(customerReportsPage.filterTypes_CR("billingCountry_CR"), country_CR);
+        customerReportsPage.click(customerReportsPage.refreshButton);
+    }
+
+    //Author : Aditya
     @When("I search for customer in customer reports")
     public void searchCustomer_customerReports() throws InterruptedException {
         customerReportsPage.searchCustomer_CustomerReports(customerReportsPage.searchBox, fName_CR);
@@ -557,8 +576,11 @@ public class CustomerReports extends AppData {
         result(lName_CR.toLowerCase(Locale.ROOT), (customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[2]")).toLowerCase(Locale.ROOT), "Customer last name validation", " Customer Reports Validation");
         result(fName_CR.toLowerCase(Locale.ROOT), (customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[3]")).toLowerCase(Locale.ROOT), "Customer first name validation", " Customer Reports Validation");
         result(getData("mapCode", generalData), (customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[4]")), "Map Code validation", " Customer Reports Validation");
-        result(address_CR, (customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[5]")), "Address validation", " Customer Reports Validation");
+        result(address_CR.toLowerCase(Locale.ROOT), (customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[5]")).toLowerCase(Locale.ROOT), "Address validation", " Customer Reports Validation");
         result(city_CR, (customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[6]")), "City validation", " Customer Reports Validation");
+        if (country_CR.equals("United States")){
+            country_CR = "US";
+        }
         result(country_CR, (customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[7]")), "Country validation", " Customer Reports Validation");
         result(state_CR, (customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[8]")), "State validation", " Customer Reports Validation");
         result(zipCode_CR, (customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[9]")), "Zip Code validation", " Customer Reports Validation");
@@ -597,6 +619,23 @@ public class CustomerReports extends AppData {
         String creditCardType = customerAutoPayValue.substring(customerAutoPayValue.indexOf("-") + 1, customerAutoPayValue.length() - 6);
         result(creditCardType, customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[13]"), "Credit Card Type validation", " Customer Reports Validation");
         result(ACHTokenNumber, (customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[15]")).toLowerCase(Locale.ROOT), "ACH Token validation", " Customer Reports Validation");
+    }
 
+    //Author : Aditya
+    @Then("I validate billing address report in Customer Reports")
+    public void billingAddressReportValidations_customerReports() throws IOException {
+        result(customerID_CR, customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[1]"), "Customer ID validation", " Customer Reports Validation");
+        result(lName_CR.toLowerCase(Locale.ROOT), (customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[2]")).toLowerCase(Locale.ROOT), "Customer last name validation", " Customer Reports Validation");
+        result(fName_CR.toLowerCase(Locale.ROOT), (customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[3]")).toLowerCase(Locale.ROOT), "Customer first name validation", " Customer Reports Validation");
+        result(lName_CR.toLowerCase(Locale.ROOT), (customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[4]")).toLowerCase(Locale.ROOT), "Billing Account last name validation", " Customer Reports Validation");
+        result(fName_CR.toLowerCase(Locale.ROOT), (customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[5]")).toLowerCase(Locale.ROOT), "Billing Account first name validation", " Customer Reports Validation");
+        result(address_CR.toLowerCase(Locale.ROOT), (customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[6]")).toLowerCase(Locale.ROOT), "Address validation", " Customer Reports Validation");
+        result(city_CR, (customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[7]")), "City validation", " Customer Reports Validation");
+        result(state_CR, (customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[8]")), "State validation", " Customer Reports Validation");
+        result(zipCode_CR, (customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[9]")), "Zip Code validation", " Customer Reports Validation");
+        if (country_CR.equals("United States")){
+            country_CR = "US";
+        }
+        result(country_CR, (customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[10]")), "Country validation", " Customer Reports Validation");
     }
 }
