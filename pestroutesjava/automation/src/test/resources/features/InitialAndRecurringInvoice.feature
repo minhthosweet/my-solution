@@ -18,6 +18,7 @@ Feature: Initial And Recurring Invoices
     And I add a route
     And I search customer
     And I navigate to Subscription Tab
+    When I close scheduling notice button
     And I schedule an service appointment
     And I search customer
     And I complete an appointment

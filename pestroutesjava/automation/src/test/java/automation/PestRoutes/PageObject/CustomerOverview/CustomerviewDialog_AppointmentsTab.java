@@ -3,6 +3,8 @@ package automation.PestRoutes.PageObject.CustomerOverview;
 import automation.PestRoutes.Utilities.FindElement;
 import automation.PestRoutes.Utilities.Utilities;
 import automation.PestRoutes.Utilities.Utilities.ElementType;
+import io.cucumber.java.en.When;
+import org.openqa.selenium.WebElement;
 
 public class CustomerviewDialog_AppointmentsTab {
 
@@ -148,9 +150,16 @@ public class CustomerviewDialog_AppointmentsTab {
         Utilities.clickElement(unitName, ElementType.XPath);
     }
 
+    @When("I close scheduling notice button")
     public void clickCloseSchedulingNoticeButton(){
-        Utilities.waitUntileElementIsVisible(closeSchedulingNotice);
-        Utilities.clickElement(closeSchedulingNotice, ElementType.XPath);
+        try {
+            WebElement schedulingAppointment = FindElement.elementByAttribute(closeSchedulingNotice, FindElement.InputType.XPath);
+            if (schedulingAppointment.isDisplayed()) {
+                Utilities.waitUntileElementIsVisible(closeSchedulingNotice);
+                Utilities.clickElement(closeSchedulingNotice, ElementType.XPath);
+            }
+        } catch (Exception e) {
+        }
     }
 
     /*
