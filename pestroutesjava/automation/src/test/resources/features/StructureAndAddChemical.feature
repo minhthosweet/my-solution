@@ -18,4 +18,5 @@ Feature: Structures
     Then I verify chemical in structure
     Then I verify chemical in substructure
     And I close customer card
+    And I remove the customer
     And I validate if there are errors exist in the list

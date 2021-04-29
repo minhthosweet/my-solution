@@ -87,13 +87,10 @@ public class CouponOrCredit {
     public void validateCouponCreditPayment() throws InterruptedException {
         createNewCustomer = new CreateNewCustomer();
         header = new Header();
-
         String balanceOnOriginalInvoice = invoiceImplementation.getRemainingBalanceAmount();
-
         AssertException.result("Coupon Applied Successfully!", couponOrCreditTab.getTextValue(couponOrCreditTab.successMessage), "Success Message Validation", "Coupon/Credit Validation");
         AssertException.result("Applied Coupon in the amount of: $" + balanceOnOriginalInvoice + "Account: Coupon Code: " + randomNotes + "Transaction ID: " + randomNotes + "AuthorizationCode:AVSResponse:CVVResponse:", couponOrCreditTab.getTextValue(couponOrCreditTab.successAppliedAmount), "Success Transaction Validation", "Coupon/Credit Validation");
         AssertException.result("FULLY PAID", invoiceImplementation.checkPaymentStatus(), "After Payment Status", "Coupon/Credit Validation");
-        String customerName = createNewCustomer.getCustomerFullName();
         header.clickAccessHistory();
         createNewCustomer.removeCustomer();
     }

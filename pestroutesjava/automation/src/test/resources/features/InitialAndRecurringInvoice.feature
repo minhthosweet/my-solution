@@ -3,6 +3,7 @@
 @RegressionADI
 Feature: Initial And Recurring Invoices
 
+  @Smoke_Adi
   Scenario: Create initial and recurring invoice and validate
     Given I delete a routing group
     When I create customer with first name, last name and address
@@ -18,6 +19,7 @@ Feature: Initial And Recurring Invoices
     And I add a route
     And I search customer
     And I navigate to Subscription Tab
+    When I close scheduling notice button
     And I schedule an service appointment
     And I search customer
     And I complete an appointment
@@ -32,5 +34,5 @@ Feature: Initial And Recurring Invoices
     And I search customer
     And I validate recurring invoice created on invoice tab
     Then I close customer card
-    And I validate if there are errors exist in the list
     And I remove the customer
+    And I validate if there are errors exist in the list

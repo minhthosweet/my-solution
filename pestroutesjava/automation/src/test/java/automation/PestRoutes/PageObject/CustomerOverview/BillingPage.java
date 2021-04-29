@@ -64,6 +64,7 @@ public class BillingPage {
 	public String additionalContactStateDropdown = "";
 	public String additionalContactTypeDropdown = "";
 	public String additionalContactRelationDropdown = "";
+	public String autoPaySetValue = "//div[@id='billingSwitches']//select[@name='autoPayPaymentProfileID']/option[@selected='selected']";
 	
 	//**********Add Payment method objects**********
 	public String addCreditCardButton = "//div[@id='billingInfoContent']//div[text()='Credit Card']";
@@ -74,6 +75,9 @@ public class BillingPage {
 	public String ccCopyAccountButton = "//div[text()='Copy Account']";
 	public String ccSaveCardButton = "//button[@id='submit-payment']";
 	public String cc_X_ButtonInAddCreditCardDialog = "//form[@id='lightbox']//div[@class='x-container']";
+	public String tokenValue = "//b[text()='Token:']/parent::td/following-sibling::td";
+	public String ccOptionOnLeft = "//div[@id='billingInfoPanel']//li[text()='Credit Card ']";
+	public String ACHOptionOnLeft = "//div[@id='billingInfoPanel']//li[text()='Bank Account ']";
 	//***Input Fields***
 
 	//***Drop downs***
@@ -189,4 +193,17 @@ public class BillingPage {
 		return Utilities.getAttributeValue(needElement, needAttribute);
 	}
 
+	public String getAutoPayValue(){
+		return Utilities.getElementTextValue(autoPaySetValue, ElementType.XPath);
+	}
+
+	//Author : Aditya
+	public String getTokenValue(String paymentOption, String tokenNumber) {
+		Utilities.waitUntileElementIsVisible(paymentOption);
+		Utilities.clickElement(paymentOption, Utilities.ElementType.XPath);
+		Utilities.waitUntileElementIsVisible(tokenNumber);
+		String entireToken = Utilities.getElementTextValue(tokenNumber, Utilities.ElementType.XPath);
+		int startingIndexOfToken = entireToken.indexOf("/", entireToken.indexOf("/") + 1);
+		return entireToken.substring(startingIndexOfToken + 1, entireToken.length());
+	}
 }
