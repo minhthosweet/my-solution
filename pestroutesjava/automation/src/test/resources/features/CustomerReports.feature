@@ -45,6 +45,7 @@ Feature: Customer reports end to end validation
     And I remove the customer
     And I validate if there are errors exist in the list
 
+  @Smoke_Adi
   @ServiceSubscription_CustomerReports
   Scenario: Service Subscription validation in Customer Reports
     Given I delete a routing group
@@ -83,6 +84,7 @@ Feature: Customer reports end to end validation
     And I remove the customer
     And I validate if there are errors exist in the list
 
+  @Smoke_Adi
   @BillingAccountValidation_CustomerReports
   Scenario: Billing Account validation in Customer Reports
     When I create customer with balance with prefers paper and residential property type

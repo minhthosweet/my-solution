@@ -3,6 +3,7 @@
 @RegressionADI
 Feature: Initial And Recurring Invoices
 
+  @Smoke_Adi
   Scenario: Create initial and recurring invoice and validate
     Given I delete a routing group
     When I create customer with first name, last name and address

@@ -3,6 +3,7 @@
 @NewCustomerValidation
 Feature: Create and search customer with validation
 
+  @Smoke_Adi
   Scenario: Create a customer
     When I create customer without required last name field
     Then I validate alert

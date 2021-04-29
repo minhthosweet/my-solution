@@ -9,6 +9,7 @@ Feature: Billing by service Type report end to end validation
     Then I validate if all fields are displaying and are enabled in Billing by service type
     And I validate if there are errors exist in the list
 
+  @Smoke_Adi
   @BSTReportFields
   Scenario: Validating filters and fields generated with single group by and its line items BST
     Given I add a new generic flag if it is not already existing "Automation Flag" and "Its lit" and "Customer"
@@ -99,6 +100,7 @@ Feature: Billing by service Type report end to end validation
     And I validate the fields are displayed in individual line items in Billing by Service Type
     And I validate if there are errors exist in the list
 
+  @Smoke_Adi
   @BSTMultiGroupByValidation
   Scenario: Multi Group By filter validation in BST
     When I create customer with balance with prefers paper and residential property type

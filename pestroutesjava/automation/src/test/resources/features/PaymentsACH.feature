@@ -6,6 +6,7 @@ Feature: Validate all types of payments
   Scenario: PreValidations
     Given I add a renewal service
 
+  @Smoke_Adi
   Scenario Outline: ACH On File Payment Validation
     When I navigate to merchant Info
     Then I set ACH gateway "<Gateway>"
