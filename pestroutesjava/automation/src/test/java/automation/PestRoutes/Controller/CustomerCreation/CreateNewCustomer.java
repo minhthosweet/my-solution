@@ -120,11 +120,11 @@ public class CreateNewCustomer extends AppData {
         customerName = getCustomerFullName();
     }
     //**Author Aarbi**
-    @And("I validate if agent display in the list after clicking on transfer button")
-    public void validateTransferAccountOption(){
+    @And("I validate if agent display in the list after clicking on transfer button {string}")
+    public void validateTransferAccountOption(String needAgent){
         customerDialog_Header = new CustomerViewDialog_Header();
         Utilities.clickElement(customerDialog_Header.tranferButtonInDialog, ElementType.XPath);
-        WebElement agent = FindElement.elementByAttribute("//p[text() = 'Jared Green']", FindElement.InputType.XPath);
+        WebElement agent = FindElement.elementByAttribute("//p[text() = '"+needAgent+"']", FindElement.InputType.XPath);
         AssertException.conditionResult(agent);
     }
 
