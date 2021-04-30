@@ -164,7 +164,7 @@ public class AccountReceivable extends BaseClass {
         customerCardHeader = new CustomerViewDialog_Header();
         newInvoice = new CreateNewInvoicePopUp();
         admin = new CustomerViewDialog_Admin();
-        customer.createCustomerWithAddress();
+        customer.createCustomerWithEmail();
         customerCardHeader.navigateTo(customerCardHeader.invoicesTabInDialog);
         createStandAloneServiceInvoice("400", Utilities.currentDate("MM/dd/yyyy"), "Automation Renewal");
         customerCardHeader.navigateTo(customerCardHeader.adminTabInDialog);

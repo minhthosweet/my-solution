@@ -8,6 +8,7 @@ import automation.PestRoutes.Utilities.*;
 import io.cucumber.java.en.Given;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.NoAlertPresentException;
+import org.openqa.selenium.WebElement;
 import org.testng.annotations.Test;
 import automation.PestRoutes.PageObject.Header;
 import automation.PestRoutes.PageObject.CreateCustomer.CreateCustomerDialog;
@@ -117,6 +118,14 @@ public class CreateNewCustomer extends AppData {
         customerDialog_Header.clickSaveButton();
         alertCondition();
         customerName = getCustomerFullName();
+    }
+    //**Author Aarbi**
+    @And("I validate if agent display in the list after clicking on transfer button")
+    public void validateTransferAccountOption(){
+        customerDialog_Header = new CustomerViewDialog_Header();
+        Utilities.clickElement(customerDialog_Header.tranferButtonInDialog, ElementType.XPath);
+        WebElement agent = FindElement.elementByAttribute("//p[text() = 'Jared Green']", FindElement.InputType.XPath);
+        AssertException.conditionResult(agent);
     }
 
     @And("I validate search customer with first name")
@@ -268,8 +277,8 @@ public class CreateNewCustomer extends AppData {
         customer.setLastName(lName);
         customer.selectUnit("Multi Unit");
         customer.setAddress(streetAddress);
-        customer.setZipCode(zipcode);
-        Utilities.acceptAlert();
+        customer.setZipCode("75098");
+        //Utilities.acceptAlert();
         customer.setCellPhone(getData("phoneNumber", generalData));
         customer.clickSmsCheckBox();
         customer.clickEmailCheckBox();
@@ -327,9 +336,9 @@ public class CreateNewCustomer extends AppData {
         customer.setEmailAddress(email);
         customer.selectUnit("Multi Unit");
         customer.setAddress(streetAddress);
-        customer.setZipCode(zipcode);
-        Utilities.acceptAlert();
-        customer.setCity(city);
+        customer.setZipCode("75098");
+        //Utilities.acceptAlert();
+        //customer.setCity(city);
         customer.setCellPhone(getData("phoneNumber", generalData));
         customer.clickSmsCheckBox();
         customer.clickEmailCheckBox();

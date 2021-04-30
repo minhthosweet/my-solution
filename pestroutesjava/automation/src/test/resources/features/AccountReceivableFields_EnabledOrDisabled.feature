@@ -1,5 +1,5 @@
 #Author: Aarbi
-@RegressionARB
+@RegressionARBAccountReceivable
 @FieldsValidationInAccountReceivable
 Feature: Validate if all fields present and are enabled
   @FieldValidations_AccountReceivable

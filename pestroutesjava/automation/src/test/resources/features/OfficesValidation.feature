@@ -1,5 +1,5 @@
 #Author: Aarbi
-@RegressionARB
+@RegressionARBOfficeValidation
 
 Feature: Validated offices displayed
   @ValidateOfficesDisplayedAndAreEnabled
