@@ -120,6 +120,28 @@ public class CreateNewCustomer extends AppData {
         customerName = getCustomerFullName();
     }
     //**Author Aarbi**
+    @And("I edit zipcode in info tab {string}")
+    public void editCustomerZip(String needZip) throws InterruptedException {
+        customer = new CreateCustomerDialog();
+        customerDialog_Header = new CustomerViewDialog_Header();
+        customerDialog_Header.navigateTo(customerDialog_Header.infoTabInDialog);
+        Utilities.highLight(customer.zipCodeInputField);
+        customer.setZipCode(needZip);
+    }
+    //**Author Aarbi**
+    @Then("I validate if tax rate is same")
+    public void validateTaxRate() throws InterruptedException {
+        customerDialog_Header = new CustomerViewDialog_Header();
+        customer = new CreateCustomerDialog();
+        String taxRate = customer.getTaxRate(customer.taxPercentageInputField);
+        customerDialog_Header.clickSaveButton();
+        customerDialog_Header.navigateTo(customerDialog_Header.subscriptionTabInDialog);
+        customerDialog_Header.clickSaveButton();
+        customerDialog_Header.navigateTo(customerDialog_Header.infoTabInDialog);
+        String actualTaxRate = customer.getTaxRate(customer.taxPercentageInputField);
+        result(taxRate, actualTaxRate, "Created customer name ", "Customer creation");
+    }
+    //**Author Aarbi**
     @And("I validate if agent display in the list after clicking on transfer button {string}")
     public void validateTransferAccountOption(String needAgent){
         customerDialog_Header = new CustomerViewDialog_Header();
