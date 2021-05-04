@@ -16,12 +16,6 @@ Feature: Job Pool Filter
     And I validate if all fields are displaying and are enabled in Job Pool
     Then I add all the fields in the job pool page "<Scheduling1>" and "<Scheduling2>" and "<Scheduling3>" and "<Customer1>" and "<Customer2>" and "<Customer3>" and "<Customer4>" and "<ServiceFlag>" and "<PreferredDay>" and "<Measurement>" and "Automation Flag" and "Test4Life" and "Fire" and "Water"
     Then I validate the job pool results
-    And I navigate to scheduling tab
-    And I add a route
-    And I search customer
-    And I schedule an service appointment
-    And I search customer
-    And I complete an appointment
     And I remove the customer
     And I validate if there are errors exist in the list
 

@@ -15,7 +15,7 @@ public class SalesReportPage extends BaseClass{
 	public String selectStatus = "//select[@name='status']";
 	public String subscriptionStatus = "//select[@name='subscriptionStatus']";
 	public String additionColumns = "//select[@name='extraFields']";
-	public String includeOffices = "//select[@id='officeIDs-emailForm']";
+	public String includeOffices = "//select[@id='soldCustomers-officeIDs']";
 	public String includeRoamingReps = "//select[@name='includeRoamingRepSales']";
 	public String filterEmployeeStatus = "//select[@name='employeeStatus']";
 	public String filterBySalesman = "//select[@name='soldSalesmen']";
