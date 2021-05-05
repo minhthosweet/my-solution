@@ -326,6 +326,7 @@ public class CreateNewCustomer extends AppData {
         customer.setAddress(streetAddress);
         customer.setZipCode("77008");
         Utilities.acceptAlert();
+        customer.clickOverrideTaxCheckBox();
         customer.setEmailAddress(email);
         customer.setCellPhone(getData("phoneNumber", generalData));
         customer.clickSmsCheckBox();

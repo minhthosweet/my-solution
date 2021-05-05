@@ -61,6 +61,7 @@ Feature: Payments by service Type report end to end validation
   @PSTSoldFilter
   Scenario: Sold filters validation PST
     Given I delete a routing group
+    Given I add a renewal service
     Given I create a new user if it is not already existing "Office Staff"
     When I create customer with pref paper and residential property
     And I create a subscription with Sales Rep assigned "Automation User - Office" and "Fire"

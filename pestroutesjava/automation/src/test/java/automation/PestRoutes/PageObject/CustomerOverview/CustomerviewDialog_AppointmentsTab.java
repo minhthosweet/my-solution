@@ -45,8 +45,13 @@ public class CustomerviewDialog_AppointmentsTab {
     public String areaStructureTreated = "//div[contains (text(), 'Target Areas:')]/following-sibling::div[1]";
     public String issuesStructureTreated = "//select[@name='saveAppointmentSubscription']//following-sibling::div";
 
-    //Scheduling Notice Objects
+    // Scheduling Notice Objects
     public String closeSchedulingNotice = "//div[@id='schedulingNotice']//span[text()='X']";
+
+    // Appointment Info Objects
+    public String scheduledBy = "//div[@id='appointmentContainor']//label[text()='Scheduled By']/following-sibling::div[1]";
+    public String completedBy = "//div[@id='appointmentContainor']//label[text()='Scheduled By']/following-sibling::div[1]";
+    public String technicianOnAppointment = "//select[@name='changeAppointmentTech']//option[@selected]";
 
     // **********Functions**********
 
@@ -67,7 +72,7 @@ public class CustomerviewDialog_AppointmentsTab {
     }
 
     public void clickSubScheduledStructuredService(String needStructureName, String needSubStructureName) {
-        Utilities.waitUntileElementIsVisible("//ul[@id='structuresMenuList']//span[text()='" + needStructureName +"']");
+        Utilities.waitUntileElementIsVisible("//ul[@id='structuresMenuList']//span[text()='" + needStructureName + "']");
         Utilities.clickElement("//ul[@id='structuresMenuList']//span[text()='" + needStructureName + "']",
                 ElementType.XPath);
         Utilities.waitUntileElementIsVisible(
@@ -151,7 +156,7 @@ public class CustomerviewDialog_AppointmentsTab {
     }
 
     @When("I close scheduling notice button")
-    public void clickCloseSchedulingNoticeButton(){
+    public void clickCloseSchedulingNoticeButton() {
         try {
             WebElement schedulingAppointment = FindElement.elementByAttribute(closeSchedulingNotice, FindElement.InputType.XPath);
             if (schedulingAppointment.isDisplayed()) {
@@ -223,6 +228,29 @@ public class CustomerviewDialog_AppointmentsTab {
     public String getStructureIssuesTreated() {
         Utilities.waitUntileElementIsVisible(issuesStructureTreated);
         return Utilities.getElementTextValue(issuesStructureTreated, ElementType.XPath);
+    }
+
+    //Appointment Info details getter methods
+    public String getScheduledBy_User() {
+        Utilities.waitUntileElementIsVisible(scheduledBy);
+        String schedulerName = Utilities.getElementTextValue(scheduledBy, ElementType.XPath);
+        int index = schedulerName.indexOf("on");
+        schedulerName = schedulerName.substring(0, index);
+        return schedulerName;
+    }
+
+    public String getCompletedBy_User() {
+        Utilities.waitUntileElementIsVisible(completedBy);
+        String completedByName = Utilities.getElementTextValue(completedBy, ElementType.XPath);
+        int index = completedByName.indexOf("on");
+        completedByName = completedByName.substring(0, index);
+        return completedByName;
+    }
+
+    public String getTechnicianOnAppointment() {
+        Utilities.waitUntileElementIsVisible(technicianOnAppointment);
+        System.out.println("technicianName : " + Utilities.getElementTextValue(technicianOnAppointment, ElementType.XPath));
+        return Utilities.getElementTextValue(technicianOnAppointment, ElementType.XPath);
     }
 
 }
