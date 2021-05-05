@@ -16,10 +16,10 @@ Feature: Validate all types of payments
 
     Examples:
       | Gateway             | Amount |
-#      | Braintree           | 400    |
-#      | Element             | 400    |
-#      | Spreedly            | 400    |
-#      | NMI                 | 400    |
+      | Braintree           | 400    |
+      | Element             | 400    |
+      | Spreedly            | 400    |
+      | NMI                 | 400    |
       | PestRoutes Payments | 400    |
 
   @SingleCardPaymentValidation

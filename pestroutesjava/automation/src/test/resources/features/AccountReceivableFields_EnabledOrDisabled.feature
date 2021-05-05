@@ -1,5 +1,5 @@
 #Author: Aarbi
-@RegressionARBAccountReceivable
+@RegressionARB
 @FieldsValidationInAccountReceivable
 Feature: Validate if all fields present and are enabled
   @FieldValidations_AccountReceivable
@@ -7,7 +7,7 @@ Feature: Validate if all fields present and are enabled
     Given I add a renewal service
     Given I have disabled ECA
     When I create customer with first name, last name, email and address
-    Then I validate if customer name and address match in overview tab
+#    Then I validate if customer name and address match in overview tab
     And I create a subscription of type "After Agreement Signed"
     And I search customer
     And I sign the agreement for subscription of type After Agreement Signed

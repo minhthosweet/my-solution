@@ -84,7 +84,7 @@ public class CreateNewCustomer extends AppData {
         customer.setLastName(lName);
         customer.selectUnit("Multi Unit");
         customer.setAddress(streetAddress);
-        customer.setZipCode(zipcode);
+        customer.setZipCode("75098");
         Utilities.acceptAlert();
         customer.setEmailAddress(email);
         customer.setCellPhone(primaryPhoneNumber);
@@ -127,14 +127,15 @@ public class CreateNewCustomer extends AppData {
         customerDialog_Header.navigateTo(customerDialog_Header.infoTabInDialog);
         Utilities.highLight(customer.zipCodeInputField);
         customer.setZipCode(needZip);
+        customerDialog_Header.clickSaveButton();
     }
     //**Author Aarbi**
     @Then("I validate if tax rate is same")
     public void validateTaxRate() throws InterruptedException {
         customerDialog_Header = new CustomerViewDialog_Header();
         customer = new CreateCustomerDialog();
+        customer.clickOverrideTaxCheckBox();
         String taxRate = customer.getTaxRate(customer.taxPercentageInputField);
-        customerDialog_Header.clickSaveButton();
         customerDialog_Header.navigateTo(customerDialog_Header.subscriptionTabInDialog);
         customerDialog_Header.clickSaveButton();
         customerDialog_Header.navigateTo(customerDialog_Header.infoTabInDialog);

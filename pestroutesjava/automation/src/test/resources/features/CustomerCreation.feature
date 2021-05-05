@@ -21,6 +21,7 @@ Feature: Create and search customer with validation
     When I create customer with first name, last name and address
     And I edit zipcode in info tab "92780"
     Then I validate if tax rate is same
+    Then I remove the customer
     And I validate if there are errors exist in the list
   @ValidateTransferAccount
   Scenario: Validate transfer account visibility
