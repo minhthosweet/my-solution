@@ -54,6 +54,7 @@ public class CustomerReports extends AppData {
     private String county_CR;
     private String scheduledBy;
     private String completedBy;
+    private String appointmentID;
 
     //Author: Aditya
     @Test
@@ -379,6 +380,7 @@ public class CustomerReports extends AppData {
         customerviewDialog_appointmentsTab.clickScheduledService(getData("serviceDescription", generalData));
         scheduledBy = customerviewDialog_appointmentsTab.getScheduledBy_User();
         completedBy = customerviewDialog_appointmentsTab.getCompletedBy_User();
+        appointmentID = customerviewDialog_appointmentsTab.getAppointmentID();
     }
 
     //Author : Aditya
@@ -400,8 +402,8 @@ public class CustomerReports extends AppData {
         customerReportsPage.setProperty(customerReportsPage.filterTypes_CR("includeFlagsCustomerAccount_CR"), getData("flag", generalData));
         customerReportsPage.setValueFromDropdown(customerReportsPage.filterTypes_CR("purpleDragon_CR"), "Yes");
         customerReportsPage.setValueFromDropdown(customerReportsPage.filterTypes_CR("signedElectronicAgreement_CR"), "No");
-        customerReportsPage.setValueFromDropdown(customerReportsPage.filterTypes_CR("zipTaxOverride_CR"), "No");
-        customerReportsPage.setValueFromDropdown(customerReportsPage.filterTypes_CR("systemTaxOverride_CR"), "Yes");
+        customerReportsPage.setValueFromDropdown(customerReportsPage.filterTypes_CR("zipTaxOverride_CR"), "Yes");
+        customerReportsPage.setValueFromDropdown(customerReportsPage.filterTypes_CR("systemTaxOverride_CR"), "No");
         customerReportsPage.setValueFromDropdown(customerReportsPage.filterTypes_CR("hasZipTaxAssigned_CR"), "Yes");
         customerReportsPage.click(customerReportsPage.refreshButton);
     }
@@ -619,9 +621,9 @@ public class CustomerReports extends AppData {
         result(getData("mapCode", generalData), (customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[4]")), "Map Code validation", " Customer Reports Validation");
         result(address_CR.toLowerCase(Locale.ROOT), (customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[5]")).toLowerCase(Locale.ROOT), "Address validation", " Customer Reports Validation");
         result(city_CR, (customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[6]")), "City validation", " Customer Reports Validation");
-        if (country_CR.equals("United States")) {
+        /*if (country_CR.equals("United States")) {
             country_CR = "US";
-        }
+        }*/
         result(country_CR, (customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[7]")), "Country validation", " Customer Reports Validation");
         result(state_CR, (customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[8]")), "State validation", " Customer Reports Validation");
         result(zipCode_CR, (customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[9]")), "Zip Code validation", " Customer Reports Validation");
@@ -682,7 +684,10 @@ public class CustomerReports extends AppData {
 
     //Author : Aditya
     @Then("I validate service appointment report in Customer Reports")
-    public void serviceAppointmentReportValidations_customerReports() throws IOException {
+    public void serviceAppointmentReportValidations_customerReports() throws IOException, InterruptedException {
+        customerCardHeader = new CustomerViewDialog_Header();
+        invoiceImplementation = new InvoiceImplementation();
+        createNewCustomer = new CreateNewCustomer();
         try {
             WebElement schedulingAppointment = FindElement.elementByAttribute(customerviewDialog_appointmentsTab.closeSchedulingNotice, FindElement.InputType.XPath);
             if (schedulingAppointment.isDisplayed()) {
@@ -696,6 +701,28 @@ public class CustomerReports extends AppData {
         result(fName_CR.toLowerCase(Locale.ROOT), (customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[3]")).toLowerCase(Locale.ROOT), "Customer first name validation", " Customer Reports Validation");
         result(Utilities.currentDate("MM/dd/yy"), (customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[4]")), "Scheduled For validation", " Customer Reports Validation");
         result(getData("serviceDescription", generalData), (customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[7]")), "Service Type validation", " Customer Reports Validation");
-
+        customerReportsPage.clickCustomerReport();
+        customerCardHeader.navigateTo(customerCardHeader.invoicesTabInDialog);
+        invoiceImplementation.clickInvoice(getData("serviceDescription", generalData));
+        String subTotalValue = invoiceImplementation.getSubTotalValue();
+        String balance = invoiceImplementation.getBalanceInPayments();
+        String invoiceID = Utilities.getAttributeValue(invoiceImplementation.activeInvoiceOnTheLeft, "ticketid");
+        createNewCustomer.closeCustomerCard();
+        result(subTotalValue, "$" + (customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[8]")), "Revenue Value validation", " Customer Reports Validation");
+        result(subTotalValue, "$" + (customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[9]")), "Production Value validation", " Customer Reports Validation");
+        result("Yes", (customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[10]")), "Initial validation", " Customer Reports Validation");
+        result(Utilities.currentDate("MM/dd/yy"), (customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[11]")).substring(0, 8), "Appointment Date validation", " Customer Reports Validation");
+        result(Utilities.currentDate("MM/dd/yy"), (customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[12]")), "Date the appointment was due validation", " Customer Reports Validation");
+        result(appointmentID, (customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[13]")), "Date the appointment was due validation", " Customer Reports Validation");
+        result(scheduledBy, (customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[14]")), "Date the appointment was due validation", " Customer Reports Validation");
+        result(completedBy, (customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[15]")), "Date the appointment was due validation", " Customer Reports Validation");
+        result(Utilities.currentDate("MM/dd/yy"), (customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[16]")).substring(0, 8), "Date completed validation", " Customer Reports Validation");
+        result(subTotalValue, "$" + (customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[17]")), "Paid Revenue Value validation", " Customer Reports Validation");
+        result(balance, "$" + (customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[18]")), "Service Balance validation", " Customer Reports Validation");
+        result(Utilities.currentDate("MM/dd/yy"), (customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[19]")), "Date completed validation", " Customer Reports Validation");
+        result(invoiceID, (customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[20]")), "Invoice Number validation", " Customer Reports Validation");
+        result(scheduledBy, (customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[21]")), "Recorded By validation", "Customer Reports Validation");
+        result((Utilities.currentDate("MM/dd/yy")), (customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[22]")), "Service Date validation", " Customer Reports Validation");
+        result("Completed", (customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[23]")), "Service Balance validation", "Appointment Status Validation");
     }
 }

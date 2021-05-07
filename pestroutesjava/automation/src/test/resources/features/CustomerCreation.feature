@@ -7,7 +7,7 @@ Feature: Create and search customer with validation
   Scenario: Create a customer
     When I create customer without required last name field
     Then I validate alert
-    When I create customer with first name, last name and address
+    When I create customer with first name, last name, email and address
     Then I validate if customer name and address match in overview tab
     And I validate search customer with first name
     And I validate search customer with last name

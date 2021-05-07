@@ -132,3 +132,5 @@ Feature: Customer reports end to end validation
     Then I navigate to "Customer Reports" in Customers tab
     When I add filters to Service Appointment in Customer Reports
     Then I validate service appointment report in Customer Reports
+    And I remove the customer
+    And I validate if there are errors exist in the list

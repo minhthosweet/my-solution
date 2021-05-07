@@ -253,4 +253,8 @@ public class CustomerviewDialog_AppointmentsTab {
         return Utilities.getElementTextValue(technicianOnAppointment, ElementType.XPath);
     }
 
+    public String getAppointmentID(){
+        Utilities.waitUntileElementIsVisible("//div[@id='appointmentContainor']//h3");
+        return Utilities.getAttributeValue("//div[@id='appointmentContainor']//h3","data-appointmentid");
+    }
 }
