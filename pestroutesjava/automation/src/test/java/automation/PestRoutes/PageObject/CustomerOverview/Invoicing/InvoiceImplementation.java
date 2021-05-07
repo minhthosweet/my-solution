@@ -66,7 +66,6 @@ public class InvoiceImplementation {
     public String inactiveInvoiceOnTheLeft = "//li[@class='listItem']";
     public String paymentsBalance = "//div[text()='Balance']/following-sibling::div";
 
-
     // Charges Objects
     public String serviceCostBeforeTax  = "//div[not(@ticketid='0')and@subscriptionid='0']//div[@serviceid]/input";
     public String subTotalValue = "//div[not(@ticketid='0')and@subscriptionid='0']//following-sibling::div//div[text()='Sub Total']/following-sibling::div[1]";

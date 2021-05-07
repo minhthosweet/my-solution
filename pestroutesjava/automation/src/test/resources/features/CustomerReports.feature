@@ -110,3 +110,27 @@ Feature: Customer reports end to end validation
     Then I validate billing address report in Customer Reports
     And I remove the customer
     And I validate if there are errors exist in the list
+
+  @ServiceAppointment_CustomerReports
+  Scenario: Service Appointment validation in Customer Reports
+    Given I delete a routing group
+    When I create customer with pref paper and residential property
+    And I create a subscription of type "After Initial Completion"
+    And I navigate to scheduling on same Day
+    And I add a route
+    And I search customer
+    And I navigate to Subscription Tab
+    And I schedule an service appointment
+    And I search customer
+    And I complete an appointment
+    And I get customer details for customer reports
+    And I get appointment details for customer reports
+    And I add a CC payment option "4111111111111111" and "5412750109056250"
+    And I close customer card
+    And I search customer
+    Then I make payment with credit card on file
+    Then I navigate to "Customer Reports" in Customers tab
+    When I add filters to Service Appointment in Customer Reports
+    Then I validate service appointment report in Customer Reports
+    And I remove the customer
+    And I validate if there are errors exist in the list
