@@ -621,9 +621,6 @@ public class CustomerReports extends AppData {
         result(getData("mapCode", generalData), (customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[4]")), "Map Code validation", " Customer Reports Validation");
         result(address_CR.toLowerCase(Locale.ROOT), (customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[5]")).toLowerCase(Locale.ROOT), "Address validation", " Customer Reports Validation");
         result(city_CR, (customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[6]")), "City validation", " Customer Reports Validation");
-        /*if (country_CR.equals("United States")) {
-            country_CR = "US";
-        }*/
         result(country_CR, (customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[7]")), "Country validation", " Customer Reports Validation");
         result(state_CR, (customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[8]")), "State validation", " Customer Reports Validation");
         result(zipCode_CR, (customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[9]")), "Zip Code validation", " Customer Reports Validation");
