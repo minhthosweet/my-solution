@@ -141,12 +141,15 @@ public class SingleCardPayment {
     //***Author Aarbi
     @Then("I charge cc with payrix gateway {string}")
     public void chargeSinglePayrixCc(String needPayrixCC) throws InterruptedException {
+        Utilities.switchToIframeByXpath(payment.singlePayrixIframe);
         Utilities.switchToIframeByXpath(payment.payrixCcIframe);
         FindElement.elementByAttribute(payment.payrixCcNumberInputField, FindElement.InputType.XPath).sendKeys(needPayrixCC);
         Utilities.switchBackToDom();
+        Utilities.switchToIframeByXpath(payment.singlePayrixIframe);
         Utilities.switchToIframeByXpath(payment.payrixExpIframe);
         FindElement.elementByAttribute(payment.payrixExpInputField, FindElement.InputType.XPath).sendKeys("0228");
         Utilities.switchBackToDom();
+        Utilities.switchToIframeByXpath(payment.singlePayrixIframe);
         Utilities.switchToIframeByXpath(payment.payrixCvvIframe);
         FindElement.elementByAttribute(payment.payrixCvvInputField, FindElement.InputType.XPath).sendKeys("123");
         Utilities.switchBackToDom();

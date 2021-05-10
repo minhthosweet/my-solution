@@ -65,11 +65,14 @@ public class Billing extends AppData {
 			String[] fields = {billing.pestRoutesCcNumberInputField, billing.pestRoutesCcExpirationInputField, billing.pestRoutesCcCvvInputField};
 			String[] input = {needRegularCC, "0228", "123"};
 			for (int i = 0; i < iFrame.length; i++){
+				Utilities.switchToIframeByXpath(billing.payrixIframe);
 				Utilities.switchToIframeByXpath(iFrame[i]);
 				billing.setInputField(fields[i], input[i]);
 				Utilities.switchBackToDom();
 			}
+			Utilities.switchToIframeByXpath(billing.payrixIframe);
 			billing.clickElement(billing.savePaymentMethodButton);
+			Utilities.switchBackToDom();
 			Utilities.waitUntileElementIsVisible(billing.nmiSavedCc);
 		}else if (gatewayType.equals("Vault: element")){
 			billing.clickElement(billing.elementEnterCcButton);

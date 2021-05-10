@@ -38,6 +38,7 @@ public class SingleUseCardPage {
     public String nmiSubmitPaymentButton = "//button[@id='submit-payment']";
 
     //PestRoutes payment
+    public String singlePayrixIframe = "payrixSingleChargeIFrame";
     public String payrixCcIframe = "payFields-iframe-number";
     public String payrixExpIframe = "payFields-iframe-expiration";
     public String payrixCvvIframe = "payFields-iframe-cvv";

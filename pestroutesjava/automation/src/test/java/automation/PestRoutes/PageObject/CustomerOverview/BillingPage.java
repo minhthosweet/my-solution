@@ -113,6 +113,7 @@ public class BillingPage {
 	public String brainExpYearInputField = "//input[@id='expiration-year']";
 	public String brainCvvInputField = "//input[@id='cvv']";
 	//PestRoutes Payments
+	public String payrixIframe = "payrixAddIFrame";
 	public String pestRoutesIframeCc = "payFields-iframe-number";
 	public String pestRoutesIframeExp = "payFields-iframe-expiration";
 	public String pestRoutesIframeCvv = "payFields-iframe-cvv";
