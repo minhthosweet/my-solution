@@ -5,7 +5,6 @@ Feature: Customer Status
   Scenario: Create Initial Invoice of type After Agreement Signed
     Given I have disabled ECA
     When I create customer with first name, last name, email and address
-    Then I validate if customer name and address match in overview tab
     And I create a subscription of type "After Agreement Signed"
     And I search customer
     And I sign the agreement for subscription of type After Agreement Signed

@@ -1,5 +1,5 @@
 #Author: Adi
-@RegressionADI
+@RegressionADI_ACH
 @PaymentGatewayValidationsACH
 Feature: Validate all types of payments
 
