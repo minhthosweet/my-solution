@@ -96,6 +96,30 @@ public class CreateNewCustomer extends AppData {
         customerName = getCustomerFullName();
     }
 
+    // Author : Aditya
+    @When("I create customer with first name, last name and dynamic zip")
+    public void createCustomerWithDynamicZip() throws Exception {
+        customerDialog_Header = new CustomerViewDialog_Header();
+        customer = new CreateCustomerDialog();
+        overview = new CustomerViewDialog_OverviewTab();
+        header = new Header();
+        header.navigateTo(header.newCustomerTab);
+        customer.setFirstName(fName);
+        customer.setLastName(lName);
+        customer.selectUnit("Multi Unit");
+        customer.setAddress(streetAddress);
+        customer.setZipCode(zipcode);
+        Utilities.acceptAlert();
+        customer.setEmailAddress(email);
+        customer.setCellPhone(primaryPhoneNumber);
+        customer.clickSmsCheckBox();
+        customer.clickEmailCheckBox();
+        customer.clickVoiceCheckBox();
+        customerDialog_Header.clickSaveButton();
+        alertCondition();
+        customerName = getCustomerFullName();
+    }
+
     //**Author Aarbi
     public void createACustomer(String needFirstName, String lastName) throws Exception {
         customerDialog_Header = new CustomerViewDialog_Header();
