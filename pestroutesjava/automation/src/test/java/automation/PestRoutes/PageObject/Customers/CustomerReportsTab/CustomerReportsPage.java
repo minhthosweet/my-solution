@@ -22,6 +22,18 @@ public class CustomerReportsPage extends AppData {
     public String refreshButton = "//span[text()='Run Report']";
     public String searchBox = "//input[@type='search' and @placeholder='Search...']";
     public String customerReportFirstEntry = "//table[@id='customerReportTable']//td[1]";
+    public String textBox_selectColumnsToDisplay = "//div[@id='s2id_reportColumns']";
+    public String addAll_selectColumnsToDisplay = "//div[@id='s2id_reportColumns']//i[2]";
+
+    //Actions objects
+    public String addAndRemoveFlags_action = "//div[text()='Add / Remove Flags']";
+    public String sendMessage_action = "//div[text()='Send Message']";
+    public String sendPasswordRecovery_action = "//div[text()='Send Password Recover']";
+    public String addFlags = "//div[@id='s2id_applyFlags']//ul//input";
+    public String applyButton_addRemoveFlags_CR = "//div[@aria-describedby='addRemoveFlags']//span[text()='Apply']";
+    public String textMessage_actions = "//div[@id='voiceMessageID']/following-sibling::div//p";
+    public String actionsDropDown = "//div[@id='customerReportTableActions']";
+    public String sendMessageButton = "//div[@id='customerMessageDialog']/following-sibling::div//span[text()='Send Messages']";
 
     public Map<String, String> filterTypes_CR = new HashMap<>();
 
@@ -219,6 +231,20 @@ public class CustomerReportsPage extends AppData {
         return filterTypes_CR.get(key);
     }
 
+    //Author: Aditya
+    public String allFieldsTypes_CR(String key, String value) {
+
+        // Select Columns to Display fields
+        filterTypes_CR.put("allColumnsNames", "//div[@id='customerReportTable_processing']//following-sibling::div//th[" + value + "]");
+        return filterTypes_CR.get(key);
+    }
+
+    public String getTextValue(String needXpath) {
+        Utilities.waitUntileElementIsVisible(needXpath);
+        Utilities.scrollToElementJS(needXpath);
+        return Utilities.getElementTextValue(needXpath, Utilities.ElementType.XPath);
+    }
+
     public void click(String needButton) {
         Utilities.waitUntileElementIsVisible(needButton);
         Utilities.clickElement(needButton, Utilities.ElementType.XPath);
@@ -228,12 +254,6 @@ public class CustomerReportsPage extends AppData {
         Utilities.waitUntileElementIsVisible(needXpath);
         Utilities.scrollToElementJS(needXpath);
         Utilities.selectValueFromDropDownByValue(needXpath, needValue);
-    }
-
-    public String getTextValue(String needXpath) {
-        Utilities.waitUntileElementIsVisible(needXpath);
-        Utilities.scrollToElementJS(needXpath);
-        return Utilities.getElementTextValue(needXpath, Utilities.ElementType.XPath);
     }
 
     public void setType(String needXpath, String type) throws InterruptedException {
@@ -264,6 +284,28 @@ public class CustomerReportsPage extends AppData {
         Utilities.waitUntileElementIsVisible(customerReportFirstEntry);
         Utilities.scrollToElementJS(searchBox);
         Utilities.clickElement(customerReportFirstEntry, Utilities.ElementType.XPath);
+    }
+
+    public void clickActionType_action(String actionType) throws IOException {
+        Utilities.waitUntileElementIsVisible(actionsDropDown);
+        Utilities.hoverElement(actionsDropDown, actionType);
+    }
+
+    public void addFlag_action() throws IOException {
+        Utilities.waitUntileElementIsVisible("//span[text()='Add / Remove Flags']");
+        click(addFlags);
+        FindElement.elementByAttribute(addFlags, FindElement.InputType.XPath).sendKeys(getData("flag", generalData));
+        click("//div[@id='select2-drop']//span[text()='" + getData("flag", generalData) + "']");
+        click(applyButton_addRemoveFlags_CR);
+    }
+
+    public void sendMessage_action(String textMessage) throws InterruptedException {
+        Utilities.waitUntileElementIsVisible(textMessage_actions);
+        FindElement.elementByAttribute(textMessage_actions, FindElement.InputType.XPath).clear();
+        FindElement.elementByAttribute(textMessage_actions, FindElement.InputType.XPath).sendKeys(textMessage);
+        click("//div[@id='showMessagePlaceholdersButton']");
+        click(sendMessageButton);
+        Utilities.acceptAlert();
     }
 
 }

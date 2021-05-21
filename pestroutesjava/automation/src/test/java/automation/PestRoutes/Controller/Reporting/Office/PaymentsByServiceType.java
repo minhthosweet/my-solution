@@ -277,6 +277,7 @@ public class PaymentsByServiceType extends AppData {
             customerName_PST = fname + " " + lname;
             Thread.sleep(100);
             createNewCustomer.createACustomer(fname, lname);
+            createNewCustomer.validateTaxRate();
             int currentMonth = GetDate.getMonth(Utilities.currentDate("MM/dd/yyyy"));
             int currentYear = GetDate.getYear(Utilities.currentDate("MM/dd/yyyy"));
             dateOfInvoice = GetDate.minusGenericDayToDate(Utilities.currentDate("MM/dd/yyyy"), invoiceDaysPastDue[i]);

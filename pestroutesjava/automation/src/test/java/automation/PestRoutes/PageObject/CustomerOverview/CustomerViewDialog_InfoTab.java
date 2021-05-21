@@ -3,9 +3,6 @@ package automation.PestRoutes.PageObject.CustomerOverview;
 import automation.PestRoutes.Utilities.Utilities;
 
 public class CustomerViewDialog_InfoTab {
-    CustomerViewDialog_Header customerDialog_Header;
-    public String infoTab_AddAdditionalContactButton = "";
-    public String infoTab_AddFromBusinessContactsButton = "";
     public String taxRate = "//input[@name='taxRate']";
     public String firstName = "//input[@name='fname']";
     public String lastName = "//input[@name='lname']";
@@ -17,6 +14,8 @@ public class CustomerViewDialog_InfoTab {
     public String country = "//select[@name='countryID']//option[@selected]";
     public String county = "//select[@name='county']//option[@selected]";
     public String email = "//input[@name='email']";
+    public String flagOnCustomerCard = "//div[@id='s2id_customerGenericFlags']//ul//div";
+
 
     public String getTaxRate() {
         String taxRatePercentage = Utilities.getAttributeValue(taxRate, "value");
@@ -63,5 +62,10 @@ public class CustomerViewDialog_InfoTab {
 
     public String getEmail(){
         return Utilities.getAttributeValue(email, "value");
+    }
+
+    public String getFlagOnCustomerCard() {
+        Utilities.waitUntileElementIsVisible(flagOnCustomerCard);
+        return Utilities.getElementTextValue(flagOnCustomerCard, Utilities.ElementType.XPath);
     }
 }
