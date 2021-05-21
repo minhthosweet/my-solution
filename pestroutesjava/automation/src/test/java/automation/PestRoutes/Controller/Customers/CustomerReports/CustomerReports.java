@@ -11,12 +11,11 @@ import automation.PestRoutes.PageObject.Customers.CustomersMainPage;
 import automation.PestRoutes.PageObject.Header;
 import automation.PestRoutes.Utilities.AppData;
 import automation.PestRoutes.Utilities.AssertException;
-import automation.PestRoutes.Utilities.FindElement;
+import automation.PestRoutes.Utilities.CucumberBaseClass;
 import automation.PestRoutes.Utilities.Utilities;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import org.openqa.selenium.WebElement;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
@@ -39,6 +38,7 @@ public class CustomerReports extends AppData {
     InvoiceImplementation invoiceImplementation;
     BillingPage billingPage;
     CreditMemoTab creditMemoTab;
+    CustomerViewDialog_Notes customerViewDialog_notes;
 
     private String customerName_CR;
     private String customerID_CR;
@@ -55,6 +55,8 @@ public class CustomerReports extends AppData {
     private String scheduledBy;
     private String completedBy;
     private String appointmentID;
+    private String reportName;
+    private String textMessage;
 
     //Author: Aditya
     @Test
@@ -424,6 +426,33 @@ public class CustomerReports extends AppData {
         customerReportsPage.click(customerReportsPage.refreshButton);
     }
 
+
+    //Author : Aditya
+    @When("I add customer name filters in Customer Reports")
+    public void addFilters_customerDetails() throws InterruptedException {
+        customerReportsPage.click(customerReportsPage.customerAccount);
+        customerReportsPage.setType(customerReportsPage.filterTypes_CR("lastName_CR"), lName_CR);
+        customerReportsPage.setType(customerReportsPage.filterTypes_CR("firstName_CR"), fName_CR);
+        customerReportsPage.click(customerReportsPage.refreshButton);
+    }
+
+    @When("I add flag to customer in customer report")
+    public void addFlag_customerReport() throws IOException {
+        customerReportsPage.clickActionType_action(customerReportsPage.addAndRemoveFlags_action);
+        customerReportsPage.addFlag_action();
+    }
+
+    @When("I send message or password recovery to customer in customer report")
+    public void sendMessage_passwordRecovery_customerReport() throws IOException, InterruptedException {
+        if (CucumberBaseClass.tagName().equals("ActionsValidations_SendMessage")) {
+            customerReportsPage.clickActionType_action(customerReportsPage.sendMessage_action);
+        } else {
+            customerReportsPage.clickActionType_action(customerReportsPage.sendPasswordRecovery_action);
+        }
+        textMessage = Utilities.generateRandomString(5);
+        customerReportsPage.sendMessage_action(textMessage);
+    }
+
     //Author : Aditya
     @When("I add filters to Service Subscription in Customer Reports")
     public void addFilters_serviceSubscription() throws IOException, InterruptedException {
@@ -549,6 +578,49 @@ public class CustomerReports extends AppData {
     }
 
     //Author : Aditya
+    @When("I add filters to Select Columns To Display in Customer Reports")
+    public void
+    addFilters_selectColumnsToDisplay() throws InterruptedException {
+        customerReportsPage.click(customerReportsPage.customerAccount);
+        customerReportsPage.setType(customerReportsPage.filterTypes_CR("lastName_CR"), lName_CR);
+        customerReportsPage.setType(customerReportsPage.filterTypes_CR("firstName_CR"), fName_CR);
+        customerReportsPage.click(customerReportsPage.selectColumnsToDisplay);
+        customerReportsPage.click(customerReportsPage.textBox_selectColumnsToDisplay);
+        customerReportsPage.click(customerReportsPage.addAll_selectColumnsToDisplay);
+        customerReportsPage.click(customerReportsPage.serviceAppointment);
+        customerReportsPage.setType(customerReportsPage.filterTypes_CR("scheduledForFrom_CR"), Utilities.currentDate("MM/dd/yyyy"));
+        customerReportsPage.setType(customerReportsPage.filterTypes_CR("scheduledForTo_CR"), Utilities.currentDate("MM/dd/yyyy"));
+        customerReportsPage.click(customerReportsPage.refreshButton);
+    }
+
+    //Author : Aditya
+    @When("I create saved filter in Customer Reports")
+    public void
+    addFilters_savedFilters() throws InterruptedException {
+        customerReportsPage.click(customerReportsPage.savedReports);
+        reportName = Utilities.generateRandomString(5);
+        customerReportsPage.setType(customerReportsPage.filterTypes_CR("newReport_CR"), reportName);
+        customerReportsPage.click(customerReportsPage.filterTypes_CR("saveAsNewButton_CR"));
+    }
+
+    //Author : Aditya
+    @When("I validate saved filter in Customer Reports")
+    public void
+    validateFilters_savedFilters() throws InterruptedException {
+        customerReportsPage.click(customerReportsPage.savedReports);
+        result(reportName, customerReportsPage.getTextValue("//li[@data-saved-report-id]//span[text()='" + reportName + "']"), "Report name validation", " Customer Reports Validation");
+        customerReportsPage.click("//li[@data-saved-report-id]//span[text()='" + reportName + "']");
+    }
+
+    //Author : Aditya
+    @When("I delete saved filter in Customer Reports")
+    public void
+    deleteSavedFilter() throws InterruptedException {
+        customerReportsPage.click("//li[@data-saved-report-id]//span[text()='" + reportName + "']//parent::div/following-sibling::i");
+        Utilities.acceptAlert();
+    }
+
+    //Author : Aditya
     @When("I search for customer in customer reports")
     public void searchCustomer_customerReports() throws InterruptedException {
         customerReportsPage.searchCustomer_CustomerReports(customerReportsPage.searchBox, fName_CR);
@@ -602,14 +674,8 @@ public class CustomerReports extends AppData {
         result("Office Staff", customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[10]"), "Sold By Type 1 validation", " Customer Reports Validation");
         result("Office Staff", customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[13]"), "Sold By Type 2 validation", " Customer Reports Validation");
         result("Office Staff", customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[16]"), "Sold By Type 3 validation", " Customer Reports Validation");
-        try {
-            WebElement schedulingAppointment = FindElement.elementByAttribute(customerviewDialog_appointmentsTab.closeSchedulingNotice, FindElement.InputType.XPath);
-            if (schedulingAppointment.isDisplayed()) {
-                customerviewDialog_appointmentsTab = new CustomerviewDialog_AppointmentsTab();
-                customerviewDialog_appointmentsTab.clickCloseSchedulingNoticeButton();
-            }
-        } catch (Exception e) {
-        }
+        customerviewDialog_appointmentsTab = new CustomerviewDialog_AppointmentsTab();
+        customerviewDialog_appointmentsTab.clickCloseSchedulingNoticeButton();
     }
 
     //Author : Aditya
@@ -658,7 +724,6 @@ public class CustomerReports extends AppData {
         result(lastFourOfCC, (customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[12]")), "Credit Card Last Four validation", " Customer Reports Validation");
         String creditCardType = customerAutoPayValue.substring(customerAutoPayValue.indexOf("-") + 1, customerAutoPayValue.length() - 6);
         result(creditCardType, customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[13]"), "Credit Card Type validation", " Customer Reports Validation");
-        result(ACHTokenNumber, (customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[15]")).toLowerCase(Locale.ROOT), "ACH Token validation", " Customer Reports Validation");
     }
 
     //Author : Aditya
@@ -685,14 +750,8 @@ public class CustomerReports extends AppData {
         customerCardHeader = new CustomerViewDialog_Header();
         invoiceImplementation = new InvoiceImplementation();
         createNewCustomer = new CreateNewCustomer();
-        try {
-            WebElement schedulingAppointment = FindElement.elementByAttribute(customerviewDialog_appointmentsTab.closeSchedulingNotice, FindElement.InputType.XPath);
-            if (schedulingAppointment.isDisplayed()) {
-                customerviewDialog_appointmentsTab = new CustomerviewDialog_AppointmentsTab();
-                customerviewDialog_appointmentsTab.clickCloseSchedulingNoticeButton();
-            }
-        } catch (Exception e) {
-        }
+        customerviewDialog_appointmentsTab = new CustomerviewDialog_AppointmentsTab();
+        customerviewDialog_appointmentsTab.clickCloseSchedulingNoticeButton();
         result(customerID_CR, customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[1]"), "Customer ID validation", " Customer Reports Validation");
         result(lName_CR.toLowerCase(Locale.ROOT), (customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[2]")).toLowerCase(Locale.ROOT), "Customer last name validation", " Customer Reports Validation");
         result(fName_CR.toLowerCase(Locale.ROOT), (customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[3]")).toLowerCase(Locale.ROOT), "Customer first name validation", " Customer Reports Validation");
@@ -721,5 +780,43 @@ public class CustomerReports extends AppData {
         result(scheduledBy, (customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[21]")), "Recorded By validation", "Customer Reports Validation");
         result((Utilities.currentDate("MM/dd/yy")), (customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[22]")), "Service Date validation", " Customer Reports Validation");
         result("Completed", (customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[23]")), "Service Balance validation", "Appointment Status Validation");
+    }
+
+    //Author : Aditya
+    @Then("I validate select columns to display fields in Customer Reports")
+    public void selectColumnsToDisplayFieldsValidations_customerReports() throws IOException, InterruptedException {
+        String[] fields;
+        customerviewDialog_appointmentsTab = new CustomerviewDialog_AppointmentsTab();
+        for (int i = 1; i < 148; i++) {
+            fields = new String[]{
+                    customerReportsPage.allFieldsTypes_CR("allColumnsNames", String.valueOf(i))};
+            AssertException.validateFieldEnabled(fields);
+        }
+        customerviewDialog_appointmentsTab.clickCloseSchedulingNoticeButton();
+        result(customerID_CR, customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[1]"), "Customer ID validation", " Customer Reports Validation");
+        result(lName_CR.toLowerCase(Locale.ROOT), (customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[2]")).toLowerCase(Locale.ROOT), "Customer last name validation", " Customer Reports Validation");
+        result(fName_CR.toLowerCase(Locale.ROOT), (customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[3]")).toLowerCase(Locale.ROOT), "Customer first name validation", " Customer Reports Validation");
+    }
+
+    //Author : Aditya
+    @Then("I validate flags added from actions in Customer Reports")
+    public void validateFlagAction_customerReports() throws InterruptedException, IOException {
+        customerCardHeader = new CustomerViewDialog_Header();
+        customerViewDialog_infoTab = new CustomerViewDialog_InfoTab();
+        customerReportsPage.clickCustomerReport();
+        customerCardHeader.navigateTo(customerCardHeader.infoTabInDialog);
+        result(customerViewDialog_infoTab.getFlagOnCustomerCard(), getData("flag", generalData), "Flag validation", " Customer Reports Validation");
+    }
+
+    //Author : Aditya
+    @Then("I validate message was sent from actions in Customer Reports")
+    public void validateSendMessageAction_customerReports() throws InterruptedException, IOException {
+        customerReportsPage.clickCustomerReport();
+        customerCardHeader = new CustomerViewDialog_Header();
+        customerViewDialog_infoTab = new CustomerViewDialog_InfoTab();
+        customerViewDialog_notes = new CustomerViewDialog_Notes();
+        customerCardHeader.navigateTo(customerCardHeader.notesTabInDialog);
+        result("Sent to: " + getData("phoneNumber", generalData), Utilities.getElementTextValue(customerViewDialog_notes.sentToText, Utilities.ElementType.XPath), "Sent To validation", " Customer Reports Validation");
+        result(textMessage, Utilities.getElementTextValue(customerViewDialog_notes.messageSent, Utilities.ElementType.XPath), "Sent Text Message validation", " Customer Reports Validation");
     }
 }
