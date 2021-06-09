@@ -128,6 +128,27 @@ public class ValidateRenewal extends AppData {
         scheduleDay.clickScheduleDaysBefore(daysBefore);
     }
 
+    //Author FK
+    @And("I validate recommended route filters and schedule an appointment")
+    public void validateFilters() throws InterruptedException, IOException {
+        appt = new ScheduleAppt();
+        route = new RoutePage();
+        confirmAppt = new SchedulingAppointmentDialog();
+        scheduleDay = new SchedulingTab();
+        scheduleDay.clickOnlyScheduleButton();
+        validateRecommendedRoutesFilters();
+        scheduleDay.closeRemmendedRoutesDialog();
+        int totalCount = Utilities.getElementCount(appt.routes);
+        String routesCount = Integer.toString(totalCount);
+        route.scheduleAppointment(routesCount, getData("timeSlot", generalData));
+        confirmAppt.selectServiceType(serviceType);
+        confirmAppt.selectInteriorNeededOption(appt.serviceAreaProvided);
+        confirmAppt.selectTargetPestsOption(appt.pestTreaded);
+        confirmAppt.clickScheduleButton();
+
+    }
+
+
     @And("I schedule an service appointment")
     public void scheduleAnAppointment() throws Exception {
         appt = new ScheduleAppt();
@@ -334,6 +355,23 @@ public class ValidateRenewal extends AppData {
         customer.closeCustomerCard();
         overviewHeader.discardChanges();
         customer.removeCustomer();
+    }
+
+    public void validateRecommendedRoutesFilters() throws InterruptedException {
+        String[] fields = {
+                scheduleDay.filterTypes("sortByClosest"),
+                scheduleDay.filterTypes("includeFullRoutes"),
+                scheduleDay.filterTypes("filterTechs"),
+                scheduleDay.filterTypes("filterGroups"),
+                scheduleDay.filterTypes("maxMiles"),
+                scheduleDay.filterTypes("startDateRange"),
+                scheduleDay.filterTypes("endDateRange")};
+        AssertException.validateFieldEnabled(fields);
+        scheduleDay.selectFirstOptionFromDropDown(scheduleDay.filterTypes("sortByClosest"));
+        scheduleDay.selectFirstOptionFromDropDown(scheduleDay.filterTypes("includeFullRoutes"));
+        scheduleDay.selectFirstOptionFromDropDown(scheduleDay.filterTypes("filterTechs"));
+        scheduleDay.selectFirstOptionFromDropDown(scheduleDay.filterTypes("filterGroups"));
+        scheduleDay.clickButton(scheduleDay.recommendedRoutesRefreshButton);
     }
 
 }

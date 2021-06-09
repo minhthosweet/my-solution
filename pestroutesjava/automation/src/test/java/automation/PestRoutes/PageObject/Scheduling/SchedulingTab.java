@@ -5,6 +5,9 @@ import automation.PestRoutes.Utilities.AppData;
 import automation.PestRoutes.Utilities.Utilities;
 import automation.PestRoutes.Utilities.Utilities.ElementType;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class SchedulingTab extends AppData {
 
     CustomerViewDialog_Header overviewHeader;
@@ -14,6 +17,18 @@ public class SchedulingTab extends AppData {
     public String scheduleButtonInDialog = "//span[text()='Schedule']";
     public String closeRecommendedRoutes = "//span[text()='Recommended Routes']/following-sibling::button[@title='close']";
     public String jobPool = "//p[text()='Job Pool']";
+    public String recommendedRoutesRefreshButton = "//div[text()='Refresh']";
+    public Map<String, String> filter_Types = new HashMap<String, String>();
+    public String filterTypes(String key) {
+        filter_Types.put("sortByClosest", "//select[@name='sortBy']");
+        filter_Types.put("includeFullRoutes", "//select[@name='fillCapacity']");
+        filter_Types.put("filterTechs", "//select[@name='techFilter']");
+        filter_Types.put("filterGroups", "//select[@name='groupFilter']");
+        filter_Types.put("maxMiles", "//input[@name='maxDistance']");
+        filter_Types.put("startDateRange", "//input[@name='startDate']");
+        filter_Types.put("endDateRange", "//input[@name='endDate']");
+        return filter_Types.get(key);
+    }
 
     public void clickScheduleDay() {
         String date = Utilities.currentDate("M/d/yyyy");
@@ -52,9 +67,31 @@ public class SchedulingTab extends AppData {
         Utilities.jsClickElement(closeRecommendedRoutes, ElementType.XPath);
     }
 
+    public void clickOnlyScheduleButton() throws InterruptedException {
+        overviewHeader = new CustomerViewDialog_Header();
+        overviewHeader.navigateTo(overviewHeader.subscriptionTabInDialog);
+        Utilities.jsClickElement(scheduleButtonInDialog, ElementType.XPath);
+    }
+
+    public void closeRemmendedRoutesDialog() {
+        Utilities.waitUntileElementIsVisible(closeRecommendedRoutes);
+        Utilities.jsClickElement(closeRecommendedRoutes, ElementType.XPath);
+    }
+
     public void selectServiceType(String serviceType) {
         Utilities.waitUntileElementIsVisible("//optgroup[@label='Subscriptions']/option[contains(text(),'" + serviceType + "')]");
         Utilities.clickElement("//optgroup[@label='Subscriptions']/option[contains(text(),'" + serviceType + "')]", ElementType.XPath);
+    }
+
+    public void clickButton(String needElement) throws InterruptedException {
+        Utilities.scrollToElementJS(needElement);
+        Utilities.waitUntileElementIsVisible(needElement);
+        Utilities.clickElement(needElement, ElementType.XPath);
+    }
+
+    public void selectFirstOptionFromDropDown(String needElement) {
+        Utilities.waitUntileElementIsVisible(needElement);
+        Utilities.selectValueFromDropDownByIndex(needElement, 1);
     }
 
 }
