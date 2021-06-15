@@ -7,8 +7,8 @@ public class Invoice_Header {
 	
 	public String cash = "Cash";
 	public String check = "Check";
-	public String creditCard = "Credit Card";
-	public String achDraft = "ACH Draft";
+	public String creditCard = "Card";
+	public String achDraft = "ACH";
 	public String coupon = "Coupon / Credit";
 	
 	public void navigate(String needTab) {

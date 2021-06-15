@@ -64,7 +64,7 @@ Feature: Validate if all fields present and are enabled
   @CustomerWithStatus_AccountReceivable
    Scenario: Customer with status validation
     When I create customer with first name, last name, email and address
-    Then I validate autopay customer "CC Auto Pay" and with status "Successful" in account receivable page
+    Then I validate autopay customer "Card AutoPay" and with status "Successful" in account receivable page
     Then I send "Voice" message under actions with subject "TestSubject" and text "testText"
     Then I remove the customer
     And I validate if there are errors exist in the list

@@ -98,7 +98,7 @@ public class AccountReceivable extends BaseClass {
         createStandAloneServiceInvoice("400", Utilities.currentDate("MM/dd/yyyy"), "Automation Renewal");
         customer.closeCustomerCard();
         navigateToAccountReceivablePage();
-        accountReceivable.select(accountReceivable.autoPayDropdown, "CC Auto Pay");
+        accountReceivable.select(accountReceivable.autoPayDropdown, "Card AutoPay");
         accountReceivable.click(accountReceivable.refreshButton);
         searchAndValidateCustomer_AccountReceivable(customerName, " Customer with auto pay");
         customer.removeCustomer();
@@ -117,7 +117,7 @@ public class AccountReceivable extends BaseClass {
         createStandAloneServiceInvoice("400", Utilities.currentDate("MM/dd/yyyy"), "Automation Renewal");
         customer.closeCustomerCard();
         navigateToAccountReceivablePage();
-        accountReceivable.select(accountReceivable.autoPayDropdown, "CC or ACH Auto Pay");
+        accountReceivable.select(accountReceivable.autoPayDropdown, "Card or ACH AutoPay");
         accountReceivable.click(accountReceivable.refreshButton);
         searchAndValidateCustomer_AccountReceivable(customerName, " Customer with auto pay");
         customer.removeCustomer();
@@ -264,7 +264,7 @@ public class AccountReceivable extends BaseClass {
         customer.closeCustomerCard();
         navigateToAccountReceivablePage();
         accountReceivable.click(accountReceivable.advanceFilterLink);
-        accountReceivable.select(accountReceivable.autoPayDropdown, "CC Auto Pay");
+        accountReceivable.select(accountReceivable.autoPayDropdown, "Card AutoPay");
         accountReceivable.select(accountReceivable.maxMonthlyDropdown, "Yes");
         accountReceivable.click(accountReceivable.refreshButton);
         searchAndValidateCustomer_AccountReceivable(customerName, " Customer with autopay and max monthly limit");
