@@ -39,6 +39,8 @@ public class CustomerReports extends AppData {
     BillingPage billingPage;
     CreditMemoTab creditMemoTab;
     CustomerViewDialog_Notes customerViewDialog_notes;
+    CustomerViewDialog_SubscriptionTab subscriptionTab;
+    CustomerViewDialog_Admin customerViewDialog_admin;
 
     private String customerName_CR;
     private String customerID_CR;
@@ -56,7 +58,10 @@ public class CustomerReports extends AppData {
     private String completedBy;
     private String appointmentID;
     private String reportName;
-    private String textMessage;
+    private String textMessage = Utilities.generateRandomString(5);
+    private String recurringPriceChange;
+    private String recurringInvoiceValue;
+    private String bulkFreezeCategory;
 
     //Author: Aditya
     @Test
@@ -449,7 +454,6 @@ public class CustomerReports extends AppData {
         } else {
             customerReportsPage.clickActionType_action(customerReportsPage.sendPasswordRecovery_action);
         }
-        textMessage = Utilities.generateRandomString(5);
         customerReportsPage.sendMessage_action(textMessage);
     }
 
@@ -818,5 +822,97 @@ public class CustomerReports extends AppData {
         customerCardHeader.navigateTo(customerCardHeader.notesTabInDialog);
         result("Sent to: " + getData("phoneNumber", generalData), Utilities.getElementTextValue(customerViewDialog_notes.sentToText, Utilities.ElementType.XPath), "Sent To validation", " Customer Reports Validation");
         result(textMessage, Utilities.getElementTextValue(customerViewDialog_notes.messageSent, Utilities.ElementType.XPath), "Sent Text Message validation", " Customer Reports Validation");
+    }
+
+    //Author : Aditya
+    @And("I group by {string} in Customer Reports under select columns to display")
+    public void listBy(String listBy) {
+        customerReportsPage.listBy(listBy);
+    }
+
+    //Author : Aditya
+    @And("I add {string} as column to display in Customer Reports")
+    public void addColumnToSelectColumnsToDisplay_customerReports(String column) throws InterruptedException {
+        customerReportsPage.click(customerReportsPage.textBox_selectColumnsToDisplay);
+        customerReportsPage.setType(customerReportsPage.textBox_selectColumnsToDisplay, column);
+        customerReportsPage.click("//span[text()='" + column + "']");
+    }
+
+    @When("I update subscription price through actions in customer report")
+    public void updateSubscriptionPrice_customerReport() throws IOException, InterruptedException {
+        customerReportsPage.clickActionType_action(customerReportsPage.updateSubscriptionPrice);
+        recurringPriceChange = String.valueOf(Utilities.generateRandomInteger(2));
+        customerReportsPage.updateSubscriptionPrice_action(recurringPriceChange);
+    }
+
+    //Author : Aditya
+    @When("I get recurring invoice value for the customer")
+    public void getRecurringValue() throws InterruptedException {
+        customerCardHeader = new CustomerViewDialog_Header();
+        customerCardHeader.navigateTo(customerCardHeader.subscriptionTabInDialog);
+        subscriptionTab = new CustomerViewDialog_SubscriptionTab();
+        recurringInvoiceValue = String.format("%.2f", subscriptionTab.getRecurringSubTotal());
+    }
+
+    @And("I validate recurring price before price update")
+    public void preRecurringPrice() {
+        result(recurringInvoiceValue, customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[6]"), "Customer Recurring Price Pre validation", " Customer Reports Validation");
+    }
+
+    @And("I validate recurring price after price update")
+    public void postRecurringPrice() {
+        result(recurringPriceChange, customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[6]"), "Customer Recurring Price Post validation", " Customer Reports Validation");
+    }
+
+    @When("I bulk freeze customer through actions in customer report")
+    public void bulkFreezeCustomer_customerReport() throws IOException, InterruptedException {
+        customerReportsPage.clickActionType_action(customerReportsPage.bulkFreeze);
+        customerReportsPage.setBulkFreezeNote(textMessage);
+        bulkFreezeCategory = customerReportsPage.getTextValue(customerReportsPage.cancellationCategory_bulkFreeze);
+        customerReportsPage.click(customerReportsPage.bulkFreezeApplyButton);
+        Utilities.acceptAlert();
+    }
+
+    @When("I bulk freeze rollback customer through actions in customer report")
+    public void bulkFreezeRollBackCustomer_customerReport() throws IOException, InterruptedException {
+        customerReportsPage.clickActionType_action(customerReportsPage.bulkFreezeRollBack);
+        customerReportsPage.setType(customerReportsPage.searchInBulkFreezeRollBack, textMessage);
+        customerReportsPage.click(customerReportsPage.rollBackButton);
+        result(customerID_CR, customerReportsPage.getTextValue("//table[@id='rollBackList']//td[2]"), "Customer ID validation in roll back confirmation page of customer report", " Customer Reports Validation");
+        result(customerName_CR.toUpperCase(Locale.ROOT), (customerReportsPage.getTextValue("//table[@id='rollBackList']//td[3]")).toUpperCase(Locale.ROOT), "Customer Name validation in roll back confirmation page of customer report", " Customer Reports Validation");
+        result("Customer", customerReportsPage.getTextValue("//table[@id='rollBackList']//td[5]"), "Item Type validation in roll back confirmation page of customer report", " Customer Reports Validation");
+        result(customerID_CR, customerReportsPage.getTextValue("//table[@id='rollBackList']//td[6]"), "Item ID validation in roll back confirmation page of customer report", " Customer Reports Validation");
+        result("FREEZE", customerReportsPage.getTextValue("//table[@id='rollBackList']//td[7]"), "Item Action validation in roll back confirmation page of customer report", " Customer Reports Validation");
+        customerReportsPage.click(customerReportsPage.yesButtonRollBack);
+    }
+
+    @Then("I validate if the customer was frozen in Notes tab of customer card")
+    public void validateBulkFreezeNotesTab_customerReport() throws InterruptedException {
+        customerReportsPage.setValueFromDropdown(customerReportsPage.filterTypes_CR("accountStatus_CR"), "Frozen Customers");
+        customerReportsPage.click(customerReportsPage.refreshButton);
+        customerReportsPage.clickCustomerReport();
+        customerCardHeader = new CustomerViewDialog_Header();
+        customerCardHeader.navigateTo(customerCardHeader.notesTabInDialog);
+        result("[" + bulkFreezeCategory + "]", customerReportsPage.getTextValue("//div[@name='contactTypeName']//strong[text()]"), "Customer Frozen Category validation in Notes tab of customer card", " Customer Reports Validation");
+        String actualBulkFreezeNote = customerReportsPage.getTextValue("//div[@id='contactsPanelWrapper']//div[contains(text(),'FROZE')]");
+        result(textMessage, (actualBulkFreezeNote).substring(actualBulkFreezeNote.length() - 5, actualBulkFreezeNote.length()), "Customer Frozen Note validation in Notes tab of customer card", " Customer Reports Validation");
+    }
+
+    @Then("I validate if the customer was frozen in Admin tab of customer card")
+    public void validateBulkFreezeAdminTab_customerReport() throws InterruptedException {
+        customerCardHeader = new CustomerViewDialog_Header();
+        customerViewDialog_admin = new CustomerViewDialog_Admin();
+        customerCardHeader.navigateTo(customerCardHeader.adminTabInDialog);
+        result("Frozen", customerViewDialog_admin.getCustomerStatus(), "Customer Status validation in Admin tab of customer card before roll back", " Customer Reports Validation");
+        result("FROZEN: " + bulkFreezeCategory, customerReportsPage.getTextValue("//div[@id='accountManagement']//span//b"), "Customer Frozen Category validation in Admin tab of customer card", " Customer Reports Validation");
+    }
+
+    @Then("I validate if the customer was rolled back in Admin tab of customer card")
+    public void validateBulkFreezeRollBackNotesTab_customerReport() throws InterruptedException {
+        customerReportsPage.clickCustomerReport();
+        customerCardHeader = new CustomerViewDialog_Header();
+        customerCardHeader.navigateTo(customerCardHeader.adminTabInDialog);
+        customerViewDialog_admin = new CustomerViewDialog_Admin();
+        result("Active", customerViewDialog_admin.getCustomerStatus(), "Customer Status validation in Admin tab of customer card after roll back", " Customer Reports Validation");
     }
 }

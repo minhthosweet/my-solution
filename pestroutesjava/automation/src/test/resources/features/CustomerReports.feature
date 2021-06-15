@@ -194,3 +194,37 @@ Feature: Customer reports end to end validation
     Then I validate message was sent from actions in Customer Reports
     And I remove the customer
     And I validate if there are errors exist in the list
+
+  @ActionsValidations_UpdateSubscriptionPrice
+  Scenario: Update Subscription Price actions validation in Customer Reports
+    When I create customer with pref paper and residential property
+    Then I get customer details for customer reports
+    And I create a subscription of type "After Initial Completion"
+    Then I get recurring invoice value for the customer
+    Then I navigate to "Customer Reports" in Customers tab
+    When I group by "Subscription" in Customer Reports under select columns to display
+    And I add "Recurring Price" as column to display in Customer Reports
+    When I add customer name filters in Customer Reports
+    And I validate recurring price before price update
+    When I update subscription price through actions in customer report
+    And I validate recurring price after price update
+    And I remove the customer
+    And I validate if there are errors exist in the list
+
+  @ActionsValidations_BulkFreeze
+  Scenario: Bulk Freeze actions validation in Customer Reports
+    When I create customer with pref paper and residential property
+    Then I get customer details for customer reports
+    And I change customer status
+    Then I navigate to "Customer Reports" in Customers tab
+    When I add customer name filters in Customer Reports
+    And I bulk freeze customer through actions in customer report
+    And I validate if the customer was frozen in Notes tab of customer card
+    And I validate if the customer was frozen in Admin tab of customer card
+    Then I close customer card
+    And I bulk freeze rollback customer through actions in customer report
+    Then I navigate to "Customer Reports" in Customers tab
+    When I add customer name filters in Customer Reports
+    And I validate if the customer was rolled back in Admin tab of customer card
+    And I remove the customer
+    And I validate if there are errors exist in the list

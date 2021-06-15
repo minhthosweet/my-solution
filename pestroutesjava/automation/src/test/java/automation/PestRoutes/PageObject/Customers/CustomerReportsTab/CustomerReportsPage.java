@@ -22,7 +22,7 @@ public class CustomerReportsPage extends AppData {
     public String refreshButton = "//span[text()='Run Report']";
     public String searchBox = "//input[@type='search' and @placeholder='Search...']";
     public String customerReportFirstEntry = "//table[@id='customerReportTable']//td[1]";
-    public String textBox_selectColumnsToDisplay = "//div[@id='s2id_reportColumns']";
+    public String textBox_selectColumnsToDisplay = "//div[@id='s2id_reportColumns']//input";
     public String addAll_selectColumnsToDisplay = "//div[@id='s2id_reportColumns']//i[2]";
 
     //Actions objects
@@ -34,6 +34,22 @@ public class CustomerReportsPage extends AppData {
     public String textMessage_actions = "//div[@id='voiceMessageID']/following-sibling::div//p";
     public String actionsDropDown = "//div[@id='customerReportTableActions']";
     public String sendMessageButton = "//div[@id='customerMessageDialog']/following-sibling::div//span[text()='Send Messages']";
+    public String updateSubscriptionPrice = "//div[text()='Update Subscription Price']";
+    public String fixedAmountTextBox_actions = "//fieldset//input[@name='fixedAmountValue']";
+    public String proceedToVerificationButton = "//span[text()='Proceed to Verification']";
+    public String confirmChangeButton_subscriptionPriceChange = "//div[@onclick='applySubscriptionChanges()' and text()='Confirm Change']";
+    public String bulkFreeze = "//div[text()='Bulk Freeze']";
+    public String bulkFreezeRollBack = "//div[text()='Bulk Freeze RollBack']";
+
+    //BulkFreeze objects
+    public String cancellationNotesTextBox = "//textArea[@id='customerActionCancelNotes']";
+    public String bulkFreezeApplyButton = "//div[@id='bulkFreeze']//following-sibling::div//span[text()='Apply']";
+    public String cancellationCategory_bulkFreeze = "//select[@id='customerActionCancelCategory']//option[1]";
+
+    //bulk freeze rollback objects
+    public String searchInBulkFreezeRollBack = "//div[@id='bulkFreezeProcessDetailTable_filter']//input";
+    public String rollBackButton = "//button[text()='Rollback ']";
+    public String yesButtonRollBack = "//div[@id='bulkFreezeRollback']/following-sibling::div//span[text()='Yes']";
 
     public Map<String, String> filterTypes_CR = new HashMap<>();
 
@@ -44,9 +60,9 @@ public class CustomerReportsPage extends AppData {
         filterTypes_CR.put("newReport_CR", "//input[@placeholder='New Report']");
         filterTypes_CR.put("saveButton_CR", "//button[text()='Save']");
         filterTypes_CR.put("saveAsNewButton_CR", "//button[text()='Save as New']");
+        filterTypes_CR.put("selectColumnsToShow", "//button[text()='Save as New']");
 
         // Select Columns to Display fields
-        filterTypes_CR.put("selectColumnsToShow", "//button[text()='Save as New']");
         filterTypes_CR.put("listBy_CR", "//div[@key='subscriptionGroupBy']/select");
 
         // Customer Account Fields
@@ -288,6 +304,7 @@ public class CustomerReportsPage extends AppData {
 
     public void clickActionType_action(String actionType) throws IOException {
         Utilities.waitUntileElementIsVisible(actionsDropDown);
+        Utilities.scrollToElementJS(actionsDropDown);
         Utilities.hoverElement(actionsDropDown, actionType);
     }
 
@@ -305,6 +322,24 @@ public class CustomerReportsPage extends AppData {
         FindElement.elementByAttribute(textMessage_actions, FindElement.InputType.XPath).sendKeys(textMessage);
         click("//div[@id='showMessagePlaceholdersButton']");
         click(sendMessageButton);
+        Utilities.acceptAlert();
+    }
+
+    public void setBulkFreezeNote(String textMessage) {
+        Utilities.waitUntileElementIsVisible(cancellationNotesTextBox);
+        FindElement.elementByAttribute(cancellationNotesTextBox, FindElement.InputType.XPath).sendKeys(textMessage);
+    }
+
+    public void listBy(String listBy) {
+        Utilities.selectValueFromDropDownByValue("//label[text()='List By']/parent::div//select", listBy);
+    }
+
+    public void updateSubscriptionPrice_action(String priceChange) throws InterruptedException {
+        FindElement.elementByAttribute(fixedAmountTextBox_actions, FindElement.InputType.XPath).clear();
+        FindElement.elementByAttribute(fixedAmountTextBox_actions, FindElement.InputType.XPath).sendKeys(priceChange);
+        click(proceedToVerificationButton);
+        Utilities.waitUntileElementIsVisible(confirmChangeButton_subscriptionPriceChange);
+        Utilities.clickElement(confirmChangeButton_subscriptionPriceChange, Utilities.ElementType.XPath);
         Utilities.acceptAlert();
     }
 
