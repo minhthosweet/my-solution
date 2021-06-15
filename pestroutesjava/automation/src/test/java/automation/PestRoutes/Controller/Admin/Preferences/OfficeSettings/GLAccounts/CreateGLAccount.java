@@ -37,7 +37,7 @@ public class CreateGLAccount extends AppData {
     }
 
     @When("I navigate to GLAccounts")
-    public void navigateToGLAccount() {
+    public void navigateToGLAccount() throws InterruptedException {
         header = new Header();
         adminMainPage = new AdminMainPage();
         header.navigateTo(header.adminTab);

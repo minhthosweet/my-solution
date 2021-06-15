@@ -36,7 +36,7 @@ public class TriggerDaysBefore_Reminder extends BaseClass {
 	}
 
 	// Create All Actions
-	public void reminder_createAllActions() {
+	public void reminder_createAllActions() throws InterruptedException {
 		createReminder.emailAction_Reminder(description_TriggerBeforeDays);
 		createReminder.SMSAction_Reminder(description_TriggerBeforeDays);
 		createReminder.voiceAction_Reminder(description_TriggerBeforeDays);

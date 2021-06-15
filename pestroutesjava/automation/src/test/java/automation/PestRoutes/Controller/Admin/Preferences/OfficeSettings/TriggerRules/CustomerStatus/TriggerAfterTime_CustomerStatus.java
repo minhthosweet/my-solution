@@ -64,7 +64,7 @@ public class TriggerAfterTime_CustomerStatus extends BaseClass {
     }
 
     @Then("I edit the trigger status on trigger after time {string} of type {string}")
-    public void editTrigger_triggerAfterTime_CustomerStatus(String statusChange, String description) {
+    public void editTrigger_triggerAfterTime_CustomerStatus(String statusChange, String description) throws InterruptedException {
         subscriptionStatus = new SubscriptionStatusTab();
         triggerAdmin = new TriggerRules();
         createCustomerStatus = new CreateTrigger_CustomerStatus();
@@ -80,7 +80,7 @@ public class TriggerAfterTime_CustomerStatus extends BaseClass {
         triggerOnSave.customerStatus_addAllAction(description);
     }
 
-    public void customerStatus_RemovePaymentProfileAction(String description) {
+    public void customerStatus_RemovePaymentProfileAction(String description) throws InterruptedException {
         triggerOnSave.customerStatus_removePaymentProfileAction(description);
     }
 

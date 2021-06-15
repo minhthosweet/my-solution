@@ -97,7 +97,7 @@ public class CreateTrigger_Reminder extends AppData {
 	}
 
 	// Search Reminder Trigger
-	public void searchTrigger_Reminder(String descriptionName) {
+	public void searchTrigger_Reminder(String descriptionName) throws InterruptedException {
 		header = new Header();
 		adminMainPage = new AdminMainPage();
 		header.navigateTo(header.adminTab);
@@ -110,7 +110,7 @@ public class CreateTrigger_Reminder extends AppData {
 	}
 
 	// Create an Reminder action
-	public void emailAction_Reminder(String description) {
+	public void emailAction_Reminder(String description) throws InterruptedException {
 		triggerActions = new Trigger_Actions();
 		searchTrigger_Reminder(description);
 		triggerActions.clickAddActionButton();
@@ -125,7 +125,7 @@ public class CreateTrigger_Reminder extends AppData {
 	}
 
 	// Create second Reminder action
-	public void SMSAction_Reminder(String description) {
+	public void SMSAction_Reminder(String description) throws InterruptedException {
 		triggerActions = new Trigger_Actions();
 		searchTrigger_Reminder(description);
 		triggerActions.clickAddActionButton();
@@ -138,7 +138,7 @@ public class CreateTrigger_Reminder extends AppData {
 	}
 
 	// Create third Reminder action
-	public void voiceAction_Reminder(String description) {
+	public void voiceAction_Reminder(String description) throws InterruptedException {
 		triggerActions = new Trigger_Actions();
 		searchTrigger_Reminder(description);
 		triggerActions.clickAddActionButton();

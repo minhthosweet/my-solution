@@ -80,7 +80,7 @@ public class CreateTrigger_CustomerStatus extends AppData {
     }
 
     // Search Customer Status Trigger
-    public void searchTrigger_appointmentStatus(String descriptionName) {
+    public void searchTrigger_appointmentStatus(String descriptionName) throws InterruptedException {
         header = new Header();
         adminMainPage = new AdminMainPage();
         header.navigateTo(header.adminTab);

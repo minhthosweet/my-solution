@@ -81,7 +81,7 @@ public class TriggerOnSave_CustomerStatus extends AppData {
 
     // Edit Trigger Status
     @Then("I edit the trigger status on trigger on save {string} of type {string}")
-    public void editTrigger_triggerOnSave_CustomerStatus(String statusChange, String description) {
+    public void editTrigger_triggerOnSave_CustomerStatus(String statusChange, String description) throws InterruptedException {
         subscriptionStatus = new SubscriptionStatusTab();
         triggerAdmin = new TriggerRules();
         createCustomerStatus.searchTrigger_appointmentStatus(description);
@@ -118,7 +118,7 @@ public class TriggerOnSave_CustomerStatus extends AppData {
     }
 
     @And("I add remove payment profile action {string}")
-    public void customerStatus_removePaymentProfileAction(String description) {
+    public void customerStatus_removePaymentProfileAction(String description) throws InterruptedException {
         createCustomerStatus.searchTrigger_appointmentStatus(description);
         subscriptionDueForService.removePaymentProfile_subscriptionForService();
     }

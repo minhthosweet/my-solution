@@ -86,7 +86,7 @@ public class CreateTrigger_SubscriptionStatus extends AppData {
 
     // Search Subscription Status Trigger
     @And("I search for the trigger {string}")
-    public void searchTrigger_subscriptionStatus(String description) {
+    public void searchTrigger_subscriptionStatus(String description) throws InterruptedException {
         header = new Header();
         adminMainPage = new AdminMainPage();
         header.navigateTo(header.adminTab);
@@ -97,7 +97,7 @@ public class CreateTrigger_SubscriptionStatus extends AppData {
 
     //Validate created trigger
     @And("I validate the new trigger {string}")
-    public void validateTrigger(String descriptionName) {
+    public void validateTrigger(String descriptionName) throws InterruptedException {
         searchTrigger_subscriptionStatus(descriptionName);
         triggerAdmin.clickEditTrigger(descriptionName);
         result(descriptionName, triggerAdmin.getDescriptionText(descriptionName), "Search Customer",

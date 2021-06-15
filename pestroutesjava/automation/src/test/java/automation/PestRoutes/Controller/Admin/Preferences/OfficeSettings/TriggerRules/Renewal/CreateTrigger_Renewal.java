@@ -90,7 +90,7 @@ public class CreateTrigger_Renewal extends AppData {
 	}
 
 	// Search Renewal Trigger
-	public void searchTrigger_Renewal(String descriptionName) {
+	public void searchTrigger_Renewal(String descriptionName) throws InterruptedException {
 		header = new Header();
 		adminMainPage = new AdminMainPage();
 		header.navigateTo(header.adminTab);
@@ -177,7 +177,7 @@ public class CreateTrigger_Renewal extends AppData {
 
 	// Assert all created actions
 	@And("I validate Renewal actions {string}")
-	public void assertActions_Renewal(String descriptionName) {
+	public void assertActions_Renewal(String descriptionName) throws InterruptedException {
 		searchTrigger_Renewal(descriptionName);
 		triggerActions = new Trigger_Actions();
 		ar = new ARTab();
@@ -216,7 +216,7 @@ public class CreateTrigger_Renewal extends AppData {
 
 	// Update Renewal Trigger beforeExpirationDate
 	@And("I edit the trigger {string} to type {string}")
-	public void editTrigger_Renewal(String descriptionName, String renewalType) {
+	public void editTrigger_Renewal(String descriptionName, String renewalType) throws InterruptedException {
 		searchTrigger_Renewal(descriptionName);
 		renewalTab = new RenewalTab();
 		triggerAdmin.selectDropdown(triggerAdmin.activeType, triggerAdmin.activeType_Active);

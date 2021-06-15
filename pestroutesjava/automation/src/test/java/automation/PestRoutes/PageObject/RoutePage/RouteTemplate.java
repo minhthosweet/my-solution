@@ -29,7 +29,7 @@ public class RouteTemplate {
     public String blockDescriptionTextBox = "//div[@id='templateSpots']//div[text()='End']/parent::div/following-sibling::div[3]/div[text()='to']/following-sibling::input[2]";
     public String termOfService = "//a[text()='Terms of Service']";
 
-    public void navigateToRouteTemplate() {
+    public void navigateToRouteTemplate() throws InterruptedException {
         header = new Header();
         adminMainPage = new AdminMainPage();
         header.navigateTo(header.adminTab);

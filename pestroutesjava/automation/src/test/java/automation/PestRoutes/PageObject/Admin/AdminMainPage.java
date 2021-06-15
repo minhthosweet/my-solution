@@ -21,9 +21,10 @@ public class AdminMainPage {
 
 
 	//Action methods
-	public void navigateTo(String needTab) {
+	public void navigateTo(String needTab) throws InterruptedException {
 		Utilities.waitUntileElementIsVisible("//p[text() = '"+needTab+"']");
 		Utilities.clickElement("//p[text() = '"+needTab+"']", ElementType.XPath);
+		Thread.sleep(500);
 	}
 
 	//Setters

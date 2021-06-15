@@ -12,7 +12,7 @@ public class AddOrEditMerchantInfo {
 
     //***Author Aarbi
     @When("I navigate to merchant Info")
-    public void navigateToMerchantInfo(){
+    public void navigateToMerchantInfo() throws InterruptedException {
         Header header = new Header();
         AdminMainPage admin = new AdminMainPage();
         OfficeSettingsObjects officeSettings = new OfficeSettingsObjects();

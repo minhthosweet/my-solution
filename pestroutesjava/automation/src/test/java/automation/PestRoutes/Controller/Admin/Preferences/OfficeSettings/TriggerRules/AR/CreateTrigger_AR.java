@@ -67,7 +67,7 @@ public class CreateTrigger_AR extends AppData {
     }
 
     // Search AR Trigger
-    public void searchTrigger_AR(String descriptionName) {
+    public void searchTrigger_AR(String descriptionName) throws InterruptedException {
         header = new Header();
         adminMainPage = new AdminMainPage();
         header.navigateTo(header.adminTab);
@@ -182,7 +182,7 @@ public class CreateTrigger_AR extends AppData {
         result(triggerActions.sendTOARMMessageType_Action, ar.getARMStageActionTextValue(), "ARM Action", "AR Trigger Rule");
     }
 
-    public void createAllARActions(String description)  {
+    public void createAllARActions(String description) throws InterruptedException {
         searchTrigger_AR(description);
         SMSAction_AR();
         searchTrigger_AR(description);

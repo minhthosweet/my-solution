@@ -36,7 +36,7 @@ public class CustomRoute extends BaseClass {
 
     @Test
     @Then("I navigate to Route Templates")
-    public void navigateToRouteTemplates() {
+    public void navigateToRouteTemplates() throws InterruptedException {
         routeTemplate.navigateToRouteTemplate();
     }
 

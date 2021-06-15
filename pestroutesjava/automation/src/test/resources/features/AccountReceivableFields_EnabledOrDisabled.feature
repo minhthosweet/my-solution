@@ -1,6 +1,6 @@
 #Author: Aarbi
 @RegressionARB
-@FieldsValidationInAccountReceivable
+@AccountReceivableScenarios
 Feature: Validate if all fields present and are enabled
   @FieldValidations_AccountReceivable
   Scenario: Fields validations

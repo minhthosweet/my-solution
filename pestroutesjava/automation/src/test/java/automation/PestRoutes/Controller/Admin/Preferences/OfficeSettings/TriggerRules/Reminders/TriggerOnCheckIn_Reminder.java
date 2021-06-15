@@ -48,7 +48,7 @@ public class TriggerOnCheckIn_Reminder extends BaseClass {
 		triggerAdmin.selectDropdown(subscriptionStatus.whenToTrigger, reminder.triggerOnCheckIn_whenToTrigger);
 	}
 
-	public void reminder_createAllActions() {
+	public void reminder_createAllActions() throws InterruptedException {
 		triggerDaysBefore_Reminder = new TriggerDaysBefore_Reminder();
 		triggerDaysBefore_Reminder.reminder_createAllActions();
 	}

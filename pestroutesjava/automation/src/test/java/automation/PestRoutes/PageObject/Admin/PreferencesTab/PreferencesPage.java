@@ -1,8 +1,10 @@
 package automation.PestRoutes.PageObject.Admin.PreferencesTab;
 
 
+import automation.PestRoutes.Utilities.FindElement;
 import automation.PestRoutes.Utilities.Utilities;
 import automation.PestRoutes.Utilities.Utilities.ElementType;
+import org.openqa.selenium.WebElement;
 
 public class PreferencesPage {
 	
@@ -55,13 +57,15 @@ public class PreferencesPage {
 	 */
 	public void navigateTo(String needMenuArea, String needPage) throws InterruptedException {
 		Utilities.clickElement("//h2[@id='office']", ElementType.XPath);
-		Thread.sleep(500);
-		Utilities.waitUntileElementIsVisible(needMenuArea);
-		Utilities.scrollToElement(needMenuArea);
+		Thread.sleep(300);
+		//Utilities.scrollToElement("//li[text()='WDO Findings']");
 		Utilities.waitUntileElementIsVisible(needMenuArea);
 		Utilities.clickElement(needMenuArea, ElementType.XPath);
+		Thread.sleep(300);
+		Utilities.scrollToElementJS(needPage);
 		Utilities.waitUntileElementIsVisible(needPage);
 		Utilities.clickElement(needPage, ElementType.XPath);
+
 	}
 
 	
