@@ -196,9 +196,12 @@ public class Utilities {
 		return RandomStringUtils.random(needLength, true, true);
 	}
 
+	// Author: Aditya
 	public static double generateRandomInteger(int needLength) {
 		double m = (double) Math.pow(10, needLength - 1);
-		return m + new Random().nextInt((int) (9 * m));
+		m = m + new Random().nextInt((int) (9 * m)) +  new Random().nextDouble();
+		double b = Math.round(m*100.0)/100.0;
+		return b;
 	}
 
 	public static int generateRandomNumber(int needLength) {
