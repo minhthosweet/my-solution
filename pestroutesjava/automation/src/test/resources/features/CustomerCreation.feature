@@ -4,7 +4,7 @@
 Feature: Create and search customer with validation
 
   @Smoke_Adi
-  Scenario: Create a customer
+  Scenario: Create a customer and validate customer search field
     When I create customer without required last name field
     Then I validate alert
     When I create customer with first name, last name and dynamic zip
@@ -15,7 +15,10 @@ Feature: Create and search customer with validation
     And I validate search customer with zip code
     And I validate search customer with CustomerID
     And I validate search customer with street address
+    And I validate search customer with email address
+    Then I remove the customer
     And I validate if there are errors exist in the list
+
   @ValidateTaxRateAfterEditing
   Scenario: Validate tax rate after editing zip
     When I create customer with first name, last name and address
@@ -23,6 +26,7 @@ Feature: Create and search customer with validation
     Then I validate if tax rate is same
     Then I remove the customer
     And I validate if there are errors exist in the list
+
   @ValidateTransferAccount
   Scenario: Validate transfer account visibility
     When I create customer with first name, last name and address

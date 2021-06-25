@@ -32,6 +32,7 @@ public class CreateNewCustomer extends AppData {
     CustomerViewDialog_InfoTab customerViewDialog_infoTab;
     SearchBox searchBox;
 
+    // if fName and lName length is changed, update method validateEmailAddressInSearch() as well
     public String fName = Utilities.generateRandomString(7);
     public String lName = Utilities.generateRandomString(6);
     String expectedAlert = "Required: You must fill in the customer's last name or company name!";
@@ -143,6 +144,7 @@ public class CreateNewCustomer extends AppData {
         alertCondition();
         customerName = getCustomerFullName();
     }
+
     //**Author Aarbi**
     @And("I edit zipcode in info tab {string}")
     public void editCustomerZip(String needZip) throws InterruptedException {
@@ -153,6 +155,7 @@ public class CreateNewCustomer extends AppData {
         customer.setZipCode(needZip);
         customerDialog_Header.clickSaveButton();
     }
+
     //**Author Aarbi**
     @Then("I validate if tax rate is same")
     public void validateTaxRate() throws InterruptedException {
@@ -166,12 +169,13 @@ public class CreateNewCustomer extends AppData {
         String actualTaxRate = customer.getTaxRate(customer.taxPercentageInputField);
         result(taxRate, actualTaxRate, "Created customer name ", "Customer creation");
     }
+
     //**Author Aarbi**
     @And("I validate if agent display in the list after clicking on transfer button {string}")
-    public void validateTransferAccountOption(String needAgent){
+    public void validateTransferAccountOption(String needAgent) {
         customerDialog_Header = new CustomerViewDialog_Header();
         Utilities.clickElement(customerDialog_Header.tranferButtonInDialog, ElementType.XPath);
-        WebElement agent = FindElement.elementByAttribute("//p[text() = '"+needAgent+"']", FindElement.InputType.XPath);
+        WebElement agent = FindElement.elementByAttribute("//p[text() = '" + needAgent + "']", FindElement.InputType.XPath);
         AssertException.conditionResult(agent);
     }
 
@@ -252,6 +256,19 @@ public class CreateNewCustomer extends AppData {
         header.searchCustomer_SearchField(customerViewDialog_infoTab.getStreetAddress());
         searchBox = new SearchBox();
         result(streetAddress, searchBox.autoCompleteSearch(streetAddress), "Validate street address in search", "Customer creation");
+    }
+
+    // Author : Adi
+    @And("I validate search customer with email address")
+    public void validateEmailAddressInSearch() throws InterruptedException {
+        customerDialog_Header = new CustomerViewDialog_Header();
+        customerDialog_Header.navigateTo(customerDialog_Header.infoTabInDialog);
+        header = new Header();
+        customerViewDialog_infoTab = new CustomerViewDialog_InfoTab();
+        header.searchCustomer_SearchField(customerViewDialog_infoTab.getEmail());
+        searchBox = new SearchBox();
+        result(fName, searchBox.containsInAutoCompleteSearch(fName).substring(0, 8), "Validate first name in search", "Customer creation");
+        result(lName, searchBox.containsInAutoCompleteSearch(lName).substring(8, 15), "Validate last name in search", "Customer creation");
     }
 
     @Then("^I create customer with address and ZipCode and I verify Main Tax, State Tax, City Tax, County Tax, Custom Tax, District1 Tax, District2 Tax" +
