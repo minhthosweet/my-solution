@@ -158,7 +158,7 @@ public class InvoicingTab extends AppData {
         String serviceType = subscriptionTab.getServiceType();
         String initialInvoiceValue = subscriptionTab.getInitialInvoiceValue();
         String initialSubTotal = Double.toString(subscriptionTab.getInitialSubTotal());
-        String taxAmount = String.format("%.2f",(subscriptionTab.getInitialTax()));
+        String taxAmount = String.format("%.2f", (subscriptionTab.getInitialTax()));
 
         customerCardHeader.navigateTo(customerCardHeader.invoicesTabInDialog);
         result(initialInvoiceValue, invImplementation.getAccountBalance(), "Total Account Balance Validation",
@@ -330,6 +330,7 @@ public class InvoicingTab extends AppData {
         invoiceHeader.navigate(invoiceHeader.creditCard);
         Utilities.waitUntileElementIsVisible(cardOnFile.chargeCardButton);
         String confirmAmount = Utilities.getAttributeValue(cardOnFile.paymentAmountInputField, "value");
+        Utilities.clickElement(cardOnFile.confirmAmountInputField, Utilities.ElementType.XPath);
         FindElement.elementByAttribute(cardOnFile.confirmAmountInputField, FindElement.InputType.XPath).sendKeys(confirmAmount);
         FindElement.elementByAttribute(cardOnFile.cvvCodeInputField, FindElement.InputType.XPath).sendKeys("123");
         Utilities.clickElement(cardOnFile.chargeCardButton, Utilities.ElementType.XPath);
@@ -378,6 +379,7 @@ public class InvoicingTab extends AppData {
         invoiceRoutesTab.clickAddPayment();
         invoiceHeader.navigate(invoiceHeader.achDraft);
         String confirmAmount = Utilities.getAttributeValue(cardOnFile.paymentAmountInputField, "value");
+        Utilities.clickElement(cardOnFile.confirmAmountInputField, Utilities.ElementType.XPath);
         FindElement.elementByAttribute(cardOnFile.confirmAmountInputField, FindElement.InputType.XPath).sendKeys(confirmAmount);
         Utilities.clickElement(achOnFile.draftACHButton, Utilities.ElementType.XPath);
         Utilities.waitUntileElementIsVisible(confirmationPage.paymentResultTitle);

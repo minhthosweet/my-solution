@@ -13,7 +13,7 @@ public class InvoiceImplementation {
     public String invoiceAccountSummaryClick = "//ul[@id='invoiceGroupListContainer']/ul/li";
     public String initialInvoice = "//span[text()='Initial Balance']";
     public String accountStatementReport = "//li[text()='Account Statement Report']";
-    public String remainingBalanceAmount = "//div[contains(text(),'UNPAID')]//following-sibling::div";
+    public String remainingBalanceAmount = "//span[text()='Remaining Balance']/parent::div";
 
     // Invoice Amount
     private String newInvoice = "//form[@id=\"newInvoiceParams\"]//input[@type=\"number\"]";
