@@ -76,6 +76,18 @@ public class CucumberBaseClass extends AppData {
         this.scenario = scenario;
     }
 
+    @Before(order = 4)
+    public void clickCloseSchedulingNoticeButton() {
+        try {
+            WebElement schedulingAppointment = FindElement.elementByAttribute(customerviewDialog_appointmentsTab.closeSchedulingNotice, FindElement.InputType.XPath);
+            if (schedulingAppointment.isDisplayed()) {
+                Utilities.waitUntileElementIsVisible(customerviewDialog_appointmentsTab.closeSchedulingNotice);
+                Utilities.clickElement(customerviewDialog_appointmentsTab.closeSchedulingNotice, Utilities.ElementType.XPath);
+                System.out.println("Schedule button closed");
+            }
+        } catch (Exception e) {
+        }
+    }
     @Given("I get scenario name")
     public static String scenarioName() {
         return scenario.getName();
