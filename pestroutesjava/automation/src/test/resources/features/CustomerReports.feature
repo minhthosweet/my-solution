@@ -19,6 +19,8 @@ Feature: Customer reports end to end validation
 
   @CustomerAccountReportValidation_CustomerReports
   Scenario: Customer Account Report Data Validation
+    Given I add a new customer source if it is not already existing
+    Given I add a new division if it is not already existing
     When I create customer with pref paper and residential property
     Then I get customer details for customer reports
     And I add properties customer source, property type, prefers paper, division, purple dragon and generic flag to the customer
@@ -127,40 +129,9 @@ Feature: Customer reports end to end validation
     And I remove the customer
     And I validate if there are errors exist in the list
 
-  @SelectColumnsToDisplayValidation_CustomerReports
-  Scenario: Select Columns To Display validation in Customer Reports
-    Given I delete a routing group
-    When I create customer with pref paper and residential property
-    Then I get customer details for customer reports
-    And I change customer status
-    And I create a subscription of type "After Initial Completion"
-    And I navigate to scheduling on same Day
-    And I add a route
-    And I search customer
-    And I navigate to Subscription Tab
-    And I schedule an service appointment
-    Then I navigate to "Customer Reports" in Customers tab
-    Then I add filters to Select Columns To Display in Customer Reports
-    And I validate select columns to display fields in Customer Reports
-    And I remove the customer
-    And I validate if there are errors exist in the list
-
-  @LeadsValidation_CustomerReports
-  Scenario: Leads validation in Customer Reports
-    Given I create a new user if it is not already existing "Office Staff"
-    When I create customer with pref paper and residential property
-    And I create a new lead
-    Then I validate lead creation invoices
-    Then I get customer details for customer reports
-    And I change customer status
-    Then I navigate to "Customer Reports" in Customers tab
-    When I add filters to Leads in Customer Reports
-    Then I validate leads report in Customer Reports
-    And I remove the customer
-    And I validate if there are errors exist in the list
-
   @ActionsValidations_Flags
   Scenario: Flags actions validation in Customer Reports
+    Given I add a new generic flag if it is not already existing "Automation Flag" and "Automation Flag" and "Customer"
     When I create customer with pref paper and residential property
     Then I get customer details for customer reports
     And I change customer status
@@ -228,3 +199,36 @@ Feature: Customer reports end to end validation
     And I validate if the customer was rolled back in Admin tab of customer card
     And I remove the customer
     And I validate if there are errors exist in the list
+
+  @SelectColumnsToDisplayValidation_CustomerReports
+  Scenario: Select Columns To Display validation in Customer Reports
+    Given I delete a routing group
+    When I create customer with pref paper and residential property
+    Then I get customer details for customer reports
+    And I change customer status
+    And I create a subscription of type "After Initial Completion"
+    And I navigate to scheduling on same Day
+    And I add a route
+    And I search customer
+    And I navigate to Subscription Tab
+    And I schedule an service appointment
+    Then I navigate to "Customer Reports" in Customers tab
+    Then I add filters to Select Columns To Display in Customer Reports
+    And I validate select columns to display fields in Customer Reports
+    And I remove the customer
+    And I validate if there are errors exist in the list
+
+  @LeadsValidation_CustomerReports
+  Scenario: Leads validation in Customer Reports
+    Given I create a new user if it is not already existing "Office Staff"
+    When I create customer with pref paper and residential property
+    And I create a new lead
+    Then I validate lead creation invoices
+    Then I get customer details for customer reports
+    And I change customer status
+    Then I navigate to "Customer Reports" in Customers tab
+    When I add filters to Leads in Customer Reports
+    Then I validate leads report in Customer Reports
+    And I remove the customer
+    And I validate if there are errors exist in the list
+

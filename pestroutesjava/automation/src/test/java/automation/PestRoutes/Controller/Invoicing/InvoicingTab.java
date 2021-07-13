@@ -402,6 +402,7 @@ public class InvoicingTab extends AppData {
         invoiceRoutesTab.clickAddPayment();
         invoiceHeader.navigate(invoiceHeader.achDraft);
         String confirmAmount = Utilities.getAttributeValue(cardOnFile.paymentAmountInputField, "value");
+        Utilities.clickElement(cardOnFile.confirmAmountInputField, Utilities.ElementType.XPath);
         FindElement.elementByAttribute(cardOnFile.confirmAmountInputField, FindElement.InputType.XPath).sendKeys(confirmAmount);
         Utilities.clickElement(achOnFile.recordExistingButton, Utilities.ElementType.XPath);
         Utilities.waitUntileElementIsVisible(confirmationPage.paymentResultTitle);
