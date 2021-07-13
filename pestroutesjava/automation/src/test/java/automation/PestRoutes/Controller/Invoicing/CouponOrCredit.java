@@ -74,6 +74,7 @@ public class CouponOrCredit {
     public void MakeCouponPayment() {
 
         String balanceOnOriginalInvoice = invoiceImplementation.getRemainingBalanceAmount();
+        couponOrCreditTab.click(couponOrCreditTab.filterTypes("confirmCashAmount"));
         couponOrCreditTab.set(couponOrCreditTab.filterTypes("confirmCashAmount"), balanceOnOriginalInvoice);
         couponOrCreditTab.set(couponOrCreditTab.filterTypes("couponNumber"), randomNotes);
         couponOrCreditTab.set(couponOrCreditTab.filterTypes("couponDescription"), randomNotes);
