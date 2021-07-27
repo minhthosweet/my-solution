@@ -16,6 +16,7 @@ Feature: After Initial Appointment Completion
     And I search customer
     And I complete an appointment
     And I close customer card
+    Then I refresh the browser
     And I search customer
     And I validate initial invoice created on invoice tab
     And I remove the customer

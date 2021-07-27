@@ -26,7 +26,7 @@ public class RouteTemplate {
     public String clickFillDescription = "//div[text()='Fill Description']";
     public String clickClear = "//div[text()='Clear']";
     public String saveTemplate = "//div[@id='templateBuilderAction']//div[text()='Save Template']";
-    public String blockDescriptionTextBox = "//div[@id='templateSpots']//div[text()='End']/parent::div/following-sibling::div[3]/div[text()='to']/following-sibling::input[2]";
+    public String blockDescriptionTextBox = "//div[@id='templateSpots']//div[text()='End']/parent::div/following-sibling::div[2]/div[text()='to']/preceding-sibling::input[2]";
     public String termOfService = "//a[text()='Terms of Service']";
 
     public void navigateToRouteTemplate() throws InterruptedException {

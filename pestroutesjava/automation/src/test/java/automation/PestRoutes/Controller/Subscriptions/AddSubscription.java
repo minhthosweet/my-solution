@@ -142,7 +142,7 @@ public class AddSubscription extends AppData {
 	}
 
 	@Then("I validate initial invoice template values")
-	public void validateInitialInvoice() {
+	public void validateInitialInvoice() throws InterruptedException {
 		subscription.setInitialServiceQuote(initialQuote);
 		subscription.setInitialServiceDiscount(initialDiscount);
 		subscription.selectAdditionalItem_ToInitialInvoice(ticketItem);

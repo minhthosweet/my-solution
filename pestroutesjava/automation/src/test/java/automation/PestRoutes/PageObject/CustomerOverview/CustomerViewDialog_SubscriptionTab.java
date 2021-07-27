@@ -349,8 +349,12 @@ public class CustomerViewDialog_SubscriptionTab {
 		FindElement.elementByAttribute(customDateInputField, InputType.XPath).sendKeys(Keys.ENTER);
 	}
 
-	public void setInitialServiceQuote(String needAmount) {
+	public void setInitialServiceQuote(String needAmount) throws InterruptedException {
 		Utilities.highLight(initialQuoteInputField);
+		if (SystemUtils.IS_OS_LINUX) {
+			Thread.sleep(200);
+			FindElement.elementByAttribute(initialQuoteInputField, InputType.XPath).sendKeys(Keys.DELETE);
+		}
 		FindElement.elementByAttribute(initialQuoteInputField, InputType.XPath).sendKeys(needAmount);
 	}
 

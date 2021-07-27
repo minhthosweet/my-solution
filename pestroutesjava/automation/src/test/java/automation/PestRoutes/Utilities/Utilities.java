@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Random;
 
 import io.cucumber.java.en.And;
+import io.cucumber.java.en.Then;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.SystemUtils;
@@ -472,6 +473,11 @@ public class Utilities {
 		Actions actions = new Actions(driver);
 		WebElement elementLocator = driver.findElement(By.xpath(needXpath));
 		actions.doubleClick(elementLocator).perform();
+	}
+
+	@Then("I refresh the browser")
+	public static void refreshPage(){
+		driver.navigate().refresh();
 	}
 
 }

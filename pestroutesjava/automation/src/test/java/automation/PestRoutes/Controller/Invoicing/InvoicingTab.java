@@ -399,6 +399,7 @@ public class InvoicingTab extends AppData {
         customerCardHeader.navigateTo(customerCardHeader.invoicesTabInDialog);
         Utilities.waitUntileElementIsVisible(invoiceRoutesTab.addNewInvoice);
         invImplementation.clickInitialInvoice();
+        Thread.sleep(2000);
         invoiceRoutesTab.clickAddPayment();
         invoiceHeader.navigate(invoiceHeader.achDraft);
         String confirmAmount = Utilities.getAttributeValue(cardOnFile.paymentAmountInputField, "value");
