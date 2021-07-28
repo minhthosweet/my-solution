@@ -104,11 +104,11 @@ public class CreateCustomerDialog {
         Utilities.selectValueFromDropDownByValue(divisionDropDown, needDivision);
     }
 
-    // Click or Unclick Check box
+    // Click or Unclick Check boxes
     public void clickSmsCheckBox() {
         try {
-            WebElement elm = FindElement.elementByAttribute(smsCheckBox, InputType.XPath);
-            if (elm.isDisplayed()) {
+            WebElement elm = FindElement.elementByAttribute("//input[@name= 'smsReminders' and @checked]", InputType.XPath);
+            if (!elm.isDisplayed()) {
                 Utilities.clickElement(smsCheckBox, ElementType.XPath);
             }
         } catch (Exception e) {
@@ -196,7 +196,9 @@ public class CreateCustomerDialog {
         Utilities.clickElement(purpleDragonCheckBox, ElementType.XPath);
     }
 
-    public void clickOverrideTaxCheckBox() { Utilities.clickElement(taxPercentageOverrideCheckbox, ElementType.XPath); }
+    public void clickOverrideTaxCheckBox() {
+        Utilities.clickElement(taxPercentageOverrideCheckbox, ElementType.XPath);
+    }
 
     /*
      * Setter methods Below methods insert text in the input fields

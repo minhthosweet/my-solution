@@ -35,6 +35,7 @@ public class CouponOrCredit {
         customerCardHeader.navigateTo(customerCardHeader.invoicesTabInDialog);
         invoiceImplementation.clickInitialInvoice();
         routePageInvoicing.clickAddPayment();
+        Thread.sleep(1000);
         invoice_Header.navigate(invoice_Header.coupon);
 
         //Validating fields

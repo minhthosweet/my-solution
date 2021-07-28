@@ -893,9 +893,9 @@ public class CustomerReports extends AppData {
         customerReportsPage.clickCustomerReport();
         customerCardHeader = new CustomerViewDialog_Header();
         customerCardHeader.navigateTo(customerCardHeader.notesTabInDialog);
-        result("[" + bulkFreezeCategory + "]", customerReportsPage.getTextValue("//div[@name='contactTypeName']//strong[text()]"), "Customer Frozen Category validation in Notes tab of customer card", " Customer Reports Validation");
+        result("[" + bulkFreezeCategory + "]", customerReportsPage.getTextValue("//div[@name='contactTypeName']//strong[text()]"), "Customer Frozen Category validation one in Notes tab of customer card", " Customer Reports Validation");
         String actualBulkFreezeNote = customerReportsPage.getTextValue("//div[@id='contactsPanelWrapper']//div[contains(text(),'FROZE')]");
-        result(textMessage, (actualBulkFreezeNote).substring(actualBulkFreezeNote.length() - 5, actualBulkFreezeNote.length()), "Customer Frozen Note validation in Notes tab of customer card", " Customer Reports Validation");
+        result(textMessage, (actualBulkFreezeNote).substring(actualBulkFreezeNote.length() - 5, actualBulkFreezeNote.length()), "Customer Frozen Note validation two in Notes tab of customer card", " Customer Reports Validation");
     }
 
     @Then("I validate if the customer was frozen in Admin tab of customer card")
