@@ -75,7 +75,7 @@ public class CustomerReports extends AppData {
 
     //Author: Aditya
     @And("I validate if saved report fields are visible on the page")
-    public void validateSavedReportFieldsDisplayed() throws InterruptedException {
+    public void validateSavedReportFieldsDisplayed() {
         customerReportsPage.click(customerReportsPage.savedReports);
         String[] fields = {
                 customerReportsPage.filterTypes_CR("newReport_CR"),
@@ -87,7 +87,7 @@ public class CustomerReports extends AppData {
 
     //Author: Aditya
     @And("I validate if select columns to display fields are visible on the page")
-    public void validateSelectColumnsToDisplayFieldsDisplayed() throws InterruptedException {
+    public void validateSelectColumnsToDisplayFieldsDisplayed() {
         customerReportsPage.click(customerReportsPage.selectColumnsToDisplay);
         String[] fields = {
                 customerReportsPage.filterTypes_CR("selectColumnsToShow"),
@@ -98,7 +98,7 @@ public class CustomerReports extends AppData {
 
     //Author: Aditya
     @And("I validate if customer account fields are visible on the page")
-    public void validateCustomerAccountFieldsDisplayed() throws InterruptedException {
+    public void validateCustomerAccountFieldsDisplayed() {
         customerReportsPage.click(customerReportsPage.customerAccount);
         String[] fields_one = {customerReportsPage.filterTypes_CR("accountStatus_CR"),
                 customerReportsPage.filterTypes_CR("dateCanceledFrom_CR"),
@@ -145,7 +145,7 @@ public class CustomerReports extends AppData {
 
     //Author: Aditya
     @And("I validate if leads fields are visible on the page")
-    public void validateLeadsFieldsDisplayed() throws InterruptedException {
+    public void validateLeadsFieldsDisplayed() {
         customerReportsPage.click(customerReportsPage.leads);
         String[] fields = {
                 customerReportsPage.filterTypes_CR("leadStatus_CR"),
@@ -166,7 +166,7 @@ public class CustomerReports extends AppData {
 
     //Author: Aditya
     @And("I validate if service subscription fields are visible on the page")
-    public void validateServiceSubscriptionFieldsDisplayed() throws InterruptedException {
+    public void validateServiceSubscriptionFieldsDisplayed() {
         customerReportsPage.click(customerReportsPage.serviceSubscription);
         String[] fields_one = {
                 customerReportsPage.filterTypes_CR("activeSubscription_CR"),
@@ -246,7 +246,7 @@ public class CustomerReports extends AppData {
 
     //Author: Aditya
     @And("I validate if customer location fields are visible on the page")
-    public void validateCustomerLocationFieldsDisplayed() throws InterruptedException {
+    public void validateCustomerLocationFieldsDisplayed() {
         customerReportsPage.click(customerReportsPage.customerLocation);
         String[] fields = {
                 customerReportsPage.filterTypes_CR("mapCode_CR"),
@@ -265,7 +265,7 @@ public class CustomerReports extends AppData {
 
     //Author: Aditya
     @And("I validate if billing account fields are visible on the page")
-    public void validateBillingAccountFieldsDisplayed() throws InterruptedException {
+    public void validateBillingAccountFieldsDisplayed() {
         customerReportsPage.click(customerReportsPage.billingAccount);
         String[] fields_one = {
                 customerReportsPage.filterTypes_CR("balanceAgeAssignment_CR"),
@@ -300,7 +300,7 @@ public class CustomerReports extends AppData {
 
     //Author: Aditya
     @And("I validate if billing address fields are visible on the page")
-    public void validateBillingAddressFieldsDisplayed() throws InterruptedException {
+    public void validateBillingAddressFieldsDisplayed() {
         customerReportsPage.click(customerReportsPage.billingAddress);
         String[] fields = {
                 customerReportsPage.filterTypes_CR("billingLName_CR"),
@@ -316,7 +316,7 @@ public class CustomerReports extends AppData {
 
     //Author: Aditya
     @And("I validate if service appointment fields are visible on the page")
-    public void validateServiceAppointmentFieldsDisplayed() throws InterruptedException {
+    public void validateServiceAppointmentFieldsDisplayed() {
         customerReportsPage.click(customerReportsPage.serviceAppointment);
         String[] fields_one = {
                 customerReportsPage.filterTypes_CR("scheduledForFrom_CR"),
@@ -610,7 +610,7 @@ public class CustomerReports extends AppData {
     //Author : Aditya
     @When("I validate saved filter in Customer Reports")
     public void
-    validateFilters_savedFilters() throws InterruptedException {
+    validateFilters_savedFilters() {
         customerReportsPage.click(customerReportsPage.savedReports);
         result(reportName, customerReportsPage.getTextValue("//li[@data-saved-report-id]//span[text()='" + reportName + "']"), "Report name validation", " Customer Reports Validation");
         customerReportsPage.click("//li[@data-saved-report-id]//span[text()='" + reportName + "']");
@@ -724,7 +724,8 @@ public class CustomerReports extends AppData {
         result(String.format("%.2f", Double.parseDouble(maxMonthly)), (customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[8]")), "Max Monthly validation", " Customer Reports Validation");
         result(customerAutoPayValue, (customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[9]")), "Customer Auto Pay validation", " Customer Reports Validation");
         result(CCTokenNumber, (customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[11]")).toLowerCase(Locale.ROOT), "Credit Card Token validation", " Customer Reports Validation");
-        String lastFourOfCC = customerAutoPayValue.substring(customerAutoPayValue.length() - 4, customerAutoPayValue.length());
+        //String lastFourOfCC = customerAutoPayValue.substring(customerAutoPayValue.length() - 4, customerAutoPayValue.length());
+        String lastFourOfCC = customerAutoPayValue.substring(customerAutoPayValue.length() - 4);
         result(lastFourOfCC, (customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[12]")), "Credit Card Last Four validation", " Customer Reports Validation");
         String creditCardType = customerAutoPayValue.substring(customerAutoPayValue.indexOf("-") + 1, customerAutoPayValue.length() - 6);
         result(creditCardType, customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[13]"), "Credit Card Type validation", " Customer Reports Validation");
@@ -732,7 +733,7 @@ public class CustomerReports extends AppData {
 
     //Author : Aditya
     @Then("I validate billing address report in Customer Reports")
-    public void billingAddressReportValidations_customerReports() throws IOException {
+    public void billingAddressReportValidations_customerReports() {
         result(customerID_CR, customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[1]"), "Customer ID validation", " Customer Reports Validation");
         result(lName_CR.toLowerCase(Locale.ROOT), (customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[2]")).toLowerCase(Locale.ROOT), "Customer last name validation", " Customer Reports Validation");
         result(fName_CR.toLowerCase(Locale.ROOT), (customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[3]")).toLowerCase(Locale.ROOT), "Customer first name validation", " Customer Reports Validation");
@@ -788,7 +789,7 @@ public class CustomerReports extends AppData {
 
     //Author : Aditya
     @Then("I validate select columns to display fields in Customer Reports")
-    public void selectColumnsToDisplayFieldsValidations_customerReports() throws IOException, InterruptedException {
+    public void selectColumnsToDisplayFieldsValidations_customerReports() {
         String[] fields;
         customerviewDialog_appointmentsTab = new CustomerviewDialog_AppointmentsTab();
         for (int i = 1; i < 148; i++) {
@@ -895,7 +896,7 @@ public class CustomerReports extends AppData {
         customerCardHeader.navigateTo(customerCardHeader.notesTabInDialog);
         result("[" + bulkFreezeCategory + "]", customerReportsPage.getTextValue("//div[@name='contactTypeName']//strong[text()]"), "Customer Frozen Category validation one in Notes tab of customer card", " Customer Reports Validation");
         String actualBulkFreezeNote = customerReportsPage.getTextValue("//div[@id='contactsPanelWrapper']//div[contains(text(),'FROZE')]");
-        result(textMessage, (actualBulkFreezeNote).substring(actualBulkFreezeNote.length() - 5, actualBulkFreezeNote.length()), "Customer Frozen Note validation two in Notes tab of customer card", " Customer Reports Validation");
+        result(textMessage, (actualBulkFreezeNote).substring(actualBulkFreezeNote.length() - 5), "Customer Frozen Note validation two in Notes tab of customer card", " Customer Reports Validation");
     }
 
     @Then("I validate if the customer was frozen in Admin tab of customer card")
