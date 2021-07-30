@@ -10,6 +10,7 @@ import automation.PestRoutes.Utilities.Utilities;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.openqa.selenium.Keys;
 import org.testng.annotations.Test;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_Header;
 import automation.PestRoutes.PageObject.CustomerOverview.Invoicing.InvoiceImplementation;
@@ -193,7 +194,7 @@ public class InvoicingTab extends AppData {
     }
 
     @And("I generate Account Statement Report of report type {string} for {string}")
-    public void generateAccountStatementReport(String reportType, String day) throws InterruptedException {
+    public void generateAccountStatementReport(String reportType, String day) {
         invImplementation.clickAccountStatementReport();
         invImplementation.selectDateRange(day);
         invImplementation.selectReportType(reportType);
@@ -213,7 +214,7 @@ public class InvoicingTab extends AppData {
     }
 
     @And("Validating beginning balance for invoice created {string} of report type {string}")
-    public void validateBeginningBalance_AccountStatementReport(String day, String reportType) throws InterruptedException {
+    public void validateBeginningBalance_AccountStatementReport(String day, String reportType) {
         generateAccountStatementReport(reportType, day);
         result(invImplementation.getBalance("Beginning Balance"), "$0.00", "Balance Validation",
                 "Account Statement Report Validation");
@@ -234,7 +235,7 @@ public class InvoicingTab extends AppData {
     }
 
     @And("Validating ending balance for invoice created {string} of report type {string}")
-    public void validateInvoiceBalance_AccountStatementReport(String day, String reportType) throws InterruptedException {
+    public void validateInvoiceBalance_AccountStatementReport(String day, String reportType) {
         invImplementation.clickAccountSummary();
         invoiceValue = invImplementation.getAccountBalance();
         generateAccountStatementReport(reportType, day);
@@ -250,8 +251,8 @@ public class InvoicingTab extends AppData {
         customerCardHeader = new CustomerViewDialog_Header();
         subscriptionTab = new CustomerViewDialog_SubscriptionTab();
         customerCardHeader.navigateTo(customerCardHeader.subscriptionTabInDialog);
-        String initialInvoiceValue = subscriptionTab.getInitialInvoiceValue().substring(1, subscriptionTab.getInitialInvoiceValue().length());
-        String recurringInvoiceValue = subscriptionTab.getRecurringInvoiceValue().substring(1, subscriptionTab.getRecurringInvoiceValue().length());
+        String initialInvoiceValue = subscriptionTab.getInitialInvoiceValue().substring(1);
+        String recurringInvoiceValue = subscriptionTab.getRecurringInvoiceValue().substring(1);
         String accountPendingBalance = Double.toString(Double.parseDouble(recurringInvoiceValue) + Double.parseDouble(initialInvoiceValue));
         String recurringSubTotal = Double.toString(subscriptionTab.getRecurringSubTotal());
         String taxAmount = Double.toString(subscriptionTab.getRecurringTax());
@@ -355,7 +356,9 @@ public class InvoicingTab extends AppData {
         Utilities.waitUntileElementIsVisible(cardOnFile.chargeCardButton);
         String paymentAmount = String.format("%.2f", ((Double.parseDouble(Utilities.getAttributeValue(cardOnFile.paymentAmountInputField, "value"))) / 10));
         FindElement.elementByAttribute(cardOnFile.paymentAmountInputField, FindElement.InputType.XPath).clear();
+        FindElement.elementByAttribute(cardOnFile.paymentAmountInputField, FindElement.InputType.XPath).sendKeys(Keys.DELETE);
         FindElement.elementByAttribute(cardOnFile.paymentAmountInputField, FindElement.InputType.XPath).sendKeys(paymentAmount);
+        Utilities.highLight(cardOnFile.confirmAmountInputField);
         FindElement.elementByAttribute(cardOnFile.confirmAmountInputField, FindElement.InputType.XPath).sendKeys(paymentAmount);
         FindElement.elementByAttribute(cardOnFile.cvvCodeInputField, FindElement.InputType.XPath).sendKeys("123");
         Utilities.clickElement(cardOnFile.chargeCardButton, Utilities.ElementType.XPath);

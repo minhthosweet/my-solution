@@ -49,7 +49,7 @@ public class Structures extends AppData {
 
     @And("I add chemicals to main structure")
     public void addChemicalMainStructureTab() throws InterruptedException, IOException {
-    dialog.navigateTo(dialog.appointmentsTabInDialog);
+        dialog.navigateTo(dialog.appointmentsTabInDialog);
         appointmentTab.clickScheduledService(getData("serviceDescription", generalData));
         appointmentTab.clickEditButton_AppointmentCard();
         structures.clickStructuresTabApt();
@@ -62,7 +62,7 @@ public class Structures extends AppData {
     }
 
     @And("I add chemicals to substructures")
-    public void addChemicalSubStructureTab() throws InterruptedException, IOException {
+    public void addChemicalSubStructureTab() throws IOException {
         appointmentTab.clickScheduledService(getData("serviceDescription", generalData));
         appointmentTab.clickEditButton_AppointmentCard();
         structures.clickStructuresTabApt();
@@ -75,7 +75,7 @@ public class Structures extends AppData {
     }
 
     @Then("I verify chemical in structure")
-    public void verifyChemicalInUnit() throws IOException, Exception {
+    public void verifyChemicalInUnit() throws Exception {
         dialog.navigateTo(dialog.structuresTabInDialog);
         appointmentTab.clickScheduledStructuredService(mainStructureName);
         structures.clickProductsAptTab();
@@ -84,9 +84,9 @@ public class Structures extends AppData {
         String actualStructureArea = appointmentTab.getStructureAreaTreated();
         String actualStructureIssues = appointmentTab.getStructureIssuesTreated();
         String actualStructureProductUsed = appointmentTab.getStructureChemicalName();
-        result(product, actualStructureArea.replace(actualStructureArea.substring(actualStructureArea.length()-1), ""), "Chemical for Structure", "Structure Validation");
+        result(product, actualStructureArea.replace(actualStructureArea.substring(actualStructureArea.length() - 1), ""), "Chemical for Structure", "Structure Validation");
         result(product, actualStructureProductUsed, "Product for Structure", "Structure Validation");
-        result(targetIssue, actualStructureIssues.replace(actualStructureIssues.substring(actualStructureIssues.length()-1),"").substring(actualStructureIssues.length()-(targetIssue.length()+1)), "Target issue for Structure", "Structure Validation");
+        result(targetIssue, actualStructureIssues.replace(actualStructureIssues.substring(actualStructureIssues.length() - 1), "").substring(actualStructureIssues.length() - (targetIssue.length() + 1)), "Target issue for Structure", "Structure Validation");
     }
 
     @Then("I verify chemical in substructure")
@@ -99,9 +99,9 @@ public class Structures extends AppData {
         String actualStructureArea = appointmentTab.getStructureAreaTreated();
         String actualStructureIssues = appointmentTab.getStructureIssuesTreated();
         String actualStructureProductUsed = appointmentTab.getStructureChemicalName();
-        result(product, actualStructureArea.replace(actualStructureArea.substring(actualStructureArea.length()-1),""), "Chemical for Structure", "Structure Validation");
+        result(product, actualStructureArea.replace(actualStructureArea.substring(actualStructureArea.length() - 1), ""), "Chemical for Structure", "Structure Validation");
         result(product, actualStructureProductUsed, "Product for Structure", "Structure Validation");
-        result(targetIssue, actualStructureIssues.replace(actualStructureIssues.substring(actualStructureIssues.length()-1),"").substring(actualStructureIssues.length()-(targetIssue.length()+1)), "Target issue for Structure", "Structure Validation");
+        result(targetIssue, actualStructureIssues.replace(actualStructureIssues.substring(actualStructureIssues.length() - 1), "").substring(actualStructureIssues.length() - (targetIssue.length() + 1)), "Target issue for Structure", "Structure Validation");
     }
 
     @SuppressWarnings("unchecked")
