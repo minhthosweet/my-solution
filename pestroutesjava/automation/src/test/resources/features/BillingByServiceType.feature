@@ -116,6 +116,7 @@ Feature: Billing by service Type report end to end validation
   @BSTAutoPayCCorBothFields
   Scenario: AutoPay validation for CC and CC or ACH in BST
     When I create customer with balance with prefers paper and residential property type
+    Then I get customer name and customer ID details for Billing by service type report
     And I add a CC payment option "4111111111111111" and "5412750109056250"
     And I add an customer in auto pay with "CC" and max limit "400"
     And I search customer on the "Billing by Service Type" with AutoPay as "Card AutoPay"
@@ -165,6 +166,7 @@ Feature: Billing by service Type report end to end validation
   @BSTStatusPaymentStatusCCAutoPay
   Scenario: AutoPay validation for CC in BST with Successful payment status
     When I create customer with balance with prefers paper and residential property type
+    Then I get customer name and customer ID details for Billing by service type report
     And I add a CC payment option "4111111111111111" and "5412750109056250"
     And I add an customer in auto pay with "CC" and max limit "400"
     And I search customer on the "Billing by Service Type" with AutoPay as "Card AutoPay" and Payment Status as "Successful"

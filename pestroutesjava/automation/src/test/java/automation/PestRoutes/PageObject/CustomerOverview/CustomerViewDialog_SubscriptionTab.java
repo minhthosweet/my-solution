@@ -273,21 +273,26 @@ public class CustomerViewDialog_SubscriptionTab {
 	}
 
 	public void selectAdditionalItem_ToInitialInvoice(String needItem) {
+		Utilities.scrollToElementJS(initialInvoice_AddTicketItemButton);
 		Utilities.clickElement(initialInvoice_AddTicketItemButton, ElementType.XPath);
 		if (SystemUtils.IS_OS_LINUX) {
 			Utilities.acceptAlertLinux();
 		}
+		Utilities.scrollToElementJS("//span[text()=  '" + needItem + "']");
 		Utilities.waitUntileElementIsVisible("//span[text()=  '" + needItem + "']");
 		Utilities.clickElement("//span[text()=  '" + needItem + "']", ElementType.XPath);
 		Utilities.waitUntileElementIsVisible("//div[text()='"+needItem+"']");
 	}
 
-	public void selectAdditionalItem_ToRecurringInvoice(String needItem) {
+	public void selectAdditionalItem_ToRecurringInvoice(String needItem) throws InterruptedException {
+		Thread.sleep(500);
+		Utilities.scrollToElementJS(recurringInvoice_AddTicketItemButton);
 		Utilities.waitUntileElementIsVisible(recurringInvoice_AddTicketItemButton);
 		Utilities.clickElement(recurringInvoice_AddTicketItemButton, ElementType.XPath);
 		if (SystemUtils.IS_OS_LINUX) {
 			Utilities.acceptAlertLinux();
 		}
+		Utilities.scrollToElementJS("//span[text()=  '" + needItem + "']");
 		Utilities.waitUntileElementIsVisible("//span[text()=  '" + needItem + "']");
 		Utilities.clickElement("//span[text()=  '" + needItem + "']", ElementType.XPath);
 	}
@@ -352,25 +357,33 @@ public class CustomerViewDialog_SubscriptionTab {
 	public void setInitialServiceQuote(String needAmount) throws InterruptedException {
 		Utilities.highLight(initialQuoteInputField);
 		if (SystemUtils.IS_OS_LINUX) {
-			Thread.sleep(200);
+			Thread.sleep(500);
 			FindElement.elementByAttribute(initialQuoteInputField, InputType.XPath).sendKeys(Keys.DELETE);
+			Thread.sleep(1000);
 		}
 		FindElement.elementByAttribute(initialQuoteInputField, InputType.XPath).sendKeys(needAmount);
 	}
 
-	public void setInitialServiceDiscount(String needAmount) {
+	public void setInitialServiceDiscount(String needAmount) throws InterruptedException {
 		Utilities.scrollToElementJS(initialTotalValue);
 		Utilities.waitUntileElementIsVisible(initialTotalValue);
 		FindElement.elementByAttribute(initialDiscountInputField, InputType.XPath).clear();
 		Utilities.highLight(initialDiscountInputField);
 		if (SystemUtils.IS_OS_LINUX) {
-			Utilities.acceptAlertLinux();
+			Thread.sleep(500);
+			FindElement.elementByAttribute(initialQuoteInputField, InputType.XPath).sendKeys(Keys.DELETE);
+			Thread.sleep(500);
 		}
 		FindElement.elementByAttribute(initialDiscountInputField, InputType.XPath).sendKeys(needAmount);
 	}
 
-	public void setServiceQuote(String needService, String needAmount) {
+	public void setServiceQuote(String needService, String needAmount) throws InterruptedException {
 		Utilities.highLight("//h3[text()='Recurring Invoice Template']/parent::div//div[text()= '" + needService + "']/following-sibling::input");
+		if (SystemUtils.IS_OS_LINUX) {
+			Thread.sleep(500);
+			FindElement.elementByAttribute("//h3[text()='Recurring Invoice Template']/parent::div//div[text()= '" + needService + "']/following-sibling::input", InputType.XPath).sendKeys(Keys.DELETE);
+			Thread.sleep(500);
+		}
 		FindElement.elementByAttribute("//h3[text()='Recurring Invoice Template']/parent::div//div[text()= '" + needService + "']/following-sibling::input", InputType.XPath).sendKeys(needAmount);
 	}
 

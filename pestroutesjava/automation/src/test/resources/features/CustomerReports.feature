@@ -53,6 +53,8 @@ Feature: Customer reports end to end validation
     And I schedule an service appointment
     And I search customer
     And I complete an appointment
+    And I close customer card
+    And I search customer
     Then I get customer details for customer reports
     Then I navigate to "Customer Reports" in Customers tab
     And I add filters to Service Subscription in Customer Reports
@@ -109,6 +111,7 @@ Feature: Customer reports end to end validation
   Scenario: Service Appointment validation in Customer Reports
     Given I delete a routing group
     When I create customer with pref paper and residential property
+    And I add a CC payment option "4111111111111111" and "5412750109056250"
     And I create a subscription of type "After Initial Completion"
     And I navigate to scheduling on same Day
     And I add a route
@@ -116,12 +119,11 @@ Feature: Customer reports end to end validation
     And I navigate to Subscription Tab
     And I schedule an service appointment
     And I search customer
-    And I complete an appointment
-    And I get customer details for customer reports
     And I get appointment details for customer reports
-    And I add a CC payment option "4111111111111111" and "5412750109056250"
+    And I complete an appointment
     And I close customer card
     And I search customer
+    And I get customer details for customer reports
     Then I make payment with credit card on file
     Then I navigate to "Customer Reports" in Customers tab
     When I add filters to Service Appointment in Customer Reports
@@ -200,35 +202,39 @@ Feature: Customer reports end to end validation
     And I remove the customer
     And I validate if there are errors exist in the list
 
-  @SelectColumnsToDisplayValidation_CustomerReports
-  Scenario: Select Columns To Display validation in Customer Reports
-    Given I delete a routing group
-    When I create customer with pref paper and residential property
-    Then I get customer details for customer reports
-    And I change customer status
-    And I create a subscription of type "After Initial Completion"
-    And I navigate to scheduling on same Day
-    And I add a route
-    And I search customer
-    And I navigate to Subscription Tab
-    And I schedule an service appointment
-    Then I navigate to "Customer Reports" in Customers tab
-    Then I add filters to Select Columns To Display in Customer Reports
-    And I validate select columns to display fields in Customer Reports
-    And I remove the customer
-    And I validate if there are errors exist in the list
+    #below test case has a backlog defect: PD-5355. Need to enable it once the defect is fixed.
+  #@LeadsValidation_CustomerReports
+  #Scenario: Leads validation in Customer Reports
+   # Given I create a new user if it is not already existing "Office Staff"
+   # When I create customer with pref paper and residential property
+   # And I create a new lead
+   # Below step fails due to assertion issue in Leads test case
+   # Then I validate lead creation invoices
+   # Then I get customer details for customer reports
+   # And I change customer status
+   # Then I navigate to "Customer Reports" in Customers tab
+    #When I add filters to Leads in Customer Reports
+   # Then I validate leads report in Customer Reports
+   # And I remove the customer
+   # And I deactivate the existing user
+   # And I validate if there are errors exist in the list
 
-  @LeadsValidation_CustomerReports
-  Scenario: Leads validation in Customer Reports
-    Given I create a new user if it is not already existing "Office Staff"
-    When I create customer with pref paper and residential property
-    And I create a new lead
-    Then I validate lead creation invoices
-    Then I get customer details for customer reports
-    And I change customer status
-    Then I navigate to "Customer Reports" in Customers tab
-    When I add filters to Leads in Customer Reports
-    Then I validate leads report in Customer Reports
-    And I remove the customer
-    And I validate if there are errors exist in the list
+    #Below test case is not valid scenario since it considers subscription and customer filters
+  #@SelectColumnsToDisplayValidation_CustomerReports
+  #Scenario: Select Columns To Display validation in Customer Reports
+  #  Given I delete a routing group
+   # When I create customer with pref paper and residential property
+    #Then I get customer details for customer reports
+    #And I change customer status
+    #And I create a subscription of type "After Initial Completion"
+    #And I navigate to scheduling on same Day
+    #And I add a route
+    #And I search customer
+    #And I navigate to Subscription Tab
+    #And I schedule an service appointment
+    #Then I navigate to "Customer Reports" in Customers tab
+    #Then I add filters to Select Columns To Display in Customer Reports
+    #And I validate select columns to display fields in Customer Reports
+    #And I remove the customer
+    #And I validate if there are errors exist in the list"""
 
