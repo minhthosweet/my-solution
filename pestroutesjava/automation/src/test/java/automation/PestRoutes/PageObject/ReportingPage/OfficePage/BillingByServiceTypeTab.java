@@ -55,7 +55,31 @@ public class BillingByServiceTypeTab {
     public String customerID_lineItem = "//tr[@onmouseup]//td[1]";
     public String customerName_lineItem = "//tr[@onmouseup]//td[2]";
 
-    public Map<String, String> filterTypes_BST = new HashMap<String, String>();
+    // Line Item Fields Production Value before payment
+    public String invoiceID_lineItem_productionValue_beforePayment = "//tr[@onmouseup][2]//td[3]";
+    public String invoiceDate_lineItem_productionValue_beforePayment = "//tr[@onmouseup][2]//td[4]";
+    public String paymentDate_lineItem_productionValue_beforePayment = "//tr[@onmouseup][2]//td[12]";
+    public String serviceType_lineItem_productionValue_beforePayment = "//tr[@onmouseup][2]//td[5]";
+    public String totalCollected_Customer_productionValue_beforePayment = "//tr[@onmouseup][2]//td[8]";
+    public String taxCollected_Customer_productionValue_beforePayment = "//tr[@onmouseup][2]//td[9]";
+    public String tax_Customer_productionValue_beforePayment = "//tr[@onmouseup][2]//td[10]";
+    public String customerID_lineItem_productionValue_beforePayment = "//tr[@onmouseup][2]//td[1]";
+    public String customerName_lineItem_productionValue_beforePayment = "//tr[@onmouseup][2]//td[2]";
+    public String production_lineItem_productionValue_beforePayment = "//tr[@onmouseup][2]//td[13]";
+
+    // Line Item Fields Production Value after payment
+    public String invoiceID_lineItem_productionValue_afterPayment = "//tr[@onmouseup][1]//td[3]";
+    public String invoiceDate_lineItem_productionValue_afterPayment = "//tr[@onmouseup][1]//td[4]";
+    public String paymentDate_lineItem_productionValue_afterPayment = "//tr[@onmouseup][1]//td[12]";
+    public String serviceType_lineItem_productionValue_afterPayment = "//tr[@onmouseup][1]//td[5]";
+    public String totalCollected_Customer_productionValue_afterPayment = "//tr[@onmouseup][1]//td[8]";
+    public String taxCollected_Customer_productionValue_afterPayment = "//tr[@onmouseup][1]//td[9]";
+    public String tax_Customer_productionValue_afterPayment = "//tr[@onmouseup][1]//td[10]";
+    public String customerID_lineItem_productionValue_afterPayment = "//tr[@onmouseup][1]//td[1]";
+    public String customerName_lineItem_productionValue_afterPayment = "//tr[@onmouseup][1]//td[2]";
+    public String production_lineItem_productionValue_afterPayment = "//tr[@onmouseup][1]//td[13]";
+
+    public Map<String, String> filterTypes_BST = new HashMap<>();
 
     public BillingByServiceTypeTab() {
     }
@@ -87,6 +111,7 @@ public class BillingByServiceTypeTab {
         filterTypes_BST.put("taxInvoiced_bbstReport", "//table[@id='revenueByServiceType']//div[text()='Tax Invoiced']");
         filterTypes_BST.put("paymentsCollected_bbstReport", "//table[@id='revenueByServiceType']//div[text()='Payments Collected']");
         filterTypes_BST.put("billedServices_bbstReport", "//table[@id='revenueByServiceType']//div[text()='Billed Services']");
+        filterTypes_BST.put("production_bbstReport", "//table[@id='revenueByServiceType']//div[text()='Production']");
 
         // bbst multi group report fields
         filterTypes_BST.put("description_bbstReport_MultiGroup", "//table[@id='revenueByServiceType']//th[text()='Description']");
@@ -140,7 +165,7 @@ public class BillingByServiceTypeTab {
     }
 
     //Author: Aditya
-    public void editCustomer_NoPaper_Commercial() throws InterruptedException, IOException {
+    public void editCustomer_NoPaper_Commercial() throws InterruptedException {
         createNewCustomer = new CreateNewCustomer();
         customerViewDialog_header = new CustomerViewDialog_Header();
         header = new Header();
@@ -245,7 +270,7 @@ public class BillingByServiceTypeTab {
     }
 
     //Author: Aditya
-    public void customerDetails(String customerName) throws Exception {
+    public void customerDetails(String customerName) {
         String customerName_detailed = "//tr[@onmouseup]//td[text()='" + customerName + "']";
         try {
             WebElement elm = FindElement.elementByAttribute(customerName_detailed, FindElement.InputType.XPath);

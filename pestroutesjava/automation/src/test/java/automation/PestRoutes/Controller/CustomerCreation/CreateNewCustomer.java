@@ -37,11 +37,11 @@ public class CreateNewCustomer extends AppData {
     public String lName = Utilities.generateRandomString(6);
     String expectedAlert = "Required: You must fill in the customer's last name or company name!";
 
-    public String streetAddress = Integer.toString(Utilities.generateRandomNumber(4)) + " " + Utilities.generateRandomString(5) + " " + Utilities.generateRandomString(5);
+    public String streetAddress = (Utilities.generateRandomNumber(4)) + " " + Utilities.generateRandomString(5) + " " + Utilities.generateRandomString(5);
     public String city = Utilities.generateRandomString(4);
     public String zipcode = "77008";
     public String email = Utilities.generateRandomString(5) + "." + Utilities.generateRandomString(5) + "" + "@gmail.com";
-    public String primaryPhoneNumber = "6" + Integer.toString(Utilities.generateRandomNumber(9));
+    public String primaryPhoneNumber = "6" + (Utilities.generateRandomNumber(9));
 
     public static String customerName = "";
 
@@ -89,7 +89,7 @@ public class CreateNewCustomer extends AppData {
         Utilities.acceptAlert();
         customer.setEmailAddress(email);
         customer.setCellPhone(primaryPhoneNumber);
-        customer.clickSmsCheckBox();
+        customer.enableSmsCheckBox();
         customer.clickEmailCheckBox();
         customer.clickVoiceCheckBox();
         customerDialog_Header.clickSaveButton();
@@ -113,7 +113,7 @@ public class CreateNewCustomer extends AppData {
         Utilities.acceptAlert();
         customer.setEmailAddress(email);
         customer.setCellPhone(primaryPhoneNumber);
-        customer.clickSmsCheckBox();
+        customer.enableSmsCheckBox();
         customer.clickEmailCheckBox();
         customer.clickVoiceCheckBox();
         customerDialog_Header.clickSaveButton();
@@ -137,7 +137,7 @@ public class CreateNewCustomer extends AppData {
         Utilities.acceptAlert();
         customer.setEmailAddress(email);
         customer.setCellPhone(primaryPhoneNumber);
-        customer.clickSmsCheckBox();
+        customer.enableSmsCheckBox();
         customer.clickEmailCheckBox();
         customer.clickVoiceCheckBox();
         customerDialog_Header.clickSaveButton();
@@ -167,7 +167,7 @@ public class CreateNewCustomer extends AppData {
         customerDialog_Header.clickSaveButton();
         customerDialog_Header.navigateTo(customerDialog_Header.infoTabInDialog);
         String actualTaxRate = customer.getTaxRate(customer.taxPercentageInputField);
-        result(taxRate, actualTaxRate, "Created customer name ", "Customer creation");
+        result(taxRate, actualTaxRate, "Tax Rate Validation", "Customer creation");
     }
 
     //**Author Aarbi**
@@ -321,7 +321,7 @@ public class CreateNewCustomer extends AppData {
         customer.selectSource(needSource);
         customer.selectGenericFlag(needFlagName);
         customer.setMapCode(getData("mapCode", generalData));
-        customer.clickSmsCheckBox();
+        customer.enableSmsCheckBox();
         customer.clickEmailCheckBox();
         customer.clickVoiceCheckBox();
         customerDialog_Header.clickSaveButton();
@@ -344,7 +344,7 @@ public class CreateNewCustomer extends AppData {
         customer.setZipCode("75098");
         //Utilities.acceptAlert();
         customer.setCellPhone(getData("phoneNumber", generalData));
-        customer.clickSmsCheckBox();
+        customer.enableSmsCheckBox();
         customer.clickEmailCheckBox();
         customer.clickVoiceCheckBox();
         customer.clickPrefersPaperCheckBox();
@@ -370,7 +370,7 @@ public class CreateNewCustomer extends AppData {
         customer.clickOverrideTaxCheckBox();
         customer.setEmailAddress(email);
         customer.setCellPhone(getData("phoneNumber", generalData));
-        customer.clickSmsCheckBox();
+        customer.enableSmsCheckBox();
         customer.clickEmailCheckBox();
         customer.clickVoiceCheckBox();
         customer.setMapCode(getData("mapCode", generalData));
@@ -383,7 +383,7 @@ public class CreateNewCustomer extends AppData {
     }
 
     @And("I search customer")
-    public void searchCustomer() throws Exception {
+    public void searchCustomer() {
         header = new Header();
         //header.searchCustomer_History(lName + ", " + fName);
         header.searchCustomerWithName(customerName);
@@ -405,7 +405,7 @@ public class CreateNewCustomer extends AppData {
         //Utilities.acceptAlert();
         //customer.setCity(city);
         customer.setCellPhone(getData("phoneNumber", generalData));
-        customer.clickSmsCheckBox();
+        customer.enableSmsCheckBox();
         customer.clickEmailCheckBox();
         customer.clickVoiceCheckBox();
         customerDialog_Header.clickSaveButton();
@@ -450,7 +450,7 @@ public class CreateNewCustomer extends AppData {
         customer.setLastName(lName);
         customer.selectUnit("Multi Unit");
         customer.setCellPhone(getData("phoneNumber", generalData));
-        customer.clickSmsCheckBox();
+        customer.enableSmsCheckBox();
         customerDialog_Header.clickSaveButton();
         alertCondition();
         customerName = getCustomerFullName();
@@ -477,15 +477,16 @@ public class CreateNewCustomer extends AppData {
         customer.setZipCode(zipcode);
         Utilities.acceptAlert();
         customer.setCellPhone(getData("phoneNumber", generalData));
-        customer.clickSmsCheckBox();
+        customer.enableSmsCheckBox();
         customer.clickEmailCheckBox();
         customer.clickVoiceCheckBox();
-        customer.selectUnit("Structures");
         customerDialog_Header.clickSaveButton();
         alertCondition();
         customerDialog_Header.saveAnyways();
         Utilities.waitUntileElementIsVisible(overview.overviewTab_Address);
         customerDialog_Header.navigateTo(customerDialog_Header.infoTabInDialog);
+        customer.selectUnit("Structures");
+        customerDialog_Header.clickSaveButton();
         String customerNameInHeader = customerViewDialog_infoTab.getFirstName();
         customerName = getCustomerFullName();
         result(fName, customerNameInHeader, "Created customer ", "Structure Validation");
@@ -548,7 +549,6 @@ public class CreateNewCustomer extends AppData {
                 break;
             } catch (NoAlertPresentException e) {
                 Thread.sleep(500);
-                continue;
             }
         }
     }
@@ -592,8 +592,7 @@ public class CreateNewCustomer extends AppData {
     //Author FK
     public void searchCustomer_SearchField(String needSearchField) {
         createNewCustomer = new CreateNewCustomer();
-        header = new Header();
-        String convertedCustomerName = header.convertName(customerName);
+        String convertedCustomerName = Header.convertName(customerName);
         Utilities.clickElement(needSearchField, ElementType.XPath);
         FindElement.elementByAttribute(needSearchField, FindElement.InputType.XPath).sendKeys(convertedCustomerName);
     }

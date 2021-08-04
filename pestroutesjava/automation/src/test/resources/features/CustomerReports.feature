@@ -3,6 +3,10 @@
 @RegressionADI_CR
 Feature: Customer reports end to end validation
 
+  @EnableDefaultSMSinCustomerPreferences
+  Scenario: Enable default SMS in customer preferences
+    Given I enable SMS checkbox if not already enabled
+
   @FieldsValidation_CustomerReports
   Scenario: Fields validation CR
     Given I navigate to "Customer Reports" in Customers tab

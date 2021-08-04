@@ -130,7 +130,7 @@ Feature: Payments by service Type report end to end validation
     And I validate the fields are displayed in individual line items in Payment by Service Type
     And I validate if there are errors exist in the list
 
-  @PSTStatusPaymentStatusCCAutoPay
+  @PSTPaymentStatusCCAutoPay
   Scenario: AutoPay validation for CC in PST with Successful payment status
     When I create customer with balance with prefers paper and residential property type
     And I get customer name and customer ID details for Payments by service type report
