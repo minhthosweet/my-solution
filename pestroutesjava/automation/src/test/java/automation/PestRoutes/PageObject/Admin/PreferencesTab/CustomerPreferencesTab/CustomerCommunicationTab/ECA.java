@@ -9,7 +9,7 @@ import io.cucumber.java.en.Given;
 import org.apache.commons.lang3.SystemUtils;
 import org.openqa.selenium.WebElement;
 
-public class CustomerCommunicationTab {
+public class ECA {
 
     Header header;
     AdminMainPage admin;
@@ -17,14 +17,10 @@ public class CustomerCommunicationTab {
 
     public String editECAButton = "//div[contains(text(),'Require Electronic Consent Agreement')]/preceding-sibling::div[text()='edit']";
     public String serviceFollowUpEmail = "//span[text()='Service Follow-up Email:']";
-    public String clickSaveECA = "//div[@id='requireElectronicConsent' and text()='save' and @style='display: block;']";
+    public String clickSave = "//div[@id='requireElectronicConsent' and text()='save' and @style='display: block;']";
     public String checkBox = "//input[@type='checkbox' and @name='requireElectronicConsent']";
     public String uncheckedECA = "//input[@name='requireElectronicConsent' and @value='1' and not((@checked))]";
     public String checkedECA = "//input[@name='requireElectronicConsent' and @checked]";
-    public String checkedDefaultSMSValue = "//select[@name='defaultSMS' and @value ='1']";
-    public String editCustomerPreferences = "//form[@id='customerPreferences']//div[text()='edit']";
-    public String enableDefaultSMSDropDown = "//select[@name='defaultSMS']";
-    public String clickSaveCustomerPreferences = "//form[@id='customerPreferences']//div[text()='save']";
 
     @Given("I have disabled ECA")
     public void disablingECA() throws InterruptedException {
@@ -53,12 +49,11 @@ public class CustomerCommunicationTab {
         try {
             WebElement elm = FindElement.elementByAttribute(uncheckedECA, FindElement.InputType.XPath);
             if (elm.isDisplayed()) {
-                System.out.println("ECA is disabled");
             }
         } catch (Exception e) {
             Utilities.clickElement(checkBox, Utilities.ElementType.XPath);
         }
-        clickECASaveButton();
+        clickSave();
     }
 
     public void enableECA() {
@@ -71,40 +66,15 @@ public class CustomerCommunicationTab {
         } catch (Exception e) {
             Utilities.clickElement(checkBox, Utilities.ElementType.XPath);
         }
-        clickECASaveButton();
+        clickSave();
     }
 
-    public void clickECASaveButton() {
+    public void clickSave() {
         if (SystemUtils.IS_OS_LINUX) {
             Utilities.acceptAlertLinux();
         }
         Utilities.scrollToElement(serviceFollowUpEmail);
-        Utilities.waitUntileElementIsVisible(clickSaveECA);
-        Utilities.clickElement(clickSaveECA, Utilities.ElementType.XPath);
-    }
-
-    public void saveCustomerPreferences() {
-        if (SystemUtils.IS_OS_LINUX) {
-            Utilities.acceptAlertLinux();
-        }
-        Utilities.waitUntileElementIsVisible(clickSaveCustomerPreferences);
-        Utilities.clickElement(clickSaveCustomerPreferences, Utilities.ElementType.XPath);
-    }
-
-    public void clickEditCustomerPreferences(){
-        Utilities.waitUntileElementIsVisible(editCustomerPreferences);
-        Utilities.jsClickElement(editCustomerPreferences, Utilities.ElementType.XPath);
-    }
-
-    public void enableDefaultSMS(){
-        try {
-            WebElement elm = FindElement.elementByAttribute(checkedDefaultSMSValue, FindElement.InputType.XPath);
-            if (elm.isDisplayed()) {
-                System.out.println("Default SMS CheckBox is Enabled");
-            }
-        } catch (Exception e) {
-            Utilities.selectValueFromDropDownByValue(enableDefaultSMSDropDown, "Yes");
-        }
-        saveCustomerPreferences();
+        Utilities.waitUntileElementIsVisible(clickSave);
+        Utilities.clickElement(clickSave, Utilities.ElementType.XPath);
     }
 }
