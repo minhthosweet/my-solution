@@ -104,15 +104,14 @@ public class CreateCustomerDialog {
         Utilities.selectValueFromDropDownByValue(divisionDropDown, needDivision);
     }
 
-    // Enable SMS Check boxes
-    public void enableSmsCheckBox() {
+    // Click or Unclick Check boxes
+    public void clickSmsCheckBox() {
         try {
             WebElement elm = FindElement.elementByAttribute("//input[@name= 'smsReminders' and @checked]", InputType.XPath);
-            if (elm.isDisplayed()) {
-                System.out.print("SMS check box selected");
+            if (!elm.isDisplayed()) {
+                Utilities.clickElement(smsCheckBox, ElementType.XPath);
             }
         } catch (Exception e) {
-            Utilities.clickElement(smsCheckBox, ElementType.XPath);
         }
     }
 
@@ -120,7 +119,6 @@ public class CreateCustomerDialog {
         try {
             WebElement elm = FindElement.elementByAttribute(emailSelectedCheckBox, InputType.XPath);
             if (elm.isDisplayed()) {
-                System.out.println("Email check box is checked");
             }
         } catch (Exception e) {
             Utilities.clickElement(emailCheckBox, ElementType.XPath);
@@ -131,7 +129,6 @@ public class CreateCustomerDialog {
         try {
             WebElement elm = FindElement.elementByAttribute(voiceSelectedCheckBox, InputType.XPath);
             if (elm.isDisplayed()) {
-                System.out.println("Voice check box is checked");
             }
         } catch (Exception e) {
             Utilities.clickElement(voiceCheckBox, ElementType.XPath);

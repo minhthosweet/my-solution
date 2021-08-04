@@ -128,7 +128,7 @@ public class BillingByServiceType extends AppData {
 
     //Author: Aditya
     @And("I validate if the billing by service type report is linked to the customer card")
-    public void validateLink_customerCard_BST() {
+    public void validateLink_customerCard_BST() throws Exception {
         billingByServiceTypeTab.clickDescription_reportDetails(customerName_BST);
         billingByServiceTypeTab.customerDetails(customerName_BST);
     }
@@ -144,7 +144,7 @@ public class BillingByServiceType extends AppData {
         header.searchCustomerWithName(customerName_BST);
         customerID_BST = customerViewDialog_overviewTab.getCustomerIDFromHeader();
         customerCardHeader.navigateTo(customerCardHeader.invoicesTabInDialog);
-        if (CucumberBaseClass.scenarioName().equals("Credit memo validation is BST") || CucumberBaseClass.scenarioName().equals("Validate production value after credit memo payments")) {
+        if (CucumberBaseClass.scenarioName().equals("Credit memo validation is BST")) {
             billingByServiceTypeTab.click(creditMemoTab.getTicketID());
             creditMemoTab.clickAppliedCharge_invoiceApplications();
         } else {
@@ -154,33 +154,22 @@ public class BillingByServiceType extends AppData {
         taxValue = invImplementation.getTaxValue();
         totalCollected = billingByServiceTypeTab.get(invImplementation.paymentsInPayments);
 
-        switch (CucumberBaseClass.scenarioName()) {
-            case "Credit memo validation is BST":
-                result("$-" + totalCollected.substring(1), billingByServiceTypeTab.get(billingByServiceTypeTab.totalCollected_Report), "Total Collected in the report", "BBST Report Validation");
-                result(billingByServiceTypeTab.get(billingByServiceTypeTab.billedServices_Report), "-" + (subTotalValue.substring(1)), "Sub Total Value Validation in report",
-                        "BBST Report Validation");
-                result(billingByServiceTypeTab.get(billingByServiceTypeTab.tax_Report), "$0.00", "Tax Value Validation in report",
-                        "BBST Report Validation");
-                break;
-            case "Validate production value after credit memo payments":
-                result("$0.00", billingByServiceTypeTab.get(billingByServiceTypeTab.totalCollected_Report), "Total Collected in the report", "BBST Report Validation");
-                result(billingByServiceTypeTab.get(billingByServiceTypeTab.billedServices_Report), (subTotalValue.substring(1)), "Sub Total Value Validation in report",
-                        "BBST Report Validation");
-                result(billingByServiceTypeTab.get(billingByServiceTypeTab.tax_Report), taxValue, "Tax Value Validation in report",
-                        "BBST Report Validation");
-                break;
-            case "Multi Group By filter validation in BST":
-                result(totalCollected, billingByServiceTypeTab.getBilledServices_MultiGroupReport(customerID_BST), "Total Collected in the report", "BBST Report Validation");
-                result(billingByServiceTypeTab.getTaxRate_MultiGroupReport(customerID_BST), taxValue, "Tax Value Validation in report",
-                        "BBST Report Validation");
-                break;
-            default:
-                result(totalCollected, billingByServiceTypeTab.get(billingByServiceTypeTab.totalCollected_Report), "Total Collected in the report", "BBST Report Validation");
-                result("$" + billingByServiceTypeTab.get(billingByServiceTypeTab.billedServices_Report), subTotalValue, "Sub Total Value Validation in report",
-                        "BBST Report Validation");
-                result(billingByServiceTypeTab.get(billingByServiceTypeTab.tax_Report), taxValue, "Tax Value Validation in report",
-                        "BBST Report Validation");
-                break;
+        if (CucumberBaseClass.scenarioName().equals("Credit memo validation is BST")) {
+            result("$-" + totalCollected.substring(1), billingByServiceTypeTab.get(billingByServiceTypeTab.totalCollected_Report), "Total Collected in the report", "BBST Report Validation");
+            result(billingByServiceTypeTab.get(billingByServiceTypeTab.billedServices_Report), "-" + (subTotalValue.substring(1)), "Sub Total Value Validation in report",
+                    "BBST Report Validation");
+            result(billingByServiceTypeTab.get(billingByServiceTypeTab.tax_Report), "$0.00", "Tax Value Validation in report",
+                    "BBST Report Validation");
+        } else if (CucumberBaseClass.scenarioName().equals("Multi Group By filter validation in BST")) {
+            result(totalCollected, billingByServiceTypeTab.getBilledServices_MultiGroupReport(customerID_BST), "Total Collected in the report", "BBST Report Validation");
+            result(billingByServiceTypeTab.getTaxRate_MultiGroupReport(customerID_BST), taxValue, "Tax Value Validation in report",
+                    "BBST Report Validation");
+        } else {
+            result(totalCollected, billingByServiceTypeTab.get(billingByServiceTypeTab.totalCollected_Report), "Total Collected in the report", "BBST Report Validation");
+            result("$" + billingByServiceTypeTab.get(billingByServiceTypeTab.billedServices_Report), subTotalValue, "Sub Total Value Validation in report",
+                    "BBST Report Validation");
+            result(billingByServiceTypeTab.get(billingByServiceTypeTab.tax_Report), taxValue, "Tax Value Validation in report",
+                    "BBST Report Validation");
         }
     }
 
@@ -199,7 +188,7 @@ public class BillingByServiceType extends AppData {
             String expectedDateOfInvoice = dateOfInvoice.replaceAll("/", "-");
             String actualDateOfInvoice = billingByServiceTypeTab.get(billingByServiceTypeTab.invoiceDate_lineItem);
             if (actualDateOfInvoice.charAt(0) == '0') {
-                actualDateOfInvoice = actualDateOfInvoice.substring(1);
+                actualDateOfInvoice = actualDateOfInvoice.substring(1, actualDateOfInvoice.length());
             }
             result(expectedDateOfInvoice, actualDateOfInvoice, "Invoice Date Validation", "BBST Report Validation");
         } else {
@@ -214,38 +203,6 @@ public class BillingByServiceType extends AppData {
         result(getData("serviceDescription", generalData), billingByServiceTypeTab.get(billingByServiceTypeTab.serviceType_lineItem), "Service Type in detail report validation", "BBST Report Validation");
         result(customerID_BST, billingByServiceTypeTab.get(billingByServiceTypeTab.customerID_lineItem), "Customer ID Validation", "BBST Report Validation");
         result(customerName_BST, billingByServiceTypeTab.get(billingByServiceTypeTab.customerName_lineItem), "Customer Name Validation", "BBST Report Validation");
-    }
-
-    //Author: Aditya
-    @And("I validate line item data in Billing by service type report for production report before payment")
-    public void validateLineItemValues_BillingReport_productionValue_prePayment() throws IOException {
-        result(Utilities.currentDate("MM-dd-yyyy"), billingByServiceTypeTab.get(billingByServiceTypeTab.paymentDate_lineItem_productionValue_beforePayment), "Pre Payment Date Validation in Detail Report", "BBST Report Validation");
-        result(Utilities.currentDate("MM-dd-YYYY"), billingByServiceTypeTab.get(billingByServiceTypeTab.invoiceDate_lineItem_productionValue_beforePayment), "Pre Invoice Date Validation", "BBST Report Validation");
-        result("$" + totalCollected.substring(1), billingByServiceTypeTab.get(billingByServiceTypeTab.totalCollected_Customer_productionValue_beforePayment), "Pre Total Collected in the detail report", "BBST Report Validation");
-        result(taxValue, billingByServiceTypeTab.get(billingByServiceTypeTab.taxCollected_Customer_productionValue_beforePayment), "Pre Total Collected in the detail report", "BBST Report Validation");
-        result("$" + subTotalValue.substring(1), billingByServiceTypeTab.get(billingByServiceTypeTab.production_lineItem_productionValue_beforePayment), "Pre Sub Total Value Validation in detailed report",
-                "BBST Report Validation");
-        result(taxValue, billingByServiceTypeTab.get(billingByServiceTypeTab.tax_Customer_productionValue_beforePayment), "Pre Tax Value Validation in detailed report",
-                "BBST Report Validation");
-        result(getData("serviceDescription", generalData), billingByServiceTypeTab.get(billingByServiceTypeTab.serviceType_lineItem_productionValue_beforePayment), "Pre Service Type in detail report validation", "BBST Report Validation");
-        result(customerID_BST, billingByServiceTypeTab.get(billingByServiceTypeTab.customerID_lineItem_productionValue_beforePayment), "Customer ID Validation", "Pre BBST Report Validation");
-        result(customerName_BST, billingByServiceTypeTab.get(billingByServiceTypeTab.customerName_lineItem_productionValue_beforePayment), "Customer Name Validation", "Pre BBST Report Validation");
-    }
-
-    //Author: Aditya
-    @And("I validate line item data in Billing by service type report for production report after payment")
-    public void validateLineItemValues_BillingReport_productionValue_postPayment() throws IOException {
-        result(Utilities.currentDate("MM-dd-yyyy"), billingByServiceTypeTab.get(billingByServiceTypeTab.paymentDate_lineItem_productionValue_afterPayment), "Post Payment Date Validation in Detail Report", "BBST Report Validation");
-        result(Utilities.currentDate("MM-dd-YYYY"), billingByServiceTypeTab.get(billingByServiceTypeTab.invoiceDate_lineItem_productionValue_afterPayment), "Post Invoice Date Validation", "BBST Report Validation");
-        result("$-" + totalCollected.substring(1), billingByServiceTypeTab.get(billingByServiceTypeTab.totalCollected_Customer_productionValue_afterPayment), "Post Total Collected in the detail report", "BBST Report Validation");
-        result("$0.00", billingByServiceTypeTab.get(billingByServiceTypeTab.taxCollected_Customer_productionValue_afterPayment), "Post Total Collected in the detail report", "BBST Report Validation");
-        result("$0.00", billingByServiceTypeTab.get(billingByServiceTypeTab.production_lineItem_productionValue_afterPayment), "Post Sub Total Value Validation in detailed report",
-                "BBST Report Validation");
-        result("$0.00", billingByServiceTypeTab.get(billingByServiceTypeTab.tax_Customer_productionValue_afterPayment), "Post Tax Value Validation in detailed report",
-                "BBST Report Validation");
-        result(getData("serviceDescription", generalData), billingByServiceTypeTab.get(billingByServiceTypeTab.serviceType_lineItem_productionValue_afterPayment), "Post Service Type in detail report validation", "BBST Report Validation");
-        result(customerID_BST, billingByServiceTypeTab.get(billingByServiceTypeTab.customerID_lineItem_productionValue_afterPayment), "Post Customer ID Validation", "BBST Report Validation");
-        result(customerName_BST, billingByServiceTypeTab.get(billingByServiceTypeTab.customerName_lineItem_productionValue_afterPayment), "Post Customer Name Validation", "BBST Report Validation");
     }
 
     //Author: Aditya
@@ -268,26 +225,16 @@ public class BillingByServiceType extends AppData {
     @And("I validate the fields generated by billing by service type report")
     public void validateFields_BillingServiceReport() {
         String[] fields;
-        if (CucumberBaseClass.scenarioName().equals("Validate production value after credit memo payments")) {
-            fields = new String[]{billingByServiceTypeTab.filterTypes_BST("description_bbstReport"),
-                    billingByServiceTypeTab.filterTypes_BST("services_bbstReport"),
-                    billingByServiceTypeTab.filterTypes_BST("lineItemQuantity_bbstReport"),
-                    billingByServiceTypeTab.filterTypes_BST("totalCollected_bbstReport"),
-                    billingByServiceTypeTab.filterTypes_BST("taxCollected_bbstReport"),
-                    billingByServiceTypeTab.filterTypes_BST("taxInvoiced_bbstReport"),
-                    billingByServiceTypeTab.filterTypes_BST("paymentsCollected_bbstReport"),
-                    billingByServiceTypeTab.filterTypes_BST("production_bbstReport")};
-        } else {
-            fields = new String[]{billingByServiceTypeTab.filterTypes_BST("description_bbstReport"),
-                    billingByServiceTypeTab.filterTypes_BST("services_bbstReport"),
-                    billingByServiceTypeTab.filterTypes_BST("lineItemQuantity_bbstReport"),
-                    billingByServiceTypeTab.filterTypes_BST("totalCollected_bbstReport"),
-                    billingByServiceTypeTab.filterTypes_BST("taxCollected_bbstReport"),
-                    billingByServiceTypeTab.filterTypes_BST("taxInvoiced_bbstReport"),
-                    billingByServiceTypeTab.filterTypes_BST("paymentsCollected_bbstReport"),
-                    billingByServiceTypeTab.filterTypes_BST("billedServices_bbstReport")};
 
-        }
+        fields = new String[]{billingByServiceTypeTab.filterTypes_BST("description_bbstReport"),
+                billingByServiceTypeTab.filterTypes_BST("services_bbstReport"),
+                billingByServiceTypeTab.filterTypes_BST("lineItemQuantity_bbstReport"),
+                billingByServiceTypeTab.filterTypes_BST("totalCollected_bbstReport"),
+                billingByServiceTypeTab.filterTypes_BST("taxCollected_bbstReport"),
+                billingByServiceTypeTab.filterTypes_BST("taxInvoiced_bbstReport"),
+                billingByServiceTypeTab.filterTypes_BST("paymentsCollected_bbstReport"),
+                billingByServiceTypeTab.filterTypes_BST("billedServices_bbstReport")};
+
         AssertException.validateFieldEnabled(fields);
     }
 
@@ -320,7 +267,7 @@ public class BillingByServiceType extends AppData {
                     billingByServiceTypeTab.exportDetailsToCSV_button};
             AssertException.validateFieldEnabled(fields);
         } catch (StaleElementReferenceException e) {
-            System.out.println("Element not found " + e);
+            System.out.println(e);
         } finally {
             if (!CucumberBaseClass.scenarioName().equals("Multi Group By filter validation in BBST")) {
                 header.clickAccessHistory();
@@ -381,7 +328,7 @@ public class BillingByServiceType extends AppData {
 
     //Author: Aditya
     @When("I edit customer to commercial property and not require paper")
-    public void editCustomer_notRequirePaper_CommercialProperty() throws InterruptedException {
+    public void editCustomer_notRequirePaper_CommercialProperty() throws IOException, InterruptedException {
         billingByServiceTypeTab.editCustomer_NoPaper_Commercial();
     }
 
@@ -472,17 +419,6 @@ public class BillingByServiceType extends AppData {
     }
 
     //Author: Aditya
-    @And("I search credit memo customer of revenue type {string} on {string}")
-    public void searchCreditMemoProductionValue_BST(String revenueType, String needReportType) {
-        officeObjects.navigateToReportType(needReportType);
-        billingByServiceTypeTab.setGroupFilter(billingByServiceTypeTab.groupBy, "Customer Name");
-        billingByServiceTypeTab.clickAdvancedFilters();
-        billingByServiceTypeTab.set(billingByServiceTypeTab.productionValue, revenueType);
-        billingByServiceTypeTab.click(billingByServiceTypeTab.refresh_bbst);
-        billingByServiceTypeTab.searchNewCustomer(billingByServiceTypeTab.search_bbst, customerName_BST);
-    }
-
-    //Author: Aditya
     @And("I search customer on the {string} with AutoPay as {string} and Payment Status as {string}")
     public void searchSuccessfulPaymentAutoPay_BST(String needReportType, String needAutoPayType, String needPaymentStatus) {
         officeObjects.navigateToReportType(needReportType);
@@ -497,7 +433,7 @@ public class BillingByServiceType extends AppData {
 
     //Author: Aditya
     @And("I search customer on the {string} with AutoPay as {string}")
-    public void searchCustomerAutoPay_BST(String needReportType, String needAutoPayType) {
+    public void searchCustomerAutoPay_BST(String needReportType, String needAutoPayType) throws Exception {
         officeObjects.navigateToReportType(needReportType);
         billingByServiceTypeTab.setGroupFilter(billingByServiceTypeTab.groupBy, "Customer Name");
         billingByServiceTypeTab.clickAdvancedFilters();
@@ -553,7 +489,7 @@ public class BillingByServiceType extends AppData {
 
     //Author: Aditya
     @Then("I search customer in billing frequency line item")
-    public void searchCustomerBillingFrequencyLineItem() {
+    public void searchCustomerBillingFrequencyLineItem() throws Exception {
         billingByServiceTypeTab.click("//tr//td[text()='" + customerID_BST + "']");
         billingByServiceTypeTab.searchNewCustomer(billingByServiceTypeTab.search_lineItem, customerID_BST);
     }
