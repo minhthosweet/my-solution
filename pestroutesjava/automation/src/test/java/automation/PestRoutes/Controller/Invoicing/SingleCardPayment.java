@@ -40,6 +40,7 @@ public class SingleCardPayment {
         invoiceHeader.navigate(invoiceHeader.creditCard);
         Utilities.waitUntileElementIsVisible(payment.paymentAmountField);
         String confirmAmount = Utilities.getAttributeValue(payment.paymentAmountField, "value");
+        Utilities.clickElement(payment.confirmAmountField, Utilities.ElementType.XPath);
         FindElement.elementByAttribute(payment.confirmAmountField, FindElement.InputType.XPath).sendKeys(confirmAmount);
 
         if (gateWay.contains("Braintree")){

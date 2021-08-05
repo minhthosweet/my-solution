@@ -132,6 +132,7 @@ public class InvoiceImplementation {
         FindElement.elementByAttribute(paymentAmountField, InputType.XPath).clear();
         FindElement.elementByAttribute(paymentAmountField, InputType.XPath).sendKeys(pAmount);
         Utilities.waitUntileElementIsVisible(confirmPymtAmtField);
+        Utilities.clickElement(confirmPymtAmtField, ElementType.XPath);
         FindElement.elementByAttribute(confirmPymtAmtField, InputType.XPath).sendKeys(cAmount);
         Utilities.waitUntileElementIsVisible(custPaymentNotes);
         FindElement.elementByAttribute(custPaymentNotes, InputType.XPath).sendKeys("This is just a test");
@@ -160,8 +161,8 @@ public class InvoiceImplementation {
     }
 
     public void doubleClickRenewalDateCheckBox() throws InterruptedException {
-        Utilities.clickElement(renewalDateCheckbox, ElementType.XPath);
-        Thread.sleep(100);
+//        Utilities.clickElement(renewalDateCheckbox, ElementType.XPath);
+//        Thread.sleep(100);
         Utilities.clickElement(renewalDateCheckbox, ElementType.XPath);
     }
 

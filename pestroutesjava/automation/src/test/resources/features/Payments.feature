@@ -1,8 +1,8 @@
 #Author: Aarbi
 @RegressionARB
-@PaymentGatewayValidationsCC
+@payment
 Feature: Validate all types of payments
-
+  @CardOnFilePaymentValidation
   Scenario Outline: Card On FIle Payment Validation
     Given I add a renewal service
     When I navigate to merchant Info
