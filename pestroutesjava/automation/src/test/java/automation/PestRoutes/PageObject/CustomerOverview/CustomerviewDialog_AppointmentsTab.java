@@ -164,6 +164,7 @@ public class CustomerviewDialog_AppointmentsTab {
                 Utilities.clickElement(closeSchedulingNotice, ElementType.XPath);
             }
         } catch (Exception e) {
+            System.out.println("Scheduling notice button not available");
         }
     }
 
@@ -253,8 +254,14 @@ public class CustomerviewDialog_AppointmentsTab {
         return Utilities.getElementTextValue(technicianOnAppointment, ElementType.XPath);
     }
 
-    public String getAppointmentID(){
+    public String getAppointmentID() {
         Utilities.waitUntileElementIsVisible("//div[@id='appointmentContainor']//h3");
-        return Utilities.getAttributeValue("//div[@id='appointmentContainor']//h3","data-appointmentid");
+        return Utilities.getAttributeValue("//div[@id='appointmentContainor']//h3", "data-appointmentid");
+    }
+
+    public void changeAppointmentTech(String needTechnicianName) {
+        Utilities.waitUntileElementIsVisible("//select[@name='changeAppointmentTech']");
+        Utilities.clickElement("//select[@name='changeAppointmentTech']", ElementType.XPath);
+        Utilities.clickElement("//select[@name='changeAppointmentTech']//option[text()='"+needTechnicianName+"']", ElementType.XPath);
     }
 }

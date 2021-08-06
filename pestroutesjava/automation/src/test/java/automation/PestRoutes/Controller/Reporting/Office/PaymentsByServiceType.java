@@ -8,6 +8,7 @@ import automation.PestRoutes.PageObject.CreateCustomer.CreateCustomerDialog;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_Admin;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_Header;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_OverviewTab;
+import automation.PestRoutes.PageObject.CustomerOverview.CustomerviewDialog_AppointmentsTab;
 import automation.PestRoutes.PageObject.CustomerOverview.Invoicing.CreditMemoTab;
 import automation.PestRoutes.PageObject.CustomerOverview.Invoicing.InvoiceImplementation;
 import automation.PestRoutes.PageObject.Header;
@@ -16,6 +17,7 @@ import automation.PestRoutes.PageObject.ReportingPage.OfficePage.PaymentsByServi
 import automation.PestRoutes.Utilities.*;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.testng.annotations.Test;
 
@@ -35,6 +37,7 @@ public class PaymentsByServiceType extends AppData {
     CreditMemoTab creditMemoTab;
     CustomerViewDialog_OverviewTab customerViewDialog_overviewTab;
     CreateCustomerDialog createCustomerDialog;
+    CustomerviewDialog_AppointmentsTab customerviewDialog_appointmentsTab;
 
     private String subTotalValue = "";
     private String taxValue = "";
@@ -246,7 +249,7 @@ public class PaymentsByServiceType extends AppData {
                     billingByServiceTypeTab.exportDetailsToCSV_button};
             AssertException.validateFieldEnabled(fields);
         } catch (StaleElementReferenceException e) {
-            System.out.println(e);
+            System.out.println("Fields not visible");
         } finally {
             if (!CucumberBaseClass.scenarioName().equals("Multi Group By filter validation in PST")) {
                 header.clickAccessHistory();
@@ -300,7 +303,7 @@ public class PaymentsByServiceType extends AppData {
             billingByServiceTypeTab.setGroupFilter(billingByServiceTypeTab.groupBy, "Customer Name");
             billingByServiceTypeTab.clickAdvancedFilters();
             billingByServiceTypeTab.setType("invoice_bbst", "Stand-Alone Invoices");
-            String setAmount = Integer.toString(Integer.valueOf(amount) / 10);
+            String setAmount = Integer.toString(Integer.parseInt(amount) / 10);
             billingByServiceTypeTab.setBalance_bbst(setAmount);
             billingByServiceTypeTab.set(billingByServiceTypeTab.balanceAge_bbst, balanceAge[i]);
             int monthPastDue = currentMonth - monthOfInv;
@@ -373,4 +376,32 @@ public class PaymentsByServiceType extends AppData {
                 "PST Report Validation");
     }
 
+    //Author: Aditya
+    @And("I add the technician on the appointment")
+    public void addTechnicianToAppointment() throws IOException {
+        customerviewDialog_appointmentsTab = new CustomerviewDialog_AppointmentsTab();
+        String userFirstName = getData("userFirstName", generalData);
+        String userLastName = getData("userLastName", generalData);
+        customerviewDialog_appointmentsTab.changeAppointmentTech(userFirstName + " "+ userLastName);
+    }
+
+    //Author: Aditya
+    @Then("I search customer in payment frequency line item")
+    public void searchCustomerPaymentFrequencyLineItem() throws InterruptedException {
+        billingByServiceTypeTab.click("//tr//td[text()='" + customerID_PST + "']");
+        billingByServiceTypeTab.searchNewCustomer(billingByServiceTypeTab.search_lineItem, customerID_PST);
+        FindElement.elementByAttribute(billingByServiceTypeTab.search_lineItem, FindElement.InputType.XPath).sendKeys(Keys.ENTER);
+        Thread.sleep(500);
+    }
+
+    //Author: Aditya
+    @And("I search and click on the technician assigned to the appointment in PST")
+    public void searchTechnician() throws IOException {
+        createCustomerDialog = new CreateCustomerDialog();
+        billingByServiceTypeTab.click(billingByServiceTypeTab.refresh_bbst);
+        String userFirstName = getData("userFirstName", generalData);
+        String userLastName = getData("userLastName", generalData);
+        billingByServiceTypeTab.searchNewCustomer(billingByServiceTypeTab.search_bbst, userFirstName + " "+ userLastName);
+        billingByServiceTypeTab.clickDescription_reportDetails(userLastName + ", " + userFirstName);
+    }
 }
