@@ -194,7 +194,7 @@ Feature: Payments by service Type report end to end validation
     And I add a CC payment option "4111111111111111" and "5412750109056250"
     Then I make payment with credit card on file
     Then I set technician as group by in "Payments by Service Type"
-    Then I click "No Tech" assigned to the invoice
+    Then I click technician "No Tech" assigned to the invoice
     And I search customer in payment frequency line item
     And I validate the fields are displayed in individual line items in Payment by Service Type
 

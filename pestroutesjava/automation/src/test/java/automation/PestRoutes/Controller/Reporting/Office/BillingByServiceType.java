@@ -518,7 +518,7 @@ public class BillingByServiceType extends AppData {
     }
 
     //Author: Aditya
-    @Then("I click {string} assigned to the invoice")
+    @Then("I click technician {string} assigned to the invoice")
     public void clickTechAssigned(String technicianName) {
         billingByServiceTypeTab.clickDescription_reportDetails(technicianName);
     }
