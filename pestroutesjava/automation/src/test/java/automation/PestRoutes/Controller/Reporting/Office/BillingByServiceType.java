@@ -20,6 +20,7 @@ import java.util.Locale;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebElement;
 import org.testng.annotations.Test;
@@ -27,7 +28,7 @@ import org.testng.annotations.Test;
 import static automation.PestRoutes.Utilities.AssertException.result;
 
 public class BillingByServiceType extends AppData {
-    CreateCustomerDialog createCustomerDIalog;
+    CreateCustomerDialog createCustomerDialog;
     InvoiceImplementation invImplementation;
     BillingByServiceTypeTab billingByServiceTypeTab = new BillingByServiceTypeTab();
     CustomerViewDialog_Header customerCardHeader;
@@ -65,7 +66,7 @@ public class BillingByServiceType extends AppData {
     //Author: Aditya
     @And("I search for the billing customer")
     public void searchCustomer() {
-        createCustomerDIalog = new CreateCustomerDialog();
+        createCustomerDialog = new CreateCustomerDialog();
         billingByServiceTypeTab.click(billingByServiceTypeTab.refresh_bbst);
         billingByServiceTypeTab.searchNewCustomer(billingByServiceTypeTab.search_bbst, customerName_BST);
     }
@@ -188,7 +189,7 @@ public class BillingByServiceType extends AppData {
             String expectedDateOfInvoice = dateOfInvoice.replaceAll("/", "-");
             String actualDateOfInvoice = billingByServiceTypeTab.get(billingByServiceTypeTab.invoiceDate_lineItem);
             if (actualDateOfInvoice.charAt(0) == '0') {
-                actualDateOfInvoice = actualDateOfInvoice.substring(1, actualDateOfInvoice.length());
+                actualDateOfInvoice = actualDateOfInvoice.substring(1);
             }
             result(expectedDateOfInvoice, actualDateOfInvoice, "Invoice Date Validation", "BBST Report Validation");
         } else {
@@ -267,7 +268,7 @@ public class BillingByServiceType extends AppData {
                     billingByServiceTypeTab.exportDetailsToCSV_button};
             AssertException.validateFieldEnabled(fields);
         } catch (StaleElementReferenceException e) {
-            System.out.println(e);
+            System.out.println("Fields not visible");
         } finally {
             if (!CucumberBaseClass.scenarioName().equals("Multi Group By filter validation in BBST")) {
                 header.clickAccessHistory();
@@ -395,7 +396,7 @@ public class BillingByServiceType extends AppData {
 
     //Author: Aditya
     @And("I set filter for sold date, scheduler, sale teams, sales reps and service invoice in {string}")
-    public void validate_soldDate_Scheduler_SaleTeams_SalesReps(String needReportType) {
+    public void set_soldDate_Scheduler_SaleTeams_SalesReps(String needReportType) {
         officeObjects.navigateToReportType(needReportType);
         billingByServiceTypeTab.setGroupFilter(billingByServiceTypeTab.groupBy, "Customer Name");
         billingByServiceTypeTab.clickAdvancedFilters();
@@ -404,6 +405,14 @@ public class BillingByServiceType extends AppData {
         billingByServiceTypeTab.setType("soldByTeam_bbst", "All Office Staff");
         billingByServiceTypeTab.setType("invoice_bbst", "Service Invoices");
         billingByServiceTypeTab.setSalesRep("soldbySalesRep_bbst", "Automation User - Office");
+        billingByServiceTypeTab.click(billingByServiceTypeTab.refresh_bbst);
+    }
+
+    //Author:  Aditya
+    @And("I set technician as group by in {string}")
+    public void setTechnicianGroupBy(String needReportType) {
+        officeObjects.navigateToReportType(needReportType);
+        billingByServiceTypeTab.setGroupFilter(billingByServiceTypeTab.groupBy, "Technician");
         billingByServiceTypeTab.click(billingByServiceTypeTab.refresh_bbst);
     }
 
@@ -433,7 +442,7 @@ public class BillingByServiceType extends AppData {
 
     //Author: Aditya
     @And("I search customer on the {string} with AutoPay as {string}")
-    public void searchCustomerAutoPay_BST(String needReportType, String needAutoPayType) throws Exception {
+    public void searchCustomerAutoPay_BST(String needReportType, String needAutoPayType) {
         officeObjects.navigateToReportType(needReportType);
         billingByServiceTypeTab.setGroupFilter(billingByServiceTypeTab.groupBy, "Customer Name");
         billingByServiceTypeTab.clickAdvancedFilters();
@@ -489,9 +498,11 @@ public class BillingByServiceType extends AppData {
 
     //Author: Aditya
     @Then("I search customer in billing frequency line item")
-    public void searchCustomerBillingFrequencyLineItem() throws Exception {
+    public void searchCustomerBillingFrequencyLineItem() throws InterruptedException {
         billingByServiceTypeTab.click("//tr//td[text()='" + customerID_BST + "']");
         billingByServiceTypeTab.searchNewCustomer(billingByServiceTypeTab.search_lineItem, customerID_BST);
+        FindElement.elementByAttribute(billingByServiceTypeTab.search_lineItem, FindElement.InputType.XPath).sendKeys(Keys.ENTER);
+        Thread.sleep(500);
     }
 
     //Author: Aditya
@@ -504,6 +515,12 @@ public class BillingByServiceType extends AppData {
         billingByServiceTypeTab.setType("invoice_bbst", needInvoiceType);
         billingByServiceTypeTab.click(billingByServiceTypeTab.refresh_bbst);
         billingByServiceTypeTab.searchNewCustomer(billingByServiceTypeTab.search_bbst, billingByServiceTypeTab.getCustomerName_CustomerCard_InfoTab());
+    }
+
+    //Author: Aditya
+    @Then("I click technician {string} assigned to the invoice")
+    public void clickTechAssigned(String technicianName) {
+        billingByServiceTypeTab.clickDescription_reportDetails(technicianName);
     }
 
 }

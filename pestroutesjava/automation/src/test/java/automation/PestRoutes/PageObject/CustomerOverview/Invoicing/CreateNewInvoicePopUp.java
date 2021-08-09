@@ -19,8 +19,8 @@ public class CreateNewInvoicePopUp {
         Utilities.highLight(needInputField);
         if (SystemUtils.IS_OS_MAC_OSX){
             FindElement.elementByAttribute(needInputField, FindElement.InputType.XPath).clear();
+            Utilities.clickElement(needInputField, Utilities.ElementType.XPath);
         }
-        //Utilities.clickElement(needInputField, Utilities.ElementType.XPath);
         FindElement.elementByAttribute(needInputField, FindElement.InputType.XPath).sendKeys(needValue);
     }
 
