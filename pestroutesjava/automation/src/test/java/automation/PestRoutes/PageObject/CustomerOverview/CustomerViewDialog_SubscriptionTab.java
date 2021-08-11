@@ -84,7 +84,7 @@ public class CustomerViewDialog_SubscriptionTab {
 
 	//***Initial invoice template objects***
 	public String initialInvoice_AddTicketItemButton = "//h3[text()='Initial Invoice Template']/following-sibling::div[text()='+ Add Ticket Item']";
-	public String initialQuoteInputField = "//div[text()=  'Initial Quote']/following-sibling::input";
+	public String initialQuoteInputField = "//div[text()=  'Initial Quote']/following-sibling::div//input";
 	public String initialDiscountInputField = "//div[text()=  'Initial Discount']/following-sibling::input[@value]";
 	public String initialSubTotalValue = "//div[@id='initialTicket']//div[@class='ticketSummary']/div[2]";
 	public String initialTaxValue = "//div[@id='initialTicket']//div[@class='ticketSummary']/div[4]";
@@ -378,13 +378,14 @@ public class CustomerViewDialog_SubscriptionTab {
 	}
 
 	public void setServiceQuote(String needService, String needAmount) throws InterruptedException {
-		Utilities.highLight("//h3[text()='Recurring Invoice Template']/parent::div//div[text()= '" + needService + "']/following-sibling::input");
+		Utilities.waitUntileElementIsVisible("//div[text()= '" + needService + "']/parent::div//input[@name='serviceCharge']");
+		Utilities.highLight("//div[text()= '" + needService + "']/parent::div//input[@name='serviceCharge']");
 		if (SystemUtils.IS_OS_LINUX) {
 			Thread.sleep(500);
-			FindElement.elementByAttribute("//h3[text()='Recurring Invoice Template']/parent::div//div[text()= '" + needService + "']/following-sibling::input", InputType.XPath).sendKeys(Keys.DELETE);
+			FindElement.elementByAttribute("//div[text()= '" + needService + "']/parent::div//input[@name='serviceCharge']", InputType.XPath).sendKeys(Keys.DELETE);
 			Thread.sleep(500);
 		}
-		FindElement.elementByAttribute("//h3[text()='Recurring Invoice Template']/parent::div//div[text()= '" + needService + "']/following-sibling::input", InputType.XPath).sendKeys(needAmount);
+		FindElement.elementByAttribute("//div[text()= '" + needService + "']/parent::div//input[@name='serviceCharge']", InputType.XPath).sendKeys(needAmount);
 	}
 
 	public void setAdditionalItemAmount(String needItemName, String needAmount) {
@@ -415,7 +416,7 @@ public class CustomerViewDialog_SubscriptionTab {
 		return Utilities.getAttributeValue(renewalDateField, "value");
 	}
 
-	public String getUpcomingAppt(String chooseAppt) throws Exception {
+	public String getUpcomingAppt(String chooseAppt) {
 		Utilities.waitUntileElementIsVisible(chooseAppt);
 		return Utilities.getElementTextValue(chooseAppt, ElementType.XPath);
 	}
@@ -423,36 +424,31 @@ public class CustomerViewDialog_SubscriptionTab {
 	public double getInitialService_NewTicketItemPrice(String needTicketItem) {
 		WebElement elm = FindElement.elementByAttribute("//div[@id='initialTicket']//div[text() = '" + needTicketItem + "']/following-sibling::input", InputType.XPath);
 		String val = elm.getAttribute("value");
-		double attributeValue = Double.parseDouble(val);
-		return attributeValue;
+		return Double.parseDouble(val);
 	}
 
 	public double getInitialSubTotal() {
 		String elm = Utilities.getElementTextValue(initialSubTotalValue, ElementType.XPath);
 		String newElm = elm.replace("$", "");
-		double attributeValue = Double.parseDouble(newElm);
-		return attributeValue;
+		return Double.parseDouble(newElm);
 	}
 
 	public double getInitialTax() {
 		String elm = Utilities.getElementTextValue(initialTaxValue, ElementType.XPath);
 		String newElm = elm.replace("$", "");
-		double attributeValue = Double.parseDouble(newElm);
-		return attributeValue;
+		return Double.parseDouble(newElm);
 	}
 
 	public double getInitialTotal() {
 		String elm = Utilities.getElementTextValue(initialTotalValue, ElementType.XPath);
 		String newElm = elm.replace("$", "");
-		double attributeValue = Double.parseDouble(newElm);
-		return attributeValue;
+		return Double.parseDouble(newElm);
 	}
 
 	public double getRecurringService_NewTicketItemPrice(String needTicketItem) {
 		String ticketValue = Utilities.getElementTextValue("//div[@id='recurringServices']//div[text() = '" + needTicketItem + "']/following-sibling::div/select[@name='quantity']/following-sibling::div",ElementType.XPath);
-		String val = ticketValue.substring(3, ticketValue.length());
-		double attributeValue = Double.parseDouble(val);
-		return attributeValue;
+		String val = ticketValue.substring(3);
+		return Double.parseDouble(val);
 	}
 
 	public String getCustomProductionValue() {
@@ -460,43 +456,37 @@ public class CustomerViewDialog_SubscriptionTab {
 			Utilities.acceptAlertLinux();
 		}
 		WebElement elm = FindElement.elementByAttribute("//span[text()='Custom Production']/following-sibling::input[@name='productionValue']", InputType.XPath);
-		String value = elm.getAttribute("value");
-		return value;
+		return elm.getAttribute("value");
 	}
 
 	public double getRecurringSubTotal() {
 		String elm = Utilities.getElementTextValue(recurringSubTotalValue, ElementType.XPath);
 		String newElm = elm.replace("$", "");
-		double attributeValue = Double.parseDouble(newElm);
-		return attributeValue;
+		return Double.parseDouble(newElm);
 	}
 
 	public double getRecurringTax() {
 		String elm = Utilities.getElementTextValue(recurringTaxValue, ElementType.XPath);
 		String newElm = elm.replace("$", "");
-		double attributeValue = Double.parseDouble(newElm);
-		return attributeValue;
+		return Double.parseDouble(newElm);
 	}
 
 	public double getRecurringTotal() {
 		String elm = Utilities.getElementTextValue(recurringTotalValue, ElementType.XPath);
 		String newElm = elm.replace("$", "");
-		double attributeValue = Double.parseDouble(newElm);
-		return attributeValue;
+		return Double.parseDouble(newElm);
 	}
 
-	public double getContractValue(String needServiceType) throws InterruptedException {
+	public double getContractValue(String needServiceType) {
 		String subscriptionTitle = "//h3[contains (text(), '" + needServiceType + "')]";
 		Utilities.waitUntileElementIsVisible(subscriptionTitle);
 		String elm = Utilities.getElementTextValue(contractValue, ElementType.XPath);
 		String newElm = elm.replaceAll("[^\\\\.0123456789]", "");
-		double attributeValue = Double.parseDouble(newElm);
-		return attributeValue;
+		return Double.parseDouble(newElm);
 	}
 
 	public String getSubscriptionID(String serviceType) {
-		String elm = Utilities.getElementTextValue("//h3[contains(text(),'" + serviceType + "')]/span[not(contains(text(),'Contract'))]", ElementType.XPath);
-		return elm;
+		return Utilities.getElementTextValue("//h3[contains(text(),'" + serviceType + "')]/span[not(contains(text(),'Contract'))]", ElementType.XPath);
 
 	}
 
@@ -542,7 +532,7 @@ public class CustomerViewDialog_SubscriptionTab {
 				}
 				break;
 			} catch (NoAlertPresentException e) {
-				continue;
+				System.out.print("Exception found: " + e);
 			}
 		}
 	}
@@ -566,7 +556,7 @@ public class CustomerViewDialog_SubscriptionTab {
 			int firstTuesday = date.getDayOfMonth();
 			int thirdTuesday = firstTuesday + 14;
 			date = date.withDayOfMonth(thirdTuesday);
-			datesResult[counter] = formatter.format(date).toString();
+			datesResult[counter] = formatter.format(date);
 			date = date.plusMonths(12);
 			++counter;
 		} while (counter != 7);
