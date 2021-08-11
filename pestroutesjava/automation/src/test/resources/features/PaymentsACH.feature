@@ -1,12 +1,12 @@
 #Author: Adi
 @RegressionADI_ACH
 @PaymentGatewayValidationsACH
-Feature: Validate all types of payments
+Feature: Validate all types of ACH payments
 
   Scenario: PreValidations
     Given I add a renewal service
 
-  @Smoke_Adi
+  @Smoke_Adi @ACHOnFile
   Scenario Outline: ACH On File Payment Validation
     When I navigate to merchant Info
     Then I set ACH gateway "<Gateway>"
@@ -23,6 +23,7 @@ Feature: Validate all types of payments
       | NMI                 |
     #  | Authorize.net       |
 
+  @ACHNotOnFile
   Scenario Outline: ACH Existing Transaction Payment Validation
     When I navigate to merchant Info
     Then I set ACH gateway "<Gateway>"

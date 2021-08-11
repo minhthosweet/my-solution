@@ -3,7 +3,7 @@
 @RegressionADI
 Feature: Custom Recurring Appointments
 
-  Scenario: Create Initial Invoice of type On Initial Billing Date
+  Scenario: Create subscription with custom appointment dates and validate the dates
     When I create customer with first name, last name, email and address
     And I create a subscription of type "After Initial Completion"
     And I search customer

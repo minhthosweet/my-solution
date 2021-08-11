@@ -67,7 +67,7 @@ public class InvoiceImplementation {
     public String paymentsBalance = "//div[text()='Balance']/following-sibling::div";
 
     // Charges Objects
-    public String serviceCostBeforeTax  = "//div[not(@ticketid='0')and@subscriptionid='0']//div[@serviceid]/input";
+    public String serviceCostBeforeTax  = "//div[not(@ticketid='0')and@subscriptionid='0']//div[@serviceid]//div/input[@name='serviceCharge']";
     public String subTotalValue = "//div[not(@ticketid='0')and@subscriptionid='0']//following-sibling::div//div[text()='Sub Total']/following-sibling::div[1]";
     public String taxValue = "//div[not(@ticketid='0')and@subscriptionid='0']//following-sibling::div//div[text()='Tax']/following-sibling::div[1]";
     public String chargesTotalValue = "//div[not(@ticketid='0')and@subscriptionid='0']//following-sibling::div//div[text()='Total']/following-sibling::div[1]";
@@ -160,9 +160,7 @@ public class InvoiceImplementation {
         Utilities.clickElement(initialInvoice, ElementType.XPath);
     }
 
-    public void doubleClickRenewalDateCheckBox() throws InterruptedException {
-//        Utilities.clickElement(renewalDateCheckbox, ElementType.XPath);
-//        Thread.sleep(100);
+    public void doubleClickRenewalDateCheckBox() {
         Utilities.clickElement(renewalDateCheckbox, ElementType.XPath);
     }
 
