@@ -84,7 +84,7 @@ public class CustomerViewDialog_SubscriptionTab {
 
 	//***Initial invoice template objects***
 	public String initialInvoice_AddTicketItemButton = "//h3[text()='Initial Invoice Template']/following-sibling::div[text()='+ Add Ticket Item']";
-	public String initialQuoteInputField = "//div[text()=  'Initial Quote']/following-sibling::div//input";
+	public String initialQuoteInputField = "//div[@id= 'subscriptionAccordion']//div[text()='Initial Quote']/following-sibling::input[@name='serviceCharge']";
 	public String initialDiscountInputField = "//div[text()=  'Initial Discount']/following-sibling::input[@value]";
 	public String initialSubTotalValue = "//div[@id='initialTicket']//div[@class='ticketSummary']/div[2]";
 	public String initialTaxValue = "//div[@id='initialTicket']//div[@class='ticketSummary']/div[4]";
@@ -272,13 +272,14 @@ public class CustomerViewDialog_SubscriptionTab {
 		Utilities.selectValueFromDropDownByValue(preferredTimeDropdown, needOption);
 	}
 
-	public void selectAdditionalItem_ToInitialInvoice(String needItem) {
+	public void selectAdditionalItem_ToInitialInvoice(String needItem) throws InterruptedException {
 		Utilities.scrollToElementJS(initialInvoice_AddTicketItemButton);
 		Utilities.clickElement(initialInvoice_AddTicketItemButton, ElementType.XPath);
 		if (SystemUtils.IS_OS_LINUX) {
 			Utilities.acceptAlertLinux();
 		}
 		Utilities.scrollToElementJS("//span[text()=  '" + needItem + "']");
+		Thread.sleep(1000);
 		Utilities.waitUntileElementIsVisible("//span[text()=  '" + needItem + "']");
 		Utilities.clickElement("//span[text()=  '" + needItem + "']", ElementType.XPath);
 		Utilities.waitUntileElementIsVisible("//div[text()='"+needItem+"']");

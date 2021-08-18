@@ -9,13 +9,11 @@ import automation.PestRoutes.PageObject.CustomerOverview.Invoicing.InvoiceImplem
 import automation.PestRoutes.PageObject.Customers.CustomerReportsTab.CustomerReportsPage;
 import automation.PestRoutes.PageObject.Customers.CustomersMainPage;
 import automation.PestRoutes.PageObject.Header;
-import automation.PestRoutes.Utilities.AppData;
-import automation.PestRoutes.Utilities.AssertException;
-import automation.PestRoutes.Utilities.CucumberBaseClass;
-import automation.PestRoutes.Utilities.Utilities;
+import automation.PestRoutes.Utilities.*;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.openqa.selenium.WebElement;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
@@ -75,7 +73,7 @@ public class CustomerReports extends AppData {
 
     //Author: Aditya
     @And("I validate if saved report fields are visible on the page")
-    public void validateSavedReportFieldsDisplayed() {
+    public void validateSavedReportFieldsDisplayed() throws InterruptedException {
         customerReportsPage.click(customerReportsPage.savedReports);
         String[] fields = {
                 customerReportsPage.filterTypes_CR("newReport_CR"),
@@ -87,7 +85,7 @@ public class CustomerReports extends AppData {
 
     //Author: Aditya
     @And("I validate if select columns to display fields are visible on the page")
-    public void validateSelectColumnsToDisplayFieldsDisplayed() {
+    public void validateSelectColumnsToDisplayFieldsDisplayed() throws InterruptedException {
         customerReportsPage.click(customerReportsPage.selectColumnsToDisplay);
         String[] fields = {
                 customerReportsPage.filterTypes_CR("selectColumnsToShow"),
@@ -98,7 +96,7 @@ public class CustomerReports extends AppData {
 
     //Author: Aditya
     @And("I validate if customer account fields are visible on the page")
-    public void validateCustomerAccountFieldsDisplayed() {
+    public void validateCustomerAccountFieldsDisplayed() throws InterruptedException {
         customerReportsPage.click(customerReportsPage.customerAccount);
         String[] fields_one = {customerReportsPage.filterTypes_CR("accountStatus_CR"),
                 customerReportsPage.filterTypes_CR("dateCanceledFrom_CR"),
@@ -145,7 +143,7 @@ public class CustomerReports extends AppData {
 
     //Author: Aditya
     @And("I validate if leads fields are visible on the page")
-    public void validateLeadsFieldsDisplayed() {
+    public void validateLeadsFieldsDisplayed() throws InterruptedException {
         customerReportsPage.click(customerReportsPage.leads);
         String[] fields = {
                 customerReportsPage.filterTypes_CR("leadStatus_CR"),
@@ -166,7 +164,7 @@ public class CustomerReports extends AppData {
 
     //Author: Aditya
     @And("I validate if service subscription fields are visible on the page")
-    public void validateServiceSubscriptionFieldsDisplayed() {
+    public void validateServiceSubscriptionFieldsDisplayed() throws InterruptedException {
         customerReportsPage.click(customerReportsPage.serviceSubscription);
         String[] fields_one = {
                 customerReportsPage.filterTypes_CR("activeSubscription_CR"),
@@ -246,7 +244,7 @@ public class CustomerReports extends AppData {
 
     //Author: Aditya
     @And("I validate if customer location fields are visible on the page")
-    public void validateCustomerLocationFieldsDisplayed() {
+    public void validateCustomerLocationFieldsDisplayed() throws InterruptedException {
         customerReportsPage.click(customerReportsPage.customerLocation);
         String[] fields = {
                 customerReportsPage.filterTypes_CR("mapCode_CR"),
@@ -265,7 +263,7 @@ public class CustomerReports extends AppData {
 
     //Author: Aditya
     @And("I validate if billing account fields are visible on the page")
-    public void validateBillingAccountFieldsDisplayed() {
+    public void validateBillingAccountFieldsDisplayed() throws InterruptedException {
         customerReportsPage.click(customerReportsPage.billingAccount);
         String[] fields_one = {
                 customerReportsPage.filterTypes_CR("balanceAgeAssignment_CR"),
@@ -300,7 +298,7 @@ public class CustomerReports extends AppData {
 
     //Author: Aditya
     @And("I validate if billing address fields are visible on the page")
-    public void validateBillingAddressFieldsDisplayed() {
+    public void validateBillingAddressFieldsDisplayed() throws InterruptedException {
         customerReportsPage.click(customerReportsPage.billingAddress);
         String[] fields = {
                 customerReportsPage.filterTypes_CR("billingLName_CR"),
@@ -316,7 +314,7 @@ public class CustomerReports extends AppData {
 
     //Author: Aditya
     @And("I validate if service appointment fields are visible on the page")
-    public void validateServiceAppointmentFieldsDisplayed() {
+    public void validateServiceAppointmentFieldsDisplayed() throws InterruptedException {
         customerReportsPage.click(customerReportsPage.serviceAppointment);
         String[] fields_one = {
                 customerReportsPage.filterTypes_CR("scheduledForFrom_CR"),
@@ -442,7 +440,7 @@ public class CustomerReports extends AppData {
     }
 
     @When("I add flag to customer in customer report")
-    public void addFlag_customerReport() throws IOException {
+    public void addFlag_customerReport() throws IOException, InterruptedException {
         customerReportsPage.clickActionType_action(customerReportsPage.addAndRemoveFlags_action);
         customerReportsPage.addFlag_action();
     }
@@ -489,7 +487,17 @@ public class CustomerReports extends AppData {
         String recurringPrice = String.valueOf(customerViewDialog_subscriptionTab.getRecurringSubTotal());
         createNewCustomer.closeCustomerCard();
         customerReportsPage.click(customerReportsPage.serviceSubscription);
-        customerReportsPage.setType(customerReportsPage.filterTypes_CR("initialPrice_CR"), initialPrice);
+        try {
+            WebElement elm = FindElement.elementByAttribute("//div[@key='isInitial']/select", FindElement.InputType.XPath) ;
+            if (elm.isDisplayed()){
+                customerReportsPage.setType(customerReportsPage.filterTypes_CR("initialPrice_CR"), initialPrice);
+            }else {
+                customerReportsPage.click(customerReportsPage.serviceSubscription);
+                customerReportsPage.setType(customerReportsPage.filterTypes_CR("initialPrice_CR"), initialPrice);
+            }
+        } catch (Exception e){
+            System.out.println("Failed at service subscription");
+        }
         customerReportsPage.setType(customerReportsPage.filterTypes_CR("recurringPrice_CR"), recurringPrice);
         customerReportsPage.click(customerReportsPage.refreshButton);
     }
@@ -610,7 +618,7 @@ public class CustomerReports extends AppData {
     //Author : Aditya
     @When("I validate saved filter in Customer Reports")
     public void
-    validateFilters_savedFilters() {
+    validateFilters_savedFilters() throws InterruptedException {
         customerReportsPage.click(customerReportsPage.savedReports);
         result(reportName, customerReportsPage.getTextValue("//li[@data-saved-report-id]//span[text()='" + reportName + "']"), "Report name validation", " Customer Reports Validation");
         customerReportsPage.click("//li[@data-saved-report-id]//span[text()='" + reportName + "']");

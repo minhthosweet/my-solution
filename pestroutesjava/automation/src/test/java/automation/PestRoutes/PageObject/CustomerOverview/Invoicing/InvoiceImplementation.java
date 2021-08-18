@@ -67,7 +67,7 @@ public class InvoiceImplementation {
     public String paymentsBalance = "//div[text()='Balance']/following-sibling::div";
 
     // Charges Objects
-    public String serviceCostBeforeTax  = "//div[not(@ticketid='0')and@subscriptionid='0']//div[@serviceid]//div/input[@name='serviceCharge']";
+    public String serviceCostBeforeTax  = "//div[not(@ticketid='0')and@subscriptionid='0']//input[@name='serviceCharge']";
     public String subTotalValue = "//div[not(@ticketid='0')and@subscriptionid='0']//following-sibling::div//div[text()='Sub Total']/following-sibling::div[1]";
     public String taxValue = "//div[not(@ticketid='0')and@subscriptionid='0']//following-sibling::div//div[text()='Tax']/following-sibling::div[1]";
     public String chargesTotalValue = "//div[not(@ticketid='0')and@subscriptionid='0']//following-sibling::div//div[text()='Total']/following-sibling::div[1]";
@@ -130,11 +130,13 @@ public class InvoiceImplementation {
     public void insertPaymentAmount(String pAmount, String cAmount) {
         Utilities.waitUntileElementIsVisible(paymentAmountField);
         FindElement.elementByAttribute(paymentAmountField, InputType.XPath).clear();
+        Utilities.clickElement(paymentAmountField, ElementType.XPath);
         FindElement.elementByAttribute(paymentAmountField, InputType.XPath).sendKeys(pAmount);
         Utilities.waitUntileElementIsVisible(confirmPymtAmtField);
         Utilities.clickElement(confirmPymtAmtField, ElementType.XPath);
         FindElement.elementByAttribute(confirmPymtAmtField, InputType.XPath).sendKeys(cAmount);
         Utilities.waitUntileElementIsVisible(custPaymentNotes);
+        Utilities.clickElement(custPaymentNotes, ElementType.XPath);
         FindElement.elementByAttribute(custPaymentNotes, InputType.XPath).sendKeys("This is just a test");
 
     }

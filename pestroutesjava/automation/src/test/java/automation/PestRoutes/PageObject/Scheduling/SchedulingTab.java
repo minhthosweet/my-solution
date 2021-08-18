@@ -55,6 +55,7 @@ public class SchedulingTab extends AppData {
     public void addScheduleDateToProperties() throws Exception {
         String date = Utilities.currentDate("M/d/yyyy");
         String currentDay = "//div[@date='"+ date +"']";
+        Utilities.waitUntileElementIsVisible(currentDay);
         String scheduleDate = Utilities.getAttributeValue(currentDay, "date");
         addData("scheduleDate", scheduleDate, generalData);
     }

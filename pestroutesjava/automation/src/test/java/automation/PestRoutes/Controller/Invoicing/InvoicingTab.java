@@ -318,8 +318,8 @@ public class InvoicingTab extends AppData {
     }
 
     //**Author Aarbi
-    @Then("I make payment with credit card on file")
-    public void makeCardOnFile_CCPayment() throws InterruptedException {
+    @Then("I make payment with credit card on file {string}")
+    public void makeCardOnFile_CCPayment(String needMessage) throws InterruptedException {
         invoiceHeader = new Invoice_Header();
         CardOnFile cardOnFile = new CardOnFile();
         CreditCardConfirmationPage confirmationPage = new CreditCardConfirmationPage();
@@ -337,7 +337,7 @@ public class InvoicingTab extends AppData {
         Utilities.clickElement(cardOnFile.chargeCardButton, Utilities.ElementType.XPath);
         Utilities.waitUntileElementIsVisible(confirmationPage.paymentResultTitle);
         String paymentConfirmation = Utilities.getElementTextValue(confirmationPage.confirmationMessage, Utilities.ElementType.XPath);
-        String expectedConfirmation = "Successfully Charged Credit Card!";
+        String expectedConfirmation = needMessage;
         result(expectedConfirmation, paymentConfirmation, "Credit Card Confirmation", "Card on file payment");
     }
 

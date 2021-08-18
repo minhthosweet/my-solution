@@ -124,7 +124,7 @@ Feature: Customer reports end to end validation
     And I close customer card
     And I search customer
     And I get customer details for customer reports
-    Then I make payment with credit card on file
+    Then I make payment with credit card on file "Successfully Charged Credit Card!"
     Then I navigate to "Customer Reports" in Customers tab
     When I add filters to Service Appointment in Customer Reports
     Then I validate service appointment report in Customer Reports

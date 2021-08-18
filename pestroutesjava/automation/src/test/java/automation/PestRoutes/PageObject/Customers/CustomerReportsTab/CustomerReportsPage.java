@@ -261,7 +261,7 @@ public class CustomerReportsPage extends AppData {
         return Utilities.getElementTextValue(needXpath, Utilities.ElementType.XPath);
     }
 
-    public void click(String needButton) {
+    public void click(String needButton) throws InterruptedException {
         Utilities.waitUntileElementIsVisible(needButton);
         Utilities.clickElement(needButton, Utilities.ElementType.XPath);
     }
@@ -308,7 +308,7 @@ public class CustomerReportsPage extends AppData {
         Utilities.hoverElement(actionsDropDown, actionType);
     }
 
-    public void addFlag_action() throws IOException {
+    public void addFlag_action() throws IOException, InterruptedException {
         Utilities.waitUntileElementIsVisible("//span[text()='Add / Remove Flags']");
         click(addFlags);
         FindElement.elementByAttribute(addFlags, FindElement.InputType.XPath).sendKeys(getData("flag", generalData));
