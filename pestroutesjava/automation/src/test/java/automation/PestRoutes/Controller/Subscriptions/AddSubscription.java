@@ -145,7 +145,7 @@ public class AddSubscription extends AppData {
 	public void validateInitialInvoice() throws InterruptedException {
 		subscription.setInitialServiceQuote(initialQuote);
 		subscription.setInitialServiceDiscount(initialDiscount);
-		subscription.selectAdditionalItem_ToInitialInvoice(ticketItem);
+		//subscription.selectAdditionalItem_ToInitialInvoice(ticketItem);
 		double finalInitialQuote = Double.parseDouble(initialQuote);
 		double finalInitialDiscount = Double.parseDouble(initialDiscount);
 		double ticketAmount = subscription.getInitialService_NewTicketItemPrice(ticketItem);

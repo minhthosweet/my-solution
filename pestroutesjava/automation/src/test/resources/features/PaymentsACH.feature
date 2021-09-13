@@ -37,4 +37,4 @@ Feature: Validate all types of ACH payments
       | PestRoutes Payments |
       | Element             |
       | NMI                 |
-    #  | Authorize.net       |
+#      | Authorize.net       |

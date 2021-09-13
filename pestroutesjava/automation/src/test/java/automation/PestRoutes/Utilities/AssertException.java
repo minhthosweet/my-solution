@@ -27,10 +27,11 @@ public class AssertException {
 	public static List<String> conditionResult(WebElement element) {
 		List list = new ArrayList<String>();
 		try {
+			Thread.sleep(500);
 			if (element == null) {
 				Assert.fail();
 			}
-		} catch (AssertionError e) {
+		} catch (AssertionError | InterruptedException e) {
 			list.add(e.getMessage());
 		}
 		return list;

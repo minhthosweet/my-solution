@@ -43,7 +43,7 @@ Feature: Validate all types of payments
 
   @SingleCardPaymentValidation
   Scenario Outline: Single Card Payment Validation
-#    Given I add a renewal service
+    Given I add a renewal service
     When I navigate to merchant Info
     Then I set cc gateway "<Gateway>"
     When I create customer with first name, last name, email and address

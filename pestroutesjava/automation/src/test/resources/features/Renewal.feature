@@ -9,6 +9,7 @@ Feature: Renewal
     When I create customer with first name, last name and address
     And I validate if renewal fields display in Subscription tab if I choose renewal as service type
     And I create a renewal subscription
+    And I close customer card
     And I navigate to scheduling tab
     And I add a route
     And I search customer
