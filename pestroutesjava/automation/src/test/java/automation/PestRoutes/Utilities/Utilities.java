@@ -235,18 +235,17 @@ public class Utilities {
 	}
 
 	public static String getAttributeValue(String needXpath, String needAttribute) {
-		waitForElementIsVisible(needXpath, 7);
+		waitUntileElementIsVisible(needXpath, 7);
 		return driver.findElement(By.xpath(needXpath)).getAttribute(needAttribute);
 	}
 
-	public static void waitUntileElementIsVisible(String needXpath) {
-		WebDriverWait wait = new WebDriverWait(driver, 45);
+	public static void waitUntileElementIsVisible(String needXpath, int needSecs) {
+		WebDriverWait wait = new WebDriverWait(driver, needSecs);
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(needXpath)));
 	}
 
-	public static void waitForElementIsVisible(String needXpath, int needSecs) {
-		WebDriverWait wait = new WebDriverWait(driver, needSecs);
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(needXpath)));
+	public static void waitUntileElementIsVisible(String needXpath) {
+		waitUntileElementIsVisible( needXpath, 45);
 	}
 
 	public static boolean elementIsVisible(String needXpath) {
