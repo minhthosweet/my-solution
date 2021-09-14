@@ -572,6 +572,7 @@ public class CreateNewCustomer extends AppData {
         customerDialog_Header = new CustomerViewDialog_Header();
         customerViewDialog_infoTab = new CustomerViewDialog_InfoTab();
         customerDialog_Header.navigateTo(customerDialog_Header.infoTabInDialog);
+        Utilities.waitUntileElementIsVisible(customerViewDialog_infoTab.state);
         return customerViewDialog_infoTab.getFirstName() + " " + customerViewDialog_infoTab.getLastName();
     }
 

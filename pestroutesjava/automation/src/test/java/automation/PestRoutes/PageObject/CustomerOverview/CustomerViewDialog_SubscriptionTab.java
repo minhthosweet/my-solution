@@ -376,6 +376,7 @@ public class CustomerViewDialog_SubscriptionTab {
 			Thread.sleep(500);
 		}
 		FindElement.elementByAttribute(initialDiscountInputField, InputType.XPath).sendKeys(needAmount);
+		Utilities.clickElement(initialTotalValue, ElementType.XPath);
 	}
 
 	public void setServiceQuote(String needService, String needAmount) throws InterruptedException {
@@ -447,9 +448,10 @@ public class CustomerViewDialog_SubscriptionTab {
 	}
 
 	public double getRecurringService_NewTicketItemPrice(String needTicketItem) {
-		String ticketValue = Utilities.getElementTextValue("//div[@id='recurringServices']//div[text() = '" + needTicketItem + "']/following-sibling::div/input[@name='quantity']/following-sibling::div",ElementType.XPath);
-		String val = ticketValue.substring(3);
-		return Double.parseDouble(val);
+		String ticketValue = Utilities.getAttributeValue("//div[@id='recurringServices']//div[text() = '" + needTicketItem + "']/following-sibling::input", "value");
+//		String val = ticketValue.substring(3);
+//		return Double.parseDouble(val);
+		return Double.parseDouble(ticketValue);
 	}
 
 	public String getCustomProductionValue() {
