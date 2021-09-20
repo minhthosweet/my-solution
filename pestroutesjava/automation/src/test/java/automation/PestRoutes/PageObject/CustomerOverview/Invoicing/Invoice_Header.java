@@ -1,7 +1,11 @@
 package automation.PestRoutes.PageObject.CustomerOverview.Invoicing;
 
+import automation.PestRoutes.Utilities.FindElement;
 import automation.PestRoutes.Utilities.Utilities;
 import automation.PestRoutes.Utilities.Utilities.ElementType;
+import org.openqa.selenium.WebElement;
+
+import javax.swing.text.Element;
 
 public class Invoice_Header {
 	
@@ -10,12 +14,18 @@ public class Invoice_Header {
 	public String creditCard = "Card";
 	public String achDraft = "ACH";
 	public String coupon = "Coupon / Credit";
+	public String addPayment = "//div[text()='+ Add Payment']";
 	
 	public void navigate(String needTab) {
-
-		Utilities.clickElement("//div[contains(@class,'paymentMethod bluGradientBG') and contains(text(),'"+needTab+"')]",ElementType.XPath, true, false);
-	
-	}							
-	
-
+		try {
+		WebElement elm = FindElement.elementByAttribute(addPayment, FindElement.InputType.XPath);
+//			Utilities.waitForElementIsVisible(addPayment, 10);
+			if (elm.isDisplayed()){
+				Utilities.clickElement(addPayment, ElementType.XPath);
+				Utilities.clickElement("//div[contains(@class,'paymentMethod bluGradientBG') and contains(text(),'"+needTab+"')]",ElementType.XPath, true, false);
+			}
+		} catch(Exception e) {
+			Utilities.clickElement("//div[contains(@class,'paymentMethod bluGradientBG') and contains(text(),'"+needTab+"')]",ElementType.XPath, true, false);
+		}
+	}
 }

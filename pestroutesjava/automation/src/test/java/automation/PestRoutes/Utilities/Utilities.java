@@ -244,6 +244,11 @@ public class Utilities {
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(needXpath)));
 	}
 
+	public static void waitForElementIsVisible(String needXpath, int needSecs) {
+		WebDriverWait wait = new WebDriverWait(driver, needSecs);
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(needXpath)));
+	}
+
 	public static boolean elementIsVisible(String needXpath) {
 		if (driver.findElements(By.xpath(needXpath)).size() > 0) {
 			return driver.findElement(By.xpath(needXpath)).isDisplayed();
