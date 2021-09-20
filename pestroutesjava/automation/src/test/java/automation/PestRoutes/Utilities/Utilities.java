@@ -245,7 +245,7 @@ public class Utilities {
 	}
 
 	public static void waitUntileElementIsVisible(String needXpath) {
-		waitUntileElementIsVisible( needXpath, 45);
+		waitUntileElementIsVisible(needXpath, 45);
 	}
 
 	public static boolean elementIsVisible(String needXpath) {
