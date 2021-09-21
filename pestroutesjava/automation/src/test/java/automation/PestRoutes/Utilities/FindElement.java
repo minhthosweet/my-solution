@@ -14,16 +14,22 @@ public class FindElement {
             switch (attributeType)
             {
                 case XPath:
+                    Utilities.waitForElementIsVisible(needAttribute, 7);
                     return driver.findElement(By.xpath(needAttribute));
                 case ID:
+                    Utilities.waitForElementIsVisible(needAttribute, 7);
                     return driver.findElement(By.id(needAttribute));
                 case ClassName:
+                    Utilities.waitForElementIsVisible(needAttribute, 7);
                     return driver.findElement(By.name(needAttribute));
                 case TagName:
+                    Utilities.waitForElementIsVisible(needAttribute, 7);
                     return driver.findElement(By.tagName(needAttribute));
                 case LinkText:
+                    Utilities.waitForElementIsVisible(needAttribute, 7);
                     return driver.findElement(By.linkText(needAttribute));
                 default:
+                    Utilities.waitForElementIsVisible(needAttribute, 7);
                     return driver.findElement(By.xpath(needAttribute));
 
             }
