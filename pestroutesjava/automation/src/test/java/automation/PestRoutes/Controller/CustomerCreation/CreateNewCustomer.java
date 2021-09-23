@@ -303,8 +303,8 @@ public class CreateNewCustomer extends AppData {
         result(needDistrict5Tax, customer.getTaxRate(customer.district5TaxPercentage), "Entered District5 Tax", "Tax Rate Validation");
     }
 
-    @When("I create customer with first name, last name, address and generic flag {string} and {string}")
-    public void createCustomerWithGenericFlag(String needFlagName, String needSource) throws Exception {
+    @When("I create customer with first name, last name, address and generic flag {string}")
+    public void createCustomerWithGenericFlag(String needFlagName) throws Exception {
         customerDialog_Header = new CustomerViewDialog_Header();
         customer = new CreateCustomerDialog();
         overview = new CustomerViewDialog_OverviewTab();
@@ -316,9 +316,9 @@ public class CreateNewCustomer extends AppData {
         customer.setAddress(streetAddress);
         customer.setZipCode(zipcode);
         Utilities.acceptAlert();
-        customer.setCity(city);
+        //customer.setCity(city);
         customer.setCellPhone(getData("phoneNumber", generalData));
-        customer.selectSource(needSource);
+        customer.selectSource(getData("customerSource", generalData));
         customer.selectGenericFlag(needFlagName);
         customer.setMapCode(getData("mapCode", generalData));
         customer.clickSmsCheckBox();

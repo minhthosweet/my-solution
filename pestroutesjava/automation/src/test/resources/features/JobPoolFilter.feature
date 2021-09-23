@@ -9,8 +9,11 @@ Feature: Job Pool Filter
     Given I add a new generic flag if it is not already existing "Fire" and "Description 3" and "Subscription"
     Given I add a new generic flag if it is not already existing "Water" and "Description 4" and "Subscription"
     And I create a new user if it is not already existing "Technician"
-    And I add a recurring renewal service type if it is not already existing "Automation Renewal"
-    When I create customer with first name, last name, address and generic flag "Automation Flag" and "Door to Door"
+    And I add a new customer source if it is not already existing
+    And I add a new route region if it is not already existing
+    And I add a renewal service
+    And I add a recurring renewal service type if it is not already existing "Alternate Monthly"
+    When I create customer with first name, last name, address and generic flag "Automation Flag"
     And I create a dynamic subscription with Sales Rep assigned "Automation User - Tech" and "Fire" and "<Day>"
     And I navigate to the job pool tab
     And I validate if all fields are displaying and are enabled in Job Pool

@@ -56,7 +56,7 @@ Feature: Validate if all fields present and are enabled
   Scenario: Customer with flag validation
     Given I add a new generic flag if it is not already existing "Automation Flag" and "Its lit" and "Customer"
     Given I add a new generic flag if it is not already existing "Test4Life" and "Test4Life" and "Customer"
-    And I create customer with first name, last name, address and generic flag "Test4Life" and "Door to Door"
+    And I create customer with first name, last name, address and generic flag "Test4Life"
     Then I validate customer with including "Test4Life" and excluding "Automation Flag" flags and groupBy "Group By Bill To" and collection "Not Set" in account receivable page with CC "4111111111111111" or "5412750109056250"
     Then I send "SMS" message under actions with subject "TestSubject" and text "testText"
     Then I remove the customer

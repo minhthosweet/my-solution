@@ -159,9 +159,8 @@ public class CustomerviewDialog_AppointmentsTab {
     public void clickCloseSchedulingNoticeButton() {
         try {
             WebElement schedulingAppointment = FindElement.elementByAttribute(closeSchedulingNotice, FindElement.InputType.XPath);
-            if (schedulingAppointment.isDisplayed()) {
-                Utilities.waitUntileElementIsVisible(closeSchedulingNotice);
-                Utilities.clickElement(closeSchedulingNotice, ElementType.XPath);
+            if (schedulingAppointment.isEnabled()) {
+                Utilities.jsClickElement(closeSchedulingNotice, ElementType.XPath);
             }
         } catch (Exception e) {
             System.out.println("Scheduling notice button not available");

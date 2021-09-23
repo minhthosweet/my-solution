@@ -91,10 +91,10 @@ public class Service extends AppData {
         service.selectFromDropdown(service.globalDropDown, "Specific to this office");
         service.selectFromDropdown(service.visibilityDropDown, "Visible");
         service.selectFromDropdown(service.appointmentFrequencyDropDown, "Alternate Monthly");
-        service.selectFromDropdown(service.defaultFollowUpDelayDropDown, "1 Month");
+        service.selectFromDropdown(service.defaultFollowUpDelayDropDown, "No Followup");
         service.setAppointLegnth("60");
-        service.selectFromDropdown(service.defaultContractLengthDropDown, "12 Months");
-        service.selectFromDropdown(service.minimumContractLengthDropDown, "12 Months");
+        service.selectFromDropdown(service.defaultContractLengthDropDown, "12 months");
+        service.selectFromDropdown(service.minimumContractLengthDropDown, "12 months");
         service.selectFromDropdown(service.displayRenewalDateDropDown, "Yes");
         service.selectFromDropdown(service.renewalFrequencyDropDown, "Annually");
         service.selectFromDropdown(service.setRenewalDateDropDown, "On Initial Service Completion");

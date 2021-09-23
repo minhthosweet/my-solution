@@ -9,6 +9,7 @@ public class FormObjects {
 	
 	public String addFormButton = "//div[text() = '+ Form Template']";
 	public String addFlagButton = "//div[text() = '+ Generic Flag']";
+	public String addRegionButton = "//div[text() = '+ Region']";
 	public String htmlButton = "//div[@id='preferenceHeader']/following-sibling::form//div[text()='html']";
 	public String previewButton = "//div[@id='preferenceHeader']/following-sibling::form//div[text()='preview']";
 	public String deleteButton = "//div[@id='preferenceHeader']/following-sibling::form//div[text()='delete']";

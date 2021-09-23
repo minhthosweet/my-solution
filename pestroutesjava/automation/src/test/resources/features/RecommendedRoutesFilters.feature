@@ -4,7 +4,7 @@
 Feature: Validate Recommended Routes
 
   Scenario: Validate Recommended Routes Filters
-    When I create customer with first name, last name, address and generic flag "Test4Life" and "Door to Door"
+    When I create customer with first name, last name, address and generic flag "Test4Life"
     And I create a renewal subscription
     And I navigate to scheduling tab
     And I add a route

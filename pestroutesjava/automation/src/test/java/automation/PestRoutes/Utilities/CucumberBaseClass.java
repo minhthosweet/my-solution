@@ -81,8 +81,7 @@ public class CucumberBaseClass extends AppData {
         try {
             WebElement schedulingAppointment = FindElement.elementByAttribute(customerviewDialog_appointmentsTab.closeSchedulingNotice, FindElement.InputType.XPath);
             if (schedulingAppointment.isDisplayed()) {
-                Utilities.waitUntileElementIsVisible(customerviewDialog_appointmentsTab.closeSchedulingNotice);
-                Utilities.clickElement(customerviewDialog_appointmentsTab.closeSchedulingNotice, Utilities.ElementType.XPath);
+                Utilities.jsClickElement(customerviewDialog_appointmentsTab.closeSchedulingNotice, Utilities.ElementType.XPath);
                 System.out.println("Schedule button closed");
             }
         } catch (Exception e) {
