@@ -26,7 +26,7 @@ public class GetWebDriver {
 				System.setProperty("webdriver.chrome.driver",
 						"src/test/java/automation/PestRoutes/Utilities/Driver/chromedriver.exe");
 				driver = new ChromeDriver(options);
-				driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+				driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 			} else if(SystemUtils.IS_OS_LINUX) {
 				
 				System.setProperty("webdriver.chrome.driver",

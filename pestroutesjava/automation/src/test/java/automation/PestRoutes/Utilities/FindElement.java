@@ -11,22 +11,28 @@ public class FindElement {
 	public static WebElement elementByAttribute(String needAttribute,
             InputType attributeType)
         {
-            switch (attributeType)
-            {
-                case XPath:
-                    return driver.findElement(By.xpath(needAttribute));
-                case ID:
-                    return driver.findElement(By.id(needAttribute));
-                case ClassName:
-                    return driver.findElement(By.name(needAttribute));
-                case TagName:
-                    return driver.findElement(By.tagName(needAttribute));
-                case LinkText:
-                    return driver.findElement(By.linkText(needAttribute));
-                default:
-                    return driver.findElement(By.xpath(needAttribute));
+            try{
+                switch (attributeType)
+                {
+                    case XPath:
+                        return driver.findElement(By.xpath(needAttribute));
+                    case ID:
+                        return driver.findElement(By.id(needAttribute));
+                    case ClassName:
+                        return driver.findElement(By.name(needAttribute));
+                    case TagName:
+                        return driver.findElement(By.tagName(needAttribute));
+                    case LinkText:
+                        return driver.findElement(By.linkText(needAttribute));
+                    default:
+                        return driver.findElement(By.xpath(needAttribute));
 
+                }
+
+            }catch (Exception e){
+                System.out.println("Could not find element with => "+attributeType+ " " + needAttribute);
             }
+            return driver.findElement(By.xpath(needAttribute));
         }
 
 	

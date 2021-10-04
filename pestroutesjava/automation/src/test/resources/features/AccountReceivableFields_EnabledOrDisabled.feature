@@ -1,5 +1,5 @@
 #Author: Aarbi
-@RegressionARB
+#@RegressionARB
 @AccountReceivableScenarios
 Feature: Validate if all fields present and are enabled
   @FieldValidations_AccountReceivable
@@ -13,6 +13,7 @@ Feature: Validate if all fields present and are enabled
     And I sign the agreement for subscription of type After Agreement Signed
     And I validate the if agreement is created
     And I close customer card
+    And If discard changes dialog displays, I discard unsaved changes
     And I navigate to account receivable under Billings
     Then I validate if all fields are displaying and are enabled in account receivable page
     Then I validate if the customer displays once account status is Active in account receivable page
