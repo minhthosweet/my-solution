@@ -124,13 +124,13 @@ public class Utilities {
 	}
 
 	public static void selectValueFromDropDownByValue(String needXpath, String needValue) {
-		waitForElementIsVisible(needXpath, 7);
+		waitUntileElementIsVisible(needXpath, 7);
 		Select dropdown = new Select(driver.findElement(By.xpath(needXpath)));
 		dropdown.selectByVisibleText(needValue);
 	}
 
 	public static void selectValueFromDropDownByIndex(String needXpath, int needIndex) {
-		waitForElementIsVisible(needXpath, 7);
+		waitUntileElementIsVisible(needXpath, 7);
 		Select dropdown = new Select(driver.findElement(By.xpath(needXpath)));
 		dropdown.selectByIndex(needIndex);
 	}
@@ -235,18 +235,17 @@ public class Utilities {
 	}
 
 	public static String getAttributeValue(String needXpath, String needAttribute) {
-		waitForElementIsVisible(needXpath, 7);
+		waitUntileElementIsVisible(needXpath, 7);
 		return driver.findElement(By.xpath(needXpath)).getAttribute(needAttribute);
 	}
 
-	public static void waitUntileElementIsVisible(String needXpath) {
-		WebDriverWait wait = new WebDriverWait(driver, 45);
+	public static void waitUntileElementIsVisible(String needXpath, int needSecs) {
+		WebDriverWait wait = new WebDriverWait(driver, needSecs);
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(needXpath)));
 	}
 
-	public static void waitForElementIsVisible(String needXpath, int needSecs) {
-		WebDriverWait wait = new WebDriverWait(driver, needSecs);
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(needXpath)));
+	public static void waitUntileElementIsVisible(String needXpath) {
+		waitUntileElementIsVisible(needXpath, 45);
 	}
 
 	public static boolean elementIsVisible(String needXpath) {
@@ -287,16 +286,16 @@ public class Utilities {
 	private static WebElement locateElement(String needAttribute, ElementType Attribute_Type) {
 		switch (Attribute_Type) {
 			case ID:
-				waitForElementIsVisible(needAttribute, 7);
+				waitUntileElementIsVisible(needAttribute, 7);
 				return driver.findElement(By.id(needAttribute));
 			case ClassName:
-				waitForElementIsVisible(needAttribute, 7);
+				waitUntileElementIsVisible(needAttribute, 7);
 				return driver.findElement(By.className(needAttribute));
 			case LinkText:
-				waitForElementIsVisible(needAttribute, 7);
+				waitUntileElementIsVisible(needAttribute, 7);
 				return driver.findElement(By.linkText(needAttribute));
 			default:
-				waitForElementIsVisible(needAttribute, 7);
+				waitUntileElementIsVisible(needAttribute, 7);
 				return driver.findElement(By.xpath(needAttribute));
 		}
 	}
@@ -305,19 +304,19 @@ public class Utilities {
 		List<WebElement> elements;
 		switch (Attribute_Type) {
 			case ID:
-				waitForElementIsVisible(needAttribute, 7);
+				waitUntileElementIsVisible(needAttribute, 7);
 				elements = driver.findElements(By.id(needAttribute));
 				break;
 			case ClassName:
-				waitForElementIsVisible(needAttribute, 7);
+				waitUntileElementIsVisible(needAttribute, 7);
 				elements = driver.findElements(By.className(needAttribute));
 				break;
 			case LinkText:
-				waitForElementIsVisible(needAttribute, 7);
+				waitUntileElementIsVisible(needAttribute, 7);
 				elements = driver.findElements(By.linkText(needAttribute));
 				break;
 			default:
-				waitForElementIsVisible(needAttribute, 7);
+				waitUntileElementIsVisible(needAttribute, 7);
 				elements = driver.findElements(By.xpath(needAttribute));
 		}
 		return elements.get(elements.size() - 1);
@@ -327,7 +326,7 @@ public class Utilities {
 	public static String getElementTextValue(String needAttribute, ElementType Attribute_Type) {
 		for (int i = 0; i < 10; i++) {
 			try {
-				waitForElementIsVisible(needAttribute, 7);
+				waitUntileElementIsVisible(needAttribute, 7);
 				WebElement attribute = locateElement(needAttribute, Attribute_Type);
 				return attribute.getText();
 			} catch (Exception e) {
@@ -345,7 +344,7 @@ public class Utilities {
 			WebElement elm = FindElement.elementByAttribute(needAttribute, FindElement.InputType.XPath);
 			try {
 				if (elm.isDisplayed()) {
-					waitForElementIsVisible(needAttribute, 7);
+					waitUntileElementIsVisible(needAttribute, 7);
 					scrollToElement(needAttribute);
 					clickElement(needAttribute, Attribute_Type, false, false);
 				}
@@ -365,13 +364,13 @@ public class Utilities {
 				try {
 					WebElement attribute;
 					if (order) {
-						waitForElementIsVisible(needAttribute, 7);
+						waitUntileElementIsVisible(needAttribute, 7);
 						attribute = locateElements(needAttribute, Attribute_Type);
 					} else {
-						waitForElementIsVisible(needAttribute, 7);
+						waitUntileElementIsVisible(needAttribute, 7);
 						attribute = locateElement(needAttribute, Attribute_Type);
 					}
-					waitForElementIsVisible(needAttribute, 7);
+					waitUntileElementIsVisible(needAttribute, 7);
 					attribute.click();
 					break;
 				} catch (Exception e) {

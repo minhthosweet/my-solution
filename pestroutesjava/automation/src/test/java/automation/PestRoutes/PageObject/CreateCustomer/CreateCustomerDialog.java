@@ -1,5 +1,6 @@
 package automation.PestRoutes.PageObject.CreateCustomer;
 
+import org.openqa.selenium.ElementNotInteractableException;
 import org.openqa.selenium.Keys;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_Admin;
 import automation.PestRoutes.Utilities.FindElement;
@@ -233,7 +234,12 @@ public class CreateCustomerDialog {
     }
 
     public void setAddress(String needAddress) {
-        FindElement.elementByAttribute(addressInputField, InputType.XPath).sendKeys(needAddress);
+        try {
+            FindElement.elementByAttribute(addressInputField, InputType.XPath).sendKeys(needAddress);
+        } catch (ElementNotInteractableException notInteractableException){
+            System.out.println("Element is not intractable, trying again ");
+            FindElement.elementByAttribute(addressInputField, InputType.XPath).sendKeys(needAddress);
+        }
     }
 
     public void setZipCode(String needZipCode) throws InterruptedException {

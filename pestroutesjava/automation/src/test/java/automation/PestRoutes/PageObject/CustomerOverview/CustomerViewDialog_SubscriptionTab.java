@@ -278,10 +278,23 @@ public class CustomerViewDialog_SubscriptionTab {
 		if (SystemUtils.IS_OS_LINUX) {
 			Utilities.acceptAlertLinux();
 		}
-		Utilities.scrollToElementJS("//span[text()=  '" + needItem + "']");
-		Thread.sleep(1000);
 		Utilities.waitUntileElementIsVisible("//span[text()=  '" + needItem + "']");
+		//Utilities.scrollToElementJS("//span[text()=  '" + needItem + "']");
+		Thread.sleep(1000);
+//		Utilities.waitUntileElementIsVisible("//span[text()=  '" + needItem + "']");
 		Utilities.clickElement("//span[text()=  '" + needItem + "']", ElementType.XPath);
+		try{
+			Utilities.waitUntileElementIsVisible("//div[text()='"+needItem+"']");
+		}catch (Exception e){
+			Utilities.clickElement(initialInvoice_AddTicketItemButton, ElementType.XPath);
+			if (SystemUtils.IS_OS_LINUX) {
+				Utilities.acceptAlertLinux();
+			}
+			Utilities.waitUntileElementIsVisible("//span[text()=  '" + needItem + "']");
+			Utilities.scrollToElementJS("//span[text()=  '" + needItem + "']");
+			Thread.sleep(1000);
+			Utilities.clickElement("//span[text()=  '" + needItem + "']", ElementType.XPath);
+		}
 		Utilities.waitUntileElementIsVisible("//div[text()='"+needItem+"']");
 	}
 

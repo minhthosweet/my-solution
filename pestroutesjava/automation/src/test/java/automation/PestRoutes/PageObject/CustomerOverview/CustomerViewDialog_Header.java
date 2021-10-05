@@ -2,6 +2,7 @@ package automation.PestRoutes.PageObject.CustomerOverview;
 
 import automation.PestRoutes.Utilities.Utilities;
 import automation.PestRoutes.Utilities.Utilities.ElementType;
+import io.cucumber.java.en.And;
 
 public class CustomerViewDialog_Header {
     public String overviewTabInDialog = "overviewTab";
@@ -59,6 +60,7 @@ public class CustomerViewDialog_Header {
         Utilities.clickElement(closeXButton, ElementType.XPath);
     }
 //Author Aarbi
+    @And("If discard changes dialog displays, I discard unsaved changes")
     public void discardChanges() {
         try{
             if (Utilities.elementIsVisible(discardChange)) {
