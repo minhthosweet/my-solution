@@ -11,6 +11,7 @@ Feature: Validate if all fields present and are enabled
     And I create a subscription of type "After Agreement Signed"
     And I search customer
     And I sign the agreement for subscription of type After Agreement Signed
+    And I search customer
     And I validate the if agreement is created
     And I close customer card
     And If discard changes dialog displays, I discard unsaved changes
