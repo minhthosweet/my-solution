@@ -36,7 +36,8 @@ public class CucumberBaseClass extends AppData {
                 String userName = getData("userName", environment);
                 String password = getData("password", environment);
 
-                GetWebDriver.getInstance().get(url);
+                driver.manage().deleteAllCookies();
+                driver.get(url);
                 login = new LoginPage();
                 login.setUserName(userName);
                 login.setPassword(password);
