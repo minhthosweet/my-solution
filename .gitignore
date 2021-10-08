@@ -1,0 +1,10 @@
+RemoteSystemsTempFiles/
+target/
+test-output/
+.metadata/
+.settings/
+.idea/
+.classpath
+.factorypath
+.project
+**/Results.html
