@@ -1,6 +1,6 @@
 #Author: Aditya
 @Regression
-@CustomerReports
+@CustomerReport
 @RegressionADI_CR
 Feature: Customer reports end to end validation
 

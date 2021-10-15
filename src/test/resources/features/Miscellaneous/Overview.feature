@@ -1,7 +1,7 @@
 #Author: Aarbi
 @Smoke
 @RegressionARB
-@OfficeValidation
+@Overview
 Feature: Validated offices displayed
   @ValidateOfficesDisplayedAndAreEnabled
   Scenario Outline: Validate offices are enabled if every tabs in the header

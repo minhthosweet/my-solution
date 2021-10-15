@@ -1,7 +1,7 @@
 #Author: Faraz
 @Regression
 @RegressionFRK
-@Sales
+@SalesReport
 Feature: New sales report
 
   Scenario: Validate sales report totals

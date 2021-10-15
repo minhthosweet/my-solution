@@ -1,7 +1,7 @@
 #Author: Aditya
 @Smoke
 @RegressionADI
-@NewCustomerValidation
+@CustomerDetails
 Feature: Create and search customer with validation
 
   @Smoke_Adi

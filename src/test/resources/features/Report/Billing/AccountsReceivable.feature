@@ -1,7 +1,7 @@
 #Author: Aarbi
 @Regression
 @RegressionARB
-@AccountReceivableScenarios
+@AccountReceivable
 Feature: Validate if all fields present and are enabled
   @Smoke
   @FieldValidations_AccountReceivable

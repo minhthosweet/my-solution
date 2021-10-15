@@ -1,7 +1,7 @@
 #Author: Adi
 @Smoke
 @RegressionADI_ACH
-@PaymentGatewayValidationsACH
+@PaymentACH
 Feature: Validate all types of ACH payments
 
   Scenario: PreValidations

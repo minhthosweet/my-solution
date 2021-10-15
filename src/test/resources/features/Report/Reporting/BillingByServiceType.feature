@@ -1,6 +1,6 @@
 #Author: Aditya
 @Smoke
-@BillingByServiceTypeReports
+@BillingByServiceType
 @RegressionADI_BST
 Feature: Billing by service Type report end to end validation
 

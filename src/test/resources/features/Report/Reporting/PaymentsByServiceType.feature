@@ -1,6 +1,6 @@
 #Author: Aditya
 @Regression
-@PaymentsByServiceTypeReports
+@PaymentsByServiceType
 @RegressionADI_PST
 Feature: Payments by service Type report end to end validation
 

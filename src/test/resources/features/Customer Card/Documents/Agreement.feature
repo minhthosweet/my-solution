@@ -1,6 +1,6 @@
 @Smoke
 @RegressionFRK
-@AfterAgreementSigned
+@Agreement
 Feature: Customer Status
 
   Scenario: Create Initial Invoice of type After Agreement Signed

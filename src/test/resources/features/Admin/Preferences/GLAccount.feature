@@ -1,6 +1,6 @@
 #Author Aditya
 @Regression
-@GLAccountAssignedToServiceType
+@GLAccount
 @RegressionADI
 Feature: GLAccount creation, adding to service type and subscription and validation
 

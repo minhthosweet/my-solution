@@ -1,7 +1,7 @@
 #Author: Aarbi
 @Smoke
 @RegressionARB
-@payment
+@PaymentCC
 Feature: Validate all types of payments
   @CardOnFilePaymentValidation
   Scenario Outline: Card On FIle Payment Validation

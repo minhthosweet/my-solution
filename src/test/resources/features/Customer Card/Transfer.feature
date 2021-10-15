@@ -1,6 +1,7 @@
 #Author: Aditya
 @Smoke
 @RegressionADI
+@Transfer
 Feature: Validate Transfer Account
 
   @ValidateTransferAccount

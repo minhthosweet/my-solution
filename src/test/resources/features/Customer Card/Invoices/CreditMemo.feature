@@ -1,6 +1,7 @@
 #Author: Aditya
 @Smoke
 @RegressionADI
+@CreditMemo
 Feature: Credit Memo
 
   @CreateAndValidateCreditMemo

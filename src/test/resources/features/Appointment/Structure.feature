@@ -1,6 +1,6 @@
 #Author Aditya
 @Regression
-@StructuresValidation
+@Structures
 @RegressionADI
 Feature: Structures
 
