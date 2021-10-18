@@ -30,7 +30,8 @@ public class GetWebDriver {
 			} else if(SystemUtils.IS_OS_LINUX) {
 				
 				System.setProperty("webdriver.chrome.driver",
-						"src/test/java/automation/PestRoutes/Utilities/Driver/chromedriver.linux");
+						"/usr/local/share/chrome_driver/chromedriver");
+//						"src/test/java/automation/PestRoutes/Utilities/Driver/chromedriver.linux");
 				options.addArguments("--headless", "--disable-gpu");
 				driver = new ChromeDriver(options);
 				driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);

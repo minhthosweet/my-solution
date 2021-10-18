@@ -8,9 +8,9 @@ import java.util.Properties;
 
 public class AppData {
 	static Properties properties;
-	public String generalData = "Properties/application.properties";
-	public String quarterlyPreferredDayData = "Properties/quarterlybyprefferedday.properties";
-	public static String environment = "Properties/env.properties";
+	public String generalData = "properties/application.properties";
+	public String quarterlyPreferredDayData = "properties/quarterlybyprefferedday.properties";
+	public static String environment = "properties/env.properties";
 
 	public static void loadData(String needFile) {
 
