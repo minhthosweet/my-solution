@@ -141,12 +141,12 @@ public class InvoicingTab extends AppData {
         customerCardHeader.navigateTo(customerCardHeader.subscriptionTabInDialog);
         String initialInvoiceValue = subscriptionTab.getInitialInvoiceValue();
         customerCardHeader.navigateTo(customerCardHeader.invoicesTabInDialog);
-        result(initialInvoiceValue, "$" + invImplementation.getAccountBalance(), "Total Initial Invoice Value",
+        result(initialInvoiceValue, invImplementation.getAccountBalance(), "Total Initial Invoice Value",
                 "Invoice Validation");
         invImplementation.clickInvoice(getData("serviceDescription", generalData));
-        result(initialInvoiceValue, "$" + invImplementation.getChargesBalance(), "Total Initial Invoice Value",
+        result(initialInvoiceValue, invImplementation.getChargesBalance(), "Total Initial Invoice Value",
                 "Invoice Validation");
-        result(initialInvoiceValue, "$" + invImplementation.getBalanceInPayments(), "Total Initial Invoice Value",
+        result(initialInvoiceValue, invImplementation.getBalanceInPayments(), "Total Initial Invoice Value",
                 "Invoice Validation");
     }
 

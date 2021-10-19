@@ -1,5 +1,6 @@
 package automation.PestRoutes.Controller.Subscriptions;
 
+import automation.PestRoutes.PageObject.CustomerOverview.BillingPage;
 import automation.PestRoutes.PageObject.Header;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_Header;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_SubscriptionTab;
@@ -7,6 +8,7 @@ import automation.PestRoutes.Utilities.*;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.openqa.selenium.WebElement;
 import org.testng.annotations.Test;
 
 import static automation.PestRoutes.Utilities.AssertException.result;
@@ -281,5 +283,25 @@ public class AddSubscription extends AppData {
 		result(subscription.getUpcomingAppt(subscription.fourthUpcomingAppointment).replaceAll("0",""), subscription.getUpcomingAppointment_specificDay_everyYear(2).replaceAll("0",""), "fourth appointment", "Subscription");
 		result(subscription.getUpcomingAppt(subscription.sixthUpcomingAppointment).replaceAll("0",""), subscription.getUpcomingAppointment_specificDay_everyYear(3).replaceAll("0",""), "sixth appointment", "Subscription");
 		result(subscription.getUpcomingAppt(subscription.eighthUpcomingAppointment).replaceAll("0",""), subscription.getUpcomingAppointment_specificDay_everyYear(4).replaceAll("0",""), "eighth appointment", "Subscription");
+	}
+
+	@When("I add auto pay with cc or ach in subscription billing options and merge customer accounts {string}")
+	public void addCustomerOnAutoPay(String needMergeCustomerName) throws InterruptedException {
+		customerDialogHeader = new CustomerViewDialog_Header();
+		customerDialogHeader.navigateTo(customerDialogHeader.subscriptionTabInDialog);
+		subscription.setAutoPayProfileDropdown();
+		customerDialogHeader.clickSaveButton();
+		Utilities.clickElement(subscription.billingAccountField, Utilities.ElementType.XPath);
+		try {
+			WebElement elm = FindElement.elementByAttribute(subscription.proceedAndTransferButton, FindElement.InputType.XPath);
+			if (elm.isDisplayed()){
+				Utilities.clickElement(subscription.proceedAndTransferButton, Utilities.ElementType.XPath);
+			}
+		} catch(Exception e) {
+			System.out.println("Transfer Funds dialog not displayed");
+		}
+		subscription.setMergeBillingAccountField(needMergeCustomerName);
+		Utilities.clickElement(subscription.mergeBillingAccountSelectButton, Utilities.ElementType.XPath);
+		customerDialogHeader.clickSaveButton();
 	}
 }

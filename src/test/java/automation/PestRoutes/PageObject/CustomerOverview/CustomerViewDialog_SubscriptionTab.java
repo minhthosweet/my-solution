@@ -38,12 +38,18 @@ public class CustomerViewDialog_SubscriptionTab {
 	public String soldDateField = "//input[@name='subDateAdded']";
 	public String contractLengthDropdown = "//h3[text()=  'Sales Info']/following-sibling::select[@name='agreementLength']";
 	public String expirationDateInputField = "//input[@name='expirationDate']";
-	public String subscriptionFlagDropdown = "//select[@id='subscriptionGenericFlags']";
 	public String renewalDateField = "//input[@name='renewalDate']";
 	public String setRenewalDateDropdown = "//select[@name='setRenewalDateOn']";
 	public String renewalFrequencyDropdown = "//select[@name='renewalFrequency']";
 	public String pO_NumberInputField = "//input[@name='poNumber']";
 	public String notesInputField = "//textarea[@name='subNotes']";
+	public String subscriptionFlagDropdown = "//select[@id='subscriptionGenericFlags']";
+	public String billingAccountField = "//h3[text()='Billing Options']/following-sibling::input[@name='displayBillToAccountID']";
+	public String proceedAndTransferButton = "//div/button/span[text()='Proceed and Transfer balances']";
+	public String mergeBillingAccountField = "//h2[text()='Billing Account']/following-sibling::input";
+	public String mergeBillingAccountSelectButton = "//button/span[text()='Select']";
+	public String mergeBillingAccountCancelButton = "//button/span[text()='Select']/parent::button/preceding-sibling::button/span[text()='Cancel']";
+	public String autoPayProfileDropdown = "//h3[text()='Billing Options']/following-sibling::select[@name='autoPayPaymentProfileID']";
 	public String netBillingDaysInputField = "//input[@name='netBillingDaysDisplay']";
 	public String billingFrequencyDropdown = "//select[@name='billingFrequency']";
 	public String billingInitialInvoiceDropdown = "//select[@name='initialInvoice']";
@@ -356,6 +362,25 @@ public class CustomerViewDialog_SubscriptionTab {
 
 	public void setSubscriptionNotes(String needNotes) {
 		FindElement.elementByAttribute(notesInputField, InputType.XPath).sendKeys(needNotes);
+	}
+
+	public void setAutoPayProfileDropdown() {
+		Utilities.waitUntileElementIsVisible(autoPayProfileDropdown);
+		Utilities.selectValueFromDropDownByIndex(autoPayProfileDropdown, 1);
+
+	}
+
+	public void setMergeBillingAccountField(String needMergeCustomerName) throws InterruptedException {
+		Utilities.waitUntileElementIsVisible(mergeBillingAccountField);
+		FindElement.elementByAttribute(mergeBillingAccountField, InputType.XPath).sendKeys(needMergeCustomerName);
+		FindElement.elementByAttribute(mergeBillingAccountField, InputType.XPath).sendKeys(Keys.ARROW_DOWN);
+		try {
+			Utilities.waitUntileElementIsVisible("//li[@role='presentation']//span[contains(text(),'"+needMergeCustomerName+"')]", 10);
+			Utilities.clickElement("//li[@role='presentation']//span[contains(text(),'"+needMergeCustomerName+"')]", ElementType.XPath);
+		} catch (Exception e) {
+			FindElement.elementByAttribute(mergeBillingAccountField, InputType.XPath).sendKeys(Keys.ARROW_DOWN);
+			Utilities.clickElement("//li[@role='presentation']//span[contains(text(),'"+needMergeCustomerName+"')]", ElementType.XPath);
+		}
 	}
 
 	public void setNetBillingDays(String needBillingDays) {

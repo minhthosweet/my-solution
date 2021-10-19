@@ -438,22 +438,31 @@ public class CreateNewCustomer extends AppData {
         customerDialog_Header.clickSaveButton();
     }
 
-    @When("I create customer with first name and last name")
-    public void createCustomerWithoutAddress() throws Exception {
+    @When("I create customer with first name and last name {string} {string} if not already existing")
+    public void createCustomerWithoutAddress(String firstName, String lastName) throws Exception {
 
         customerDialog_Header = new CustomerViewDialog_Header();
         customer = new CreateCustomerDialog();
         overview = new CustomerViewDialog_OverviewTab();
         header = new Header();
-        header.navigateTo(header.newCustomerTab);
-        customer.setFirstName(fName);
-        customer.setLastName(lName);
-        customer.selectUnit("Multi Unit");
-        customer.setCellPhone(getData("phoneNumber", generalData));
-        customer.clickSmsCheckBox();
-        customerDialog_Header.clickSaveButton();
-        alertCondition();
-        customerName = getCustomerFullName();
+        searchBox = new SearchBox();
+        header.searchCustomer_SearchField(firstName + " " + lastName);
+        try {
+            if (searchBox.containsInAutoCompleteSearch(firstName + " " + lastName).contains(firstName + " " + lastName)) {
+                System.out.println("Customer found");
+                Utilities.clickElement("//li[@role='presentation']//span[contains(text(),'"+firstName + " " + lastName+"')]", ElementType.XPath);
+            }
+        }catch (Exception e){
+            System.out.println("Creating customer");
+            header.navigateTo(header.newCustomerTab);
+            customer.setFirstName(firstName);
+            customer.setLastName(lastName);
+            customer.selectUnit("Multi Unit");
+            customer.setCellPhone(getData("phoneNumber", generalData));
+            customer.clickSmsCheckBox();
+            customerDialog_Header.clickSaveButton();
+            alertCondition();
+        }
     }
 
     @Given("I close customer card")
