@@ -1,5 +1,6 @@
 #Author: Aarbi
 @Smoke
+@BillingTab
 @RegressionARB
 @PaymentCC
 Feature: Validate all types of payments

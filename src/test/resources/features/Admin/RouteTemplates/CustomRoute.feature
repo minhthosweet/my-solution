@@ -1,5 +1,6 @@
 #Author Aditya
 @Regression
+@RouteTemplates
 @CustomRoute
 @RegressionADI
 Feature: Route Template

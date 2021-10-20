@@ -1,5 +1,6 @@
 #Author Aditya
 @Smoke
+@InvoicesTab
 @InitialAndRecurringInvoices
 @RegressionADI
 Feature: Initial And Recurring Invoices

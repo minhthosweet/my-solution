@@ -1,5 +1,6 @@
 #Author: Adi
 @Smoke
+@BillingTab
 @RegressionADI_ACH
 @PaymentACH
 Feature: Validate all types of ACH payments

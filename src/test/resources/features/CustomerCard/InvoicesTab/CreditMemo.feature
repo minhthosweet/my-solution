@@ -1,5 +1,6 @@
 #Author: Aditya
 @Smoke
+@InvoicesTab
 @RegressionADI
 @CreditMemo
 Feature: Credit Memo

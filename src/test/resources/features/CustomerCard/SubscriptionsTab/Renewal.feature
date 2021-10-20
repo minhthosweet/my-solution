@@ -1,5 +1,6 @@
 #Author Aarbi
 @Regression
+@SubscriptionsTab
 @RegressionARB
 @Renewal
 Feature: Renewal

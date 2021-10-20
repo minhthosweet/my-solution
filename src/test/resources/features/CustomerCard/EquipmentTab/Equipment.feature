@@ -1,5 +1,6 @@
 #Author: Faraz
 @Smoke
+@EquipmentTab
 @Equipment
 @RegressionFRK
 Feature: Add Equipment on customer card

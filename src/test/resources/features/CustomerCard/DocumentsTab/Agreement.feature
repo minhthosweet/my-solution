@@ -1,4 +1,5 @@
 @Smoke
+@DocumentTab
 @RegressionFRK
 @Agreement
 Feature: Customer Status

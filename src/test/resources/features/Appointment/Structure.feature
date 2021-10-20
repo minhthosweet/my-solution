@@ -1,5 +1,6 @@
 #Author Aditya
 @Regression
+@Appointment
 @Structures
 @RegressionADI
 Feature: Structures

@@ -1,5 +1,6 @@
 #Author Aditya
 @Regression
+@SubscriptionsTab
 @CustomAppointmentDate
 @RegressionADI
 Feature: Custom Recurring Appointments

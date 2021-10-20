@@ -1,5 +1,6 @@
 #Auther: Faraz Khan
 @Smoke
+@Scheduling
 @RegressionFRK
 @JobPool
 Feature: Job Pool Filter

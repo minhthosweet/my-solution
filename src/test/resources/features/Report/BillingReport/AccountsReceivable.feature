@@ -1,5 +1,6 @@
 #Author: Aarbi
 @Regression
+@BillingReport
 @RegressionARB
 @AccountReceivable
 Feature: Validate if all fields present and are enabled

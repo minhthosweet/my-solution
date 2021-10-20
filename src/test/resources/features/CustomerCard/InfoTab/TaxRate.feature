@@ -1,5 +1,6 @@
 #Author Faraz
 @Smoke
+@InfoTab
 @TaxRate
 @RegressionFRK
 Feature: Tax Rate

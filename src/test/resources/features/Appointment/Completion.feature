@@ -1,5 +1,6 @@
 # Author : Adi
 @Smoke
+@Appointment
 @Completion
 @RegressionADI
 Feature: After Initial Appointment Completion

@@ -1,5 +1,6 @@
 #Author: Aditya
 @Regression
+@Reporting
 @PaymentsByServiceType
 @RegressionADI_PST
 Feature: Payments by service Type report end to end validation
@@ -11,6 +12,7 @@ Feature: Payments by service Type report end to end validation
     Then I validate if all fields are displaying and are enabled in Payments by service type
     And I validate if there are errors exist in the list
 
+  @Smoke
   @PSTReportFields
   Scenario:Validating filters and fields generated with single group by and its line items PST
     Given I add a new generic flag if it is not already existing "Automation Flag" and "Its lit" and "Customer"

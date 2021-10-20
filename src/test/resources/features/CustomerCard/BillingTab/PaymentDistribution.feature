@@ -1,8 +1,8 @@
 #Auther: Faraz
-  @Regression
-  @RegressionFRK
-  @PaymentDistribution
-  @BillingTab
+@Regression
+@RegressionFRK
+@PaymentDistribution
+@BillingTab
 Feature: Validate payment distribution in customer card
   Scenario: Validate invoice balance is not moved to linked customer
     When I create customer with first name and last name "Testers" "4Life" if not already existing

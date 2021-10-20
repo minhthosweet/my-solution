@@ -1,5 +1,6 @@
 #Author: Faraz
 @Regression
+@CustomerReports
 @RegressionFRK
 @SalesReport
 Feature: New sales report

@@ -1,5 +1,6 @@
 #Author: Faraz
 @Smoke
+@Scheduling
 @RegressionFRK
 @RecommendedRoutes
 Feature: Validate Recommended Routes

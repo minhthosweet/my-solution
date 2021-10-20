@@ -1,5 +1,6 @@
 #Author: Aditya
 @Smoke
+@InfoTab
 @RegressionADI
 @CustomerDetails
 Feature: Create and search customer with validation

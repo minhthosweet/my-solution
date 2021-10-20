@@ -1,5 +1,6 @@
 #Author: Faraz
 @Smoke
+@LeadsTab
 @Leads
 @RegressionFRK
 Feature: Test Lead Creation
