@@ -1,1 +1,1 @@
-mvn test -Dtest="automation.PestRoutes.TestRunner.Regression.RegressionADI"
+mvn test -Dtest="automation.PestRoutes.TestRunner.Regression"

@@ -1,6 +1,6 @@
 #Author: Aditya
 @CouponsOrCredit
-@RegressionADI
+#@RegressionADI
 Feature: Credit/Coupon Validation
 
   Scenario: Make payment with Coupon or Credit and validate in Invoicing

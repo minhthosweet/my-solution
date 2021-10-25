@@ -1,2 +1,1 @@
-mvn test -Dtest="automation.PestRoutes.TestRunner.Regression.Smoke";
-mvn verify;
+mvn test -Dtest="automation.PestRoutes.TestRunnerSmoke"
