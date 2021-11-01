@@ -383,6 +383,7 @@ public class PaymentsByServiceType extends AppData {
         String userFirstName = getData("userFirstName", generalData);
         String userLastName = getData("userLastName", generalData);
         customerviewDialog_appointmentsTab.changeAppointmentTech(userFirstName + " "+ userLastName);
+        customerviewDialog_appointmentsTab.clickOKButton();
     }
 
     //Author: Aditya

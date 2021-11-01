@@ -31,6 +31,7 @@ public class CustomerviewDialog_AppointmentsTab {
     public String cancelAppointment = "//div[@id='completeButton']/following-sibling::div//div[text() = 'Cancel']";
     public String cancelNotesAppointment = "//textarea[@id='cancelReason']";
     public String confirmCancellation = "//span[text()='Confirm Cancelation']";
+    private String okButton = "//div[@aria-describedby= 'fieldRoutesDialog']//span[text()='OK']";
 
     // Subscription objects
     public String createNewSubscription_Scheduling = "Create New Subscription";
@@ -138,6 +139,10 @@ public class CustomerviewDialog_AppointmentsTab {
         Thread.sleep(3000);
         Utilities.waitUntileElementIsVisible(cancelAppointment);
         Utilities.clickElement(cancelAppointment, ElementType.XPath);
+    }
+
+    public void clickOKButton() {
+        Utilities.clickElement(okButton, Utilities.ElementType.XPath);
     }
 
     public void cancellationNotes() {

@@ -18,9 +18,9 @@ public class Invoice_Header {
 	
 	public void navigate(String needTab) {
 		try {
-		WebElement elm = FindElement.elementByAttribute(addPayment, FindElement.InputType.XPath);
+		WebElement elm = FindElement.elementByAttribute(needTab, FindElement.InputType.XPath);
 			if (elm.isDisplayed()){
-				Utilities.clickElement(addPayment, ElementType.XPath);
+				Utilities.clickElement(needTab, ElementType.XPath);
 				Utilities.clickElement("//div[contains(@class,'paymentMethod bluGradientBG') and contains(text(),'"+needTab+"')]",ElementType.XPath, true, false);
 			}
 		} catch(Exception e) {
