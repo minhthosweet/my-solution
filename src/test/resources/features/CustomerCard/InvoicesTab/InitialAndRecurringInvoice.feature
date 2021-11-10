@@ -6,6 +6,7 @@
 Feature: Initial And Recurring Invoices
 
   @Smoke_Adi
+  @Create_initial_and_recurring_invoice_and_validate
   Scenario: Create initial and recurring invoice and validate
     Given I delete a routing group
     When I create customer with first name, last name, email and address
