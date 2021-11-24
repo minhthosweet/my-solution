@@ -1,12 +1,26 @@
 package automation.PestRoutes.PageObject.ReportingPage.OfficePage;
 
+import automation.PestRoutes.PageObject.BasePage;
 import automation.PestRoutes.Utilities.Utilities;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.Select;
+
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-public class PaymentsByServiceTypeTab {
+public class PaymentsByServiceTypeTab extends BasePage {
+
+    private By dateField = By.xpath("//input[@name='dateRange-officeParams']");
+    private By groupByField = By.xpath("//select[@name='groupBy']");
+    private By refreshButton = By.xpath("//div[@id='refreshOfficeReport']");
 
     public String Coupons = "//select[@name='excludeCoupons']";
+
+    // Table Values
+    private By descriptionValues = By.xpath("//table[@id='cashByServiceType']/tbody//td[1]");
+    private By customerNames = By.xpath("//div[@id='serviceTypeDetail']/table/tbody//td[2]");
 
     //Report Data Objects
     public String totalCollected_Report = "//tr[@detailvalues]//td[10]";
@@ -73,4 +87,37 @@ public class PaymentsByServiceTypeTab {
         return Utilities.getElementTextValue("//td[text()='" + needCustomerID + "']/parent::tr[@detailvalues]//td[3]", Utilities.ElementType.XPath);
     }
 
+    public void selectDateFor (String value) {
+        click(dateField);
+        find(By.xpath("//body[@id='reportsPage']/div[18]//li[text()='" + value + "']")).click();
+    }
+
+    public void selectGroupBy (String value) {
+        WebElement groupBy = find(groupByField);
+        Select selectGroupBy = new Select(groupBy);
+        selectGroupBy.selectByVisibleText(value);
+    }
+
+    public void clickRefreshButton(){
+        click(refreshButton);
+    }
+
+    public void clickDescription(String value) {
+        List<WebElement> descriptionList = driver.findElements(descriptionValues);
+        for(WebElement description : descriptionList) {
+            if (description.getText().equals(value)) {
+                description.click();
+            }
+        }
+    }
+
+    public Boolean getCustomerName(String value) {
+        List<WebElement> customerList = driver.findElements(customerNames);
+        for(WebElement customer : customerList) {
+            if (customer.getText().equals(value)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

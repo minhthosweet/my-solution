@@ -1,5 +1,6 @@
 package automation.PestRoutes.PageObject.Scheduling;
 
+import automation.PestRoutes.PageObject.BasePage;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_Header;
 import automation.PestRoutes.Utilities.AppData;
 import automation.PestRoutes.Utilities.Utilities;
@@ -8,8 +9,9 @@ import automation.PestRoutes.Utilities.Utilities.ElementType;
 import java.util.HashMap;
 import java.util.Map;
 
-public class SchedulingTab extends AppData {
+public class SchedulingTab extends BasePage {
 
+    AppData app = new AppData();
     CustomerViewDialog_Header overviewHeader;
 
     public String scheduleDay = "//div[@style='border:1px solid;']/following-sibling::div[1]";
@@ -57,7 +59,7 @@ public class SchedulingTab extends AppData {
         String currentDay = "//div[@date='"+ date +"']";
         Utilities.waitUntileElementIsVisible(currentDay);
         String scheduleDate = Utilities.getAttributeValue(currentDay, "date");
-        addData("scheduleDate", scheduleDate, generalData);
+        app.addData("scheduleDate", scheduleDate, app.generalData);
     }
 
     public void clickScheduleButton() throws InterruptedException {

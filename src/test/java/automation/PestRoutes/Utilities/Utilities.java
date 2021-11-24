@@ -1,35 +1,24 @@
 package automation.PestRoutes.Utilities;
 
-import java.io.File;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.*;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-import java.util.Random;
-
+import automation.PestRoutes.Utilities.Driver.GetWebDriver;
+import automation.PestRoutes.Utilities.FindElement.InputType;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.SystemUtils;
-import org.openqa.selenium.Alert;
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.apache.commons.lang3.time.DateUtils;
+import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import automation.PestRoutes.Utilities.FindElement.InputType;
-import automation.PestRoutes.Utilities.Driver.GetWebDriver;
-import org.apache.commons.lang3.time.DateUtils;
+
+import java.io.File;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 public class Utilities {
 	static WebDriver driver = GetWebDriver.getInstance();
@@ -169,9 +158,13 @@ public class Utilities {
 	}
 
 	public static void scrollToElementJS(String needXpath) {
+		WebElement element = driver.findElement(By.xpath(needXpath));
+		scrollToElementJS(element);
+	}
+
+	public static void scrollToElementJS(WebElement element) {
 		for (int i = 0; i < 10; i++) {
 			try {
-				WebElement element = driver.findElement(By.xpath(needXpath));
 				((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
 				((JavascriptExecutor) driver).executeScript("window.scrollBy(0, -40)");
 				break;
@@ -183,7 +176,6 @@ public class Utilities {
 				}
 			}
 		}
-
 	}
 
 	public static void scrollToBottomElementJS(String needXpath) throws InterruptedException {
@@ -354,7 +346,6 @@ public class Utilities {
 				}
 		}
 
-
 	public static void clickElement(String needAttribute, ElementType Attribute_Type, Boolean simple, Boolean order) {
 		if (simple) {
 			WebElement attribute = locateElement(needAttribute, Attribute_Type);
@@ -492,9 +483,20 @@ public class Utilities {
 		actions.doubleClick(elementLocator).perform();
 	}
 
+	public static String transformName(String name) {
+		String firstName = name.substring(0, name.indexOf(" "));
+		String lastName = name.substring(name.indexOf(" ")).trim();
+		String last_first = lastName + ", " + firstName;
+		return last_first;
+	}
+
 	@Then("I refresh the browser")
 	public static void refreshPage(){
 		driver.navigate().refresh();
 	}
 
+	public static void waitUntilElementIsVisible(By locator, int needSecs) {
+		WebDriverWait wait = new WebDriverWait(driver, needSecs);
+		wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+	}
 }

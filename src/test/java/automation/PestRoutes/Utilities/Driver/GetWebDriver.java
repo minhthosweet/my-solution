@@ -2,6 +2,7 @@ package automation.PestRoutes.Utilities.Driver;
 
 import java.util.concurrent.TimeUnit;
 
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.apache.commons.lang3.SystemUtils;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -16,21 +17,21 @@ public class GetWebDriver {
 		if(driver == null) {
 			ChromeOptions options = new ChromeOptions();
 			options.addArguments("--window-size=1366,768","--ignore-certificate-errors");
+			WebDriverManager.chromedriver().setup();
 			if(SystemUtils.IS_OS_MAC_OSX) {
-				System.setProperty("webdriver.chrome.driver",
-						"src/test/java/automation/PestRoutes/Utilities/Driver/chromedriver.mac");
+				//System.setProperty("webdriver.chrome.driver",
+				//		"src/test/java/automation/PestRoutes/Utilities/Driver/chromedriver.mac");
 				options.addArguments("--headless", "--disable-gpu");
 				driver = new ChromeDriver(options);
 				driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 			} else if(SystemUtils.IS_OS_WINDOWS) {
-				System.setProperty("webdriver.chrome.driver",
-						"src/test/java/automation/PestRoutes/Utilities/Driver/chromedriver.exe");
+				//System.setProperty("webdriver.chrome.driver",
+				//		"src/test/java/automation/PestRoutes/Utilities/Driver/chromedriver.exe");
 				driver = new ChromeDriver(options);
 				driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 			} else if(SystemUtils.IS_OS_LINUX) {
-				
-				System.setProperty("webdriver.chrome.driver",
-						"/usr/local/share/chrome_driver/chromedriver");
+				//	System.setProperty("webdriver.chrome.driver",
+				//			"/usr/local/share/chrome_driver/chromedriver");
 //						"src/test/java/automation/PestRoutes/Utilities/Driver/chromedriver.linux");
 				options.addArguments("--headless", "--disable-gpu");
 				driver = new ChromeDriver(options);

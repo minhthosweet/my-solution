@@ -1,6 +1,7 @@
 package automation.PestRoutes.Utilities;
 
 import automation.PestRoutes.Controller.CustomerCreation.CreateNewCustomer;
+import automation.PestRoutes.PageObject.BasePage;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_Header;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerviewDialog_AppointmentsTab;
 import automation.PestRoutes.PageObject.SignInPage.LoginPage;
@@ -15,16 +16,19 @@ import java.util.Collection;
 
 public class CucumberBaseClass extends AppData {
 
-    static WebDriver driver = GetWebDriver.getInstance();
+    static WebDriver driver;
     static LoginPage login;
     static CustomerViewDialog_Header customerViewDialog_header;
     static CreateNewCustomer createNewCustomer;
     static CustomerviewDialog_AppointmentsTab customerviewDialog_appointmentsTab;
     static Scenario scenario;
+    protected static BasePage basePage;
 
     @Before(order = 1)
     public void beforeTest() {
         driver = GetWebDriver.getInstance();
+        basePage = new BasePage();
+        basePage.setWebDriver(driver);
     }
 
     @Before(order = 2)

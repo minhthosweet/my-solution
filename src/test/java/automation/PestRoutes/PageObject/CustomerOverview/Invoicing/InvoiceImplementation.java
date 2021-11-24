@@ -1,12 +1,14 @@
 package automation.PestRoutes.PageObject.CustomerOverview.Invoicing;
 
+import automation.PestRoutes.PageObject.BasePage;
 import automation.PestRoutes.Utilities.FindElement;
 import automation.PestRoutes.Utilities.FindElement.InputType;
 import automation.PestRoutes.Utilities.Utilities;
 import automation.PestRoutes.Utilities.Utilities.ElementType;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
-public class InvoiceImplementation {
+public class InvoiceImplementation extends BasePage {
 
     // Values on Invoicing Landing Page
     public String accountSummaryButton = "//div[@id='billingPanel']//li[contains(text(),'Account Summary')]";
@@ -40,9 +42,12 @@ public class InvoiceImplementation {
 
     // Cash tab
     private String paymentAmountField = "//div[text() = 'Payment Amount:']/following-sibling::input[@name = 'amount']";
+    private By paymentAmtField = By.xpath("//form[@id='singlePaymentForm']//input[@name='amount']");
     public String confirmPymtAmtField = "//input[@name = 'confirmCashAmount']";
+    private By confirmAmountField = By.xpath("//input[@name = 'confirmCashAmount']");
     private String custPaymentNotes = "//textarea[@name = \"customerNotes2\"]";
     private String recordPayment = "//form[@id=\"singlePaymentForm\"]//div[contains (text(), 'Record Payment')]";
+    private By recordPaymentButton = By.xpath("//form[@id='singlePaymentForm']//div[text()='Record Payment']");
 
     // Payment Result
     private String successfulCharge = "//h2[contains(@class,'bold aCenter clr font24') and contains(text(),'Successfully Charged Cash!')]";
@@ -138,13 +143,21 @@ public class InvoiceImplementation {
         Utilities.waitUntileElementIsVisible(custPaymentNotes);
         Utilities.clickElement(custPaymentNotes, ElementType.XPath);
         FindElement.elementByAttribute(custPaymentNotes, InputType.XPath).sendKeys("This is just a test");
+    }
 
+    public String getPaymentAmount() { return find(paymentAmtField).getAttribute("value"); }
+
+    public void typeConfirmationAmount(String confirmationAmount)  {
+        type(confirmationAmount, confirmAmountField);
     }
 
     public void clickRecordPayment() {
         Utilities.waitUntileElementIsVisible(recordPayment);
         Utilities.clickElement(recordPayment, ElementType.XPath);
+        //Optimized For Encapsulation Below via clickRecordPaymentButton() Using A Private Modifier With By Class
     }
+
+    public void clickRecordPaymentButton() { click(recordPaymentButton); }
 
     public void invoiceAccountSummaryClick() {
         Utilities.waitUntileElementIsVisible(invoiceAccountSummaryClick);
@@ -404,5 +417,4 @@ public class InvoiceImplementation {
         Utilities.clickElement(limitedToSubscription, ElementType.XPath);
         Utilities.clickElement("//label[contains (text(), '" + needServiceName + " Subscription Invoices')]", ElementType.XPath);
     }
-
 }

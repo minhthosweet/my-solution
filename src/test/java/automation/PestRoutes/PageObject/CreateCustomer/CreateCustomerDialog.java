@@ -1,5 +1,7 @@
 package automation.PestRoutes.PageObject.CreateCustomer;
 
+import automation.PestRoutes.PageObject.BasePage;
+import org.openqa.selenium.By;
 import org.openqa.selenium.ElementNotInteractableException;
 import org.openqa.selenium.Keys;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_Admin;
@@ -9,12 +11,15 @@ import automation.PestRoutes.Utilities.FindElement.InputType;
 import automation.PestRoutes.Utilities.Utilities.ElementType;
 import org.openqa.selenium.WebElement;
 
-public class CreateCustomerDialog {
+public class CreateCustomerDialog extends BasePage {
+
     // **********Objects**********
     public String dialogTitle = "//span[@id = 'ui-id-11']";
     public String newCustTitle = "//div[@id= 'customerPanel']/h3";
     public String firstNameInputField = "//input[@name= 'fname']";
+    private By firstNameField = By.xpath("//input[@name= 'fname']");
     public String lastNameInputField = "//input[@name= 'lname']";
+    private By lastNameField = By.xpath("//input[@name= 'lname']");
     public String cellPhoneInputField = "//input[@name= 'phone1']";
     public String homePhoneInputField = "//input[@name= 'phone2']";
     public String emailAddressInputField = "//input[@name= 'email']";
@@ -38,6 +43,7 @@ public class CreateCustomerDialog {
     public String purpleDragonCheckBox = "//input[@name= 'purpleDragon']";
     public String addressInputField = "//input[@name= 'address']";
     public String zipCodeInputField = "//input[@name= 'zip']";
+    private By zipCodeField = By.xpath("//input[@name= 'zip']");
     public String cityInputField = "//input[@name= 'city']";
     public String stateDropDown = "//select[@name= 'state']";
     public String countyDropDown = "//select[@name= 'county']";
@@ -207,11 +213,17 @@ public class CreateCustomerDialog {
     public void setFirstName(String needFirstName) {
         Utilities.waitUntileElementIsVisible(firstNameInputField);
         FindElement.elementByAttribute(firstNameInputField, InputType.XPath).sendKeys(needFirstName);
+        //Optimized For Encapsulation Below via typeFirstName() By Passing In A String & Using A Private Modifier With By Class
+    }
+    public void typeFirstName (String firstName) {
+        type(firstName, firstNameField);
     }
 
     public void setLastName(String needLastName) {
         FindElement.elementByAttribute(lastNameInputField, InputType.XPath).sendKeys(needLastName);
+        //Optimized For Encapsulation Below via typeLastName() By Passing In A String & Using A Private Modifier With By Class
     }
+    public void typeLastName (String lastName) { type(lastName, lastNameField); }
 
     public void setCellPhone(String needCellPhoneNumber) {
         FindElement.elementByAttribute(cellPhoneInputField, InputType.XPath).sendKeys(needCellPhoneNumber);
@@ -245,6 +257,11 @@ public class CreateCustomerDialog {
     public void setZipCode(String needZipCode) throws InterruptedException {
         FindElement.elementByAttribute(zipCodeInputField, InputType.XPath).sendKeys(needZipCode);
         Thread.sleep(200);
+        //Optimized For Encapsulation Below via typeZipCode() By Passing In A String & Using A Private Modifier With By Class
+    }
+
+    public void typeZipCode(String zipCode) {
+        type(zipCode, zipCodeField);
     }
 
     public void setCity(String needCity) throws InterruptedException {
@@ -297,4 +314,9 @@ public class CreateCustomerDialog {
         return Utilities.getAttributeValue(cityInputField, "value");
     }
 
+    public String getCustomerName () {
+        String customerName = find(firstNameField).getAttribute("value") + " " +
+                              find(lastNameField).getAttribute("value");
+        return customerName;
+    }
 }

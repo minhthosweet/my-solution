@@ -1,15 +1,16 @@
 package automation.PestRoutes.PageObject.CustomerOverview.Invoicing;
 
+import automation.PestRoutes.PageObject.BasePage;
 import automation.PestRoutes.Utilities.FindElement;
 import automation.PestRoutes.Utilities.Utilities;
 import automation.PestRoutes.Utilities.Utilities.ElementType;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
-import javax.swing.text.Element;
-
-public class Invoice_Header {
+public class Invoice_Header extends BasePage {
 	
 	public String cash = "Cash";
+	private By cashPayment = By.xpath("//div[@class='wallet']//div[text()='Cash']");
 	public String check = "Check";
 	public String creditCard = "Card";
 	public String achDraft = "ACH";
@@ -26,5 +27,9 @@ public class Invoice_Header {
 		} catch(Exception e) {
 			Utilities.clickElement("//div[contains(@class,'paymentMethod bluGradientBG') and contains(text(),'"+needTab+"')]",ElementType.XPath, true, false);
 		}
+	}
+
+	public void clickCash() {
+		click(cashPayment);
 	}
 }

@@ -1,10 +1,8 @@
 package automation.PestRoutes.PageObject.CustomerOverview;
 
+import automation.PestRoutes.PageObject.BasePage;
 import org.apache.commons.lang3.SystemUtils;
-import org.openqa.selenium.Alert;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.NoAlertPresentException;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import automation.PestRoutes.Utilities.FindElement;
 import automation.PestRoutes.Utilities.Utilities;
 import automation.PestRoutes.Utilities.FindElement.InputType;
@@ -14,7 +12,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAdjusters;
 
-public class CustomerViewDialog_SubscriptionTab {
+public class CustomerViewDialog_SubscriptionTab extends BasePage {
 
 	CustomerViewDialog_InfoTab infoTab;
 	CustomerViewDialog_Header customerDialogHeader;
@@ -31,6 +29,7 @@ public class CustomerViewDialog_SubscriptionTab {
 
 	//***Sales Info/Billing Options objects***
 	public String newSubscriptionButton = "//div[text()=  '+ New Subscription']";
+	private By newSubscription = By.xpath("//div[text()=  '+ New Subscription']");
 	public String first_SalesRepDropdown = "//h3[text()=  'Sales Info']/following-sibling::select[@name='creditTo']";
 	public String second_SalesRepDropdown = "//h3[text()=  'Sales Info']/following-sibling::select[@name='creditTo3']";
 	public String third_SalesRepDropdown = "//h3[text()=  'Sales Info']/following-sibling::select[@name='creditTo4']";
@@ -53,6 +52,7 @@ public class CustomerViewDialog_SubscriptionTab {
 	public String netBillingDaysInputField = "//input[@name='netBillingDaysDisplay']";
 	public String billingFrequencyDropdown = "//select[@name='billingFrequency']";
 	public String billingInitialInvoiceDropdown = "//select[@name='initialInvoice']";
+	private By initialInvoiceDropDown = By.xpath("//select[@name='initialInvoice']");
 	public String selectedBillingInitialInvoiceDropdown = "//select[@name='initialInvoice']/option[@selected]";
 	public String initialBillingDateInputField = "//input[@name='initialBillingDate']";
 	public String editCustomInitialScheduleButton = "//div[@id='editInitialCustomScheduleButton']";
@@ -66,6 +66,7 @@ public class CustomerViewDialog_SubscriptionTab {
 	public String billing_initialBillingDate = "On Initial Billing Date";
 	//***Recurring Services objects***
 	public String serviceTypeDropdown = "//select[@name='recurringServiceType']";
+	private By serviceTypeDropDown = By.xpath("//select[@name='recurringServiceType']");
 	public String serviceFrequencyDropdown = "//select[@name='frequency']";
 	public String serviceDurationDropdown = "//select[@name='duration']";
 	public String callAheadDropdown = "//select[@name='callAhead']";
@@ -74,6 +75,7 @@ public class CustomerViewDialog_SubscriptionTab {
 	public String autoScheduleDropdown = "//select[@name='autoSchedule']";
 	public String initialFollowupDropdown = "//select[@name='followupDelay']";
 	public String customDateInputField = "//input[@name='customDate']";
+	private By customDateField = By.xpath("//input[@name='customDate']");
 	public String routineRegionDropdown = "//select[@name='regionID']";
 	public String preferredTechDropdown = "//select[@name='preferredTech']";
 	public String preferredDayDropdown = "//select[@name='preferredDays']";
@@ -91,10 +93,13 @@ public class CustomerViewDialog_SubscriptionTab {
 	//***Initial invoice template objects***
 	public String initialInvoice_AddTicketItemButton = "//h3[text()='Initial Invoice Template']/following-sibling::div[text()='+ Add Ticket Item']";
 	public String initialQuoteInputField = "//div[@id= 'subscriptionAccordion']//div[text()='Initial Quote']/following-sibling::input[@name='serviceCharge']";
+	private By initialQuoteField = By.xpath("//div[@id= 'subscriptionAccordion']//div[text()='Initial Quote']/following-sibling::input[@name='serviceCharge']");
 	public String initialDiscountInputField = "//div[text()=  'Initial Discount']/following-sibling::input[@value]";
+	private By initialDiscountField = By.xpath("//div[text()=  'Initial Discount']/following-sibling::input[@value]");
 	public String initialSubTotalValue = "//div[@id='initialTicket']//div[@class='ticketSummary']/div[2]";
 	public String initialTaxValue = "//div[@id='initialTicket']//div[@class='ticketSummary']/div[4]";
 	public String initialTotalValue = "//div[@id='initialTicket']//div[@class='ticketSummary']/div[6]";
+	private By initialInvoiceTotal = By.xpath("//div[@id='initialTicket']//div[@class='ticketSummary']/div[@class='ticketTotal totalBoxValue']");
 	//***Recurring invoice template objects***
 	public String recurringInvoice_AddTicketItemButton = "//h3[text()='Recurring Invoice Template']/following-sibling::div[text()='+ Add Ticket Item']";
 	public String standardProductionButton = "//div[@id='recurringServices']//span[text()='Standard Production']";
@@ -116,7 +121,10 @@ public class CustomerViewDialog_SubscriptionTab {
 	 */
 	public void clickNewSubscriptionButton() {
 		Utilities.clickElement(newSubscriptionButton, ElementType.XPath);
+		//Optimized For Encapsulation Below via clickNewSubscription() Using A Private Modifier With By Class
 	}
+
+	public void clickNewSubscription() { click(newSubscription); }
 
 	public void clickButton(String needButton) {
 		Utilities.waitUntileElementIsVisible(needButton);
@@ -235,7 +243,10 @@ public class CustomerViewDialog_SubscriptionTab {
 		Thread.sleep(800);
 		Utilities.waitUntileElementIsVisible(serviceTypeDropdown);
 		Utilities.selectValueFromDropDownByValue(serviceTypeDropdown, needServiceType);
+		//Optimized For Encapsulation Below via selectRecurringServiceType() By Passing In A String & Using A Private Modifier With By Class
 	}
+
+	public void selectRecurringServiceType(String serviceType) { select(serviceType, serviceTypeDropDown); }
 
 	public void selectServiceFrequency(String needServiceFrequency) {
 		Utilities.selectValueFromDropDownByValue(serviceFrequencyDropdown, needServiceFrequency);
@@ -391,6 +402,12 @@ public class CustomerViewDialog_SubscriptionTab {
 		Utilities.waitUntileElementIsVisible(customDateInputField);
 		FindElement.elementByAttribute(customDateInputField, InputType.XPath).sendKeys(needCustomDate);
 		FindElement.elementByAttribute(customDateInputField, InputType.XPath).sendKeys(Keys.ENTER);
+		//Optimized For Encapsulation Below via selectCustomDate() By Passing In A String & Using A Private Modifier With By Class
+	}
+
+	public void selectCustomDate(String customDate) {
+		type(customDate, customDateField);
+		find(customDateField).sendKeys(Keys.ENTER);
 	}
 
 	public void setInitialServiceQuote(String needAmount) throws InterruptedException {
@@ -401,6 +418,11 @@ public class CustomerViewDialog_SubscriptionTab {
 			Thread.sleep(1000);
 		}
 		FindElement.elementByAttribute(initialQuoteInputField, InputType.XPath).sendKeys(needAmount);
+		//Optimize Later via Below typeInitialQuote() By Passing In A String & Using A Private Modifier With By Class
+	}
+
+	public void typeInitialQuote (String initialQuote) throws InterruptedException {
+		type(initialQuote, initialQuoteField);
 	}
 
 	public void setInitialServiceDiscount(String needAmount) throws InterruptedException {
@@ -415,6 +437,11 @@ public class CustomerViewDialog_SubscriptionTab {
 		}
 		FindElement.elementByAttribute(initialDiscountInputField, InputType.XPath).sendKeys(needAmount);
 		Utilities.clickElement(initialTotalValue, ElementType.XPath);
+		//Optimize Later via Below typeInitialDiscount() By Passing In A String & Using A Private Modifier With By Class
+	}
+
+	public void typeInitialDiscount(String initialDiscount) throws InterruptedException {
+		type(initialDiscount, initialDiscountField);
 	}
 
 	public void setServiceQuote(String needService, String needAmount) throws InterruptedException {
@@ -435,6 +462,11 @@ public class CustomerViewDialog_SubscriptionTab {
 
 	public void setInitialInvoiceType(String initialInvoiceType) {
 		Utilities.selectValueFromDropDownByValue(billingInitialInvoiceDropdown, initialInvoiceType);
+		//Optimized For Encapsulation Below via selectInitialInvoice() By Passing In A String & Using A Private Modifier With By Class
+	}
+
+	public void selectInitialInvoice(String initialInvoice) {
+		select(initialInvoice, initialInvoiceDropDown);
 	}
 
 	public void setAmount_CustomSchedule() {
@@ -533,6 +565,11 @@ public class CustomerViewDialog_SubscriptionTab {
 
 	public String getInitialInvoiceValue() {
 		return Utilities.getElementTextValue(initialTotalValue, ElementType.XPath);
+		//Optimized For Encapsulation Below via getInitialInvoiceTotal() Using A Private Modifier With By Class
+	}
+
+	public String getInitialInvoiceTotal (){
+		return getText(initialInvoiceTotal);
 	}
 
 	public String getRecurringInvoiceValue() {

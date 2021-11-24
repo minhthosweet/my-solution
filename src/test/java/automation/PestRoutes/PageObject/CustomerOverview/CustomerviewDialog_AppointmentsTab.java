@@ -1,12 +1,16 @@
 package automation.PestRoutes.PageObject.CustomerOverview;
 
+import automation.PestRoutes.PageObject.BasePage;
 import automation.PestRoutes.Utilities.FindElement;
 import automation.PestRoutes.Utilities.Utilities;
 import automation.PestRoutes.Utilities.Utilities.ElementType;
 import io.cucumber.java.en.When;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
-public class CustomerviewDialog_AppointmentsTab {
+import java.util.List;
+
+public class CustomerviewDialog_AppointmentsTab extends BasePage {
 
     // **********Tab's objects**********
     public String statusButton = "//div[@id='appointmentContainor']//div[@id='SubStatus']";
@@ -31,7 +35,10 @@ public class CustomerviewDialog_AppointmentsTab {
     public String cancelAppointment = "//div[@id='completeButton']/following-sibling::div//div[text() = 'Cancel']";
     public String cancelNotesAppointment = "//textarea[@id='cancelReason']";
     public String confirmCancellation = "//span[text()='Confirm Cancelation']";
-    private String okButton = "//div[@aria-describedby= 'fieldRoutesDialog']//span[text()='OK']";
+    //public String okButton = "//div[@aria-describedby= 'fieldRoutesDialog']//span[text()='OK']";
+    private By okButton = By.xpath("//div[@aria-describedby= 'fieldRoutesDialog']//span[text()='OK']");
+    private By technicianName = By.xpath("//div[@id='ADCustomer']//div[@class='techName techNameAssignButton']");
+    private By allTechnicians = By.xpath("//div[@id='editRouteTechs']//div[@class='techName']");
 
     // Subscription objects
     public String createNewSubscription_Scheduling = "Create New Subscription";
@@ -142,7 +149,8 @@ public class CustomerviewDialog_AppointmentsTab {
     }
 
     public void clickOKButton() {
-        Utilities.clickElement(okButton, Utilities.ElementType.XPath);
+        //Utilities.clickElement(okButton, Utilities.ElementType.XPath);
+        click(okButton);
     }
 
     public void cancellationNotes() {
@@ -256,6 +264,21 @@ public class CustomerviewDialog_AppointmentsTab {
         Utilities.waitUntileElementIsVisible(technicianOnAppointment);
         System.out.println("technicianName : " + Utilities.getElementTextValue(technicianOnAppointment, ElementType.XPath));
         return Utilities.getElementTextValue(technicianOnAppointment, ElementType.XPath);
+    }
+
+    public String getTechName () {
+        return getText(technicianName);
+    }
+
+    public void setTechName(String techName) {
+        click(technicianName);
+        List<WebElement> listOfTechNames = driver.findElements(allTechnicians);
+
+        for (WebElement technician : listOfTechNames) {
+            if (technician.getText().equalsIgnoreCase(techName)) {
+                technician.click();
+            }
+        }
     }
 
     public String getAppointmentID() {
