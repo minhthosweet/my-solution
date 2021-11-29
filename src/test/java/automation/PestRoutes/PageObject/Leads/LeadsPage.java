@@ -119,13 +119,21 @@ public class LeadsPage extends BasePage {
 		return Utilities.getAttributeValue(needElement, "value");
 	}
 
-	public void clickNewQuote() { click(newQuoteButton);}
+	public void clickNewQuote() {
+		click(newQuoteButton);
+	}
 
-	public void selectServiceType(String serviceType){ select(serviceType, serviceTypeDropDown); }
+	public void selectServiceType(String serviceType) {
+		selectFromDropDown(serviceType, serviceTypeDropDown);
+	}
 
-	public void selectFrequency(String frequency) { select(frequency, frequencyDropDown); }
+	public void selectFrequency(String frequency) {
+		selectFromDropDown(frequency, frequencyDropDown);
+	}
 
-	public void selectBilling(String billing) { select(billing, billingDropDown); }
+	public void selectBilling(String billing) {
+		selectFromDropDown(billing, billingDropDown);
+	}
 
 	public void typeRecurringServiceTypeAmount(String serviceTypeAmount) throws InterruptedException {
 		Thread.sleep(1000);

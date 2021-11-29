@@ -247,7 +247,9 @@ public class CustomerViewDialog_SubscriptionTab extends BasePage {
 		//Optimized For Encapsulation Below via selectRecurringServiceType() By Passing In A String & Using A Private Modifier With By Class
 	}
 
-	public void selectRecurringServiceType(String serviceType) { select(serviceType, serviceTypeDropDown); }
+	public void selectRecurringServiceType(String serviceType) {
+		selectFromDropDown(serviceType, serviceTypeDropDown);
+	}
 
 	public void selectServiceFrequency(String needServiceFrequency) {
 		Utilities.selectValueFromDropDownByValue(serviceFrequencyDropdown, needServiceFrequency);
@@ -459,7 +461,7 @@ public class CustomerViewDialog_SubscriptionTab extends BasePage {
 	}
 
 	public void selectInitialInvoice(String initialInvoice) {
-		select(initialInvoice, initialInvoiceDropDown);
+		selectFromDropDown(initialInvoice, initialInvoiceDropDown);
 	}
 
 	public void setAmount_CustomSchedule() {

@@ -3,15 +3,19 @@ package automation.PestRoutes.PageObject.RoutePage;
 import automation.PestRoutes.Controller.CustomRoute.CustomRoute;
 import automation.PestRoutes.Controller.Renewal.ValidateRenewal;
 import automation.PestRoutes.Controller.Schedules.ScheduleAppt;
+import automation.PestRoutes.PageObject.BasePage;
 import automation.PestRoutes.Utilities.FindElement;
 import automation.PestRoutes.Utilities.Utilities;
 import automation.PestRoutes.Utilities.FindElement.InputType;
 import automation.PestRoutes.Utilities.Utilities.ElementType;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
-public class RoutePage {
+import java.util.List;
+
+public class RoutePage extends BasePage {
     public String addRoutesButton = "//li[@id= 'addRoutesButton']";
     public String jobPoolButton = "//p[text()= 'Job Pool']";
     public String remindersButton = "//p[text()= 'Reminders']";
@@ -26,6 +30,9 @@ public class RoutePage {
     public String saveButton = "//span[text()='Edit Group']/parent::div/following-sibling::div//span[text()='Save']";
     public String deleteButton = "//span[text()='Delete']";
     public String deleteGroup = "//span[text()='Delete Group']";
+    private By allFixedAppointments = By.xpath("//div[@id='routesView']//div[text()='Schedule Fixed Appointment']");
+    private By newCustomerField = By.xpath("//input[@name='newCustomer']");
+    private By newCustomerButton = By.xpath("//div[@id='newCustomerAppointmentButton']");
 
     CustomRoute customRoute;
 
@@ -139,5 +146,21 @@ public class RoutePage {
     public WebElement getDescription(String needText) {
         return FindElement.elementByAttribute("//h3[contains (text(), '"+needText+"')]", InputType.XPath);
     }
+
+    public void selectAvailableAppointment() {
+        List<WebElement> fixedAppointments = driver.findElements(allFixedAppointments);
+        for(WebElement availableAppointment : fixedAppointments) {
+            if (!availableAppointment.isSelected()) {
+                availableAppointment.click();
+                break;
+            }
+        }
+    }
+
+    public void selectCustomer(String customer) {
+        type(customer, newCustomerField);
+        click(newCustomerButton);
+    }
+
 
 }

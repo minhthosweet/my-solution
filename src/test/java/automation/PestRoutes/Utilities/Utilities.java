@@ -22,6 +22,7 @@ import java.util.*;
 
 public class Utilities {
 	static WebDriver driver = GetWebDriver.getInstance();
+
 	public static List list= new ArrayList<String>();
 
 	public static String getAlertText() {
@@ -492,5 +493,12 @@ public class Utilities {
 
 	public static void refreshPage() {
 		driver.navigate().refresh();
+	}
+
+	public static void dragCustomerCard (int x, int y) throws InterruptedException {
+		WebElement customerCard = driver.findElement(By.xpath("//body[@id='daysPage']//div[@aria-describedby='customerWindow']/div"));
+		Actions act = new Actions(driver);
+		act.dragAndDropBy(customerCard, x, y).perform();
+		Thread.sleep(3000);
 	}
 }

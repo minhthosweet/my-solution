@@ -35,6 +35,7 @@ public class CustomerviewDialog_AppointmentsTab extends BasePage {
     public String cancelNotesAppointment = "//textarea[@id='cancelReason']";
     public String confirmCancellation = "//span[text()='Confirm Cancelation']";
     //public String okButton = "//div[@aria-describedby= 'fieldRoutesDialog']//span[text()='OK']";
+    private By confirmCancellationButton = By.xpath("//span[text()='Confirm Cancellation']");
     private By okButton = By.xpath("//div[@aria-describedby= 'fieldRoutesDialog']//span[text()='OK']");
     private By technicianName = By.xpath("//div[@id='ADCustomer']//div[@class='techName techNameAssignButton']");
     private By allTechnicians = By.xpath("//div[@id='editRouteTechs']//div[@class='techName']");
@@ -42,6 +43,8 @@ public class CustomerviewDialog_AppointmentsTab extends BasePage {
     // Subscription objects
     public String createNewSubscription_Scheduling = "Create New Subscription";
     public String standAloneService_Scheduling = "Stand-Alone Service or Reservice";
+    private By selectedSubscription = By.xpath("//div[@id='appointmentContainor']//option[@selected='SELECTED']");
+    private By pendingAppointment = By.xpath("//div[@id='historyPanel']//span[text()='Pending']");
 
     // Unit Products
     public String unitName = "//div[@id='appointmentContainor']//div[@style = 'fonts-size:11px; float:left; margin-left:5px;']";
@@ -71,6 +74,11 @@ public class CustomerviewDialog_AppointmentsTab extends BasePage {
                         + "')]");
         Utilities.clickElement("//span[text()='Pending']/parent::div/preceding-sibling::div[contains (text(), '"
                 + needServiceName + "')]", ElementType.XPath);
+    }
+
+    public void clickPendingAppointment(String serviceType) throws InterruptedException {
+        Thread.sleep(2000);
+        click(pendingAppointment);
     }
 
     public void clickScheduledStructuredService(String needStructureName) {
@@ -289,5 +297,13 @@ public class CustomerviewDialog_AppointmentsTab extends BasePage {
         Utilities.waitUntileElementIsVisible("//select[@name='changeAppointmentTech']");
         Utilities.clickElement("//select[@name='changeAppointmentTech']", ElementType.XPath);
         Utilities.clickElement("//select[@name='changeAppointmentTech']//option[text()='"+needTechnicianName+"']", ElementType.XPath);
+    }
+
+    public void clickConfirmCancellationButton() {
+        click(confirmCancellationButton);
+    }
+
+    public String getAppointmentsTabSubscription(){
+        return getText(selectedSubscription);
     }
 }

@@ -1,5 +1,7 @@
-#Author: Rex Jones II
-#Ticket 105265: https://fieldroutes.freshdesk.com/a/tickets/105265
+# Author: Rex Jones II
+# Ticket 105265: Invoice pops up under Tech's Name AND No Tech
+# https://fieldroutes.freshdesk.com/a/tickets/105265
+
 @RegressionREX
 @Regression
 @ReportingTab

@@ -11,6 +11,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class CustomerViewDialog_Header extends BasePage {
+
     public String overviewTabInDialog = "overviewTab";
     public String infoTabInDialog = "infoTab";
     public String subscriptionTabInDialog = "subscriptionTab";
@@ -118,16 +119,19 @@ public class CustomerViewDialog_Header extends BasePage {
     }
 
     public CustomerviewDialog_AppointmentsTab goToAppointmentsTab () {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(appointmentsTab));
         click(appointmentsTab);
         return new CustomerviewDialog_AppointmentsTab();
     }
 
     public RoutePageInvoicing goToInvoicesTab () {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(invoicesTab));
         click(invoicesTab);
         return new RoutePageInvoicing();
     }
 
     public LeadsPage goToLeadsTab () {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(leadsTab));
         click(leadsTab);
         return new LeadsPage();
     }

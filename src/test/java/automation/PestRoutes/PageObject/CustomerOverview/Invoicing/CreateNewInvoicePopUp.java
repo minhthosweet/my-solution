@@ -42,8 +42,8 @@ public class CreateNewInvoicePopUp extends BasePage {
         type(subTotal, invoiceSubTotal);
     }
 
-    public void selectServiceType(String serviceType) {
-        select(serviceType, serviceTypeDropDown);
+    public void selectServiceType(String serviceType)  {
+        selectFromDropDown(serviceType, serviceTypeDropDown);
     }
 
     public void clickCreateButton() {

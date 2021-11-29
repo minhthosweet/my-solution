@@ -11,6 +11,8 @@ public class RoutePageInvoicing extends BasePage {
 	private By addInvoicePayment = By.xpath("//div[text()='+ Add Payment']");
 	public String addNewInvoice = "//li[text()='+ New Invoice']";
 	private By newInvoice = By.xpath("//li[text()='+ New Invoice']");
+	public String accountStatementReport = "Account Statement Report";
+	public String accountSummary = "Account Summary";
 	public String addTicketItem = "//div[contains(@class,'grayButton full aCenter  serviceTicketButton left') and contains(text(),'Add Ticket Item')]";
 	public String clickAddPartialPayment = "//div[contains(@class,'grayButton full aCenter  serviceTicketButton ticketPaymentButton left') and contains(text(),'Add Payment')]";
 	private String addAvailableTicket = "//div[@id='availableItems']//li[1]";

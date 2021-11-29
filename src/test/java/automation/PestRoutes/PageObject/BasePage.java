@@ -1,7 +1,6 @@
 package automation.PestRoutes.PageObject;
 
 import automation.PestRoutes.PageObject.CreateCustomer.CreateCustomerDialog;
-import automation.PestRoutes.PageObject.Customers.CustomersMainPage;
 import automation.PestRoutes.PageObject.ReportingPage.ReportingMainPage;
 import automation.PestRoutes.PageObject.Scheduling.SchedulingTab;
 import org.openqa.selenium.By;
@@ -10,6 +9,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 public class BasePage {
     protected static WebDriver driver;
 
@@ -17,6 +19,8 @@ public class BasePage {
     private By newCustomerComponent = By.xpath("//div[@id='guestNav']//a[text()='New Customer']");
     private By schedulingComponent = By.xpath("//div[@id='routeLink']/a[text()='Scheduling']");
     private By customersComponent = By.xpath("//div[@id='customerLink']/a[text()='Customers']");
+    private By customerSearchField = By.xpath("//input[@id='customerSearch']");
+    private By customer = By.xpath("//span[@class='left searchName']");
 
     public void setWebDriver (WebDriver driver) {
         BasePage.driver = driver;
@@ -25,6 +29,7 @@ public class BasePage {
     protected WebElement find (By locator) { return driver.findElement(locator); }
 
     protected void type (String text, By locator) {
+        click(locator);
         click(locator);
         find(locator).sendKeys(Keys.CONTROL, "a");
         find(locator).sendKeys(text);
@@ -37,6 +42,17 @@ public class BasePage {
     protected void select (String value, By locator) {
         Select dropDown = new Select(find(locator));
         dropDown.selectByVisibleText(value);
+    }
+
+    protected void selectFromDropDown(String value, By locator) {
+        Select findDropDown = new Select(find(locator));
+        findDropDown.selectByVisibleText(value);
+    }
+
+    protected List<String> getOptionFromDropDown(By locator) {
+        Select findDropDown = new Select(find(locator));
+        List<WebElement> allSelectedOptions = findDropDown.getAllSelectedOptions();
+        return allSelectedOptions.stream().map(e->e.getText()).collect(Collectors.toList());
     }
 
     protected String getText (By locator) { return find(locator).getText(); }
@@ -52,9 +68,9 @@ public class BasePage {
         return new CreateCustomerDialog ();
     }
 
-    public CustomersMainPage goToCustomersComponent () {
-        click(customersComponent);
-        return new CustomersMainPage();
+    public SchedulingTab goToSchedulingComponent () {
+        click(schedulingComponent);
+        return new SchedulingTab();
     }
 
     public ReportingMainPage goToReportingComponent () {
@@ -62,8 +78,9 @@ public class BasePage {
         return new ReportingMainPage();
     }
 
-    public SchedulingTab goToSchedulingComponent () {
-        click(schedulingComponent);
-        return new SchedulingTab();
+    public void searchForCustomer(String customerName) {
+        click(customerSearchField);
+        type(customerName, customerSearchField);
+        click(customer);
     }
 }

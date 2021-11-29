@@ -64,6 +64,7 @@ public class CreateCustomerDialog extends BasePage {
     public String info = "//a[text()= 'Info']";
     public String mapCode = "//input[@name= 'mapCode']";
     public String clickAddFlag = "//span[text()='Add Flag']";
+    private By scheduleButton = By.xpath("//span[text()='Schedule']");
 
     // Property Types
     public String residentialProperty = "Residential Property";
@@ -324,5 +325,9 @@ public class CreateCustomerDialog extends BasePage {
         String customerName = find(firstNameField).getAttribute("value") + " " +
                               find(lastNameField).getAttribute("value");
         return customerName;
+    }
+
+    public void clickScheduleButton () {
+        click(scheduleButton);
     }
 }
