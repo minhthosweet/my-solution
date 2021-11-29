@@ -14,6 +14,8 @@ public class RoutePageInvoicing extends BasePage {
 	public String addTicketItem = "//div[contains(@class,'grayButton full aCenter  serviceTicketButton left') and contains(text(),'Add Ticket Item')]";
 	public String clickAddPartialPayment = "//div[contains(@class,'grayButton full aCenter  serviceTicketButton ticketPaymentButton left') and contains(text(),'Add Payment')]";
 	private String addAvailableTicket = "//div[@id='availableItems']//li[1]";
+	private By paymentStatusField = By.xpath("//ul[@id='invoiceGroupListContainer']/ul/li/div[2]/div[2]");
+	private By invoicesTab = By.xpath("//li[@name='invoicesTab']");
 
 	// Setter
 
@@ -30,6 +32,9 @@ public class RoutePageInvoicing extends BasePage {
 	public void clickAddPayment() {
 		Utilities.waitUntileElementIsVisible(addPayment);
 		Utilities.clickElement(addPayment, ElementType.XPath);
+		//This Method Was Not Consistent
+		//Sometimes the + Add Payment Click And Sometimes It Did Not Click
+		//Optimized For Encapsulation Below via addPayment() Using A Private Modifier With By Class
 	}
 
 	public void addPayment() throws InterruptedException {
@@ -56,5 +61,9 @@ public class RoutePageInvoicing extends BasePage {
 	public void selectAvailableItems() {
 		Utilities.waitUntileElementIsVisible(addAvailableTicket);
 		Utilities.clickElement(addAvailableTicket, ElementType.XPath);
+	}
+
+	public String isInvoicesTabSelected () {
+		return find(invoicesTab).getAttribute("aria-selected");
 	}
 }

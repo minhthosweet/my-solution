@@ -1,10 +1,14 @@
 package automation.PestRoutes.PageObject.CustomerOverview;
 
 import automation.PestRoutes.PageObject.BasePage;
+import automation.PestRoutes.PageObject.CustomerOverview.Invoicing.RoutePageInvoicing;
+import automation.PestRoutes.PageObject.Leads.LeadsPage;
 import automation.PestRoutes.Utilities.Utilities;
 import automation.PestRoutes.Utilities.Utilities.ElementType;
 import io.cucumber.java.en.And;
 import org.openqa.selenium.By;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class CustomerViewDialog_Header extends BasePage {
     public String overviewTabInDialog = "overviewTab";
@@ -30,12 +34,16 @@ public class CustomerViewDialog_Header extends BasePage {
     public String discardChange = "//span[text()='Discard Changes']";
     public String saveAnyways = "//span[text()='Save Anyways']";
     private By saveChangesButton = By.xpath("//span[text()='Save Changes']");
-    private By subscriptionTab = By.xpath("//a[text()='Subscription']");
-    private By invoicesTab = By.xpath("//a[text()='Invoices']");
+
+    //******************** TABS ********************
+    private By subscriptionTab = By.xpath("//li[@name='subscriptionTab']/a[text()='Subscription']");
+    private By leadsTab = By.xpath("//a[text()='Leads']");
     private By appointmentsTab = By.xpath("//a[text()='Appointments']");
+    private By invoicesTab = By.xpath("//a[text()='Invoices']");
 
     //Notes tab objects
     public String customerContacts_Notes = "//li[text()='Customer Contacts']";
+    WebDriverWait wait = new WebDriverWait(driver, 55);
 
     public void clickCustomerContactsInNotesTab() {
         Utilities.waitUntileElementIsVisible(customerContacts_Notes);
@@ -103,9 +111,24 @@ public class CustomerViewDialog_Header extends BasePage {
         }
     }
 
-    public void goToSubscriptionTab () { click(subscriptionTab); }
+    public CustomerViewDialog_SubscriptionTab goToSubscriptionTab () {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(subscriptionTab));
+        click(subscriptionTab);
+        return new CustomerViewDialog_SubscriptionTab();
+    }
 
-    public void goToInvoicesTab () { click(invoicesTab); }
+    public CustomerviewDialog_AppointmentsTab goToAppointmentsTab () {
+        click(appointmentsTab);
+        return new CustomerviewDialog_AppointmentsTab();
+    }
 
-    public void goToAppointmentsTab () { click(appointmentsTab); }
+    public RoutePageInvoicing goToInvoicesTab () {
+        click(invoicesTab);
+        return new RoutePageInvoicing();
+    }
+
+    public LeadsPage goToLeadsTab () {
+        click(leadsTab);
+        return new LeadsPage();
+    }
 }

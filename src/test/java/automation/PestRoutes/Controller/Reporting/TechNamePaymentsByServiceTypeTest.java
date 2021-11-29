@@ -9,6 +9,11 @@ import automation.PestRoutes.PageObject.CustomerOverview.Invoicing.CreateNewInvo
 import automation.PestRoutes.PageObject.CustomerOverview.Invoicing.InvoiceImplementation;
 import automation.PestRoutes.PageObject.CustomerOverview.Invoicing.Invoice_Header;
 import automation.PestRoutes.PageObject.CustomerOverview.Invoicing.RoutePageInvoicing;
+
+import static automation.PestRoutes.Utilities.Utilities.generateRandomString;
+import static automation.PestRoutes.Utilities.Utilities.currentDate;
+import static automation.PestRoutes.Utilities.Utilities.transformName;
+
 import automation.PestRoutes.PageObject.DashboardPage;
 import automation.PestRoutes.PageObject.Header;
 import automation.PestRoutes.PageObject.ReportingPage.OfficePage.PaymentsByServiceTypeTab;
@@ -34,12 +39,14 @@ public class TechNamePaymentsByServiceTypeTest {
     Invoice_Header userSelectsPayment = new Invoice_Header();
     InvoiceImplementation userMakesPayment = new InvoiceImplementation();
     ReportingMainPage userOnReporting = new ReportingMainPage();
+    ReportingMainPage userOnReportingComponent = new ReportingMainPage();
     PaymentsByServiceTypeTab userOnPaymentByServiceType = new PaymentsByServiceTypeTab();
     SchedulingTab userOnSchedulingComponent = new SchedulingTab();
     RoutePage userOnRoutePage = new RoutePage();
     Header userOnCustomerHeader = new Header();
     ValidateRenewal userValidates = new ValidateRenewal();
     CustomerviewDialog_AppointmentsTab userOnAppointments = new CustomerviewDialog_AppointmentsTab();
+    CustomerviewDialog_AppointmentsTab userOnAppointmentsTab = new CustomerviewDialog_AppointmentsTab();
 
     String totalInitialInvoice;
     String paymentAmount;
@@ -47,7 +54,7 @@ public class TechNamePaymentsByServiceTypeTest {
     String techName;
 
     @Given("I Create A Customer With A Subscription")
-    public void testCreatingCustomerWithSubscription() throws InterruptedException {
+    public void automateCreatingCustomerWithSubscription() throws InterruptedException {
         userCreateNewCustomer = userOnDashboard.goToNewCustomerComponent();
         userCreateNewCustomer.typeFirstName(generateRandomString(3));
         userCreateNewCustomer.typeLastName(generateRandomString(4));
@@ -57,21 +64,29 @@ public class TechNamePaymentsByServiceTypeTest {
         sameUser.goToSubscriptionTab();
         userOnSubscriptionTab.clickNewSubscription();
         userOnSubscriptionTab.selectRecurringServiceType("Automation Renewal"); // Hard-Coded But Will Fix Later
+        userCreateNewCustomer.typeZipCode("75093");
+        sameUser.clickCustomerSaveButton();
+        userOnSubscriptionTab = sameUser.goToSubscriptionTab();
+        userOnSubscriptionTab.clickNewSubscription();
+        userOnSubscriptionTab.selectRecurringServiceType("Automation Renewal");
+        userOnSubscriptionTab.selectCustomDate(currentDate("MM/DD/YYYY"));
+        userOnSubscriptionTab.selectInitialInvoice("After Initial Completion");
+        userOnSubscriptionTab.selectAdditionalItem_ToInitialInvoice("Best Product");
         sameUser.clickCustomerSaveButton();
         totalInitialInvoice = userOnSubscriptionTab.getInitialInvoiceTotal();
     }
 
     @When("I Generate A Stand Alone Invoice")
-    public void testGeneratingStandAloneInvoice() throws InterruptedException {
-        sameUser.goToInvoicesTab();
+    public void automateGeneratingStandAloneInvoice() throws InterruptedException {
+        userOnInvoicesTab = sameUser.goToInvoicesTab();
         userOnInvoicesTab.clickNewInvoice();
         userOnNewInvoicePopUp.typeSubTotal(totalInitialInvoice);
-        userOnNewInvoicePopUp.selectServiceType("Automation Renewal"); // Hard-Coded But Will Fix Later
+        userOnNewInvoicePopUp.selectServiceType("Automation Renewal");
         userOnNewInvoicePopUp.clickCreateButton();
     }
 
     @And("I Pay Off The Stand Alone Invoice")
-    public void testPayingOffStandAloneInvoice() throws InterruptedException {
+    public void automatePayingOffStandAloneInvoice() throws InterruptedException {
         userOnInvoicesTab.addPayment();
         userSelectsPayment.clickCash();
         paymentAmount = userMakesPayment.getPaymentAmount();
@@ -85,6 +100,8 @@ public class TechNamePaymentsByServiceTypeTest {
     public void testNoTechOnPaymentByServiceTypeReport() {
         userOnReporting = userOnDashboard.goToReportingComponent();
         userOnPaymentByServiceType = userOnReporting.clickPaymentsByServiceType();
+        userOnReportingComponent = userOnDashboard.goToReportingComponent();
+        userOnPaymentByServiceType = userOnReportingComponent.clickPaymentsByServiceType();
         userOnPaymentByServiceType.selectDateFor("Today");
         userOnPaymentByServiceType.selectGroupBy("Technician");
         userOnPaymentByServiceType.clickRefreshButton();
@@ -94,7 +111,7 @@ public class TechNamePaymentsByServiceTypeTest {
     }
 
     @When("I Complete An Appointment")
-    public void testCompletingAnAppointment() throws Exception {
+    public void automateCompletingAnAppointment() throws Exception {
         userOnSchedulingComponent = userOnDashboard.goToSchedulingComponent();
         userOnSchedulingComponent.addScheduleDateToProperties();
         userOnSchedulingComponent.clickScheduleDay();
@@ -113,8 +130,23 @@ public class TechNamePaymentsByServiceTypeTest {
     }
 
     @And("I Pay Off A Non Stand Alone Invoice")
-    public void testPayingOffNonStandAloneInvoice() throws InterruptedException {
+    public void testPayingOffNonStandAloneInvoice() throws Exception {
         sameUser.goToInvoicesTab();
+        userOnSubscriptionTab = sameUser.goToSubscriptionTab();
+        userValidates.scheduleAnAppointment();
+        userOnCustomerHeader.searchCustomerWithName(customerName);
+        userOnAppointmentsTab = sameUser.goToAppointmentsTab();
+        userValidates.completeSchedulesService();
+        userOnAppointmentsTab.clickStatusButton();
+        userOnAppointmentsTab.setTechName("Cam Walker");
+        techName = userOnAppointmentsTab.getTechName();
+        userOnAppointmentsTab.clickSaveAndCompleteButton();
+        userOnAppointments.clickStatusButton();
+    }
+
+    @And("I Pay Off A Non Stand Alone Invoice")
+    public void automatePayingOffNonStandAloneInvoice() throws InterruptedException {
+        userOnInvoicesTab = sameUser.goToInvoicesTab();
         userOnInvoicesTab.addPayment();
         userSelectsPayment.clickCash();
         paymentAmount = userMakesPayment.getPaymentAmount();
@@ -128,6 +160,8 @@ public class TechNamePaymentsByServiceTypeTest {
     public void testCorrectTechnicianOnPaymentByServiceTypeReport() {
         userOnReporting = userOnDashboard.goToReportingComponent();
         userOnReporting.clickPaymentsByServiceType();
+        userOnReportingComponent = userOnDashboard.goToReportingComponent();
+        userOnReportingComponent.clickPaymentsByServiceType();
         userOnPaymentByServiceType.selectDateFor("Today");
         userOnPaymentByServiceType.selectGroupBy("Technician");
         userOnPaymentByServiceType.clickRefreshButton();

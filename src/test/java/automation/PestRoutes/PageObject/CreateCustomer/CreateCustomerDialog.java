@@ -63,7 +63,6 @@ public class CreateCustomerDialog extends BasePage {
     public String divisionDropDown = "//select[@name= 'divisionID']";
     public String info = "//a[text()= 'Info']";
     public String mapCode = "//input[@name= 'mapCode']";
-    public String clickSave = "//button[@id='globalCustomerSaveButton']//span[text()='Save']";
     public String clickAddFlag = "//span[text()='Add Flag']";
 
     // Property Types
@@ -217,13 +216,20 @@ public class CreateCustomerDialog extends BasePage {
     }
     public void typeFirstName (String firstName) {
         type(firstName, firstNameField);
+        //type(needFirstName, firstNameInputField); Optimize Later With A Private Modifier & By Class
+        //Optimized via typeFirstName() By Passing In A String & Using A Private Modifier With By Class
     }
 
     public void setLastName(String needLastName) {
         FindElement.elementByAttribute(lastNameInputField, InputType.XPath).sendKeys(needLastName);
         //Optimized For Encapsulation Below via typeLastName() By Passing In A String & Using A Private Modifier With By Class
+        //type(needLastName, lastNameInputField); Optimize Later With A Private Modifier & By Class
+        //Optimized via typeLastName() By Passing In A String & Using A Private Modifier With By Class
     }
-    public void typeLastName (String lastName) { type(lastName, lastNameField); }
+    
+    public void typeLastName (String lastName) {
+        type(lastName, lastNameField);
+    }
 
     public void setCellPhone(String needCellPhoneNumber) {
         FindElement.elementByAttribute(cellPhoneInputField, InputType.XPath).sendKeys(needCellPhoneNumber);

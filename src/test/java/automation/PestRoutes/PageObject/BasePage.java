@@ -1,10 +1,11 @@
 package automation.PestRoutes.PageObject;
 
 import automation.PestRoutes.PageObject.CreateCustomer.CreateCustomerDialog;
+import automation.PestRoutes.PageObject.Customers.CustomersMainPage;
 import automation.PestRoutes.PageObject.ReportingPage.ReportingMainPage;
 import automation.PestRoutes.PageObject.Scheduling.SchedulingTab;
-import automation.PestRoutes.Utilities.Utilities;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
@@ -12,10 +13,10 @@ import org.openqa.selenium.support.ui.Select;
 public class BasePage {
     protected static WebDriver driver;
 
-
     private By reportingComponent = By.xpath("//div[@id='reportLink']/a[text()='Reporting']");
     private By newCustomerComponent = By.xpath("//div[@id='guestNav']//a[text()='New Customer']");
     private By schedulingComponent = By.xpath("//div[@id='routeLink']/a[text()='Scheduling']");
+    private By customersComponent = By.xpath("//div[@id='customerLink']/a[text()='Customers']");
 
     public void setWebDriver (WebDriver driver) {
         BasePage.driver = driver;
@@ -24,8 +25,8 @@ public class BasePage {
     protected WebElement find (By locator) { return driver.findElement(locator); }
 
     protected void type (String text, By locator) {
-        find(locator).clear();
         click(locator);
+        find(locator).sendKeys(Keys.CONTROL, "a");
         find(locator).sendKeys(text);
     }
 
@@ -49,6 +50,11 @@ public class BasePage {
     public CreateCustomerDialog goToNewCustomerComponent () {
         click(newCustomerComponent);
         return new CreateCustomerDialog ();
+    }
+
+    public CustomersMainPage goToCustomersComponent () {
+        click(customersComponent);
+        return new CustomersMainPage();
     }
 
     public ReportingMainPage goToReportingComponent () {

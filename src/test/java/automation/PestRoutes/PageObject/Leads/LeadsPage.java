@@ -1,13 +1,16 @@
 package automation.PestRoutes.PageObject.Leads;
 
-import org.openqa.selenium.Keys;
+import automation.PestRoutes.PageObject.BasePage;
+import org.openqa.selenium.By;
 
 import automation.PestRoutes.Utilities.FindElement;
 import automation.PestRoutes.Utilities.FindElement.InputType;
 import automation.PestRoutes.Utilities.Utilities;
 import automation.PestRoutes.Utilities.Utilities.ElementType;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class LeadsPage {
+public class LeadsPage extends BasePage {
 	public String statusDropdown = "//select[@id='leadStatusAction']";
 	
 	//********************Sales info objects********************
@@ -15,6 +18,7 @@ public class LeadsPage {
 	public String deleteButton = "//div[@id='deleteCustomerContactButton']";
 	public String leadStatusButton = "//select[@id='leadStatusAction']";
 	public String newButton = "//div[text()='+ New']";
+	private By newQuoteButton = By.xpath("//div[text()='+ New']");
 	public String assignToDropdown = "//h3[text()='Sales Info']/following-sibling::select[@name='assignedTo']";
 	public String salesRep2Dropdown = 
 			"//h3[text()='Sales Info']/following-sibling::select[@name='assignedTo']"
@@ -33,11 +37,14 @@ public class LeadsPage {
 	
 	//********************Service info objects********************
 	public String serviceTypeDropdown = "//h3[text()='Service Info']/following-sibling::select[@name='serviceID']";
+	private By serviceTypeDropDown = By.xpath("//select[@name='serviceID']");
 	public String followUpDropdown = "//h3[text()='Service Info']/following-sibling::select[@name='followupDelay']";
 	public String customStartDateInputField = "//h3[text()='Service Info']/following-sibling::input[@name='customDate']";
 	public String frequencyDropdown = "//h3[text()='Service Info']/following-sibling::select[@name='frequency']";
+	private By frequencyDropDown = By.xpath("//select[@name='frequency']");
 	public String seasonalDropdown = "//h3[text()='Service Info']/following-sibling::div[@class='regularSchedulingOptions']/select";
 	public String billingDropdown = "//h3[text()='Service Info']/following-sibling::select[@name='billingFrequency']";
+	private By billingDropDown = By.xpath("//select[@name='billingFrequency']");
 	
 	//********************Initial Invoice Template objects********************
 	public String addInitialInvoiceTicketItemButton = "//div[@class='left half']//div[text()='+ Add Ticket Item']";
@@ -52,15 +59,21 @@ public class LeadsPage {
 	//********************Recurring Invoice Template objects********************
 	public String addRecurringInvoiceTicketItemButton = "//div[@class='right half']//div[text()='+ Add Ticket Item']";
 	public String recurringInvoiceInputField = "//div[@class='right half']//input[@name='serviceCharge']";
+	private By recurringServiceTypeAmountField = By.xpath("//div[@class='right half']//input[@name='serviceCharge']");
 	public String recurringTicketItemValue = "//div[@class='left half']//div[text()='bed']/following-sibling::input";
 	public String recurringSubTotalValue = "//div[@class='right half']//div[text()='Sub Total']/following-sibling::div[1]";
 	public String recurringTaxValue = "//div[@class='right half']//div[text()='Tax']/following-sibling::div[1]";
 	public String recurringTotalValue = "//div[@class='right half']//div[text()='Total']/following-sibling::div[1]";
-	
+
+	private By standardProductionButton = By.xpath("//div[@id='recurringServices']//span[text()='Standard Production']");
+	private By customProductionField = By.xpath("//div[@id='recurringServices']//input[@name='productionValue']");
+
 	//********************Lead Notes objects********************
 	public String addLeadsNotesButton = "//div[@id='addLeadNoteButton']";
 	public String notesInputField = "//div[@id='leadNotesSection']//textarea";
 	public String saveNotesButton = "//div[@id='saveLeadNoteButton']";
+
+	WebDriverWait wait = new WebDriverWait(driver, 5);
 	
 	/*
 	 * Action methods
@@ -104,6 +117,30 @@ public class LeadsPage {
 	public String getValueOfAnElementByAttribute(String needElement) {
 		Utilities.waitUntileElementIsVisible(needElement);
 		return Utilities.getAttributeValue(needElement, "value");
+	}
 
+	public void clickNewQuote() { click(newQuoteButton);}
+
+	public void selectServiceType(String serviceType){ select(serviceType, serviceTypeDropDown); }
+
+	public void selectFrequency(String frequency) { select(frequency, frequencyDropDown); }
+
+	public void selectBilling(String billing) { select(billing, billingDropDown); }
+
+	public void typeRecurringServiceTypeAmount(String serviceTypeAmount) throws InterruptedException {
+		Thread.sleep(1000);
+		type(serviceTypeAmount, recurringServiceTypeAmountField);
+	}
+
+	public String getRecurringServiceTypeAmount() {
+		String serviceTypeAmount = find(recurringServiceTypeAmountField).getAttribute("value");
+		return serviceTypeAmount;
+	}
+
+	public String getRecurringCustomProduction() throws InterruptedException {
+		wait.until(ExpectedConditions.visibilityOfElementLocated(standardProductionButton));
+		click(standardProductionButton);
+		wait.until(ExpectedConditions.visibilityOfElementLocated(customProductionField));
+		return find(customProductionField).getAttribute("value");
 	}
 }

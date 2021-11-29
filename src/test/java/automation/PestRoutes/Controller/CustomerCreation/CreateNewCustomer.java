@@ -471,6 +471,11 @@ public class CreateNewCustomer extends AppData {
         customerDialog_Header.clickCloseButton();
     }
 
+    @Then("I refresh the browser")
+    public void refreshPage() {
+        Utilities.refreshPage();
+    }
+
     @When("I create customer with first name, last name, address, email and Structure")
     public void createCustomerWithStructure() throws Exception {
         customerDialog_Header = new CustomerViewDialog_Header();

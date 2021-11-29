@@ -490,13 +490,7 @@ public class Utilities {
 		return last_first;
 	}
 
-	@Then("I refresh the browser")
-	public static void refreshPage(){
+	public static void refreshPage() {
 		driver.navigate().refresh();
-	}
-
-	public static void waitUntilElementIsVisible(By locator, int needSecs) {
-		WebDriverWait wait = new WebDriverWait(driver, needSecs);
-		wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
 	}
 }

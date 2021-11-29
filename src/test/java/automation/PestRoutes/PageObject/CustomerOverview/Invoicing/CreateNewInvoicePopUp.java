@@ -42,7 +42,7 @@ public class CreateNewInvoicePopUp extends BasePage {
         type(subTotal, invoiceSubTotal);
     }
 
-    public void selectServiceType(String serviceType)  {
+    public void selectServiceType(String serviceType) {
         select(serviceType, serviceTypeDropDown);
     }
 

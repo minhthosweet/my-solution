@@ -15,6 +15,8 @@ public class PaymentsByServiceTypeTab extends BasePage {
     private By dateField = By.xpath("//input[@name='dateRange-officeParams']");
     private By groupByField = By.xpath("//select[@name='groupBy']");
     private By refreshButton = By.xpath("//div[@id='refreshOfficeReport']");
+    private By dateRange = By.xpath("//body[@id='reportsPage']/div[contains(@class,'daterangepicker')]//li");
+    private By applyButton = By.xpath("//body[@id='reportsPage']//button[text()='Apply']");
 
     public String Coupons = "//select[@name='excludeCoupons']";
 

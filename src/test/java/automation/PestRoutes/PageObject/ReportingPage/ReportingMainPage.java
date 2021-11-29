@@ -9,12 +9,8 @@ import org.openqa.selenium.By;
 public class ReportingMainPage extends BasePage {
 	public String office = "Office";
 	public String inventory = "Inventory";
-	public String lcoations = "Locations";
-	public String technicians = "Technicians";
-	public String officeStats = "Office Stats";
-	public String formLookup = "Form Lookup";
 	private By paymentsByServiceType = By.xpath("//ul[@id='oReportsMenu']/li[text()='Payments by Service Type']");
-	
+
 	public void navigateTo(String needTab) {
 		Utilities.clickElement("//p[text() = '"+needTab+"']", ElementType.XPath);
 	}

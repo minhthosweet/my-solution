@@ -122,6 +122,7 @@ public class CustomerViewDialog_SubscriptionTab extends BasePage {
 	public void clickNewSubscriptionButton() {
 		Utilities.clickElement(newSubscriptionButton, ElementType.XPath);
 		//Optimized For Encapsulation Below via clickNewSubscription() Using A Private Modifier With By Class
+		//click(newSubscriptionButton); Optimize Later With A Private Modifier & By Class
 	}
 
 	public void clickNewSubscription() { click(newSubscription); }
@@ -421,10 +422,6 @@ public class CustomerViewDialog_SubscriptionTab extends BasePage {
 		//Optimize Later via Below typeInitialQuote() By Passing In A String & Using A Private Modifier With By Class
 	}
 
-	public void typeInitialQuote (String initialQuote) throws InterruptedException {
-		type(initialQuote, initialQuoteField);
-	}
-
 	public void setInitialServiceDiscount(String needAmount) throws InterruptedException {
 		Utilities.scrollToElementJS(initialTotalValue);
 		Utilities.waitUntileElementIsVisible(initialTotalValue);
@@ -438,10 +435,6 @@ public class CustomerViewDialog_SubscriptionTab extends BasePage {
 		FindElement.elementByAttribute(initialDiscountInputField, InputType.XPath).sendKeys(needAmount);
 		Utilities.clickElement(initialTotalValue, ElementType.XPath);
 		//Optimize Later via Below typeInitialDiscount() By Passing In A String & Using A Private Modifier With By Class
-	}
-
-	public void typeInitialDiscount(String initialDiscount) throws InterruptedException {
-		type(initialDiscount, initialDiscountField);
 	}
 
 	public void setServiceQuote(String needService, String needAmount) throws InterruptedException {
