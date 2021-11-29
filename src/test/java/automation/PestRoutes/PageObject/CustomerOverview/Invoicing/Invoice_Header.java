@@ -13,6 +13,7 @@ public class Invoice_Header extends BasePage {
 	private By cashPayment = By.xpath("//div[@class='wallet']//div[text()='Cash']");
 	public String check = "Check";
 	public String creditCard = "Card";
+	private By cardPayment = By.xpath("//div[@class='wallet']//div[text()='Card']");
 	public String achDraft = "ACH";
 	public String coupon = "Coupon / Credit";
 	public String addPayment = "//div[text()='+ Add Payment']";
@@ -29,7 +30,7 @@ public class Invoice_Header extends BasePage {
 		}
 	}
 
-	public void clickCash() {
-		click(cashPayment);
-	}
+	public void clickCash() { click(cashPayment); }
+
+	public void clickCard() { click(cardPayment);}
 }

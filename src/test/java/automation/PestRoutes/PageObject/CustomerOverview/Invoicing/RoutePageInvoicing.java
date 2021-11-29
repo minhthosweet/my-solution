@@ -18,6 +18,8 @@ public class RoutePageInvoicing extends BasePage {
 	private String addAvailableTicket = "//div[@id='availableItems']//li[1]";
 	private By paymentStatusField = By.xpath("//ul[@id='invoiceGroupListContainer']/ul/li/div[2]/div[2]");
 	private By invoicesTab = By.xpath("//li[@name='invoicesTab']");
+	private By successApprovedNote = By.xpath("//div[@id='billingPanel']//div[text()='Success! Approved']");
+	private By backToAccountSummaryButton = By.xpath("//div[@id='billingPanel']//div[text()='Back to Account Summary']");
 
 	// Setter
 
@@ -65,7 +67,17 @@ public class RoutePageInvoicing extends BasePage {
 		Utilities.clickElement(addAvailableTicket, ElementType.XPath);
 	}
 
-	public String isInvoicesTabSelected () {
-		return find(invoicesTab).getAttribute("aria-selected");
+	public String getSuccessApprovedNote () {
+		return getText(successApprovedNote);
+	}
+
+	public Boolean clickBackToAccountSummaryButton () {
+		if (driver.findElements(backToAccountSummaryButton).size() > 0) {
+			click(backToAccountSummaryButton);
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 }

@@ -1,12 +1,13 @@
 package automation.PestRoutes.PageObject.CustomerOverview;
 
 import automation.PestRoutes.PageObject.BasePage;
+import automation.PestRoutes.Utilities.FindElement;
+import automation.PestRoutes.Utilities.FindElement.InputType;
+import automation.PestRoutes.Utilities.Utilities;
+import automation.PestRoutes.Utilities.Utilities.ElementType;
 import org.apache.commons.lang3.SystemUtils;
 import org.openqa.selenium.*;
-import automation.PestRoutes.Utilities.FindElement;
-import automation.PestRoutes.Utilities.Utilities;
-import automation.PestRoutes.Utilities.FindElement.InputType;
-import automation.PestRoutes.Utilities.Utilities.ElementType;
+
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -37,7 +38,9 @@ public class CustomerViewDialog_SubscriptionTab extends BasePage {
 	public String soldDateField = "//input[@name='subDateAdded']";
 	public String contractLengthDropdown = "//h3[text()=  'Sales Info']/following-sibling::select[@name='agreementLength']";
 	public String expirationDateInputField = "//input[@name='expirationDate']";
+	private By fieldExpirationDate = By.xpath("//input[@name='expirationDate']");
 	public String renewalDateField = "//input[@name='renewalDate']";
+	private By fieldRenewalDate = By.xpath("//input[@name='renewalDate']");
 	public String setRenewalDateDropdown = "//select[@name='setRenewalDateOn']";
 	public String renewalFrequencyDropdown = "//select[@name='renewalFrequency']";
 	public String pO_NumberInputField = "//input[@name='poNumber']";
@@ -113,6 +116,7 @@ public class CustomerViewDialog_SubscriptionTab extends BasePage {
 
 	//Sales Info Objects
 	public String salesRepDropdown = "//h3[text()=  'Sales Info']/following-sibling::select[@name='creditTo']";
+	private By activeSubscription = By.xpath("//div[@id='subscriptionPanel']//li[contains(@class,'appleMenuActive')]");
 
 	//********************Functional methods by objects********************
 	/*
@@ -639,4 +643,13 @@ public class CustomerViewDialog_SubscriptionTab extends BasePage {
 	public String getServiceType() {
 		return Utilities.getElementTextValue(selectedBillingInitialInvoiceDropdown, ElementType.XPath);
 	}
+
+	public String getSubscriptionExpirationDate() {
+		return find(fieldExpirationDate).getAttribute("value");
+	}
+
+	public String getSubscriptionRenewalDate() { return find(fieldRenewalDate).getAttribute("value");
+	}
+
+	public void clickActiveSubscription(){ click(activeSubscription); }
 }

@@ -6,6 +6,7 @@ import automation.PestRoutes.Utilities.FindElement.InputType;
 import automation.PestRoutes.Utilities.Utilities;
 import automation.PestRoutes.Utilities.Utilities.ElementType;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 
 public class InvoiceImplementation extends BasePage {
@@ -110,6 +111,21 @@ public class InvoiceImplementation extends BasePage {
     public String printInvoiceDate = "//div[contains(@id,'checkLen')]//following-sibling::div//tr[6]/td";
     public String printInvoiceMainAmounDue = "//th[text()='Amount Due']//following-sibling::td";
     public String printInvoiceMainAmounDue1= "//span[text()='Amount Due:']/ancestor::tr/td/span[2]";
+
+    // Card Elements
+    private By addressField = By.xpath("//input[@name='billingAddress1']");
+    private By cardNumberField = By.xpath("//input[@id='cardNumber']");
+    private By expirationMonthField = By.xpath("//select[@id='ddlExpirationMonth']");
+    private By expirationYearField = By.xpath("//select[@id='ddlExpirationYear']");
+    private By cvvField = By.xpath("//input[@id='CVV']");
+    private By chargeSingleCardButton = By.xpath("//input[@id='chargeSingleCardButton']");
+    private By processTransactionButton = By.xpath("//a[@id='submit'] [text()='PROCESS TRANSACTION ']");
+    private By limitedToSubscriptionField = By.xpath("//form[@id='singlePaymentForm']//span[text()='Any Subscription']");
+    private By checkSubscription = By.xpath("//form[@id='singlePaymentForm']//label[contains(text(),'Subscription')]");
+    private By renewalDateCheckBox = By.xpath("//form[@id='singlePaymentForm']//input[@name='updateRenewalDate']");
+    private By renewalDate = By.xpath("//form[@id='singlePaymentForm']//input[@name='renewalDate']");
+    private By expirationDateCheckBox = By.xpath("//form[@id='singlePaymentForm']//input[@name='updateExpirationDate']");
+    private By expirationDateField = By.xpath("//form[@id='singlePaymentForm']//input[@name='expirationDate']");
 
     public String checkPaymentStatus() {
         Utilities.waitUntileElementIsVisible(initialPaymentStatus);
@@ -416,5 +432,43 @@ public class InvoiceImplementation extends BasePage {
     public void setLimitedToSubscription(String needServiceName) {
         Utilities.clickElement(limitedToSubscription, ElementType.XPath);
         Utilities.clickElement("//label[contains (text(), '" + needServiceName + " Subscription Invoices')]", ElementType.XPath);
+    }
+
+    public void clickChargeSingleCardButton() { click(chargeSingleCardButton); }
+
+    public void typeAddress(String address) { type(address, addressField); }
+
+    public void typeCreditCardNumber (String cardNumber) {
+        driver.switchTo().frame("elementSingleFrame");
+        type(cardNumber, cardNumberField);
+    }
+
+    public void selectExpirationDate (String expirationMonth, String expirationYear) {
+        selectFromDropDown(expirationMonth, expirationMonthField);
+        selectFromDropDown(expirationYear, expirationYearField);
+    }
+
+    public void typeCVV (String CVV) { type(CVV, cvvField); }
+
+    public void clickProcessTransactionButton(){ click(processTransactionButton); }
+
+    public void selectLimitedToSubscription() {
+        click(limitedToSubscriptionField);
+        click(checkSubscription);
+    }
+
+    public String getRenewalDate() {
+        click(renewalDateCheckBox);
+        return find(renewalDate).getAttribute("value");
+    }
+
+    public void typeExpirationDate(String expirationDate) {
+        click(expirationDateCheckBox);
+        type(expirationDate, expirationDateField);
+        find(expirationDateField).sendKeys(Keys.ENTER);
+    }
+
+    public String getExpirationDate() {
+        return find(expirationDateField).getAttribute("value");
     }
 }

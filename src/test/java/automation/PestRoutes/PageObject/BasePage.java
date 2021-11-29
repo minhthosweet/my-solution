@@ -78,7 +78,7 @@ public class BasePage {
         return new ReportingMainPage();
     }
 
-    public void searchForCustomer(String customerName) {
+    public void goToCustomerSearchComponent(String customerName) {
         click(customerSearchField);
         type(customerName, customerSearchField);
         click(customer);

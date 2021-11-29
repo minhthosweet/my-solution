@@ -42,9 +42,11 @@ public class CreateCustomerDialog extends BasePage {
     public String prefersPaperCheckBox = "//input[@name= 'prefersPaper']";
     public String purpleDragonCheckBox = "//input[@name= 'purpleDragon']";
     public String addressInputField = "//input[@name= 'address']";
+
     public String zipCodeInputField = "//input[@name= 'zip']";
     private By zipCodeField = By.xpath("//input[@name= 'zip']");
     public String cityInputField = "//input[@name= 'city']";
+    private By cityField = By.xpath("//input[@name='city']");
     public String stateDropDown = "//select[@name= 'state']";
     public String countyDropDown = "//select[@name= 'county']";
     public String countryDropDown = "//select[@name= 'countryID']";
@@ -64,7 +66,6 @@ public class CreateCustomerDialog extends BasePage {
     public String info = "//a[text()= 'Info']";
     public String mapCode = "//input[@name= 'mapCode']";
     public String clickAddFlag = "//span[text()='Add Flag']";
-    private By scheduleButton = By.xpath("//span[text()='Schedule']");
 
     // Property Types
     public String residentialProperty = "Residential Property";
@@ -267,15 +268,15 @@ public class CreateCustomerDialog extends BasePage {
         //Optimized For Encapsulation Below via typeZipCode() By Passing In A String & Using A Private Modifier With By Class
     }
 
-    public void typeZipCode(String zipCode) {
-        type(zipCode, zipCodeField);
-    }
+    public void typeZipCode(String zipCode) { type(zipCode, zipCodeField); }
 
     public void setCity(String needCity) throws InterruptedException {
         Thread.sleep(200);
         FindElement.elementByAttribute(cityInputField, InputType.XPath).sendKeys(Keys.CONTROL, "a");
         FindElement.elementByAttribute(cityInputField, InputType.XPath).sendKeys(needCity);
     }
+
+    public void typeCity(String city) { type(city, cityField); }
 
     public void setTaxPercentage(String needTaxPercentage) {
         FindElement.elementByAttribute(taxPercentageInputField, InputType.XPath).sendKeys(needTaxPercentage);
@@ -325,9 +326,5 @@ public class CreateCustomerDialog extends BasePage {
         String customerName = find(firstNameField).getAttribute("value") + " " +
                               find(lastNameField).getAttribute("value");
         return customerName;
-    }
-
-    public void clickScheduleButton () {
-        click(scheduleButton);
     }
 }

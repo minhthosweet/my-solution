@@ -55,7 +55,7 @@ public class TestScheduledAppointments {
 
     @And("I Cancel The Scheduled Appointment")
     public void automateCancellingAppointment() throws InterruptedException {
-        userOnRoutePage.searchForCustomer(customerName);
+        userOnRoutePage.goToCustomerSearchComponent(customerName);
         sameUser.goToAppointmentsTab();
         userOnAppointmentsTab.clickPendingAppointment("Automation Renewal");
         userOnAppointmentsTab.clickCancelAppointmentButton();

@@ -112,6 +112,10 @@ public class CustomerViewDialog_Header extends BasePage {
         }
     }
 
+    public void switchToCustomerCard() {
+        driver.switchTo().defaultContent();
+    }
+
     public CustomerViewDialog_SubscriptionTab goToSubscriptionTab () {
         wait.until(ExpectedConditions.visibilityOfElementLocated(subscriptionTab));
         click(subscriptionTab);

@@ -54,6 +54,7 @@ public class TestTechNamePaymentsByServiceType {
         userCreateNewCustomer.typeFirstName(generateRandomString(3));
         userCreateNewCustomer.typeLastName(generateRandomString(4));
         customerName = userCreateNewCustomer.getCustomerName();
+        userCreateNewCustomer.typeCity("Plano");
         userCreateNewCustomer.typeZipCode("75093");
         sameUser.clickCustomerSaveButton();
         userOnSubscriptionTab = sameUser.goToSubscriptionTab();
