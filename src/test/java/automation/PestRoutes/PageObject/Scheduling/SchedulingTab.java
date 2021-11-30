@@ -19,6 +19,7 @@ public class SchedulingTab extends BasePage {
     public String scheduleButtonInDialog = "//span[text()='Schedule']";
     public String closeRecommendedRoutes = "//span[text()='Recommended Routes']/following-sibling::button[@title='close']";
     public String jobPool = "//p[text()='Job Pool']";
+    public String linkFillRoutes = "//p[text()='Fill Routes']";
     public String recommendedRoutesRefreshButton = "//div[text()='Refresh']";
     public Map<String, String> filter_Types = new HashMap<String, String>();
     public String filterTypes(String key) {
@@ -95,6 +96,13 @@ public class SchedulingTab extends BasePage {
     public void selectFirstOptionFromDropDown(String needElement) {
         Utilities.waitUntileElementIsVisible(needElement);
         Utilities.selectValueFromDropDownByIndex(needElement, 1);
+    }
+
+     //Author: F. White
+    public void clickFillRoutesLink() throws InterruptedException {
+        Thread.sleep(3000);
+        Utilities.elementIsVisible(linkFillRoutes);
+        Utilities.clickElement(linkFillRoutes, ElementType.XPath);
     }
 
 }
