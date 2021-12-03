@@ -18,7 +18,6 @@ public class BasePage {
     private By reportingComponent = By.xpath("//div[@id='reportLink']/a[text()='Reporting']");
     private By newCustomerComponent = By.xpath("//div[@id='guestNav']//a[text()='New Customer']");
     private By schedulingComponent = By.xpath("//div[@id='routeLink']/a[text()='Scheduling']");
-    private By customersComponent = By.xpath("//div[@id='customerLink']/a[text()='Customers']");
     private By customerSearchField = By.xpath("//input[@id='customerSearch']");
     private By customer = By.xpath("//span[@class='left searchName']");
 
@@ -26,10 +25,11 @@ public class BasePage {
         BasePage.driver = driver;
     }
 
-    protected WebElement find (By locator) { return driver.findElement(locator); }
+    protected WebElement find (By locator) {
+        return driver.findElement(locator);
+    }
 
     protected void type (String text, By locator) {
-        click(locator);
         click(locator);
         find(locator).sendKeys(Keys.CONTROL, "a");
         find(locator).sendKeys(text);
@@ -39,17 +39,12 @@ public class BasePage {
         find(locator).click();
     }
 
-    protected void select (String value, By locator) {
-        Select dropDown = new Select(find(locator));
-        dropDown.selectByVisibleText(value);
-    }
-
     protected void selectFromDropDown(String value, By locator) {
         Select findDropDown = new Select(find(locator));
         findDropDown.selectByVisibleText(value);
     }
 
-    protected List<String> getOptionFromDropDown(By locator) {
+    protected List<String> getOptionsFromDropDown(By locator) {
         Select findDropDown = new Select(find(locator));
         List<WebElement> allSelectedOptions = findDropDown.getAllSelectedOptions();
         return allSelectedOptions.stream().map(e->e.getText()).collect(Collectors.toList());
@@ -59,7 +54,7 @@ public class BasePage {
 
     /*
     The below section is dedicated to FieldRoutes Components.
-    (Admin, Sales, Reporting, Billing, Customers, Scheduling, Current Date, New Customer)
+    (Search Customer, Admin, Sales, Reporting, Billing, Customers, Scheduling, Current Date, New Customer)
     The plan is to only create a handle to the Component when it's time to navigate to the Component.
      */
 
@@ -78,9 +73,9 @@ public class BasePage {
         return new ReportingMainPage();
     }
 
-    public void goToCustomerSearchComponent(String customerName) {
+    public void goToCustomerSearchComponent(String customerIDorName) {
         click(customerSearchField);
-        type(customerName, customerSearchField);
+        type(customerIDorName, customerSearchField);
         click(customer);
     }
 }

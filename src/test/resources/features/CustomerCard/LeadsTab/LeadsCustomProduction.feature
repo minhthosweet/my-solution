@@ -23,5 +23,5 @@ Feature: Leads Custom Production
     Examples:
       | Frequency         | Number  |
       | Alternate Monthly | 2       |
-      | Quarterly         | 3       |
       | Every 4 Months    | 4       |
+      | Semi-Annually     | 6       |

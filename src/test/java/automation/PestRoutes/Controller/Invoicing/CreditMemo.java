@@ -2,15 +2,20 @@ package automation.PestRoutes.Controller.Invoicing;
 
 import automation.PestRoutes.Controller.CustomerCreation.CreateNewCustomer;
 import automation.PestRoutes.Controller.Reporting.Office.BillingByServiceType;
+import automation.PestRoutes.Controller.Reporting.TestTechNamePaymentsByServiceType;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_Header;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_InfoTab;
 import automation.PestRoutes.PageObject.CustomerOverview.Invoicing.CreditMemoTab;
 import automation.PestRoutes.PageObject.CustomerOverview.Invoicing.InvoiceImplementation;
+import automation.PestRoutes.PageObject.CustomerOverview.Invoicing.Invoice_Header;
+import automation.PestRoutes.PageObject.CustomerOverview.Invoicing.RoutePageInvoicing;
 import automation.PestRoutes.PageObject.Header;
+import automation.PestRoutes.PageObject.RoutePage.RoutePage;
 import automation.PestRoutes.Utilities.AppData;
 import automation.PestRoutes.Utilities.Utilities;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
+import org.testng.Assert;
 
 import java.io.IOException;
 
@@ -25,6 +30,12 @@ public class CreditMemo extends AppData {
     CustomerViewDialog_InfoTab customerViewDialog_infoTab;
     BillingByServiceType billingByServiceType;
     CreateNewCustomer createNewCustomer;
+    RoutePage userOnRoutePage = new RoutePage();
+    RoutePageInvoicing userOnInvoicesTab = new RoutePageInvoicing();
+    Invoice_Header userSelectsPayment = new Invoice_Header();
+
+    String customerName;
+    String paymentBalance;
 
     //Author: Aditya
     @And("I create a credit memo for an existing invoice")
@@ -51,7 +62,7 @@ public class CreditMemo extends AppData {
         createNewCustomer = new CreateNewCustomer();
         header.searchCustomerInOrder("1");
         customerCardHeader.navigateTo(customerCardHeader.infoTabInDialog);
-        String customerName = customerViewDialog_infoTab.getFirstName() + " " + customerViewDialog_infoTab.getLastName();
+        customerName = customerViewDialog_infoTab.getFirstName() + " " + customerViewDialog_infoTab.getLastName();
         customerCardHeader.navigateTo(customerCardHeader.invoicesTabInDialog);
         creditMemoTab.clickInitialInvoice();
         String totalInvoiceValue = (invImplementation.getChargesBalance()).substring(1);
@@ -85,5 +96,28 @@ public class CreditMemo extends AppData {
                 "Invoice Validation");
         createNewCustomer.closeCustomerCard();
     }
-}
 
+    @Then("I Can Change The Invoice Amount Which Has A Credit Memo")
+    public void testChangingInvoiceAmountWithCreditMemo() throws InterruptedException {
+        TestTechNamePaymentsByServiceType test = new TestTechNamePaymentsByServiceType();
+        CustomerViewDialog_Header sameUser = new CustomerViewDialog_Header();
+        InvoiceImplementation userMakesPayment = new InvoiceImplementation();
+        String customer = test.customerName;
+        String payment = test.paymentAmount;
+
+        userOnRoutePage.goToCustomerSearchComponent(customer);
+        sameUser.goToInvoicesTab();
+        userOnInvoicesTab.clickFullyPaidPaymentStatus();
+        userOnInvoicesTab.typeServiceChargeAmount("200.00"); // Hard-Coded For Now But Will Update Later
+        userOnInvoicesTab.typeInitialDiscount("10.00"); // Hard-Coded For Now But Will Update Later
+        paymentBalance = userOnInvoicesTab.getPaymentBalance();
+        userOnInvoicesTab.addPayment();
+        userSelectsPayment.clickCash();
+        payment = userMakesPayment.getPaymentAmount();
+        userMakesPayment.typeConfirmationAmount(payment);
+        userMakesPayment.clickRecordPaymentButton();
+        userMakesPayment.clickBackToAccountSummaryButton();
+        Assert.assertTrue(userOnInvoicesTab.getRecentMemo().contains(payment),
+                "The Memo Does Not Contain Payment Amount");
+    }
+}

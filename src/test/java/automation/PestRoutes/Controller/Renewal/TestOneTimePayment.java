@@ -44,7 +44,7 @@ public class TestOneTimePayment {
     }
 
     @Then("I See All Of The Renewal Tasks")
-    public void iSeeAllOfTheRenewalTasks() throws InterruptedException {
+    public void testAllOfTheRenewalTasks() {
         userOnInvoicesTab.clickBackToAccountSummaryButton();
         Assert.assertTrue(userOnInvoicesTab.getSuccessApprovedNote().contains("Success"),
                 "The Payment Transaction Was Not A Success" );

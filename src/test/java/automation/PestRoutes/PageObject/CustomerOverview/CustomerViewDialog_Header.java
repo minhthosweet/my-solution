@@ -128,8 +128,8 @@ public class CustomerViewDialog_Header extends BasePage {
         return new CustomerviewDialog_AppointmentsTab();
     }
 
-    public RoutePageInvoicing goToInvoicesTab () {
-        wait.until(ExpectedConditions.visibilityOfElementLocated(invoicesTab));
+    public RoutePageInvoicing goToInvoicesTab () throws InterruptedException {
+        Thread.sleep(3000);
         click(invoicesTab);
         return new RoutePageInvoicing();
     }

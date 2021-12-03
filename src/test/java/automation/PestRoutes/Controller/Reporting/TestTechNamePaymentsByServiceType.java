@@ -44,8 +44,8 @@ public class TestTechNamePaymentsByServiceType {
     CustomerviewDialog_AppointmentsTab userOnAppointmentsTab = new CustomerviewDialog_AppointmentsTab();
 
     String totalInitialInvoice;
-    String paymentAmount;
-    String customerName;
+    public static String paymentAmount;
+    public static String customerName;
     String techName;
 
     @Given("I Create A Customer With A Subscription")

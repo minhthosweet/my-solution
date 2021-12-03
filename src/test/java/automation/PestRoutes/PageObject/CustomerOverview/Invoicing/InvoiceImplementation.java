@@ -97,6 +97,7 @@ public class InvoiceImplementation extends BasePage {
     public String invoiceActionButton = "//div[@id='billingPanel']//div[@class='toggleActions right tableButton']";
     public String statementActionButton = "//div[@id='conditionsActionsBtn']";
     public String statementPrintButton = "//div[text()='Print']";
+    private By backToAccountSummaryButton= By.xpath("//form[@id='singlePaymentForm']//div[text()='Back to Account Summary']");
 
     // Invoice Action Objects
     public String invoicePrintButton = "//div[@id='printInvoiceButton']";
@@ -130,7 +131,6 @@ public class InvoiceImplementation extends BasePage {
     public String checkPaymentStatus() {
         Utilities.waitUntileElementIsVisible(initialPaymentStatus);
         return Utilities.getElementTextValue(initialPaymentStatus, ElementType.XPath);
-
     }
 
     public void newInvoiceDetails(String amount, String date) {
@@ -161,7 +161,9 @@ public class InvoiceImplementation extends BasePage {
         FindElement.elementByAttribute(custPaymentNotes, InputType.XPath).sendKeys("This is just a test");
     }
 
-    public String getPaymentAmount() { return find(paymentAmtField).getAttribute("value"); }
+    public String getPaymentAmount() {
+        return find(paymentAmtField).getAttribute("value");
+    }
 
     public void typeConfirmationAmount(String confirmationAmount)  {
         type(confirmationAmount, confirmAmountField);
@@ -173,7 +175,9 @@ public class InvoiceImplementation extends BasePage {
         //Optimized For Encapsulation Below via clickRecordPaymentButton() Using A Private Modifier With By Class
     }
 
-    public void clickRecordPaymentButton() { click(recordPaymentButton); }
+    public void clickRecordPaymentButton() {
+        click(recordPaymentButton);
+    }
 
     public void invoiceAccountSummaryClick() {
         Utilities.waitUntileElementIsVisible(invoiceAccountSummaryClick);
@@ -448,7 +452,9 @@ public class InvoiceImplementation extends BasePage {
         selectFromDropDown(expirationYear, expirationYearField);
     }
 
-    public void typeCVV (String CVV) { type(CVV, cvvField); }
+    public void typeCVV (String CVV) {
+        type(CVV, cvvField);
+    }
 
     public void clickProcessTransactionButton(){ click(processTransactionButton); }
 
@@ -470,5 +476,9 @@ public class InvoiceImplementation extends BasePage {
 
     public String getExpirationDate() {
         return find(expirationDateField).getAttribute("value");
+    }
+
+    public void clickBackToAccountSummaryButton(){
+        click(backToAccountSummaryButton);
     }
 }

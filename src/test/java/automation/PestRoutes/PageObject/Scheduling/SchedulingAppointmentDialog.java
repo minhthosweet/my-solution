@@ -128,7 +128,7 @@ public class SchedulingAppointmentDialog extends BasePage {
     }
 
     public List<String> getSubscription() {
-        return getOptionFromDropDown(subscriptionTypeDropDown);
+        return getOptionsFromDropDown(subscriptionTypeDropDown);
     }
 
     public void clickBlueScheduleButton() throws InterruptedException {

@@ -4,15 +4,17 @@ import automation.PestRoutes.PageObject.BasePage;
 import automation.PestRoutes.Utilities.Utilities;
 import automation.PestRoutes.Utilities.Utilities.ElementType;
 import org.openqa.selenium.By;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class RoutePageInvoicing extends BasePage {
+
+	WebDriverWait wait = new WebDriverWait(driver, 5);
 
 	public String addPayment = "//div[text()='+ Add Payment']";
 	private By addInvoicePayment = By.xpath("//div[text()='+ Add Payment']");
 	public String addNewInvoice = "//li[text()='+ New Invoice']";
 	private By newInvoice = By.xpath("//li[text()='+ New Invoice']");
-	public String accountStatementReport = "Account Statement Report";
-	public String accountSummary = "Account Summary";
 	public String addTicketItem = "//div[contains(@class,'grayButton full aCenter  serviceTicketButton left') and contains(text(),'Add Ticket Item')]";
 	public String clickAddPartialPayment = "//div[contains(@class,'grayButton full aCenter  serviceTicketButton ticketPaymentButton left') and contains(text(),'Add Payment')]";
 	private String addAvailableTicket = "//div[@id='availableItems']//li[1]";
@@ -20,6 +22,12 @@ public class RoutePageInvoicing extends BasePage {
 	private By invoicesTab = By.xpath("//li[@name='invoicesTab']");
 	private By successApprovedNote = By.xpath("//div[@id='billingPanel']//div[text()='Success! Approved']");
 	private By backToAccountSummaryButton = By.xpath("//div[@id='billingPanel']//div[text()='Back to Account Summary']");
+	private By accountStatementReportTab = By.xpath("//div[@id='billingPanel']//li[text()='Account Statement Report']");
+	private By fullyPaidPaymentStatus = By.xpath("//ul[@id='invoiceGroupListContainer']//div[contains(text(),'FULLY PAID')]");
+	private By serviceChargeField = By.xpath("//div[@id='invoiceDetails']//input[@name='serviceCharge']");
+	private By initialDiscountField = By.xpath("//div[@id='invoiceDetails']//div[text()='Initial Discount']/following-sibling::input[@name='amount']");
+	private By paymentBalanceField = By.xpath("//div[@id='invoiceDetails']//div[text()='Balance']/following-sibling::div");
+	private By recentMemo = By.xpath("//div[@id='billingPanel']//div[text()='+ Add Payment']/following-sibling::div");
 
 	// Setter
 
@@ -54,7 +62,6 @@ public class RoutePageInvoicing extends BasePage {
 	public void invoiceDetails() {
 		Utilities.waitUntileElementIsVisible(addTicketItem);
 		Utilities.clickElement(addTicketItem, ElementType.XPath);
-
 	}
 
 	public void clickAddPartialPayments() {
@@ -75,9 +82,37 @@ public class RoutePageInvoicing extends BasePage {
 		if (driver.findElements(backToAccountSummaryButton).size() > 0) {
 			click(backToAccountSummaryButton);
 			return true;
-		}
-		else {
+		} else {
 			return false;
 		}
+	}
+
+	public Boolean isAccountStatementReportDisplayed(){
+		if (find(accountStatementReportTab).isDisplayed()) {
+			return true;
+		}
+		return false;
+	}
+
+	public void clickFullyPaidPaymentStatus() throws InterruptedException {
+		Thread.sleep(3000);
+		click(fullyPaidPaymentStatus);
+	}
+
+	public void typeServiceChargeAmount(String serviceCharge){
+		type(serviceCharge, serviceChargeField);
+	}
+
+	public void typeInitialDiscount(String initialDiscount){
+		type(initialDiscount, initialDiscountField);
+	}
+
+	public String getPaymentBalance(){
+		wait.until(ExpectedConditions.visibilityOfElementLocated(paymentBalanceField));
+		return getText(paymentBalanceField);
+	}
+
+	public String getRecentMemo(){
+		return find(recentMemo).getAttribute("charge");
 	}
 }
