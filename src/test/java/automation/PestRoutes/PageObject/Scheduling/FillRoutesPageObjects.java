@@ -5,6 +5,7 @@ import automation.PestRoutes.Utilities.FindElement;
 import automation.PestRoutes.Utilities.AppData;
 import automation.PestRoutes.Utilities.Utilities;
 import automation.PestRoutes.Utilities.Utilities.ElementType;
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -62,10 +63,7 @@ public class FillRoutesPageObjects extends AppData {
 
     //************** "Fill Routes with Available Jobs" Dialog ********************
     //Routes to be filled are displayed
-    //An Nguyen has recommended to Frankie White that this XPath may not be the best way to locate existing route(s)
-    //1. the XPath is too generic, there is a chance that it may be something not about existing route(s)
-    //2. the XPath may match multiple elements (routes) in case of multiple days
-    private String routesByDateGroups ="//h3[@class='aCenter clr']";
+    private String routesByDateGroups ="//*[@id='fillExistingRoutes']//h3[@class='aCenter clr']";
 
     //"Fill Routes with Available Jobs" Dialog Title
     private String dialogTitle ="//span[text()='Fill Routes with Available Jobs']/parent::div";
@@ -150,7 +148,7 @@ public class FillRoutesPageObjects extends AppData {
         Utilities.waitUntileElementIsVisible(dialogTitle);
     }// public void clickFillRoutesBtn()
 
-    public void addDueBetweenCriteria(String strStartDate, String strEndDate) {
+    public void addDueBetweenCriteria(String strStartDate, String strEndDate) throws InterruptedException {
         //Add a start date for "Due Between" range
         loadFilterValue(inputDueBetweenStart, strStartDate);
 
@@ -159,7 +157,7 @@ public class FillRoutesPageObjects extends AppData {
 
     }//addDueBetweenCriteria()
 
-    public void addDateRangeCriteria(String strStartDate, String strEndDate) {
+    public void addDateRangeCriteria(String strStartDate, String strEndDate) throws InterruptedException {
         //Scroll to the "Routes To Fill"
         Utilities.scrollToElementJS(routesToFill_SectionTitle_IncludeAllRoutes);
 
@@ -220,15 +218,12 @@ public class FillRoutesPageObjects extends AppData {
 
     public void executeOptimizeQueueScript() throws InterruptedException {
         //Allow the "In Progress Banner to load
-        Thread.sleep(3000);
+        Utilities.waitUntileElementIsVisible(inprogressBanner_FillRoutsReviewPg, 6);
 
         if(Utilities.elementIsVisible(inprogressBanner_FillRoutsReviewPg)) {
             // Load an incognito browser and execute the optimizeQueue.php script
             loadIncognitoBrowserAndRunOptimizeQueue();
-
-            //Switch back to the original opened window
-            Utilities.switchBackToDom();
-         }
+          }
     }//executeOptimizeQueueScript()
 
     public void clickFillRoutesWithAvailableJobsBtn() {
@@ -237,17 +232,24 @@ public class FillRoutesPageObjects extends AppData {
             Utilities.clickElement(btnFillRoutesWithAvailableJobs, ElementType.XPath);
     } //clickFillRoutesWithAvailableJobsBtn()
 
-    public void loadFilterValue(String strFilterXpath, String strValue){
-        //Make sure the Due Between fields are displayed
-         Utilities.elementIsVisible(strFilterXpath);
-
-        //Clear the Date Range startDate field and load new value
-        FindElement.elementByAttribute(strFilterXpath, FindElement.InputType.XPath).clear();
-        FindElement.elementByAttribute(strFilterXpath, FindElement.InputType.XPath).sendKeys(strValue);
-        FindElement.elementByAttribute(strFilterXpath, FindElement.InputType.XPath).sendKeys(Keys.ENTER);
+    public void loadFilterValue(String strFilterXpath, String strValue) throws InterruptedException{
+        //Make sure the field(s) are displayed
+         if (Utilities.elementIsVisible(strFilterXpath)) {
+             //Clear the Date Range startDate field and load new value
+             FindElement.elementByAttribute(strFilterXpath, FindElement.InputType.XPath).clear();
+             FindElement.elementByAttribute(strFilterXpath, FindElement.InputType.XPath).sendKeys(strValue);
+             FindElement.elementByAttribute(strFilterXpath, FindElement.InputType.XPath).sendKeys(Keys.ENTER);
+         }
+         else
+         {
+             Assert.fail("Fill Routes' Landing Page DID NOT LOAD");
+         }
     }// loadFilterValue()
 
     public void saveOptimizedRoutes() throws InterruptedException {
+
+        //Allow time for the "Fill Routes Review" Page to display
+        Utilities.waitUntileElementIsVisible(fillRoutesReviewPage,3);
 
          //Click [Save] button to save optimized routes
         if( Utilities.elementIsVisible(fillRoutesReviewPage)) {
@@ -268,13 +270,11 @@ public class FillRoutesPageObjects extends AppData {
             Assert.fail("Fill Routes' Review Page DID NOT LOAD");
         }
 
-
     }//saveOptimizedRoutes()
 
     public void loadIncognitoBrowserAndRunOptimizeQueue(){
         //Set browser type to Chrome and chromedriver.exe path
-        System.setProperty("webdriver.chrome.driver",
-                "src/test/java/automation/PestRoutes/Utilities/Driver/chromedriver.exe");
+        WebDriverManager.chromedriver().setup();
 
         // Configure "incognito" option and set parameters for new  Chrome browser driver
         ChromeOptions browserOptions= new ChromeOptions();

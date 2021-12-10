@@ -100,8 +100,7 @@ public class SchedulingTab extends BasePage {
 
      //Author: F. White
     public void clickFillRoutesLink() throws InterruptedException {
-        Thread.sleep(3000);
-        Utilities.elementIsVisible(linkFillRoutes);
+        Utilities.waitUntileElementIsVisible(linkFillRoutes, 35);
         Utilities.clickElement(linkFillRoutes, ElementType.XPath);
     }
 
