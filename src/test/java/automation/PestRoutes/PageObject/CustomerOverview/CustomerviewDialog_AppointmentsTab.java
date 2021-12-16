@@ -7,12 +7,16 @@ import automation.PestRoutes.Utilities.Utilities.ElementType;
 import io.cucumber.java.en.When;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
 import java.util.List;
 
 public class CustomerviewDialog_AppointmentsTab extends BasePage {
 
     // **********Tab's objects**********
     public String statusButton = "//div[@id='appointmentContainor']//div[@id='SubStatus']";
+    private By subStatusButton = By.xpath("//div[@id='appointmentContainor']//div[@id='SubStatus']");
     public String unitNameObject = "//h3[text() = 'Unit Products']/parent::div//div[@class='left bold']";
     public String productNameObject = "//h3[text() = 'Products Used']/parent::div//div[@class='left bold']";
     public String areaUnitTreated = "//div[contains (text(), 'Treated Areas:')]/following-sibling::div[1]";
@@ -29,6 +33,7 @@ public class CustomerviewDialog_AppointmentsTab extends BasePage {
     public String saveAndCompleteButton_InCompletingApptDialog = "//span[text() = 'Save and Complete']";
     public String subscriptionType_schedulinTab = "//h3[contains(text(),'Scheduling')]/parent::div//child::select[@name='subscriptionID']";
     public String serviceNotes_Complete = "//textarea[@name='serviceNotes']";
+    private By serviceNotesField = By.xpath("//div[@id='completeTicket']/textarea[@name='serviceNotes']");
     public String editButton = "//div[@id='appointmentContainor']//div[text()='Edit']";
     public String reScheduleButton = "//span[text()='Reschedule']";
     public String cancelAppointment = "//div[@id='completeButton']/following-sibling::div//div[text() = 'Cancel']";
@@ -156,7 +161,6 @@ public class CustomerviewDialog_AppointmentsTab extends BasePage {
     }
 
     public void clickOKButton() {
-        //Utilities.clickElement(okButton, Utilities.ElementType.XPath);
         click(okButton);
     }
 
@@ -305,5 +309,18 @@ public class CustomerviewDialog_AppointmentsTab extends BasePage {
 
     public String getAppointmentsTabSubscription(){
         return getText(selectedSubscription);
+    }
+
+    public void typeServiceNotes(String serviceNotes) {
+        type(serviceNotes, serviceNotesField);
+    }
+
+    public String getServiceNotes() throws InterruptedException {
+        Thread.sleep(1000);
+        click(subStatusButton);
+        clickSaveAndCompleteButton();
+        String serviceNotes = getText(serviceNotesField);
+
+        return serviceNotes;
     }
 }

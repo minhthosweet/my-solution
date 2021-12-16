@@ -50,7 +50,9 @@ public class BasePage {
         return allSelectedOptions.stream().map(e->e.getText()).collect(Collectors.toList());
     }
 
-    protected String getText (By locator) { return find(locator).getText(); }
+    protected String getText (By locator) {
+        return find(locator).getText();
+    }
 
     /*
     The below section is dedicated to FieldRoutes Components.

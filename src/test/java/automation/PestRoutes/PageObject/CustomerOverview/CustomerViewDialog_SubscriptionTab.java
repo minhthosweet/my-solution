@@ -7,25 +7,31 @@ import automation.PestRoutes.Utilities.Utilities;
 import automation.PestRoutes.Utilities.Utilities.ElementType;
 import org.apache.commons.lang3.SystemUtils;
 import org.openqa.selenium.*;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAdjusters;
+import java.util.List;
 
 public class CustomerViewDialog_SubscriptionTab extends BasePage {
 
 	CustomerViewDialog_InfoTab infoTab;
 	CustomerViewDialog_Header customerDialogHeader;
+	WebDriverWait wait = new WebDriverWait(driver, 5);
 
 	//********************Objects in subscription tab********************
 	//Status fields
 	public String statusText = "//div[@id='subStatusBox']//div[@id='SubStatus']";
 	public String ActivateDeactivateButton = "//div[@id='subStatusBox']/span[@id='SubStatusAction']";
+	private By activateDeactivateButton = By.xpath("//div[@id='subStatusBox']/span[@id='SubStatusAction']");
 	public String contractValue = "//span[contains(text(),'Contract Value')]";
 	public String cancellationCategoryDropdown_cancelSubscriptionDialog = "//select[@id='cancelSubCategory']";
 	public String cancelNotesInputField = "//textarea[@id='cancelSubNotes']";
 	public String freezeSubscriptionButton = "//span[text()='Freeze Subscription']";
+	private By freezeCancelSubscriptionButton = By.xpath("//span[text()='Freeze Subscription']");
 	public String cancelButton_cancelSubscriptionDialog = "//span[text()='Freeze Subscription']/parent::button/preceding-sibling::button[1]/span[text()='Cancel']";
 
 	//***Sales Info/Billing Options objects***
@@ -253,6 +259,10 @@ public class CustomerViewDialog_SubscriptionTab extends BasePage {
 
 	public void selectRecurringServiceType(String serviceType) {
 		selectFromDropDown(serviceType, serviceTypeDropDown);
+	}
+
+	public List<String> getRecurringServiceType() {
+		return getOptionsFromDropDown(serviceTypeDropDown);
 	}
 
 	public void selectServiceFrequency(String needServiceFrequency) {
@@ -652,4 +662,14 @@ public class CustomerViewDialog_SubscriptionTab extends BasePage {
 	}
 
 	public void clickActiveSubscription(){ click(activeSubscription); }
+
+	public void clickActivateDeactivateButton() throws InterruptedException {
+		Thread.sleep(3000);
+		click(activateDeactivateButton);
+	}
+
+	public void clickFreezeSubscriptionButtonOnCancelSubscriptionDialog() throws InterruptedException {
+		wait.until(ExpectedConditions.visibilityOfElementLocated(freezeCancelSubscriptionButton));
+		click(freezeCancelSubscriptionButton);
+	}
 }

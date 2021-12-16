@@ -23,6 +23,7 @@ public class CreateCustomerDialog extends BasePage {
     public String cellPhoneInputField = "//input[@name= 'phone1']";
     public String homePhoneInputField = "//input[@name= 'phone2']";
     public String emailAddressInputField = "//input[@name= 'email']";
+    private By emailAddressField = By.xpath("//input[@name= 'email']");
     public String propertyTypeDropDown = "//select[@name= 'commercialAccount']";
     public String unitTypeDropDown = "//select[@name= 'isMultiUnit']";
     public String selectSourceDropDown = "//div[@id='customerPanel']/div[@class='contactInfo']//select[@name='sourceID']";
@@ -42,12 +43,14 @@ public class CreateCustomerDialog extends BasePage {
     public String prefersPaperCheckBox = "//input[@name= 'prefersPaper']";
     public String purpleDragonCheckBox = "//input[@name= 'purpleDragon']";
     public String addressInputField = "//input[@name= 'address']";
+    private By propertyAddressField = By.xpath("//input[@name= 'address']");
 
     public String zipCodeInputField = "//input[@name= 'zip']";
     private By zipCodeField = By.xpath("//input[@name= 'zip']");
     public String cityInputField = "//input[@name= 'city']";
     private By cityField = By.xpath("//input[@name='city']");
     public String stateDropDown = "//select[@name= 'state']";
+    private By stateDropdown = By.xpath("//select[@name='state']");
     public String countyDropDown = "//select[@name= 'county']";
     public String countryDropDown = "//select[@name= 'countryID']";
     public String taxPercentageInputField = "//input[@name= 'taxRate']";
@@ -276,7 +279,9 @@ public class CreateCustomerDialog extends BasePage {
         FindElement.elementByAttribute(cityInputField, InputType.XPath).sendKeys(needCity);
     }
 
-    public void typeCity(String city) { type(city, cityField); }
+    public void typeCity(String city) {
+        type(city, cityField);
+    }
 
     public void setTaxPercentage(String needTaxPercentage) {
         FindElement.elementByAttribute(taxPercentageInputField, InputType.XPath).sendKeys(needTaxPercentage);
@@ -322,9 +327,36 @@ public class CreateCustomerDialog extends BasePage {
         return Utilities.getAttributeValue(cityInputField, "value");
     }
 
-    public String getCustomerName () {
-        String customerName = find(firstNameField).getAttribute("value") + " " +
+    public String getCustomerFullName() {
+        String customerFullName = find(firstNameField).getAttribute("value") + " " +
                               find(lastNameField).getAttribute("value");
-        return customerName;
+        return customerFullName;
+    }
+
+    public String getCustomerFirstName() {
+        return find(firstNameField).getAttribute("value");
+    }
+
+    public void typePropertyAddress(String propertyAddress) {
+        type(propertyAddress, propertyAddressField);
+    }
+
+    public String getPropertyAddress(){
+        return find(propertyAddressField).getAttribute("value");
+    }
+
+    public String getCityStateZip() {
+        String city = find(cityField).getAttribute("value");
+        String state = find(stateDropdown).getAttribute("value");
+        String zipCode = find(zipCodeField).getAttribute("value");
+        return city + ", " + state + " " + zipCode;
+    }
+
+    public void typeEmailAddress(String emailAddress) {
+        type(emailAddress, emailAddressField);
+    }
+
+    public String getEmailAddress() {
+        return find(emailAddressField).getAttribute("value");
     }
 }

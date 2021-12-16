@@ -32,7 +32,7 @@ public class TestScheduledAppointments {
         userOnDashboard.goToNewCustomerComponent();
         userCreateNewCustomer.typeFirstName(generateRandomString(3));
         userCreateNewCustomer.typeLastName(generateRandomString(4));
-        customerName = userCreateNewCustomer.getCustomerName();
+        customerName = userCreateNewCustomer.getCustomerFullName();
         userCreateNewCustomer.typeZipCode("75093");
         sameUser.clickCustomerSaveButton();
         sameUser.goToAppointmentsTab();

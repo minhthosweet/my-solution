@@ -102,7 +102,7 @@ public class CreditMemo extends AppData {
         TestTechNamePaymentsByServiceType test = new TestTechNamePaymentsByServiceType();
         CustomerViewDialog_Header sameUser = new CustomerViewDialog_Header();
         InvoiceImplementation userMakesPayment = new InvoiceImplementation();
-        String customer = test.customerName;
+        String customer = test.customerFullName;
         String payment = test.paymentAmount;
 
         userOnRoutePage.goToCustomerSearchComponent(customer);

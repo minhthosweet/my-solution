@@ -35,12 +35,15 @@ public class CustomerViewDialog_Header extends BasePage {
     public String discardChange = "//span[text()='Discard Changes']";
     public String saveAnyways = "//span[text()='Save Anyways']";
     private By saveChangesButton = By.xpath("//span[text()='Save Changes']");
+    private By loadThisCustomerButton = By.xpath("//div[text()='Load This Customer Instead']");
 
     //******************** TABS ********************
     private By subscriptionTab = By.xpath("//li[@name='subscriptionTab']/a[text()='Subscription']");
     private By leadsTab = By.xpath("//a[text()='Leads']");
+    private By billingTab = By.xpath("//li[@name='billingTab']//a[text()='Billing']");
     private By appointmentsTab = By.xpath("//a[text()='Appointments']");
     private By invoicesTab = By.xpath("//a[text()='Invoices']");
+    private By adminTab = By.xpath("//li[@name='adminTab']//a[text()='Admin']");
 
     //Notes tab objects
     public String customerContacts_Notes = "//li[text()='Customer Contacts']";
@@ -68,7 +71,9 @@ public class CustomerViewDialog_Header extends BasePage {
         //Optimized For Encapsulation Below via clickCustomerSaveButton() Using A Private Modifier With By Class
     }
 
-    public void clickCustomerSaveButton () { click(customerSaveButton); }
+    public void clickCustomerSaveButton () {
+        click(customerSaveButton);
+    }
 
     public void clickCloseButton() throws InterruptedException {
         Thread.sleep(500);
@@ -138,5 +143,17 @@ public class CustomerViewDialog_Header extends BasePage {
         wait.until(ExpectedConditions.visibilityOfElementLocated(leadsTab));
         click(leadsTab);
         return new LeadsPage();
+    }
+
+    public CustomerViewDialog_Admin goToAdminTab() throws InterruptedException {
+        Thread.sleep(3000);
+        click(adminTab);
+        return new CustomerViewDialog_Admin();
+    }
+
+    public BillingPage goToBillingTab(){
+        wait.until(ExpectedConditions.visibilityOfElementLocated(billingTab));
+        click(billingTab);
+        return new BillingPage();
     }
 }

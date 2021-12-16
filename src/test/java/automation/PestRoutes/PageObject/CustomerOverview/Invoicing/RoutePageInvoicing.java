@@ -15,19 +15,19 @@ public class RoutePageInvoicing extends BasePage {
 	private By addInvoicePayment = By.xpath("//div[text()='+ Add Payment']");
 	public String addNewInvoice = "//li[text()='+ New Invoice']";
 	private By newInvoice = By.xpath("//li[text()='+ New Invoice']");
+	private By invoiceNumber = By.xpath("//ul[@id='invoiceGroupListContainer']//span[text()='Invoice']/..");
 	public String addTicketItem = "//div[contains(@class,'grayButton full aCenter  serviceTicketButton left') and contains(text(),'Add Ticket Item')]";
 	public String clickAddPartialPayment = "//div[contains(@class,'grayButton full aCenter  serviceTicketButton ticketPaymentButton left') and contains(text(),'Add Payment')]";
 	private String addAvailableTicket = "//div[@id='availableItems']//li[1]";
-	private By paymentStatusField = By.xpath("//ul[@id='invoiceGroupListContainer']/ul/li/div[2]/div[2]");
-	private By invoicesTab = By.xpath("//li[@name='invoicesTab']");
 	private By successApprovedNote = By.xpath("//div[@id='billingPanel']//div[text()='Success! Approved']");
 	private By backToAccountSummaryButton = By.xpath("//div[@id='billingPanel']//div[text()='Back to Account Summary']");
-	private By accountStatementReportTab = By.xpath("//div[@id='billingPanel']//li[text()='Account Statement Report']");
 	private By fullyPaidPaymentStatus = By.xpath("//ul[@id='invoiceGroupListContainer']//div[contains(text(),'FULLY PAID')]");
 	private By serviceChargeField = By.xpath("//div[@id='invoiceDetails']//input[@name='serviceCharge']");
 	private By initialDiscountField = By.xpath("//div[@id='invoiceDetails']//div[text()='Initial Discount']/following-sibling::input[@name='amount']");
 	private By paymentBalanceField = By.xpath("//div[@id='invoiceDetails']//div[text()='Balance']/following-sibling::div");
 	private By recentMemo = By.xpath("//div[@id='billingPanel']//div[text()='+ Add Payment']/following-sibling::div");
+	private By initialBalance = By.xpath("//ul[@id='invoiceGroupListContainer']//span[text()='Initial Balance']/..");
+	private By subStatusAmount = By.xpath("//div[@class='statusBox']//div[@class='subInactive']");
 
 	// Setter
 
@@ -87,13 +87,6 @@ public class RoutePageInvoicing extends BasePage {
 		}
 	}
 
-	public Boolean isAccountStatementReportDisplayed(){
-		if (find(accountStatementReportTab).isDisplayed()) {
-			return true;
-		}
-		return false;
-	}
-
 	public void clickFullyPaidPaymentStatus() throws InterruptedException {
 		Thread.sleep(3000);
 		click(fullyPaidPaymentStatus);
@@ -110,6 +103,24 @@ public class RoutePageInvoicing extends BasePage {
 	public String getPaymentBalance(){
 		wait.until(ExpectedConditions.visibilityOfElementLocated(paymentBalanceField));
 		return getText(paymentBalanceField);
+	}
+
+	public String getInvoiceNumber(){
+		String invoiceNum = getText(invoiceNumber);
+		String accountInvoiceNumber = invoiceNum.replaceAll(
+					"\\s.*", "");
+		return accountInvoiceNumber;
+	}
+
+	public String getInitialBalance(){
+		String initialBalanceAmount = getText(initialBalance);
+		String balanceAmount = initialBalanceAmount.replaceAll(
+					"\\s.*", "");
+		return balanceAmount;
+	}
+
+	public String getSubStatusAmount(){
+		return getText(subStatusAmount);
 	}
 
 	public String getRecentMemo(){

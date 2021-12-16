@@ -1,15 +1,15 @@
 package automation.PestRoutes.PageObject.CustomerOverview;
 
-import org.apache.commons.lang3.SystemUtils;
-import org.openqa.selenium.Keys;
-
+import automation.PestRoutes.PageObject.BasePage;
 import automation.PestRoutes.Utilities.FindElement;
 import automation.PestRoutes.Utilities.FindElement.InputType;
 import automation.PestRoutes.Utilities.Utilities;
 import automation.PestRoutes.Utilities.Utilities.ElementType;
-import org.openqa.selenium.WebElement;
+import org.apache.commons.lang3.SystemUtils;
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 
-public class BillingPage {
+public class BillingPage extends BasePage {
 	//Page title objects
 	public String paymentMethodTitle = "//div[@id='billingInfoContent']//h3";
 
@@ -20,75 +20,66 @@ public class BillingPage {
 	public String bankAccountButton = "//li[text()='Bank Account ']";
 	
 	//**********Billing information objects**********
+
+	// Default Bill To Section
+	private By selectBillToField = By.xpath("//div[@name='billingAccountDisplayBtn']");
+
 	//***Check Boxes***
-	public String additionalContactSmsCheckBox = "//div[@class='row no-gutters']//input[@name='additional-smsReminders']";
-	public String additionalContactEmailCheckBox = "//div[@class='row no-gutters']//input[@name='additional-emailReminders']";
-	public String additionalContactVoiceCheckBox = "//div[@class='row no-gutters']//input[@name='additional-phoneReminders']";
-	public String additionalContactBusinessContactCheckBox = "//div[@class='row no-gutters']//input[@name='additional-saveToBusinessContacts']";
+	private By additionalContactSmsCheckBox = By.xpath("//div[@class='row no-gutters']//input[@name='additional-smsReminders']");
+	private By additionalContactEmailCheckBox = By.xpath("//div[@class='row no-gutters']//input[@name='additional-emailReminders']");
+	private By additionalContactVoiceCheckBox = By.xpath("//div[@class='row no-gutters']//input[@name='additional-phoneReminders']");
+	private By additionalContactBusinessContactCheckBox = By.xpath("//div[@class='row no-gutters']//input[@name='additional-saveToBusinessContacts']");
+
 	//***Buttons***
-	public String autopayNoButton = "//div[text()='No']";
-	public String autopayCreditCardButton = "//div[text()='CC']";
-	public String autopayAchButton = "//div[text()='ACH']";
-	public String copyBillingInfoButton = "//div[text()='Copy Billing Info']";
-	public String assignNewBillingAccountButton = "//div[text()='Assign New Billing Account']";
+	private By autopayNoButton = By.xpath("//div[text()='No']");
+	private By autopayCreditCardButton = By.xpath("//div[text()='CC']");
+	private By autopayAchButton = By.xpath("//div[text()='ACH']");
+	private By copyBillingInfoButton = By.xpath("//div[text()='Copy Billing Info']");
+	private By assignNewBillingAccountButton = By.xpath("//div[text()='Assign New Billing Account']");
 	public String saveBillingInfoButton = "//div[text()='Save Billing Info']";
-	public String addAdditionalContactButton = "//h3[text()='Additional Contacts']/following-sibling::div[text()='+ Add Contact']";
-	public String additionalContactCancelButton = "";
-	public String additionalContactSaveButton = "";
+	private By addAdditionalContactButton = By.xpath("//h3[text()='Additional Contacts']/following-sibling::div[text()='+ Add Contact']");
+
 	//***Input Fields***
-	public String firstNameInputField = "//input[@name='billingFName']";
-	public String lastNameInputField = "//input[@name='billingLName']";
-	public String streetAddressInputField = "//input[@placeholder='Billing Address']";
-	public String cityInputField = "//input[@placeholder='Billing City']";
-	public String zipcodeInputField = "//input[@placeholder='Billing Zip']";
-	public String billingPhoneInputField = "//input[@placeholder='Billing Phone']";
-	public String billingEmailInputField = "//input[@placeholder='Billing Email']";
-	public String billingCompanyNameInputField = "//input[@placeholder='Billing Company Name']";
-	public String paymentHoldDateInputField = "//input[@name='paymentHoldDate']";
+	private By firstNameInputField = By.xpath("//input[@name='billingFName']");
+	private By lastNameInputField = By.xpath("//input[@name='billingLName']");
+	private By streetAddressInputField = By.xpath("//input[@placeholder='Billing Address']");
+	private By cityInputField = By.xpath("//input[@placeholder='Billing City']");
+	private By zipcodeInputField = By.xpath("//input[@placeholder='Billing Zip']");
+	private By billingPhoneInputField = By.xpath("//input[@placeholder='Billing Phone']");
+	private By billingEmailInputField = By.xpath("//input[@placeholder='Billing Email']");
+	private By billingCompanyNameInputField = By.xpath("//input[@placeholder='Billing Company Name']");
+	private By paymentHoldDateInputField = By.xpath("//input[@name='paymentHoldDate']");
 	public String maxMonthlyChargeInputField = "//input[@name='maxMonthlyCharge']";
-	public String additionalContactFirstNameInputField = "";
-	public String additionalContactLastNameInputField = "";
-	public String additionalContactCompanyNameInputField = "";
-	public String additionalContactEmailInputField = "";
-	public String additionalContactPhoneInputField = "";
-	public String additionalContactPhone2InputField = "";
-	public String additionalContactAddressInputField = "";
-	public String additionalContactCityInputField = "";
-	public String additionalContactZipcodeInputField = "";
+
 	//***Drop downs***
 	public String autoPayDropdown = "//div[@id='billingSwitches']//select[@name='autoPayPaymentProfileID']";
-	public String stateDropdown = "//select[@name='billingState']";
-	public String countryDropdown = "//select[@name='billingCountryID']";
-	public String preferredBillingDateDropdown = "//select[@name='preferredBillingDate']";
-	public String collectionStateDropdown = "//select[@name='collectionsStage']";
-	public String additionalContactStateDropdown = "";
-	public String additionalContactTypeDropdown = "";
-	public String additionalContactRelationDropdown = "";
+	private By stateDropdown = By.xpath("//select[@name='billingState']");
+	private By countryDropdown = By.xpath("//select[@name='billingCountryID']");
+	private By preferredBillingDateDropdown = By.xpath("//select[@name='preferredBillingDate']");
+	private By collectionStateDropdown = By.xpath("//select[@name='collectionsStage']");
 	public String autoPaySetValue = "//div[@id='billingSwitches']//select[@name='autoPayPaymentProfileID']/option[@selected='selected']";
+	private By ccMonthDropdown = By.xpath("//select[@name='expMonth']");
+	private By ccYearDropdown = By.xpath("//select[@name='expYear']");
 	
 	//**********Add Payment method objects**********
 	public String addCreditCardButton = "//div[@id='billingInfoContent']//div[text()='Credit Card']";
 	public String addBankAccountButton = "//div[@id='billingInfoContent']//div[text()='Bank Account']";
 
 	public String ccSecurelyEnterCardInfoButton = "//div[text()='Securely Enter Card Info']";
-	public String ccRemoveAccountButton = "//div[text()='Remove Account']";
-	public String ccCopyAccountButton = "//div[text()='Copy Account']";
+	private By ccRemoveAccountButton = By.xpath("//div[text()='Remove Account']");
+	private By ccCopyAccountButton = By.xpath("//div[text()='Copy Account']");
 	public String ccSaveCardButton = "//button[@id='submit-payment']";
-	public String cc_X_ButtonInAddCreditCardDialog = "//form[@id='lightbox']//div[@class='x-container']";
+	private By cc_X_ButtonInAddCreditCardDialog = By.xpath("//form[@id='lightbox']//div[@class='x-container']");
 	public String tokenValue = "//b[text()='Token:']/parent::td/following-sibling::td";
 	public String ccOptionOnLeft = "//div[@id='billingInfoPanel']//li[text()='Credit Card ']";
 	public String ACHOptionOnLeft = "//div[@id='billingInfoPanel']//li[text()='Bank Account ']";
-	//***Input Fields***
 
-	//***Drop downs***
-	public String ccMonthDropdown = "//select[@name='expMonth']";
-	public String ccYearDropdown = "//select[@name='expYear']";
-	
 	//**********Bank Account objects**********
 	//***Buttons***
 	public String saveBankAccountButton = "//button[@id='ach_saving_button']";
-	public String bankAccountSaveAddressAndNameButton = "//div[text()='Save Address / Name']";
-	public String bankAccountUpdateAccountNumberButton = "//div[text()='Update Account Numbers']";
+	private By bankAccountSaveAddressAndNameButton = By.xpath("//div[text()='Save Address / Name']");
+	private By bankAccountUpdateAccountNumberButton = By.xpath("//div[text()='Update Account Numbers']");
+
 	//***Input Fields***
 	public String bankAccountBankNameInputField = "//input[@name='bankName']";
 	public String bankAccountRoutingNumberInputField = "//input[@name='routingNumber']";
@@ -97,7 +88,7 @@ public class BillingPage {
 	public String bankAcountAccountTypeDropdown = "//select[@name='accountType']";
 	public String bankAccountCheckTypeDropdown = "//select[@name='checkType']";
 
-	//***Saved ach
+	//***Saved ACH
 	public String savedBankName = "//input[@name='displayBankName']";
 
 	//**********Credit card objects*************
@@ -122,8 +113,8 @@ public class BillingPage {
 	public String pestRoutesCcCvvInputField = "//input[@id='payment_cvv']";
 	public String savePaymentMethodButton = "//button[@id='secureCardSaveButton']";
 	//Element
-	public String elementOneTimeCcIframe = "elementSingleChargeWrapper";
-	public String elementOneTimeCvvInputField = "//input[@id='CVV']";
+	private By elementOneTimeCcIframe = By.xpath("elementSingleChargeWrapper");
+	private By elementOneTimeCvvInputField = By.xpath("//input[@id='CVV']");
 	public String elementEnterCcButton = "//button[@id='renderSecureCardFormButton']";
 	public String elementIframe = "elementFrame";
 	public String elementCcNumberInputField = "//input[@id='cardNumber']";
@@ -139,10 +130,10 @@ public class BillingPage {
 	public String spreedlyCvvInputField = "//input[@id='cvv']";
 	//NMI
 	public String nmiOneTimeCcIframe = "CollectJSIframe";
-	public String nmiOneTimeCcNumberInputField = "//input[@id='cc-number']";
-	public String nmiOneTimeExpInputField = "//input[@id='cc-exp']";
-	public String nmiOneTimeCvvInputField = "//input[@id='cc-cvv']";
-	public String nmiOneTimeSubmitButton = "//button[@id='submit-payment']";
+	private By nmiOneTimeCcNumberInputField = By.xpath("//input[@id='cc-number']");
+	private By nmiOneTimeExpInputField = By.xpath("//input[@id='cc-exp']");
+	private By nmiOneTimeCvvInputField = By.xpath("//input[@id='cc-cvv']");
+	private By nmiOneTimeSubmitButton = By.xpath("//button[@id='submit-payment']");
 	public String nmiCcNumberIframe = "CollectJSInlineccnumber";
 	public String nmiExpIframe = "CollectJSInlineccexp";
 	public String nmiCvvIframe = "CollectJSInlinecvv";
@@ -206,5 +197,12 @@ public class BillingPage {
 		String entireToken = Utilities.getElementTextValue(tokenNumber, Utilities.ElementType.XPath);
 		int startingIndexOfToken = entireToken.indexOf("/", entireToken.indexOf("/") + 1);
 		return entireToken.substring(startingIndexOfToken + 1, entireToken.length());
+	}
+
+	public String getCustomerAccountID() {
+		String customerBillInformation = getText(selectBillToField);
+		String customerAccountID = customerBillInformation.replaceAll(
+				"\\s.*", "");
+		return customerAccountID;
 	}
 }

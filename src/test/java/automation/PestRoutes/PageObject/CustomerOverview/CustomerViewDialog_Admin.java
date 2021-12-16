@@ -1,18 +1,25 @@
 package automation.PestRoutes.PageObject.CustomerOverview;
 
+import automation.PestRoutes.PageObject.BasePage;
+import automation.PestRoutes.PageObject.CustomerPortal.CustomerPortalSummaryTabPage;
 import io.cucumber.java.en.And;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import automation.PestRoutes.Utilities.FindElement;
 import automation.PestRoutes.Utilities.FindElement.InputType;
 import automation.PestRoutes.Utilities.Utilities;
 import automation.PestRoutes.Utilities.Driver.GetWebDriver;
 import automation.PestRoutes.Utilities.Utilities.ElementType;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class CustomerViewDialog_Admin {
+import java.util.Set;
+
+public class CustomerViewDialog_Admin extends BasePage {
 
     static WebDriver driver = GetWebDriver.getInstance();
+    WebDriverWait wait = new WebDriverWait(driver, 5);
 
     //Remove Customer
     public String removeButton = "//div[text()='Remove']";
@@ -34,6 +41,9 @@ public class CustomerViewDialog_Admin {
     // Customer Status
     public String customerStatus_Frozen = "Frozen";
     public String customerStatus_Active = "Active";
+
+    // Links At The Top Near Customer Status
+    private By portalLoginLink = By.xpath("//a[@id='portalLoginLink']");
 
     // Cancellation Options
     public String cancelResponsibleServiceSubscriptions = "Cancel Responsible Service Subscriptions";
@@ -105,4 +115,18 @@ public class CustomerViewDialog_Admin {
         return Utilities.getElementTextValue(customerStatus, ElementType.XPath);
     }
 
+    public CustomerPortalSummaryTabPage clickPortalLogin(){
+        wait.until(ExpectedConditions.visibilityOfElementLocated(portalLoginLink));
+        click(portalLoginLink);
+
+        String customerCardWindow = driver.getWindowHandle();
+        Set<String> allWindows = driver.getWindowHandles();
+
+        for (String currentWindow : allWindows) {
+            if(!customerCardWindow.equals(currentWindow)){
+                driver.switchTo().window(currentWindow);
+            }
+        }
+        return new CustomerPortalSummaryTabPage();
+    }
 }
