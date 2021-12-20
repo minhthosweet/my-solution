@@ -8,6 +8,10 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.SystemUtils;
 import org.apache.commons.lang3.time.DateUtils;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.interactions.Actions;
@@ -16,6 +20,8 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -57,7 +63,13 @@ public class Utilities {
 		return (String) ((JavascriptExecutor) driver).executeScript(
 				"return jQuery(arguments[0]).text();", elm);
 	}
-	
+
+	public static String getInnerText(By needElement){
+		WebElement elm = driver.findElement(needElement);
+		return (String) ((JavascriptExecutor) driver).executeScript(
+				"return jQuery(arguments[0]).text();", elm);
+	}
+
 	public static void switchToIframeByIndex(int needIndex) {
 		driver.switchTo().frame(needIndex);
 	}
@@ -158,11 +170,34 @@ public class Utilities {
 		}
 	}
 
+	public static void scrollToElement(By needXpath) {
+
+		for (int i = 0; i < 10; i++) {
+			try {
+				WebElement element = driver.findElement(needXpath);
+				Actions actions = new Actions(driver);
+				actions.moveToElement(element);
+				actions.perform();
+				break;
+			} catch (Exception e) {
+				try {
+					Thread.sleep(1000);
+				} catch (InterruptedException ex) {
+					ex.printStackTrace();
+				}
+			}
+		}
+	}
+
 	public static void scrollToElementJS(String needXpath) {
 		WebElement element = driver.findElement(By.xpath(needXpath));
 		scrollToElementJS(element);
 	}
 
+	public static void scrollToElementJS(By needXpath) {
+		WebElement element = driver.findElement(needXpath);
+		scrollToElementJS(element);
+	}
 	public static void scrollToElementJS(WebElement element) {
 		for (int i = 0; i < 10; i++) {
 			try {
@@ -501,4 +536,104 @@ public class Utilities {
 		act.dragAndDropBy(customerCard, x, y).perform();
 		Thread.sleep(3000);
 	}
+
+
+	//F.White - 12/11/2021 : Added method readExcelFile()
+	//Method readExcelFile(): Reads files from an excel spreadsheet and places it in a HaspMap<String, String>
+	public static HashMap<String, String> readExcelFile(String filePathLocation, String fileName, String sheetName, int dataSetID) throws IOException {
+		HashMap<String, String> fileDataMap =  new  HashMap<String, String>();
+		String fileFullPathLocation = filePathLocation + File.separator + fileName;
+		FileInputStream fis= null;
+
+		try {
+			File file = new File(fileFullPathLocation);
+			fis = new FileInputStream(file);
+			XSSFWorkbook workbookName = new XSSFWorkbook(fis);
+			XSSFSheet sheet = workbookName.getSheet(sheetName);
+
+			//Load Data into a HashMap
+			Row rowHeader = sheet.getRow(0);
+			List<String> columnHeader = new ArrayList<String>();
+
+			//Load The Header Row
+			Iterator<Cell> cellIterator = rowHeader.cellIterator();
+			while (cellIterator.hasNext())
+			{
+				columnHeader.add(cellIterator.next().getStringCellValue());
+			}
+
+			//Load the HashMap
+			int rowCount = rowHeader.getLastCellNum();
+			int columnCount = rowHeader.getLastCellNum();
+
+			Row row = sheet.getRow(dataSetID);
+			for (int j = 0; j < columnCount; j++) {
+				Cell cell = row.getCell(j);
+				fileDataMap.put(columnHeader.get(j), getCellValueAsString(cell));
+			}
+
+		}catch (Exception exp) {
+			exp.printStackTrace();
+		} finally {
+			if (fis != null)
+			{
+				fis.close();
+			}
+		}
+		return fileDataMap;
+	}//readExcelFile()
+
+	//F.White - 12/11/2021: Added method readExcelFile(). It called by readExelFile()
+	//Method getCellValueAsString(): Returns the cell value in a Hashmap as a string
+	public static String getCellValueAsString(Cell cell) {
+		String cellValue = null;
+		switch (cell.getCellType()) {
+			case NUMERIC:
+				cellValue = String.valueOf(cell.getNumericCellValue());
+				break;
+			case STRING:
+				cellValue = cell.getStringCellValue();
+				break;
+			case BOOLEAN:
+				cellValue = String.valueOf(cell.getBooleanCellValue());
+				break;
+			case FORMULA:
+				cellValue = cell.getCellFormula();
+			case BLANK:
+				cellValue = "BLANK";
+			default:
+				cellValue = "DEFAULT";
+		}
+		return cellValue;
+	}//getCellValueAsString()
+
+	//F.White - 12/11/2021: Added method printTestData().
+	//Method printTestData(): Prints the data in the HashMap
+	public static String printTestData(HashMap<String, String> testData) {
+		List<String> keys = new ArrayList<String>(testData.keySet());
+		for (String key : keys) {
+			System.out.println(key + ": " + testData.get(key));
+		}
+		return testData.toString();
+	}//printTestData()
+
+	public static boolean isTextPresent(String text){
+		try{
+			boolean boolFlag = driver.getPageSource().contains(text);
+			return boolFlag;
+		}
+		catch(Exception e){
+			return false;
+		}
+	}//isTextPresent()
+
+	public static boolean isChecked(String elemXPath) throws InterruptedException {
+		WebElement elem = driver.findElement(By.xpath(elemXPath));
+		return elem.isSelected();
+	}//isChecked()
+
+	public static boolean isChecked(By locator) throws InterruptedException {
+		WebElement elem = driver.findElement(locator);
+		return elem.isSelected();
+	}//isChecked()
 }

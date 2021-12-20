@@ -7,6 +7,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.Select;
 
 import java.util.List;
@@ -28,11 +29,21 @@ public class BasePage {
     protected WebElement find (By locator) {
         return driver.findElement(locator);
     }
+    protected List<WebElement> findElements (By locator) {
+        List<WebElement> elemList = driver.findElements(locator);
+        return elemList;
+    }
 
     protected void type (String text, By locator) {
         click(locator);
         find(locator).sendKeys(Keys.CONTROL, "a");
         find(locator).sendKeys(text);
+    }
+
+    protected void type (String text, WebElement elem) {
+        elem.sendKeys(Keys.CONTROL, "a");
+        elem.sendKeys(text);
+        elem.sendKeys(Keys.ENTER);
     }
 
     protected void click (By locator) {
@@ -53,6 +64,16 @@ public class BasePage {
     protected String getText (By locator) {
         return find(locator).getText();
     }
+
+    protected String getSelectedOptionFromDropDown(By locator) {
+        Select findDropDown = new Select(find(locator));
+        WebElement option = findDropDown.getFirstSelectedOption();
+        String selectedOption = option.getText();
+        return  selectedOption;
+    }
+
+    //Retrieves the text in element's attribute
+    protected String getByGetAttribute (By locator, String attributeName) { return find(locator).getAttribute(attributeName); }
 
     /*
     The below section is dedicated to FieldRoutes Components.
@@ -80,4 +101,24 @@ public class BasePage {
         type(customerIDorName, customerSearchField);
         click(customer);
     }
+
+    public void checkBox( By locator) throws Exception
+    {
+        WebElement elemBox = find(locator);
+        if(!elemBox.isSelected())
+        {
+            System.out.println("checkBox(): Checked box...");
+            elemBox.click();
+        }
+    }//checkBox
+
+    public void uncheckBox( By locator) throws Exception
+    {
+        WebElement elemBox = find(locator);
+        if(elemBox.isSelected())
+        {
+            elemBox.click();
+        }
+    }//checkBox
+
 }

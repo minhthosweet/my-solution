@@ -40,7 +40,6 @@ public class FillRoutesPageObjects extends AppData {
     private String unscheduledStopsRoutingCustomerCounts = "//*[@id='fillExistingCustomersDue']/h3[contains(text(),'Routing')]";
 
 
-
     //************** Routes to Fill Section ********************
     //"Routes To Fill" Section Title
     private String routesToFill_SectionTitle_IncludeAllRoutes = "//*[@id='fillRoutes']//div//h3[contains(text(),'Routes to Fill')]";
@@ -126,7 +125,6 @@ public class FillRoutesPageObjects extends AppData {
     //--------------------------------------------------------
     // -- METHODS
     //--------------------------------------------------------
-
     public void clickRefreshBtn(String strSectionTitle) {
 
         switch (strSectionTitle){
@@ -170,7 +168,6 @@ public class FillRoutesPageObjects extends AppData {
 
     public boolean unscheduledStopsCheck() {
         boolean boolFlag;
-
         String splitToken = "/";
         String numberOnlyRegexp = "[^0-9]";
         String replacementToken ="";
@@ -179,7 +176,6 @@ public class FillRoutesPageObjects extends AppData {
 
         String strRouteCustomerCounts = FindElement.elementByAttribute(unscheduledStopsRoutingCustomerCounts,FindElement.InputType.XPath).getText();
         String[] routesCustomerArray= strRouteCustomerCounts.split(splitToken);
-
         String strRoutesCounts = routesCustomerArray[0].replaceAll(numberOnlyRegexp,replacementToken);
         String strCustomerCounts = routesCustomerArray[1].replaceAll(numberOnlyRegexp,replacementToken);
 
@@ -247,7 +243,6 @@ public class FillRoutesPageObjects extends AppData {
     }// loadFilterValue()
 
     public void saveOptimizedRoutes() throws InterruptedException {
-
         //Allow time for the "Fill Routes Review" Page to display
         Utilities.waitUntileElementIsVisible(fillRoutesReviewPage,3);
 
@@ -269,7 +264,6 @@ public class FillRoutesPageObjects extends AppData {
         else {
             Assert.fail("Fill Routes' Review Page DID NOT LOAD");
         }
-
     }//saveOptimizedRoutes()
 
     public void loadIncognitoBrowserAndRunOptimizeQueue(){

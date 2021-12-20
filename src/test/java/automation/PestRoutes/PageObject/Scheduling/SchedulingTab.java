@@ -19,7 +19,7 @@ public class SchedulingTab extends BasePage {
     public String scheduleButtonInDialog = "//span[text()='Schedule']";
     public String closeRecommendedRoutes = "//span[text()='Recommended Routes']/following-sibling::button[@title='close']";
     public String jobPool = "//p[text()='Job Pool']";
-    public String linkFillRoutes = "//p[text()='Fill Routes']";
+    public String linkFillRoutes = "//*[@id='calendarNav']//li[@for='fillRoutes']/div/p[contains(text(),'Fill Routes')]";
     public String recommendedRoutesRefreshButton = "//div[text()='Refresh']";
     public Map<String, String> filter_Types = new HashMap<String, String>();
     public String filterTypes(String key) {
@@ -100,7 +100,8 @@ public class SchedulingTab extends BasePage {
 
      //Author: F. White
     public void clickFillRoutesLink() throws InterruptedException {
-        Utilities.waitUntileElementIsVisible(linkFillRoutes, 35);
+        Utilities.waitUntileElementIsVisible(linkFillRoutes, 45);
+        Thread.sleep(3000);
         Utilities.clickElement(linkFillRoutes, ElementType.XPath);
     }
 

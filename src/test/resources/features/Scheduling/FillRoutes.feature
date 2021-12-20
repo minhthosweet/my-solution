@@ -2,11 +2,10 @@
 #
 # Fill Routes Optimization Process optimize routes for max utilization of time
 # Ticket-127104: This Feature will verify the Fill Routes Optimization Process executes successfully
+
 @Smoke
 @Regression
 @Regression_FWhite
-
-
 Feature: Validate Fill Routes Optimization Process
 
   @ExecuteFillRoutesOptimizingProcess
