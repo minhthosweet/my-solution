@@ -272,8 +272,17 @@ public class Utilities {
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(needXpath)));
 	}
 
+	public static void waitUntileElementIsVisible(By locator, int needSecs) {
+		WebDriverWait wait = new WebDriverWait(driver, needSecs);
+		wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+	}
+
 	public static void waitUntileElementIsVisible(String needXpath) {
 		waitUntileElementIsVisible(needXpath, 45);
+	}
+
+	public static void waitUntileElementIsVisible(By locator) {
+		waitUntileElementIsVisible(locator, 45);
 	}
 
 	public static boolean elementIsVisible(String needXpath) {
@@ -283,7 +292,14 @@ public class Utilities {
 			return false;
 		}
 	}
-	
+	public static boolean elementIsVisible(By locator) {
+		if (driver.findElements(locator).size() > 0) {
+			return driver.findElement(locator).isDisplayed();
+		} else {
+			return false;
+		}
+	}
+
 	public static void sign(WebElement needAttribute) {
 		Actions builder = new Actions(driver);
 		Action drawAction = builder 
@@ -630,8 +646,8 @@ public class Utilities {
 
 	public static boolean isTextPresent(String text){
 		try{
-			boolean boolFlag = driver.getPageSource().contains(text);
-			return boolFlag;
+			driver.findElement(By.xpath("//*[contains(text(),'" + text +"')]"));
+			return true;
 		}
 		catch(Exception e){
 			return false;

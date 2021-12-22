@@ -205,6 +205,33 @@ Feature: Customer reports end to end validation
     And I remove the customer
     And I validate if there are errors exist in the list
 
+  @Smoke
+  @Regression_FWhite
+  @CustomerWithoutPaymentMethodAndAutoPayDisabled_CustomerReports
+  Scenario: Verify customer WITHOUT Payment Method and Autopay DISABLED IS NOT included in Customer Report
+    Given I create customer with "AutomatedTester1","Tester1","frankie.white@fieldroutes.com","214-111-0001","111 Loop Ln.,McKinney,TX", and "75070", if not already exist
+    And I set Autopay option to "No Auto Pay" for customer,"AutomatedTester1" "Tester1"
+    Then I navigate to "Customer Reports" in Customers tab
+    And I add Customer Account filters first name ("AutomatedTester1"), last name ("Tester1") and Account Status ("Any Status") in Customer Report
+    And I add Billing Account filter Customer Auto Pay ("Yes") in Customer Report
+    And I add column "Customer Auto Pay" to be displayed
+    And I generate Customer Report
+    Then I validate no listings are returned in the generated Customer Report
+
+  @Smoke
+  @Regression_FWhite
+  @CustomerWithPaymentMethodAndAutoPayEnabled_CustomerReports
+  Scenario: Verify customer WITH Payment Method configured and Autopay ENABLED IS included on Customer Report executed to retrieve customers on Autopay
+    Given I create customer with "AutomatedTester1","Tester1","frankie.white@fieldroutes.com","214-111-0001","111 Loop Ln.,McKinney,TX", and "75070", if not already exist
+    And I add a CC payment option "4111111111111111" and "5412750109056250"
+    And I set Autopay option to "CC - Visa - 1111" for customer,"AutomatedTester1" "Tester1"
+    Then I navigate to "Customer Reports" in Customers tab
+    And I add Customer Account filters first name ("AutomatedTester1"), last name ("Tester1") and Account Status ("Any Status") in Customer Report
+    And I add Billing Account filter Customer Auto Pay ("Credit Card") in Customer Report
+    And I add column "Customer Auto Pay" to be displayed
+    And I generate Customer Report
+    Then I validate customer "AutomatedTester1" "Tester1" "CC-Visa-1111" is displayed in the generated Customer Report
+
     #below test case has a backlog defect: PD-5355. Need to enable it once the defect is fixed.
   #@LeadsValidation_CustomerReports
   #Scenario: Leads validation in Customer Reports

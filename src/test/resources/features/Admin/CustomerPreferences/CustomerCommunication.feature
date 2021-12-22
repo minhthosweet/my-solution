@@ -1,12 +1,10 @@
 #Author: Frankie White
-<<<<<<< HEAD
+#
+# Validate all fields on the "Customer Communication" can be updated and saved successfully
 # Ticket-105549: "Customer Communications" Tab Field Validations
 
-=======
-# Ticket-105549: "Customer Communications" Tab Fill Validations
->>>>>>> bac950c (Made updates to files for Ticket-127104)
 @Smoke
-@RegressionFWhite
+@Regression_FWhite
 @CustomerCommunication
 Feature: Customer Communication Tab Validation
 

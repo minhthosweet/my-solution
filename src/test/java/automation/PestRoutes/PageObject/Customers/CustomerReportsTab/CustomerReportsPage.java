@@ -1,28 +1,35 @@
 package automation.PestRoutes.PageObject.Customers.CustomerReportsTab;
 
+import automation.PestRoutes.PageObject.BasePage;
 import automation.PestRoutes.Utilities.AppData;
 import automation.PestRoutes.Utilities.FindElement;
 import automation.PestRoutes.Utilities.Utilities;
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CustomerReportsPage extends AppData {
+public class CustomerReportsPage extends BasePage {
 
     public String savedReports = "//div[text()='Saved Reports']";
     public String selectColumnsToDisplay = "//div[text()='Select Columns to Display']";
+    private By lnkSelectColumnsToDisplay = By.xpath("//div[text()='Select Columns to Display']");
     public String customerAccount = "//div[text()='Customer Account']";
+    private By linkCustomerAccount = By.xpath("//div[text()='Customer Account']");
     public String leads = "//div[text()='Leads']";
     public String serviceSubscription = "//div[text()='Service Subscription']";
     public String customerLocation = "//div[text()='Customer Location']";
     public String billingAccount = "//div[text()='Billing Account']";
+    private By lnkBillingAccount = By.xpath("//div[text()='Billing Account']");
     public String billingAddress = "//div[text()='Billing Address']";
     public String serviceAppointment = "//div[text()='Service Appointment']";
     public String refreshButton = "//span[text()='Run Report']";
     public String searchBox = "//input[@type='search' and @placeholder='Search...']";
     public String customerReportFirstEntry = "//table[@id='customerReportTable']//td[1]";
     public String textBox_selectColumnsToDisplay = "//div[@id='s2id_reportColumns']//input";
+    private By inputSelectColumnsToDisplay =By.xpath("//div[@id='s2id_reportColumns']//input");
     public String addAll_selectColumnsToDisplay = "//div[@id='s2id_reportColumns']//i[2]";
 
     //Actions objects
@@ -40,6 +47,8 @@ public class CustomerReportsPage extends AppData {
     public String confirmChangeButton_subscriptionPriceChange = "//div[@onclick='applySubscriptionChanges()' and text()='Confirm Change']";
     public String bulkFreeze = "//div[text()='Bulk Freeze']";
     public String bulkFreezeRollBack = "//div[text()='Bulk Freeze RollBack']";
+
+    private By tdTextNoData = By.xpath("//*[@id='customerReportTable']/tbody/tr/td[@class='dataTables_empty']");
 
     //BulkFreeze objects
     public String cancellationNotesTextBox = "//textArea[@id='customerActionCancelNotes']";
@@ -261,6 +270,12 @@ public class CustomerReportsPage extends AppData {
         return Utilities.getElementTextValue(needXpath, Utilities.ElementType.XPath);
     }
 
+    public String getTextValue(By locator) {
+        Utilities.waitUntileElementIsVisible(locator);
+        Utilities.scrollToElementJS(locator);
+        return getText(locator);
+    }
+
     public void click(String needButton) throws InterruptedException {
         Utilities.waitUntileElementIsVisible(needButton);
         Utilities.clickElement(needButton, Utilities.ElementType.XPath);
@@ -309,10 +324,11 @@ public class CustomerReportsPage extends AppData {
     }
 
     public void addFlag_action() throws IOException, InterruptedException {
+        AppData appData = new AppData();
         Utilities.waitUntileElementIsVisible("//span[text()='Add / Remove Flags']");
         click(addFlags);
-        FindElement.elementByAttribute(addFlags, FindElement.InputType.XPath).sendKeys(getData("flag", generalData));
-        click("//div[@id='select2-drop']//span[text()='" + getData("flag", generalData) + "']");
+        FindElement.elementByAttribute(addFlags, FindElement.InputType.XPath).sendKeys(AppData.getData("flag", appData.generalData));
+        click("//div[@id='select2-drop']//span[text()='" + AppData.getData("flag", appData.generalData) + "']");
         click(applyButton_addRemoveFlags_CR);
     }
 
@@ -342,5 +358,18 @@ public class CustomerReportsPage extends AppData {
         Utilities.clickElement(confirmChangeButton_subscriptionPriceChange, Utilities.ElementType.XPath);
         Utilities.acceptAlert();
     }
+
+    public void clickSelectColumnsToDisplayLink(){
+        click(lnkSelectColumnsToDisplay);
+    }//clickSelectColumnsToDisplayLink()
+
+    public void displayColumnOnReport(String colName){
+        type(colName,inputSelectColumnsToDisplay);
+        find(inputSelectColumnsToDisplay).sendKeys(Keys.ENTER);
+    }//clickSelectColumnsToDisplayLink()
+
+    public String getNoDataResults(){
+        return getTextValue(tdTextNoData).toString();
+    }//getNoDataResults()
 
 }

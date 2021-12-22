@@ -11,6 +11,7 @@ import automation.PestRoutes.PageObject.Customers.CustomersMainPage;
 import automation.PestRoutes.PageObject.Header;
 import automation.PestRoutes.Utilities.*;
 import io.cucumber.java.en.And;
+import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.openqa.selenium.WebElement;
@@ -60,6 +61,8 @@ public class CustomerReports extends AppData {
     private String recurringPriceChange;
     private String recurringInvoiceValue;
     private String bulkFreezeCategory;
+
+    public final String NO_DATA_RESULTS = "No Data Available In Table";
 
     //Author: Aditya
     @Test
@@ -924,4 +927,52 @@ public class CustomerReports extends AppData {
         customerViewDialog_admin = new CustomerViewDialog_Admin();
         result("Active", customerViewDialog_admin.getCustomerStatus(), "Customer Status validation in Admin tab of customer card after roll back", " Customer Reports Validation");
     }
+
+    //Author  FWhite
+    @And("I add Customer Account filters first name \\({string}), last name \\({string}) and Account Status \\({string}) in Customer Report")
+    public void addfilters_CustomerAccount(String firstName, String lastName, String accountStatus) throws InterruptedException {
+        customerReportsPage.click(customerReportsPage.customerAccount);
+        customerReportsPage.setType(customerReportsPage.filterTypes_CR("firstName_CR"), firstName);
+        customerReportsPage.setType(customerReportsPage.filterTypes_CR("lastName_CR"), lastName);
+        customerReportsPage.setType(customerReportsPage.filterTypes_CR("accountStatus_CR"), accountStatus);
+    }
+
+    //Author: FWhite
+    @And("I add Billing Account filter Customer Auto Pay \\({string}) in Customer Report")
+    public void addfilters_BillingAccount(String custAutoPayOptopt ) throws InterruptedException {
+        customerReportsPage.click(customerReportsPage.billingAccount);
+        customerReportsPage.setValueFromDropdown(customerReportsPage.filterTypes_CR("customerAutoPay_CR"), custAutoPayOptopt);
+    }
+
+    //Author: FWhite
+    @And("I add column {string} to be displayed")
+    public void addReportColumn(String columnName ) throws InterruptedException {
+        Utilities.scrollToElementJS(customerReportsPage.selectColumnsToDisplay);
+        customerReportsPage.clickSelectColumnsToDisplayLink();
+        customerReportsPage.displayColumnOnReport(columnName);
+    }
+
+    //Author: FWhite
+    @And("I generate Customer Report")
+    public void runCustomerReport() throws InterruptedException {
+        customerReportsPage.click(customerReportsPage.refreshButton);
+    }
+
+    //Author: FWhite
+    @Then("I validate no listings are returned in the generated Customer Report")
+    public void validateCustomerNotInReport() {
+        //Note: Listings should not be returned, because the search filters applied only looks for the  test customer and for him to be on Autopay.
+        //Because these conditions are not met, no data is returned.
+
+        //Validate customer not in generated report, because no data is returned
+        result(NO_DATA_RESULTS, customerReportsPage.getNoDataResults(),"No Data Results Validation", "Customer Report Validation");
+    }//validateCustomerNotInReport()
+
+    @Then("I validate customer {string} {string} {string} is displayed in the generated Customer Report")
+    public void validateCustomerInReport(String firstName, String lastName, String autoPayOption) {
+        result(lastName.toLowerCase(Locale.ROOT), (customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[2]")).toLowerCase(Locale.ROOT), "Customer Last name Validation", " Customer Reports Validation");
+        result(firstName.toLowerCase(Locale.ROOT), (customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[3]")).toLowerCase(Locale.ROOT), "Customer First Name Validation", " Customer Reports Validation");
+        result(autoPayOption.toLowerCase(Locale.ROOT), (customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[4]")).toLowerCase(Locale.ROOT), "Customer Auto Pay ENABLED Validation", " Customer Reports Validation");
+    }//validateCustomerInReport()
+
 }

@@ -44,6 +44,7 @@ public class BillingPage extends BasePage {
 	private By copyBillingInfoButton = By.xpath("//div[text()='Copy Billing Info']");
 	private By assignNewBillingAccountButton = By.xpath("//div[text()='Assign New Billing Account']");
 	public String saveBillingInfoButton = "//div[text()='Save Billing Info']";
+	private By btnSaveBillingInfo = By.xpath("//div[text()='Save Billing Info']");
 	private By addAdditionalContactButton = By.xpath("//h3[text()='Additional Contacts']/following-sibling::div[text()='+ Add Contact']");
 
 	//***Input Fields***
@@ -60,11 +61,14 @@ public class BillingPage extends BasePage {
 
 	//***Drop downs***
 	public String autoPayDropdown = "//div[@id='billingSwitches']//select[@name='autoPayPaymentProfileID']";
+	private By dropdwnAutoPay = By.xpath( "//div[@id='billingSwitches']//select[@name='autoPayPaymentProfileID']");
+
 	private By stateDropdown = By.xpath("//select[@name='billingState']");
 	private By countryDropdown = By.xpath("//select[@name='billingCountryID']");
 	private By preferredBillingDateDropdown = By.xpath("//select[@name='preferredBillingDate']");
 	private By collectionStateDropdown = By.xpath("//select[@name='collectionsStage']");
 	public String autoPaySetValue = "//div[@id='billingSwitches']//select[@name='autoPayPaymentProfileID']/option[@selected='selected']";
+
 	private By ccMonthDropdown = By.xpath("//select[@name='expMonth']");
 	private By ccYearDropdown = By.xpath("//select[@name='expYear']");
 
@@ -81,6 +85,7 @@ public class BillingPage extends BasePage {
 	public String tokenValue = "//b[text()='Token:']/parent::td/following-sibling::td";
 	public String ccOptionOnLeft = "//div[@id='billingInfoPanel']//li[text()='Credit Card ']";
 	public String ACHOptionOnLeft = "//div[@id='billingInfoPanel']//li[text()='Bank Account ']";
+	private By lnkBillingInfo = By.xpath("//*[@id='billingInfoPanel']//div/ul/li[contains(text(),'Billing Info')]");
 
 	//**********Bank Account objects**********
 	//***Buttons***
@@ -346,4 +351,19 @@ public class BillingPage extends BasePage {
 				break;
 		}
 	}
+
+	public void clickSaveBillingInfoButton()
+	{
+		click(btnSaveBillingInfo);
+	}//clickSaveBillingInfoButton
+
+	public void selectAutoPayOption(String strOption)
+	{
+		selectFromDropDown(strOption,dropdwnAutoPay);
+	}//selectAutoPayOption()
+
+	public void clickBillingIfoLink() {
+		click(lnkBillingInfo);
+	}//clickBillingIfoLink()
+
 }
