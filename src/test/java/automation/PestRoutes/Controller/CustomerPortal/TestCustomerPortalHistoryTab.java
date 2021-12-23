@@ -14,7 +14,9 @@ public class TestCustomerPortalHistoryTab {
 
     CustomerPortalSummaryTabPage userOnCustomerPortalSummaryTab = new CustomerPortalSummaryTabPage();
     CustomerPortalHistoryTabPage userOnCustomerPortalHistoryTab = new CustomerPortalHistoryTabPage();
+    CustomerviewDialog_AppointmentsTab userOnAppointmentsTab = new CustomerviewDialog_AppointmentsTab();
     TestTechNamePaymentsByServiceType test = new TestTechNamePaymentsByServiceType();
+    TestScheduledAppointments schedule = new TestScheduledAppointments();
     String expectedPaymentBalance = test.invoicePaymentBalance;
     String expectedFirstName = test.customerFirstName;
     String expectedAppointmentTabID = test.appointmentTabID;
