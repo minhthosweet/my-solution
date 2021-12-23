@@ -219,7 +219,8 @@ public class CreateCustomerDialog extends BasePage {
         FindElement.elementByAttribute(firstNameInputField, InputType.XPath).sendKeys(needFirstName);
         //Optimized For Encapsulation Below via typeFirstName() By Passing In A String & Using A Private Modifier With By Class
     }
-    public void typeFirstName (String firstName) {
+    public void typeFirstName (String firstName) throws InterruptedException {
+        Thread.sleep(3000);
         type(firstName, firstNameField);
         //type(needFirstName, firstNameInputField); Optimize Later With A Private Modifier & By Class
         //Optimized via typeFirstName() By Passing In A String & Using A Private Modifier With By Class

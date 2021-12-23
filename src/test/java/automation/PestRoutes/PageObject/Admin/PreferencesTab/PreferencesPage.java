@@ -1,17 +1,19 @@
 package automation.PestRoutes.PageObject.Admin.PreferencesTab;
 
 
+import automation.PestRoutes.PageObject.BasePage;
 import automation.PestRoutes.Utilities.FindElement;
 import automation.PestRoutes.Utilities.Utilities;
 import automation.PestRoutes.Utilities.Utilities.ElementType;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
-public class PreferencesPage {
+public class PreferencesPage extends BasePage {
 	
 	//Office settings navigation
 	public String officeSettingsRelatedNav = "//h2[@id='office']";
+	private By merchantInfo = By.xpath("//ul[@id='preferencesMenu']//li[text()='Merchant Info']");
 
-	
 	//Partner Sited/Apps navigation
 	public String partnerSites_AppsRelatedNav = "//h2[@id='partner']";
 	
@@ -65,10 +67,9 @@ public class PreferencesPage {
 		Utilities.scrollToElementJS(needPage);
 		Utilities.waitUntileElementIsVisible(needPage);
 		Utilities.clickElement(needPage, ElementType.XPath);
-
 	}
 
-	
-
-
+	public void clickMerchantInfo(){
+		click(merchantInfo);
+	}
 }

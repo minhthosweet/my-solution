@@ -8,17 +8,24 @@ import automation.PestRoutes.Utilities.Utilities.ElementType;
 import org.apache.commons.lang3.SystemUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import static automation.PestRoutes.Utilities.Utilities.switchToIframeByXpath;
 
 public class BillingPage extends BasePage {
+
 	//Page title objects
 	public String paymentMethodTitle = "//div[@id='billingInfoContent']//h3";
 
 	//**********Left navigation objects**********
 	public String billingInfoButton = "//li[text()='Billing Info']";
 	public String addPaymentMethodButton = "//li[text()='+ Add Payment Method']";
+	private By addPaymentMethod = By.xpath("//div[@id='billingInfoPanel']//li[text()='+ Add Payment Method']");
 	public String creditCardButton = "//li[text()='Credit Card ']";
 	public String bankAccountButton = "//li[text()='Bank Account ']";
-	
+
 	//**********Billing information objects**********
 
 	// Default Bill To Section
@@ -60,9 +67,10 @@ public class BillingPage extends BasePage {
 	public String autoPaySetValue = "//div[@id='billingSwitches']//select[@name='autoPayPaymentProfileID']/option[@selected='selected']";
 	private By ccMonthDropdown = By.xpath("//select[@name='expMonth']");
 	private By ccYearDropdown = By.xpath("//select[@name='expYear']");
-	
+
 	//**********Add Payment method objects**********
 	public String addCreditCardButton = "//div[@id='billingInfoContent']//div[text()='Credit Card']";
+	private By creditCardPaymentMethod = By.xpath("//div[@id='billingInfoContent']//div[text()='Credit Card']");
 	public String addBankAccountButton = "//div[@id='billingInfoContent']//div[text()='Bank Account']";
 
 	public String ccSecurelyEnterCardInfoButton = "//div[text()='Securely Enter Card Info']";
@@ -94,46 +102,59 @@ public class BillingPage extends BasePage {
 	//**********Credit card objects*************
 	//***Gateway Types
 	public String paymentGatewayType = "//form[@id='paymentProfileForm']//i";
+	private By buttonSavePaymentMethod = By.xpath("//button[@id='secureCardSaveButton']");
 	//Brain tree
 	public String brainCcIframe = "braintree-hosted-field-number";
 	public String brainExpMonthIframe = "braintree-hosted-field-expirationMonth";
 	public String brainExpYearIframe = "braintree-hosted-field-expirationYear";
 	public String brainCvvIframe = "braintree-hosted-field-cvv";
 	public String brainCcNumberInputField = "//input[@id='credit-card-number']";
+	private By braintreeCardNumberField = By.xpath("//input[@id='credit-card-number']");
 	public String brainExpMonthInputField = "//input[@id='expiration-month']";
+	private By braintreeExpirationMonth = By.xpath("//input[@id='expiration-month']");
 	public String brainExpYearInputField = "//input[@id='expiration-year']";
+	private By braintreeExpirationYear = By.xpath("//input[@id='expiration-year']");
 	public String brainCvvInputField = "//input[@id='cvv']";
+	private By braintreeCVVField = By.xpath("//input[@id='cvv']");
 	//PestRoutes Payments
 	public String payrixIframe = "payrixAddIFrame";
 	public String pestRoutesIframeCc = "payFields-iframe-number";
 	public String pestRoutesIframeExp = "payFields-iframe-expiration";
 	public String pestRoutesIframeCvv = "payFields-iframe-cvv";
 	public String pestRoutesCcNumberInputField = "//input[@id='payment_number']";
+	private By pestRoutesPaymentsCardNumber = By.xpath("//input[@id='payment_number']");
 	public String pestRoutesCcExpirationInputField = "//input[@id='expiration']";
+	private By pestRoutesPaymentsExpirationDate = By.xpath("//input[@id='expiration']");
 	public String pestRoutesCcCvvInputField = "//input[@id='payment_cvv']";
+	private By pestRoutesPaymentsCVVField = By.xpath("//input[@id='payment_cvv']");
 	public String savePaymentMethodButton = "//button[@id='secureCardSaveButton']";
 	//Element
-	private By elementOneTimeCcIframe = By.xpath("elementSingleChargeWrapper");
-	private By elementOneTimeCvvInputField = By.xpath("//input[@id='CVV']");
 	public String elementEnterCcButton = "//button[@id='renderSecureCardFormButton']";
+	private By enterCreditCardButton = By.xpath("//button[@id='renderSecureCardFormButton']");
 	public String elementIframe = "elementFrame";
 	public String elementCcNumberInputField = "//input[@id='cardNumber']";
+	private By elementCardNumberField = By.xpath("//input[@id='cardNumber']");
 	public String elementExpMonthDropdown = "//select[@id='ddlExpirationMonth']";
+	private By elementExpirationMonth = By.xpath("//select[@id='ddlExpirationMonth']");
 	public String elementExpYearDropdown = "//select[@id='ddlExpirationYear']";
+	private By elementExpirationYear = By.xpath("//select[@id='ddlExpirationYear']");
 	public String elementSaveCcButton = "//a[@id='submit']";
+	private By elementProcessTransactionButton = By.xpath("//a[@id='submit']");
 	//Spreedly
 	public String spreedlyCcNumberIframe = "//div[@id='spreedly-card-number']/iframe";
 	public String spreedlyCvvIframe = "//div[@id='spreedly-cvv']/iframe";
 	public String spreedlyCcInputField = "//input[@id='card_number']";
+	private By spreedlyCardNumber = By.xpath("//input[@id='card_number']");
 	public String spreedlyExpMonthDropdown = "//select[@name='expMonth']";
+	private By spreedlyExpirationMonth = By.xpath("//select[@name='expMonth']");
 	public String spreedlyExpYearDropdown = "//select[@name='expYear']";
+	private By spreedlyExpirationYear = By.xpath("//select[@name='expYear']");
 	public String spreedlyCvvInputField = "//input[@id='cvv']";
+	private By spreedlyCVVField = By.xpath("//input[@id='cvv']");
 	//NMI
-	public String nmiOneTimeCcIframe = "CollectJSIframe";
-	private By nmiOneTimeCcNumberInputField = By.xpath("//input[@id='cc-number']");
-	private By nmiOneTimeExpInputField = By.xpath("//input[@id='cc-exp']");
-	private By nmiOneTimeCvvInputField = By.xpath("//input[@id='cc-cvv']");
-	private By nmiOneTimeSubmitButton = By.xpath("//button[@id='submit-payment']");
+	private By nmiCardNumberField = By.xpath("//input[@id='ccnumber']");
+	private By nmiExpirationDateField = By.xpath("//input[@id='ccexp']");
+	private By nmiCVVField = By.xpath("//input[@id='cvv']");
 	public String nmiCcNumberIframe = "CollectJSInlineccnumber";
 	public String nmiExpIframe = "CollectJSInlineccexp";
 	public String nmiCvvIframe = "CollectJSInlinecvv";
@@ -142,26 +163,25 @@ public class BillingPage extends BasePage {
 	public String nmiCvvInputField = "//input[@id='cvv']";
 	public String nmiSavedCc = "//input[@name='accountNumber']";
 
-	
-	/* 
+	/*
 	 * Below methods click or select element
 	 */
-	
+
 	public void clickElement(String needElement) throws InterruptedException {
 		Utilities.clickElement(needElement, ElementType.XPath);
 		Thread.sleep(100);
 	}
-	
+
 	public void selectDropdown(String needDropdown, String needValue) throws InterruptedException {
 		Thread.sleep(100);
 		Utilities.waitUntileElementIsVisible(needDropdown);
 		Utilities.selectValueFromDropDownByValue(needDropdown, needValue);
 	}
-	
+
 	/*
 	 * Below method set value in an input field
 	 */
-	
+
 	public void setInputField(String needInputField, String needValue) {
 		Utilities.waitUntileElementIsVisible(needInputField);
 		Utilities.clickElement(needInputField, ElementType.XPath);
@@ -172,15 +192,15 @@ public class BillingPage extends BasePage {
 		}
 		FindElement.elementByAttribute(needInputField, InputType.XPath).sendKeys(needValue);
 	}
-	
+
 	/*
 	 * Below methods gets the text value or attribute value of an element
 	 */
-	
+
 	public String getTextValue(String needElement) {
 		return Utilities.getElementTextValue(needElement, ElementType.XPath);
 	}
-	
+
 	public String getAttributeValue(String needElement, String needAttribute) {
 		return Utilities.getAttributeValue(needElement, needAttribute);
 	}
@@ -204,5 +224,126 @@ public class BillingPage extends BasePage {
 		String customerAccountID = customerBillInformation.replaceAll(
 				"\\s.*", "");
 		return customerAccountID;
+	}
+
+	public void clickAddPaymentMethod() throws InterruptedException {
+		Thread.sleep(3000);
+		click(addPaymentMethod);
+	}
+
+	public void clickCreditCardButton(){
+		click(creditCardPaymentMethod);
+	}
+
+	public void clickSavePaymentMethodButton(){
+		click(buttonSavePaymentMethod);
+	}
+
+	public void enterBraintreeNewCardInformation(String cardNumber, String expirationDate, String cvv){
+		driver.switchTo().defaultContent();
+		switchToIframeByXpath(brainCcIframe);
+		type(cardNumber, braintreeCardNumberField);
+		driver.switchTo().defaultContent();
+		String[] separateMonthYear = expirationDate.split("/");
+		String month = separateMonthYear[0];
+		String year = separateMonthYear[1];
+		switchToIframeByXpath(brainExpMonthIframe);
+		type(month, braintreeExpirationMonth);
+		driver.switchTo().defaultContent();
+		switchToIframeByXpath(brainExpYearIframe);
+		type(year, braintreeExpirationYear);
+		driver.switchTo().defaultContent();
+		switchToIframeByXpath(brainCvvIframe);
+		type(cvv, braintreeCVVField);
+		driver.switchTo().defaultContent();
+		clickSavePaymentMethodButton();
+	}
+
+	public void enterElementNewCardInformation(String cardNumber, String expirationDate){
+		if (find(enterCreditCardButton).isDisplayed()){
+			click(enterCreditCardButton);
+		}
+		switchToIframeByXpath(elementIframe);
+		type(cardNumber, elementCardNumberField);
+		String[] separateMonthYear = expirationDate.split("/");
+		String month = separateMonthYear[0];
+		String year = separateMonthYear[1];
+		selectFromDropDown(month, elementExpirationMonth);
+		selectFromDropDown("20"+ year, elementExpirationYear);
+		click(elementProcessTransactionButton);
+		driver.switchTo().defaultContent();
+	}
+
+	public void enterNMINewCardInformation(String cardNumber, String expirationDate, String cvv) throws InterruptedException {
+		switchToIframeByXpath(nmiCcNumberIframe);
+		type(cardNumber, nmiCardNumberField);
+		driver.switchTo().defaultContent();
+		switchToIframeByXpath(nmiExpIframe);
+		String[] separateMonthYear = expirationDate.split("/");
+		String month = separateMonthYear[0];
+		String year = separateMonthYear[1];
+		String expirationMonthYear = month + "/20" + year;
+		type(expirationMonthYear, nmiExpirationDateField);
+		driver.switchTo().defaultContent();
+		switchToIframeByXpath(nmiCvvIframe);
+		type(cvv, nmiCVVField);
+		driver.switchTo().defaultContent();
+		clickSavePaymentMethodButton();
+	}
+
+	public void enterSpreedlyNewCardInformation(String cardNumber, String expirationDate, String cvv){
+		WebElement iFrameCardNumber = find(By.xpath("//iframe[contains(@id,'spreedly-number-frame')]"));
+		driver.switchTo().frame(iFrameCardNumber);
+		type(cardNumber, spreedlyCardNumber);
+		driver.switchTo().defaultContent();
+		String[] separateMonthYear = expirationDate.split("/");
+		String month = separateMonthYear[0];
+		String year = separateMonthYear[1];
+		Select findDropDown = new Select(find(spreedlyExpirationMonth));
+		findDropDown.selectByValue(month);
+		selectFromDropDown("20"+ year, spreedlyExpirationYear);
+		WebElement iFrameCVV = find(By.xpath("//iframe[contains(@id,'spreedly-cvv-frame')]"));
+		driver.switchTo().frame(iFrameCVV);
+		type(cvv, spreedlyCVVField);
+		driver.switchTo().defaultContent();
+		clickSavePaymentMethodButton();
+	}
+
+	public void enterPestRoutesPaymentsNewCardInformation(String cardNumber, String expirationDate, String cvv) throws InterruptedException {
+		switchToIframeByXpath(payrixIframe);
+		switchToIframeByXpath(pestRoutesIframeCc);
+		type(cardNumber, pestRoutesPaymentsCardNumber);
+		driver.switchTo().defaultContent();
+		switchToIframeByXpath(payrixIframe);
+		switchToIframeByXpath(pestRoutesIframeExp);
+		type(expirationDate, pestRoutesPaymentsExpirationDate);
+		driver.switchTo().defaultContent();
+		switchToIframeByXpath(payrixIframe);
+		switchToIframeByXpath(pestRoutesIframeCvv);
+		type(cvv, pestRoutesPaymentsCVVField);
+		driver.switchTo().defaultContent();
+		switchToIframeByXpath(payrixIframe);
+		clickSavePaymentMethodButton();
+		driver.switchTo().defaultContent();
+	}
+
+	public void enterNewCardInformation(String gateway, String cardNumber, String expirationDate, String cvv) throws InterruptedException {
+		switch(gateway) {
+			case "Braintree":
+				enterBraintreeNewCardInformation(cardNumber, expirationDate, cvv);
+				break;
+			case "Element":
+				enterElementNewCardInformation(cardNumber, expirationDate);
+				break;
+			case "NMI":
+				enterNMINewCardInformation(cardNumber, expirationDate, cvv);
+				break;
+			case "Spreedly":
+				enterSpreedlyNewCardInformation(cardNumber, expirationDate, cvv);
+				break;
+			case "PestRoutes Payments":
+				enterPestRoutesPaymentsNewCardInformation(cardNumber, expirationDate, cvv);
+				break;
+		}
 	}
 }

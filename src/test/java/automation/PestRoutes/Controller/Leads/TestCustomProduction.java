@@ -21,7 +21,7 @@ public class TestCustomProduction {
     String recurringServiceAmount;
 
     @Given("I Create A Customer With A Lead")
-    public void automateCreatingCustomerWithLead() {
+    public void automateCreatingCustomerWithLead() throws InterruptedException {
         userOnDashboard.goToNewCustomerComponent();
         userCreateNewCustomer.typeFirstName(generateRandomString(3));
         userCreateNewCustomer.typeLastName(generateRandomString(4));

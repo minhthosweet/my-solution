@@ -1,5 +1,6 @@
 package automation.PestRoutes.PageObject;
 
+import automation.PestRoutes.PageObject.Admin.AdminMainPage;
 import automation.PestRoutes.PageObject.CreateCustomer.CreateCustomerDialog;
 import automation.PestRoutes.PageObject.ReportingPage.ReportingMainPage;
 import automation.PestRoutes.PageObject.Scheduling.SchedulingTab;
@@ -10,15 +11,13 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.Select;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 public class BasePage {
     protected static WebDriver driver;
 
     private By reportingComponent = By.xpath("//div[@id='reportLink']/a[text()='Reporting']");
     private By newCustomerComponent = By.xpath("//div[@id='guestNav']//a[text()='New Customer']");
     private By schedulingComponent = By.xpath("//div[@id='routeLink']/a[text()='Scheduling']");
+    private By adminComponent = By.xpath("//div[@id='settingsLink']/a[text()='Admin']");
     private By customerSearchField = By.xpath("//input[@id='customerSearch']");
     private By customer = By.xpath("//span[@class='left searchName']");
 
@@ -55,12 +54,6 @@ public class BasePage {
         findDropDown.selectByVisibleText(value);
     }
 
-    protected List<String> getOptionsFromDropDown(By locator) {
-        Select findDropDown = new Select(find(locator));
-        List<WebElement> allSelectedOptions = findDropDown.getAllSelectedOptions();
-        return allSelectedOptions.stream().map(e->e.getText()).collect(Collectors.toList());
-    }
-
     protected String getText (By locator) {
         return find(locator).getText();
     }
@@ -94,6 +87,11 @@ public class BasePage {
     public ReportingMainPage goToReportingComponent () {
         click(reportingComponent);
         return new ReportingMainPage();
+    }
+
+    public AdminMainPage goToAdminComponent(){
+        click(adminComponent);
+        return new AdminMainPage();
     }
 
     public void goToCustomerSearchComponent(String customerIDorName) {

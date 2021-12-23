@@ -5,6 +5,7 @@ import automation.PestRoutes.Utilities.FindElement;
 import automation.PestRoutes.Utilities.FindElement.InputType;
 import automation.PestRoutes.Utilities.Utilities;
 import automation.PestRoutes.Utilities.Utilities.ElementType;
+import static automation.PestRoutes.Utilities.Utilities.getAllSelectedOptionsFromDropDown;
 import org.apache.commons.lang3.SystemUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -262,7 +263,7 @@ public class CustomerViewDialog_SubscriptionTab extends BasePage {
 	}
 
 	public List<String> getRecurringServiceType() {
-		return getOptionsFromDropDown(serviceTypeDropDown);
+		return getAllSelectedOptionsFromDropDown(serviceTypeDropDown);
 	}
 
 	public void selectServiceFrequency(String needServiceFrequency) {

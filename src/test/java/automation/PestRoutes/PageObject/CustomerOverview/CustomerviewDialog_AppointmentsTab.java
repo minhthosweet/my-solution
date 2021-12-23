@@ -39,14 +39,13 @@ public class CustomerviewDialog_AppointmentsTab extends BasePage {
     public String cancelAppointment = "//div[@id='completeButton']/following-sibling::div//div[text() = 'Cancel']";
     public String cancelNotesAppointment = "//textarea[@id='cancelReason']";
     public String confirmCancellation = "//span[text()='Confirm Cancelation']";
-    //public String okButton = "//div[@aria-describedby= 'fieldRoutesDialog']//span[text()='OK']";
     private By confirmCancellationButton = By.xpath("//span[text()='Confirm Cancellation']");
     private By okButton = By.xpath("//div[@aria-describedby= 'fieldRoutesDialog']//span[text()='OK']");
     private By technicianName = By.xpath("//div[@id='ADCustomer']//div[@class='techName techNameAssignButton']");
     private By allTechnicians = By.xpath("//div[@id='editRouteTechs']//div[@class='techName']");
+    private By appointmentID = By.xpath("//div[@id='appointmentContainor']//h3/span");
 
     // Subscription objects
-    public String createNewSubscription_Scheduling = "Create New Subscription";
     public String standAloneService_Scheduling = "Stand-Alone Service or Reservice";
     private By selectedSubscription = By.xpath("//div[@id='appointmentContainor']//option[@selected='SELECTED']");
     private By pendingAppointment = By.xpath("//div[@id='historyPanel']//span[text()='Pending']");
@@ -320,7 +319,10 @@ public class CustomerviewDialog_AppointmentsTab extends BasePage {
         click(subStatusButton);
         clickSaveAndCompleteButton();
         String serviceNotes = getText(serviceNotesField);
-
         return serviceNotes;
+    }
+
+    public String getAppointmentTabID(){
+        return getText(appointmentID).trim();
     }
 }

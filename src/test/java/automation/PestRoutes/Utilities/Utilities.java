@@ -3,7 +3,6 @@ package automation.PestRoutes.Utilities;
 import automation.PestRoutes.Utilities.Driver.GetWebDriver;
 import automation.PestRoutes.Utilities.FindElement.InputType;
 import io.cucumber.java.en.And;
-import io.cucumber.java.en.Then;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.SystemUtils;
@@ -25,6 +24,7 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Utilities {
 	static WebDriver driver = GetWebDriver.getInstance();
@@ -537,7 +537,18 @@ public class Utilities {
 		Thread.sleep(3000);
 	}
 
+	public static List<String> getAllSelectedOptionsFromDropDown(By locator) {
+		Select findDropDown = new Select(driver.findElement(locator));
+		List<WebElement> allSelectedOptions = findDropDown.getAllSelectedOptions();
+		return allSelectedOptions.stream().map(e->e.getText()).collect(Collectors.toList());
+	}
 
+	public static List<String> getOptionsFromDropDown(By locator) {
+		Select findDropDown = new Select(driver.findElement(locator));
+		List<WebElement> allOptions = findDropDown.getOptions();
+		return allOptions.stream().map(e->e.getText()).collect(Collectors.toList());
+	}
+  
 	//F.White - 12/11/2021 : Added method readExcelFile()
 	//Method readExcelFile(): Reads files from an excel spreadsheet and places it in a HaspMap<String, String>
 	public static HashMap<String, String> readExcelFile(String filePathLocation, String fileName, String sheetName, int dataSetID) throws IOException {

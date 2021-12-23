@@ -59,6 +59,7 @@ public class TestTechNamePaymentsByServiceType {
     public static String invoiceNumber;
     public static String initialBalance;
     public static String subStatusAmount;
+    public static String appointmentTabID;
 
     @Given("I Create A Customer With A Subscription")
     public void automateCreatingCustomerWithSubscription() throws InterruptedException {
@@ -140,6 +141,7 @@ public class TestTechNamePaymentsByServiceType {
         techName = userOnAppointmentsTab.getTechName();
         userOnAppointmentsTab.clickSaveAndCompleteButton();
         serviceNotes = userOnAppointmentsTab.getServiceNotes();
+        appointmentTabID = userOnAppointmentsTab.getAppointmentTabID();
         userOnAppointmentsTab.goToCustomerSearchComponent(customerFullName);
         sameUser.goToInvoicesTab();
         invoiceNumber = userOnInvoicesTab.getInvoiceNumber();

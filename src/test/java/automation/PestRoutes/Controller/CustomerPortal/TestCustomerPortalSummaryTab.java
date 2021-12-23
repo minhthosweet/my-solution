@@ -5,7 +5,6 @@ import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_Admi
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_Header;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_SubscriptionTab;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerviewDialog_AppointmentsTab;
-import automation.PestRoutes.PageObject.CustomerOverview.Invoicing.RoutePageInvoicing;
 import automation.PestRoutes.PageObject.CustomerPortal.CustomerPortalSummaryTabPage;
 import automation.PestRoutes.PageObject.DashboardPage;
 import automation.PestRoutes.PageObject.RoutePage.RoutePage;
@@ -30,7 +29,6 @@ public class TestCustomerPortalSummaryTab {
     RoutePage userOnRoutePage = new RoutePage();
     SchedulingAppointmentDialog userOnSchedulingDialog = new SchedulingAppointmentDialog();
     CustomerviewDialog_AppointmentsTab userOnAppointmentsTab = new CustomerviewDialog_AppointmentsTab();
-    RoutePageInvoicing userOnInvoicesTab = new RoutePageInvoicing();
 
     String expectedFirstName = test.customerFirstName;
     String customerName = test.customerFullName;
@@ -52,8 +50,8 @@ public class TestCustomerPortalSummaryTab {
         userOnCustomerPortalSummaryTab = userOnAdminTab.clickPortalLogin();
     }
 
-    @Then("I Verify First Name In The Welcome Message")
-    public void testFirstNameInWelcomeMessage(){
+    @Then("I Verify First Name In The Welcome Message via Summary Tab")
+    public void testFirstNameInWelcomeMessageSummaryTab(){
         String actualMessage = userOnCustomerPortalSummaryTab.getFirstNameFromWelcomeBanner();
         Assert.assertTrue(actualMessage.contains(expectedFirstName),
                 "Welcome Message Does Not Contain The Correct First Name");
@@ -62,7 +60,6 @@ public class TestCustomerPortalSummaryTab {
     @Then("I Verify The Property Details Section")
     public void testPropertyDetailsSection() {
         String actualPropertyDetails = userOnCustomerPortalSummaryTab.getPropertyDetails();
-
         Assert.assertTrue(actualPropertyDetails.contains(expectedCustomerAccountID),
                 "Expected Account ID Is Not Contained In The Property Details Section");
         Assert.assertTrue(actualPropertyDetails.contains(expectedPropertyAddress),
@@ -81,7 +78,7 @@ public class TestCustomerPortalSummaryTab {
                 "The Actual And Expected Share The Love Text Do Not Match");
     }
 
-    @Then("I Verify Service Type Is Correct via Service Plan Section")
+    @Then("I Verify Service Type Is Correct In Summary Tab via Service Plan Section")
     public void testServiceTypeIsCorrectInSummaryTab() {
         String actualServiceType = userOnCustomerPortalSummaryTab.getServiceType();
         String expectedServiceType = expectedSubscriptionServiceType.toString();
@@ -133,8 +130,8 @@ public class TestCustomerPortalSummaryTab {
                 "The Number Of Service Types Do Not Equal Zero (0)");
     }
 
-    @Then("I Verify The Responsible Balance Matches The Invoice Balance")
-    public void testResponsibleBalanceIsCorrect(){
+    @Then("I Verify The Responsible Balance via Summary Tab Matches The Invoice Balance")
+    public void testResponsibleBalanceIsCorrectOnSummaryTab(){
         String actualPaymentBalance = userOnCustomerPortalSummaryTab.getResponsibleBalance();
         Assert.assertEquals(actualPaymentBalance, expectedPaymentBalance,
                 "Actual Responsible Balance: " + actualPaymentBalance +

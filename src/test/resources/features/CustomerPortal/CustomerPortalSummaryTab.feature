@@ -18,7 +18,7 @@ Feature: Customer Portal - Summary Tab Displays Accurate Information
     Scenario: Verify Customer First Name In The Welcome Banner Message
       Given I Create A Customer With A Subscription
       When  I Navigate To Customer Portal From Customer Card - Admin Tab
-      Then  I Verify First Name In The Welcome Message
+      Then  I Verify First Name In The Welcome Message via Summary Tab
 
     Scenario: Verify Customer Account Number_Property Address_City_State_Zip_Email In Property Details Section
       Given I Create A Customer With A Subscription
@@ -33,7 +33,7 @@ Feature: Customer Portal - Summary Tab Displays Accurate Information
     Scenario: Verify Service Plan Section Contains The Correct Service Type
       Given I Create A Customer With A Subscription
       When  I Navigate To Customer Portal From Customer Card - Admin Tab
-      Then  I Verify Service Type Is Correct via Service Plan Section
+      Then  I Verify Service Type Is Correct In Summary Tab via Service Plan Section
 
     Scenario: Verify Service Plans Section Does Not Show Frozen Subscription
       Given I Create A Customer With A Subscription
@@ -51,7 +51,7 @@ Feature: Customer Portal - Summary Tab Displays Accurate Information
       Given I Create A Customer With A Subscription
       When  I Generate A Stand Alone Invoice
       And   I Navigate To Customer Portal From Customer Card - Admin Tab
-      Then  I Verify The Responsible Balance Matches The Invoice Balance
+      Then  I Verify The Responsible Balance via Summary Tab Matches The Invoice Balance
 
     Scenario: Verify The Fields via Most Recent Service Section After Completing An Appointment
       Given I Create A Customer With A Subscription
