@@ -465,6 +465,7 @@ public class CreateNewCustomer extends AppData {
         }
     }
 
+
     @Given("I close customer card")
     public void closeCustomerCard() throws InterruptedException {
         customerDialog_Header = new CustomerViewDialog_Header();
@@ -613,4 +614,45 @@ public class CreateNewCustomer extends AppData {
         FindElement.elementByAttribute(needSearchField, FindElement.InputType.XPath).sendKeys(convertedCustomerName);
     }
 
+    //Author: FWhite
+    @Given("I create customer with {string},{string},{string},{string},{string}, and {string}, if not already exist")
+    public String createCustomerWithNameEmailAddrStreetAddrPhNumZipCode(String firstName, String lastName, String emailAddr, String phNum, String streetAddr, String zipCode) throws Exception {
+
+        customerDialog_Header = new CustomerViewDialog_Header();
+        customer = new CreateCustomerDialog();
+        overview = new CustomerViewDialog_OverviewTab();
+        header = new Header();
+        searchBox = new SearchBox();
+        header.searchCustomer_SearchField(firstName + " " + lastName);
+
+        //Separate Address parts
+        String[] addressArray = streetAddr.split(",");
+        String addrStreet = addressArray[0];
+        String addrCity = addressArray[1];
+        String addrStateAbbrev = addressArray[2];
+
+        try {
+            if (searchBox.containsInAutoCompleteSearch(firstName + " " + lastName).contains(firstName + " " + lastName)) {
+                System.out.println("Customer found: " + firstName + " " + lastName);
+                Utilities.clickElement("//li[@role='presentation']//span[contains(text(),'"+firstName + " " + lastName+"')]", ElementType.XPath);
+                customerName =  firstName + " " + lastName;
+            }
+        }catch (Exception e){
+            System.out.println("Creating customer: " + firstName + " " + lastName);
+            header.navigateTo(header.newCustomerTab);
+            customer.setFirstName(firstName);
+            customer.setLastName(lastName);
+            customer.selectUnit("Multi Unit");
+            customer.setCellPhone(phNum);
+            customer.setEmailAddress(emailAddr);
+            customer.setAddress(addrStreet);
+            customer.setZipCode(zipCode);
+            customer.clickSmsCheckBox();
+            customerDialog_Header.clickSaveButton();
+            alertCondition();
+            customerName = getCustomerFullName();
+
+        }
+        return customerName;
+    }//createCustomerWithNameEmailAddrStreetAddrPhNumZipCode()
 }

@@ -71,7 +71,7 @@ public class CustomerViewDialog_Header extends BasePage {
         //Optimized For Encapsulation Below via clickCustomerSaveButton() Using A Private Modifier With By Class
     }
 
-    public void clickCustomerSaveButton () {
+    public void clickCustomerSaveButton (){
         click(customerSaveButton);
     }
 
@@ -87,7 +87,11 @@ public class CustomerViewDialog_Header extends BasePage {
         // Optimized For Encapsulation Below via clickXButton() Using A Private Modifier With By Class
     }
 
-    public void clickXButton() { click(xButton); }
+    public void clickXButton() throws InterruptedException {
+        Thread.sleep(500);
+        click(xButton);
+    }
+
 //Author Aarbi
     @And("If discard changes dialog displays, I discard unsaved changes")
     public void discardChanges() {
