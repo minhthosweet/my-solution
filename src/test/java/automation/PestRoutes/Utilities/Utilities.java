@@ -663,4 +663,25 @@ public class Utilities {
 		WebElement elem = driver.findElement(locator);
 		return elem.isSelected();
 	}//isChecked()
+
+
+	public static void checkBox( By locator) throws Exception
+	{
+		WebElement elemBox = driver.findElement(locator);
+		if(!elemBox.isSelected())
+		{
+			System.out.println("checkBox(): Checked box...");
+			elemBox.click();
+		}
+	}//checkBox
+
+	public static void uncheckBox( By locator) throws Exception
+	{
+		WebElement elemBox = driver.findElement(locator);
+		if(elemBox.isSelected())
+		{
+			elemBox.click();
+		}
+	}//checkBox
+
 }

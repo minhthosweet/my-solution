@@ -11,6 +11,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.Select;
 
+import java.util.List;
+
 public class BasePage {
     protected static WebDriver driver;
 
@@ -44,6 +46,14 @@ public class BasePage {
         elem.sendKeys(text);
         elem.sendKeys(Keys.ENTER);
     }
+
+    protected void type (String text, By locator, String keyControl) {
+        click(locator);
+        find(locator).sendKeys(Keys.CONTROL, "a");
+        find(locator).sendKeys(text);
+        find(locator).sendKeys(Keys.CONTROL, keyControl);
+    }
+
 
     protected void click (By locator) {
         find(locator).click();
@@ -99,24 +109,4 @@ public class BasePage {
         type(customerIDorName, customerSearchField);
         click(customer);
     }
-
-    public void checkBox( By locator) throws Exception
-    {
-        WebElement elemBox = find(locator);
-        if(!elemBox.isSelected())
-        {
-            System.out.println("checkBox(): Checked box...");
-            elemBox.click();
-        }
-    }//checkBox
-
-    public void uncheckBox( By locator) throws Exception
-    {
-        WebElement elemBox = find(locator);
-        if(elemBox.isSelected())
-        {
-            elemBox.click();
-        }
-    }//checkBox
-
 }

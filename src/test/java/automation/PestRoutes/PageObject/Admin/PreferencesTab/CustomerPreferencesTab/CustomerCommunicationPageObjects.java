@@ -507,7 +507,7 @@ public class CustomerCommunicationPageObjects extends BasePage {
         //Require Electronic Consent Agreement -  Electronic Consent Content
         Utilities.scrollToElementJS(lnkEdit_RequireElectronicConsentAgreement); //(Note: Navigated to the previous field to make sure the desired field is displayed)
         click(lnkEdit_RequireElectronicConsentAgreement);
-        checkBox(chkboxRequireElectronicConsentAgreement);
+        Utilities.checkBox(chkboxRequireElectronicConsentAgreement);
         type(String.valueOf(testData.get(keyElectronicConsentContent).toString()),rtextareaElectronicConsentContent);
         saveField(lnkSave_RequireElectronicConsentAgreement);
         //updateField(String.valueOf(testData.get(keyElectronicConsentContent).toString()),rtextareaElectronicConsentContent,RTEXTAREA,lnkEdit_InvoiceFooterText);
@@ -895,7 +895,7 @@ public class CustomerCommunicationPageObjects extends BasePage {
 
             //Require Electronic Consent Agreement
             click(lnkEdit_RequireElectronicConsentAgreement);
-            checkBox(chkboxRequireElectronicConsentAgreement);
+            Utilities.checkBox(chkboxRequireElectronicConsentAgreement);
             Assert.assertEquals(Utilities.getInnerText(rtextareaElectronicConsentContent).trim(),String.valueOf(testData.get(keyElectronicConsentContent).toString()), "(" + keyElectronicConsentContent + "): " + genericErrorMsg);
 
             //Agreement Signature Email Subject

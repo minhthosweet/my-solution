@@ -18,7 +18,10 @@ public class InvoiceImplementation extends BasePage {
     public String accountStatementReport = "//li[text()='Account Statement Report']";
     public String remainingBalanceAmount = "//span[text()='Remaining Balance']/parent::div";
 
-    // Invoice Amount
+    //Most Recent Invoice's Invoice-Number
+    private By mostRecentInvoiceNumber = By.xpath("//ul[@id='invoiceGroupListContainer']//span[text()='Invoice']/parent::div[1]");
+
+     // Invoice Amount
     private String newInvoice = "//form[@id=\"newInvoiceParams\"]//input[@type=\"number\"]";
     private String serviceSelect = "//form[@id=\"newInvoiceParams\"]//select[@name = \"serviceID\"]";
     private String service = "//form[@id=\"newInvoiceParams\"]/select/option[21]";
@@ -50,9 +53,18 @@ public class InvoiceImplementation extends BasePage {
     private String recordPayment = "//form[@id=\"singlePaymentForm\"]//div[contains (text(), 'Record Payment')]";
     private By recordPaymentButton = By.xpath("//form[@id='singlePaymentForm']//div[text()='Record Payment']");
 
+    //Check Tab
+    private By recordCheckButton = By.xpath("//form[@id='singlePaymentForm']//div[text()='Record Check']");
+
+    //Coupon/Credit Tab
+    private By recordCouponButton = By.xpath("//form[@id='singlePaymentForm']//div[text()='Record Coupon']");
+
     // Payment Result
     private String successfulCharge = "//h2[contains(@class,'bold aCenter clr font24') and contains(text(),'Successfully Charged Cash!')]";
     private String successfulChargeAmount = "//form[@id=\"singlePaymentForm\"]//h2[@class=\"bold aCenter clr\"]";
+
+    public By paymentResultsScreenTitle = By.xpath("//form[@id='singlePaymentForm']//h3");
+    public By paymentConfirmationMsg = By.xpath("//*[@id='singlePaymentForm']/div/h2[1]");
 
     //Create New Invoice
     private String createNewInvoice_date = "//input[@name='date']";
@@ -76,8 +88,10 @@ public class InvoiceImplementation extends BasePage {
     public String serviceCostBeforeTax  = "//div[not(@ticketid='0')and@subscriptionid='0']//input[@name='serviceCharge']";
     public String subTotalValue = "//div[not(@ticketid='0')and@subscriptionid='0']//following-sibling::div//div[text()='Sub Total']/following-sibling::div[1]";
     public String taxValue = "//div[not(@ticketid='0')and@subscriptionid='0']//following-sibling::div//div[text()='Tax']/following-sibling::div[1]";
+    private By calTaxValue = By.xpath("//div[not(@ticketid='0')and@subscriptionid='0']//following-sibling::div//div[text()='Tax']/following-sibling::div[1]");
     public String chargesTotalValue = "//div[not(@ticketid='0')and@subscriptionid='0']//following-sibling::div//div[text()='Total']/following-sibling::div[1]";
     public String initialDiscountValue = "//div[@subscriptionid='0']//div[text()='Initial Discount']/following-sibling::input[@name='amount']";
+    private By drpdwnTaxable = By.xpath("//*[@id='serviceTicket']/div[2]/select[2]");
 
     // Payments Objects
     public String paymentsInPayments = "//div[text()='Payments']/following-sibling::div[1]";
@@ -128,6 +142,30 @@ public class InvoiceImplementation extends BasePage {
     private By expirationDateCheckBox = By.xpath("//form[@id='singlePaymentForm']//input[@name='updateExpirationDate']");
     private By expirationDateField = By.xpath("//form[@id='singlePaymentForm']//input[@name='expirationDate']");
 
+    //Payment Details
+    private By btnActions = By.xpath("//*[@id='paymentForm']/div[1]/div[2]/div[contains(text(),'Actions')]");
+    private By lnkUpdatePayment = By.xpath("//*[@id='modifyPaymentButton']");
+    private By inputPaymentTransactionAmount  = By.xpath("//*[@id='paymentForm']//div//input[@name ='originalAmount']");
+    private By inputPaymentTransactionDate = By.xpath("//*[@id='paymentForm']//div//input[@name ='paymentDate']");
+    private By textareaPaymentNotes = By.xpath("//*[@id='paymentForm']//div//textarea[@name ='customerNotes']");
+    private By lnkMostRecentPayment = By.xpath("//div[@id='billingPanel']//div[text()='+ Add Payment']/following-sibling::div/div[1]");
+    private By lnkSaveRedistribute = By.xpath("//*[@id='savePaymentDetails']");
+    private By lblCustomerPaymentDetails = By.xpath("//*[@id='paymentForm']/div[2]/div[1]/h3[contains(text(), 'Customer Payment Details')]");
+
+    //------------------------------------------------------
+    //Constants
+    //------------------------------------------------------
+    //Payment Results Messages
+    public final String PAYMENT_SUCCESS_MSG_CASH = "Successfully Charged Cash!";
+    public final String PAYMENT_SUCCESS_MSG_CHECK = "Successfully Applied Check!";
+    public final String PAYMENT_SUCCESS_MSG_CARD = "Successfully Charged Credit Card!";
+    public final String PAYMENT_SUCCESS_MSG_ACH = "Successfully Charged ACH Account!";
+    public final String PAYMENT_SUCCESS_MSG_COUPON = "Coupon Applied Successfully!";
+    public final String PAYMENT_DETAILS_SECTION_TITLE = "Customer Payment Details";
+
+    //------------------------------------------------------
+    // Methods
+    //------------------------------------------------------
     public String checkPaymentStatus() {
         Utilities.waitUntileElementIsVisible(initialPaymentStatus);
         return Utilities.getElementTextValue(initialPaymentStatus, ElementType.XPath);
@@ -252,8 +290,47 @@ public class InvoiceImplementation extends BasePage {
         Utilities.clickElement(markLetterSentButton, ElementType.XPath);
     }
 
-    // Getters
+     public void clickMostRecentPayment(){
+            click(lnkMostRecentPayment);
+     }//clickMostRecentPayment();
 
+    public void clickSaveRedistribute() throws InterruptedException {
+        click(lnkSaveRedistribute);
+
+        //Wait until Save Process completes
+        Thread.sleep(1000);
+    }//clickSaveRedistribute();
+
+    public void clickRecordCheckButton() {
+        click(recordCheckButton);
+    }//clickRecordCheckButton()
+
+    public void clickRecordCouponButton() {
+        click(recordCouponButton);
+    }//clickRecordCouponButton()
+
+    public void clickMostRecentInvoice(){
+        click(mostRecentInvoiceNumber);
+    }//clickMostRecentInvoice();
+
+    public void selectTaxableOption(String taxableOption){
+        selectFromDropDown(taxableOption, drpdwnTaxable);
+    }//selectTaxableOption()
+    public void loadPaymentDetails()
+    {
+        //Click "Actions" button
+        click(btnActions);
+
+        //Click "Update Payment" link
+        click(lnkUpdatePayment);
+         //Wait Until Payment Details Are Loaded
+        Utilities.waitUntileElementIsVisible(lblCustomerPaymentDetails, 5);
+    }//loadPaymentDetails()
+
+
+
+    // Getters
+    //--------------------------------------------------------
     public int getInvoiceCost() {
         Utilities.waitUntileElementIsVisible(invoiceCost);
         return Utilities.removeSpecialChars(invoiceCost);
@@ -409,6 +486,30 @@ public class InvoiceImplementation extends BasePage {
         return (Utilities.getElementTextValue(remainingBalanceAmount, ElementType.XPath)).replaceAll("[^0-9.]","");
     }
 
+    public String getPaymentConfirmationMessage(){
+        return getText(paymentConfirmationMsg);
+    }//getPaymentConfirmationMessage()
+
+    public String getPaymentTransactionAmount(){
+        return getByGetAttribute(inputPaymentTransactionAmount, "value");
+    }//getPaymentTransactionAmount()
+
+    public String getPaymentTransactionDate(){
+        return getByGetAttribute(inputPaymentTransactionDate, "value");
+    }//getPaymentTransactionDate()
+
+    public String getPaymentNotes(){
+        return getByGetAttribute(textareaPaymentNotes, "value");
+    }//getPaymentTransactionDate()
+
+    public String getMostRecentInvoiceNumber(){
+        return getText(mostRecentInvoiceNumber).replaceAll("[^0-9.]","");
+    }//getInvoiceNumber()
+
+    public String getCalTaxValue(){
+         return getText(calTaxValue).replaceAll("[^0-9.]","");
+    }//getInvoiceNumber()
+
     public void clickCreditMemoButton(){
         Utilities.waitUntileElementIsVisible(invoiceActionButton);
         Utilities.hoverElement(invoiceActionButton, creditMemoButton);
@@ -420,6 +521,7 @@ public class InvoiceImplementation extends BasePage {
     }
 
     // Setters
+    //--------------------------------------------------------------
     public void setAdditionalNotes(String needNotes){
         try {
             WebElement elm = FindElement.elementByAttribute(additionalNotes, InputType.XPath);
@@ -481,4 +583,17 @@ public class InvoiceImplementation extends BasePage {
     public void clickBackToAccountSummaryButton(){
         click(backToAccountSummaryButton);
     }
+
+    public void setPaymentTransactionAmount(String transAmt){
+        type(transAmt, inputPaymentTransactionAmount);
+    }//setPaymentTransactionAmount()
+
+    public void setPaymentTransactionDate(String transDate){
+       type(transDate, inputPaymentTransactionDate, "ENTER");
+    }//setPaymentTransactionDate()
+
+    public void setPaymentNotes(String paymentNotes){
+        type(paymentNotes, textareaPaymentNotes);
+    }//setPaymentNotes()
+
 }
