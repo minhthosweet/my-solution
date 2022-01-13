@@ -3,6 +3,7 @@
 # Ticket 120838: Invoice generating without number attached/Customer db issue
 # Ticket 127695: Taxable Option Broken on Invoice"
 @Regression_FWhite
+@CustomerCard
 @VerifyCustomerNotesAreEditableForCashAndCheckPayments
 @VerifyInvoiceTaxableOption
 @VerifyInvoiceNumber

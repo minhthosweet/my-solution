@@ -1,16 +1,11 @@
 package automation.PestRoutes.PageObject.Scheduling;
 
-import automation.PestRoutes.Utilities.AssertException;
 import automation.PestRoutes.Utilities.FindElement;
 import automation.PestRoutes.Utilities.AppData;
 import automation.PestRoutes.Utilities.Utilities;
 import automation.PestRoutes.Utilities.Utilities.ElementType;
-import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.Assert;
 
 public class FillRoutesPageObjects extends AppData {
@@ -218,7 +213,7 @@ public class FillRoutesPageObjects extends AppData {
 
         if(Utilities.elementIsVisible(inprogressBanner_FillRoutsReviewPg)) {
             // Load an incognito browser and execute the optimizeQueue.php script
-            loadIncognitoBrowserAndRunOptimizeQueue();
+            incongitoBrowser = Utilities.loadIncognitoChromeBrowser(incongitoBrowser, OPTIMIZEQUEUE_PHP_URL);
           }
     }//executeOptimizeQueueScript()
 
@@ -250,7 +245,7 @@ public class FillRoutesPageObjects extends AppData {
         if( Utilities.elementIsVisible(fillRoutesReviewPage)) {
 
             //Close incognito browser
-            closeIncongitoBrowser();
+            Utilities.closeIncongitoBrowser(incongitoBrowser);
 
             //Click [Save] to save the optimized routes
             Utilities.clickElement(btnSave_FillRoutsReviewPg, ElementType.XPath);
@@ -266,30 +261,10 @@ public class FillRoutesPageObjects extends AppData {
         }
     }//saveOptimizedRoutes()
 
+    /*
     public void loadIncognitoBrowserAndRunOptimizeQueue(){
-        //Set browser type to Chrome and chromedriver.exe path
-        WebDriverManager.chromedriver().setup();
-
-        // Configure "incognito" option and set parameters for new  Chrome browser driver
-        ChromeOptions browserOptions= new ChromeOptions();
-        browserOptions.addArguments("--incognito");
-
-        //Set capabilities
-        DesiredCapabilities capabilities = new DesiredCapabilities();
-        capabilities.setCapability(ChromeOptions.CAPABILITY, browserOptions);
-        browserOptions.merge(capabilities);
-
-        //Load and execute the URL for the optimizeQueue.php
-        incongitoBrowser = new ChromeDriver(browserOptions);
-        incongitoBrowser.get(OPTIMIZEQUEUE_PHP_URL);
-        incongitoBrowser.navigate().to(OPTIMIZEQUEUE_PHP_URL);
-
+        //Load Incogito Chrome Browser
+        Utilities.loadIncognitoChromeBrowser(incongitoBrowser, OPTIMIZEQUEUE_PHP_URL);
     } //loadIncognitoBrowserAndRunOptimizeQueue()
-
-    public void closeIncongitoBrowser( ){
-        if (incongitoBrowser != null) {
-            incongitoBrowser.quit();
-        }
-    }//closeIncongitoBrowser()
-
+    */
 } //FillRoutesPageObjects

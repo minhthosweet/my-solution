@@ -6,6 +6,7 @@
 @Smoke
 @Regression
 @Regression_FWhite
+@Scheduling
 Feature: Validate Fill Routes Optimization Process
 
   @ExecuteFillRoutesOptimizingProcess
