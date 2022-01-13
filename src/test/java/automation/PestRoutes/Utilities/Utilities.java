@@ -3,6 +3,7 @@ package automation.PestRoutes.Utilities;
 import automation.PestRoutes.Utilities.Driver.GetWebDriver;
 import automation.PestRoutes.Utilities.FindElement.InputType;
 import io.cucumber.java.en.And;
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.SystemUtils;
@@ -12,8 +13,11 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.openqa.selenium.*;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -663,4 +667,52 @@ public class Utilities {
 		WebElement elem = driver.findElement(locator);
 		return elem.isSelected();
 	}//isChecked()
+
+
+	public static void checkBox( By locator) throws Exception
+	{
+		WebElement elemBox = driver.findElement(locator);
+		if(!elemBox.isSelected())
+		{
+			System.out.println("checkBox(): Checked box...");
+			elemBox.click();
+		}
+	}//checkBox
+
+	public static void uncheckBox( By locator) throws Exception
+	{
+		WebElement elemBox = driver.findElement(locator);
+		if(elemBox.isSelected())
+		{
+			elemBox.click();
+		}
+	}//checkBox
+
+	public static WebDriver loadIncognitoChromeBrowser(String strURL){
+		//Set browser type to Chrome and chromedriver.exe path
+		WebDriverManager.chromedriver().setup();
+
+		// Configure "incognito" option and set parameters for new  Chrome browser driver
+		ChromeOptions browserOptions= new ChromeOptions();
+		browserOptions.addArguments("--incognito");
+
+		//Set capabilities
+		DesiredCapabilities capabilities = new DesiredCapabilities();
+		capabilities.setCapability(ChromeOptions.CAPABILITY, browserOptions);
+		browserOptions.merge(capabilities);
+
+		//Load and execute the URL in the Incogito Browser
+		WebDriver incognitoBrowser = new ChromeDriver(browserOptions);
+		incognitoBrowser.get(strURL);
+		incognitoBrowser.navigate().to(strURL);
+
+		return incognitoBrowser;
+	} //loadIncognitoChromeBrowser()
+
+	public static void closeIncongitoBrowser(WebDriver incongitoBrowser ){
+		if (incongitoBrowser != null) {
+			incongitoBrowser.quit();
+		}
+	}//closeIncongitoBrowser()
+
 }

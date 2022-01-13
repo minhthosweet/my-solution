@@ -10,7 +10,9 @@ import automation.PestRoutes.Utilities.Utilities;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.apache.commons.lang.StringUtils;
 import org.openqa.selenium.Keys;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_Header;
 import automation.PestRoutes.PageObject.CustomerOverview.Invoicing.InvoiceImplementation;
@@ -21,8 +23,10 @@ import automation.PestRoutes.PageObject.CustomerOverview.Invoicing.CreditCard.Cr
 import automation.PestRoutes.Utilities.Reporter;
 
 import java.io.IOException;
+import java.util.Locale;
 
 import static automation.PestRoutes.Utilities.AssertException.result;
+import static java.lang.Double.parseDouble;
 
 public class InvoicingTab extends AppData {
 
@@ -253,7 +257,7 @@ public class InvoicingTab extends AppData {
         customerCardHeader.navigateTo(customerCardHeader.subscriptionTabInDialog);
         String initialInvoiceValue = subscriptionTab.getInitialInvoiceValue().substring(1);
         String recurringInvoiceValue = subscriptionTab.getRecurringInvoiceValue().substring(1);
-        String accountPendingBalance = Double.toString(Double.parseDouble(recurringInvoiceValue) + Double.parseDouble(initialInvoiceValue));
+        String accountPendingBalance = Double.toString(parseDouble(recurringInvoiceValue) + parseDouble(initialInvoiceValue));
         String recurringSubTotal = Double.toString(subscriptionTab.getRecurringSubTotal());
         String taxAmount = Double.toString(subscriptionTab.getRecurringTax());
         customerCardHeader.navigateTo(customerCardHeader.invoicesTabInDialog);
@@ -354,7 +358,7 @@ public class InvoicingTab extends AppData {
         invoiceRoutesTab.clickAddPayment();
         invoiceHeader.navigate(invoiceHeader.creditCard);
         Utilities.waitUntileElementIsVisible(cardOnFile.chargeCardButton);
-        String paymentAmount = String.format("%.2f", ((Double.parseDouble(Utilities.getAttributeValue(cardOnFile.paymentAmountInputField, "value"))) / 10));
+        String paymentAmount = String.format("%.2f", ((parseDouble(Utilities.getAttributeValue(cardOnFile.paymentAmountInputField, "value"))) / 10));
         FindElement.elementByAttribute(cardOnFile.paymentAmountInputField, FindElement.InputType.XPath).clear();
         FindElement.elementByAttribute(cardOnFile.paymentAmountInputField, FindElement.InputType.XPath).sendKeys(Keys.DELETE);
         FindElement.elementByAttribute(cardOnFile.paymentAmountInputField, FindElement.InputType.XPath).sendKeys(paymentAmount);
@@ -413,5 +417,109 @@ public class InvoicingTab extends AppData {
         String paymentConfirmation = Utilities.getElementTextValue(confirmationPage.confirmationMessage, Utilities.ElementType.XPath);
         String expectedConfirmation = "Successfully Charged ACH Account!";
         result(expectedConfirmation, paymentConfirmation, "ACH Confirmation", "ACH on file payment");
+    }
+
+    //*** Author: F. White
+    @And("I add a payment via pay option {string} in this amount {string}")
+    public void addInvoicePayment(String paymentOption, String paymentAmt) throws InterruptedException {
+        invoiceHeader = new Invoice_Header();
+        customerCardHeader = new CustomerViewDialog_Header();
+        customerCardHeader.navigateTo(customerCardHeader.invoicesTabInDialog);
+        Utilities.waitUntileElementIsVisible(invoiceRoutesTab.addNewInvoice);
+        invImplementation.clickInitialInvoice();
+        invoiceRoutesTab.clickAddPayment();
+
+        //Make payment based on selected payment option
+        switch (paymentOption.toUpperCase(Locale.ROOT)){
+            case "CASH":
+                invoiceHeader.navigateTo(invoiceHeader.cash);
+                invImplementation.insertPaymentAmount(paymentAmt,paymentAmt);
+                invImplementation.clickRecordPaymentButton();
+                Utilities.waitUntileElementIsVisible(invImplementation.paymentResultsScreenTitle, 5);
+                String paymentConfirmation = invImplementation.getPaymentConfirmationMessage();
+                result(invImplementation.PAYMENT_SUCCESS_MSG_CASH, paymentConfirmation, "Cash Payment of (" +  paymentAmt +") dollars ", "Cash Payment Confirmation");
+                break;
+            case "CHECK":
+                invoiceHeader.navigateTo(invoiceHeader.check);
+                invImplementation.insertPaymentAmount(paymentAmt,paymentAmt);
+                invImplementation.clickRecordCheckButton();
+                Utilities.waitUntileElementIsVisible(invImplementation.paymentResultsScreenTitle, 5);
+                paymentConfirmation = invImplementation.getPaymentConfirmationMessage();
+                result(invImplementation.PAYMENT_SUCCESS_MSG_CHECK, paymentConfirmation, "Check Payment of (" +  paymentAmt +") dollars ", "Check Payment Confirmation");
+                break;
+            case "COUPON":
+                invoiceHeader.navigateTo(invoiceHeader.coupon);
+                invImplementation.insertPaymentAmount(paymentAmt,paymentAmt);
+                invImplementation.clickRecordCouponButton();
+                Utilities.waitUntileElementIsVisible(invImplementation.paymentResultsScreenTitle, 5);
+                paymentConfirmation = invImplementation.getPaymentConfirmationMessage();
+                result(invImplementation.PAYMENT_SUCCESS_MSG_COUPON, paymentConfirmation, "Coupon Payment of (" +  paymentAmt +") dollars ", "Coupon Payment Confirmation");
+                break;
+            default:
+                Assert.fail("*************** Invalid Payment Option: " + paymentOption);
+        }
+    }
+
+    //*** Author: F. White
+    @Then("I validate notes {string}, transAmt {string}, and transDate {string} fields can be edit on payment")
+    public void updatePaymentFields(String paymentNotes, String transactionAmt, String transactionDate) throws InterruptedException {
+        customerCardHeader = new CustomerViewDialog_Header();
+        customerCardHeader.navigateTo(customerCardHeader.invoicesTabInDialog);
+        Utilities.waitUntileElementIsVisible(invoiceRoutesTab.addNewInvoice,5);
+        invImplementation.clickInitialInvoice();
+        invImplementation.clickMostRecentPayment();
+        invImplementation.loadPaymentDetails();
+
+        //Update the following payment fields on the invoice
+        //update Transaction Amount
+        invImplementation.setPaymentTransactionAmount(transactionAmt);
+
+        //update Customer Payment Notes
+        invImplementation.setPaymentNotes( paymentNotes);
+
+        //update Transaction Amount
+        invImplementation.setPaymentTransactionDate(transactionDate);
+
+        //Save updates
+        invImplementation.clickSaveRedistribute();
+
+        // Verify updates saved successfully
+        Assert.assertEquals(transactionAmt, invImplementation.getPaymentTransactionAmount(), "Cash Payment Update Confirmation");
+        Assert.assertEquals(transactionDate, invImplementation.getPaymentTransactionDate(),"Transaction Date Update Confirmation");
+        Assert.assertEquals(paymentNotes, invImplementation.getPaymentNotes(),"Customer Payment Notes Update Confirmation");
+    }
+
+    @Then("I validate the invoice generates with an invoice number")
+    public void validateInvoiceNumber() throws InterruptedException {
+        customerCardHeader = new CustomerViewDialog_Header();
+        customerCardHeader.navigateTo(customerCardHeader.invoicesTabInDialog);
+        Utilities.waitUntileElementIsVisible(invoiceRoutesTab.addNewInvoice,5);
+
+        //Load the most recently added invoice
+        invImplementation.clickMostRecentInvoice();
+
+        //Validate the generated invoice has an invoice number assigned
+        Assert.assertTrue(StringUtils.isNumeric(invImplementation.getMostRecentInvoiceNumber()), "*******The Invoice Number is  Invalid or Missing!");
+    }
+
+    @Then("I validate the taxable option on invoice")
+    public void validateTaxableOptionOnInvoice() throws InterruptedException {
+        double zeroTaxAmt = 0.0;
+        customerCardHeader = new CustomerViewDialog_Header();
+        customerCardHeader.navigateTo(customerCardHeader.invoicesTabInDialog);
+        Utilities.waitUntileElementIsVisible(invoiceRoutesTab.addNewInvoice,5);
+
+        //Load the most recently added invoice
+        invImplementation.clickMostRecentInvoice();
+
+        //Validate "Not Taxable" Option
+        invImplementation.selectTaxableOption("Not Taxable");
+        double displayedTaxAmt = parseDouble(invImplementation.getCalTaxValue());
+        Assert.assertTrue((Double.compare(displayedTaxAmt, zeroTaxAmt) == 0 ) , "*************Tax Amount displayed for the 'Not Taxable' option is incorrect!");
+
+        //Validate "Not Taxable" Option
+        invImplementation.selectTaxableOption("Taxable");
+        displayedTaxAmt = parseDouble(invImplementation.getCalTaxValue());
+        Assert.assertTrue((Double.compare(displayedTaxAmt, zeroTaxAmt) > 0 ), "*************Tax Amount displayed for the 'Taxable' option is incorrect!");
     }
 }
