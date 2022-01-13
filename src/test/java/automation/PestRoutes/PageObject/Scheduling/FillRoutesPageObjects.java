@@ -260,11 +260,4 @@ public class FillRoutesPageObjects extends AppData {
             Assert.fail("Fill Routes' Review Page DID NOT LOAD");
         }
     }//saveOptimizedRoutes()
-
-    /*
-    public void loadIncognitoBrowserAndRunOptimizeQueue(){
-        //Load Incogito Chrome Browser
-        Utilities.loadIncognitoChromeBrowser(incongitoBrowser, OPTIMIZEQUEUE_PHP_URL);
-    } //loadIncognitoBrowserAndRunOptimizeQueue()
-    */
 } //FillRoutesPageObjects
