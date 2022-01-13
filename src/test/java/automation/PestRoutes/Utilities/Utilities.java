@@ -688,7 +688,7 @@ public class Utilities {
 		}
 	}//checkBox
 
-	public static WebDriver loadIncognitoChromeBrowser(WebDriver incongitoBrowser, String strURL){
+	public static WebDriver loadIncognitoChromeBrowser(String strURL){
 		//Set browser type to Chrome and chromedriver.exe path
 		WebDriverManager.chromedriver().setup();
 
@@ -702,11 +702,11 @@ public class Utilities {
 		browserOptions.merge(capabilities);
 
 		//Load and execute the URL in the Incogito Browser
-		incongitoBrowser = new ChromeDriver(browserOptions);
-		incongitoBrowser.get(strURL);
-		incongitoBrowser.navigate().to(strURL);
+		WebDriver incognitoBrowser = new ChromeDriver(browserOptions);
+		incognitoBrowser.get(strURL);
+		incognitoBrowser.navigate().to(strURL);
 
-		return incongitoBrowser;
+		return incognitoBrowser;
 	} //loadIncognitoChromeBrowser()
 
 	public static void closeIncongitoBrowser(WebDriver incongitoBrowser ){

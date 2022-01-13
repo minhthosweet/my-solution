@@ -115,7 +115,7 @@ public class FillRoutesPageObjects extends AppData {
     public final String FILLROUTESREVIEW_PAGE_HEADER = "Fill Routes Review";
     public final String OPTIMIZEQUEUE_PHP_URL = "https://stagingdemo.pestroutes.com/resources/scripts/optimizeQueue.php";
 
-    private WebDriver incongitoBrowser;
+    private WebDriver incognitoBrowser;
 
     //--------------------------------------------------------
     // -- METHODS
@@ -213,8 +213,8 @@ public class FillRoutesPageObjects extends AppData {
 
         if(Utilities.elementIsVisible(inprogressBanner_FillRoutsReviewPg)) {
             // Load an incognito browser and execute the optimizeQueue.php script
-            incongitoBrowser = Utilities.loadIncognitoChromeBrowser(incongitoBrowser, OPTIMIZEQUEUE_PHP_URL);
-          }
+            incognitoBrowser = Utilities.loadIncognitoChromeBrowser(OPTIMIZEQUEUE_PHP_URL);
+         }
     }//executeOptimizeQueueScript()
 
     public void clickFillRoutesWithAvailableJobsBtn() {
@@ -245,7 +245,7 @@ public class FillRoutesPageObjects extends AppData {
         if( Utilities.elementIsVisible(fillRoutesReviewPage)) {
 
             //Close incognito browser
-            Utilities.closeIncongitoBrowser(incongitoBrowser);
+            Utilities.closeIncongitoBrowser(incognitoBrowser);
 
             //Click [Save] to save the optimized routes
             Utilities.clickElement(btnSave_FillRoutsReviewPg, ElementType.XPath);
