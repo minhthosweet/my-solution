@@ -83,8 +83,8 @@ public class BillingPage extends BasePage {
 	public String ccSaveCardButton = "//button[@id='submit-payment']";
 	private By cc_X_ButtonInAddCreditCardDialog = By.xpath("//form[@id='lightbox']//div[@class='x-container']");
 	public String tokenValue = "//b[text()='Token:']/parent::td/following-sibling::td";
-	public String ccOptionOnLeft = "//div[@id='billingInfoPanel']//li[text()='Credit Card ']";
-	public String ACHOptionOnLeft = "//div[@id='billingInfoPanel']//li[text()='Bank Account ']";
+	public String ccOptionOnLeft = "//div[@id='billingInfoPanel']//span[text()='Credit Card']";
+	public String ACHOptionOnLeft = "//div[@id='billingInfoPanel']//span[text()='Bank Account']";
 	private By lnkBillingInfo = By.xpath("//*[@id='billingInfoPanel']//div/ul/li[contains(text(),'Billing Info')]");
 
 	//**********Bank Account objects**********
