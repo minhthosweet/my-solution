@@ -14,6 +14,7 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.annotations.Test;
 
@@ -490,16 +491,19 @@ public class CustomerReports extends AppData {
         String recurringPrice = String.valueOf(customerViewDialog_subscriptionTab.getRecurringSubTotal());
         createNewCustomer.closeCustomerCard();
         customerReportsPage.click(customerReportsPage.serviceSubscription);
-        try {
-            WebElement elm = FindElement.elementByAttribute("//div[@key='isInitial']/select", FindElement.InputType.XPath) ;
-            if (elm.isDisplayed()){
-                customerReportsPage.setType(customerReportsPage.filterTypes_CR("initialPrice_CR"), initialPrice);
-            }else {
-                customerReportsPage.click(customerReportsPage.serviceSubscription);
-                customerReportsPage.setType(customerReportsPage.filterTypes_CR("initialPrice_CR"), initialPrice);
-            }
-        } catch (Exception e){
-            System.out.println("Failed at service subscription");
+//        try {
+//            WebElement elm = FindElement.elementByAttribute("//div[@key='isInitial']/select", FindElement.InputType.XPath) ;
+//            if (elm.isDisplayed()){
+//                customerReportsPage.setType(customerReportsPage.filterTypes_CR("initialPrice_CR"), initialPrice);
+//            }else {
+//                customerReportsPage.click(customerReportsPage.serviceSubscription);
+//                customerReportsPage.setType(customerReportsPage.filterTypes_CR("initialPrice_CR"), initialPrice);
+//            }
+//        } catch (Exception e){
+//            System.out.println("Failed at service subscription");
+//        }
+        if (!Utilities.isPresent(By.xpath(customerReportsPage.filterTypes_CR("recurringPrice_CR")))) {
+            customerReportsPage.click(customerReportsPage.serviceSubscription);
         }
         customerReportsPage.setType(customerReportsPage.filterTypes_CR("recurringPrice_CR"), recurringPrice);
         customerReportsPage.click(customerReportsPage.refreshButton);

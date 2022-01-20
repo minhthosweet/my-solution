@@ -715,4 +715,8 @@ public class Utilities {
 		}
 	}//closeIncongitoBrowser()
 
+	public static boolean isPresent(By XPath) {
+		return driver.findElements(XPath).size() > 0;
+	}
+
 }

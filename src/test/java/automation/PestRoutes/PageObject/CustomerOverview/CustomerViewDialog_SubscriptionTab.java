@@ -429,13 +429,16 @@ public class CustomerViewDialog_SubscriptionTab extends BasePage {
 	}
 
 	public void setInitialServiceQuote(String needAmount) throws InterruptedException {
-		Utilities.highLight(initialQuoteInputField);
-		if (SystemUtils.IS_OS_LINUX) {
-			Thread.sleep(500);
-			FindElement.elementByAttribute(initialQuoteInputField, InputType.XPath).sendKeys(Keys.DELETE);
-			Thread.sleep(1000);
-		}
-		FindElement.elementByAttribute(initialQuoteInputField, InputType.XPath).sendKeys(needAmount);
+		driver.findElement(By.xpath(initialQuoteInputField)).sendKeys(Keys.CONTROL, "a");
+//		Utilities.highLight(initialQuoteInputField);
+		driver.findElement(By.xpath(initialQuoteInputField)).sendKeys(Keys.DELETE);
+//		if (SystemUtils.IS_OS_LINUX) {
+//			Thread.sleep(500);
+//			FindElement.elementByAttribute(initialQuoteInputField, InputType.XPath).sendKeys(Keys.DELETE);
+//			Thread.sleep(1000);
+//		}
+		driver.findElement(By.xpath(initialQuoteInputField)).sendKeys(needAmount);
+//		FindElement.elementByAttribute(initialQuoteInputField, InputType.XPath).sendKeys(needAmount);
 		//Optimize Later via Below typeInitialQuote() By Passing In A String & Using A Private Modifier With By Class
 	}
 

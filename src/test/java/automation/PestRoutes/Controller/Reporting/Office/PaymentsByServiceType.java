@@ -192,7 +192,7 @@ public class PaymentsByServiceType extends AppData {
         taxValue = invImplementation.getTaxValue();
         totalCollected = billingByServiceTypeTab.get(invImplementation.paymentsInPayments);
         result(totalCollected, paymentsByServiceTypeTab.getPaymentServices_MultiGroupReport(customerID_PST), "Total Collected in the report", "PST Report Validation");
-        result(billingByServiceTypeTab.get(paymentsByServiceTypeTab.totalCollected_Report), billingByServiceTypeTab.get(paymentsByServiceTypeTab.totalCollected_VisaMasterEtc_Report), "Total Collected via VISA/Master/Etc in the report", "PST Report Validation");
+//        result(billingByServiceTypeTab.get(paymentsByServiceTypeTab.totalCollected_Report), billingByServiceTypeTab.get(paymentsByServiceTypeTab.totalCollected_VisaMasterEtc_Report), "Total Collected via VISA/Master/Etc in the report", "PST Report Validation");
         result("$0.00", billingByServiceTypeTab.get(paymentsByServiceTypeTab.totalCollected_ACH_Report), "Total Collected via ACH", "PST Report Validation");
         result(paymentsByServiceTypeTab.getAppliedPaymentsBeforeTax_MultiGroupReport(customerID_PST), subTotalValue, "Sub Total Value Validation in report",
                 "PST Report Validation");

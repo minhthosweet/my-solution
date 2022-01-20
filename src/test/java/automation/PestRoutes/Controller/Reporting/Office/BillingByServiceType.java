@@ -42,7 +42,7 @@ public class BillingByServiceType extends AppData {
     Billing billing;
     InvoicingTab invoicingTab;
 
-    public String standAloneInvoiceAmount = "400.00";
+    public String standAloneInvoiceAmount = String.valueOf((int)Math.floor(Math.random()*900+100));
     private String customerID_BST = "";
     private String invoiceID = "";
     private String dateOfInvoice = "";

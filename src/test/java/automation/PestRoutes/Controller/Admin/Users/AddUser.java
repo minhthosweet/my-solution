@@ -6,6 +6,7 @@ import automation.PestRoutes.Utilities.AppData;
 import automation.PestRoutes.Utilities.Utilities;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import automation.PestRoutes.PageObject.Header;
@@ -36,16 +37,10 @@ public class AddUser extends AppData {
 		adminPage.navigateTo(adminPage.users);
 
 		// Click on the User button
-		try {
-			WebElement elm = FindElement.elementByAttribute(adminPage.existingUser, InputType.XPath);
-			deactivateUser();
-			Utilities.clickElement(adminPage.userButton, Utilities.ElementType.XPath);
-			addUserDialog.setInputValue(addUserDialog.firstNameInputField, userFirstName);
-			addUserDialog.setInputValue(addUserDialog.lastNameInputField, userLastName);
-			addUserDialog.selectValueFromDropDown(addUserDialog.accountTypeDropDown, needAccountType);
-			addUserDialog.clickButton(addUserDialog.activateSaveButton);
-			Thread.sleep(3000);
-		} catch(Exception e ) {
+//		try {
+//			WebElement elm = FindElement.elementByAttribute(adminPage.existingUser, InputType.XPath);
+//			deactivateUser();
+		if (!Utilities.isPresent(By.xpath(adminPage.existingUser))) {
 			Utilities.clickElement(adminPage.userButton, Utilities.ElementType.XPath);
 			addUserDialog.setInputValue(addUserDialog.firstNameInputField, userFirstName);
 			addUserDialog.setInputValue(addUserDialog.lastNameInputField, userLastName);
@@ -53,6 +48,14 @@ public class AddUser extends AppData {
 			addUserDialog.clickButton(addUserDialog.activateSaveButton);
 			Thread.sleep(3000);
 		}
+//		} catch(Exception e ) {
+//			Utilities.clickElement(adminPage.userButton, Utilities.ElementType.XPath);
+//			addUserDialog.setInputValue(addUserDialog.firstNameInputField, userFirstName);
+//			addUserDialog.setInputValue(addUserDialog.lastNameInputField, userLastName);
+//			addUserDialog.selectValueFromDropDown(addUserDialog.accountTypeDropDown, needAccountType);
+//			addUserDialog.clickButton(addUserDialog.activateSaveButton);
+//			Thread.sleep(3000);
+//		}
 				
 	}
 	@Then("I deactivate the existing user")
