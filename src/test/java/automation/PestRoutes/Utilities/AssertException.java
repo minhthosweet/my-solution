@@ -56,6 +56,7 @@ public class AssertException {
 	}
 
 	public static void result(String expected, String actual, String stepName, String testName) {
+		System.out.println("Expected: "+expected+" Actual: "+ actual);
 		if (AssertException.result(expected, actual, stepName).size() > 0) {
 		}
 		Reporter.status(stepName, expected, actual, testName);

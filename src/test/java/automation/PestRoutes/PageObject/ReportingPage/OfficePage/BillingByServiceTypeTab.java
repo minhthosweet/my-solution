@@ -6,6 +6,7 @@ import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_Head
 import automation.PestRoutes.PageObject.Header;
 import automation.PestRoutes.Utilities.FindElement;
 import automation.PestRoutes.Utilities.Utilities;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import java.io.IOException;
@@ -144,8 +145,9 @@ public class BillingByServiceTypeTab {
         createNewCustomer = new CreateNewCustomer();
         customerViewDialog_header = new CustomerViewDialog_Header();
         header = new Header();
-        header.clickAccessHistory();
-        header.searchCustomerInOrder("1");
+        header.searchCustomerWithName(CreateNewCustomer.customerName);
+//        header.clickAccessHistory();
+//        header.searchCustomerInOrder("1");
         createNewCustomer.editCustomer_NoPaper_CommercialProperty();
     }
 
@@ -187,9 +189,9 @@ public class BillingByServiceTypeTab {
     }
 
     public void click(String needButton) {
-        Utilities.waitUntileElementIsVisible(needButton);
+        Utilities.waitUntileElementIsClickable(By.xpath(needButton), 10);
         Utilities.scrollToElementJS(needButton);
-        Utilities.clickElement(needButton, Utilities.ElementType.XPath);
+        Utilities.jsClickElement(needButton, Utilities.ElementType.XPath);
     }
 
     public void clickAdvancedFilters() {
@@ -240,8 +242,9 @@ public class BillingByServiceTypeTab {
     }
 
     public void clickDescription_reportDetails(String customerName) {
+        Utilities.waitUntileElementIsClickable(By.xpath("//tr[@detailvalues]//td[text()='" + customerName + "']"), 10);
         Utilities.scrollToElementJS("//tr[@detailvalues]//td[text()='" + customerName + "']");
-        Utilities.clickElement("//tr[@detailvalues]//td[text()='" + customerName + "']", Utilities.ElementType.XPath);
+        Utilities.jsClickElement("//tr[@detailvalues]//td[text()='" + customerName + "']", Utilities.ElementType.XPath);
     }
 
     //Author: Aditya

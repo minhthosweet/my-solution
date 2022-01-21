@@ -252,8 +252,9 @@ public class CustomerViewDialog_SubscriptionTab extends BasePage {
 	}
 
 	public void selectServiceType(String needServiceType) throws Exception {
-		Thread.sleep(800);
-		Utilities.waitUntileElementIsVisible(serviceTypeDropdown);
+		if (!Utilities.isPresent(serviceTypeDropdown)){
+			Utilities.waitUntileElementIsVisible(serviceTypeDropdown);
+		}
 		Utilities.selectValueFromDropDownByValue(serviceTypeDropdown, needServiceType);
 		//Optimized For Encapsulation Below via selectRecurringServiceType() By Passing In A String & Using A Private Modifier With By Class
 	}

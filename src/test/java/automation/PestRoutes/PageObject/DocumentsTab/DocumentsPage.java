@@ -1,5 +1,6 @@
 package automation.PestRoutes.PageObject.DocumentsTab;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import automation.PestRoutes.Utilities.FindElement;
@@ -41,7 +42,7 @@ public class DocumentsPage {
 	
 
 	public void clickButton(String needAttribute) {
-		Utilities.waitUntileElementIsVisible(needAttribute);
+		Utilities.waitUntileElementIsClickable(By.xpath(needAttribute), 10);
 		Utilities.clickElement(needAttribute, ElementType.XPath); 
 	}
 	public void selectAgreement(String needFormName) {

@@ -2,6 +2,7 @@ package automation.PestRoutes.PageObject.CustomerOverview.Invoicing;
 
 import automation.PestRoutes.Utilities.FindElement;
 import automation.PestRoutes.Utilities.Utilities;
+import org.openqa.selenium.By;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebElement;
 
@@ -34,16 +35,11 @@ public class CreditMemoTab {
     }
 
     public void clickAppliedCharge_invoiceApplications() throws InterruptedException {
-        Utilities.waitUntileElementIsVisible(date_creditMemo);
+//        Utilities.waitUntileElementIsVisible(date_creditMemo);
+        Utilities.waitUntileElementIsClickable(By.xpath(invoiceApplicationBox), 15);
         Utilities.clickElement(invoiceApplicationBox, Utilities.ElementType.XPath);
-        try {
-            WebElement elm = FindElement.elementByAttribute(appointmentDate_creditMemo, FindElement.InputType.XPath);
-            if (elm.isDisplayed());
-            else{
-                Utilities.clickElement(invoiceApplicationBox, Utilities.ElementType.XPath);
-            }
-        } catch (StaleElementReferenceException e) {
-            System.out.println("Element not found");
+        if (!Utilities.isPresent(appointmentDate_creditMemo)){
+            Utilities.clickElement(initialInvoice, Utilities.ElementType.XPath);
         }
     }
 

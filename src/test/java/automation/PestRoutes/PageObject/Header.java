@@ -44,7 +44,11 @@ public class Header {
     public void searchCustomerWithName(String needCustomerName) {
         clickAccessHistory();
         String name = convertName(needCustomerName);
-        Utilities.clickElement("//span[text()='" + name + "']", ElementType.XPath);
+        if (!Utilities.isPresent("//span[text()='" + name + "']")){
+            clickAccessHistory();
+        } else {
+            Utilities.clickElement("//span[text()='" + name + "']", ElementType.XPath);
+        }
     }
 
     public void clickAccessHistory() {

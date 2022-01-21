@@ -316,8 +316,7 @@ public class InvoiceImplementation extends BasePage {
     public void selectTaxableOption(String taxableOption){
         selectFromDropDown(taxableOption, drpdwnTaxable);
     }//selectTaxableOption()
-    public void loadPaymentDetails()
-    {
+    public void loadPaymentDetails() {
         //Click "Actions" button
         click(btnActions);
 
@@ -452,7 +451,7 @@ public class InvoiceImplementation extends BasePage {
     }
 
     public String getSubTotalValue(){
-        Utilities.waitUntileElementIsVisible(invoiceDate);
+        Utilities.waitUntileElementIsVisible(subTotalValue);
         return Utilities.getElementTextValue(subTotalValue, ElementType.XPath);
     }
 

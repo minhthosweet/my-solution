@@ -94,7 +94,7 @@ public class Utilities {
 		driver.switchTo().defaultContent();
 	}
 
-	public static void acceptAlert() throws InterruptedException {
+	public static void acceptAlert() {
 		//IAlert alert = driver.switchTo().alert().accept();
 			int i=0;
 			while(i++<5)
@@ -106,7 +106,7 @@ public class Utilities {
 				}
 				catch(Exception e)
 				{
-					Thread.sleep(1000);
+					delay(1000);
 					continue;
 				}
 			}
@@ -218,11 +218,11 @@ public class Utilities {
 		}
 	}
 
-	public static void scrollToBottomElementJS(String needXpath) throws InterruptedException {
+	public static void scrollToBottomElementJS(String needXpath) {
 		WebElement element = driver.findElement(By.xpath(needXpath));
 		((JavascriptExecutor) driver).executeScript("window.scrollTo(0, document.body.scrollHeight)");
 		//((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
-		Thread.sleep(300);
+		delay(300);
 	}
 
 	public static String generateRandomString(int needLength) {
@@ -281,8 +281,13 @@ public class Utilities {
 		wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
 	}
 
+	public static void waitUntileElementIsClickable(By locator, int needSecs) {
+		WebDriverWait wait = new WebDriverWait(driver, needSecs);
+		wait.until(ExpectedConditions.elementToBeClickable(locator));
+	}
+
 	public static void waitUntileElementIsVisible(String needXpath) {
-		waitUntileElementIsVisible(needXpath, 45);
+		waitUntileElementIsVisible(needXpath, 50);
 	}
 
 	public static void waitUntileElementIsVisible(By locator) {
@@ -434,6 +439,7 @@ public class Utilities {
 	public static void jsClickElement(String needAttribute, ElementType Attribute_Type) {
 		for (int i = 0; i < 10; i++) {
 			try {
+				Thread.sleep(1000);
 				WebElement attribute = locateElement(needAttribute, Attribute_Type);
 				JavascriptExecutor executor = (JavascriptExecutor)driver;
 				executor.executeScript("arguments[0].click();", attribute);
@@ -529,7 +535,8 @@ public class Utilities {
 		XPath, ID, ClassName, PartialLink, LinkText
 	}
 
-	public static void clickAdvancedFilters(){
+	public static void clickAdvancedFilters()  {
+		waitUntileElementIsClickable(By.xpath("//div[@id = 'advancedFilterToggleButton']"), 10);
 		clickElement("//div[@id = 'advancedFilterToggleButton']", ElementType.XPath);
 	}
 
@@ -550,11 +557,11 @@ public class Utilities {
 		driver.navigate().refresh();
 	}
 
-	public static void dragCustomerCard (int x, int y) throws InterruptedException {
+	public static void dragCustomerCard (int x, int y)  {
 		WebElement customerCard = driver.findElement(By.xpath("//body[@id='daysPage']//div[@aria-describedby='customerWindow']/div"));
 		Actions act = new Actions(driver);
 		act.dragAndDropBy(customerCard, x, y).perform();
-		Thread.sleep(3000);
+		delay(3000);
 	}
 
 	public static List<String> getAllSelectedOptionsFromDropDown(By locator) {
@@ -658,18 +665,18 @@ public class Utilities {
 		}
 	}//isTextPresent()
 
-	public static boolean isChecked(String elemXPath) throws InterruptedException {
+	public static boolean isChecked(String elemXPath) {
 		WebElement elem = driver.findElement(By.xpath(elemXPath));
 		return elem.isSelected();
 	}//isChecked()
 
-	public static boolean isChecked(By locator) throws InterruptedException {
+	public static boolean isChecked(By locator) {
 		WebElement elem = driver.findElement(locator);
 		return elem.isSelected();
 	}//isChecked()
 
 
-	public static void checkBox( By locator) throws Exception
+	public static void checkBox( By locator)
 	{
 		WebElement elemBox = driver.findElement(locator);
 		if(!elemBox.isSelected())
@@ -679,7 +686,7 @@ public class Utilities {
 		}
 	}//checkBox
 
-	public static void uncheckBox( By locator) throws Exception
+	public static void uncheckBox( By locator)
 	{
 		WebElement elemBox = driver.findElement(locator);
 		if(elemBox.isSelected())
@@ -715,8 +722,25 @@ public class Utilities {
 		}
 	}//closeIncongitoBrowser()
 
-	public static boolean isPresent(By XPath) {
-		return driver.findElements(XPath).size() > 0;
+	public static boolean isPresent(String XPath, int timeout) {
+		for (int i = 0; i < timeout * 2; i++) {
+			if (driver.findElements(By.xpath(XPath)).size() > 0) {
+				return true;
+			}
+			delay(500);
+		}
+		return false;
 	}
 
+	public static boolean isPresent(String XPath) {
+		return isPresent(XPath, 5);
+	}
+
+	public static void delay(int timeout) {
+		try {
+			Thread.sleep(timeout);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
 }
