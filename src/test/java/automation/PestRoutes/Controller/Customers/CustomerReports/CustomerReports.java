@@ -502,7 +502,7 @@ public class CustomerReports extends AppData {
 //        } catch (Exception e){
 //            System.out.println("Failed at service subscription");
 //        }
-        if (!Utilities.isPresent(By.xpath(customerReportsPage.filterTypes_CR("recurringPrice_CR")))) {
+        if (!Utilities.isPresent(customerReportsPage.filterTypes_CR("recurringPrice_CR"))) {
             customerReportsPage.click(customerReportsPage.serviceSubscription);
         }
         customerReportsPage.setType(customerReportsPage.filterTypes_CR("recurringPrice_CR"), recurringPrice);

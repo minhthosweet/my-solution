@@ -40,7 +40,7 @@ public class AddUser extends AppData {
 //		try {
 //			WebElement elm = FindElement.elementByAttribute(adminPage.existingUser, InputType.XPath);
 //			deactivateUser();
-		if (!Utilities.isPresent(By.xpath(adminPage.existingUser))) {
+		if (!Utilities.isPresent(adminPage.existingUser)) {
 			Utilities.clickElement(adminPage.userButton, Utilities.ElementType.XPath);
 			addUserDialog.setInputValue(addUserDialog.firstNameInputField, userFirstName);
 			addUserDialog.setInputValue(addUserDialog.lastNameInputField, userLastName);
