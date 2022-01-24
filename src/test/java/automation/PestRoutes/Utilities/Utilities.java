@@ -726,6 +726,12 @@ public class Utilities {
 		}
 	}//closeIncongitoBrowser()
 
+	public static void selectFromDropDown(String value, By locator) {
+		WebElement webElm = driver.findElement(locator);
+		Select findDropDown = new Select(webElm);
+		findDropDown.selectByVisibleText(value);
+	}//selectFromDropDown()
+
 	public static boolean isPresent(String XPath, int timeout) {
 		for (int i = 0; i < timeout * 2; i++) {
 			if (driver.findElements(By.xpath(XPath)).size() > 0) {

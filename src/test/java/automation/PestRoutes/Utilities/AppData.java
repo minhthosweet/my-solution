@@ -1,5 +1,7 @@
 package automation.PestRoutes.Utilities;
 
+import io.cucumber.java.an.E;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -30,23 +32,26 @@ public class AppData {
 	}
 
 
-	public static String getData(String needData, String needFile) throws IOException {
+	public static String getData(String needData, String needFile) {
 		loadData(needFile);
 		String data = properties.getProperty(needData);
 		return data;
 	}
 
-	public static void addData(String needKey, String needValue, String needFile) throws Exception {
-		File location = new File(System.getProperty("user.dir") + "/src/test/resources/"+needFile);
-		FileInputStream in = new FileInputStream(location);
-		Properties props = new Properties();
-		props.load(in);
-		in.close();
+	public static void addData(String needKey, String needValue, String needFile) {
+		try {
+			File location = new File(System.getProperty("user.dir") + "/src/test/resources/"+needFile);
+			FileInputStream in = new FileInputStream(location);
+			Properties props = new Properties();
+			props.load(in);
+			in.close();
 
-		FileOutputStream out = new FileOutputStream(location);
-		props.setProperty(needKey, needValue);
-		props.store(out, null);
-		out.close();
+			FileOutputStream out = new FileOutputStream(location);
+			props.setProperty(needKey, needValue);
+			props.store(out, null);
+			out.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
-
 }

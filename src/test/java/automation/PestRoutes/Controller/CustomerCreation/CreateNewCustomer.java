@@ -588,7 +588,7 @@ public class CreateNewCustomer extends AppData {
         return customerViewDialog_infoTab.getFirstName() + " " + customerViewDialog_infoTab.getLastName();
     }
 
-    public String getCustomerFullName() throws InterruptedException {
+    public String getCustomerFullName() {
         customerDialog_Header = new CustomerViewDialog_Header();
         customerViewDialog_infoTab = new CustomerViewDialog_InfoTab();
         customerDialog_Header.navigateTo(customerDialog_Header.infoTabInDialog);

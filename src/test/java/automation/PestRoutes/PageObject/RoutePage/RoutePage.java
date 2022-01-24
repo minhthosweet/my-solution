@@ -68,7 +68,7 @@ public class RoutePage extends BasePage {
         Utilities.clickElement("//p[text()= 'Add " + insertQuantity + " Route']", ElementType.XPath);
     }
 
-    public void scheduleAppointment(String needRouteSlotNumber, String needTime) throws InterruptedException {
+    public void scheduleAppointment(String needRouteSlotNumber, String needTime) {
         Utilities.waitUntileElementIsVisible("//*[@id='schedulingNotice']");
         Utilities.scrollToElement(
                 "//div[@class='routes']/div[" + needRouteSlotNumber + "]"

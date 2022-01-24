@@ -38,6 +38,7 @@ public class CustomerViewDialog_Header extends BasePage {
     public String saveAnyways = "//span[text()='Save Anyways']";
     private By saveChangesButton = By.xpath("//span[text()='Save Changes']");
     private By loadThisCustomerButton = By.xpath("//div[text()='Load This Customer Instead']");
+    private By scheduleButton = By.xpath("//div[@id= 'customerWindow']/following-sibling::div//span[text()='Schedule']");
 
     //******************** TABS ********************
     private By subscriptionTab = By.xpath("//li[@name='subscriptionTab']/a[text()='Subscription']");
@@ -67,11 +68,16 @@ public class CustomerViewDialog_Header extends BasePage {
         Utilities.clickElement(tranferButtonInDialog, ElementType.XPath);
     }
 
-    public void clickSaveButton() throws InterruptedException {
+    public void clickSaveButton() {
         Utilities.clickElement(saveButton, ElementType.XPath);
-        Thread.sleep(400);
+        delay(400);
         //Optimized For Encapsulation Below via clickCustomerSaveButton() Using A Private Modifier With By Class
     }
+
+    public void clickCustomerCardScheduleButton (){
+        click(scheduleButton);
+    }
+
 
     public void clickCustomerSaveButton (){
         click(customerSaveButton);

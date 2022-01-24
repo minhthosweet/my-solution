@@ -55,7 +55,7 @@ public class SchedulingTab extends BasePage {
         Utilities.clickElement(jobPool, ElementType.XPath, true, true);
     }
 
-    public void addScheduleDateToProperties() throws Exception {
+    public void addScheduleDateToProperties() {
         String date = Utilities.currentDate("M/d/yyyy");
         String currentDay = "//div[@date='"+ date +"']";
         Utilities.waitUntileElementIsVisible(currentDay);
@@ -63,7 +63,7 @@ public class SchedulingTab extends BasePage {
         app.addData("scheduleDate", scheduleDate, app.generalData);
     }
 
-    public void clickScheduleButton() throws InterruptedException {
+    public void clickScheduleButton() {
         overviewHeader = new CustomerViewDialog_Header();
         overviewHeader.navigateTo(overviewHeader.subscriptionTabInDialog);
         Utilities.jsClickElement(scheduleButtonInDialog, ElementType.XPath);

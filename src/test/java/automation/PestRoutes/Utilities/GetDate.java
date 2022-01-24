@@ -19,15 +19,18 @@ public class GetDate {
 		System.out.println(futureDateTime);
 	}
 
-	public static String addOneYearToDate(String needDate) throws Exception {
-		String input = needDate;
-		Date date = new SimpleDateFormat("M/dd/yyyy").parse(input);
-		Instant instant = date.toInstant();
-		LocalDate localDate = instant.atZone(ZoneId.systemDefault()).toLocalDate();
-		LocalDate yearLater = localDate.plusYears(1);
-		String formattedDate = yearLater.format(DateTimeFormatter.ofPattern("M/dd/yyyy"));
-		return formattedDate;
-
+	public static String addOneYearToDate(String needDate) {
+		try {
+			Date date = new SimpleDateFormat("M/dd/yyyy").parse(needDate);
+			Instant instant = date.toInstant();
+			LocalDate localDate = instant.atZone(ZoneId.systemDefault()).toLocalDate();
+			LocalDate yearLater = localDate.plusYears(1);
+			String formattedDate = yearLater.format(DateTimeFormatter.ofPattern("M/dd/yyyy"));
+			return formattedDate;
+		} catch (ParseException e) {
+			e.printStackTrace();
+			return "";
+		}
 	}
 
 	public static String minusOneYearToDate(String needDate) throws Exception {

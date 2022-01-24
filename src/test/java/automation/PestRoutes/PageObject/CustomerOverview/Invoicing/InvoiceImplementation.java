@@ -143,6 +143,10 @@ public class InvoiceImplementation extends BasePage {
     private By renewalDate = By.xpath("//form[@id='singlePaymentForm']//input[@name='renewalDate']");
     private By expirationDateCheckBox = By.xpath("//form[@id='singlePaymentForm']//input[@name='updateExpirationDate']");
     private By expirationDateField = By.xpath("//form[@id='singlePaymentForm']//input[@name='expirationDate']");
+    private By sendToJobPoolCheckBox = By.xpath("//form[@id='singlePaymentForm']//input[@name='updateCustomDate']");
+    private By sendToJobPoolField = By.xpath("//form[@id='singlePaymentForm']//input[@name='customDate']");
+
+
 
     //Payment Details
     private By btnActions = By.xpath("//*[@id='paymentForm']/div[1]/div[2]/div[contains(text(),'Actions')]");
@@ -157,6 +161,7 @@ public class InvoiceImplementation extends BasePage {
     //------------------------------------------------------
     //Constants
     //------------------------------------------------------
+    public static  String  nextExpirationDate;
     //Payment Results Messages
     public final String PAYMENT_SUCCESS_MSG_CASH = "Successfully Charged Cash!";
     public final String PAYMENT_SUCCESS_MSG_CHECK = "Successfully Applied Check!";
@@ -233,8 +238,8 @@ public class InvoiceImplementation extends BasePage {
         Utilities.clickElement("//ul[@id='invoiceGroupListContainer']//div[contains(text(),'" + needServiceName + "')]", ElementType.XPath);
     }
 
-    public void clickInitialInvoice() throws InterruptedException {
-        Thread.sleep(100);
+    public void clickInitialInvoice() {
+        delay(100);
         Utilities.waitUntileElementIsVisible(initialInvoice);
         Utilities.clickElement(initialInvoice, ElementType.XPath);
     }
@@ -331,7 +336,11 @@ public class InvoiceImplementation extends BasePage {
          //Wait Until Payment Details Are Loaded
         Utilities.waitUntileElementIsVisible(lblCustomerPaymentDetails, 5);
     }//loadPaymentDetails()
+    public void checkExpirationDateBox() throws Exception { Utilities.checkBox(expirationDateCheckBox);}
+    public void uncheckExpirationDateBox() throws Exception { Utilities.uncheckBox(expirationDateCheckBox);}
 
+    public void checkSendToJobPoolBox() throws Exception { Utilities.checkBox(sendToJobPoolCheckBox);}
+    public void uncheckSendToJobPoolBox() { Utilities.uncheckBox(sendToJobPoolCheckBox);}
 
 
     // Getters
@@ -582,8 +591,18 @@ public class InvoiceImplementation extends BasePage {
     }
 
     public String getExpirationDate() {
+        if (!Utilities.isChecked(expirationDateCheckBox)) {
+            click(expirationDateCheckBox);
+        }
         return find(expirationDateField).getAttribute("value");
-    }
+    }//getExpirationDate()
+
+    public String getSendToJobPoolDate() {
+        if (!Utilities.isChecked(sendToJobPoolCheckBox)) {
+            click(sendToJobPoolCheckBox);
+        }
+        return find(sendToJobPoolField).getAttribute("value");
+    }//getSendToJobPoolDate()
 
     public void clickBackToAccountSummaryButton(){
         click(backToAccountSummaryButton);

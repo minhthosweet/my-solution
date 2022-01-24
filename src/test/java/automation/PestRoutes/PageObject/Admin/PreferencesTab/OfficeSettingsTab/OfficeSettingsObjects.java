@@ -1,5 +1,7 @@
 package automation.PestRoutes.PageObject.Admin.PreferencesTab.OfficeSettingsTab;
 
+import org.openqa.selenium.By;
+
 public class OfficeSettingsObjects {
 
     public String officeInfo = "//li[text() = 'Office Info']";
@@ -17,4 +19,5 @@ public class OfficeSettingsObjects {
     public String vendors = "//li[text() = 'Vendors']";
     public String taskCategories = "//li[text() = 'Task Categories']";
 
+    public By lblDefaultVaultSettings = By.xpath("//*[@id='merchantInfo']//h2[contains(text(),'Default Vault Settings')]");
 }

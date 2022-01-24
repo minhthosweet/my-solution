@@ -26,6 +26,7 @@ public class CustomerViewDialog_SubscriptionTab extends BasePage {
 	//********************Objects in subscription tab********************
 	//Status fields
 	public String statusText = "//div[@id='subStatusBox']//div[@id='SubStatus']";
+	private By subscriptionStatus = By.xpath("//div[@id='subStatusBox']//div[@id='SubStatus']");
 	public String ActivateDeactivateButton = "//div[@id='subStatusBox']/span[@id='SubStatusAction']";
 	private By activateDeactivateButton = By.xpath("//div[@id='subStatusBox']/span[@id='SubStatusAction']");
 	public String contractValue = "//span[contains(text(),'Contract Value')]";
@@ -124,6 +125,9 @@ public class CustomerViewDialog_SubscriptionTab extends BasePage {
 	//Sales Info Objects
 	public String salesRepDropdown = "//h3[text()=  'Sales Info']/following-sibling::select[@name='creditTo']";
 	private By activeSubscription = By.xpath("//div[@id='subscriptionPanel']//li[contains(@class,'appleMenuActive')]");
+
+	public final String SUBSCRIPTION_STATUS_ACTIVE = "Active";
+	public final String SUBSCRIPTION_STATUS_FROZEN = "Frozen";
 
 	//********************Functional methods by objects********************
 	/*
@@ -487,6 +491,10 @@ public class CustomerViewDialog_SubscriptionTab extends BasePage {
 		FindElement.elementByAttribute("//div[@scheduletype='3']//h4[text()='" + Utilities.getCurrentMonth() + "']/following-sibling::div//input[@name='amount']", InputType.XPath).sendKeys(String.valueOf(Utilities.generateRandomInteger(3)));
 	}
 
+	public void setSubscriptionExpirationDate(String strExpirationDate) {
+		 type(strExpirationDate,fieldExpirationDate,"ENTER");
+	}
+
 	/*
 	 * Getter methods
 	 * Below methods get string value of given object
@@ -611,6 +619,10 @@ public class CustomerViewDialog_SubscriptionTab extends BasePage {
 		customerDialogHeader.navigateTo(customerDialogHeader.infoTabInDialog);
 		return String.valueOf((double) Math.round((Double.parseDouble(initialInvoiceAmountWithoutTax) + (Double.parseDouble(infoTab.getTaxRate()) * Double.parseDouble(initialInvoiceAmountWithoutTax)) / 100) * 100) / 100);
 	}
+
+	 public String getSubscriptionStatus(){
+		return getText(subscriptionStatus);
+	 }//getSubscriptionStatus()
 
 	public void customInitialBilling_alertCondition() {
 		int i = 0;

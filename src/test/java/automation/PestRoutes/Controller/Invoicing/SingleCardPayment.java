@@ -57,7 +57,7 @@ public class SingleCardPayment {
     }
     //***Author Aarbi
     @Then("I charge cc with braintree gateway {string}")
-    public void chargeSignleBrainTreeCc(String needBrainTreeCC) throws InterruptedException {
+    public void chargeSignleBrainTreeCc(String needBrainTreeCC) {
         int i=0;
         while(i++<5)
         {
@@ -70,7 +70,7 @@ public class SingleCardPayment {
             }
             catch(Exception e)
             {
-                Thread.sleep(1000);
+                Utilities.delay(1000);
                 Utilities.switchBackToDom();
                 Utilities.clickElement(payment.payingWithCardButton, Utilities.ElementType.XPath);
                 continue;
@@ -88,7 +88,7 @@ public class SingleCardPayment {
     }
     //***Author Aarbi
     @Then("I charge cc with element gateway {string}")
-    public void chargeSingleElementCc(String needElementCC) throws InterruptedException {
+    public void chargeSingleElementCc(String needElementCC) {
         Utilities.clickElement(payment.chargeSingleCard, Utilities.ElementType.XPath);
         Utilities.switchToIframeByXpath(payment.elementIframe);
         FindElement.elementByAttribute(payment.elementCcInputField, FindElement.InputType.XPath).sendKeys(needElementCC);
@@ -105,7 +105,7 @@ public class SingleCardPayment {
     }
     //***Author Aarbi
     @Then("I charge cc with spreedly gateway {string}")
-    public void chargeSignleSpreedlyCc(String needSpreedlyCC) throws InterruptedException {
+    public void chargeSignleSpreedlyCc(String needSpreedlyCC) {
         String spreedlyIframe = Utilities.getAttributeValue(payment.spreedlyOneTimeCcNumberIframe, "id");
         Utilities.switchToIframeByXpath(spreedlyIframe);
         FindElement.elementByAttribute(payment.spreedlyOneTimeCardNumberInputField, FindElement.InputType.XPath).sendKeys(needSpreedlyCC);
@@ -125,7 +125,7 @@ public class SingleCardPayment {
     }
     //***Author Aarbi
     @Then("I charge cc with nmi gateway {string}")
-    public void chargeSingleNmiCc(String needNmiCC) throws InterruptedException {
+    public void chargeSingleNmiCc(String needNmiCC) {
         Utilities.clickElement(payment.nmiChargeSingleCardButton, Utilities.ElementType.XPath);
         Utilities.switchToIframeByXpath(payment.nmiIframe);
         FindElement.elementByAttribute(payment.nmiCcNumberInputField, FindElement.InputType.XPath).sendKeys(needNmiCC);
@@ -141,7 +141,7 @@ public class SingleCardPayment {
     }
     //***Author Aarbi
     @Then("I charge cc with payrix gateway {string}")
-    public void chargeSinglePayrixCc(String needPayrixCC) throws InterruptedException {
+    public void chargeSinglePayrixCc(String needPayrixCC) {
         Utilities.switchToIframeByXpath(payment.singlePayrixIframe);
         Utilities.switchToIframeByXpath(payment.payrixCcIframe);
         FindElement.elementByAttribute(payment.payrixCcNumberInputField, FindElement.InputType.XPath).sendKeys(needPayrixCC);

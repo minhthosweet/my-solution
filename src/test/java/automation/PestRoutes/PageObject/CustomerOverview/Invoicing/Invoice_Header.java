@@ -44,6 +44,9 @@ public class Invoice_Header extends BasePage {
 			if (elm.isDisplayed()){
 				Utilities.clickElement(strPaymentMethodTab, ElementType.XPath);
 				Utilities.clickElement(strPaymentMethodTab,ElementType.XPath, true, false);
+
+				//Wait to the Invoice Payment  Screen to load
+				Thread.sleep(1000);
 				}
 		} catch(Exception e) {
 			System.out.println("******** navigateTo(): Unable to Click Payment Method Tab...");

@@ -1,13 +1,22 @@
 package automation.PestRoutes.Controller.Invoicing;
 
 import automation.PestRoutes.Controller.CustomerCreation.CreateNewCustomer;
+import automation.PestRoutes.Controller.Schedules.ScheduleAppt;
 import automation.PestRoutes.Controller.Subscriptions.AddSubscription;
+import automation.PestRoutes.PageObject.Admin.AdminMainPage;
+import automation.PestRoutes.PageObject.Admin.PreferencesTab.MerchantInfoTab.MarchantInfoPage;
+import automation.PestRoutes.PageObject.Admin.PreferencesTab.OfficeSettingsTab.OfficeSettingsObjects;
+import automation.PestRoutes.PageObject.BasePage;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_SubscriptionTab;
+import automation.PestRoutes.PageObject.CustomerOverview.CustomerviewDialog_AppointmentsTab;
 import automation.PestRoutes.PageObject.CustomerOverview.Invoicing.CreateNewInvoicePopUp;
+import automation.PestRoutes.PageObject.DashboardPage;
+import automation.PestRoutes.PageObject.Header;
+import automation.PestRoutes.PageObject.Scheduling.SchedulingTab;
+import automation.PestRoutes.Utilities.*;
 import automation.PestRoutes.Utilities.AppData;
-import automation.PestRoutes.Utilities.FindElement;
-import automation.PestRoutes.Utilities.Utilities;
 import io.cucumber.java.en.And;
+import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.apache.commons.lang.StringUtils;
@@ -20,7 +29,6 @@ import automation.PestRoutes.PageObject.CustomerOverview.Invoicing.Invoice_Heade
 import automation.PestRoutes.PageObject.CustomerOverview.Invoicing.RoutePageInvoicing;
 import automation.PestRoutes.PageObject.CustomerOverview.Invoicing.CreditCard.CardOnFile;
 import automation.PestRoutes.PageObject.CustomerOverview.Invoicing.CreditCard.CreditCardConfirmationPage;
-import automation.PestRoutes.Utilities.Reporter;
 
 import java.io.IOException;
 import java.util.Locale;
@@ -28,7 +36,7 @@ import java.util.Locale;
 import static automation.PestRoutes.Utilities.AssertException.result;
 import static java.lang.Double.parseDouble;
 
-public class InvoicingTab extends AppData {
+public class InvoicingTab extends BasePage{
 
     InvoiceImplementation invImplementation = new InvoiceImplementation();
     CreateNewInvoicePopUp newInvoice;
@@ -39,6 +47,15 @@ public class InvoicingTab extends AppData {
     AddSubscription addSubscription;
     CustomerViewDialog_SubscriptionTab subscriptionTab;
     ACHOnFile achOnFile;
+    SchedulingTab schedulingTab;
+    DashboardPage userDashboard = new DashboardPage();
+    Header header = new Header();
+    AdminMainPage admin = new AdminMainPage();
+    ScheduleAppt scheduleAppointment;
+    CustomerviewDialog_AppointmentsTab appointmentsTab;
+    SingleCardPayment cardPayment;
+    MarchantInfoPage merchantPage;
+    AppData appData = new AppData();
     AddSubscription testSubscription = new AddSubscription();
 
     private String treatmentAmount = "900";
@@ -49,6 +66,8 @@ public class InvoicingTab extends AppData {
     public static String invoiceCharges = null;
     public static String invoiceValue = null;
     public static String invoiceBalance = null;
+    public static String nextExpirationDate = null;
+    public static String activeGateway = null;
     public static String paymentAmount;
     public static String invoicePaymentBalance;
 
@@ -90,7 +109,6 @@ public class InvoicingTab extends AppData {
         invImplementation.newInvoiceDetails(treatmentAmount, date);
         invoiceRoutesTab.invoiceDetails();
         invoiceRoutesTab.selectAvailableItems();
-
     }
 
     // Calculates initial cost
@@ -150,7 +168,7 @@ public class InvoicingTab extends AppData {
         customerCardHeader.navigateTo(customerCardHeader.invoicesTabInDialog);
         result(initialInvoiceValue, invImplementation.getAccountBalance(), "Total Initial Invoice Value",
                 "Invoice Validation");
-        invImplementation.clickInvoice(getData("serviceDescription", generalData));
+        invImplementation.clickInvoice(appData.getData("serviceDescription", appData.generalData));
         result(initialInvoiceValue, invImplementation.getChargesBalance(), "Total Initial Invoice Value",
                 "Invoice Validation");
         result(initialInvoiceValue, invImplementation.getBalanceInPayments(), "Total Initial Invoice Value",
@@ -237,9 +255,9 @@ public class InvoicingTab extends AppData {
         invoiceCharges = invImplementation.getChargesBalance();
         invoiceBalance = invImplementation.getBalanceInPayments();
         generateAccountStatementReport(reportType, day);
-        result(invImplementation.getInvoiceAmount_accountStatementReport(getData("serviceDescription", generalData)), invoiceCharges, "Invoice Value",
+        result(invImplementation.getInvoiceAmount_accountStatementReport(appData.getData("serviceDescription", appData.generalData)), invoiceCharges, "Invoice Value",
                 "Account Statement Report Validation");
-        result(invImplementation.getInvoiceBalance_accountStatementReport(getData("serviceDescription", generalData)), invoiceBalance, "Invoice Value",
+        result(invImplementation.getInvoiceBalance_accountStatementReport(appData.getData("serviceDescription", appData.generalData)), invoiceBalance, "Invoice Value",
                 "Account Statement Report Validation");
     }
 
@@ -528,6 +546,157 @@ public class InvoicingTab extends AppData {
         displayedTaxAmt = parseDouble(invImplementation.getCalTaxValue());
         Assert.assertTrue((Double.compare(displayedTaxAmt, zeroTaxAmt) > 0 ), "*************Tax Amount displayed for the 'Taxable' option is incorrect!");
     }
+
+    @And("I freeze the subscription in category {string} with reason {string}")
+    public void freezeSubscription(String cancellationCategory, String cancellationReason) {
+        customerCardHeader = new CustomerViewDialog_Header();
+        subscriptionTab = new CustomerViewDialog_SubscriptionTab();
+
+        customerCardHeader.navigateTo(customerCardHeader.subscriptionTabInDialog);
+        subscriptionTab.clickActivateDeActivateButton();
+        subscriptionTab.selectCancellationCategory(cancellationCategory);
+        subscriptionTab.setCancelSubscriptionNotes(cancellationReason);
+        subscriptionTab.clickFreezeSubscriptionButton();
+        customerCardHeader.clickSaveButton();
+    }//freezeSubscription
+
+    @And("I add an annual subscription with Service Type {string} and an Expiration Date")
+    public void addAnnualSubscription(String strServiceType) {
+        customerCardHeader = new CustomerViewDialog_Header();
+        subscriptionTab = new CustomerViewDialog_SubscriptionTab();
+        customerCardHeader.navigateTo(customerCardHeader.subscriptionTabInDialog);
+
+        //Add an Annual Subscription with an Expiration Date
+        subscriptionTab.clickNewSubscription();
+        subscriptionTab.setSubscriptionExpirationDate(GetDate.addOneYearToDate(Utilities.currentDate("MM/dd/yyyy")));
+        subscriptionTab.selectRecurringServiceType(strServiceType);
+        subscriptionTab.selectInitialInvoice("After Initial Completion");
+
+        //Save the Subscription
+        customerCardHeader.clickSaveButton();
+    }//addAnnualSubscription()
+
+
+    @And("I schedule and complete an appointment for subscription with Service Type {string}")
+    public void scheduleAndCompleteServiceAppointment(String serviceType) {
+        customerCardHeader = new CustomerViewDialog_Header();
+        createCustomer = new CreateNewCustomer();
+        //routePg = new RoutePage();
+        scheduleAppointment = new ScheduleAppt();
+        appointmentsTab = new CustomerviewDialog_AppointmentsTab();
+        String customerFullName =createCustomer.getCustomerFullName();
+
+        //Create a Route on Today's Schedule
+        schedulingTab = userDashboard.goToSchedulingComponent();
+        schedulingTab.addScheduleDateToProperties();
+        schedulingTab.clickScheduleDay();
+     //   routePg.addGroup();
+      //  routePg.addRoutesByQuantity("1");
+
+        //Schedule The Appointment
+        header.searchCustomerWithName(customerFullName);
+        subscriptionTab = customerCardHeader.goToSubscriptionTab();
+        scheduleAppointment.scheduleAppointmentOnRoute(serviceType,appData.getData("timeSlot", appData.generalData));
+
+        //Complete The Appointment
+        header.searchCustomerWithName(customerFullName);
+        appointmentsTab = customerCardHeader.goToAppointmentsTab();
+        customerCardHeader.navigateTo(customerCardHeader.appointmentsTabInDialog);
+        appointmentsTab.clickScheduledService(serviceType);
+        appointmentsTab.clickStatusButton();
+        appointmentsTab.clickSaveAndCompleteButton();
+    }//scheduleAndCompleteServiceAppointment()
+
+    @And("I process an one-time Single Use Card {string} or {string} for payment limited to a subscription")
+    public void processSingleUseCardPaymentWithDistribDetails(String creditCardNumber, String nmiCreditCardNumber) {
+
+        //Reload Customer Card and make payment
+        customerCardHeader = new CustomerViewDialog_Header();
+        createCustomer = new CreateNewCustomer();
+        String customerFullName = createCustomer.getCustomerFullName();
+        header.searchCustomerWithName(customerFullName);
+        String  cardNum = creditCardNumber;
+
+        if(activeGateway.equalsIgnoreCase(merchantPage.GATEWAY_NMI))
+            cardNum= nmiCreditCardNumber;
+
+        makeCCPaymentToAdvanceExpirationDateWhenJobPoolIsUnchecked(cardNum);
+    }//processSingleUseCardPaymentLimitedToSubscription
+
+    public void makeCCPaymentToAdvanceExpirationDateWhenJobPoolIsUnchecked(String creditCardNum) {
+        invoiceHeader = new Invoice_Header();
+        customerCardHeader = new CustomerViewDialog_Header();
+        cardPayment = new SingleCardPayment();
+        customerCardHeader.navigateTo(customerCardHeader.invoicesTabInDialog);
+        Utilities.waitUntileElementIsVisible(invoiceRoutesTab.addNewInvoice);
+
+        invImplementation.clickInitialInvoice();
+        invoiceRoutesTab.clickAddPayment();
+        invoiceHeader.navigateTo(invoiceHeader.creditCard);
+
+        //Enter Full Balance Due
+       String paymentAmount = invImplementation.getPaymentAmount();
+       invImplementation.typeConfirmationAmount(paymentAmount);
+
+        //Limit Payment to Subscription
+        invImplementation.selectLimitedToSubscription();
+
+        //Update Billing Address
+        invImplementation.typeAddress("10001 Loop Ln.");
+
+        //Check "Expiration Date" Option
+        nextExpirationDate = invImplementation.getExpirationDate();
+
+        //Un-Check the "Send to Job Pool" Option
+         invImplementation.uncheckSendToJobPoolBox();
+
+        //charge Single Use Card full amount due
+        if (activeGateway.equalsIgnoreCase(merchantPage.GATEWAY_BRAINTREE))
+            cardPayment.chargeSignleBrainTreeCc(creditCardNum);
+        else if (activeGateway.equalsIgnoreCase(merchantPage.GATEWAY_ELEMENT))
+            cardPayment.chargeSingleElementCc(creditCardNum);
+        else if (activeGateway.equalsIgnoreCase(merchantPage.GATEWAY_SPREEDLY))
+            cardPayment.chargeSignleSpreedlyCc(creditCardNum);
+        else if (activeGateway.equalsIgnoreCase(merchantPage.GATEWAY_NMI))
+            cardPayment.chargeSingleNmiCc(creditCardNum);
+        else if (activeGateway.equalsIgnoreCase(merchantPage.GATEWAY_PESTROUTES_PAYMENTS))
+            cardPayment.chargeSinglePayrixCc(creditCardNum);
+    }//makeCardPaymentToAdvanceExpirationDate()
+
+    @Then("I validate the Expiration Date on the subscription has advanced")
+    public void verifyExpirationDatAdvanced() {
+        customerCardHeader = new CustomerViewDialog_Header();
+        customerCardHeader.navigateTo(customerCardHeader.subscriptionTabInDialog);
+        Utilities.waitUntileElementIsVisible(subscriptionTab.newSubscriptionButton,5);
+
+        Assert.assertEquals(subscriptionTab.getSubscriptionExpirationDate(),nextExpirationDate,"Subscription Expiration Date Advancement Validation Failed!!! ");
+      }//verifyExpirationDatAdvanced()
+
+    @Then("I validate the subscription's status is {string}")
+    public void verifySubscriptionStatus(String expectedStatus) {
+        customerCardHeader = new CustomerViewDialog_Header();
+        customerCardHeader.navigateTo(customerCardHeader.subscriptionTabInDialog);
+        Utilities.waitUntileElementIsVisible(subscriptionTab.newSubscriptionButton,5);
+
+        String currentStatus = subscriptionTab.getSubscriptionStatus();
+        Assert.assertEquals(currentStatus.toUpperCase(Locale.ROOT),expectedStatus.toUpperCase(Locale.ROOT),"Subscription Status Validation Fail!!!");
+    }//verifyExpirationDatAdvanced()
+
+    @Given("I retrieve the merchant's configured gateway")
+    public String retrieveConfiguredGateway() {
+        header.navigateTo(header.adminTab);
+        admin.navigateTo(admin.preferences);
+        merchantPage = new MarchantInfoPage();
+        OfficeSettingsObjects officeSettings = new OfficeSettingsObjects();
+        Utilities.clickElement(officeSettings.merchantInfo, Utilities.ElementType.XPath);
+        Utilities.waitUntileElementIsVisible(officeSettings.lblDefaultVaultSettings,2);
+
+        String configuredGateWay = merchantPage.getDefaultCreditCardGateway();
+        activeGateway = configuredGateWay;
+
+        System.out.println("***************** retrieveConfiguredGateway(): " + activeGateway);
+        return configuredGateWay;
+    }//retrieveConfiguredGateway()
 
     @When("I Generate A Stand Alone Invoice")
     public void automateGeneratingStandAloneInvoice() throws InterruptedException {

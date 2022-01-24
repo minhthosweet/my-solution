@@ -24,10 +24,10 @@ public class AdminMainPage extends BasePage {
 	public String preExistingUser = "//div[contains(text(),'Automation User')]/parent::div/preceding-sibling::div[2]";
 
 	//Action methods
-	public void navigateTo(String needTab) throws InterruptedException {
+	public void navigateTo(String needTab) {
 		Utilities.waitUntileElementIsVisible("//p[text() = '"+needTab+"']");
 		Utilities.clickElement("//p[text() = '"+needTab+"']", ElementType.XPath);
-		Thread.sleep(500);
+		delay(500);
 	}
 
 	//Setters
