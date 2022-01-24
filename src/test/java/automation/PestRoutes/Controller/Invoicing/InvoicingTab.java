@@ -204,7 +204,7 @@ public class InvoicingTab extends AppData {
     public void generateAccountStatementReport(String reportType, String day) {
         invImplementation.clickAccountStatementReport();
         invImplementation.selectDateRange(day);
-        invImplementation.selectReportType(reportType);
+//        invImplementation.selectReportType(reportType);
         invImplementation.refreshAccountStatementReport();
     }
 
@@ -212,11 +212,12 @@ public class InvoicingTab extends AppData {
     public void validateBeginningEndingBalance_Yesterday_AccountStatementReport() {
         result(invImplementation.getBalance("Beginning Balance"), "$0.00", "Balance Validation",
                 "Account Statement Report Validation");
-        result(invImplementation.getResponsibleBalance("Beginning Balance"), "$0.00", "Responsible Balance Validation",
-                "Account Statement Report Validation");
         result(invImplementation.getBalance("Ending Balance"), "$0.00", "Balance Validation",
                 "Account Statement Report Validation");
-        result(invImplementation.getResponsibleBalance("Ending Balance"), "$0.00", "Responsible Balance Validation",
+        Utilities.clickElement(invImplementation.responsibleFor, Utilities.ElementType.XPath);
+        result(invImplementation.getBalance("Beginning Balance"), "$0.00", "Responsible Balance Validation",
+                "Account Statement Report Validation");
+        result(invImplementation.getBalance("Ending Balance"), "$0.00", "Responsible Balance Validation",
                 "Account Statement Report Validation");
     }
 
@@ -225,7 +226,8 @@ public class InvoicingTab extends AppData {
         generateAccountStatementReport(reportType, day);
         result(invImplementation.getBalance("Beginning Balance"), "$0.00", "Balance Validation",
                 "Account Statement Report Validation");
-        result(invImplementation.getResponsibleBalance("Beginning Balance"), "$0.00", "Responsible Balance Validation",
+        Utilities.clickElement(invImplementation.responsibleFor, Utilities.ElementType.XPath);
+        result(invImplementation.getBalance("Beginning Balance"), "$0.00", "Responsible Balance Validation",
                 "Account Statement Report Validation");
     }
 
@@ -246,8 +248,9 @@ public class InvoicingTab extends AppData {
         invImplementation.clickAccountSummary();
         invoiceValue = invImplementation.getAccountBalance();
         generateAccountStatementReport(reportType, day);
-        result(invImplementation.getBalance("Ending Balance"), invoiceValue, "Balance Validation",
+        result(invImplementation.getResponsibleBalance("Ending Balance"), invoiceValue, "Balance Validation",
                 "Account Statement Report Validation");
+        Utilities.clickElement(invImplementation.responsibleFor, Utilities.ElementType.XPath);
         result(invImplementation.getResponsibleBalance("Ending Balance"), invoiceValue, "Responsible Balance Validation",
                 "Account Statement Report Validation");
     }

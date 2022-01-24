@@ -15,7 +15,7 @@ public class InvoiceImplementation extends BasePage {
     public String accountSummaryButton = "//div[@id='billingPanel']//li[contains(text(),'Account Summary')]";
     public String invoiceAccountSummaryClick = "//ul[@id='invoiceGroupListContainer']/ul/li";
     public String initialInvoice = "//span[text()='Initial Balance']";
-    public String accountStatementReport = "//li[text()='Account Statement Report']";
+    public String accountStatementReport = "//li[text()='Account Balance Summary']";
     public String remainingBalanceAmount = "//span[text()='Remaining Balance']/parent::div";
 
     //Most Recent Invoice's Invoice-Number
@@ -105,7 +105,9 @@ public class InvoiceImplementation extends BasePage {
     // Account Statement Report Objects
     public String dateRange = "//input[@name='dateRange-accountStatementFilterParams']";
     public String reportType = "//select[@name='filterType']";
-    public String refreshButton = "//div[text()='Refresh']";
+    public String thisAccount = "//label[@for='accountBalanceSummaryTransactionBID']";
+    public String responsibleFor = "//label[@for='accountBalanceSummaryTransactionCID']";
+    public String refreshButton = "//button[@onclick='runAccountStatementReport()']";
     public String scrollLeftButton = "//div[@id='accountStatementReportScrollButtons']//div[contains(@class,'scrollLeft')]//i";
     public String scrollRightButton = "//div[@id='accountStatementReportScrollButtons']//div[contains(@class,'scrollRight')]//i";
     public String invoiceActionButton = "//div[@id='billingPanel']//div[@class='toggleActions right tableButton']";
@@ -355,23 +357,23 @@ public class InvoiceImplementation extends BasePage {
     }
 
     public String getInvoiceAmount_accountStatementReport(String needServiceType){
-        Utilities.waitUntileElementIsVisible("//td[contains(text(),'"+needServiceType+"')]/following-sibling::td[text()][4]");
-        return Utilities.getElementTextValue("//td[contains(text(),'"+needServiceType+"')]/following-sibling::td[text()][4]", ElementType.XPath);
+        Utilities.waitUntileElementIsVisible("//div[@id='accountStatementReportTableWrapper']//div[5]//div[4]");
+        return Utilities.getElementTextValue("//div[@id='accountStatementReportTableWrapper']//div[5]//div[4]", ElementType.XPath);
     }
 
     public String getInvoiceBalance_accountStatementReport(String needServiceType){
-        Utilities.waitUntileElementIsVisible("//td[contains(text(),'"+needServiceType+"')]/following-sibling::td[text()][5]");
-        return Utilities.getElementTextValue("//td[contains(text(),'"+needServiceType+"')]/following-sibling::td[text()][5]", ElementType.XPath);
+        Utilities.waitUntileElementIsVisible("//div[@id='accountStatementReportTableWrapper']//div[5]//div[4]");
+        return Utilities.getElementTextValue("//div[@id='accountStatementReportTableWrapper']//div[5]//div[4]", ElementType.XPath);
     }
 
     public String getBalance(String balanceType){
-        Utilities.waitUntileElementIsVisible("//td[contains(text(),'"+balanceType+"')]/following-sibling::td[text()]");
-        return Utilities.getElementTextValue("//td[contains(text(),'"+balanceType+"')]/following-sibling::td[text()]", ElementType.XPath);
+        Utilities.waitUntileElementIsVisible("//span[contains(text(),'"+balanceType+"')]/parent::div/parent::div/following-sibling::div//div[@class='half left accountBalanceSummaryBalanceNumbers ']//span");
+        return Utilities.getElementTextValue("//span[contains(text(),'"+balanceType+"')]/parent::div/parent::div/following-sibling::div//div[@class='half left accountBalanceSummaryBalanceNumbers ']//span", ElementType.XPath);
     }
 
     public String getResponsibleBalance(String balanceType){
-        Utilities.waitUntileElementIsVisible("//td[contains(text(),'"+balanceType+"')]/following-sibling::td[text()]/following-sibling::td");
-        return Utilities.getElementTextValue("//td[contains(text(),'"+balanceType+"')]/following-sibling::td[text()]/following-sibling::td", ElementType.XPath);
+        Utilities.waitUntileElementIsVisible("//span[contains(text(),'"+balanceType+"')]/parent::div/parent::div/following-sibling::div//div[@class='half right accountBalanceSummaryBalanceNumbers ']//span");
+        return Utilities.getElementTextValue("//span[contains(text(),'"+balanceType+"')]/parent::div/parent::div/following-sibling::div//div[@class='half right accountBalanceSummaryBalanceNumbers ']//span", ElementType.XPath);
     }
 
     public String getSuccessfulChargeAmount() {

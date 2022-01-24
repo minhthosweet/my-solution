@@ -18,7 +18,6 @@ Feature: New sales report
     And I schedule an service appointment
     And I search customer
     And I complete an appointment
-    And I search customer
     And I run sold subscription report
     And I validate subscription flag column
     And I validate sales report totals
