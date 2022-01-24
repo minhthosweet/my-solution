@@ -39,6 +39,7 @@ public class InvoicingTab extends AppData {
     AddSubscription addSubscription;
     CustomerViewDialog_SubscriptionTab subscriptionTab;
     ACHOnFile achOnFile;
+    AddSubscription testSubscription = new AddSubscription();
 
     private String treatmentAmount = "900";
     private Integer partialPaymentAmount = Integer.parseInt(treatmentAmount) / 2;
@@ -48,6 +49,8 @@ public class InvoicingTab extends AppData {
     public static String invoiceCharges = null;
     public static String invoiceValue = null;
     public static String invoiceBalance = null;
+    public static String paymentAmount;
+    public static String invoicePaymentBalance;
 
     @Test
     public void CustomerInvoicing() throws Exception {
@@ -521,5 +524,52 @@ public class InvoicingTab extends AppData {
         invImplementation.selectTaxableOption("Taxable");
         displayedTaxAmt = parseDouble(invImplementation.getCalTaxValue());
         Assert.assertTrue((Double.compare(displayedTaxAmt, zeroTaxAmt) > 0 ), "*************Tax Amount displayed for the 'Taxable' option is incorrect!");
+    }
+
+    @When("I Generate A Stand Alone Invoice")
+    public void automateGeneratingStandAloneInvoice() throws InterruptedException {
+        RoutePageInvoicing userOnInvoicesTab = new RoutePageInvoicing();
+        CustomerViewDialog_Header sameUser = new CustomerViewDialog_Header();
+        CreateNewInvoicePopUp userOnNewInvoicePopUp = new CreateNewInvoicePopUp();
+
+        sameUser.goToInvoicesTab();
+        userOnInvoicesTab.clickNewInvoice();
+        userOnNewInvoicePopUp.typeSubTotal(testSubscription.totalInitialInvoice);
+        userOnNewInvoicePopUp.selectServiceType("Automation Renewal");
+        userOnNewInvoicePopUp.clickCreateButton();
+        invoicePaymentBalance = userOnInvoicesTab.getPaymentBalance();
+    }
+
+    @And("I Pay Off The Stand Alone Invoice")
+    public void automatePayingOffStandAloneInvoice() throws InterruptedException {
+        RoutePageInvoicing userOnInvoicesTab = new RoutePageInvoicing();
+        CustomerViewDialog_Header sameUser = new CustomerViewDialog_Header();
+        Invoice_Header userSelectsPayment = new Invoice_Header();
+        InvoiceImplementation userMakesPayment = new InvoiceImplementation();
+
+        userOnInvoicesTab.addPayment();
+        userSelectsPayment.clickCash();
+        paymentAmount = userMakesPayment.getPaymentAmount();
+        userMakesPayment.typeConfirmationAmount(paymentAmount);
+        userMakesPayment.clickRecordPaymentButton();
+        sameUser.clickXButton();
+        sameUser.clickSaveChangesButton();
+    }
+
+    @And("I Pay Off A Non Stand Alone Invoice")
+    public void automatePayingOffNonStandAloneInvoice() throws InterruptedException {
+        CustomerViewDialog_Header sameUser = new CustomerViewDialog_Header();
+        Invoice_Header userSelectsPayment = new Invoice_Header();
+        RoutePageInvoicing userOnInvoicesTab = new RoutePageInvoicing();
+        InvoiceImplementation userMakesPayment = new InvoiceImplementation();
+
+        sameUser.goToInvoicesTab();
+        userOnInvoicesTab.addPayment();
+        userSelectsPayment.clickCash();
+        paymentAmount = userMakesPayment.getPaymentAmount();
+        userMakesPayment.typeConfirmationAmount(paymentAmount);
+        userMakesPayment.clickRecordPaymentButton();
+        sameUser.clickXButton();
+        sameUser.clickSaveChangesButton();
     }
 }

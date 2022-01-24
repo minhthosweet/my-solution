@@ -1,17 +1,22 @@
 package automation.PestRoutes.Controller.Subscriptions;
 
-import automation.PestRoutes.PageObject.CustomerOverview.BillingPage;
-import automation.PestRoutes.PageObject.Header;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_Header;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_SubscriptionTab;
-import automation.PestRoutes.Utilities.*;
+import automation.PestRoutes.PageObject.Header;
+import automation.PestRoutes.Utilities.AppData;
+import automation.PestRoutes.Utilities.FindElement;
+import automation.PestRoutes.Utilities.Reporter;
+import automation.PestRoutes.Utilities.Utilities;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.openqa.selenium.WebElement;
 import org.testng.annotations.Test;
 
+import java.util.List;
+
 import static automation.PestRoutes.Utilities.AssertException.result;
+import static automation.PestRoutes.Utilities.Utilities.currentDate;
 
 public class AddSubscription extends AppData {
 
@@ -26,6 +31,8 @@ public class AddSubscription extends AppData {
 	private String customDateInCustomSchedule = Utilities.getCurrentDate();
 	public static String newContractValue = null;
 	public String initialInvoiceValue;
+	public static List<String> serviceType;
+	public static String totalInitialInvoice;
 
 	@Test(groups = "Smoke")
 	public void validateSubscription() throws Exception {
@@ -303,5 +310,21 @@ public class AddSubscription extends AppData {
 		subscription.setMergeBillingAccountField(needMergeCustomerName);
 		Utilities.clickElement(subscription.mergeBillingAccountSelectButton, Utilities.ElementType.XPath);
 		customerDialogHeader.clickSaveButton();
+	}
+
+	@When("I Create A New Subscription With Basic Information")
+	public void createNewSubscriptionWithBasicInfo() throws InterruptedException {
+		CustomerViewDialog_SubscriptionTab userOnSubscriptionTab = new CustomerViewDialog_SubscriptionTab();
+		CustomerViewDialog_Header sameUser = new CustomerViewDialog_Header();
+
+		sameUser.goToSubscriptionTab();
+		userOnSubscriptionTab.clickNewSubscription();
+		userOnSubscriptionTab.selectRecurringServiceType("Automation Renewal");
+		serviceType = userOnSubscriptionTab.getRecurringServiceType();
+		userOnSubscriptionTab.selectCustomDate(currentDate("MM/DD/YYYY"));
+		userOnSubscriptionTab.selectInitialInvoice("After Initial Completion");
+		userOnSubscriptionTab.selectAdditionalItem_ToInitialInvoice("Best Product");
+		sameUser.clickCustomerSaveButton();
+		totalInitialInvoice = userOnSubscriptionTab.getInitialInvoiceTotal();
 	}
 }

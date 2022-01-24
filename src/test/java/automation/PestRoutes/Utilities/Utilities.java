@@ -466,7 +466,11 @@ public class Utilities {
 	public static void closeBrowser() {
 		driver.quit();
 	}
-	
+
+	public static void closeTab() {
+		driver.close();
+	}
+
 	public static void highLight(String needElement) {
 		if (SystemUtils.IS_OS_MAC_OSX) {
 			WebElement ele = FindElement.elementByAttribute(needElement, InputType.XPath);

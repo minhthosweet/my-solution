@@ -1,5 +1,6 @@
 package automation.PestRoutes.Controller.Leads;
 
+import automation.PestRoutes.Controller.CustomerCreation.CreateNewCustomer;
 import automation.PestRoutes.PageObject.CreateCustomer.CreateCustomerDialog;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_Header;
 import automation.PestRoutes.PageObject.DashboardPage;
@@ -10,23 +11,18 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.testng.Assert;
 
-import static automation.PestRoutes.Utilities.Utilities.generateRandomString;
-
 public class TestCustomProduction {
 
     DashboardPage userOnDashboard = new DashboardPage();
     CreateCustomerDialog userCreateNewCustomer = new CreateCustomerDialog();
     CustomerViewDialog_Header sameUser = new CustomerViewDialog_Header();
     LeadsPage userOnLeadsTab = new LeadsPage();
+    CreateNewCustomer testCustomer = new CreateNewCustomer();
     String recurringServiceAmount;
 
     @Given("I Create A Customer With A Lead")
     public void automateCreatingCustomerWithLead() throws InterruptedException {
-        userOnDashboard.goToNewCustomerComponent();
-        userCreateNewCustomer.typeFirstName(generateRandomString(3));
-        userCreateNewCustomer.typeLastName(generateRandomString(4));
-        userCreateNewCustomer.typeZipCode("75093");
-        sameUser.clickCustomerSaveButton();
+        testCustomer.createCustomerWithBasicInfo();
         userOnLeadsTab = sameUser.goToLeadsTab();
         userOnLeadsTab.clickNewQuote();
     }
@@ -49,6 +45,9 @@ public class TestCustomProduction {
         double actualCustomProductionAmount = Double.parseDouble(userOnLeadsTab.getRecurringCustomProduction());
         double expectedCustomProductionAmount = Double.parseDouble(recurringServiceAmount) * Double.parseDouble(number);
         Assert.assertEquals(actualCustomProductionAmount, expectedCustomProductionAmount,
-                "The Actual & Expected Custom Production Amounts Do Not Match");
+                "\n Actual: " + actualCustomProductionAmount +
+                        "\n Expected: " + expectedCustomProductionAmount +
+                        "\n The Actual & Expected Custom Production Amounts Do Not Match");
+        testCustomer.removeCustomer();
     }
 }

@@ -24,7 +24,7 @@ public class CustomerPortalBasePage extends BasePage {
         return new CustomerPortalHistoryTabPage();
     }
 
-    public CustomerPortalBillingTabPage goToBillingTab(){
+    public CustomerPortalBillingTabPage goToBillingTab() {
         click(billingTab);
         return new CustomerPortalBillingTabPage();
     }

@@ -2,19 +2,21 @@ package automation.PestRoutes.PageObject.CustomerOverview;
 
 import automation.PestRoutes.PageObject.BasePage;
 import automation.PestRoutes.PageObject.CustomerPortal.CustomerPortalSummaryTabPage;
+import automation.PestRoutes.Utilities.Driver.GetWebDriver;
+import automation.PestRoutes.Utilities.FindElement;
+import automation.PestRoutes.Utilities.FindElement.InputType;
+import automation.PestRoutes.Utilities.Utilities;
+import automation.PestRoutes.Utilities.Utilities.ElementType;
 import io.cucumber.java.en.And;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
-import automation.PestRoutes.Utilities.FindElement;
-import automation.PestRoutes.Utilities.FindElement.InputType;
-import automation.PestRoutes.Utilities.Utilities;
-import automation.PestRoutes.Utilities.Driver.GetWebDriver;
-import automation.PestRoutes.Utilities.Utilities.ElementType;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.Set;
+
+import static automation.PestRoutes.Utilities.Utilities.refreshPage;
 
 public class CustomerViewDialog_Admin extends BasePage {
 
@@ -115,18 +117,21 @@ public class CustomerViewDialog_Admin extends BasePage {
         return Utilities.getElementTextValue(customerStatus, ElementType.XPath);
     }
 
-    public CustomerPortalSummaryTabPage clickPortalLogin(){
+    public CustomerPortalSummaryTabPage clickPortalLogin() {
         wait.until(ExpectedConditions.visibilityOfElementLocated(portalLoginLink));
         click(portalLoginLink);
-
         String customerCardWindow = driver.getWindowHandle();
         Set<String> allWindows = driver.getWindowHandles();
 
         for (String currentWindow : allWindows) {
             if(!customerCardWindow.equals(currentWindow)){
                 driver.switchTo().window(currentWindow);
+                refreshPage();
+                delay(3000);
+                refreshPage();
             }
         }
+        refreshPage();
         return new CustomerPortalSummaryTabPage();
     }
 }

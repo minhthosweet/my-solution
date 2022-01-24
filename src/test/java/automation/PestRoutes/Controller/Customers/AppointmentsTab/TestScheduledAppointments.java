@@ -1,9 +1,14 @@
 package automation.PestRoutes.Controller.Customers.AppointmentsTab;
 
+import automation.PestRoutes.Controller.CustomerCreation.CreateNewCustomer;
+import automation.PestRoutes.Controller.Renewal.ValidateRenewal;
 import automation.PestRoutes.PageObject.CreateCustomer.CreateCustomerDialog;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_Header;
+import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_SubscriptionTab;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerviewDialog_AppointmentsTab;
+import automation.PestRoutes.PageObject.CustomerOverview.Invoicing.RoutePageInvoicing;
 import automation.PestRoutes.PageObject.DashboardPage;
+import automation.PestRoutes.PageObject.Header;
 import automation.PestRoutes.PageObject.RoutePage.RoutePage;
 import automation.PestRoutes.PageObject.Scheduling.SchedulingAppointmentDialog;
 import automation.PestRoutes.PageObject.Scheduling.SchedulingTab;
@@ -13,28 +18,31 @@ import org.testng.Assert;
 import java.util.List;
 
 import static automation.PestRoutes.Utilities.Utilities.dragCustomerCard;
-import static automation.PestRoutes.Utilities.Utilities.generateRandomString;
 
 public class TestScheduledAppointments {
     DashboardPage userOnDashboard = new DashboardPage();
-    CreateCustomerDialog userCreateNewCustomer = new CreateCustomerDialog();
     CustomerViewDialog_Header sameUser = new CustomerViewDialog_Header();
     SchedulingTab userOnSchedulingComponent = new SchedulingTab();
     RoutePage userOnRoutePage = new RoutePage();
     SchedulingAppointmentDialog userOnSchedulingDialog = new SchedulingAppointmentDialog();
     CustomerviewDialog_AppointmentsTab userOnAppointmentsTab = new CustomerviewDialog_AppointmentsTab();
+    CustomerViewDialog_SubscriptionTab userOnSubscriptionTab = new CustomerViewDialog_SubscriptionTab();
+    RoutePageInvoicing userOnInvoicesTab = new RoutePageInvoicing();
+    Header userOnCustomerHeader = new Header();
+    ValidateRenewal userValidates = new ValidateRenewal();
+    CreateNewCustomer testCustomer = new CreateNewCustomer();
 
-    String customerName;
     List<String> schedulingSubscription;
+    public static String techName;
+    public static String serviceNotes;
+    public static String appointmentTabID;
+    public static String invoiceNumber;
+    public static String initialBalance;
+    public static String subStatusAmount;
 
     @Given("I Open The Appointments Tab")
     public void automateAccessingRoutesPageFromAppointmentsTab() throws Exception {
-        userOnDashboard.goToNewCustomerComponent();
-        userCreateNewCustomer.typeFirstName(generateRandomString(3));
-        userCreateNewCustomer.typeLastName(generateRandomString(4));
-        customerName = userCreateNewCustomer.getCustomerFullName();
-        userCreateNewCustomer.typeZipCode("75093");
-        sameUser.clickCustomerSaveButton();
+        testCustomer.createCustomerWithBasicInfo();
         sameUser.goToAppointmentsTab();
     }
 
@@ -46,7 +54,7 @@ public class TestScheduledAppointments {
         userOnRoutePage.addGroup();
         userOnRoutePage.addRoutesByQuantity("1");
         userOnRoutePage.selectAvailableAppointment();
-        userOnRoutePage.selectCustomer(customerName);
+        userOnRoutePage.selectCustomer(testCustomer.customerName);
         userOnSchedulingDialog.selectTypeOfService("Automation Renewal");
         userOnSchedulingDialog.selectSubscription("Stand-Alone Service or Reservice");
         schedulingSubscription = userOnSchedulingDialog.getSubscription();
@@ -55,7 +63,7 @@ public class TestScheduledAppointments {
 
     @And("I Cancel The Scheduled Appointment")
     public void automateCancellingAppointment() throws InterruptedException {
-        userOnRoutePage.goToCustomerSearchComponent(customerName);
+        userOnRoutePage.goToCustomerSearchComponent(testCustomer.customerName);
         sameUser.goToAppointmentsTab();
         userOnAppointmentsTab.clickPendingAppointment("Automation Renewal");
         userOnAppointmentsTab.clickCancelAppointmentButton();
@@ -66,13 +74,12 @@ public class TestScheduledAppointments {
     public void automateSchedulingAnotherAppointment() throws InterruptedException {
         dragCustomerCard(200, 0);
         userOnRoutePage.selectAvailableAppointment();
-        userOnRoutePage.selectCustomer(customerName);
+        userOnRoutePage.selectCustomer(testCustomer.customerName);
         userOnSchedulingDialog.selectTypeOfService("Automation Renewal");
         userOnSchedulingDialog.selectSubscription("Stand-Alone Service or Reservice");
         schedulingSubscription = userOnSchedulingDialog.getSubscription();
         userOnSchedulingDialog.clickBlueScheduleButton();
     }
-
 
     @Then("I See The Correct Appointment Information On The Appointments Tab")
     public void testCorrectAppointmentInformation() throws InterruptedException {
@@ -81,6 +88,36 @@ public class TestScheduledAppointments {
         List<String> expectedSubscription = schedulingSubscription;
         String actualSubscription = userOnAppointmentsTab.getAppointmentsTabSubscription();
         Assert.assertTrue(expectedSubscription.contains(actualSubscription),
-                "The Expected and Actual Subscription Do Not Contain The Same Value");
+                "\n Expected Subscription: " + expectedSubscription +
+                        "\n Actual Subscription: " + actualSubscription +
+                        "\n The Expected Subscription Is Not Contained In The Actual Subscription");
+        testCustomer.removeCustomer();
+    }
+
+    @When("I Complete An Appointment")
+    public void automateCompletingAnAppointment() throws Exception {
+        userOnSchedulingComponent = userOnDashboard.goToSchedulingComponent();
+        userOnSchedulingComponent.addScheduleDateToProperties();
+        userOnSchedulingComponent.clickScheduleDay();
+        userOnRoutePage.addGroup();
+        userOnRoutePage.addRoutesByQuantity("1");
+        userOnCustomerHeader.searchCustomerWithName(testCustomer.customerName);
+        userOnSubscriptionTab = sameUser.goToSubscriptionTab();
+        userValidates.scheduleAnAppointment();
+        userOnCustomerHeader.searchCustomerWithName(testCustomer.customerName);
+        userOnAppointmentsTab = sameUser.goToAppointmentsTab();
+        userValidates.completeSchedulesService();
+        userOnAppointmentsTab.clickStatusButton();
+        userOnAppointmentsTab.typeServiceNotes("Automation Test");
+        userOnAppointmentsTab.setTechName("Cam Walker");
+        techName = userOnAppointmentsTab.getTechName();
+        userOnAppointmentsTab.clickSaveAndCompleteButton();
+        serviceNotes = userOnAppointmentsTab.getServiceNotes();
+        appointmentTabID = userOnAppointmentsTab.getAppointmentTabID();
+        userOnCustomerHeader.searchCustomerWithName(testCustomer.customerName);
+        sameUser.goToInvoicesTab();
+        invoiceNumber = userOnInvoicesTab.getInvoiceNumber();
+        initialBalance = userOnInvoicesTab.getInitialBalance();
+        subStatusAmount = userOnInvoicesTab.getSubStatusAmount();
     }
 }

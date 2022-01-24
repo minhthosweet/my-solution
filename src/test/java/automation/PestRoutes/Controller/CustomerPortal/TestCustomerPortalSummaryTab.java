@@ -1,6 +1,10 @@
 package automation.PestRoutes.Controller.CustomerPortal;
 
+import automation.PestRoutes.Controller.CustomerCreation.CreateNewCustomer;
+import automation.PestRoutes.Controller.Customers.AppointmentsTab.TestScheduledAppointments;
+import automation.PestRoutes.Controller.Invoicing.InvoicingTab;
 import automation.PestRoutes.Controller.Reporting.TestTechNamePaymentsByServiceType;
+import automation.PestRoutes.Controller.Subscriptions.AddSubscription;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_Admin;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_Header;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_SubscriptionTab;
@@ -16,31 +20,38 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.testng.Assert;
 
+import java.math.BigDecimal;
 import java.util.List;
+
+import static automation.PestRoutes.Utilities.Utilities.closeTab;
+import static automation.PestRoutes.Utilities.Utilities.switchToOldWindowOpened;
 
 public class TestCustomerPortalSummaryTab {
     CustomerViewDialog_Header sameUser = new CustomerViewDialog_Header();
     CustomerViewDialog_Admin userOnAdminTab = new CustomerViewDialog_Admin();
     CustomerPortalSummaryTabPage userOnCustomerPortalSummaryTab = new CustomerPortalSummaryTabPage();
-    TestTechNamePaymentsByServiceType test = new TestTechNamePaymentsByServiceType();
     CustomerViewDialog_SubscriptionTab userOnSubscriptionTab = new CustomerViewDialog_SubscriptionTab();
     DashboardPage userOnDashboard = new DashboardPage();
     SchedulingTab userOnSchedulingComponent = new SchedulingTab();
     RoutePage userOnRoutePage = new RoutePage();
     SchedulingAppointmentDialog userOnSchedulingDialog = new SchedulingAppointmentDialog();
     CustomerviewDialog_AppointmentsTab userOnAppointmentsTab = new CustomerviewDialog_AppointmentsTab();
+    TestTechNamePaymentsByServiceType test = new TestTechNamePaymentsByServiceType();
+    CreateNewCustomer testCustomer = new CreateNewCustomer();
+    AddSubscription testSubscription = new AddSubscription();
+    InvoicingTab testInvoice = new InvoicingTab();
+    TestScheduledAppointments testAppointment = new TestScheduledAppointments();
 
-    String expectedFirstName = test.customerFirstName;
-    String customerName = test.customerFullName;
-    String expectedPropertyAddress = test.propertyAddress;
-    String expectedCityStateZip = test.cityStateZip;
-    String expectedEmailAddress = test.emailAddress;
-    String expectedCustomerAccountID = test.customerAccountID;
-    String expectedServiceNotes = test.serviceNotes;
-    String expectedPaymentBalance = test.invoicePaymentBalance;
-    String expectedTechnician = test.techName;
-    String expectedInvoiceNumber = test.invoiceNumber;
-    List<String> expectedSubscriptionServiceType = test.serviceType;
+    String expectedFirstName = testCustomer.customerFirstName;
+    String expectedPropertyAddress = testCustomer.propertyAddress;
+    String expectedCityStateZip = testCustomer.cityStateZip;
+    String expectedEmailAddress = testCustomer.emailAddress;
+    String expectedCustomerAccountID = testCustomer.customerAccountID;
+    String expectedServiceNotes = testAppointment.serviceNotes;
+    String expectedPaymentBalance = testInvoice.invoicePaymentBalance;
+    String expectedTechnician = testAppointment.techName;
+    String expectedInvoiceNumber = testAppointment.invoiceNumber;
+    List<String> expectedSubscriptionServiceType = testSubscription.serviceType;
     List<String> schedulingSubscription;
     String expectedDate = Utilities.currentDate("MM/dd/yy");
 
@@ -51,10 +62,13 @@ public class TestCustomerPortalSummaryTab {
     }
 
     @Then("I Verify First Name In The Welcome Message via Summary Tab")
-    public void testFirstNameInWelcomeMessageSummaryTab(){
+    public void testFirstNameInWelcomeMessageSummaryTab() {
         String actualMessage = userOnCustomerPortalSummaryTab.getFirstNameFromWelcomeBanner();
         Assert.assertTrue(actualMessage.contains(expectedFirstName),
                 "Welcome Message Does Not Contain The Correct First Name");
+        closeTab();
+        switchToOldWindowOpened();
+        testCustomer.removeCustomer();
     }
 
     @Then("I Verify The Property Details Section")
@@ -68,6 +82,9 @@ public class TestCustomerPortalSummaryTab {
                 "Expected City, State, and Zip Is Not Contained In The Property Details Section");
         Assert.assertTrue(actualPropertyDetails.contains(expectedEmailAddress),
                 "Expected Email Address Is Not Contained In The Property Details Section");
+        closeTab();
+        switchToOldWindowOpened();
+        testCustomer.removeCustomer();
     }
 
     @Then("I Verify Share The Love Message")
@@ -76,6 +93,9 @@ public class TestCustomerPortalSummaryTab {
         Assert.assertTrue(actualShareTheLoveMessage.equalsIgnoreCase(
                 "Share The Love"),
                 "The Actual And Expected Share The Love Text Do Not Match");
+        closeTab();
+        switchToOldWindowOpened();
+        testCustomer.removeCustomer();
     }
 
     @Then("I Verify Service Type Is Correct In Summary Tab via Service Plan Section")
@@ -85,6 +105,9 @@ public class TestCustomerPortalSummaryTab {
         Assert.assertTrue(expectedServiceType.contains(actualServiceType),
                 "Service Plan Section Contains " + actualServiceType +
                         " And Does Not Contain A Service Type Labeled " + expectedServiceType);
+        closeTab();
+        switchToOldWindowOpened();
+        testCustomer.removeCustomer();
     }
 
     @When("I Deactivate-Freeze The Subscription")
@@ -94,9 +117,12 @@ public class TestCustomerPortalSummaryTab {
     }
 
     @Then("I Verify A Frozen Subscription Service Is Not Available via Service Plan Section")
-    public void testFrozenSubscriptionDoesNotShowUpInServicePlanSection(){
+    public void testFrozenSubscriptionDoesNotShowUpInServicePlanSection() {
         Assert.assertEquals(0, userOnCustomerPortalSummaryTab.numberOfServiceTypes(),
                 "The Number Of Service Types Do Not Equal Zero (0)");
+        closeTab();
+        switchToOldWindowOpened();
+        testCustomer.removeCustomer();
     }
     @When("I Schedule An Appointment")
     public void automateSchedulingAnAppointment() throws Exception {
@@ -107,7 +133,7 @@ public class TestCustomerPortalSummaryTab {
         userOnRoutePage.addGroup();
         userOnRoutePage.addRoutesByQuantity("1");
         userOnRoutePage.selectAvailableAppointment();
-        userOnRoutePage.selectCustomer(customerName);
+        userOnRoutePage.selectCustomer(testCustomer.customerName);
         userOnSchedulingDialog.selectTypeOfService("Automation Renewal");
         userOnSchedulingDialog.selectSubscription("Stand-Alone Service or Reservice");
         schedulingSubscription = userOnSchedulingDialog.getSubscription();
@@ -128,14 +154,20 @@ public class TestCustomerPortalSummaryTab {
         userOnCustomerPortalSummaryTab = userOnAdminTab.clickPortalLogin();
         Assert.assertEquals(0, userOnCustomerPortalSummaryTab.numberOfServiceTypes(),
                 "The Number Of Service Types Do Not Equal Zero (0)");
+        closeTab();
+        switchToOldWindowOpened();
+        testCustomer.removeCustomer();
     }
 
     @Then("I Verify The Responsible Balance via Summary Tab Matches The Invoice Balance")
-    public void testResponsibleBalanceIsCorrectOnSummaryTab(){
+    public void testResponsibleBalanceIsCorrectOnSummaryTab() {
         String actualPaymentBalance = userOnCustomerPortalSummaryTab.getResponsibleBalance();
         Assert.assertEquals(actualPaymentBalance, expectedPaymentBalance,
                 "Actual Responsible Balance: " + actualPaymentBalance +
                         " & Expected Balance: " + expectedPaymentBalance + " Do Not Match");
+        closeTab();
+        switchToOldWindowOpened();
+        testCustomer.removeCustomer();
     }
 
     @Then("I Verify The Fields Contain Correct Information")
@@ -143,10 +175,10 @@ public class TestCustomerPortalSummaryTab {
         String actualDate = userOnCustomerPortalSummaryTab.getDate();
         String actualTechnician = userOnCustomerPortalSummaryTab.getTechnician();
         String actualInvoiceNumber = userOnCustomerPortalSummaryTab.getInvoiceNumber();
-        String actualTotalAmount = userOnCustomerPortalSummaryTab.getTotalAmount();
+        String actualTotalAmount = String.format("%.2f", new BigDecimal(userOnCustomerPortalSummaryTab.getTotalAmount()));
         String actualBalanceAmount = userOnCustomerPortalSummaryTab.getBalanceAmount();
-        String expectedTotalAmount = test.initialBalance.replace("$", "");
-        String expectedBalanceAmount = test.subStatusAmount.replace("$", "");
+        String expectedTotalAmount = testAppointment.initialBalance.replace("$", "");
+        String expectedBalanceAmount = testAppointment.subStatusAmount.replace("$", "");
 
         Assert.assertEquals(actualDate, expectedDate,
                 "The Actual Date " + actualDate +
@@ -166,21 +198,30 @@ public class TestCustomerPortalSummaryTab {
         Assert.assertTrue(userOnCustomerPortalSummaryTab.getMostRecentServiceSection()
                 .contains(expectedServiceNotes),
                 "The Most Recent Service Section Does Not Contain Correct Service Notes");
+        closeTab();
+        switchToOldWindowOpened();
+        testCustomer.removeCustomer();
     }
 
     @Then("I Verify The Links Are Displayed via Most Recent Service Section")
-    public void testLinksInTheMostRecentServiceSection(){
+    public void testLinksInTheMostRecentServiceSection() {
         Assert.assertEquals(userOnCustomerPortalSummaryTab.isServiceNotificationLinkDisplayed(), true,
                 "The Service Notification Link Is Not Displayed via Most Recent Service Section");
         Assert.assertEquals(userOnCustomerPortalSummaryTab.isInvoiceLinkDisplayed(), true,
                 "The Invoice Link Is Not Displayed via Most Recent Service Section");
+        closeTab();
+        switchToOldWindowOpened();
+        testCustomer.removeCustomer();
     }
 
     @Then("I Verify The Technical Review Area And Star Rating Are Displayed via Most Recent Service Section")
-    public void testTechnicalReviewStarRatingInTheMostRecentServiceSection(){
+    public void testTechnicalReviewStarRatingInTheMostRecentServiceSection() {
         Assert.assertEquals(userOnCustomerPortalSummaryTab.isTechnicianReviewTextAreaDisplayed(), true,
                 "The Technical Review Text Area Is Not Displayed via Most Recent Service Section");
         Assert.assertEquals(userOnCustomerPortalSummaryTab.isStarRatingsDisplayed(), true,
                 "The Star Ratings Are Not Displayed via Most Recent Service Section");
+        closeTab();
+        switchToOldWindowOpened();
+        testCustomer.removeCustomer();
     }
 }

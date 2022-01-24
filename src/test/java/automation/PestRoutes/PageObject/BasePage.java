@@ -109,4 +109,12 @@ public class BasePage {
         type(customerIDorName, customerSearchField);
         click(customer);
     }
+
+    public static void delay(int timeout) {
+        try {
+            Thread.sleep(timeout);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
 }

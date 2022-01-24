@@ -10,6 +10,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import static automation.PestRoutes.Utilities.Utilities.elementIsVisible;
+
 public class CustomerViewDialog_Header extends BasePage {
 
     public String overviewTabInDialog = "overviewTab";
@@ -54,11 +56,11 @@ public class CustomerViewDialog_Header extends BasePage {
         Utilities.clickElement(customerContacts_Notes, ElementType.XPath);
     }
 
-    public void navigateTo(String chooseTabFromConst) throws InterruptedException {
-        Thread.sleep(800);
+    public void navigateTo(String chooseTabFromConst) {
+        delay(800);
         Utilities.waitUntileElementIsVisible("//li[@name= '" + chooseTabFromConst + "']");
         Utilities.clickElement("//li[@name = '" + chooseTabFromConst + "']", ElementType.XPath, true, false);
-        Thread.sleep(100);
+        delay(100);
     }
 
     public void ClickTranferButton() {
@@ -111,13 +113,17 @@ public class CustomerViewDialog_Header extends BasePage {
         }
     }
 
-    public Boolean clickSaveChangesButton () {
-        if (driver.findElements(saveChangesButton).size() > 0) {
+    public void clickSaveChangesButton () throws InterruptedException {
+        if (elementIsVisible(saveChangesButton)){
             click(saveChangesButton);
-            return true;
+            delay(3000);
         }
-        else {
-            return false;
+    }
+
+    public void clickDiscardChangesButton () {
+        if (elementIsVisible(discardChange)){
+            find(By.xpath(discardChange)).click();
+            delay(3000);
         }
     }
 

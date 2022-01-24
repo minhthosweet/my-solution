@@ -113,7 +113,7 @@ public class PaymentsByServiceTypeTab extends BasePage {
         }
     }
 
-    public Boolean getCustomerName(String value) {
+    public boolean getCustomerName(String value) {
         List<WebElement> customerList = driver.findElements(customerNames);
         for(WebElement customer : customerList) {
             if (customer.getText().equals(value)) {

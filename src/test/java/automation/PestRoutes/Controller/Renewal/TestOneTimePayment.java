@@ -1,5 +1,6 @@
 package automation.PestRoutes.Controller.Renewal;
 
+import automation.PestRoutes.Controller.CustomerCreation.CreateNewCustomer;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_Header;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_SubscriptionTab;
 import automation.PestRoutes.PageObject.CustomerOverview.Invoicing.InvoiceImplementation;
@@ -18,6 +19,7 @@ public class TestOneTimePayment {
     Invoice_Header userSelectsPayment = new Invoice_Header();
     InvoiceImplementation userMakesPayment = new InvoiceImplementation();
     CustomerViewDialog_SubscriptionTab userOnSubscriptionTab = new CustomerViewDialog_SubscriptionTab();
+    CreateNewCustomer testCustomer = new CreateNewCustomer();
 
     String paymentAmount;
     String invoiceRenewalDate;
@@ -52,6 +54,10 @@ public class TestOneTimePayment {
         userOnSubscriptionTab.clickActiveSubscription();
         subscriptionRenewalDate = userOnSubscriptionTab.getSubscriptionRenewalDate();
         Assert.assertEquals(subscriptionRenewalDate, invoiceRenewalDate,
-                "The Renewal Date Is Not Correct On The Subscription Tab");
+                "\n Actual Renewal Date: " + subscriptionRenewalDate +
+                        "\n Expected Renewal Date: " + invoiceRenewalDate +
+                        "\n The Actual Renewal Date From Subscription Tab Does Not Match " +
+                            "Expected Renewal Date From Invoice Tab");
+        testCustomer.removeCustomer();
     }
 }

@@ -1,6 +1,5 @@
 package automation.PestRoutes.PageObject.CustomerPortal;
 
-import automation.PestRoutes.Utilities.Utilities;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
@@ -13,7 +12,6 @@ public class CustomerPortalBillingTabPage extends CustomerPortalBasePage {
 
     private By payNowButton = By.xpath("//button[@id='showPaymentOptionsButton']");
     private By payAnotherAmountButton = By.xpath("//input[@id='payDifferent']");
-    private By payAnotherAmountField = By.xpath("//input[@id='paymentAmount']");
     private By cardOnFileButton = By.xpath("//input[contains(@id,'paymentType')]");
     private By useOneTimeCardButton = By.xpath("//input[@name='paymentType' and @value='singlePayment']");
     private By enterCreditCardButton = By.xpath("//button[@id='renderSecureCardFormButton']");

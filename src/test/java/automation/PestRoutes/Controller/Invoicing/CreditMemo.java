@@ -30,9 +30,9 @@ public class CreditMemo extends AppData {
     CustomerViewDialog_InfoTab customerViewDialog_infoTab;
     BillingByServiceType billingByServiceType;
     CreateNewCustomer createNewCustomer;
-    RoutePage userOnRoutePage = new RoutePage();
     RoutePageInvoicing userOnInvoicesTab = new RoutePageInvoicing();
     Invoice_Header userSelectsPayment = new Invoice_Header();
+    CreateNewCustomer testCustomer = new CreateNewCustomer();
 
     String customerName;
     String paymentBalance;
@@ -99,13 +99,14 @@ public class CreditMemo extends AppData {
 
     @Then("I Can Change The Invoice Amount Which Has A Credit Memo")
     public void testChangingInvoiceAmountWithCreditMemo() throws InterruptedException {
-        TestTechNamePaymentsByServiceType test = new TestTechNamePaymentsByServiceType();
+        InvoicingTab testInvoice = new InvoicingTab();
         CustomerViewDialog_Header sameUser = new CustomerViewDialog_Header();
         InvoiceImplementation userMakesPayment = new InvoiceImplementation();
-        String customer = test.customerFullName;
-        String payment = test.paymentAmount;
+        String customer = CreateNewCustomer.customerName;
+        Header header = new Header();
+        String payment = testInvoice.paymentAmount;
 
-        userOnRoutePage.goToCustomerSearchComponent(customer);
+        header.searchCustomerWithName(customer);
         sameUser.goToInvoicesTab();
         userOnInvoicesTab.clickFullyPaidPaymentStatus();
         userOnInvoicesTab.typeServiceChargeAmount("200.00"); // Hard-Coded For Now But Will Update Later
@@ -113,11 +114,14 @@ public class CreditMemo extends AppData {
         paymentBalance = userOnInvoicesTab.getPaymentBalance();
         userOnInvoicesTab.addPayment();
         userSelectsPayment.clickCash();
-        payment = userMakesPayment.getPaymentAmount();
+        userMakesPayment.typePaymentAmount(payment);
         userMakesPayment.typeConfirmationAmount(payment);
         userMakesPayment.clickRecordPaymentButton();
         userMakesPayment.clickBackToAccountSummaryButton();
         Assert.assertTrue(userOnInvoicesTab.getRecentMemo().contains(payment),
-                "The Memo Does Not Contain Payment Amount");
+                "\n The Memo Does Not Contain Payment Amount: " +
+                        "\n Payment Amount Is " + payment +
+                        "\n Memo Is " + userOnInvoicesTab.getRecentMemo());
+        testCustomer.removeCustomer();
     }
 }

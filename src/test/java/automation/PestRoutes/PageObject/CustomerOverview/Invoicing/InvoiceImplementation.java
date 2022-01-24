@@ -203,6 +203,10 @@ public class InvoiceImplementation extends BasePage {
         return find(paymentAmtField).getAttribute("value");
     }
 
+    public void typePaymentAmount(String paymentAmount) {
+        type(paymentAmount, paymentAmtField);
+    }
+
     public void typeConfirmationAmount(String confirmationAmount)  {
         type(confirmationAmount, confirmAmountField);
     }

@@ -25,7 +25,7 @@ public class RoutePageInvoicing extends BasePage {
 	private By serviceChargeField = By.xpath("//div[@id='invoiceDetails']//input[@name='serviceCharge']");
 	private By initialDiscountField = By.xpath("//div[@id='invoiceDetails']//div[text()='Initial Discount']/following-sibling::input[@name='amount']");
 	private By paymentBalanceField = By.xpath("//div[@id='invoiceDetails']//div[text()='Balance']/following-sibling::div");
-	private By recentMemo = By.xpath("//div[@id='billingPanel']//div[text()='+ Add Payment']/following-sibling::div");
+	private By recentMemo = By.xpath("//div[@id='billingPanel']//div[contains(text(), 'applied')]");
 	private By initialBalance = By.xpath("//ul[@id='invoiceGroupListContainer']//span[text()='Initial Balance']/..");
 	private By subStatusAmount = By.xpath("//div[@class='statusBox']//div[@class='subInactive']");
 
@@ -124,6 +124,6 @@ public class RoutePageInvoicing extends BasePage {
 	}
 
 	public String getRecentMemo(){
-		return find(recentMemo).getAttribute("charge");
+		return getText(recentMemo);
 	}
 }

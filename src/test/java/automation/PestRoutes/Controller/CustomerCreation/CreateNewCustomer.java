@@ -2,7 +2,9 @@ package automation.PestRoutes.Controller.CustomerCreation;
 
 import java.io.IOException;
 
-import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_InfoTab;
+import automation.PestRoutes.Controller.Subscriptions.AddSubscription;
+import automation.PestRoutes.PageObject.CustomerOverview.*;
+import automation.PestRoutes.PageObject.DashboardPage;
 import automation.PestRoutes.PageObject.Search.SearchBox;
 import automation.PestRoutes.Utilities.*;
 import io.cucumber.java.en.Given;
@@ -12,9 +14,6 @@ import org.openqa.selenium.WebElement;
 import org.testng.annotations.Test;
 import automation.PestRoutes.PageObject.Header;
 import automation.PestRoutes.PageObject.CreateCustomer.CreateCustomerDialog;
-import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_Header;
-import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_OverviewTab;
-import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_Admin;
 import automation.PestRoutes.Utilities.Utilities.ElementType;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
@@ -28,22 +27,28 @@ public class CreateNewCustomer extends AppData {
     CustomerViewDialog_Header customerDialog_Header;
     CustomerViewDialog_OverviewTab overview;
     CustomerViewDialog_Admin adminTab;
+
     Header header;
     CustomerViewDialog_InfoTab customerViewDialog_infoTab;
     SearchBox searchBox;
 
     // if fName and lName length is changed, update method validateEmailAddressInSearch() as well
-    public String fName = Utilities.generateRandomString(7);
-    public String lName = Utilities.generateRandomString(6);
+    public String fName = Utilities.generateRandomString(3);
+    public String lName = Utilities.generateRandomString(4);
     String expectedAlert = "Required: You must fill in the customer's last name or company name!";
 
-    public String streetAddress = Integer.toString(Utilities.generateRandomNumber(4)) + " " + Utilities.generateRandomString(5) + " " + Utilities.generateRandomString(5);
+    public String streetAddress = Integer.toString(Utilities.generateRandomNumber(4)) + " " + Utilities.generateRandomString(5);
     public String city = Utilities.generateRandomString(4);
     public String zipcode = "77008";
-    public String email = Utilities.generateRandomString(5) + "." + Utilities.generateRandomString(5) + "" + "@gmail.com";
+    public String email = Utilities.generateRandomString(3) + "." + Utilities.generateRandomString(4) + "" + "@gmail.com";
     public String primaryPhoneNumber = "6" + Integer.toString(Utilities.generateRandomNumber(9));
 
     public static String customerName = "";
+    public static String customerFirstName;
+    public static String propertyAddress;
+    public static String cityStateZip;
+    public static String emailAddress;
+    public static String customerAccountID;
 
     @Test
     public void createCustomer() throws Exception {
@@ -592,7 +597,7 @@ public class CreateNewCustomer extends AppData {
     }
 
     @Then("I remove the customer")
-    public void removeCustomer() throws InterruptedException {
+    public void removeCustomer() {
         header = new Header();
         customerDialog_Header = new CustomerViewDialog_Header();
         adminTab = new CustomerViewDialog_Admin();
@@ -603,6 +608,7 @@ public class CreateNewCustomer extends AppData {
         Utilities.clickElement(adminTab.removeButton, ElementType.XPath);
         Utilities.waitUntileElementIsVisible(adminTab.confirmRemoveButton);
         Utilities.clickElement(adminTab.confirmRemoveButton, ElementType.XPath);
+        customerDialog_Header.clickDiscardChangesButton();
     }
 
     //Author FK
@@ -655,4 +661,37 @@ public class CreateNewCustomer extends AppData {
         }
         return customerName;
     }//createCustomerWithNameEmailAddrStreetAddrPhNumZipCode()
+
+    @Given("I Create A Customer With Basic Information")
+    public void createCustomerWithBasicInfo() throws InterruptedException {
+        DashboardPage userOnDashboard = new DashboardPage();
+        CreateCustomerDialog userCreateNewCustomer = new CreateCustomerDialog();
+        CustomerViewDialog_Header sameUser = new CustomerViewDialog_Header();
+
+        userOnDashboard.goToNewCustomerComponent();
+        userCreateNewCustomer.typeFirstName(fName);
+        customerFirstName = userCreateNewCustomer.getCustomerFirstName();
+        userCreateNewCustomer.typeLastName(lName);
+        customerName = userCreateNewCustomer.getCustomerFullName();
+        userCreateNewCustomer.typePropertyAddress(streetAddress);
+        propertyAddress = userCreateNewCustomer.getPropertyAddress();
+        userCreateNewCustomer.typeCity(city);
+        userCreateNewCustomer.typeZipCode(zipcode);
+        cityStateZip = userCreateNewCustomer.getCityStateZip();
+        userCreateNewCustomer.typeEmailAddress(email);
+        emailAddress = userCreateNewCustomer.getEmailAddress();
+        sameUser.clickCustomerSaveButton();
+    }
+
+    @Given("I Create A Customer With A Subscription")
+    public void automateCreatingCustomerWithSubscription() throws InterruptedException {
+        CustomerViewDialog_Header sameUser = new CustomerViewDialog_Header();
+        BillingPage userOnBillingTab = new BillingPage();
+        AddSubscription testSubscription = new AddSubscription();
+
+        createCustomerWithBasicInfo();
+        sameUser.goToBillingTab();
+        customerAccountID = userOnBillingTab.getCustomerAccountID();
+        testSubscription.createNewSubscriptionWithBasicInfo();
+    }
 }

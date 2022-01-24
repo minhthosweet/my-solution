@@ -20,6 +20,6 @@ Feature: Credit Memo
   @VerifyInvoiceAmountWithCreditMemoCanChange
   Scenario: Change The Invoice Amount For An Invoice With A Credit Memo
     Given I Create A Customer With A Subscription
-    When I Complete An Appointment
-    And I Pay Off A Non Stand Alone Invoice
-    Then I Can Change The Invoice Amount Which Has A Credit Memo
+    When  I Complete An Appointment
+    And   I Pay Off A Non Stand Alone Invoice
+    Then  I Can Change The Invoice Amount Which Has A Credit Memo
