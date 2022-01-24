@@ -47,7 +47,7 @@ public class ValidateRenewal extends AppData {
     {
         try {
             serviceType = getData("serviceDescription", generalData);
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

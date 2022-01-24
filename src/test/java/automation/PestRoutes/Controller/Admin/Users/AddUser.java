@@ -37,10 +37,17 @@ public class AddUser extends AppData {
 		adminPage.navigateTo(adminPage.users);
 
 		// Click on the User button
-//		try {
-//			WebElement elm = FindElement.elementByAttribute(adminPage.existingUser, InputType.XPath);
-//			deactivateUser();
-		if (!Utilities.isPresent(adminPage.existingUser)) {
+		try {
+			WebElement elm = FindElement.elementByAttribute(adminPage.existingUser, InputType.XPath);
+			deactivateUser();
+			Utilities.clickElement(adminPage.userButton, Utilities.ElementType.XPath);
+			addUserDialog.setInputValue(addUserDialog.firstNameInputField, userFirstName);
+			addUserDialog.setInputValue(addUserDialog.lastNameInputField, userLastName);
+			addUserDialog.selectValueFromDropDown(addUserDialog.accountTypeDropDown, needAccountType);
+			addUserDialog.clickButton(addUserDialog.activateSaveButton);
+			Thread.sleep(3000);
+			
+		} catch(Exception e ) {
 			Utilities.clickElement(adminPage.userButton, Utilities.ElementType.XPath);
 			addUserDialog.setInputValue(addUserDialog.firstNameInputField, userFirstName);
 			addUserDialog.setInputValue(addUserDialog.lastNameInputField, userLastName);
@@ -48,15 +55,7 @@ public class AddUser extends AppData {
 			addUserDialog.clickButton(addUserDialog.activateSaveButton);
 			Thread.sleep(3000);
 		}
-//		} catch(Exception e ) {
-//			Utilities.clickElement(adminPage.userButton, Utilities.ElementType.XPath);
-//			addUserDialog.setInputValue(addUserDialog.firstNameInputField, userFirstName);
-//			addUserDialog.setInputValue(addUserDialog.lastNameInputField, userLastName);
-//			addUserDialog.selectValueFromDropDown(addUserDialog.accountTypeDropDown, needAccountType);
-//			addUserDialog.clickButton(addUserDialog.activateSaveButton);
-//			Thread.sleep(3000);
-//		}
-				
+
 	}
 	@Then("I deactivate the existing user")
 	public void deactivateUser() throws InterruptedException {
