@@ -1,6 +1,8 @@
 package automation.PestRoutes.PageObject.CustomerPortal;
 
 import automation.PestRoutes.PageObject.BasePage;
+import static automation.PestRoutes.Utilities.Utilities.*;
+
 import org.openqa.selenium.By;
 
 public class CustomerPortalBasePage extends BasePage {
@@ -21,11 +23,17 @@ public class CustomerPortalBasePage extends BasePage {
 
     public CustomerPortalHistoryTabPage goToHistoryTab(){
         click(historyTab);
+        delay(2000);
+        refreshPage();
+        delay(2000);
         return new CustomerPortalHistoryTabPage();
     }
 
     public CustomerPortalBillingTabPage goToBillingTab() {
         click(billingTab);
+        delay(2000);
+        refreshPage();
+        delay(2000);
         return new CustomerPortalBillingTabPage();
     }
 

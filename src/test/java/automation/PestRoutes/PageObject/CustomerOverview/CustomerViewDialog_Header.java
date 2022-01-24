@@ -119,7 +119,7 @@ public class CustomerViewDialog_Header extends BasePage {
         }
     }
 
-    public void clickSaveChangesButton () throws InterruptedException {
+    public void clickSaveChangesButton () {
         if (elementIsVisible(saveChangesButton)){
             click(saveChangesButton);
             delay(3000);
@@ -149,8 +149,8 @@ public class CustomerViewDialog_Header extends BasePage {
         return new CustomerviewDialog_AppointmentsTab();
     }
 
-    public RoutePageInvoicing goToInvoicesTab () throws InterruptedException {
-        Thread.sleep(3000);
+    public RoutePageInvoicing goToInvoicesTab () {
+        delay(3000);
         click(invoicesTab);
         return new RoutePageInvoicing();
     }

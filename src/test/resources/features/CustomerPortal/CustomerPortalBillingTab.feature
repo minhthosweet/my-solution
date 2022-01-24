@@ -63,18 +63,20 @@ Feature: Customer Portal - Billing Tab Displays Accurate Information
       Then  I Verify The User Can Update Phone - Make Payment
 
     @VerifyErrorForOneTimeCardTotalAmount
-    Scenario: Verify Error Message For Required Fields When Using A One Time Card To Pay Total Amount
+    Scenario Outline: Verify Error Message For Required Fields When Using A One Time Card To Pay Total Amount
+      Given I Set Up The Application For "<Gateway>"
       Given I Create A Customer With A Subscription
       When  I Generate A Stand Alone Invoice
       And   I Navigate To Customer Portal From Customer Card - Admin Tab
-      Then  I Verify All Of The Required Fields To Pay Total Amount Using A One Time Card
+      Then  I Verify All Of The Required Fields To Pay Total Amount Using A One Time Card For Each "<Gateway>"
 
-    @VerifyErrorForOneTimeCardAnotherAmount
-    Scenario: Verify Error Message For Required Fields When Using A One Time Card To Pay Another Amount
-      Given I Create A Customer With A Subscription
-      When  I Generate A Stand Alone Invoice
-      And   I Navigate To Customer Portal From Customer Card - Admin Tab
-      Then  I Verify All Of The Required Fields To Pay Another Amount Using A One Time Card
+      Examples:
+       | Gateway             |
+       | Braintree           |
+       | Element             |
+       | NMI                 |
+       | Spreedly            |
+       | PestRoutes Payments |
 
     @VerifyTotalAmountUsingOneTimeCardForEachGateway
     Scenario Outline: Verify Paying Total Amount Using One Time Card For Each Gateway

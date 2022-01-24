@@ -17,11 +17,13 @@ public class CustomerPortalBillingTabPage extends CustomerPortalBasePage {
     private By enterCreditCardButton = By.xpath("//button[@id='renderSecureCardFormButton']");
     private By braintreeCardNumberField = By.xpath("//input[@id='credit-card-number']");
     private By braintreeExpirationDateField = By.xpath("//input[@id='expiration']");
+    private By checkYourInfoTryAgainErrorMessage = By.xpath("//div[text()='Please check your information and try again.']");
     private By elementCardNumberField = By.xpath("//input[@id='cardNumber']");
     private By elementExpirationMonth = By.xpath("//select[@id='ddlExpirationMonth']");
     private By elementExpirationYear = By.xpath("//select[@id='ddlExpirationYear']");
     private By elementCVVField = By.xpath("//input[@id='CVV']");
     private By elementProcessTransactionButton = By.xpath("//a[@id='submit']");
+    private By elementErrorMessage = By.xpath("//span[contains(text(),'Values must be entered for required fields')]");
     private By nmiCardNumberField = By.xpath("//input[@id='ccnumber']");
     private By nmiExpirationDateField = By.xpath("//input[@id='ccexp']");
     private By nmiCVVField = By.xpath("//input[@id='cvv']");
@@ -30,8 +32,13 @@ public class CustomerPortalBillingTabPage extends CustomerPortalBasePage {
     private By spreedlyExpirationYear = By.xpath("//select[@name='expYear']");
     private By spreedlyCVVField = By.xpath("//input[@id='cvv']");
     private By pestRoutesPaymentsCardNumber = By.xpath("//input[@id='payment_number']");
+    private By pestRoutesPaymentsCardNumberErrorMessage = By.xpath("//span[@id='payment_number_error']");
     private By pestRoutesPaymentsExpirationDate = By.xpath("//input[@id='expiration']");
+    private By pestRoutesPaymentsExpirationDateErrorMessage = By.xpath("//span[@id='expiration_error']");
     private By pestRoutesPaymentsCVVField = By.xpath("//input[@id='payment_cvv']");
+    private By pestRoutesPaymentsCVVErrorMessage = By.xpath("//span[@id='cvv_error']");
+    private By cardNumberErrorMessage = By.xpath("//div[text()='Please fill out a card number.' and not(contains(@id,'field-description-number'))]");
+    private By expirationDateErrorMessage = By.xpath("//div[text()='Please fill out an expiration date.' and not(contains(@id,'field-description-expirationDate'))]");
     private By makePaymentButton = By.xpath("//button[@id='submitPaymentOptionsButton']");
     private By currentSection = By.xpath("//h3[text()='Current']/..");
     private By showNumberEntriesDropDown = By.xpath("//select[@name='transactionHistory_length']");
@@ -49,9 +56,6 @@ public class CustomerPortalBillingTabPage extends CustomerPortalBasePage {
     private By updatePhoneImage = By.xpath("//div[@id='welcomeBarInner']//img[contains(@src, 'phones')]");
     private By makePaymentImage = By.xpath("//div[@id='welcomeBarInner']//img[contains(@src, 'balance')]");
     private By paymentMethodErrorMessage = By.xpath("//div[text()='Please choose a method of payment.']");
-    private By cardNumberErrorMessage = By.xpath("//span[@id='payment_number_error']");
-    private By expirationDateErrorMessage = By.xpath("//span[@id='expiration_error']");
-    private By cvvErrorMessage = By.xpath("//span[@id='cvv_error']");
 
     public List<String> getValuesFromShowNumberEntriesDropDown(){
         return getOptionsFromDropDown(showNumberEntriesDropDown);
@@ -126,20 +130,23 @@ public class CustomerPortalBillingTabPage extends CustomerPortalBasePage {
     }
 
     public void clickPayNowButton(){
+        scrollToElementJS(find(payNowButton));
         click(payNowButton);
     }
 
-    public boolean isPayNowButtonDisplayed() throws InterruptedException {
+    public boolean isPayNowButtonDisplayed() {
         if (find(payNowButton).isDisplayed()){
             return true;
         }
         return false;
     }
 
-    public void clickMakePaymentButton() throws InterruptedException {
-        scrollToElementJS(find(makePaymentButton));
-        Thread.sleep(1000);
-        click(makePaymentButton);
+    public void clickMakePaymentButton() {
+        if (elementIsVisible(makePaymentButton)) {
+            scrollToElementJS(find(makePaymentButton));
+            delay(1000);
+            click(makePaymentButton);
+        }
     }
 
     public void clickPayAnotherAmount(){
@@ -163,7 +170,9 @@ public class CustomerPortalBillingTabPage extends CustomerPortalBasePage {
     }
 
     public void clickUseOneTimeCard(){
+        delay(3000);
         click(useOneTimeCardButton);
+        delay(3000);
     }
 
     public void clickCardOnFile(){
@@ -174,22 +183,114 @@ public class CustomerPortalBillingTabPage extends CustomerPortalBasePage {
         return getText(paymentMethodErrorMessage);
     }
 
-    public String getCardNumberErrorMessage(){
-        driver.switchTo().defaultContent();
-        switchToIframeByXpath("payFields-iframe-number");
-        return getText(cardNumberErrorMessage);
+    public boolean isElementErrorDisplayed() {
+        if (elementIsVisible(enterCreditCardButton)){
+            click(enterCreditCardButton);
+            switchToIframeByXpath("elementSingleFrame");
+            click(elementProcessTransactionButton);
+        }
+        return elementIsVisible(elementErrorMessage);
     }
 
-    public String getExpirationDateErrorMessage(){
+    public boolean isNMIAlertErrorDisplayed() {
+       delay(3000);
+       String alertErrorMessage = getAlertText();
+       if (alertErrorMessage.contains("Incorrect")) {
+           acceptAlert();
+           return true;
+       }
+       return false;
+    }
+
+    public boolean isSpreedlyAlertErrorDisplayed () {
+        delay(3000);
+        String alertErrorMessage = getAlertText();
+        if (alertErrorMessage.contains("Invalid")) {
+            acceptAlert();
+            return true;
+        }
+        return false;
+    }
+
+    public boolean isPestRoutesPaymentsCardNumberErrorDisplayed() {
+        if (elementIsVisible(By.xpath("//iframe[@id='payFields-iframe-number']"))) {
+            switchToIframeByXpath("payFields-iframe-number");
+            if (!elementIsVisible(pestRoutesPaymentsCardNumber)) {
+                refreshPage();
+                delay(2000);
+                clickPayNowButton();
+                clickUseOneTimeCard();
+                clickMakePaymentButton();
+                switchToIframeByXpath("payFields-iframe-number");
+            }
+            return elementIsVisible(pestRoutesPaymentsCardNumberErrorMessage);
+        }
+        return elementIsVisible(pestRoutesPaymentsCardNumberErrorMessage);
+    }
+
+    public boolean isPestRoutesPaymentsExpirationErrorDisplayed() {
         driver.switchTo().defaultContent();
         switchToIframeByXpath("payFields-iframe-expiration");
-        return getText(expirationDateErrorMessage);
+        return elementIsVisible(pestRoutesPaymentsExpirationDateErrorMessage);
     }
 
-    public String getCVVErrorMessage(){
+    public boolean isPestRoutesPaymentsCVVErrorDisplayed() {
         driver.switchTo().defaultContent();
         switchToIframeByXpath("payFields-iframe-cvv");
-        return getText(cvvErrorMessage);
+        return elementIsVisible(pestRoutesPaymentsCVVErrorMessage);
+    }
+
+    public boolean isPayTotalCardNumberErrorDisplayed(String gateway){
+        switch(gateway) {
+            case "Braintree":
+                return elementIsVisible(cardNumberErrorMessage);
+            case "Element":
+                return isElementErrorDisplayed();
+            case "NMI":
+                return isNMIAlertErrorDisplayed();
+            case "Spreedly":
+                return isSpreedlyAlertErrorDisplayed();
+            case "PestRoutes Payments":
+                return isPestRoutesPaymentsCardNumberErrorDisplayed();
+            default: return false;
+        }
+    }
+
+    public boolean isPayTotalExpirationDateErrorDisplayed(String gateway){
+        switch(gateway) {
+            case "Braintree":
+                return elementIsVisible(expirationDateErrorMessage);
+            case "Element":
+                return isElementErrorDisplayed();
+            case "NMI":
+                clickMakePaymentButton();
+                return isNMIAlertErrorDisplayed();
+            case "Spreedly":
+                clickMakePaymentButton();
+                return isSpreedlyAlertErrorDisplayed();
+            case "PestRoutes Payments":
+                return isPestRoutesPaymentsExpirationErrorDisplayed();
+            default:
+                return false;
+        }
+    }
+
+   public boolean isPayTotalCVVErrorDisplayed(String gateway){
+        switch(gateway) {
+            case "Braintree":
+                return elementIsVisible(checkYourInfoTryAgainErrorMessage);
+            case "Element":
+                return isElementErrorDisplayed();
+            case "NMI":
+                clickMakePaymentButton();
+                return isNMIAlertErrorDisplayed();
+            case "Spreedly":
+                clickMakePaymentButton();
+                return isSpreedlyAlertErrorDisplayed();
+            case "PestRoutes Payments":
+                return isPestRoutesPaymentsCVVErrorDisplayed();
+            default: return false;
+        }
     }
 
     public void enterBraintreeNewCardInformation(String cardNumber, String expirationDate){
@@ -219,10 +320,10 @@ public class CustomerPortalBillingTabPage extends CustomerPortalBasePage {
         driver.switchTo().defaultContent();
     }
 
-    public void enterNMINewCardInformation(String cardNumber, String expirationDate, String cvv) throws InterruptedException {
+    public void enterNMINewCardInformation(String cardNumber, String expirationDate, String cvv) {
         refreshPage();
         clickPayNowButton();
-        Thread.sleep(1000);
+        delay(1000);
         clickUseOneTimeCard();
         switchToIframeByXpath("CollectJSInlineccnumber");
         scrollToElementJS(find(nmiCardNumberField));
@@ -258,10 +359,10 @@ public class CustomerPortalBillingTabPage extends CustomerPortalBasePage {
         driver.switchTo().defaultContent();
     }
 
-    public void enterPestRoutesPaymentsNewCardInformation(String cardNumber, String expirationDate, String cvv) throws InterruptedException {
+    public void enterPestRoutesPaymentsNewCardInformation(String cardNumber, String expirationDate, String cvv) {
         refreshPage();
         clickPayNowButton();
-        Thread.sleep(1000);
+        delay(1000);
         clickUseOneTimeCard();
         switchToIframeByXpath("payFields-iframe-number");
         scrollToElementJS(find(pestRoutesPaymentsCardNumber));

@@ -124,6 +124,7 @@ public class TestCustomerPortalSummaryTab {
         switchToOldWindowOpened();
         testCustomer.removeCustomer();
     }
+  
     @When("I Schedule An Appointment")
     public void automateSchedulingAnAppointment() throws Exception {
         sameUser.goToAppointmentsTab();

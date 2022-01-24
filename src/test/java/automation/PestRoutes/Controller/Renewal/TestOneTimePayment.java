@@ -6,10 +6,13 @@ import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_Subs
 import automation.PestRoutes.PageObject.CustomerOverview.Invoicing.InvoiceImplementation;
 import automation.PestRoutes.PageObject.CustomerOverview.Invoicing.Invoice_Header;
 import automation.PestRoutes.PageObject.CustomerOverview.Invoicing.RoutePageInvoicing;
+import automation.PestRoutes.Utilities.Utilities;
+import static automation.PestRoutes.Utilities.Utilities.currentDate;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.testng.Assert;
 
+import static automation.PestRoutes.Utilities.GetDate.addOneYearToDate;
 import static automation.PestRoutes.Utilities.Utilities.acceptAlert;
 
 public class TestOneTimePayment {
@@ -21,43 +24,37 @@ public class TestOneTimePayment {
     CustomerViewDialog_SubscriptionTab userOnSubscriptionTab = new CustomerViewDialog_SubscriptionTab();
     CreateNewCustomer testCustomer = new CreateNewCustomer();
 
-    String paymentAmount;
-    String invoiceRenewalDate;
-    String subscriptionRenewalDate;
 
-    @When("I Process A One Time Single Use Card Payment On A Renewal Subscription")
-    public void automateProcessingSingleUseCardPaymentOnARenewalSubscription() throws InterruptedException {
+
+    @When("I Process A One Time Single Use Card Payment On A Renewal Subscription Using {string}, {string}, {string}, {string}")
+    public void automateProcessingSingleUseCardPaymentOnARenewalSubscription(String gateway, String creditCardNumber, String expirationDate, String cvv) {
+        String address = testCustomer.propertyAddress;
+        String paymentAmount;
+
         userOnInvoicesTab = sameUser.goToInvoicesTab();
         userOnInvoicesTab.addPayment();
         userSelectsPayment.clickCard();
         paymentAmount = userMakesPayment.getPaymentAmount();
         userMakesPayment.typeConfirmationAmount(paymentAmount);
         userMakesPayment.selectLimitedToSubscription();
-        userMakesPayment.typeAddress("1234 Testers Boulevard");
-        invoiceRenewalDate = userMakesPayment.getRenewalDate();
-        userMakesPayment.clickChargeSingleCardButton();
+        userMakesPayment.typeAddress(address);
+        userMakesPayment.enterNewCardInformation(gateway, creditCardNumber, expirationDate, cvv);
         acceptAlert();
-        userMakesPayment.typeCreditCardNumber("4242424242424242");
-        userMakesPayment.selectExpirationDate("12", "2034");
-        userMakesPayment.typeCVV("123");
-        userMakesPayment.clickProcessTransactionButton();
-        acceptAlert();
-        sameUser.switchToCustomerCard();
     }
 
-    @Then("I See All Of The Renewal Tasks")
-    public void testAllOfTheRenewalTasks() {
+    @Then("I See The Subscription Renewal Date Move Forward After Making Single Use Card Payment")
+    public void testSubscriptionRenewalDateTask() {
+        String actualSubscriptionRenewalDate;
+        String expectedSubscriptionRenewalDate = addOneYearToDate(currentDate("MM/dd/yyyy"));
+
         userOnInvoicesTab.clickBackToAccountSummaryButton();
-        Assert.assertTrue(userOnInvoicesTab.getSuccessApprovedNote().contains("Success"),
-                "The Payment Transaction Was Not A Success" );
         userOnSubscriptionTab = sameUser.goToSubscriptionTab();
         userOnSubscriptionTab.clickActiveSubscription();
-        subscriptionRenewalDate = userOnSubscriptionTab.getSubscriptionRenewalDate();
-        Assert.assertEquals(subscriptionRenewalDate, invoiceRenewalDate,
-                "\n Actual Renewal Date: " + subscriptionRenewalDate +
-                        "\n Expected Renewal Date: " + invoiceRenewalDate +
-                        "\n The Actual Renewal Date From Subscription Tab Does Not Match " +
-                            "Expected Renewal Date From Invoice Tab");
+        actualSubscriptionRenewalDate = userOnSubscriptionTab.getSubscriptionRenewalDate();
+        Assert.assertEquals(actualSubscriptionRenewalDate, expectedSubscriptionRenewalDate,
+                "\n Actual Renewal Date: " + actualSubscriptionRenewalDate +
+                        "\n Expected Renewal Date: " + expectedSubscriptionRenewalDate +
+                        "\n The Subscription Actual Renewal Date & Expected Renewal Date Does Not Match");
         testCustomer.removeCustomer();
     }
 }

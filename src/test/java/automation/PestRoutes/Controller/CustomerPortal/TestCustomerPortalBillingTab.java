@@ -129,7 +129,7 @@ public class TestCustomerPortalBillingTab {
     }
 
     @Then("I Verify An Error Shows Up When Selecting Pay Another Amount Without Selecting a Payment Method")
-    public void testSearchFieldInTheBillingTab() throws InterruptedException {
+    public void testSearchFieldInTheBillingTab() {
         userOnCustomerPortalBillingTab = userOnCustomerPortalSummaryTab.goToBillingTab();
         userOnCustomerPortalBillingTab.clickPayNowButton();
         userOnCustomerPortalBillingTab.clickPayAnotherAmount();
@@ -154,42 +154,18 @@ public class TestCustomerPortalBillingTab {
         testCustomer.removeCustomer();
     }
 
-    @Then("I Verify All Of The Required Fields To Pay Total Amount Using A One Time Card")
-    public void testAllOfTheRequiredFieldsToPayTotalAmountUsingOneTimeCard() throws InterruptedException {
+    @Then("I Verify All Of The Required Fields To Pay Total Amount Using A One Time Card For Each {string}")
+    public void testAllOfTheRequiredFieldsToPayTotalAmountUsingOneTimeCard(String gateway) {
         userOnCustomerPortalBillingTab = userOnCustomerPortalSummaryTab.goToBillingTab();
         userOnCustomerPortalBillingTab.clickPayNowButton();
         userOnCustomerPortalBillingTab.clickUseOneTimeCard();
         userOnCustomerPortalBillingTab.clickMakePaymentButton();
-        Assert.assertTrue(userOnCustomerPortalBillingTab.getCardNumberErrorMessage().
-                contains("This field is required"),
-                "Card Number Does Not Contain A Required Field Error Message");
-        Assert.assertTrue(userOnCustomerPortalBillingTab.getExpirationDateErrorMessage().
-                contains("This field is required"),
-                "Expiration Date Does Not Contain A Required Field Error Message");
-        Assert.assertTrue(userOnCustomerPortalBillingTab.getCVVErrorMessage().
-                        contains("This field is required"),
-                "CVV Does Not Contain A Required Field Error Message");
-        closeTab();
-        switchToOldWindowOpened();
-        testCustomer.removeCustomer();
-    }
-
-    @Then("I Verify All Of The Required Fields To Pay Another Amount Using A One Time Card")
-    public void testAllOfTheRequiredFieldsToPayAnotherAmountUsingOneTimeCard() throws InterruptedException {
-        userOnCustomerPortalBillingTab = userOnCustomerPortalSummaryTab.goToBillingTab();
-        userOnCustomerPortalBillingTab.clickPayNowButton();
-        userOnCustomerPortalBillingTab.clickPayAnotherAmount();
-        userOnCustomerPortalBillingTab.clickUseOneTimeCard();
-        userOnCustomerPortalBillingTab.clickMakePaymentButton();
-        Assert.assertTrue(userOnCustomerPortalBillingTab.getCardNumberErrorMessage().
-                        contains("This field is required"),
-                "Card Number Does Not Contain A Required Field Error Message");
-        Assert.assertTrue(userOnCustomerPortalBillingTab.getExpirationDateErrorMessage().
-                        contains("This field is required"),
-                "Expiration Date Does Not Contain A Required Field Error Message");
-        Assert.assertTrue(userOnCustomerPortalBillingTab.getCVVErrorMessage().
-                        contains("This field is required"),
-                "CVV Does Not Contain A Required Field Error Message");
+        Assert.assertTrue(userOnCustomerPortalBillingTab.isPayTotalCardNumberErrorDisplayed(gateway),
+                "Card Number Does Not Have A Required Field Error Message");
+        Assert.assertTrue(userOnCustomerPortalBillingTab.isPayTotalExpirationDateErrorDisplayed(gateway),
+                "Expiration Date Does Not Have A Required Field Error Message");
+        Assert.assertTrue(userOnCustomerPortalBillingTab.isPayTotalCVVErrorDisplayed(gateway),
+                "CVV Does Not Have A Required Field Error Message");
         closeTab();
         switchToOldWindowOpened();
         testCustomer.removeCustomer();

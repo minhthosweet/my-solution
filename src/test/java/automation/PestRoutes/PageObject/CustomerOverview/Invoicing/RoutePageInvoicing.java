@@ -19,7 +19,6 @@ public class RoutePageInvoicing extends BasePage {
 	public String addTicketItem = "//div[contains(@class,'grayButton full aCenter  serviceTicketButton left') and contains(text(),'Add Ticket Item')]";
 	public String clickAddPartialPayment = "//div[contains(@class,'grayButton full aCenter  serviceTicketButton ticketPaymentButton left') and contains(text(),'Add Payment')]";
 	private String addAvailableTicket = "//div[@id='availableItems']//li[1]";
-	private By successApprovedNote = By.xpath("//div[@id='billingPanel']//div[text()='Success! Approved']");
 	private By backToAccountSummaryButton = By.xpath("//div[@id='billingPanel']//div[text()='Back to Account Summary']");
 	private By fullyPaidPaymentStatus = By.xpath("//ul[@id='invoiceGroupListContainer']//div[contains(text(),'FULLY PAID')]");
 	private By serviceChargeField = By.xpath("//div[@id='invoiceDetails']//input[@name='serviceCharge']");
@@ -49,8 +48,8 @@ public class RoutePageInvoicing extends BasePage {
 		//Optimized For Encapsulation Below via addPayment() Using A Private Modifier With By Class
 	}
 
-	public void addPayment() throws InterruptedException {
-		Thread.sleep(3000);
+	public void addPayment() {
+		delay(3000);
 		click(addInvoicePayment);
 	}
 
@@ -74,11 +73,7 @@ public class RoutePageInvoicing extends BasePage {
 		Utilities.clickElement(addAvailableTicket, ElementType.XPath);
 	}
 
-	public String getSuccessApprovedNote () {
-		return getText(successApprovedNote);
-	}
-
-	public Boolean clickBackToAccountSummaryButton () {
+	public boolean clickBackToAccountSummaryButton () {
 		if (driver.findElements(backToAccountSummaryButton).size() > 0) {
 			click(backToAccountSummaryButton);
 			return true;

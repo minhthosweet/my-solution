@@ -132,6 +132,8 @@ public class CustomerViewDialog_Admin extends BasePage {
             }
         }
         refreshPage();
+        delay(3000);
+        refreshPage();
         return new CustomerPortalSummaryTabPage();
     }
 }
