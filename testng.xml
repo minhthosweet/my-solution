@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+<suite name="Parallel Tests" parallel="classes"  thread-count="4">
+    <test name="Execute Feature Files">
+         <classes>
+            <class name="automation.PestRoutes.TestRunner.FeatureFiles.RunAdmin"> </class>
+            <class name="automation.PestRoutes.TestRunner.FeatureFiles.RunAppointment"> </class>
+            <class name="automation.PestRoutes.TestRunner.FeatureFiles.RunCustomerCard"> </class>
+            <class name="automation.PestRoutes.TestRunner.FeatureFiles.RunCustomerPortal"> </class>
+            <class name="automation.PestRoutes.TestRunner.FeatureFiles.RunMiscellaneous"> </class>
+            <class name="automation.PestRoutes.TestRunner.FeatureFiles.RunReport"> </class>
+            <class name="automation.PestRoutes.TestRunner.FeatureFiles.RunScheduling"> </class>
+            <class name="automation.PestRoutes.TestRunner.FeatureFiles.RunTriggerRules"> </class>
+        </classes>
+    </test>
+</suite>

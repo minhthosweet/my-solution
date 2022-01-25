@@ -1,5 +1,6 @@
 #Author Aarbi
 #@Smoke
+@CustomerCard
 Feature: Subscription tab
 
   Scenario: Validate subscription upcoming appointments

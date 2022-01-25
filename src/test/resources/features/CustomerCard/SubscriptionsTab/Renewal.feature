@@ -1,4 +1,5 @@
 #Author Aarbi
+@CustomerCard
 @Regression
 @SubscriptionsTab
 @RegressionARB

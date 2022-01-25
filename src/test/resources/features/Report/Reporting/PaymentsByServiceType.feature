@@ -1,4 +1,5 @@
 #Author: Aditya
+@Report
 @Regression
 @Reporting
 @PaymentsByServiceType

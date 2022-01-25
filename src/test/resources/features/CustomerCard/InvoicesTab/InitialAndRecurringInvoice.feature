@@ -1,4 +1,5 @@
 #Author Aditya
+@CustomerCard
 @Smoke
 @InvoicesTab
 @InitialAndRecurringInvoices

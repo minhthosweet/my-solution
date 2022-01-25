@@ -1,4 +1,5 @@
 #Author Aditya
+@CustomerCard
 @Regression
 @SubscriptionsTab
 @CustomAppointmentDate

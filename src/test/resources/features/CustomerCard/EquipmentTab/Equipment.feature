@@ -1,4 +1,5 @@
 #Author: Faraz
+@CustomerCard
 @Smoke
 @EquipmentTab
 @Equipment

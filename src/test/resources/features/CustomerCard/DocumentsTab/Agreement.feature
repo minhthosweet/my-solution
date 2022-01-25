@@ -1,3 +1,4 @@
+@CustomerCard
 @Smoke
 @DocumentTab
 @RegressionFRK

@@ -1,4 +1,5 @@
 #Auther: Faraz
+@CustomerCard
 @Regression
 @RegressionFRK
 @PaymentDistribution

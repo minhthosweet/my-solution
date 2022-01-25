@@ -1,6 +1,7 @@
 # Author: Rex Jones II
 # Ticket 110239: Custom Production Not working Properly
 # https://fieldroutes.freshdesk.com/a/tickets/110239
+@CustomerCard
 @RegressionREX
 @Regression
 @LeadsTab
