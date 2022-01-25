@@ -743,7 +743,7 @@ public class Utilities {
 	}
 
 	public static boolean isPresent(String XPath) {
-		return isPresent(XPath, 5);
+		return driver.findElements(By.xpath(XPath)).size() > 0;
 	}
 
 	public static void delay(int timeout) {

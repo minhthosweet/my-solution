@@ -53,7 +53,8 @@ public class CustomerReportsPage extends BasePage {
     //BulkFreeze objects
     public String cancellationNotesTextBox = "//textArea[@id='customerActionCancelNotes']";
     public String bulkFreezeApplyButton = "//div[@id='bulkFreeze']//following-sibling::div//span[text()='Apply']";
-    public String cancellationCategory_bulkFreeze = "//div[@class='customerActionsRow customerFreezeAction']//select[@name='customerActionCancelCategory']//option[@selected]";
+    public String cancellationCategory_bulkFreeze = "//div[@class='customerActionsRow customerFreezeAction']//select[@name='customerActionCancelCategory']//option[text() = 'No Contact']";
+    public String customerCancellationReason = "//div[@class='customerActionsRow customerFreezeAction']/select[@name='customerActionCancelCategory']";
 
     //bulk freeze rollback objects
     public String searchInBulkFreezeRollBack = "//div[@id='bulkFreezeProcessDetailTable_filter']//input";

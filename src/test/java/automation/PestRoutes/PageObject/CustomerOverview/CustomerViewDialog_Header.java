@@ -6,7 +6,9 @@ import automation.PestRoutes.PageObject.Leads.LeadsPage;
 import automation.PestRoutes.Utilities.Utilities;
 import automation.PestRoutes.Utilities.Utilities.ElementType;
 import io.cucumber.java.en.And;
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -70,7 +72,21 @@ public class CustomerViewDialog_Header extends BasePage {
 
     public void clickSaveButton() {
         Utilities.clickElement(saveButton, ElementType.XPath);
-        delay(400);
+        int i = 0;
+        while (i++ < 5) {
+            try {
+                Alert alert = Utilities.alertPopUp();
+                String actionAlert = Utilities.getAlertText();
+                String expected = "This customer is closer";
+                if (actionAlert.contains(expected)) {
+                    alert.dismiss();
+                }
+                break;
+            } catch (NoAlertPresentException e) {
+                Thread.sleep(500);
+                continue;
+            }
+        }
         //Optimized For Encapsulation Below via clickCustomerSaveButton() Using A Private Modifier With By Class
     }
 
@@ -87,6 +103,7 @@ public class CustomerViewDialog_Header extends BasePage {
         Thread.sleep(500);
         Utilities.waitUntileElementIsVisible(closeButton);
         Utilities.clickElement(closeButton, ElementType.XPath);
+        clickSaveChangesButton();
     }
 
     public void Click_X_Button() {

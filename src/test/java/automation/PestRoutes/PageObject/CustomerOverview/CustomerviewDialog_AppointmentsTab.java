@@ -257,7 +257,7 @@ public class CustomerviewDialog_AppointmentsTab extends BasePage {
     public String getScheduledBy_User() {
         Utilities.waitUntileElementIsVisible(scheduledBy);
         String schedulerName = Utilities.getElementTextValue(scheduledBy, ElementType.XPath);
-        int index = schedulerName.indexOf("on");
+        int index = schedulerName.indexOf(" on");
         schedulerName = schedulerName.substring(0, index);
         return schedulerName;
     }
@@ -265,7 +265,7 @@ public class CustomerviewDialog_AppointmentsTab extends BasePage {
     public String getCompletedBy_User() {
         Utilities.waitUntileElementIsVisible(completedBy);
         String completedByName = Utilities.getElementTextValue(completedBy, ElementType.XPath);
-        int index = completedByName.indexOf("on");
+        int index = completedByName.indexOf(" on");
         completedByName = completedByName.substring(0, index);
         return completedByName;
     }

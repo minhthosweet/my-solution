@@ -306,7 +306,12 @@ public class BillingByServiceType extends AppData {
     @And("I create a standalone invoice for current date")
     public void createStandAloneInvoice() throws IOException, InterruptedException {
         accountReceivable = new AccountReceivable();
-        accountReceivable.createStandAloneServiceInvoice(standAloneInvoiceAmount, Utilities.currentDate("MM/dd/yyyy"), getData("serviceDescription", generalData));
+//        accountReceivable.createStandAloneServiceInvoice
+//                (standAloneInvoiceAmount, Utilities.currentDate("MM/dd/yyyy"),
+//                        getData("serviceDescription", generalData));
+        accountReceivable.createStandAloneServiceInvoice
+                ("400", Utilities.currentDate("MM/dd/yyyy"),
+                        getData("serviceDescription", generalData));
     }
 
     //Author: Aditya

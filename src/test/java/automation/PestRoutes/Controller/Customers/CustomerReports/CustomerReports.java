@@ -536,16 +536,33 @@ public class CustomerReports extends AppData {
         customerReportsPage.setType(customerReportsPage.filterTypes_CR("firstName_CR"), fName_CR);
         customerReportsPage.click(customerReportsPage.billingAccount);
         customerReportsPage.setType(customerReportsPage.filterTypes_CR("balanceAge_CR"), "0");
-        customerReportsPage.setValueFromDropdown(customerReportsPage.filterTypes_CR("amountDueAssignment_CR"), ">");
-        customerReportsPage.setType(customerReportsPage.filterTypes_CR("amountDue_CR"), billingByServiceType.standAloneInvoiceAmount);
-        customerReportsPage.setType(customerReportsPage.filterTypes_CR("responsibleBalanceAge_CR"), "0");
-        customerReportsPage.setValueFromDropdown(customerReportsPage.filterTypes_CR("responsibleBalanceAssignment_CR"), ">");
-        customerReportsPage.setType(customerReportsPage.filterTypes_CR("responsibleBalance_CR"), billingByServiceType.standAloneInvoiceAmount);
+        customerReportsPage.setValueFromDropdown
+                (customerReportsPage.filterTypes_CR("amountDueAssignment_CR"), ">");
+
+//        customerReportsPage.setType(customerReportsPage.filterTypes_CR
+//                ("amountDue_CR"), billingByServiceType.standAloneInvoiceAmount);
+
+        customerReportsPage.setType(customerReportsPage.filterTypes_CR
+                ("amountDue_CR"), "400");
+        customerReportsPage.setType(customerReportsPage.filterTypes_CR
+                ("responsibleBalanceAge_CR"), "0");
+        customerReportsPage.setValueFromDropdown(customerReportsPage.filterTypes_CR
+                ("responsibleBalanceAssignment_CR"), ">");
+
+//        customerReportsPage.setType(customerReportsPage.filterTypes_CR
+//                ("responsibleBalance_CR"), billingByServiceType.standAloneInvoiceAmount);
+
+        customerReportsPage.setType(customerReportsPage.filterTypes_CR
+                ("responsibleBalance_CR"), "400");
         customerReportsPage.setType(customerReportsPage.filterTypes_CR("maxMonthlyCharge_CR"), maxMonthly);
-        customerReportsPage.setValueFromDropdown(customerReportsPage.filterTypes_CR("customerAutoPay_CR"), "Credit Card");
-        customerReportsPage.setValueFromDropdown(customerReportsPage.filterTypes_CR("paymentProfileStatus_CR"), "Valid");
-        customerReportsPage.setValueFromDropdown(customerReportsPage.filterTypes_CR("customerHasCC_CR"), "Yes");
-        customerReportsPage.setValueFromDropdown(customerReportsPage.filterTypes_CR("customerHasACH_CR"), "Yes");
+        customerReportsPage.setValueFromDropdown(customerReportsPage.filterTypes_CR
+                ("customerAutoPay_CR"), "Credit Card");
+        customerReportsPage.setValueFromDropdown(customerReportsPage.filterTypes_CR
+                ("paymentProfileStatus_CR"), "Valid");
+        customerReportsPage.setValueFromDropdown(customerReportsPage.filterTypes_CR
+                ("customerHasCC_CR"), "Yes");
+        customerReportsPage.setValueFromDropdown(customerReportsPage.filterTypes_CR
+                ("customerHasACH_CR"), "Yes");
         customerReportsPage.click(customerReportsPage.refreshButton);
     }
 
@@ -733,7 +750,7 @@ public class CustomerReports extends AppData {
         result(lName_CR.toLowerCase(Locale.ROOT), (customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[2]")).toLowerCase(Locale.ROOT), "Customer last name validation", " Customer Reports Validation");
         result(fName_CR.toLowerCase(Locale.ROOT), (customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[3]")).toLowerCase(Locale.ROOT), "Customer first name validation", " Customer Reports Validation");
         result("0", (customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[4]")), "A/R Aging validation", " Customer Reports Validation");
-        result(balance, "$" + (customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[5]")), "Account Balance validation", " Customer Reports Validation");
+        result((balance).replaceAll(",", ""), "$" + (customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[5]")), "Account Balance validation", " Customer Reports Validation");
         result("0", (customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[6]")), "Responsible A/R Aging validation", " Customer Reports Validation");
         result(balance, "$" + (customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[7]")), "Responsible Account Balance validation", " Customer Reports Validation");
         result(String.format("%.2f", Double.parseDouble(maxMonthly)), (customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[8]")), "Max Monthly validation", " Customer Reports Validation");
@@ -885,6 +902,8 @@ public class CustomerReports extends AppData {
         customerReportsPage.clickActionType_action(customerReportsPage.bulkFreeze);
         customerReportsPage.setBulkFreezeNote(textMessage);
         bulkFreezeCategory = customerReportsPage.getTextValue(customerReportsPage.cancellationCategory_bulkFreeze);
+        Utilities.selectValueFromDropDownByValue(customerReportsPage.customerCancellationReason, "No Contact");
+        System.out.println(bulkFreezeCategory);
         customerReportsPage.click(customerReportsPage.bulkFreezeApplyButton);
         Utilities.acceptAlert();
     }
@@ -909,9 +928,15 @@ public class CustomerReports extends AppData {
         customerReportsPage.clickCustomerReport();
         customerCardHeader = new CustomerViewDialog_Header();
         customerCardHeader.navigateTo(customerCardHeader.notesTabInDialog);
-        result("[" + bulkFreezeCategory + "]", customerReportsPage.getTextValue("//div[@name='contactTypeName']//strong[text()]"), "Customer Frozen Category validation one in Notes tab of customer card", " Customer Reports Validation");
-        String actualBulkFreezeNote = customerReportsPage.getTextValue("//div[@id='contactsPanelWrapper']//div[contains(text(),'FROZE')]");
-        result(textMessage, (actualBulkFreezeNote).substring(actualBulkFreezeNote.length() - 5), "Customer Frozen Note validation two in Notes tab of customer card", " Customer Reports Validation");
+        result("[" + bulkFreezeCategory + "]", customerReportsPage.getTextValue
+                ("//div[@name='contactTypeName']//strong[text()]")
+                , "Customer Frozen Category validation one in Notes tab of customer card",
+                " Customer Reports Validation");
+        String actualBulkFreezeNote = customerReportsPage.getTextValue
+                ("//div[@id='contactsPanelWrapper']//div[contains(text(),'FROZE')]");
+        result(textMessage, (actualBulkFreezeNote).substring(actualBulkFreezeNote.length() - 5),
+                "Customer Frozen Note validation two in Notes tab of customer card",
+                " Customer Reports Validation");
     }
 
     @Then("I validate if the customer was frozen in Admin tab of customer card")

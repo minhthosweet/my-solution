@@ -24,7 +24,7 @@ public class OfficeValidation {
     //**Author Aarbi
     public void officeValidation(){
         String[] offices = {"//option[text()='Switch to:  Rubens1']", "//option[text()='Switch to: Matthews Code SLinging Test 2']",
-                "//option[text()='Switch to: TestPest']"};
+                "//option[text()='Switch to: Test Office 1']"};
         AssertException.validateFieldEnabled(offices);
     }
 
