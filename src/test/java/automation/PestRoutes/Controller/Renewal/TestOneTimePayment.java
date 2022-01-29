@@ -8,12 +8,13 @@ import automation.PestRoutes.PageObject.CustomerOverview.Invoicing.Invoice_Heade
 import automation.PestRoutes.PageObject.CustomerOverview.Invoicing.RoutePageInvoicing;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import org.testng.Assert;
+import org.testng.asserts.SoftAssert;
 
 import static automation.PestRoutes.Utilities.Utilities.*;
 
 public class TestOneTimePayment {
 
+    SoftAssert softAssert = new SoftAssert();
     CustomerViewDialog_Header sameUser = new CustomerViewDialog_Header();
     RoutePageInvoicing userOnInvoicesTab = new RoutePageInvoicing();
     Invoice_Header userSelectsPayment = new Invoice_Header();
@@ -48,10 +49,11 @@ public class TestOneTimePayment {
         System.out.println(gateway + " Subscription");
         System.out.println("\t Expected Renewal Date: " + invoiceRenewalDate);
         System.out.println("\t Actual Renewal Date:   " + subscriptionRenewalDate);
-        Assert.assertEquals(subscriptionRenewalDate, invoiceRenewalDate,
+        softAssert.assertEquals(subscriptionRenewalDate, invoiceRenewalDate,
                 "\n Actual Renewal Date: " + subscriptionRenewalDate +
                         "\n Expected Renewal Date: " + invoiceRenewalDate +
                         "\n The Subscription Actual Renewal Date & Expected Renewal Date Does Not Match");
+        softAssert.assertAll();
         testCustomer.removeCustomer();
     }
 }

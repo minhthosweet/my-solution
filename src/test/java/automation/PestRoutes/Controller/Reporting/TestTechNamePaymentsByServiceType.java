@@ -6,11 +6,12 @@ import automation.PestRoutes.PageObject.DashboardPage;
 import automation.PestRoutes.PageObject.ReportingPage.OfficePage.PaymentsByServiceTypeTab;
 import automation.PestRoutes.PageObject.ReportingPage.ReportingMainPage;
 import io.cucumber.java.en.Then;
-import org.testng.Assert;
+import org.testng.asserts.SoftAssert;
 
 import static automation.PestRoutes.Utilities.Utilities.transformName;
 
 public class TestTechNamePaymentsByServiceType {
+    SoftAssert softAssert = new SoftAssert();
     DashboardPage userOnDashboard = new DashboardPage();
     ReportingMainPage userOnReportingComponent = new ReportingMainPage();
     PaymentsByServiceTypeTab userOnPaymentByServiceType = new PaymentsByServiceTypeTab();
@@ -25,9 +26,10 @@ public class TestTechNamePaymentsByServiceType {
         userOnPaymentByServiceType.selectGroupBy("Technician");
         userOnPaymentByServiceType.clickRefreshButton();
         userOnPaymentByServiceType.clickDescription("No Tech");
-        Assert.assertTrue(userOnPaymentByServiceType.getCustomerName(testCustomer.customerName),
+        softAssert.assertTrue(userOnPaymentByServiceType.getCustomerName(testCustomer.customerName),
                 "\n Customer Name Is " + testCustomer.customerName +
                         "\n Customer Is Not Available After Selecting A Technician");
+        softAssert.assertAll();
         testCustomer.removeCustomer();
     }
 
@@ -40,9 +42,10 @@ public class TestTechNamePaymentsByServiceType {
         userOnPaymentByServiceType.clickRefreshButton();
         String transformTechName = transformName(testAppointment.techName);
         userOnPaymentByServiceType.clickDescription(transformTechName);
-        Assert.assertTrue(userOnPaymentByServiceType.getCustomerName(testCustomer.customerName),
+        softAssert.assertTrue(userOnPaymentByServiceType.getCustomerName(testCustomer.customerName),
                 "\n Customer Name Is " + testCustomer.customerName +
                         "\n Customer Is Not Available After Selecting A Technician");
+        softAssert.assertAll();
         testCustomer.removeCustomer();
     }
 }

@@ -10,11 +10,11 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.testng.Assert;
+import org.testng.asserts.SoftAssert;
 
 public class TestCustomProduction {
 
-    DashboardPage userOnDashboard = new DashboardPage();
-    CreateCustomerDialog userCreateNewCustomer = new CreateCustomerDialog();
+    SoftAssert softAssert = new SoftAssert();
     CustomerViewDialog_Header sameUser = new CustomerViewDialog_Header();
     LeadsPage userOnLeadsTab = new LeadsPage();
     CreateNewCustomer testCustomer = new CreateNewCustomer();
@@ -44,10 +44,11 @@ public class TestCustomProduction {
     public void testCustomProductionAmountIsCorrect(String number) {
         double actualCustomProductionAmount = Double.parseDouble(userOnLeadsTab.getRecurringCustomProduction());
         double expectedCustomProductionAmount = Double.parseDouble(recurringServiceAmount) * Double.parseDouble(number);
-        Assert.assertEquals(actualCustomProductionAmount, expectedCustomProductionAmount,
+        softAssert.assertEquals(actualCustomProductionAmount, expectedCustomProductionAmount,
                 "\n Actual: " + actualCustomProductionAmount +
                         "\n Expected: " + expectedCustomProductionAmount +
                         "\n The Actual & Expected Custom Production Amounts Do Not Match");
+        softAssert.assertAll();
         testCustomer.removeCustomer();
     }
 }

@@ -100,14 +100,14 @@ public class RoutePageInvoicing extends BasePage {
 	public String getInvoiceNumber(){
 		String invoiceNum = getText(invoiceNumber);
 		String accountInvoiceNumber = invoiceNum.replaceAll(
-					"\\s.*", "");
+				"\\s.*", "");
 		return accountInvoiceNumber;
 	}
 
 	public String getInitialBalance(){
 		String initialBalanceAmount = getText(initialBalance);
 		String balanceAmount = initialBalanceAmount.replaceAll(
-					"\\s.*", "");
+				"\\s.*", "");
 		return balanceAmount;
 	}
 

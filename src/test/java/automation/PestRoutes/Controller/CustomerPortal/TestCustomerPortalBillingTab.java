@@ -15,7 +15,7 @@ import automation.PestRoutes.PageObject.DashboardPage;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import org.testng.Assert;
+import org.testng.asserts.SoftAssert;
 
 import java.util.Arrays;
 import java.util.List;
@@ -24,6 +24,7 @@ import static automation.PestRoutes.Utilities.Utilities.*;
 
 public class TestCustomerPortalBillingTab {
 
+    SoftAssert softAssert = new SoftAssert();
     DashboardPage userOnDashboard = new DashboardPage();
     CustomerPortalSummaryTabPage userOnCustomerPortalSummaryTab = new CustomerPortalSummaryTabPage();
     CustomerPortalBillingTabPage userOnCustomerPortalBillingTab = new CustomerPortalBillingTabPage();
@@ -45,9 +46,10 @@ public class TestCustomerPortalBillingTab {
     public void testFirstNameInWelcomeMessageBillingTab() throws InterruptedException {
         userOnCustomerPortalBillingTab = userOnCustomerPortalSummaryTab.goToBillingTab();
         String actualMessage = userOnCustomerPortalBillingTab.getFirstNameFromWelcomeBanner();
-        Assert.assertTrue(actualMessage.contains(expectedFirstName),
+        softAssert.assertTrue(actualMessage.contains(expectedFirstName),
                 "Welcome Message Does Not Contain The Correct First Name" + "\n" +
                         "First Name " + expectedFirstName + " Is Not Located In " + actualMessage);
+        softAssert.assertAll();
         closeTab();
         switchToOldWindowOpened();
         testCustomer.removeCustomer();
@@ -57,9 +59,10 @@ public class TestCustomerPortalBillingTab {
     public void testResponsibleBalanceIsCorrectOnBillingTab() throws InterruptedException {
         userOnCustomerPortalBillingTab = userOnCustomerPortalSummaryTab.goToBillingTab();
         String actualPaymentBalance = userOnCustomerPortalBillingTab.getResponsibleBalance();
-        Assert.assertEquals(actualPaymentBalance, expectedPaymentBalance,
+        softAssert.assertEquals(actualPaymentBalance, expectedPaymentBalance,
                 "Actual Responsible Balance: " + actualPaymentBalance +
                         " & Expected Balance: " + expectedPaymentBalance + " Do Not Match");
+        softAssert.assertAll();
         closeTab();
         switchToOldWindowOpened();
         testCustomer.removeCustomer();
@@ -70,30 +73,31 @@ public class TestCustomerPortalBillingTab {
         userOnCustomerPortalBillingTab = userOnCustomerPortalSummaryTab.goToBillingTab();
         List<String> actualShowEntryValues = userOnCustomerPortalBillingTab.getValuesFromShowNumberEntriesDropDown();
         List<String> expectedShowEntryValues = Arrays.asList("10", "25", "50", "100");
-        Assert.assertTrue(actualShowEntryValues.equals(expectedShowEntryValues),
+        softAssert.assertTrue(actualShowEntryValues.equals(expectedShowEntryValues),
                 "The Show Entries Drop Down Does Not Contain Correct Values");
-        Assert.assertEquals(userOnCustomerPortalBillingTab.getNewDate(), "new Date",
+        softAssert.assertEquals(userOnCustomerPortalBillingTab.getNewDate(), "new Date",
                 "The newDate Column Name Is Not Correct via Billing History Section");
-        Assert.assertEquals(userOnCustomerPortalBillingTab.getDescription(), "Description",
+        softAssert.assertEquals(userOnCustomerPortalBillingTab.getDescription(), "Description",
                 "The Description Column Name Is Not Correct via Billing History Section");
-        Assert.assertEquals(userOnCustomerPortalBillingTab.getAccountInfo(), "Account Info",
+        softAssert.assertEquals(userOnCustomerPortalBillingTab.getAccountInfo(), "Account Info",
                 "The Account Info Column Name Is Not Correct via Billing History Section");
-        Assert.assertEquals(userOnCustomerPortalBillingTab.getCharge(), "Charge",
+        softAssert.assertEquals(userOnCustomerPortalBillingTab.getCharge(), "Charge",
                 "The Charge Column Name Is Not Correct via Billing History Section");
-        Assert.assertEquals(userOnCustomerPortalBillingTab.getBalance(), "Balance",
+        softAssert.assertEquals(userOnCustomerPortalBillingTab.getBalance(), "Balance",
                 "The Balance Column Name Is Not Correct via Billing History Section");
-        Assert.assertEquals(userOnCustomerPortalBillingTab.getPayment(), "Payment",
+        softAssert.assertEquals(userOnCustomerPortalBillingTab.getPayment(), "Payment",
                 "The Payment Column Name Is Not Correct via Billing History Section");
-        Assert.assertEquals(userOnCustomerPortalBillingTab.getTicketIDNumber(), "#",
+        softAssert.assertEquals(userOnCustomerPortalBillingTab.getTicketIDNumber(), "#",
                 "The # Name Is Not Correct via Billing History Section");
-        Assert.assertEquals(userOnCustomerPortalBillingTab.isSearchFieldDisplayed(), true,
+        softAssert.assertEquals(userOnCustomerPortalBillingTab.isSearchFieldDisplayed(), true,
                 "The Search Field Is Not Displayed On The Billing Tab");
-        Assert.assertEquals(userOnCustomerPortalBillingTab.isShowingNumberOfEntriesDisplayed(), true,
+        softAssert.assertEquals(userOnCustomerPortalBillingTab.isShowingNumberOfEntriesDisplayed(), true,
                 "The Showing # to # of # entries Verbiage Is Not Displayed via Billing Tab");
-        Assert.assertEquals(userOnCustomerPortalBillingTab.isPreviousLinkDisplayed(), true,
+        softAssert.assertEquals(userOnCustomerPortalBillingTab.isPreviousLinkDisplayed(), true,
                 "The Previous Link Is Not Displayed via Billing Tab");
-        Assert.assertEquals(userOnCustomerPortalBillingTab.isNextLinkDisplayed(), true,
+        softAssert.assertEquals(userOnCustomerPortalBillingTab.isNextLinkDisplayed(), true,
                 "The Next Link Is Not Displayed via Billing Tab");
+        softAssert.assertAll();
         closeTab();
         switchToOldWindowOpened();
         testCustomer.removeCustomer();
@@ -104,10 +108,11 @@ public class TestCustomerPortalBillingTab {
         userOnCustomerPortalBillingTab = userOnCustomerPortalSummaryTab.goToBillingTab();
         String expectedServiceType = expectedSubscriptionServiceType.toString()
                 .replace("[", "").replace("]","");
-        Assert.assertTrue(userOnCustomerPortalBillingTab.getCurrentSectionText().contains(expectedServiceType),
+        softAssert.assertTrue(userOnCustomerPortalBillingTab.getCurrentSectionText().contains(expectedServiceType),
               "The Current Section Does Not Contain Correct Service Type");
-        Assert.assertTrue(userOnCustomerPortalBillingTab.getCurrentSectionText().contains(expectedCurrentSubscriptionAmount),
+        softAssert.assertTrue(userOnCustomerPortalBillingTab.getCurrentSectionText().contains(expectedCurrentSubscriptionAmount),
               "The Current Section Does Not Contain Correct Amount");
+        softAssert.assertAll();
         closeTab();
         switchToOldWindowOpened();
         testCustomer.removeCustomer();
@@ -119,8 +124,9 @@ public class TestCustomerPortalBillingTab {
         userOnCustomerPortalBillingTab.clickPayNowButton();
         userOnCustomerPortalBillingTab.clickMakePaymentButton();
         String paymentMethodError = userOnCustomerPortalBillingTab.getPaymentMethodErrorMessage();
-        Assert.assertTrue(paymentMethodError.contains("Please choose a method of payment"),
+        softAssert.assertTrue(paymentMethodError.contains("Please choose a method of payment"),
                 "The Payment Method Error Message Is Not Available Or Not Correct");
+        softAssert.assertAll();
         closeTab();
         switchToOldWindowOpened();
         testCustomer.removeCustomer();
@@ -133,8 +139,9 @@ public class TestCustomerPortalBillingTab {
         userOnCustomerPortalBillingTab.clickPayAnotherAmount();
         userOnCustomerPortalBillingTab.clickMakePaymentButton();
         String paymentMethodError = userOnCustomerPortalBillingTab.getPaymentMethodErrorMessage();
-        Assert.assertTrue(paymentMethodError.contains("Please choose a method of payment"),
+        softAssert.assertTrue(paymentMethodError.contains("Please choose a method of payment"),
                 "The Payment Method Error Message Is Not Available Or Not Correct");
+        softAssert.assertAll();
         closeTab();
         switchToOldWindowOpened();
         testCustomer.removeCustomer();
@@ -143,10 +150,11 @@ public class TestCustomerPortalBillingTab {
     @Then("I Verify The User Can Update Phone - Make Payment")
     public void testFooterInTheBillingHistorySection() throws InterruptedException {
         userOnCustomerPortalBillingTab = userOnCustomerPortalSummaryTab.goToBillingTab();
-        Assert.assertEquals(userOnCustomerPortalBillingTab.isUpdatePhoneImageDisplayed(),true,
+        softAssert.assertEquals(userOnCustomerPortalBillingTab.isUpdatePhoneImageDisplayed(),true,
                 "The Update Phone Image Is Not Displayed via Billing Tab");
-        Assert.assertEquals(userOnCustomerPortalBillingTab.isMakePaymentImageDisplayed(),true,
+        softAssert.assertEquals(userOnCustomerPortalBillingTab.isMakePaymentImageDisplayed(),true,
                 "The Make Payment Image Is Not Displayed via Billing Tab");
+        softAssert.assertAll();
         closeTab();
         switchToOldWindowOpened();
         testCustomer.removeCustomer();
@@ -158,12 +166,13 @@ public class TestCustomerPortalBillingTab {
         userOnCustomerPortalBillingTab.clickPayNowButton();
         userOnCustomerPortalBillingTab.clickUseOneTimeCard();
         userOnCustomerPortalBillingTab.clickMakePaymentButton();
-        Assert.assertTrue(userOnCustomerPortalBillingTab.isPayTotalCardNumberErrorDisplayed(gateway),
+        softAssert.assertTrue(userOnCustomerPortalBillingTab.isPayTotalCardNumberErrorDisplayed(gateway),
                 "Card Number Does Not Have A Required Field Error Message");
-        Assert.assertTrue(userOnCustomerPortalBillingTab.isPayTotalExpirationDateErrorDisplayed(gateway),
+        softAssert.assertTrue(userOnCustomerPortalBillingTab.isPayTotalExpirationDateErrorDisplayed(gateway),
                 "Expiration Date Does Not Have A Required Field Error Message");
-        Assert.assertTrue(userOnCustomerPortalBillingTab.isPayTotalCVVErrorDisplayed(gateway),
+        softAssert.assertTrue(userOnCustomerPortalBillingTab.isPayTotalCVVErrorDisplayed(gateway),
                 "CVV Does Not Have A Required Field Error Message");
+        softAssert.assertAll();
         closeTab();
         switchToOldWindowOpened();
         testCustomer.removeCustomer();
@@ -187,8 +196,9 @@ public class TestCustomerPortalBillingTab {
         userOnCustomerPortalBillingTab.enterNewCardInformation(gateway, creditCardNumber, expirationDate, cvv);
         userOnCustomerPortalBillingTab.clickMakePaymentButton();
         acceptAlert();
-        Assert.assertEquals(userOnCustomerPortalBillingTab.isPayNowButtonDisplayed(), true,
+        softAssert.assertEquals(userOnCustomerPortalBillingTab.isPayNowButtonDisplayed(), true,
                 "The Pay Now Button Is Not Displayed");
+        softAssert.assertAll();
         closeTab();
         switchToOldWindowOpened();
         testCustomer.removeCustomer();
@@ -209,7 +219,8 @@ public class TestCustomerPortalBillingTab {
         userOnCustomerPortalBillingTab.clickCardOnFile();
         userOnCustomerPortalBillingTab.clickMakePaymentButton();
         acceptAlert();
-        Assert.assertTrue(userOnCustomerPortalBillingTab.isPayNowButtonDisplayed(), "The Pay Now Button Is Not Displayed");
+        softAssert.assertTrue(userOnCustomerPortalBillingTab.isPayNowButtonDisplayed(), "The Pay Now Button Is Not Displayed");
+        softAssert.assertAll();
         closeTab();
         switchToOldWindowOpened();
         testCustomer.removeCustomer();

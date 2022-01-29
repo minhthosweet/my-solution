@@ -145,7 +145,8 @@ public class CustomerPortalBillingTabPage extends CustomerPortalBasePage {
     public void clickMakePaymentButton() {
         if (elementIsVisible(makePaymentButton)) {
             scrollToElementJS(find(makePaymentButton));
-            delay(1000);
+            String buttonMakePayment = "//button[@id='submitPaymentOptionsButton']";
+            isPresent(buttonMakePayment);
             click(makePaymentButton);
         }
     }

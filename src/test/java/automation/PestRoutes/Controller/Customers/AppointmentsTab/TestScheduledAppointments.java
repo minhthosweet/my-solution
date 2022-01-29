@@ -2,7 +2,6 @@ package automation.PestRoutes.Controller.Customers.AppointmentsTab;
 
 import automation.PestRoutes.Controller.CustomerCreation.CreateNewCustomer;
 import automation.PestRoutes.Controller.Renewal.ValidateRenewal;
-import automation.PestRoutes.PageObject.CreateCustomer.CreateCustomerDialog;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_Header;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_SubscriptionTab;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerviewDialog_AppointmentsTab;
@@ -13,13 +12,15 @@ import automation.PestRoutes.PageObject.RoutePage.RoutePage;
 import automation.PestRoutes.PageObject.Scheduling.SchedulingAppointmentDialog;
 import automation.PestRoutes.PageObject.Scheduling.SchedulingTab;
 import io.cucumber.java.en.*;
-import org.testng.Assert;
+import org.testng.asserts.SoftAssert;
 
 import java.util.List;
 
 import static automation.PestRoutes.Utilities.Utilities.dragCustomerCard;
 
 public class TestScheduledAppointments {
+
+    SoftAssert softAssert = new SoftAssert();
     DashboardPage userOnDashboard = new DashboardPage();
     CustomerViewDialog_Header sameUser = new CustomerViewDialog_Header();
     SchedulingTab userOnSchedulingComponent = new SchedulingTab();
@@ -87,10 +88,11 @@ public class TestScheduledAppointments {
         userOnAppointmentsTab.clickPendingAppointment("Automation Renewal");
         List<String> expectedSubscription = schedulingSubscription;
         String actualSubscription = userOnAppointmentsTab.getAppointmentsTabSubscription();
-        Assert.assertTrue(expectedSubscription.contains(actualSubscription),
+        softAssert.assertTrue(expectedSubscription.contains(actualSubscription),
                 "\n Expected Subscription: " + expectedSubscription +
                         "\n Actual Subscription: " + actualSubscription +
                         "\n The Expected Subscription Is Not Contained In The Actual Subscription");
+        softAssert.assertAll();
         testCustomer.removeCustomer();
     }
 

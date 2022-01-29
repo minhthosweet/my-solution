@@ -105,6 +105,17 @@ public class Utilities {
 		}
 	}
 
+	public static void dismissAlert() {
+		for(int i = 0; i < 5; i++) {
+			try {
+				driver.switchTo().alert().dismiss();
+				break;
+			} catch(Exception e) {
+				delay(1000);
+			}
+		}
+	}
+
 	public static Alert alertPopUp() {
 		return driver.switchTo().alert();
 	}

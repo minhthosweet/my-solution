@@ -2,7 +2,6 @@ package automation.PestRoutes.Controller.Invoicing;
 
 import automation.PestRoutes.Controller.CustomerCreation.CreateNewCustomer;
 import automation.PestRoutes.Controller.Reporting.Office.BillingByServiceType;
-import automation.PestRoutes.Controller.Reporting.TestTechNamePaymentsByServiceType;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_Header;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_InfoTab;
 import automation.PestRoutes.PageObject.CustomerOverview.Invoicing.CreditMemoTab;
@@ -10,12 +9,11 @@ import automation.PestRoutes.PageObject.CustomerOverview.Invoicing.InvoiceImplem
 import automation.PestRoutes.PageObject.CustomerOverview.Invoicing.Invoice_Header;
 import automation.PestRoutes.PageObject.CustomerOverview.Invoicing.RoutePageInvoicing;
 import automation.PestRoutes.PageObject.Header;
-import automation.PestRoutes.PageObject.RoutePage.RoutePage;
 import automation.PestRoutes.Utilities.AppData;
 import automation.PestRoutes.Utilities.Utilities;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
-import org.testng.Assert;
+import org.testng.asserts.SoftAssert;
 
 import java.io.IOException;
 
@@ -23,6 +21,7 @@ import static automation.PestRoutes.Utilities.AssertException.result;
 
 public class CreditMemo extends AppData {
 
+    SoftAssert softAssert = new SoftAssert();
     CustomerViewDialog_Header customerCardHeader;
     InvoiceImplementation invImplementation;
     CreditMemoTab creditMemoTab;
@@ -118,10 +117,11 @@ public class CreditMemo extends AppData {
         userMakesPayment.typeConfirmationAmount(payment);
         userMakesPayment.clickRecordPaymentButton();
         userMakesPayment.clickBackToAccountSummaryButton();
-        Assert.assertTrue(userOnInvoicesTab.getRecentMemo().contains(payment),
+        softAssert.assertTrue(userOnInvoicesTab.getRecentMemo().contains(payment),
                 "\n The Memo Does Not Contain Payment Amount: " +
                         "\n Payment Amount Is " + payment +
                         "\n Memo Is " + userOnInvoicesTab.getRecentMemo());
+        softAssert.assertAll();
         testCustomer.removeCustomer();
     }
 }

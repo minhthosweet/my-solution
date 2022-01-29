@@ -73,29 +73,11 @@ public class CustomerViewDialog_Header extends BasePage {
 
     public void clickSaveButton() {
         Utilities.clickElement(saveButton, ElementType.XPath);
-        int i = 0;
-        while (i++ < 5) {
-            try {
-                Alert alert = Utilities.alertPopUp();
-                String actionAlert = Utilities.getAlertText();
-                String expected = "This customer is closer";
-                if (actionAlert.contains(expected)) {
-                    alert.dismiss();
-                }
-                break;
-            } catch (NoAlertPresentException e) {
-                delay(500);
-                continue;
-            }
-        }
+        Utilities.dismissAlert();
     }
 
     public void clickCustomerCardScheduleButton (){
         click(scheduleButton);
-    }
-
-    public void clickCustomerSaveButton (){
-        click(customerSaveButton);
     }
 
     public void clickCloseButton() throws InterruptedException {
@@ -114,7 +96,7 @@ public class CustomerViewDialog_Header extends BasePage {
         click(xButton);
     }
 
-//Author Aarbi
+    //Author Aarbi
     @And("If discard changes dialog displays, I discard unsaved changes")
     public void discardChanges() {
         try{
