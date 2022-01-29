@@ -1,14 +1,15 @@
 package automation.PestRoutes.PageObject.Leads;
 
 import automation.PestRoutes.PageObject.BasePage;
-import org.openqa.selenium.By;
-
 import automation.PestRoutes.Utilities.FindElement;
 import automation.PestRoutes.Utilities.FindElement.InputType;
 import automation.PestRoutes.Utilities.Utilities;
 import automation.PestRoutes.Utilities.Utilities.ElementType;
+import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import static automation.PestRoutes.Utilities.Utilities.*;
 
 public class LeadsPage extends BasePage {
 	public String statusDropdown = "//select[@id='leadStatusAction']";
@@ -135,8 +136,8 @@ public class LeadsPage extends BasePage {
 		selectFromDropDown(billing, billingDropDown);
 	}
 
-	public void typeRecurringServiceTypeAmount(String serviceTypeAmount) throws InterruptedException {
-		Thread.sleep(1000);
+	public void typeRecurringServiceTypeAmount(String serviceTypeAmount) {
+		delay(1000);
 		type(serviceTypeAmount, recurringServiceTypeAmountField);
 	}
 
@@ -145,7 +146,7 @@ public class LeadsPage extends BasePage {
 		return serviceTypeAmount;
 	}
 
-	public String getRecurringCustomProduction() throws InterruptedException {
+	public String getRecurringCustomProduction() {
 		wait.until(ExpectedConditions.visibilityOfElementLocated(standardProductionButton));
 		click(standardProductionButton);
 		wait.until(ExpectedConditions.visibilityOfElementLocated(customProductionField));

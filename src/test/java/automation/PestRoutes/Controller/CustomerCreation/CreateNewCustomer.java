@@ -608,7 +608,7 @@ public class CreateNewCustomer extends AppData {
         Utilities.clickElement(adminTab.removeButton, ElementType.XPath);
         Utilities.waitUntileElementIsVisible(adminTab.confirmRemoveButton);
         Utilities.clickElement(adminTab.confirmRemoveButton, ElementType.XPath);
-        customerDialog_Header.clickDiscardChangesButton();
+        customerDialog_Header.discardChanges();
     }
 
     //Author FK
@@ -663,7 +663,7 @@ public class CreateNewCustomer extends AppData {
     }//createCustomerWithNameEmailAddrStreetAddrPhNumZipCode()
 
     @Given("I Create A Customer With Basic Information")
-    public void createCustomerWithBasicInfo() throws InterruptedException {
+    public void createCustomerWithBasicInfo() {
         DashboardPage userOnDashboard = new DashboardPage();
         CreateCustomerDialog userCreateNewCustomer = new CreateCustomerDialog();
         CustomerViewDialog_Header sameUser = new CustomerViewDialog_Header();
@@ -684,7 +684,7 @@ public class CreateNewCustomer extends AppData {
     }
 
     @Given("I Create A Customer With A Subscription")
-    public void automateCreatingCustomerWithSubscription() throws InterruptedException {
+    public void automateCreatingCustomerWithSubscription() {
         CustomerViewDialog_Header sameUser = new CustomerViewDialog_Header();
         BillingPage userOnBillingTab = new BillingPage();
         AddSubscription testSubscription = new AddSubscription();

@@ -135,7 +135,8 @@ public class CustomerPortalBillingTabPage extends CustomerPortalBasePage {
     }
 
     public boolean isPayNowButtonDisplayed() {
-        if (find(payNowButton).isDisplayed()){
+        if(elementIsVisible(payNowButton)) {
+            scrollToElementJS(find(payNowButton));
             return true;
         }
         return false;

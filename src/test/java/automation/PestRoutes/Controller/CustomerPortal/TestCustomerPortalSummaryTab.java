@@ -56,7 +56,7 @@ public class TestCustomerPortalSummaryTab {
     String expectedDate = Utilities.currentDate("MM/dd/yy");
 
     @When("I Navigate To Customer Portal From Customer Card - Admin Tab")
-    public void automateNavigatingFromCustomerCardToCustomerPortal() throws InterruptedException {
+    public void automateNavigatingFromCustomerCardToCustomerPortal() {
         sameUser.goToAdminTab();
         userOnCustomerPortalSummaryTab = userOnAdminTab.clickPortalLogin();
     }
@@ -111,7 +111,7 @@ public class TestCustomerPortalSummaryTab {
     }
 
     @When("I Deactivate-Freeze The Subscription")
-    public void automateDeactivatingTheSubscription() throws InterruptedException {
+    public void automateDeactivatingTheSubscription() {
         userOnSubscriptionTab.clickActivateDeactivateButton();
         userOnSubscriptionTab.clickFreezeSubscriptionButtonOnCancelSubscriptionDialog();
     }
@@ -126,7 +126,7 @@ public class TestCustomerPortalSummaryTab {
     }
   
     @When("I Schedule An Appointment")
-    public void automateSchedulingAnAppointment() throws Exception {
+    public void automateSchedulingAnAppointment() {
         sameUser.goToAppointmentsTab();
         userOnSchedulingComponent = userOnDashboard.goToSchedulingComponent();
         userOnSchedulingComponent.addScheduleDateToProperties();
@@ -142,7 +142,7 @@ public class TestCustomerPortalSummaryTab {
     }
 
     @And("I Cancel The Scheduled Subscription Appointment")
-    public void automateCancellingTheScheduledSubscriptionAppointment() throws InterruptedException {
+    public void automateCancellingTheScheduledSubscriptionAppointment() {
         sameUser.goToAppointmentsTab();
         userOnAppointmentsTab.clickPendingAppointment("Automation Renewal");
         userOnAppointmentsTab.clickCancelAppointmentButton();
@@ -150,7 +150,7 @@ public class TestCustomerPortalSummaryTab {
     }
 
     @Then("I Verify The Cancelled Scheduled Appointment Is Not Displayed via Service Plan Section")
-    public void testScheduledAppointmentDoesNotShowUpInServicePlanSection() throws InterruptedException {
+    public void testScheduledAppointmentDoesNotShowUpInServicePlanSection() {
         sameUser.goToAdminTab();
         userOnCustomerPortalSummaryTab = userOnAdminTab.clickPortalLogin();
         Assert.assertEquals(0, userOnCustomerPortalSummaryTab.numberOfServiceTypes(),

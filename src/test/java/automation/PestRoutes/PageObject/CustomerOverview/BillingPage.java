@@ -231,8 +231,8 @@ public class BillingPage extends BasePage {
 		return customerAccountID;
 	}
 
-	public void clickAddPaymentMethod() throws InterruptedException {
-		Thread.sleep(3000);
+	public void clickAddPaymentMethod() {
+		delay(3000);
 		click(addPaymentMethod);
 	}
 
@@ -279,7 +279,7 @@ public class BillingPage extends BasePage {
 		driver.switchTo().defaultContent();
 	}
 
-	public void enterNMINewCardInformation(String cardNumber, String expirationDate, String cvv) throws InterruptedException {
+	public void enterNMINewCardInformation(String cardNumber, String expirationDate, String cvv) {
 		switchToIframeByXpath(nmiCcNumberIframe);
 		type(cardNumber, nmiCardNumberField);
 		driver.switchTo().defaultContent();
@@ -314,7 +314,7 @@ public class BillingPage extends BasePage {
 		clickSavePaymentMethodButton();
 	}
 
-	public void enterPestRoutesPaymentsNewCardInformation(String cardNumber, String expirationDate, String cvv) throws InterruptedException {
+	public void enterPestRoutesPaymentsNewCardInformation(String cardNumber, String expirationDate, String cvv) {
 		switchToIframeByXpath(payrixIframe);
 		switchToIframeByXpath(pestRoutesIframeCc);
 		type(cardNumber, pestRoutesPaymentsCardNumber);
@@ -332,7 +332,7 @@ public class BillingPage extends BasePage {
 		driver.switchTo().defaultContent();
 	}
 
-	public void enterNewCardInformation(String gateway, String cardNumber, String expirationDate, String cvv) throws InterruptedException {
+	public void enterNewCardInformation(String gateway, String cardNumber, String expirationDate, String cvv) {
 		switch(gateway) {
 			case "Braintree":
 				enterBraintreeNewCardInformation(cardNumber, expirationDate, cvv);

@@ -137,6 +137,7 @@ public class InvoiceImplementation extends BasePage {
     private By addressField = By.xpath("//input[@name='billingAddress1']");
     private By braintreeCardNumberField = By.xpath("//input[@id='credit-card-number']");
     private By braintreeExpirationDateField = By.xpath("//input[@id='expiration']");
+    private By payWithCard = By.xpath("//div[@id='dropin-container']//div[@aria-label='Paying with Card']");
     private By elementCardNumberField = By.xpath("//input[@id='cardNumber']");
     private By elementExpirationMonth = By.xpath("//select[@id='ddlExpirationMonth']");
     private By elementExpirationYear = By.xpath("//select[@id='ddlExpirationYear']");
@@ -631,13 +632,14 @@ public class InvoiceImplementation extends BasePage {
     }//setPaymentNotes()
 
     public void enterBraintreeNewCardInformation(String cardNumber, String expirationDate){
-        clickChargeSingleCardButton();
+        click(payWithCard);
         switchToIframeByXpath("braintree-hosted-field-number");
         type(cardNumber, braintreeCardNumberField);
         driver.switchTo().defaultContent();
         switchToIframeByXpath("braintree-hosted-field-expirationDate");
         type(expirationDate, braintreeExpirationDateField);
         driver.switchTo().defaultContent();
+        clickChargeSingleCardButton();
     }
 
     public void enterElementNewCardInformation(String cardNumber, String expirationDate, String cvv){

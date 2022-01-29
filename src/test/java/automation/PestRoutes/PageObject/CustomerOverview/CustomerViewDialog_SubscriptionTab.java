@@ -5,7 +5,7 @@ import automation.PestRoutes.Utilities.FindElement;
 import automation.PestRoutes.Utilities.FindElement.InputType;
 import automation.PestRoutes.Utilities.Utilities;
 import automation.PestRoutes.Utilities.Utilities.ElementType;
-import static automation.PestRoutes.Utilities.Utilities.getAllSelectedOptionsFromDropDown;
+import static automation.PestRoutes.Utilities.Utilities.*;
 import org.apache.commons.lang3.SystemUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -312,7 +312,7 @@ public class CustomerViewDialog_SubscriptionTab extends BasePage {
 		Utilities.selectValueFromDropDownByValue(preferredTimeDropdown, needOption);
 	}
 
-	public void selectAdditionalItem_ToInitialInvoice(String needItem) throws InterruptedException {
+	public void selectAdditionalItem_ToInitialInvoice(String needItem) {
 		Utilities.scrollToElementJS(initialInvoice_AddTicketItemButton);
 		Utilities.clickElement(initialInvoice_AddTicketItemButton, ElementType.XPath);
 		if (SystemUtils.IS_OS_LINUX) {
@@ -320,7 +320,7 @@ public class CustomerViewDialog_SubscriptionTab extends BasePage {
 		}
 		Utilities.waitUntileElementIsVisible("//span[text()=  '" + needItem + "']");
 		//Utilities.scrollToElementJS("//span[text()=  '" + needItem + "']");
-		Thread.sleep(1000);
+		delay(1000);
 //		Utilities.waitUntileElementIsVisible("//span[text()=  '" + needItem + "']");
 		Utilities.clickElement("//span[text()=  '" + needItem + "']", ElementType.XPath);
 		try{
@@ -332,7 +332,7 @@ public class CustomerViewDialog_SubscriptionTab extends BasePage {
 			}
 			Utilities.waitUntileElementIsVisible("//span[text()=  '" + needItem + "']");
 			Utilities.scrollToElementJS("//span[text()=  '" + needItem + "']");
-			Thread.sleep(1000);
+			delay(1000);
 			Utilities.clickElement("//span[text()=  '" + needItem + "']", ElementType.XPath);
 		}
 		Utilities.waitUntileElementIsVisible("//div[text()='"+needItem+"']");
@@ -680,12 +680,12 @@ public class CustomerViewDialog_SubscriptionTab extends BasePage {
 
 	public void clickActiveSubscription(){ click(activeSubscription); }
 
-	public void clickActivateDeactivateButton() throws InterruptedException {
-		Thread.sleep(3000);
+	public void clickActivateDeactivateButton() {
+		delay(3000);
 		click(activateDeactivateButton);
 	}
 
-	public void clickFreezeSubscriptionButtonOnCancelSubscriptionDialog() throws InterruptedException {
+	public void clickFreezeSubscriptionButtonOnCancelSubscriptionDialog() {
 		wait.until(ExpectedConditions.visibilityOfElementLocated(freezeCancelSubscriptionButton));
 		click(freezeCancelSubscriptionButton);
 	}

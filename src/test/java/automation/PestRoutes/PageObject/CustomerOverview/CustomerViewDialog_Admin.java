@@ -15,7 +15,6 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.Set;
-
 import static automation.PestRoutes.Utilities.Utilities.refreshPage;
 
 public class CustomerViewDialog_Admin extends BasePage {

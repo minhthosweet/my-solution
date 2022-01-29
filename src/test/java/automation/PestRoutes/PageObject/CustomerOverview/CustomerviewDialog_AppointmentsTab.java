@@ -7,10 +7,10 @@ import automation.PestRoutes.Utilities.Utilities.ElementType;
 import io.cucumber.java.en.When;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
+
+import static automation.PestRoutes.Utilities.Utilities.delay;
 
 public class CustomerviewDialog_AppointmentsTab extends BasePage {
 
@@ -80,8 +80,8 @@ public class CustomerviewDialog_AppointmentsTab extends BasePage {
                 + needServiceName + "')]", ElementType.XPath);
     }
 
-    public void clickPendingAppointment(String serviceType) throws InterruptedException {
-        Thread.sleep(2000);
+    public void clickPendingAppointment(String serviceType) {
+        delay(2000);
         click(pendingAppointment);
     }
 
@@ -153,8 +153,8 @@ public class CustomerviewDialog_AppointmentsTab extends BasePage {
         Utilities.clickElement(reScheduleButton, ElementType.XPath);
     }
 
-    public void clickCancelAppointmentButton() throws InterruptedException {
-        Thread.sleep(3000);
+    public void clickCancelAppointmentButton() {
+        delay(3000);
         Utilities.waitUntileElementIsVisible(cancelAppointment);
         Utilities.clickElement(cancelAppointment, ElementType.XPath);
     }
@@ -314,8 +314,8 @@ public class CustomerviewDialog_AppointmentsTab extends BasePage {
         type(serviceNotes, serviceNotesField);
     }
 
-    public String getServiceNotes() throws InterruptedException {
-        Thread.sleep(1000);
+    public String getServiceNotes() {
+        delay(1000);
         click(subStatusButton);
         clickSaveAndCompleteButton();
         String serviceNotes = getText(serviceNotesField);

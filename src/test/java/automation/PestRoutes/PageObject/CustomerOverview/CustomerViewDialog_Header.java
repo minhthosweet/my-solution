@@ -83,11 +83,10 @@ public class CustomerViewDialog_Header extends BasePage {
                 }
                 break;
             } catch (NoAlertPresentException e) {
-                Thread.sleep(500);
+                delay(500);
                 continue;
             }
         }
-        //Optimized For Encapsulation Below via clickCustomerSaveButton() Using A Private Modifier With By Class
     }
 
     public void clickCustomerCardScheduleButton (){
@@ -108,12 +107,10 @@ public class CustomerViewDialog_Header extends BasePage {
 
     public void Click_X_Button() {
         Utilities.clickElement(closeXButton, ElementType.XPath);
-        // The XPath for WebElement closeXButton In This Method Returned 2 Values Due To The span tag
-        // Optimized For Encapsulation Below via clickXButton() Using A Private Modifier With By Class
     }
 
-    public void clickXButton() throws InterruptedException {
-        Thread.sleep(500);
+    public void clickXButton() {
+        delay(500);
         click(xButton);
     }
 
@@ -178,8 +175,8 @@ public class CustomerViewDialog_Header extends BasePage {
         return new LeadsPage();
     }
 
-    public CustomerViewDialog_Admin goToAdminTab() throws InterruptedException {
-        Thread.sleep(3000);
+    public CustomerViewDialog_Admin goToAdminTab() {
+        delay(3000);
         click(adminTab);
         return new CustomerViewDialog_Admin();
     }

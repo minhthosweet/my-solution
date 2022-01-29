@@ -150,7 +150,7 @@ public class ValidateRenewal extends AppData {
 
 
     @And("I schedule an service appointment")
-    public void scheduleAnAppointment() throws Exception {
+    public void scheduleAnAppointment() {
         appt = new ScheduleAppt();
         route = new RoutePage();
         confirmAppt = new SchedulingAppointmentDialog();
@@ -206,7 +206,7 @@ public class ValidateRenewal extends AppData {
     }
 
     @And("I complete an appointment")
-    public void completeSchedulesService() throws Exception {
+    public void completeSchedulesService() {
         header = new Header();
         overviewHeader = new CustomerViewDialog_Header();
         appointmentTab = new CustomerviewDialog_AppointmentsTab();
@@ -217,7 +217,7 @@ public class ValidateRenewal extends AppData {
     }
 
     @And("I complete a subscription appointment")
-    public void completeScheduledSubscriptionService() throws Exception {
+    public void completeScheduledSubscriptionService() {
         header = new Header();
         overviewHeader = new CustomerViewDialog_Header();
         appointmentTab = new CustomerviewDialog_AppointmentsTab();

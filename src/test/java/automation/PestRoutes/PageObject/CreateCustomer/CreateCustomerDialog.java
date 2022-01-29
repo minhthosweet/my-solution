@@ -9,6 +9,7 @@ import automation.PestRoutes.Utilities.FindElement;
 import automation.PestRoutes.Utilities.Utilities;
 import automation.PestRoutes.Utilities.FindElement.InputType;
 import automation.PestRoutes.Utilities.Utilities.ElementType;
+import static automation.PestRoutes.Utilities.Utilities.*;
 import org.openqa.selenium.WebElement;
 
 public class CreateCustomerDialog extends BasePage {
@@ -217,20 +218,14 @@ public class CreateCustomerDialog extends BasePage {
     public void setFirstName(String needFirstName) {
         Utilities.waitUntileElementIsVisible(firstNameInputField);
         FindElement.elementByAttribute(firstNameInputField, InputType.XPath).sendKeys(needFirstName);
-        //Optimized For Encapsulation Below via typeFirstName() By Passing In A String & Using A Private Modifier With By Class
     }
-    public void typeFirstName (String firstName) throws InterruptedException {
-        Thread.sleep(3000);
+    public void typeFirstName (String firstName) {
+        delay(3000);
         type(firstName, firstNameField);
-        //type(needFirstName, firstNameInputField); Optimize Later With A Private Modifier & By Class
-        //Optimized via typeFirstName() By Passing In A String & Using A Private Modifier With By Class
     }
 
     public void setLastName(String needLastName) {
         FindElement.elementByAttribute(lastNameInputField, InputType.XPath).sendKeys(needLastName);
-        //Optimized For Encapsulation Below via typeLastName() By Passing In A String & Using A Private Modifier With By Class
-        //type(needLastName, lastNameInputField); Optimize Later With A Private Modifier & By Class
-        //Optimized via typeLastName() By Passing In A String & Using A Private Modifier With By Class
     }
     
     public void typeLastName (String lastName) {
@@ -269,7 +264,6 @@ public class CreateCustomerDialog extends BasePage {
     public void setZipCode(String needZipCode) throws InterruptedException {
         FindElement.elementByAttribute(zipCodeInputField, InputType.XPath).sendKeys(needZipCode);
         Thread.sleep(200);
-        //Optimized For Encapsulation Below via typeZipCode() By Passing In A String & Using A Private Modifier With By Class
     }
 
     public void typeZipCode(String zipCode) { type(zipCode, zipCodeField); }

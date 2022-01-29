@@ -80,7 +80,7 @@ public class RoutePage extends BasePage {
     }
 
     @And ("I add a route group if not already existing")
-    public void addGroupIfNotExisting() throws Exception {
+    public void addGroupIfNotExisting() {
         route = new RoutePage();
         try {
             WebElement elm = FindElement.elementByAttribute("//h3[text() = 'TestRoutes']", InputType.XPath);
@@ -96,7 +96,7 @@ public class RoutePage extends BasePage {
         }
 
     @And("I add a route group")
-    public void addGroup() throws Exception {
+    public void addGroup() {
         String groupXpath = "//h3[text()= 'TestRoutes']/parent::div";
         String group = "groupButton";
         customRoute = new CustomRoute();
@@ -110,7 +110,7 @@ public class RoutePage extends BasePage {
         }
 
         @Then("I delete a routing group")
-        public void deleteGroup () throws Exception {
+        public void deleteGroup () {
             validateRenewal = new ValidateRenewal();
             try {
                 validateRenewal.navigateToSchedulingTab();
@@ -134,7 +134,7 @@ public class RoutePage extends BasePage {
 
             }
         }
-    public void deleteFirstRoute() throws InterruptedException {
+    public void deleteFirstRoute() {
         Utilities.waitUntileElementIsVisible("//div[@class='routes']//div[@groupid][1]//div[text()='Route Actions']");
         Utilities.clickElement("//div[@class='routes']//div[@groupid][1]//div[text()='Route Actions']", ElementType.XPath);
         Utilities.waitUntileElementIsVisible("//div[@class='routes']//div[@groupid][1]//div[text()='Route Actions']//following-sibling::div//p[text()='Delete Route']");

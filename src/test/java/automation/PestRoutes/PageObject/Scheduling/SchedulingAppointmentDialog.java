@@ -5,7 +5,7 @@ import automation.PestRoutes.Utilities.FindElement;
 import automation.PestRoutes.Utilities.FindElement.InputType;
 import automation.PestRoutes.Utilities.Utilities;
 import automation.PestRoutes.Utilities.Utilities.ElementType;
-import static automation.PestRoutes.Utilities.Utilities.getAllSelectedOptionsFromDropDown;
+import static automation.PestRoutes.Utilities.Utilities.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -132,8 +132,8 @@ public class SchedulingAppointmentDialog extends BasePage {
         return getAllSelectedOptionsFromDropDown(subscriptionTypeDropDown);
     }
 
-    public void clickBlueScheduleButton() throws InterruptedException {
+    public void clickBlueScheduleButton() {
         click(buttonSchedule);
-        Thread.sleep(3000);
+        delay(3000);
     }
 }

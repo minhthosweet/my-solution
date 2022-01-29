@@ -3,14 +3,12 @@ package automation.PestRoutes.Controller.CustomerPortal;
 import automation.PestRoutes.Controller.CustomerCreation.CreateNewCustomer;
 import automation.PestRoutes.Controller.Customers.AppointmentsTab.TestScheduledAppointments;
 import automation.PestRoutes.Controller.Invoicing.InvoicingTab;
-import automation.PestRoutes.Controller.Reporting.TestTechNamePaymentsByServiceType;
 import automation.PestRoutes.Controller.Subscriptions.AddSubscription;
 import automation.PestRoutes.PageObject.Admin.AdminMainPage;
 import automation.PestRoutes.PageObject.Admin.PreferencesTab.MerchantInfoTab.MarchantInfoPage;
 import automation.PestRoutes.PageObject.Admin.PreferencesTab.PreferencesPage;
 import automation.PestRoutes.PageObject.CustomerOverview.BillingPage;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_Header;
-import automation.PestRoutes.PageObject.CustomerOverview.Invoicing.InvoiceImplementation;
 import automation.PestRoutes.PageObject.CustomerPortal.CustomerPortalBillingTabPage;
 import automation.PestRoutes.PageObject.CustomerPortal.CustomerPortalSummaryTabPage;
 import automation.PestRoutes.PageObject.DashboardPage;
@@ -44,7 +42,7 @@ public class TestCustomerPortalBillingTab {
     String expectedCurrentSubscriptionAmount = testAppointment.initialBalance;
 
     @Then("I Verify First Name In The Welcome Message via Billing Tab")
-    public void testFirstNameInWelcomeMessageBillingTab() {
+    public void testFirstNameInWelcomeMessageBillingTab() throws InterruptedException {
         userOnCustomerPortalBillingTab = userOnCustomerPortalSummaryTab.goToBillingTab();
         String actualMessage = userOnCustomerPortalBillingTab.getFirstNameFromWelcomeBanner();
         Assert.assertTrue(actualMessage.contains(expectedFirstName),
@@ -56,7 +54,7 @@ public class TestCustomerPortalBillingTab {
     }
 
     @Then("I Verify The Responsible Balance via Billing Tab Matches The Invoice Balance")
-    public void testResponsibleBalanceIsCorrectOnBillingTab() {
+    public void testResponsibleBalanceIsCorrectOnBillingTab() throws InterruptedException {
         userOnCustomerPortalBillingTab = userOnCustomerPortalSummaryTab.goToBillingTab();
         String actualPaymentBalance = userOnCustomerPortalBillingTab.getResponsibleBalance();
         Assert.assertEquals(actualPaymentBalance, expectedPaymentBalance,
@@ -68,7 +66,7 @@ public class TestCustomerPortalBillingTab {
     }
 
     @Then("I Verify The Billing History Section via Billing Tab")
-    public void testShowEntriesDropDownValuesInTheBillingTab() {
+    public void testShowEntriesDropDownValuesInTheBillingTab() throws InterruptedException {
         userOnCustomerPortalBillingTab = userOnCustomerPortalSummaryTab.goToBillingTab();
         List<String> actualShowEntryValues = userOnCustomerPortalBillingTab.getValuesFromShowNumberEntriesDropDown();
         List<String> expectedShowEntryValues = Arrays.asList("10", "25", "50", "100");
@@ -102,7 +100,7 @@ public class TestCustomerPortalBillingTab {
     }
 
     @Then("I Verify The Service Type-Amount Is Correct via Current Section")
-    public void testServiceTypeIsCorrectInTheCurrentSection() {
+    public void testServiceTypeIsCorrectInTheCurrentSection() throws InterruptedException {
         userOnCustomerPortalBillingTab = userOnCustomerPortalSummaryTab.goToBillingTab();
         String expectedServiceType = expectedSubscriptionServiceType.toString()
                 .replace("[", "").replace("]","");
@@ -143,7 +141,7 @@ public class TestCustomerPortalBillingTab {
     }
 
     @Then("I Verify The User Can Update Phone - Make Payment")
-    public void testFooterInTheBillingHistorySection() {
+    public void testFooterInTheBillingHistorySection() throws InterruptedException {
         userOnCustomerPortalBillingTab = userOnCustomerPortalSummaryTab.goToBillingTab();
         Assert.assertEquals(userOnCustomerPortalBillingTab.isUpdatePhoneImageDisplayed(),true,
                 "The Update Phone Image Is Not Displayed via Billing Tab");
@@ -197,7 +195,7 @@ public class TestCustomerPortalBillingTab {
     }
 
     @When("I Add A Card On File Using {string}, {string}, {string}, {string}")
-    public void automateAddingCardOnFile (String gateway, String creditCardNumber, String expirationDate, String cvv) throws InterruptedException {
+    public void automateAddingCardOnFile (String gateway, String creditCardNumber, String expirationDate, String cvv) {
         userOnBillingTab = sameUser.goToBillingTab();
         userOnBillingTab.clickAddPaymentMethod();
         userOnBillingTab.clickCreditCardButton();
@@ -205,7 +203,7 @@ public class TestCustomerPortalBillingTab {
     }
 
     @Then("I Verify Paying The Total Amount With A Card On File")
-    public void testPayingTheTotalAmountWithCardOnFile () throws InterruptedException {
+    public void testPayingTheTotalAmountWithCardOnFile () {
         userOnCustomerPortalBillingTab = userOnCustomerPortalSummaryTab.goToBillingTab();
         userOnCustomerPortalBillingTab.clickPayNowButton();
         userOnCustomerPortalBillingTab.clickCardOnFile();

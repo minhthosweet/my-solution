@@ -699,7 +699,7 @@ public class InvoicingTab extends BasePage{
     }//retrieveConfiguredGateway()
 
     @When("I Generate A Stand Alone Invoice")
-    public void automateGeneratingStandAloneInvoice() throws InterruptedException {
+    public void automateGeneratingStandAloneInvoice() {
         RoutePageInvoicing userOnInvoicesTab = new RoutePageInvoicing();
         CustomerViewDialog_Header sameUser = new CustomerViewDialog_Header();
         CreateNewInvoicePopUp userOnNewInvoicePopUp = new CreateNewInvoicePopUp();
@@ -713,7 +713,7 @@ public class InvoicingTab extends BasePage{
     }
 
     @And("I Pay Off The Stand Alone Invoice")
-    public void automatePayingOffStandAloneInvoice() throws InterruptedException {
+    public void automatePayingOffStandAloneInvoice() {
         RoutePageInvoicing userOnInvoicesTab = new RoutePageInvoicing();
         CustomerViewDialog_Header sameUser = new CustomerViewDialog_Header();
         Invoice_Header userSelectsPayment = new Invoice_Header();
@@ -729,7 +729,7 @@ public class InvoicingTab extends BasePage{
     }
 
     @And("I Pay Off A Non Stand Alone Invoice")
-    public void automatePayingOffNonStandAloneInvoice() throws InterruptedException {
+    public void automatePayingOffNonStandAloneInvoice() {
         CustomerViewDialog_Header sameUser = new CustomerViewDialog_Header();
         Invoice_Header userSelectsPayment = new Invoice_Header();
         RoutePageInvoicing userOnInvoicesTab = new RoutePageInvoicing();

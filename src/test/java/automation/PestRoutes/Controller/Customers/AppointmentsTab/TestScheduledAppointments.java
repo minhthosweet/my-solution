@@ -41,13 +41,13 @@ public class TestScheduledAppointments {
     public static String subStatusAmount;
 
     @Given("I Open The Appointments Tab")
-    public void automateAccessingRoutesPageFromAppointmentsTab() throws Exception {
+    public void automateAccessingRoutesPageFromAppointmentsTab() {
         testCustomer.createCustomerWithBasicInfo();
         sameUser.goToAppointmentsTab();
     }
 
     @When("I Schedule An Appointment From The Routes Page")
-    public void automateSchedulingAppointment() throws Exception {
+    public void automateSchedulingAppointment() {
         userOnSchedulingComponent = userOnDashboard.goToSchedulingComponent();
         userOnSchedulingComponent.addScheduleDateToProperties();
         userOnSchedulingComponent.clickScheduleDay();
@@ -62,7 +62,7 @@ public class TestScheduledAppointments {
     }
 
     @And("I Cancel The Scheduled Appointment")
-    public void automateCancellingAppointment() throws InterruptedException {
+    public void automateCancellingAppointment() {
         userOnRoutePage.goToCustomerSearchComponent(testCustomer.customerName);
         sameUser.goToAppointmentsTab();
         userOnAppointmentsTab.clickPendingAppointment("Automation Renewal");
@@ -71,7 +71,7 @@ public class TestScheduledAppointments {
     }
 
     @But("I Schedule Another Appointment From The Routes Page")
-    public void automateSchedulingAnotherAppointment() throws InterruptedException {
+    public void automateSchedulingAnotherAppointment() {
         dragCustomerCard(200, 0);
         userOnRoutePage.selectAvailableAppointment();
         userOnRoutePage.selectCustomer(testCustomer.customerName);
@@ -82,7 +82,7 @@ public class TestScheduledAppointments {
     }
 
     @Then("I See The Correct Appointment Information On The Appointments Tab")
-    public void testCorrectAppointmentInformation() throws InterruptedException {
+    public void testCorrectAppointmentInformation() {
         sameUser.goToAppointmentsTab();
         userOnAppointmentsTab.clickPendingAppointment("Automation Renewal");
         List<String> expectedSubscription = schedulingSubscription;
@@ -95,7 +95,7 @@ public class TestScheduledAppointments {
     }
 
     @When("I Complete An Appointment")
-    public void automateCompletingAnAppointment() throws Exception {
+    public void automateCompletingAnAppointment() {
         userOnSchedulingComponent = userOnDashboard.goToSchedulingComponent();
         userOnSchedulingComponent.addScheduleDateToProperties();
         userOnSchedulingComponent.clickScheduleDay();

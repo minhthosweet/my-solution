@@ -7,6 +7,7 @@ import automation.PestRoutes.Utilities.AppData;
 import automation.PestRoutes.Utilities.FindElement;
 import automation.PestRoutes.Utilities.Reporter;
 import automation.PestRoutes.Utilities.Utilities;
+import static automation.PestRoutes.Utilities.Utilities.currentDate;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -16,7 +17,6 @@ import org.testng.annotations.Test;
 import java.util.List;
 
 import static automation.PestRoutes.Utilities.AssertException.result;
-import static automation.PestRoutes.Utilities.Utilities.currentDate;
 
 public class AddSubscription extends AppData {
 
@@ -244,7 +244,7 @@ public class AddSubscription extends AppData {
 	}
 
 	@And("I set today as custom billing date")
-	public void setCurrentDateAsCustomBillingDate_InitialAppointment() throws InterruptedException {
+	public void setCurrentDateAsCustomBillingDate_InitialAppointment() {
 		customerDialogHeader = new CustomerViewDialog_Header();
 		subscription.clickEditCustomInitialScheduleButton();
 		subscription.clickSpecificDateButton_initialCustomSchedule();
@@ -266,7 +266,7 @@ public class AddSubscription extends AppData {
 	}
 
 	@And("I add a custom frequency recurring service")
-	public void customFrequencyRecurringService() throws InterruptedException {
+	public void customFrequencyRecurringService() {
 		subscription.clearCustomDate();
 		subscription.selectServiceFrequency("Custom Schedule");
 		subscription.clickEditCustomRecurringScheduleButton();
@@ -279,7 +279,7 @@ public class AddSubscription extends AppData {
 	}
 
 	@Then("I validate upcoming appointments for custom recurring appointments")
-	public void validateCustomSchedule_RecurringAppt() throws Exception {
+	public void validateCustomSchedule_RecurringAppt() {
 
 		result(subscription.getUpcomingAppt(subscription.firstUpcomingAppointment).replaceAll("0",""), subscription.getUpcomingAppointment_specificDate(customDateInCustomSchedule, 0).replaceAll("0",""), "first appointment", "Subscription");
 		result(subscription.getUpcomingAppt(subscription.thirdUpcomingAppointment).replaceAll("0",""), subscription.getUpcomingAppointment_specificDate(customDateInCustomSchedule, 1).replaceAll("0",""), "third appointment", "Subscription");
@@ -313,7 +313,7 @@ public class AddSubscription extends AppData {
 	}
 
 	@When("I Create A New Subscription With Basic Information")
-	public void createNewSubscriptionWithBasicInfo() throws InterruptedException {
+	public void createNewSubscriptionWithBasicInfo() {
 		CustomerViewDialog_SubscriptionTab userOnSubscriptionTab = new CustomerViewDialog_SubscriptionTab();
 		CustomerViewDialog_Header sameUser = new CustomerViewDialog_Header();
 

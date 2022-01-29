@@ -21,7 +21,7 @@ public class TestCustomProduction {
     String recurringServiceAmount;
 
     @Given("I Create A Customer With A Lead")
-    public void automateCreatingCustomerWithLead() throws InterruptedException {
+    public void automateCreatingCustomerWithLead() {
         testCustomer.createCustomerWithBasicInfo();
         userOnLeadsTab = sameUser.goToLeadsTab();
         userOnLeadsTab.clickNewQuote();
@@ -35,13 +35,13 @@ public class TestCustomProduction {
     }
 
     @And("I Enter A Recurring Service Type Amount {string}")
-    public void automateRecurringServiceTypeAmount(String amount) throws InterruptedException {
+    public void automateRecurringServiceTypeAmount(String amount)  {
         userOnLeadsTab.typeRecurringServiceTypeAmount(amount);
         recurringServiceAmount = userOnLeadsTab.getRecurringServiceTypeAmount();
     }
 
     @Then("I See The Correct Custom Production Amount When Multiplying {string} Times The Recurring Service Type Amount")
-    public void testCustomProductionAmountIsCorrect(String number) throws InterruptedException {
+    public void testCustomProductionAmountIsCorrect(String number) {
         double actualCustomProductionAmount = Double.parseDouble(userOnLeadsTab.getRecurringCustomProduction());
         double expectedCustomProductionAmount = Double.parseDouble(recurringServiceAmount) * Double.parseDouble(number);
         Assert.assertEquals(actualCustomProductionAmount, expectedCustomProductionAmount,

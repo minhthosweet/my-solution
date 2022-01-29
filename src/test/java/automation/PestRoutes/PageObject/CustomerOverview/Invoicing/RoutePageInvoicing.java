@@ -3,6 +3,7 @@ package automation.PestRoutes.PageObject.CustomerOverview.Invoicing;
 import automation.PestRoutes.PageObject.BasePage;
 import automation.PestRoutes.Utilities.Utilities;
 import automation.PestRoutes.Utilities.Utilities.ElementType;
+import static automation.PestRoutes.Utilities.Utilities.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -32,20 +33,16 @@ public class RoutePageInvoicing extends BasePage {
 
 	public void clickAddNewInvoice(String needTab) {
 		Utilities.clickElement(needTab,ElementType.XPath);
-		//Optimized For Encapsulation Below via clickNewInvoice() Using A Private Modifier With By Class
 	}
 
-	public void clickNewInvoice() throws InterruptedException {
-		Thread.sleep(3000);
+	public void clickNewInvoice() {
+		delay(3000);
 		click(newInvoice);
 	}
 
 	public void clickAddPayment() {
 		Utilities.waitUntileElementIsVisible(addPayment);
 		Utilities.clickElement(addPayment, ElementType.XPath);
-		//This Method Was Not Consistent
-		//Sometimes the + Add Payment Click And Sometimes It Did Not Click
-		//Optimized For Encapsulation Below via addPayment() Using A Private Modifier With By Class
 	}
 
 	public void addPayment() {
@@ -82,8 +79,8 @@ public class RoutePageInvoicing extends BasePage {
 		}
 	}
 
-	public void clickFullyPaidPaymentStatus() throws InterruptedException {
-		Thread.sleep(3000);
+	public void clickFullyPaidPaymentStatus() {
+		delay(3000);
 		click(fullyPaidPaymentStatus);
 	}
 
