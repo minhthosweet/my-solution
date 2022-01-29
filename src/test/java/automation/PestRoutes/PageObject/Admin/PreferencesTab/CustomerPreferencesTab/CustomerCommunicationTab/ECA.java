@@ -71,7 +71,7 @@ public class ECA {
 
     public void clickSave() {
         if (SystemUtils.IS_OS_LINUX) {
-            Utilities.acceptAlertLinux();
+            Utilities.acceptAlert();
         }
         Utilities.scrollToElement(serviceFollowUpEmail);
         Utilities.waitUntileElementIsVisible(clickSave);

@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import automation.PestRoutes.Controller.Subscriptions.AddSubscription;
 import automation.PestRoutes.PageObject.CustomerOverview.*;
+import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_InfoTab;
 import automation.PestRoutes.PageObject.DashboardPage;
 import automation.PestRoutes.PageObject.Search.SearchBox;
 import automation.PestRoutes.Utilities.*;
@@ -27,7 +28,6 @@ public class CreateNewCustomer extends AppData {
     CustomerViewDialog_Header customerDialog_Header;
     CustomerViewDialog_OverviewTab overview;
     CustomerViewDialog_Admin adminTab;
-
     Header header;
     CustomerViewDialog_InfoTab customerViewDialog_infoTab;
     SearchBox searchBox;
@@ -44,11 +44,11 @@ public class CreateNewCustomer extends AppData {
     public String primaryPhoneNumber = "6" + Integer.toString(Utilities.generateRandomNumber(9));
 
     public static String customerName = "";
+    public static String customerAccountID;
     public static String customerFirstName;
     public static String propertyAddress;
     public static String cityStateZip;
     public static String emailAddress;
-    public static String customerAccountID;
 
     @Test
     public void createCustomer() throws Exception {
@@ -56,7 +56,6 @@ public class CreateNewCustomer extends AppData {
         validateRequiredFieldError();
         createCustomerWithAddress();
         validateCreatedCustomerNameAndAddress();
-
     }
 
     @When("I create customer without required last name field")
@@ -470,7 +469,6 @@ public class CreateNewCustomer extends AppData {
         }
     }
 
-
     @Given("I close customer card")
     public void closeCustomerCard() throws InterruptedException {
         customerDialog_Header = new CustomerViewDialog_Header();
@@ -680,7 +678,7 @@ public class CreateNewCustomer extends AppData {
         cityStateZip = userCreateNewCustomer.getCityStateZip();
         userCreateNewCustomer.typeEmailAddress(email);
         emailAddress = userCreateNewCustomer.getEmailAddress();
-        sameUser.clickCustomerSaveButton();
+        sameUser.clickSaveButton();
     }
 
     @Given("I Create A Customer With A Subscription")
@@ -693,5 +691,6 @@ public class CreateNewCustomer extends AppData {
         sameUser.goToBillingTab();
         customerAccountID = userOnBillingTab.getCustomerAccountID();
         testSubscription.createNewSubscriptionWithBasicInfo();
+        sameUser.clickSaveButton();
     }
 }

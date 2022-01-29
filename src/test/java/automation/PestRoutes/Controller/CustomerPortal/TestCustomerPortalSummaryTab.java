@@ -57,7 +57,7 @@ public class TestCustomerPortalSummaryTab {
 
     @When("I Navigate To Customer Portal From Customer Card - Admin Tab")
     public void automateNavigatingFromCustomerCardToCustomerPortal() {
-        sameUser.goToAdminTab();
+        userOnAdminTab = sameUser.goToAdminTab();
         userOnCustomerPortalSummaryTab = userOnAdminTab.clickPortalLogin();
     }
 
@@ -151,7 +151,7 @@ public class TestCustomerPortalSummaryTab {
 
     @Then("I Verify The Cancelled Scheduled Appointment Is Not Displayed via Service Plan Section")
     public void testScheduledAppointmentDoesNotShowUpInServicePlanSection() {
-        sameUser.goToAdminTab();
+        userOnAdminTab = sameUser.goToAdminTab();
         userOnCustomerPortalSummaryTab = userOnAdminTab.clickPortalLogin();
         Assert.assertEquals(0, userOnCustomerPortalSummaryTab.numberOfServiceTypes(),
                 "The Number Of Service Types Do Not Equal Zero (0)");

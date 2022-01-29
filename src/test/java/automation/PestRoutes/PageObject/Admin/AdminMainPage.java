@@ -1,5 +1,6 @@
 package automation.PestRoutes.PageObject.Admin;
 
+import automation.PestRoutes.PageObject.Admin.PreferencesTab.PreferencesPage;
 import automation.PestRoutes.PageObject.BasePage;
 import automation.PestRoutes.Utilities.FindElement;
 import automation.PestRoutes.Utilities.Utilities;
@@ -41,7 +42,8 @@ public class AdminMainPage extends BasePage {
 		return Utilities.getElementTextValue(needFieldName, ElementType.XPath);
 	}
 
-	public void clickPreferencesSubComponent(){
+	public PreferencesPage clickPreferencesSubComponent(){
 		click(preferencesSubComponent);
+		return new PreferencesPage();
 	}
 }

@@ -1,14 +1,21 @@
 package automation.PestRoutes.PageObject.Admin.PreferencesTab.OfficeSettingsTab.TriggerTypes;
 
 import automation.PestRoutes.PageObject.Admin.PreferencesTab.OfficeSettingsTab.OfficeSettingsObjects;
+import automation.PestRoutes.PageObject.Admin.PreferencesTab.PreferencesPage;
 import automation.PestRoutes.Utilities.FindElement;
-import automation.PestRoutes.Utilities.Utilities;
 import automation.PestRoutes.Utilities.FindElement.InputType;
+import automation.PestRoutes.Utilities.Utilities;
 import automation.PestRoutes.Utilities.Utilities.ElementType;
 import io.cucumber.java.en.When;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
-public class TriggerRules {
+import java.util.List;
+
+import static automation.PestRoutes.Utilities.Utilities.scrollToElementJS;
+import static automation.PestRoutes.Utilities.Utilities.waitUntileElementIsVisible;
+
+public class TriggerRules extends PreferencesPage {
 
     OfficeSettingsObjects officeSettingsObjects;
     // Search Trigger
@@ -44,8 +51,20 @@ public class TriggerRules {
     public String isActiveDropdown = "//select[@name='active']";
     public String daysAfterChange = "//input[@data-ruleitemtype='triggerWhenValue']";
 
-    // Save Button
+    // Buttons
     public String saveButton = "//div[@id='triggerRulesTable']//span[text()='save']";
+    private By greenAddTriggerButton= By.xpath("//div[@id='newTrigger' and text()='+ Trigger']");
+    private By editTriggerButton = By.xpath("//div[@id='triggerRulesTable']/div[2]//div[6]//following::span");
+    private By saveTriggerButton = By.xpath("//span[text()='save']");
+    private By removeActionButton = By.xpath("//form[@id='triggerRuleForm']//div[text()='Remove']");
+
+    private By descriptionColumnValues = By.xpath("//div[@id='triggerRulesTable']/div[2]//div[2]");
+
+    private By activeColumnValues = By.xpath("//div[@id='triggerRulesTable']/div[2]//div[6]");
+    private By triggerTypeDropDown = By.xpath("//form[@id='triggerRuleForm']//select[@name='triggerEventID']");
+    private By descriptionField = By.xpath("//form[@id='triggerRuleForm']//input[@name='description']");
+    private By startDateField = By.xpath("//form[@id='triggerRuleForm']//input[@name='startDate']");
+    private By activeDropDown = By.xpath("//form[@id='triggerRuleForm']//select[@name='active']");
 
     public void clickSaveButton() {
         Utilities.scrollToElement(addTriggerButton);
@@ -121,4 +140,62 @@ public class TriggerRules {
         return FindElement.elementByAttribute("//div[text()='" + needText + "']", InputType.XPath);
     }
 
+    public void clickAddTriggerButton() {
+        scrollToElementJS(find(greenAddTriggerButton));
+        click(greenAddTriggerButton);
+    }
+
+    public void selectTriggerType(String triggerType) {
+        selectFromDropDown(triggerType, triggerTypeDropDown);
+    }
+
+    public void typeTriggerDescription(String description) {
+        type(description, descriptionField);
+    }
+
+    public void typeStartDate(String date) {
+        type(date, startDateField);
+    }
+
+    public void setAllTriggersToNotActive(String active, String notActive){
+        List<WebElement> listOfActiveValues = findElements(activeColumnValues);
+        for(WebElement activeValue : listOfActiveValues) {
+            if (activeValue.getText().equals(active)) {
+                String activeDataValue = activeValue.getText();
+                System.out.println(activeDataValue);
+                find(editTriggerButton).click();
+                selectFromDropDown(notActive, activeDropDown);
+                click(saveTriggerButton);
+            }
+        }
+    }
+
+    public void clickToRemoveAction() {
+        waitUntileElementIsVisible(removeActionButton);
+        click(removeActionButton);
+    }
+
+    public boolean isExistingTriggerAvailable(String description, String date){
+        List<WebElement> listOfDescriptionValues = findElements(descriptionColumnValues);
+        By editButton = By.xpath("//div[@id='triggerRulesTable']/div[2]//div[text()='"+ description +"']//following::span");
+        for(WebElement descriptionValue : listOfDescriptionValues) {
+            scrollToElementJS(descriptionValue);
+            if (descriptionValue.getText().equals(description)) {
+                find(editButton).click();
+                typeStartDate(date);
+                clickToRemoveAction();
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void addActiveTrigger(String triggerType, String description, String date) {
+       if(isExistingTriggerAvailable(description, date) == false) {
+           clickAddTriggerButton();
+           selectTriggerType(triggerType);
+           typeTriggerDescription(description);
+           typeStartDate(date);
+       }
+    }
 }

@@ -245,7 +245,7 @@ public class FillRoutesPageObjects extends AppData {
         if( Utilities.elementIsVisible(fillRoutesReviewPage)) {
 
             //Close incognito browser
-            Utilities.closeIncongitoBrowser(incognitoBrowser);
+            Utilities.closeIncognitoBrowser(incognitoBrowser);
 
             //Click [Save] to save the optimized routes
             Utilities.clickElement(btnSave_FillRoutsReviewPg, ElementType.XPath);

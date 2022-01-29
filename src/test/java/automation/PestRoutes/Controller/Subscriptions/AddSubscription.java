@@ -324,7 +324,7 @@ public class AddSubscription extends AppData {
 		userOnSubscriptionTab.selectCustomDate(currentDate("MM/DD/YYYY"));
 		userOnSubscriptionTab.selectInitialInvoice("After Initial Completion");
 		userOnSubscriptionTab.selectAdditionalItem_ToInitialInvoice("Best Product");
-		sameUser.clickCustomerSaveButton();
+		sameUser.clickSaveButton();
 		totalInitialInvoice = userOnSubscriptionTab.getInitialInvoiceTotal();
 	}
 }

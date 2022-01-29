@@ -12,7 +12,7 @@ import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import static automation.PestRoutes.Utilities.Utilities.elementIsVisible;
+import static automation.PestRoutes.Utilities.Utilities.*;
 
 public class CustomerViewDialog_Header extends BasePage {
 
@@ -33,7 +33,6 @@ public class CustomerViewDialog_Header extends BasePage {
     public String tranferButtonInDialog = "//span[text()='Transfer']";
     public String closeButton = "//div[@id= 'customerWindow']/following-sibling::div//span[text()='Close']";
     public String saveButton = "//div[@id= 'customerWindow']/following-sibling::div//span[text()='Save']";
-    private By customerSaveButton = By.xpath("//div[@id= 'customerWindow']/following-sibling::div//span[text()='Save']");
     public String closeXButton = "//span[@id= 'ui-id-11']/parent::div/button/span";
     private By xButton = By.xpath("//span[@id='ui-id-11']/parent::div/button[@role='button']");
     public String discardChange = "//span[text()='Discard Changes']";
@@ -43,9 +42,11 @@ public class CustomerViewDialog_Header extends BasePage {
     private By scheduleButton = By.xpath("//div[@id= 'customerWindow']/following-sibling::div//span[text()='Schedule']");
 
     //******************** TABS ********************
+    private By infoTab = By.xpath("//li[@name='infoTab']/a[text()='Info']");
     private By subscriptionTab = By.xpath("//li[@name='subscriptionTab']/a[text()='Subscription']");
     private By leadsTab = By.xpath("//a[text()='Leads']");
     private By billingTab = By.xpath("//li[@name='billingTab']//a[text()='Billing']");
+    private By notesTab = By.xpath("//li[@name='notesTab']/a[text()='Notes']");
     private By appointmentsTab = By.xpath("//a[text()='Appointments']");
     private By invoicesTab = By.xpath("//a[text()='Invoices']");
     private By adminTab = By.xpath("//li[@name='adminTab']//a[text()='Admin']");
@@ -92,7 +93,6 @@ public class CustomerViewDialog_Header extends BasePage {
     public void clickCustomerCardScheduleButton (){
         click(scheduleButton);
     }
-
 
     public void clickCustomerSaveButton (){
         click(customerSaveButton);
@@ -151,10 +151,34 @@ public class CustomerViewDialog_Header extends BasePage {
         driver.switchTo().defaultContent();
     }
 
+    public CustomerViewDialog_InfoTab goToInfoTab() {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(infoTab));
+        click(infoTab);
+        return new CustomerViewDialog_InfoTab();
+    }
+
     public CustomerViewDialog_SubscriptionTab goToSubscriptionTab () {
         wait.until(ExpectedConditions.visibilityOfElementLocated(subscriptionTab));
         click(subscriptionTab);
         return new CustomerViewDialog_SubscriptionTab();
+    }
+
+    public LeadsPage goToLeadsTab () {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(leadsTab));
+        click(leadsTab);
+        return new LeadsPage();
+    }
+
+    public BillingPage goToBillingTab(){
+        wait.until(ExpectedConditions.visibilityOfElementLocated(billingTab));
+        click(billingTab);
+        return new BillingPage();
+    }
+
+    public CustomerViewDialog_Notes goToNotesTab() {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(notesTab));
+        click(notesTab);
+        return new CustomerViewDialog_Notes();
     }
 
     public CustomerviewDialog_AppointmentsTab goToAppointmentsTab () {
@@ -169,21 +193,9 @@ public class CustomerViewDialog_Header extends BasePage {
         return new RoutePageInvoicing();
     }
 
-    public LeadsPage goToLeadsTab () {
-        wait.until(ExpectedConditions.visibilityOfElementLocated(leadsTab));
-        click(leadsTab);
-        return new LeadsPage();
-    }
-
     public CustomerViewDialog_Admin goToAdminTab() {
         delay(3000);
         click(adminTab);
         return new CustomerViewDialog_Admin();
-    }
-
-    public BillingPage goToBillingTab(){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(billingTab));
-        click(billingTab);
-        return new BillingPage();
     }
 }

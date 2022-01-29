@@ -316,7 +316,7 @@ public class CustomerViewDialog_SubscriptionTab extends BasePage {
 		Utilities.scrollToElementJS(initialInvoice_AddTicketItemButton);
 		Utilities.clickElement(initialInvoice_AddTicketItemButton, ElementType.XPath);
 		if (SystemUtils.IS_OS_LINUX) {
-			Utilities.acceptAlertLinux();
+			Utilities.acceptAlert();
 		}
 		Utilities.waitUntileElementIsVisible("//span[text()=  '" + needItem + "']");
 		//Utilities.scrollToElementJS("//span[text()=  '" + needItem + "']");
@@ -328,7 +328,7 @@ public class CustomerViewDialog_SubscriptionTab extends BasePage {
 		}catch (Exception e){
 			Utilities.clickElement(initialInvoice_AddTicketItemButton, ElementType.XPath);
 			if (SystemUtils.IS_OS_LINUX) {
-				Utilities.acceptAlertLinux();
+				Utilities.acceptAlert();
 			}
 			Utilities.waitUntileElementIsVisible("//span[text()=  '" + needItem + "']");
 			Utilities.scrollToElementJS("//span[text()=  '" + needItem + "']");
@@ -344,7 +344,7 @@ public class CustomerViewDialog_SubscriptionTab extends BasePage {
 		Utilities.waitUntileElementIsVisible(recurringInvoice_AddTicketItemButton);
 		Utilities.clickElement(recurringInvoice_AddTicketItemButton, ElementType.XPath);
 		if (SystemUtils.IS_OS_LINUX) {
-			Utilities.acceptAlertLinux();
+			Utilities.acceptAlert();
 		}
 		Utilities.scrollToElementJS("//span[text()=  '" + needItem + "']");
 		Utilities.waitUntileElementIsVisible("//span[text()=  '" + needItem + "']");
@@ -548,7 +548,7 @@ public class CustomerViewDialog_SubscriptionTab extends BasePage {
 
 	public String getCustomProductionValue() {
 		if (SystemUtils.IS_OS_LINUX) {
-			Utilities.acceptAlertLinux();
+			Utilities.acceptAlert();
 		}
 		WebElement elm = FindElement.elementByAttribute("//span[text()='Custom Production']/following-sibling::input[@name='productionValue']", InputType.XPath);
 		return elm.getAttribute("value");

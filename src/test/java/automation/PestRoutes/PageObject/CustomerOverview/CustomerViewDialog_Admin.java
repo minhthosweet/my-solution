@@ -15,7 +15,10 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.Set;
+
 import static automation.PestRoutes.Utilities.Utilities.refreshPage;
+import static automation.PestRoutes.Utilities.Utilities.*;
+
 
 public class CustomerViewDialog_Admin extends BasePage {
 
@@ -134,5 +137,14 @@ public class CustomerViewDialog_Admin extends BasePage {
         delay(3000);
         refreshPage();
         return new CustomerPortalSummaryTabPage();
+    }
+
+    public void clickRemoveButton() {
+        find(By.xpath(removeButton)).click();
+    }
+
+    public void clickConfirmRemoveButton() {
+        elementIsVisible(confirmRemoveButton);
+        find(By.xpath(confirmRemoveButton)).click();
     }
 }

@@ -38,7 +38,7 @@ public class Utilities {
 	public static String getAlertText() {
 		return driver.switchTo().alert().getText();
 	}
-	
+
 	public static void clickElementInIframe(String needXpath) {
 		int size = driver.findElements(By.tagName("iframe")).size();
 		for (int i = 0; i <= size; i++) {
@@ -95,36 +95,20 @@ public class Utilities {
 	}
 
 	public static void acceptAlert() {
-		//IAlert alert = driver.switchTo().alert().accept();
-			int i=0;
-			while(i++<5)
-			{
-				try
-				{
-					driver.switchTo().alert().accept();
-					break;
-				}
-				catch(Exception e)
-				{
-					delay(1000);
-					continue;
-				}
+		for(int i = 0; i < 5; i++) {
+			try {
+				driver.switchTo().alert().accept();
+				break;
+			} catch(Exception e) {
+				delay(1000);
 			}
-
-	}
-
-	public static void acceptAlertLinux() {
-		try {
-			driver.switchTo().alert().accept();
-		} catch (Exception e) {
-
 		}
 	}
 
 	public static Alert alertPopUp() {
 		return driver.switchTo().alert();
 	}
-	
+
 	public static void hitEnter(String needAttributeXpath) {
 		driver.findElement(By.xpath(needAttributeXpath)).sendKeys(Keys.ENTER);
 	}
@@ -149,7 +133,6 @@ public class Utilities {
 		FileUtils.copyFile(SrcFile, DestFile);
 
 	}
-
 
 	public static void search(String needXpath, String needText){
 
@@ -311,23 +294,17 @@ public class Utilities {
 
 	public static void sign(WebElement needAttribute) {
 		Actions builder = new Actions(driver);
-		Action drawAction = builder 
-	              .click(needAttribute)
-	              .moveToElement(needAttribute,8,8)
-	              .clickAndHold(needAttribute)
-	              .moveByOffset(60, 70)
-	              .moveByOffset(-120,-120)
-	              .moveByOffset(70, 80)
-	              .moveByOffset(-80,-80)
-	              .release(needAttribute)
-	              .build();
-	    drawAction.perform();
-	}
-
-	public static void javaScriptClick(String needID) {
-		WebElement element = driver.findElement(By.id(needID));
-		JavascriptExecutor executor = (JavascriptExecutor) driver;
-		executor.executeScript("arguments[0].click();", element);
+		Action drawAction = builder
+			.click(needAttribute)
+			.moveToElement(needAttribute,8,8)
+			.clickAndHold(needAttribute)
+			.moveByOffset(60, 70)
+			.moveByOffset(-120,-120)
+			.moveByOffset(70, 80)
+			.moveByOffset(-80,-80)
+			.release(needAttribute)
+			.build();
+		drawAction.perform();
 	}
 
 	public static void hoverElement(String needElementToHover, String needAttributeToClick) {
@@ -394,18 +371,18 @@ public class Utilities {
 	}
 
 	public static void clickElement(String needAttribute, ElementType Attribute_Type) {
-			WebElement elm = FindElement.elementByAttribute(needAttribute, FindElement.InputType.XPath);
-			try {
-				if (elm.isDisplayed()) {
-					waitUntileElementIsVisible(needAttribute, 7);
-					scrollToElement(needAttribute);
-					clickElement(needAttribute, Attribute_Type, false, false);
-				}
+		WebElement elm = FindElement.elementByAttribute(needAttribute, FindElement.InputType.XPath);
+		try {
+			if (elm.isDisplayed()) {
+				waitUntileElementIsVisible(needAttribute, 7);
+				scrollToElement(needAttribute);
+				clickElement(needAttribute, Attribute_Type, false, false);
 			}
-			catch(Exception e){
-				System.out.println("Locator not visible");
-				}
 		}
+		catch(Exception e){
+			System.out.println("Locator not visible");
+		}
+	}
 
 	public static void clickElement(String needAttribute, ElementType Attribute_Type, Boolean simple, Boolean order) {
 		if (simple) {
@@ -454,6 +431,12 @@ public class Utilities {
 		}
 	}
 
+	public static void jsClickElement(By locator) {
+		waitUntileElementIsVisible(locator);
+		JavascriptExecutor executor = (JavascriptExecutor) driver;
+		executor.executeScript("arguments[0].click();", driver.findElement(locator));
+	}
+
 	public static void navigateToUrl(String needURL) { driver.get(needURL);
 	}
 
@@ -467,7 +450,7 @@ public class Utilities {
 		driver.quit();
 	}
 
-	public static void closeTab() {
+	public static void closeTab(){
 		driver.close();
 	}
 
@@ -479,7 +462,6 @@ public class Utilities {
 		} else if (SystemUtils.IS_OS_WINDOWS) {
 			FindElement.elementByAttribute(needElement, InputType.XPath).sendKeys(Keys.CONTROL, "a");
 		}
-
 	}
 
 	public static void clearField(String needElement) {
@@ -493,7 +475,7 @@ public class Utilities {
 
 		return result / 100;
 	}
-	
+
 	public static String getCurrentMonth(){
 		Calendar calendar = Calendar.getInstance();
 		return new SimpleDateFormat("MMMMMMMMMMMMMM").format(calendar.getTime());
@@ -534,7 +516,7 @@ public class Utilities {
 		DateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
 		return sdf.format(lastDayOfMonth);
 	}
-	
+
 	public enum ElementType {
 		XPath, ID, ClassName, PartialLink, LinkText
 	}
@@ -579,7 +561,7 @@ public class Utilities {
 		List<WebElement> allOptions = findDropDown.getOptions();
 		return allOptions.stream().map(e->e.getText()).collect(Collectors.toList());
 	}
-  
+
 	//F.White - 12/11/2021 : Added method readExcelFile()
 	//Method readExcelFile(): Reads files from an excel spreadsheet and places it in a HaspMap<String, String>
 	public static HashMap<String, String> readExcelFile(String filePathLocation, String fileName, String sheetName, int dataSetID) throws IOException {
@@ -712,7 +694,7 @@ public class Utilities {
 		capabilities.setCapability(ChromeOptions.CAPABILITY, browserOptions);
 		browserOptions.merge(capabilities);
 
-		//Load and execute the URL in the Incogito Browser
+		//Load and execute the URL in the Incognito Browser
 		WebDriver incognitoBrowser = new ChromeDriver(browserOptions);
 		incognitoBrowser.get(strURL);
 		incognitoBrowser.navigate().to(strURL);
@@ -720,27 +702,17 @@ public class Utilities {
 		return incognitoBrowser;
 	} //loadIncognitoChromeBrowser()
 
-	public static void closeIncongitoBrowser(WebDriver incongitoBrowser ){
-		if (incongitoBrowser != null) {
-			incongitoBrowser.quit();
+	public static void closeIncognitoBrowser(WebDriver incognitoBrowser ){
+		if (incognitoBrowser != null) {
+			incognitoBrowser.quit();
 		}
-	}//closeIncongitoBrowser()
+	}//closeIncognitoBrowser()
 
 	public static void selectFromDropDown(String value, By locator) {
 		WebElement webElm = driver.findElement(locator);
 		Select findDropDown = new Select(webElm);
 		findDropDown.selectByVisibleText(value);
 	}//selectFromDropDown()
-
-	public static boolean isPresent(String XPath, int timeout) {
-		for (int i = 0; i < timeout * 2; i++) {
-			if (driver.findElements(By.xpath(XPath)).size() > 0) {
-				return true;
-			}
-			delay(500);
-		}
-		return false;
-	}
 
 	public static boolean isPresent(String XPath) {
 		return driver.findElements(By.xpath(XPath)).size() > 0;
@@ -754,3 +726,5 @@ public class Utilities {
 		}
 	}
 }
+
+

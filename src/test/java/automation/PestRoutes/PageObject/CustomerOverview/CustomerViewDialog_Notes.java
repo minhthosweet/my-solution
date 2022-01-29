@@ -1,6 +1,14 @@
 package automation.PestRoutes.PageObject.CustomerOverview;
 
-public class CustomerViewDialog_Notes {
+import automation.PestRoutes.PageObject.BasePage;
+import org.openqa.selenium.By;
+
+public class CustomerViewDialog_Notes extends BasePage {
     public String sentToText = "//div[@id='contactsPanelWrapper']//div[@sentTo]";
     public String messageSent = "//div[@id='contactsPanelWrapper']//li//div[1]";
+    private By logInfoNotes = By.xpath("//div[@id='contactsPanelWrapper']//div[contains(text(),'Email')]");
+
+    public String getNotesDetailLog() {
+        return getText(logInfoNotes);
+    }
 }

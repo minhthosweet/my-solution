@@ -1,57 +1,62 @@
 package automation.PestRoutes.PageObject.Admin.PreferencesTab;
 
 
-import automation.PestRoutes.PageObject.BasePage;
-import automation.PestRoutes.Utilities.FindElement;
+import automation.PestRoutes.PageObject.Admin.AdminMainPage;
+import automation.PestRoutes.PageObject.Admin.PreferencesTab.CustomerPreferencesTab.GenericFlagsPage;
+import automation.PestRoutes.PageObject.Admin.PreferencesTab.MerchantInfoTab.MarchantInfoPage;
+import automation.PestRoutes.PageObject.Admin.PreferencesTab.OfficeSettingsTab.TriggerTypes.TriggerRules;
 import automation.PestRoutes.Utilities.Utilities;
+import static automation.PestRoutes.Utilities.Utilities.scrollToElementJS;
+import static automation.PestRoutes.Utilities.Utilities.waitUntileElementIsVisible;
 import automation.PestRoutes.Utilities.Utilities.ElementType;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 
-public class PreferencesPage extends BasePage {
+public class PreferencesPage extends AdminMainPage {
 	
-	//Office settings navigation
-	public String officeSettingsRelatedNav = "//h2[@id='office']";
+	//Office Settings Navigation
+	private By officeSettingsRelatedNav = By.xpath("//h2[@id='office']");
 	private By merchantInfo = By.xpath("//ul[@id='preferencesMenu']//li[text()='Merchant Info']");
+	private By triggerRules = By.xpath("//ul[@id='preferencesMenu']//li[text()='Trigger Rules']");
 
-	//Partner Sited/Apps navigation
-	public String partnerSites_AppsRelatedNav = "//h2[@id='partner']";
+	//Partner Sited/Apps Navigation
+	private By partnerSites_AppsRelatedNav = By.xpath("//h2[@id='partner']");
 	
-	//Customer preferences navigation
+	//Customer Preferences Navigation
 	public String customerPreferencesRelatedNav = "//h2[@id='customer']";
-	public String additionalContactTypes = "//li[text()='Additional Contact Types']";
-	public String cancellationReasons = "//li[text()='Cancellation Reasons']";
-	public String contractTemplates = "//li[text()='Contract Templates']";
+	private By customerPreferences = By.xpath("//h2[@id='customer' and text()='Customer Preferences']");
+	private By additionalContactTypes = By.xpath("//li[text()='Additional Contact Types']");
+	private By cancellationReasons = By.xpath("//li[text()='Cancellation Reasons']");
+	private By contractTemplates = By.xpath("//li[text()='Contract Templates']");
 	public String customerCommunication = "//li[text()='Customer Communication']";
 	public String customerSources = "//li[text()='Customer Sources']";
 	public String divisions = "//li[text()='Divisions']";
-	public String emailCategories = "//li[text()='Email Categories']";
-	public String emailTemplates = "//li[text()='Email Templates']";
+	private By emailCategories = By.xpath("//li[text()='Email Categories']");
+	private By emailTemplates = By.xpath("//li[text()='Email Templates']");
 	public String formTemplate = "//li[text()='Form Templates']";
 	public String genericFlags = "//li[text()='Generic Flags']";
-	public String leadStages = "//li[text()='Lead Stages']";
-	public String leadLostReasons = "//li[text()='Lead Lost Reasons']";
-	public String noteCategories = "//li[text()='Note Categories']";
-	public String noteTypes = "//li[text()='Note Types']";
-	public String renewalNotices = "//li[text()='Renewal Notices']";
+	private By genericFlagsListItem = By.xpath("//ul[@id='preferencesMenu']//li[text()='Generic Flags']");
+	private By leadStages = By.xpath("//li[text()='Lead Stages']");
+	private By leadLostReasons = By.xpath("//li[text()='Lead Lost Reasons']");
+	private By noteCategories = By.xpath("//li[text()='Note Categories']");
+	private By noteTypes = By.xpath("//li[text()='Note Types']");
+	private By renewalNotices = By.xpath("//li[text()='Renewal Notices']");
 	public String routeRegions = "//li[text()='Route Regions']";
-	public String structureTemplates = "//li[text()='Structure Templates']";
-	public String subPropertyTypes = "//li[text()='Sub-Property Types']";
-	public String voiceMessages = "//li[text()='Voice Messages']";
-	public String wdoFindings = "//li[text()='WDO Findings']";
-	public String wdoRecommendations = "//li[text()='WDO Recommendations']";
+	private By structureTemplates = By.xpath("//li[text()='Structure Templates']");
+	private By subPropertyTypes = By.xpath("//li[text()='Sub-Property Types']");
+	private By voiceMessages = By.xpath("//li[text()='Voice Messages']");
+	private By wdoFindings = By.xpath("//li[text()='WDO Findings']");
+	private By wdoRecommendations = By.xpath("//li[text()='WDO Recommendations']");
 
-	//Service related navigation
+	//Service Related Navigation
 	public String serviceRelatedNav = "//h2[@id='service']";
-	public String addOnsText = "//li[text() = 'Add Ons']";
-	public String applicationMethodsText = "//li[text() = 'Application Methods']";
+	private By addOnsText = By.xpath("//li[text() = 'Add Ons']");
+	private By applicationMethodsText = By.xpath("//li[text() = 'Application Methods']");
 	public String serviceTypesText = "//li[text() = 'Service Types']";
 	public String equipmentTypesText = "//li[text() = 'Equipment Types']";
 	public String productsText = "//li[text() = 'Products']";
-	
-	
-	//Mobile navigation
-	public String mobileRelatedNav = "//h2[@id='mobile']";
+
+	//Mobile Navigation
+	private By mobileRelatedNav = By.xpath("//h2[@id='mobile']");
 	
 	/*
 	 * Actions
@@ -69,7 +74,27 @@ public class PreferencesPage extends BasePage {
 		Utilities.clickElement(needPage, ElementType.XPath);
 	}
 
-	public void clickMerchantInfo(){
+	public MarchantInfoPage clickMerchantInfo(){
 		click(merchantInfo);
+		return new MarchantInfoPage();
+	}
+
+	public void clickCustomerPreferences() {
+		delay(2000);
+		scrollToElementJS(find(customerPreferences));
+		click(customerPreferences);
+	}
+
+	public GenericFlagsPage clickGenericFlags() {
+		waitUntileElementIsVisible(genericFlagsListItem,5);
+		click(genericFlagsListItem);
+		return new GenericFlagsPage();
+	}
+
+	public TriggerRules clickTriggerRules() {
+		delay(2000);
+		scrollToElementJS(find(triggerRules));
+		click(triggerRules);
+		return new TriggerRules();
 	}
 }

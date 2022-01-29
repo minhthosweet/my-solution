@@ -1,11 +1,15 @@
 package automation.PestRoutes.PageObject.Admin.PreferencesTab.OfficeSettingsTab.TriggerTypes;
 
+import automation.PestRoutes.PageObject.Admin.PreferencesTab.PreferencesPage;
 import automation.PestRoutes.Utilities.FindElement;
-import automation.PestRoutes.Utilities.Utilities;
 import automation.PestRoutes.Utilities.FindElement.InputType;
+import automation.PestRoutes.Utilities.Utilities;
+import static automation.PestRoutes.Utilities.Utilities.*;
 import automation.PestRoutes.Utilities.Utilities.ElementType;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 
-public class ARTab {
+public class ARTab extends PreferencesPage {
 
 	// AR Filter Objects
 	public String age_PastDueDropDown = "//label[text()='Age/Past Due']/ancestor::div[@class='col-6']/following-sibling::div/select[@name='filterItemValue']";
@@ -28,6 +32,14 @@ public class ARTab {
 	public String snailMailAction_actual = "//div[text()='Send Snail Mail']";
 	public String collectionsStageAction_actual = "//div[text()='Set Collections Stage']";
 	public String ARMAction_actual = "//div[text()='Send to ARM']";
+	private By agePastDueDropDown = By.xpath("//label[text()='Age/Past Due']/parent::div/following-sibling::div/select[@name='filterItemValue']");
+	private By agePastDueDaysField = By.xpath("//label[text()='Age/Past Due Days']/parent::div/following-sibling::div/input[@name='filterItemValue']");
+	private By includeCustomerFlagsMultiDropDown = By.xpath("//label[text()='Include Customer Flags']//following::input");
+	private By greenActionButton = By.xpath("//div[text()='+ Action']");
+	private By actionDropDown = By.xpath("//div[@id='observer']//select[@name='eventObserverID']");
+	private By emailTitleField = By.xpath("//input[@id='observerItem' and @name='observerItemValue']");
+	private By emailTypeDropDown = By.xpath("//input[@data-observeritemtype='title']/parent::div/parent::div/following-sibling::div//select[@id='observerItem']");
+	private By saveTriggerButton = By.xpath("//span[text()='save']");
 
 	// Getters: get actual text value for action created(used for assertions)
 	public String getEmailActionTextValue() {
@@ -74,4 +86,41 @@ public class ARTab {
 		;
 	}
 
+	public void selectAgePastDue(String agePastDue) {
+		selectFromDropDown(agePastDue, agePastDueDropDown);
+	}
+
+	public void typeAgePastDueDays(String agePastDueDays) {
+		type(agePastDueDays, agePastDueDaysField);
+	}
+
+	public void typeFlagToInclude(String flagCode) {
+		// On Next Commitment
+		// Write find statement to retrieve the size of x then remove
+		// Write if statement to remove all values by clicking the x then type new flagcode
+		WebElement includeCustomerFlagsMultiField = find(includeCustomerFlagsMultiDropDown);
+		type(flagCode, includeCustomerFlagsMultiField);
+	}
+
+	public void clickAddActionButton() {
+		elementIsVisible(greenActionButton);
+		click(greenActionButton);
+	}
+
+	public void selectAction(String action) {
+		elementIsVisible(actionDropDown);
+		selectFromDropDown(action, actionDropDown);
+	}
+
+	public void typeEmailTitle(String emailTitle) {
+		type(emailTitle, emailTitleField);
+	}
+
+	public void selectEmailType(String emailType) {
+		selectFromDropDown(emailType, emailTypeDropDown);
+	}
+
+	public void clickSaveButton() {
+		click(saveTriggerButton);
+	}
 }

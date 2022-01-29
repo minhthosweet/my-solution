@@ -1,8 +1,10 @@
 package automation.PestRoutes.PageObject.CustomerOverview;
 
+import automation.PestRoutes.PageObject.BasePage;
 import automation.PestRoutes.Utilities.Utilities;
+import org.openqa.selenium.By;
 
-public class CustomerViewDialog_InfoTab {
+public class CustomerViewDialog_InfoTab extends BasePage {
     public String taxRate = "//input[@name='taxRate']";
     public String firstName = "//input[@name='fname']";
     public String lastName = "//input[@name='lname']";
@@ -15,7 +17,7 @@ public class CustomerViewDialog_InfoTab {
     public String county = "//select[@name='county']//option[@selected]";
     public String email = "//input[@name='email']";
     public String flagOnCustomerCard = "//div[@id='s2id_customerGenericFlags']//ul//div";
-
+    private By genericFlagsDropDown = By.xpath("//select[@id= 'customerGenericFlags']");
 
     public String getTaxRate() {
         String taxRatePercentage = Utilities.getAttributeValue(taxRate, "value");
@@ -67,5 +69,9 @@ public class CustomerViewDialog_InfoTab {
     public String getFlagOnCustomerCard() {
         Utilities.waitUntileElementIsVisible(flagOnCustomerCard);
         return Utilities.getElementTextValue(flagOnCustomerCard, Utilities.ElementType.XPath);
+    }
+
+    public void selectCustomerGenericFlag(String flagCode) {
+        selectFromDropDown(flagCode, genericFlagsDropDown);
     }
 }
