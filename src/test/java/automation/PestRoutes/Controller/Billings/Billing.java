@@ -7,6 +7,8 @@ import automation.PestRoutes.Utilities.Utilities;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.When;
 
+import java.util.Random;
+
 public class Billing extends AppData {
 
 	BillingPage billing = new BillingPage();
@@ -65,6 +67,7 @@ public class Billing extends AppData {
 			String[] fields = {billing.pestRoutesCcNumberInputField, billing.pestRoutesCcExpirationInputField, billing.pestRoutesCcCvvInputField};
 			String[] input = {needRegularCC, "0228", "123"};
 			for (int i = 0; i < iFrame.length; i++){
+				Utilities.isPresent("//iframe[@id='payrixAddIFrame']");
 				Utilities.switchToIframeByXpath(billing.payrixIframe);
 				Utilities.switchToIframeByXpath(iFrame[i]);
 				billing.setInputField(fields[i], input[i]);
@@ -113,6 +116,11 @@ public class Billing extends AppData {
 	//***Author Aarbi
 	@And("I add an ACH payment option")
 	public void addBankAccount() throws Exception {
+		String[] routingNumber = {"111000614", "051000017", "122101706"};
+		String[] accountNumber = {"111222333", "222333444", "333444555"};
+		Random random = new Random();
+		int selectRouting = random.nextInt(routingNumber.length);
+		int selectAccount = random.nextInt(accountNumber.length);
 		customerCardHeader = new CustomerViewDialog_Header();
 		customerCardBillingTab = new BillingPage();
 		customerCardHeader.navigateTo(customerCardHeader.infoTabInDialog);
@@ -120,8 +128,8 @@ public class Billing extends AppData {
 		customerCardBillingTab.clickElement(customerCardBillingTab.addPaymentMethodButton);
 		billing.clickElement(billing.addBankAccountButton);
 		billing.setInputField(billing.bankAccountBankNameInputField, "JP Morgan");
-		billing.setInputField(billing.bankAccountRoutingNumberInputField, "111000614");
-		billing.setInputField(billing.bankAccountAccountNumberInputField, "111222333");
+		billing.setInputField(billing.bankAccountRoutingNumberInputField, routingNumber[selectRouting]);
+		billing.setInputField(billing.bankAccountAccountNumberInputField, accountNumber[selectAccount]);
 		billing.selectDropdown(billing.bankAcountAccountTypeDropdown, "Checking Account");
 		billing.selectDropdown(billing.bankAccountCheckTypeDropdown, "Personal Account");
 		billing.clickElement(billing.saveBankAccountButton);

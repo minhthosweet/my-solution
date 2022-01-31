@@ -251,9 +251,9 @@ public class PaymentsByServiceType extends AppData {
         } catch (StaleElementReferenceException e) {
             System.out.println("Fields not visible");
         } finally {
-            if (!CucumberBaseClass.scenarioName().equals("Multi Group By filter validation in PST")) {
-                header.clickAccessHistory();
-            }
+//            if (!CucumberBaseClass.scenarioName().equals("Multi Group By filter validation in PST")) {
+//                header.clickAccessHistory();
+//            }
             createNewCustomer.removeCustomer();
         }
     }
@@ -347,11 +347,17 @@ public class PaymentsByServiceType extends AppData {
         dateOfInvoice = (billingByServiceTypeTab.get(paymentsByServiceTypeTab.invoiceDate_lineItem)).substring(0, 8);
         result(Utilities.currentDate("MM/dd/YY"), dateOfInvoice, "Invoice Date Validation", "PST Report Validation");
         result("Credit Card", billingByServiceTypeTab.get(paymentsByServiceTypeTab.paymentMethod), "Payment Method validation in detail report", "PST Report Validation");
-        if (CucumberBaseClass.scenarioName().equals("Credit memo validation in PST")) {
-            result(billingByServiceTypeTab.getAttributeValue(invImplementation.inactiveInvoiceOnTheLeft, "ticketid"), billingByServiceTypeTab.get(paymentsByServiceTypeTab.invoiceID_lineItem), "Invoice ID validation in detail report", "PST Report Validation");
-        } else {
-            result(billingByServiceTypeTab.getAttributeValue(invImplementation.activeInvoiceOnTheLeft, "ticketid"), billingByServiceTypeTab.get(paymentsByServiceTypeTab.invoiceID_lineItem), "Invoice ID validation in detail report", "PST Report Validation");
-        }
+//        if (CucumberBaseClass.scenarioName().equals("Credit memo validation in PST")) {
+//            result(billingByServiceTypeTab.getAttributeValue
+//                    (invImplementation.inactiveInvoiceOnTheLeft, "ticketid"),
+//                    billingByServiceTypeTab.get(paymentsByServiceTypeTab.invoiceID_lineItem),
+//                    "Invoice ID validation in detail report", "PST Report Validation");
+//        } else {
+//            result(billingByServiceTypeTab.getAttributeValue
+//                    (invImplementation.activeInvoiceOnTheLeft, "ticketid"),
+//                    billingByServiceTypeTab.get(paymentsByServiceTypeTab.invoiceID_lineItem),
+//                    "Invoice ID validation in detail report", "PST Report Validation");
+//        }
         result(getData("serviceDescription", generalData), billingByServiceTypeTab.get(billingByServiceTypeTab.serviceType_lineItem), "Service Type in detail report validation", "PST Report Validation");
         result(customerID_PST, billingByServiceTypeTab.get(billingByServiceTypeTab.customerID_lineItem), "Customer ID Validation", "PST Report Validation");
         result(customerName_PST, billingByServiceTypeTab.get(billingByServiceTypeTab.customerName_lineItem), "Customer Name Validation", "PST" +

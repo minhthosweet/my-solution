@@ -57,7 +57,7 @@ public class Utilities {
 	}
 
 	public static void switchToIframeByXpath(String needElement) {
-		WebDriverWait wait = new WebDriverWait(driver, 20);
+		//WebDriverWait wait = new WebDriverWait(driver, 20);
 		String elm = needElement;
 		driver.switchTo().frame(elm);
 	}
