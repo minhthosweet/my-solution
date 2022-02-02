@@ -2,16 +2,15 @@ package automation.PestRoutes.Controller.Admin.Preferences.OfficeSettings.Trigge
 
 import automation.PestRoutes.Controller.CustomerCreation.CreateNewCustomer;
 import automation.PestRoutes.Controller.Invoicing.InvoicingTab;
+import automation.PestRoutes.Controller.Subscriptions.AddSubscription;
 import automation.PestRoutes.PageObject.Admin.AdminMainPage;
 import automation.PestRoutes.PageObject.Admin.PreferencesTab.CustomerPreferencesTab.GenericFlagsPage;
 import automation.PestRoutes.PageObject.Admin.PreferencesTab.OfficeSettingsTab.TriggerTypes.ARTab;
 import automation.PestRoutes.PageObject.Admin.PreferencesTab.OfficeSettingsTab.TriggerTypes.TriggerRules;
 import automation.PestRoutes.PageObject.Admin.PreferencesTab.PreferencesPage;
-import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_Admin;
-import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_Header;
-import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_InfoTab;
-import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_Notes;
+import automation.PestRoutes.PageObject.CustomerOverview.*;
 import automation.PestRoutes.PageObject.DashboardPage;
+import automation.PestRoutes.PageObject.Header;
 import automation.PestRoutes.Utilities.AppData;
 import automation.PestRoutes.Utilities.GetDate;
 import automation.PestRoutes.Utilities.Utilities;
@@ -42,6 +41,10 @@ public class AR_Age extends AppData {
     CustomerViewDialog_Header sameUser = new CustomerViewDialog_Header();
     CreateNewCustomer testUser = new CreateNewCustomer();
     ARTab triggerAR = new ARTab();
+    AddSubscription testSubscription = new AddSubscription();
+    Header userOnHeader = new Header();
+    CreateNewCustomer testCustomer = new CreateNewCustomer();
+    CustomerViewDialog_OverviewTab userOnOverviewTab = new CustomerViewDialog_OverviewTab();
 
     private String description_TriggerAge = "TriggerAge_AR";
     public String age = "1";
@@ -94,8 +97,8 @@ public class AR_Age extends AppData {
         this.genericFlag = flagCode;
     }
 
-    @Given("I Set Up {string} Trigger Type That Has {string} Filter With {string} Action")
-    public void automateSelectingFilterWithAction(String trigger, String filter, String action) {
+    @Given("I Set Up {string} Trigger Type That Has {string} Filter With {string} Filter")
+    public void automateSettingUpTriggerTypeAR(String trigger, String filter, String additionalFilter) {
         userOnAdminComponent = userOnDashboard.goToAdminComponent();
         userOnPreferences = userOnAdminComponent.clickPreferencesSubComponent();
         userOnTriggerRulesPage = userOnPreferences.clickTriggerRules();
@@ -103,40 +106,67 @@ public class AR_Age extends AppData {
                 (trigger, trigger + " Automation Trigger", currentDate("MM/dd/yy"));
         triggerAR.selectAgePastDue(filter);
         triggerAR.typeAgePastDueDays("0");
-        //triggerAR.typeFlagToInclude(genericFlag);
+        triggerAR.typeFlagToInclude(genericFlag);
+        triggerAR.selectAdditionalFilter(additionalFilter);
+    }
+
+    @And("I Complete An Action To {string} With {string} Details")
+    public void automateSendingCompleteAction(String action, String details) {
         triggerAR.clickAddActionButton();
-        triggerAR.selectAction(action);
-        triggerAR.selectEmailType("Email Statement");
-        triggerAR.typeEmailTitle("Automation Trigger Rule Test");
+        triggerAR.completeAction(action, details);
         triggerAR.clickSaveButton();
     }
 
     @When("I Add {string} Flag To The Customer With A New Invoice")
-    public void automateSettingUpCustomerWithFlagAndInvoice(String flagCode) {
+    public void automateSettingUpCustomerWithFlagSubscriptionAndInvoice(String flagCode) {
         InvoicingTab testUserOnInvoicesTab = new InvoicingTab();
         testUser.createCustomerWithBasicInfo();
         userOnInfoTab = sameUser.goToInfoTab();
         userOnInfoTab.selectCustomerGenericFlag(flagCode);
         sameUser.clickSaveButton();
+        testSubscription.createNewSubscriptionWithOnlyServiceType();
         testUserOnInvoicesTab.automateGeneratingStandAloneInvoice();
     }
 
     @And("I Execute Trigger {string} On Subdomain {string} For Office {string}")
-    public void automateExecutingTriggerOnBrowserUsingAnEndPoint(String triggerName, String subdomain, String officeID) {
-        // Only use variable testURL for testing only
-        // After testing, I will use variable urlWithEndPoint
+    public void automateExecutingTriggerOnSubdomainWithEndPoint(String triggerName, String subdomain, String officeID) {
         String stagingdemoURL = "https://stagingdemo.pestroutes.com/resources/scripts/triggerEvents.php?debug=1&office=4&testing=1";
         String url = "https://" + subdomain + ".pestroutes.com/resources/scripts/" + triggerName +
-                    ".php?debug=1&office=" + officeID +"&testing=1";
+                    ".php?debug=1&office=" + officeID + "&testing=1";
         WebDriver driver = loadIncognitoChromeBrowser(url);
         closeIncognitoBrowser(driver);
     }
 
-    @Then("I Verify The Customer Received An Email After Executing The Trigger Rule")
-    public void testCustomerReceivedAnEmail() {
-        sameUser.goToNotesTab();
-        boolean isEmailSent = userOnNotesTab.getNotesDetailLog().contains("Email");
-        softAssert.assertTrue(isEmailSent);
+    @Then("I Verify The Customer Received {string} Note After Executing The Trigger")
+    public void testCustomerReceivedDetailNoteLog(String noteDetail) {
+       sameUser.goToNotesTab();
+       boolean isNoteSent = userOnNotesTab.getNotesLogInfo().contains(noteDetail);
+       softAssert.assertTrue(isNoteSent,
+                "Customer Did Not Receive " + noteDetail + " After Executing Trigger");
+       softAssert.assertAll();
+       sameUser.goToAdminTab();
+       userOnAdminTab.clickRemoveButton();
+       userOnAdminTab.clickConfirmRemoveButton();
+    }
+
+    @Then("I Verify The Customer Received {string} After Executing The Trigger")
+    public void testCustomerReceivedAddedFlag(String additionalFlag) {
+        userOnHeader.searchCustomerWithName(testCustomer.customerName);
+        boolean isGenericFlagDisplayedOnOverviewTab = userOnOverviewTab.getAlert(genericFlag);
+        boolean isAdditionalFlagDisplayedOnOverviewTab = userOnOverviewTab.getAlert(additionalFlag);
+        softAssert.assertTrue(isGenericFlagDisplayedOnOverviewTab,
+                "\n" + genericFlag + " Is Not Displayed On The Overview Tab After Executing Trigger" );
+        softAssert.assertTrue(isAdditionalFlagDisplayedOnOverviewTab,
+                additionalFlag + " Is Not Displayed On The Overview Tab After Executing Trigger \n" );
+
+        sameUser.goToInfoTab();
+        boolean isGenericFlagDisplayedOnInfoTab = userOnInfoTab.getGenericFlag(genericFlag);
+        boolean isAdditionalFlagDisplayedOnInfoTab = userOnInfoTab.getGenericFlag(additionalFlag);
+        softAssert.assertTrue(isGenericFlagDisplayedOnInfoTab,
+                "\n" + genericFlag + " Is Not Displayed On The Info Tab After Executing Trigger" );
+        softAssert.assertTrue(isAdditionalFlagDisplayedOnInfoTab,
+                additionalFlag + " Is Not Displayed On The Info Tab After Executing Trigger \n" );
+        softAssert.assertAll();
         sameUser.goToAdminTab();
         userOnAdminTab.clickRemoveButton();
         userOnAdminTab.clickConfirmRemoveButton();

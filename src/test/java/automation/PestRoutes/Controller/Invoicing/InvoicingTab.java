@@ -56,7 +56,6 @@ public class InvoicingTab extends BasePage{
     SingleCardPayment cardPayment;
     MarchantInfoPage merchantPage;
     AppData appData = new AppData();
-    AddSubscription testSubscription = new AddSubscription();
 
     private String treatmentAmount = "900";
     private Integer partialPaymentAmount = Integer.parseInt(treatmentAmount) / 2;
@@ -69,6 +68,7 @@ public class InvoicingTab extends BasePage{
     public static String nextExpirationDate = null;
     public static String activeGateway = null;
     public static String paymentAmount;
+    public static String invoiceSubTotal;
     public static String invoicePaymentBalance;
 
     @Test
@@ -706,8 +706,8 @@ public class InvoicingTab extends BasePage{
 
         sameUser.goToInvoicesTab();
         userOnInvoicesTab.clickNewInvoice();
-        userOnNewInvoicePopUp.typeSubTotal(testSubscription.totalInitialInvoice);
-        userOnNewInvoicePopUp.selectServiceType("Automation Renewal");
+        userOnNewInvoicePopUp.typeSubTotal("100");
+        invoiceSubTotal = userOnNewInvoicePopUp.getSubTotal();
         userOnNewInvoicePopUp.clickCreateButton();
         invoicePaymentBalance = userOnInvoicesTab.getPaymentBalance();
     }

@@ -42,6 +42,10 @@ public class CreateNewInvoicePopUp extends BasePage {
         type(subTotal, invoiceSubTotal);
     }
 
+    public String getSubTotal() {
+        return find(invoiceSubTotal).getAttribute("value");
+    }
+
     public void selectServiceType(String serviceType)  {
         selectFromDropDown(serviceType, serviceTypeDropDown);
     }

@@ -1,9 +1,11 @@
 package automation.PestRoutes.PageObject.CustomerOverview;
 
+import automation.PestRoutes.PageObject.BasePage;
 import automation.PestRoutes.Utilities.Utilities;
 import automation.PestRoutes.Utilities.Utilities.ElementType;
+import org.openqa.selenium.By;
 
-public class CustomerViewDialog_OverviewTab {
+public class CustomerViewDialog_OverviewTab extends BasePage {
 	public String overviewTab_Address = "//h3[contains (text(),  'Account Overview')]/div";
 	public String customerNameInDialogHeader = "//span[@id='ui-id-11']";
 	public String customerID_InDialogHeader = "//span[@id='ui-id-11']/span[1]";
@@ -38,4 +40,11 @@ public class CustomerViewDialog_OverviewTab {
 		return str.substring(str.indexOf(" ")+1, str.indexOf(","));
 	}
 
+	public boolean getAlert(String alertName) {
+		By overviewAlert = By.xpath("//div[@id='overviewPanel']//div[contains(text(),'"+ alertName +"')]");
+		if (find(overviewAlert).isDisplayed()) {
+			return true;
+		}
+		return false;
+	}
 }

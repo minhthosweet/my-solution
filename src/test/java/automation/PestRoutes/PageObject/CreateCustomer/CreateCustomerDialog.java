@@ -295,6 +295,10 @@ public class CreateCustomerDialog extends BasePage {
         Utilities.clickElement(clickAddFlag, ElementType.XPath);
     }
 
+    public void typePhone1(String phone) {
+        type(phone, find(By.xpath(cellPhoneInputField)));
+    }
+
     /*
      * Getter methods Below methods get text value from an object
      */
@@ -353,5 +357,9 @@ public class CreateCustomerDialog extends BasePage {
 
     public String getEmailAddress() {
         return find(emailAddressField).getAttribute("value");
+    }
+
+    public String getPhone1() {
+        return find(By.xpath(cellPhoneInputField)).getAttribute("value");
     }
 }

@@ -7,7 +7,7 @@ import automation.PestRoutes.Utilities.AppData;
 import automation.PestRoutes.Utilities.FindElement;
 import automation.PestRoutes.Utilities.Reporter;
 import automation.PestRoutes.Utilities.Utilities;
-import static automation.PestRoutes.Utilities.Utilities.currentDate;
+import static automation.PestRoutes.Utilities.Utilities.*;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -36,14 +36,12 @@ public class AddSubscription extends AppData {
 
 	@Test(groups = "Smoke")
 	public void validateSubscription() throws Exception {
-
 		startSubscription();
 		validatePreferredDayAppt();
 		validateInitialInvoice();
 		validateRecurringInvoice();
 		validateBillingFrequencyByMonthly();
 		validateBillingFrequencyByAnnually();
-
 	}
 
 	@When("I start a regular subscription")
@@ -144,10 +142,8 @@ public class AddSubscription extends AppData {
 				System.out.println(actualUpComingDates[j]);
 				System.out.println(expectedUpComingDates[j]);
 				result(expectedUpComingDates[j], actualUpComingDates[j], prefferedDay[i] + daySlot[j], "Subscription");
-
 			}
 		}
-
 	}
 
 	@Then("I validate initial invoice template values")
@@ -326,5 +322,14 @@ public class AddSubscription extends AppData {
 		userOnSubscriptionTab.selectAdditionalItem_ToInitialInvoice("Best Product");
 		sameUser.clickSaveButton();
 		totalInitialInvoice = userOnSubscriptionTab.getInitialInvoiceTotal();
+	}
+
+	public void createNewSubscriptionWithOnlyServiceType() {
+		CustomerViewDialog_Header sameUser = new CustomerViewDialog_Header();
+		CustomerViewDialog_SubscriptionTab userOnSubscriptionTab = new CustomerViewDialog_SubscriptionTab();
+		sameUser.goToSubscriptionTab();
+		userOnSubscriptionTab.clickNewSubscription();
+		userOnSubscriptionTab.selectRecurringServiceType("Automation Renewal");
+		sameUser.clickSaveButton();
 	}
 }

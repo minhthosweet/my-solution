@@ -5,15 +5,13 @@ import automation.PestRoutes.PageObject.Admin.PreferencesTab.PreferencesPage;
 import automation.PestRoutes.Utilities.FindElement;
 import automation.PestRoutes.Utilities.FindElement.InputType;
 import automation.PestRoutes.Utilities.Utilities;
+import static automation.PestRoutes.Utilities.Utilities.*;
 import automation.PestRoutes.Utilities.Utilities.ElementType;
 import io.cucumber.java.en.When;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import java.util.List;
-
-import static automation.PestRoutes.Utilities.Utilities.scrollToElementJS;
-import static automation.PestRoutes.Utilities.Utilities.waitUntileElementIsVisible;
 
 public class TriggerRules extends PreferencesPage {
 
@@ -57,9 +55,7 @@ public class TriggerRules extends PreferencesPage {
     private By editTriggerButton = By.xpath("//div[@id='triggerRulesTable']/div[2]//div[6]//following::span");
     private By saveTriggerButton = By.xpath("//span[text()='save']");
     private By removeActionButton = By.xpath("//form[@id='triggerRuleForm']//div[text()='Remove']");
-
     private By descriptionColumnValues = By.xpath("//div[@id='triggerRulesTable']/div[2]//div[2]");
-
     private By activeColumnValues = By.xpath("//div[@id='triggerRulesTable']/div[2]//div[6]");
     private By triggerTypeDropDown = By.xpath("//form[@id='triggerRuleForm']//select[@name='triggerEventID']");
     private By descriptionField = By.xpath("//form[@id='triggerRuleForm']//input[@name='description']");
@@ -171,8 +167,9 @@ public class TriggerRules extends PreferencesPage {
     }
 
     public void clickToRemoveAction() {
-        waitUntileElementIsVisible(removeActionButton);
-        click(removeActionButton);
+        if (elementIsVisible(removeActionButton)) {
+            click(removeActionButton);
+        }
     }
 
     public boolean isExistingTriggerAvailable(String description, String date){

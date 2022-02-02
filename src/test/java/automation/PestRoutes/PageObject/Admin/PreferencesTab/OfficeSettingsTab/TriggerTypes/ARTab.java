@@ -9,6 +9,8 @@ import automation.PestRoutes.Utilities.Utilities.ElementType;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
+import java.util.List;
+
 public class ARTab extends PreferencesPage {
 
 	// AR Filter Objects
@@ -34,12 +36,23 @@ public class ARTab extends PreferencesPage {
 	public String ARMAction_actual = "//div[text()='Send to ARM']";
 	private By agePastDueDropDown = By.xpath("//label[text()='Age/Past Due']/parent::div/following-sibling::div/select[@name='filterItemValue']");
 	private By agePastDueDaysField = By.xpath("//label[text()='Age/Past Due Days']/parent::div/following-sibling::div/input[@name='filterItemValue']");
-	private By includeCustomerFlagsMultiDropDown = By.xpath("//label[text()='Include Customer Flags']//following::input");
+	private By includeCustomerFlagsMultiDropDown = By.xpath("//label[text()='Include Customer Flags']/parent::div[@class='col-6']//following-sibling::div/div//ul//input");
+	private By saveTriggerButton = By.xpath("//span[text()='save']");
+
+	// Action Elements
 	private By greenActionButton = By.xpath("//div[text()='+ Action']");
 	private By actionDropDown = By.xpath("//div[@id='observer']//select[@name='eventObserverID']");
 	private By emailTitleField = By.xpath("//input[@id='observerItem' and @name='observerItemValue']");
 	private By emailTypeDropDown = By.xpath("//input[@data-observeritemtype='title']/parent::div/parent::div/following-sibling::div//select[@id='observerItem']");
-	private By saveTriggerButton = By.xpath("//span[text()='save']");
+	private By smsIgnoreContactPrefsDropDown = By.xpath("//select[@id='observerItem' and @name='observerItemValue']");
+	private By flagsField = By.xpath("//label[text()='Flags']/following::label/following-sibling::input");
+	private By voiceTypeDropDown = By.xpath("//select[@name='observerItemValue' and @value='new']");
+	private By createInvoicesValueTypeDropDown = By.xpath("//label[contains(text(),'Value Type')]//following::select[@id='observerItem']");
+	private By createInvoicesValueField = By.xpath("//input[@id='observerItem' and @name='observerItemValue']");
+	private By createInvoicesServiceTypeDropDown = By.xpath("//label[contains(text(),'Value Type')]//following::select[@id='observerItem']//following::select[@id='observerItem']");
+	private By freezeCustomersCancellationReasonDropDown = By.xpath("//label[text()='Cancellation Reason']//following::select[@id='observerItem']");
+	private By textArea_Email_FreezeCustomer_Message = By.xpath("//textarea[@id='observerItem']/../div");
+	private By textArea_SMS_Voice_Message = By.xpath("//textarea[@id='observerItem']");
 
 	// Getters: get actual text value for action created(used for assertions)
 	public String getEmailActionTextValue() {
@@ -94,12 +107,34 @@ public class ARTab extends PreferencesPage {
 		type(agePastDueDays, agePastDueDaysField);
 	}
 
-	public void typeFlagToInclude(String flagCode) {
-		// On Next Commitment
-		// Write find statement to retrieve the size of x then remove
-		// Write if statement to remove all values by clicking the x then type new flagcode
+	public boolean typeFlagToInclude(String flagCode) {
+		List<WebElement> allFlags = findElements(By.xpath("//div[@id='s2id_filterItem9']/ul/li/div"));
 		WebElement includeCustomerFlagsMultiField = find(includeCustomerFlagsMultiDropDown);
+		for (WebElement flag : allFlags) {
+			if (flag.getText().contains(flagCode)) {
+				return true;
+			}
+		}
 		type(flagCode, includeCustomerFlagsMultiField);
+		return false;
+	}
+
+	public void selectAdditionalFilter(String additionalFilter) {
+		switch(additionalFilter) {
+			case "Minimum Balance":
+				find(By.xpath(minimum_Balance)).clear();
+				find(By.xpath(maximum_Balance)).clear();
+				type("100", find(By.xpath(minimum_Balance)));
+				break;
+			case "Maximum Balance":
+				find(By.xpath(minimum_Balance)).clear();
+				find(By.xpath(maximum_Balance)).clear();
+				type("100", find(By.xpath(maximum_Balance)));
+				break;
+			default:
+				find(By.xpath(minimum_Balance)).clear();
+				find(By.xpath(maximum_Balance)).clear();
+		}
 	}
 
 	public void clickAddActionButton() {
@@ -107,17 +142,61 @@ public class ARTab extends PreferencesPage {
 		click(greenActionButton);
 	}
 
-	public void selectAction(String action) {
+	public void completeActionSendEmail(String emailType) {
+		if (emailType.equalsIgnoreCase("Email Statement")) {
+			selectFromDropDown(emailType, emailTypeDropDown);
+			type("Automation Trigger Rule Test", emailTitleField);
+		} else if (emailType.equalsIgnoreCase("New Email Message")){
+			selectFromDropDown(emailType, emailTypeDropDown);
+			type("Automation Trigger Rule Test", emailTitleField);
+			type("Email Test For Trigger Rules", textArea_Email_FreezeCustomer_Message);
+		}
+	}
+
+	public void completeActionSendSMS(String ignoreContactPrefs) {
+		delay(1000); // isPresent() and elementIsVisible() Did Not Work but delay() Worked Every Time
+		selectFromDropDown(ignoreContactPrefs, smsIgnoreContactPrefsDropDown);
+		type("SMS Test For Trigger Rules", textArea_SMS_Voice_Message);
+	}
+
+	public void completedActionSendVoice(String voiceType) {
+		String voiceMessage = "//select[@name='observerItemValue' and @data-observeritemtype='recordedMessages']";
+		if (voiceType.equalsIgnoreCase("New Message")) {
+			selectFromDropDown(voiceType, voiceTypeDropDown);
+			type("Voice Test For Trigger Rules", textArea_SMS_Voice_Message);
+		} else if (voiceType.equalsIgnoreCase("Pre-recorded Message")) {
+			selectFromDropDown(voiceType, voiceTypeDropDown);
+			selectValueFromDropDownByIndex(voiceMessage, 0);
+		}
+	}
+
+	public void completeAction(String action, String details) {
 		elementIsVisible(actionDropDown);
 		selectFromDropDown(action, actionDropDown);
-	}
-
-	public void typeEmailTitle(String emailTitle) {
-		type(emailTitle, emailTitleField);
-	}
-
-	public void selectEmailType(String emailType) {
-		selectFromDropDown(emailType, emailTypeDropDown);
+		switch(action) {
+			case "Add Flags":
+				elementIsVisible(flagsField);
+				type(details, find(flagsField));
+				break;
+			case "Create Invoices":
+				selectFromDropDown("Fixed", createInvoicesValueTypeDropDown);
+				type("38.34", createInvoicesValueField);
+				selectFromDropDown(details, createInvoicesServiceTypeDropDown);
+				break;
+			case "Freeze Customers":
+				selectFromDropDown(details, freezeCustomersCancellationReasonDropDown);
+				type("Freeze Customers Test For Trigger Rules", textArea_Email_FreezeCustomer_Message);
+				break;
+			case "Send Email":
+				completeActionSendEmail(details);
+				break;
+			case "Send SMS":
+				completeActionSendSMS(details);
+				break;
+			case "Send Voice":
+				completedActionSendVoice(details);
+				break;
+		}
 	}
 
 	public void clickSaveButton() {

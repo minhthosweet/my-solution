@@ -49,6 +49,7 @@ public class CreateNewCustomer extends AppData {
     public static String propertyAddress;
     public static String cityStateZip;
     public static String emailAddress;
+    public static String phone1;
 
     @Test
     public void createCustomer() throws Exception {
@@ -671,10 +672,11 @@ public class CreateNewCustomer extends AppData {
         customerFirstName = userCreateNewCustomer.getCustomerFirstName();
         userCreateNewCustomer.typeLastName(lName);
         customerName = userCreateNewCustomer.getCustomerFullName();
+        userCreateNewCustomer.typePhone1(primaryPhoneNumber);
+        phone1 = userCreateNewCustomer.getPhone1();
+        userCreateNewCustomer.typeZipCode(zipcode);
         userCreateNewCustomer.typePropertyAddress(streetAddress);
         propertyAddress = userCreateNewCustomer.getPropertyAddress();
-        userCreateNewCustomer.typeCity(city);
-        userCreateNewCustomer.typeZipCode(zipcode);
         cityStateZip = userCreateNewCustomer.getCityStateZip();
         userCreateNewCustomer.typeEmailAddress(email);
         emailAddress = userCreateNewCustomer.getEmailAddress();

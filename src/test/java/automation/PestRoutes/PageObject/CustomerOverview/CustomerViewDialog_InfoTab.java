@@ -71,6 +71,14 @@ public class CustomerViewDialog_InfoTab extends BasePage {
         return Utilities.getElementTextValue(flagOnCustomerCard, Utilities.ElementType.XPath);
     }
 
+    public boolean getGenericFlag(String flag) {
+        By genericFlag = By.xpath("//div[text()='"+ flag +"']");
+        if (find(genericFlag).isDisplayed()) {
+            return true;
+        }
+        return false;
+    }
+
     public void selectCustomerGenericFlag(String flagCode) {
         selectFromDropDown(flagCode, genericFlagsDropDown);
     }
