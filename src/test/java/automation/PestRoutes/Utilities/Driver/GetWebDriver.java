@@ -21,14 +21,14 @@ public class GetWebDriver {
 			if(SystemUtils.IS_OS_MAC_OSX) {
 				options.addArguments("--headless", "--disable-gpu");
 				driver = new ChromeDriver(options);
-				driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+				driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 			} else if(SystemUtils.IS_OS_WINDOWS) {
 				driver = new ChromeDriver(options);
 				driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 			} else if(SystemUtils.IS_OS_LINUX) {
 				options.addArguments("--headless", "--disable-gpu");
 				driver = new ChromeDriver(options);
-				driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+				driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 			}
 		}
 		return driver;
