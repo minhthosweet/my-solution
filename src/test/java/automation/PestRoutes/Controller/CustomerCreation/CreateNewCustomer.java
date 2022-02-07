@@ -46,6 +46,7 @@ public class CreateNewCustomer extends AppData {
     public static String customerName = "";
     public static String customerAccountID;
     public static String customerFirstName;
+    public static String customerLastName;
     public static String propertyAddress;
     public static String cityStateZip;
     public static String emailAddress;
@@ -671,6 +672,7 @@ public class CreateNewCustomer extends AppData {
         userCreateNewCustomer.typeFirstName(fName);
         customerFirstName = userCreateNewCustomer.getCustomerFirstName();
         userCreateNewCustomer.typeLastName(lName);
+        customerLastName = userCreateNewCustomer.getCustomerLastName();
         customerName = userCreateNewCustomer.getCustomerFullName();
         userCreateNewCustomer.typePhone1(primaryPhoneNumber);
         phone1 = userCreateNewCustomer.getPhone1();

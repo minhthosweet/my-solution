@@ -8,6 +8,7 @@ import automation.PestRoutes.Utilities.FindElement;
 import automation.PestRoutes.Utilities.Utilities;
 import automation.PestRoutes.Utilities.FindElement.InputType;
 import automation.PestRoutes.Utilities.Utilities.ElementType;
+import static automation.PestRoutes.Utilities.Utilities.*;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import org.openqa.selenium.By;
@@ -33,6 +34,7 @@ public class RoutePage extends BasePage {
     private By allFixedAppointments = By.xpath("//div[@id='routesView']//div[text()='Schedule Fixed Appointment']");
     private By newCustomerField = By.xpath("//input[@name='newCustomer']");
     private By newCustomerButton = By.xpath("//div[@id='newCustomerAppointmentButton']");
+    private By routeActions = By.xpath("//div[@id='routesView']//div[text()='Route Actions']");
 
     CustomRoute customRoute;
 
@@ -149,11 +151,20 @@ public class RoutePage extends BasePage {
 
     public void selectAvailableAppointment() {
         List<WebElement> fixedAppointments = driver.findElements(allFixedAppointments);
-        for(WebElement availableAppointment : fixedAppointments) {
-            if (!availableAppointment.isSelected()) {
-                availableAppointment.click();
-                break;
+        if (elementIsVisible(routeActions)) {
+            for(WebElement availableAppointment : fixedAppointments) {
+                if (!availableAppointment.isSelected()) {
+                    availableAppointment.click();
+                    break;
+                }
+                else {
+                    addRoutesByQuantity("1");
+                    find(allFixedAppointments).click();
+                }
             }
+        } else {
+            addRoutesByQuantity("1");
+            find(allFixedAppointments).click();
         }
     }
 
@@ -161,6 +172,4 @@ public class RoutePage extends BasePage {
         type(customer, newCustomerField);
         click(newCustomerButton);
     }
-
-
 }

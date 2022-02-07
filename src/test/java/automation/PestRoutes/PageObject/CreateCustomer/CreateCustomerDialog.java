@@ -9,7 +9,6 @@ import automation.PestRoutes.Utilities.FindElement;
 import automation.PestRoutes.Utilities.Utilities;
 import automation.PestRoutes.Utilities.FindElement.InputType;
 import automation.PestRoutes.Utilities.Utilities.ElementType;
-import static automation.PestRoutes.Utilities.Utilities.*;
 import org.openqa.selenium.WebElement;
 
 public class CreateCustomerDialog extends BasePage {
@@ -334,6 +333,10 @@ public class CreateCustomerDialog extends BasePage {
 
     public String getCustomerFirstName() {
         return find(firstNameField).getAttribute("value");
+    }
+
+    public String getCustomerLastName() {
+        return find(lastNameField).getAttribute("value");
     }
 
     public void typePropertyAddress(String propertyAddress) {

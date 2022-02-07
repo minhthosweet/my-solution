@@ -3,7 +3,6 @@ package automation.PestRoutes.Controller.CustomerPortal;
 import automation.PestRoutes.Controller.CustomerCreation.CreateNewCustomer;
 import automation.PestRoutes.Controller.Customers.AppointmentsTab.TestScheduledAppointments;
 import automation.PestRoutes.Controller.Invoicing.InvoicingTab;
-import automation.PestRoutes.Controller.Reporting.TestTechNamePaymentsByServiceType;
 import automation.PestRoutes.Controller.Subscriptions.AddSubscription;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_Admin;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_Header;
@@ -38,7 +37,6 @@ public class TestCustomerPortalSummaryTab {
     RoutePage userOnRoutePage = new RoutePage();
     SchedulingAppointmentDialog userOnSchedulingDialog = new SchedulingAppointmentDialog();
     CustomerviewDialog_AppointmentsTab userOnAppointmentsTab = new CustomerviewDialog_AppointmentsTab();
-    TestTechNamePaymentsByServiceType test = new TestTechNamePaymentsByServiceType();
     CreateNewCustomer testCustomer = new CreateNewCustomer();
     AddSubscription testSubscription = new AddSubscription();
     InvoicingTab testInvoice = new InvoicingTab();
@@ -138,8 +136,6 @@ public class TestCustomerPortalSummaryTab {
         userOnSchedulingComponent = userOnDashboard.goToSchedulingComponent();
         userOnSchedulingComponent.addScheduleDateToProperties();
         userOnSchedulingComponent.clickScheduleDay();
-        userOnRoutePage.addGroup();
-        userOnRoutePage.addRoutesByQuantity("1");
         userOnRoutePage.selectAvailableAppointment();
         userOnRoutePage.selectCustomer(testCustomer.customerName);
         userOnSchedulingDialog.selectTypeOfService("Automation Renewal");

@@ -52,8 +52,6 @@ public class TestScheduledAppointments {
         userOnSchedulingComponent = userOnDashboard.goToSchedulingComponent();
         userOnSchedulingComponent.addScheduleDateToProperties();
         userOnSchedulingComponent.clickScheduleDay();
-        userOnRoutePage.addGroup();
-        userOnRoutePage.addRoutesByQuantity("1");
         userOnRoutePage.selectAvailableAppointment();
         userOnRoutePage.selectCustomer(testCustomer.customerName);
         userOnSchedulingDialog.selectTypeOfService("Automation Renewal");
@@ -101,8 +99,6 @@ public class TestScheduledAppointments {
         userOnSchedulingComponent = userOnDashboard.goToSchedulingComponent();
         userOnSchedulingComponent.addScheduleDateToProperties();
         userOnSchedulingComponent.clickScheduleDay();
-        userOnRoutePage.addGroup();
-        userOnRoutePage.addRoutesByQuantity("1");
         userOnCustomerHeader.searchCustomerWithName(testCustomer.customerName);
         userOnSubscriptionTab = sameUser.goToSubscriptionTab();
         userValidates.scheduleAnAppointment();

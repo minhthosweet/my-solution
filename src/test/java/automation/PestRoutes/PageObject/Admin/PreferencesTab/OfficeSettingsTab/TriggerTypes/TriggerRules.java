@@ -9,6 +9,7 @@ import static automation.PestRoutes.Utilities.Utilities.*;
 import automation.PestRoutes.Utilities.Utilities.ElementType;
 import io.cucumber.java.en.When;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 
 import java.util.List;
@@ -142,15 +143,18 @@ public class TriggerRules extends PreferencesPage {
     }
 
     public void selectTriggerType(String triggerType) {
+        waitUntileElementIsVisible(triggerTypeDropDown);
         selectFromDropDown(triggerType, triggerTypeDropDown);
     }
 
     public void typeTriggerDescription(String description) {
+        waitUntileElementIsVisible(descriptionField);
         type(description, descriptionField);
     }
 
     public void typeStartDate(String date) {
-        type(date, startDateField);
+        waitUntileElementIsVisible(startDateField);
+        type(date, find(startDateField));
     }
 
     public void setAllTriggersToNotActive(String active, String notActive){
@@ -180,6 +184,7 @@ public class TriggerRules extends PreferencesPage {
             if (descriptionValue.getText().equals(description)) {
                 find(editButton).click();
                 typeStartDate(date);
+                selectFromDropDown("Active", activeDropDown);
                 clickToRemoveAction();
                 return true;
             }
@@ -192,6 +197,7 @@ public class TriggerRules extends PreferencesPage {
            clickAddTriggerButton();
            selectTriggerType(triggerType);
            typeTriggerDescription(description);
+           selectFromDropDown("Active", activeDropDown);
            typeStartDate(date);
        }
     }

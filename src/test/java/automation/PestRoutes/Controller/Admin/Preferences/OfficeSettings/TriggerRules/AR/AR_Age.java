@@ -48,7 +48,7 @@ public class AR_Age extends AppData {
 
     private String description_TriggerAge = "TriggerAge_AR";
     public String age = "1";
-    public String genericFlag;
+    public static String genericFlag;
 
     @Test
     public void daysPastDue_AR() throws Exception {
@@ -111,7 +111,7 @@ public class AR_Age extends AppData {
     }
 
     @And("I Complete An Action To {string} With {string} Details")
-    public void automateSendingCompleteAction(String action, String details) {
+    public void automateSendingCompleteActionForAR(String action, String details) {
         triggerAR.clickAddActionButton();
         triggerAR.completeAction(action, details);
         triggerAR.clickSaveButton();

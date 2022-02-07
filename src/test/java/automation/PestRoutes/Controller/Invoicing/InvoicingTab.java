@@ -703,10 +703,11 @@ public class InvoicingTab extends BasePage{
         RoutePageInvoicing userOnInvoicesTab = new RoutePageInvoicing();
         CustomerViewDialog_Header sameUser = new CustomerViewDialog_Header();
         CreateNewInvoicePopUp userOnNewInvoicePopUp = new CreateNewInvoicePopUp();
+        addSubscription = new AddSubscription();
 
         sameUser.goToInvoicesTab();
         userOnInvoicesTab.clickNewInvoice();
-        userOnNewInvoicePopUp.typeSubTotal("100");
+        userOnNewInvoicePopUp.typeSubTotal(AddSubscription.totalInitialInvoice);
         invoiceSubTotal = userOnNewInvoicePopUp.getSubTotal();
         userOnNewInvoicePopUp.clickCreateButton();
         invoicePaymentBalance = userOnInvoicesTab.getPaymentBalance();

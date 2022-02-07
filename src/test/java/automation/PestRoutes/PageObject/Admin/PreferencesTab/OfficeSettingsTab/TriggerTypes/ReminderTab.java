@@ -1,18 +1,35 @@
 package automation.PestRoutes.PageObject.Admin.PreferencesTab.OfficeSettingsTab.TriggerTypes;
 
+import automation.PestRoutes.PageObject.Admin.PreferencesTab.PreferencesPage;
 import automation.PestRoutes.Utilities.FindElement;
 import automation.PestRoutes.Utilities.Utilities;
-import automation.PestRoutes.Utilities.Utilities.ElementType;
+import static automation.PestRoutes.Utilities.Utilities.*;
 import automation.PestRoutes.Utilities.FindElement.InputType;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 
-public class ReminderTab {
+import java.util.List;
+
+import static automation.PestRoutes.Utilities.Utilities.elementIsVisible;
+
+public class ReminderTab extends PreferencesPage {
 
 	// Reminder Type
 	public String daysBefore_Reminder = "//input[@data-ruleitemtype='reminderDayOffset']";
 
 	// When to trigger Objects
 	public String triggerDaysBefore_whenToTrigger = "Trigger Days Before";
+	private By whenToTriggerDropDown = By.xpath("//label[text()='When To Trigger']//following::select[@name='filterItemValue']");
 	public String triggerOnCheckIn_whenToTrigger = "Trigger on Check-In";
+	private By daysBeforeField = By.xpath("//label[text()='Days Before']//following::input[@name='filterItemValue']");
+	private By includeCustomerFlagsMultiDropDown = By.xpath("//label[text()='Include Customer Flags']/parent::div[@class='col-6']//following-sibling::div/div//ul//input");
+	private By greenActionButton = By.xpath("//div[text()='+ Action']");
+	private By saveTriggerButton = By.xpath("//span[text()='save']");
+	private By actionDropDown = By.xpath("//div[@id='observer']//select[@name='eventObserverID']");
+	private By actionTextAreaMessage = By.xpath("//textarea[@name='observerItemValue']");
+	private By emailTypeDropDown = By.xpath("//label[text()='Email Type']//following::select[@name='observerItemValue']");
+	private By smsTypeDropDown = By.xpath("//label[text()='SMS Type']//following::select[@name='observerItemValue']");
+	private By voiceTypeDropDown = By.xpath("//label[text()='Voice Type']//following::select[@name='observerItemValue']");
 
 	// Identifiers for already created actions
 	public String emailAction_actual = "//div[text()='Send Email Reminder']";
@@ -71,7 +88,7 @@ public class ReminderTab {
 		return Utilities.getElementTextValue(voiceAction_actual, ElementType.XPath);
 	}
 
-	public String getAlertText_Notes() throws InterruptedException {
+	public String getAlertText_Notes() {
 		Utilities.waitUntileElementIsVisible(editNotes_Alert);
 		Utilities.clickElement(editNotes_Alert, ElementType.XPath);
 		String editNote_AlertText = Utilities.getAlertText();
@@ -124,5 +141,83 @@ public class ReminderTab {
 
 	public String getCCInfoBilling() {
 		return Utilities.getElementTextValue(CCInfo, ElementType.XPath);
+	}
+
+	public void selectWhenToTrigger(String whenToTrigger) {
+		selectFromDropDown(whenToTrigger, whenToTriggerDropDown);
+	}
+
+	public void typeDaysBefore(String numberOfDays) {
+		type(numberOfDays, daysBeforeField);
+	}
+
+	public boolean typeFlagToInclude(String flagCode) {
+		List<WebElement> allFlags = findElements(By.xpath("//div[@id='s2id_filterItem19']/ul/li/div"));
+		WebElement includeCustomerFlagsMultiField = find(includeCustomerFlagsMultiDropDown);
+		for (WebElement flag : allFlags) {
+			if (flag.getText().contains(flagCode)) {
+				System.out.println("Customer Flag: " + flag.getText());
+				return true;
+			}
+		}
+		type(flagCode, includeCustomerFlagsMultiField);
+		System.out.println("Customer Flag: " + flagCode);
+		return false;
+	}
+
+	public void clickAddActionButton() {
+		elementIsVisible(greenActionButton);
+		click(greenActionButton);
+	}
+
+	public void completeSendEmailAction(String emailType) {
+		if (emailType.equalsIgnoreCase("Standard Reminder Email")) {
+			selectFromDropDown(emailType, emailTypeDropDown);
+		} else if (emailType.equalsIgnoreCase("Custom Reminder Email")){
+			selectFromDropDown(emailType, emailTypeDropDown);
+			type("Email Test For Trigger Rules", actionTextAreaMessage);
+		}
+	}
+
+	public void completeSendSMSAction(String smsType) {
+		if (smsType.equalsIgnoreCase("Standard Reminder Text Message")) {
+			selectFromDropDown(smsType, smsTypeDropDown);
+		} else if (smsType.equalsIgnoreCase("Custom Text Message")){
+			selectFromDropDown(smsType, smsTypeDropDown);
+			type("SMS Test For Trigger Rules", actionTextAreaMessage);
+		}
+	}
+
+	public void completeSendVoiceAction(String voiceType) {
+		String voiceMessage = "//select[@name='observerItemValue' and @data-observeritemtype='recordedMessages']";
+		if (voiceType.equalsIgnoreCase("Standard Reminder Voice Message")) {
+			selectFromDropDown(voiceType, voiceTypeDropDown);
+		} else if (voiceType.equalsIgnoreCase("Custom Voice Message")){
+			selectFromDropDown(voiceType, voiceTypeDropDown);
+			type("Voice Test For Trigger Rules", actionTextAreaMessage);
+		} else if (voiceType.equalsIgnoreCase("Pre-recorded Message")) {
+			selectFromDropDown(voiceType, voiceTypeDropDown);
+			selectValueFromDropDownByIndex(voiceMessage, 0);
+		}
+	}
+
+	public void completeReminderAction(String action, String type) {
+		elementIsVisible(actionDropDown);
+		selectFromDropDown(action, actionDropDown);
+		switch (action) {
+			case "Send Email Reminder":
+				completeSendEmailAction(type);
+				break;
+			case "Send SMS Reminder":
+				completeSendSMSAction(type);
+				break;
+			case "Send Voice Reminder":
+				completeSendVoiceAction(type);
+				break;
+		}
+	}
+
+	public void clickSaveButton() {
+		click(saveTriggerButton);
 	}
 }

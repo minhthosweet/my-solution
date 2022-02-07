@@ -32,7 +32,7 @@ public class AddSubscription extends AppData {
 	public static String newContractValue = null;
 	public String initialInvoiceValue;
 	public static List<String> serviceType;
-	public static String totalInitialInvoice;
+	public static String totalInitialInvoice = "100";
 
 	@Test(groups = "Smoke")
 	public void validateSubscription() throws Exception {
@@ -330,6 +330,7 @@ public class AddSubscription extends AppData {
 		sameUser.goToSubscriptionTab();
 		userOnSubscriptionTab.clickNewSubscription();
 		userOnSubscriptionTab.selectRecurringServiceType("Automation Renewal");
+		serviceType = userOnSubscriptionTab.getRecurringServiceType();
 		sameUser.clickSaveButton();
 	}
 }

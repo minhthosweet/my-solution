@@ -43,7 +43,7 @@ public class TestCustomerPortalBillingTab {
     String expectedCurrentSubscriptionAmount = testAppointment.initialBalance;
 
     @Then("I Verify First Name In The Welcome Message via Billing Tab")
-    public void testFirstNameInWelcomeMessageBillingTab() throws InterruptedException {
+    public void testFirstNameInWelcomeMessageBillingTab() {
         userOnCustomerPortalBillingTab = userOnCustomerPortalSummaryTab.goToBillingTab();
         String actualMessage = userOnCustomerPortalBillingTab.getFirstNameFromWelcomeBanner();
         softAssert.assertTrue(actualMessage.contains(expectedFirstName),
@@ -56,7 +56,7 @@ public class TestCustomerPortalBillingTab {
     }
 
     @Then("I Verify The Responsible Balance via Billing Tab Matches The Invoice Balance")
-    public void testResponsibleBalanceIsCorrectOnBillingTab() throws InterruptedException {
+    public void testResponsibleBalanceIsCorrectOnBillingTab() {
         userOnCustomerPortalBillingTab = userOnCustomerPortalSummaryTab.goToBillingTab();
         String actualPaymentBalance = userOnCustomerPortalBillingTab.getResponsibleBalance();
         softAssert.assertEquals(actualPaymentBalance, expectedPaymentBalance,
@@ -119,7 +119,7 @@ public class TestCustomerPortalBillingTab {
     }
 
     @Then("I Verify An Error Shows Up When Selecting Pay Total Amount Due Without Selecting a Payment Method")
-    public void testTableColumnNamesInTheBillingTab() throws InterruptedException {
+    public void testTableColumnNamesInTheBillingTab() {
         userOnCustomerPortalBillingTab = userOnCustomerPortalSummaryTab.goToBillingTab();
         userOnCustomerPortalBillingTab.clickPayNowButton();
         userOnCustomerPortalBillingTab.clickMakePaymentButton();
@@ -148,11 +148,9 @@ public class TestCustomerPortalBillingTab {
     }
 
     @Then("I Verify The User Can Update Phone - Make Payment")
-    public void testFooterInTheBillingHistorySection() throws InterruptedException {
+    public void testFooterInTheBillingHistorySection() {
         userOnCustomerPortalBillingTab = userOnCustomerPortalSummaryTab.goToBillingTab();
-        softAssert.assertEquals(userOnCustomerPortalBillingTab.isUpdatePhoneImageDisplayed(),true,
-                "The Update Phone Image Is Not Displayed via Billing Tab");
-        softAssert.assertEquals(userOnCustomerPortalBillingTab.isMakePaymentImageDisplayed(),true,
+        softAssert.assertTrue(userOnCustomerPortalBillingTab.isMakePaymentImageDisplayed(),
                 "The Make Payment Image Is Not Displayed via Billing Tab");
         softAssert.assertAll();
         closeTab();
@@ -196,8 +194,8 @@ public class TestCustomerPortalBillingTab {
         userOnCustomerPortalBillingTab.enterNewCardInformation(gateway, creditCardNumber, expirationDate, cvv);
         userOnCustomerPortalBillingTab.clickMakePaymentButton();
         acceptAlert();
-        softAssert.assertEquals(userOnCustomerPortalBillingTab.isPayNowButtonDisplayed(), true,
-                "The Pay Now Button Is Not Displayed");
+        softAssert.assertTrue(userOnCustomerPortalBillingTab.isPayNowButtonDisplayed(),
+                "The Pay Now Button Is Not Displayed On The Customer Portal Billing Tab");
         softAssert.assertAll();
         closeTab();
         switchToOldWindowOpened();
@@ -219,7 +217,8 @@ public class TestCustomerPortalBillingTab {
         userOnCustomerPortalBillingTab.clickCardOnFile();
         userOnCustomerPortalBillingTab.clickMakePaymentButton();
         acceptAlert();
-        softAssert.assertTrue(userOnCustomerPortalBillingTab.isPayNowButtonDisplayed(), "The Pay Now Button Is Not Displayed");
+        softAssert.assertTrue(userOnCustomerPortalBillingTab.isPayNowButtonDisplayed(),
+                "The Pay Now Button Is Not Displayed On The Customer Portal Billing Tab");
         softAssert.assertAll();
         closeTab();
         switchToOldWindowOpened();

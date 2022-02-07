@@ -44,7 +44,7 @@ public class ARTab extends PreferencesPage {
 	private By actionDropDown = By.xpath("//div[@id='observer']//select[@name='eventObserverID']");
 	private By emailTitleField = By.xpath("//input[@id='observerItem' and @name='observerItemValue']");
 	private By emailTypeDropDown = By.xpath("//input[@data-observeritemtype='title']/parent::div/parent::div/following-sibling::div//select[@id='observerItem']");
-	private By smsIgnoreContactPrefsDropDown = By.xpath("//select[@id='observerItem' and @name='observerItemValue']");
+	private By smsIgnoreContactPrefsDropDown = By.xpath("//select[@id='observerItem' and @data-observeritemtype='ignoreContactPrefs']");
 	private By flagsField = By.xpath("//label[text()='Flags']/following::label/following-sibling::input");
 	private By voiceTypeDropDown = By.xpath("//select[@name='observerItemValue' and @value='new']");
 	private By createInvoicesValueTypeDropDown = By.xpath("//label[contains(text(),'Value Type')]//following::select[@id='observerItem']");
@@ -154,12 +154,12 @@ public class ARTab extends PreferencesPage {
 	}
 
 	public void completeActionSendSMS(String ignoreContactPrefs) {
-		delay(1000); // isPresent() and elementIsVisible() Did Not Work but delay() Worked Every Time
+		waitUntileElementIsVisible(smsIgnoreContactPrefsDropDown);
 		selectFromDropDown(ignoreContactPrefs, smsIgnoreContactPrefsDropDown);
 		type("SMS Test For Trigger Rules", textArea_SMS_Voice_Message);
 	}
 
-	public void completedActionSendVoice(String voiceType) {
+	public void completeActionSendVoice(String voiceType) {
 		String voiceMessage = "//select[@name='observerItemValue' and @data-observeritemtype='recordedMessages']";
 		if (voiceType.equalsIgnoreCase("New Message")) {
 			selectFromDropDown(voiceType, voiceTypeDropDown);
@@ -194,7 +194,7 @@ public class ARTab extends PreferencesPage {
 				completeActionSendSMS(details);
 				break;
 			case "Send Voice":
-				completedActionSendVoice(details);
+				completeActionSendVoice(details);
 				break;
 		}
 	}
