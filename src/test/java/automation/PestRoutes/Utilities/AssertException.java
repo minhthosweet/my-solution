@@ -51,6 +51,7 @@ public class AssertException {
 		if (needListName.size() > 0) {
 			System.out.println(needListName.size());
 			System.out.println(needListName);
+			needListName.clear();
 			throw new AssertionError();
 		}
 	}
