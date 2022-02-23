@@ -74,6 +74,7 @@ public class CustomerViewDialog_InfoTab extends BasePage {
     public boolean getGenericFlag(String flag) {
         By genericFlag = By.xpath("//div[text()='"+ flag +"']");
         if (find(genericFlag).isDisplayed()) {
+            System.out.println("Info Tab (Generic Flag): " + getText(genericFlag));
             return true;
         }
         return false;

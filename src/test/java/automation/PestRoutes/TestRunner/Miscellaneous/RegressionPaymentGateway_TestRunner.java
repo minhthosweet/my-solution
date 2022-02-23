@@ -5,8 +5,8 @@ import io.cucumber.testng.CucumberOptions;
 import org.testng.annotations.DataProvider;
 
 @CucumberOptions(features = { "src/test/resources/features" }, plugin = {"json:target/cucumber.json", "html:target/site/cucumber-pretty", "pretty"}, glue = {
-        "automation.PestRoutes"},tags="@RegressionREX")
-public class RegressionREX_TestRunner extends AbstractTestNGCucumberTests {
+        "automation.PestRoutes"},tags="@PaymentCC or @PaymentACH or @VerifyTotalAmountUsingOneTimeCardForEachGateway or @VerifyTotalAmountUsingCardOnFileForEachGateway")
+public class RegressionPaymentGateway_TestRunner extends AbstractTestNGCucumberTests {
     @Override
     @DataProvider
     public Object[][] scenarios() {

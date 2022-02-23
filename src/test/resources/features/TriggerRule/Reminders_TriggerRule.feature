@@ -1,11 +1,15 @@
 # Author: Rex Jones II
-# Reminder Trigger Rule
+# Reminders Trigger Rule
 #@RegressionREX
 @TriggerRule
 @TriggerRules
-@Reminder_TriggerRule
+@Reminders_TriggerRule
 
-Feature: Reminder Trigger Rule
+Feature: Reminders Trigger Rule
+
+  As a user, I want the Reminders Trigger Rule to be a rule that automatically
+  runs to perform an action. It has 2 parts Filter/Condition and Action.
+  If a condition happens then the rule performs an action.
 
   @VerifyTriggerDaysBeforeSendEmailForTriggerRuleReminders
   Scenario: Verify Reminder Trigger Rules Days Before

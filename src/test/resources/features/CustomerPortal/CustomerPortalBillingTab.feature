@@ -56,11 +56,11 @@ Feature: Customer Portal - Billing Tab Displays Accurate Information
       Then  I Verify An Error Shows Up When Selecting Pay Another Amount Without Selecting a Payment Method
 
     @VerifyBillingTabHasUpdatePhoneAndMakePaymentLinks
-    Scenario: Verify Billing Tab Has Images-Links That Allows A User To Update Phone And Make Payment
+    Scenario: Verify Billing Tab Has An Image-Link That Allows A User To Make A Payment
       Given I Create A Customer With A Subscription
       When  I Complete An Appointment
       And   I Navigate To Customer Portal From Customer Card - Admin Tab
-      Then  I Verify The User Can Update Phone - Make Payment
+      Then  I Verify The Billing Tab Has An Image-Link To Make A Payment
 
     @VerifyErrorForOneTimeCardTotalAmount
     Scenario Outline: Verify Error Message For Required Fields When Using A One Time Card To Pay Total Amount

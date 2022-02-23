@@ -43,6 +43,7 @@ public class CustomerViewDialog_OverviewTab extends BasePage {
 	public boolean getAlert(String alertName) {
 		By overviewAlert = By.xpath("//div[@id='overviewPanel']//div[contains(text(),'"+ alertName +"')]");
 		if (find(overviewAlert).isDisplayed()) {
+			System.out.println("Overview Tab (Alert): " + getText(overviewAlert));
 			return true;
 		}
 		return false;

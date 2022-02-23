@@ -9,6 +9,7 @@ Feature: AR Trigger Rule
 
   AR is an acronym for Account Receivables.
   AR Trigger Rule is a rule that automatically
+  As a user, I want the AR Trigger Rule to be a rule that automatically
   runs to perform an action. It has 2 parts Filter/Condition and Action.
   If a condition happens then the rule performs an action.
 

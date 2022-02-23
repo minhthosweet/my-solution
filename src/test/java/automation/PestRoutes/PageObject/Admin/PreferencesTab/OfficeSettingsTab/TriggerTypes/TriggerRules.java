@@ -9,7 +9,6 @@ import static automation.PestRoutes.Utilities.Utilities.*;
 import automation.PestRoutes.Utilities.Utilities.ElementType;
 import io.cucumber.java.en.When;
 import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 
 import java.util.List;
@@ -56,6 +55,7 @@ public class TriggerRules extends PreferencesPage {
     private By editTriggerButton = By.xpath("//div[@id='triggerRulesTable']/div[2]//div[6]//following::span");
     private By saveTriggerButton = By.xpath("//span[text()='save']");
     private By removeActionButton = By.xpath("//form[@id='triggerRuleForm']//div[text()='Remove']");
+
     private By descriptionColumnValues = By.xpath("//div[@id='triggerRulesTable']/div[2]//div[2]");
     private By activeColumnValues = By.xpath("//div[@id='triggerRulesTable']/div[2]//div[6]");
     private By triggerTypeDropDown = By.xpath("//form[@id='triggerRuleForm']//select[@name='triggerEventID']");
@@ -148,7 +148,12 @@ public class TriggerRules extends PreferencesPage {
     }
 
     public void typeTriggerDescription(String description) {
-        waitUntileElementIsVisible(descriptionField);
+        // The Following 3 Methods (waitUntileElementIsVisible, elementIsVisible, isPresent) Did Not Work
+        // However delay Worked Every Time
+        // waitUntileElementIsVisible(descriptionField);
+        // elementIsVisible(descriptionField);
+        // isPresent(descriptionField);
+        delay(500);
         type(description, descriptionField);
     }
 
@@ -172,6 +177,7 @@ public class TriggerRules extends PreferencesPage {
 
     public void clickToRemoveAction() {
         if (elementIsVisible(removeActionButton)) {
+            scrollToElementJS(removeActionButton);
             click(removeActionButton);
         }
     }
@@ -182,6 +188,8 @@ public class TriggerRules extends PreferencesPage {
         for(WebElement descriptionValue : listOfDescriptionValues) {
             scrollToElementJS(descriptionValue);
             if (descriptionValue.getText().equals(description)) {
+                delay(1000);
+                scrollToElementJS(editButton);
                 find(editButton).click();
                 typeStartDate(date);
                 selectFromDropDown("Active", activeDropDown);

@@ -103,6 +103,7 @@ public class TestScheduledAppointments {
         userOnSubscriptionTab = sameUser.goToSubscriptionTab();
         userValidates.scheduleAnAppointment();
         userOnCustomerHeader.searchCustomerWithName(testCustomer.customerName);
+
         userOnAppointmentsTab = sameUser.goToAppointmentsTab();
         userValidates.completeSchedulesService();
         userOnAppointmentsTab.clickStatusButton();
@@ -110,6 +111,7 @@ public class TestScheduledAppointments {
         userOnAppointmentsTab.setTechName("Cam Walker");
         techName = userOnAppointmentsTab.getTechName();
         userOnAppointmentsTab.clickSaveAndCompleteButton();
+
         serviceNotes = userOnAppointmentsTab.getServiceNotes();
         appointmentTabID = userOnAppointmentsTab.getAppointmentTabID();
         userOnCustomerHeader.searchCustomerWithName(testCustomer.customerName);

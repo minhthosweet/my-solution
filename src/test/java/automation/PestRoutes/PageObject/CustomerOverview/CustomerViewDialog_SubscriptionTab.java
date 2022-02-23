@@ -320,7 +320,7 @@ public class CustomerViewDialog_SubscriptionTab extends BasePage {
 			Utilities.acceptAlert();
 		}
 		Utilities.waitUntileElementIsVisible("//span[text()=  '" + needItem + "']");
-		//Utilities.scrollToElementJS("//span[text()=  '" + needItem + "']");
+		Utilities.scrollToElementJS("//span[text()=  '" + needItem + "']");
 		delay(1000);
 //		Utilities.waitUntileElementIsVisible("//span[text()=  '" + needItem + "']");
 		Utilities.clickElement("//span[text()=  '" + needItem + "']", ElementType.XPath);

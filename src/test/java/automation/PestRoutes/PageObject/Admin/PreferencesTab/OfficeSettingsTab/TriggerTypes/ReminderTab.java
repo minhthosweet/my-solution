@@ -148,6 +148,7 @@ public class ReminderTab extends PreferencesPage {
 	}
 
 	public void typeDaysBefore(String numberOfDays) {
+		scrollToElementJS(daysBeforeField);
 		type(numberOfDays, daysBeforeField);
 	}
 
@@ -160,6 +161,7 @@ public class ReminderTab extends PreferencesPage {
 				return true;
 			}
 		}
+		scrollToElementJS(includeCustomerFlagsMultiField);
 		type(flagCode, includeCustomerFlagsMultiField);
 		System.out.println("Customer Flag: " + flagCode);
 		return false;
@@ -175,7 +177,7 @@ public class ReminderTab extends PreferencesPage {
 			selectFromDropDown(emailType, emailTypeDropDown);
 		} else if (emailType.equalsIgnoreCase("Custom Reminder Email")){
 			selectFromDropDown(emailType, emailTypeDropDown);
-			type("Email Test For Trigger Rules", actionTextAreaMessage);
+			type("Email - Reminder Trigger Rules Test", actionTextAreaMessage);
 		}
 	}
 
@@ -184,7 +186,7 @@ public class ReminderTab extends PreferencesPage {
 			selectFromDropDown(smsType, smsTypeDropDown);
 		} else if (smsType.equalsIgnoreCase("Custom Text Message")){
 			selectFromDropDown(smsType, smsTypeDropDown);
-			type("SMS Test For Trigger Rules", actionTextAreaMessage);
+			type("SMS - Reminder Trigger Rules Test", actionTextAreaMessage);
 		}
 	}
 
@@ -194,7 +196,7 @@ public class ReminderTab extends PreferencesPage {
 			selectFromDropDown(voiceType, voiceTypeDropDown);
 		} else if (voiceType.equalsIgnoreCase("Custom Voice Message")){
 			selectFromDropDown(voiceType, voiceTypeDropDown);
-			type("Voice Test For Trigger Rules", actionTextAreaMessage);
+			type("Voice - Reminder Trigger Rules Test", actionTextAreaMessage);
 		} else if (voiceType.equalsIgnoreCase("Pre-recorded Message")) {
 			selectFromDropDown(voiceType, voiceTypeDropDown);
 			selectValueFromDropDownByIndex(voiceMessage, 0);
@@ -218,6 +220,7 @@ public class ReminderTab extends PreferencesPage {
 	}
 
 	public void clickSaveButton() {
+		scrollToElementJS(saveTriggerButton);
 		click(saveTriggerButton);
 	}
 }

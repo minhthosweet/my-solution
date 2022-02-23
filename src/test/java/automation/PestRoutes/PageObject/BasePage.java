@@ -25,6 +25,8 @@ public class BasePage {
     private By customerSearchField = By.xpath("//input[@id='customerSearch']");
     private By customer = By.xpath("//span[@class='left searchName']");
     private By officeDropDown = By.xpath("//select[@id='officeSwitcher']");
+    private By tasksFooter = By.xpath("//div[@id='toggleTaskList']/p[text()='Tasks']");
+    private By alertsFooter = By.xpath("//div[@id='toggleNotifications']/p[text()='Alerts']");
 
     public void setWebDriver (WebDriver driver) {
         BasePage.driver = driver;
@@ -89,7 +91,7 @@ public class BasePage {
     }
 
     /*
-    The below section is dedicated to FieldRoutes Components and Footers.
+    The below section is dedicated to FieldRoutes Components and Footers. They are methods available to all pages.
     (Components = New Customer, Current Date, Scheduling, Customers, Billing, Reporting, Sales, Admin, Search Customer)
     (Footers = History, Tasks, Alerts, Phone, Map Code Wizard, Marketing, News, Guides, Help Wizard, Clock, Logged In As: Office)
      */
@@ -123,6 +125,14 @@ public class BasePage {
         click(customerSearchField);
         type(customerIDorName, customerSearchField);
         click(customer);
+    }
+
+    public void goToTasks() {
+        click(tasksFooter);
+    }
+
+    public void goToAlerts() {
+        click(alertsFooter);
     }
 
     public void selectOffice(String office) {

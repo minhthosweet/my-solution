@@ -100,6 +100,7 @@ public class ARTab extends PreferencesPage {
 	}
 
 	public void selectAgePastDue(String agePastDue) {
+		scrollToElementJS(agePastDueDropDown);
 		selectFromDropDown(agePastDue, agePastDueDropDown);
 	}
 
@@ -115,7 +116,9 @@ public class ARTab extends PreferencesPage {
 				return true;
 			}
 		}
+		scrollToElementJS(includeCustomerFlagsMultiField);
 		type(flagCode, includeCustomerFlagsMultiField);
+		System.out.println("Customer Flag: " + flagCode);
 		return false;
 	}
 
@@ -149,21 +152,21 @@ public class ARTab extends PreferencesPage {
 		} else if (emailType.equalsIgnoreCase("New Email Message")){
 			selectFromDropDown(emailType, emailTypeDropDown);
 			type("Automation Trigger Rule Test", emailTitleField);
-			type("Email Test For Trigger Rules", textArea_Email_FreezeCustomer_Message);
+			type("Email - AR Trigger Rules Test", textArea_Email_FreezeCustomer_Message);
 		}
 	}
 
 	public void completeActionSendSMS(String ignoreContactPrefs) {
 		waitUntileElementIsVisible(smsIgnoreContactPrefsDropDown);
 		selectFromDropDown(ignoreContactPrefs, smsIgnoreContactPrefsDropDown);
-		type("SMS Test For Trigger Rules", textArea_SMS_Voice_Message);
+		type("SMS - AR Trigger Rules Test", textArea_SMS_Voice_Message);
 	}
 
 	public void completeActionSendVoice(String voiceType) {
 		String voiceMessage = "//select[@name='observerItemValue' and @data-observeritemtype='recordedMessages']";
 		if (voiceType.equalsIgnoreCase("New Message")) {
 			selectFromDropDown(voiceType, voiceTypeDropDown);
-			type("Voice Test For Trigger Rules", textArea_SMS_Voice_Message);
+			type("Voice - AR Trigger Rules Test", textArea_SMS_Voice_Message);
 		} else if (voiceType.equalsIgnoreCase("Pre-recorded Message")) {
 			selectFromDropDown(voiceType, voiceTypeDropDown);
 			selectValueFromDropDownByIndex(voiceMessage, 0);
@@ -185,7 +188,7 @@ public class ARTab extends PreferencesPage {
 				break;
 			case "Freeze Customers":
 				selectFromDropDown(details, freezeCustomersCancellationReasonDropDown);
-				type("Freeze Customers Test For Trigger Rules", textArea_Email_FreezeCustomer_Message);
+				type("Freeze Customers - AR Trigger Rules Test", textArea_Email_FreezeCustomer_Message);
 				break;
 			case "Send Email":
 				completeActionSendEmail(details);
@@ -200,6 +203,7 @@ public class ARTab extends PreferencesPage {
 	}
 
 	public void clickSaveButton() {
+		scrollToElementJS(saveTriggerButton);
 		click(saveTriggerButton);
 	}
 }

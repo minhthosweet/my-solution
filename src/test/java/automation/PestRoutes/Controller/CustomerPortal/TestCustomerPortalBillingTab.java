@@ -147,8 +147,8 @@ public class TestCustomerPortalBillingTab {
         testCustomer.removeCustomer();
     }
 
-    @Then("I Verify The User Can Update Phone - Make Payment")
-    public void testFooterInTheBillingHistorySection() {
+    @Then("I Verify The Billing Tab Has An Image-Link To Make A Payment")
+    public void testBillingTabHasMakePaymentImageLink() {
         userOnCustomerPortalBillingTab = userOnCustomerPortalSummaryTab.goToBillingTab();
         softAssert.assertTrue(userOnCustomerPortalBillingTab.isMakePaymentImageDisplayed(),
                 "The Make Payment Image Is Not Displayed via Billing Tab");
@@ -194,8 +194,10 @@ public class TestCustomerPortalBillingTab {
         userOnCustomerPortalBillingTab.enterNewCardInformation(gateway, creditCardNumber, expirationDate, cvv);
         userOnCustomerPortalBillingTab.clickMakePaymentButton();
         acceptAlert();
-        softAssert.assertTrue(userOnCustomerPortalBillingTab.isPayNowButtonDisplayed(),
-                "The Pay Now Button Is Not Displayed On The Customer Portal Billing Tab");
+        String actualPaymentBalance = userOnCustomerPortalBillingTab.getResponsibleBalance();
+        softAssert.assertEquals(actualPaymentBalance, "$0.00",
+                "Actual Responsible Balance: " + actualPaymentBalance +
+                        " & Expected Balance: " + "$0.00" + " Do Not Match");
         softAssert.assertAll();
         closeTab();
         switchToOldWindowOpened();
@@ -217,8 +219,10 @@ public class TestCustomerPortalBillingTab {
         userOnCustomerPortalBillingTab.clickCardOnFile();
         userOnCustomerPortalBillingTab.clickMakePaymentButton();
         acceptAlert();
-        softAssert.assertTrue(userOnCustomerPortalBillingTab.isPayNowButtonDisplayed(),
-                "The Pay Now Button Is Not Displayed On The Customer Portal Billing Tab");
+        String actualPaymentBalance = userOnCustomerPortalBillingTab.getResponsibleBalance();
+        softAssert.assertEquals(actualPaymentBalance, "$0.00",
+                "Actual Responsible Balance: " + actualPaymentBalance +
+                        " & Expected Balance: " + "$0.00" + " Do Not Match");
         softAssert.assertAll();
         closeTab();
         switchToOldWindowOpened();
