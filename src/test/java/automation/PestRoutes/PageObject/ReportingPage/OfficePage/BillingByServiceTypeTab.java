@@ -81,23 +81,23 @@ public class BillingByServiceTypeTab {
 
         // bbst single group report fields
         filterTypes_BST.put("description_bbstReport", "//table[@id='revenueByServiceType']//div[text()='Description']");
-        filterTypes_BST.put("services_bbstReport", "//table[@id='revenueByServiceType']//div[text()='Services']");
+        filterTypes_BST.put("services_bbstReport", "//table[@id='revenueByServiceType']//div[text()='Invoices']");
         filterTypes_BST.put("lineItemQuantity_bbstReport", "//table[@id='revenueByServiceType']//div[text()='Line Item Quantity']");
         filterTypes_BST.put("totalCollected_bbstReport", "//table[@id='revenueByServiceType']//div[text()='Total Collected']");
         filterTypes_BST.put("taxCollected_bbstReport", "//table[@id='revenueByServiceType']//div[text()='Tax Collected']");
         filterTypes_BST.put("taxInvoiced_bbstReport", "//table[@id='revenueByServiceType']//div[text()='Tax Invoiced']");
         filterTypes_BST.put("paymentsCollected_bbstReport", "//table[@id='revenueByServiceType']//div[text()='Payments Collected']");
-        filterTypes_BST.put("billedServices_bbstReport", "//table[@id='revenueByServiceType']//div[text()='Billed Services']");
+        filterTypes_BST.put("billedServices_bbstReport", "//table[@id='revenueByServiceType']//div[text()='Billed']");
 
         // bbst multi group report fields
         filterTypes_BST.put("description_bbstReport_MultiGroup", "//table[@id='revenueByServiceType']//th[text()='Description']");
-        filterTypes_BST.put("services_bbstReport_MultiGroup", "//table[@id='revenueByServiceType']//th[text()='Services']");
+        filterTypes_BST.put("services_bbstReport_MultiGroup", "//table[@id='revenueByServiceType']//th[text()='Invoices']");
         filterTypes_BST.put("lineItemQuantity_bbstReport_MultiGroup", "//table[@id='revenueByServiceType']//th[text()='Line Item Quantity']");
         filterTypes_BST.put("totalCollected_bbstReport_MultiGroup", "//table[@id='revenueByServiceType']//th[text()='Total Collected']");
         filterTypes_BST.put("taxCollected_bbstReport_MultiGroup", "//table[@id='revenueByServiceType']//th[text()='Tax Collected']");
         filterTypes_BST.put("taxInvoiced_bbstReport_MultiGroup", "//table[@id='revenueByServiceType']//th[text()='Tax Invoiced']");
         filterTypes_BST.put("paymentsCollected_bbstReport_MultiGroup", "//table[@id='revenueByServiceType']//th[text()='Payments Collected']");
-        filterTypes_BST.put("billedServices_bbstReport_MultiGroup", "//table[@id='revenueByServiceType']//th[text()='Billed Services']");
+        filterTypes_BST.put("billedServices_bbstReport_MultiGroup", "//table[@id='revenueByServiceType']//th[text()='Billed']");
 
         // individual line item fields
         filterTypes_BST.put("customerID_lineItem", "//th[@data-orderby='customerID']");

@@ -9,6 +9,7 @@ import org.openqa.selenium.By;
 public class CreateNewInvoicePopUp extends BasePage {
 
     public String dateField = "//input[@name='date']";
+    public By invoiceDateField = By.xpath("//input[@name='date']");
     public String amountInputField = "//input[@name='subTotal']";
     private By invoiceSubTotal = By.xpath("//input[@name='subTotal']");
     public String serviceTypeDropdown = "//select[@name='serviceID']";
@@ -53,4 +54,8 @@ public class CreateNewInvoicePopUp extends BasePage {
     public void clickCreateButton() {
         click(createInvoiceButton);
     }
+
+    public void typeInvoiceDate(String invoiceDate) {
+        type(invoiceDate, invoiceDateField, "ENTER");
+    }//typeInvoiceDate()
 }

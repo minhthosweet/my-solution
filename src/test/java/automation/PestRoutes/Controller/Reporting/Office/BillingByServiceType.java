@@ -237,7 +237,8 @@ public class BillingByServiceType extends AppData {
     public void validateFields_BillingServiceReport() {
         String[] fields;
 
-        fields = new String[]{billingByServiceTypeTab.filterTypes_BST("description_bbstReport"),
+        fields = new String[]
+                {billingByServiceTypeTab.filterTypes_BST("description_bbstReport"),
                 billingByServiceTypeTab.filterTypes_BST("services_bbstReport"),
                 billingByServiceTypeTab.filterTypes_BST("lineItemQuantity_bbstReport"),
                 billingByServiceTypeTab.filterTypes_BST("totalCollected_bbstReport"),

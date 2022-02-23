@@ -1,6 +1,7 @@
 package automation.PestRoutes.Controller.Schedules;
 
 import automation.PestRoutes.Controller.CustomRoute.CustomRoute;
+import automation.PestRoutes.PageObject.DashboardPage;
 import automation.PestRoutes.PageObject.Scheduling.SchedulingTab;
 import automation.PestRoutes.Utilities.*;
 import org.openqa.selenium.By;
@@ -32,6 +33,7 @@ public class ScheduleAppt extends AppData {
     CustomerViewDialog_Header overviewHeader;
     CustomerviewDialog_AppointmentsTab appointmentTab = new CustomerviewDialog_AppointmentsTab();
     SchedulingAppointmentDialog confirmAppt = new SchedulingAppointmentDialog();
+    DashboardPage dashboardPage = new DashboardPage();
     RoutePage route;
     Header header = new Header();
     CreateCustomerDialog customer;
@@ -105,29 +107,38 @@ public class ScheduleAppt extends AppData {
         confirmAppt.selectInteriorNeededOption(serviceAreaProvided);
         confirmAppt.selectTargetPestsOption(pestTreaded);
     }
-    public void scheduleAppointmentOnRoute(String serviceType,String needTimeSlot) {
+
+    public void scheduleAppointmentOnRoute(String serviceType) {
         scheduleDay = new SchedulingTab();
         route = new RoutePage();
         scheduleDay.clickScheduleButton();
+
+        //If Route Group Doesn't Exist Create Group & Route
+        if(!route.isRouteGroupPresent("TestRoutes")) {
+            route.addGroup("TestRoutes");
+            route.addRoutesByQuantity("1");
+        }
+
         int totalCount = Utilities.getElementCount(routes);
         String routesCount = Integer.toString(totalCount);
-        System.out.println("***************** scheduleAppointmentOnRoute(): Number of Routes: " + routesCount);
-        route.scheduleAppointment(routesCount, needTimeSlot);
-        confirmAppt.selectServiceType(serviceType);
+       //System.out.println("****** scheduleAppointmentOnRoute(): Number of Routes: " + routesCount);
+
+       //Select the first available appointment slot
+       route.selectAvailableAppointment();
+       confirmAppt.selectServiceType(serviceType);
 
         //Retrieve the enrolled Subscription based on the selected Service
         By apptSubscriptionOption = By.xpath("//*[@id='overviewPanel']//div//select[@name ='subscriptionID']//option[contains(text(), '" + serviceType + "')]" );
         String strEnrolledSubscription = Utilities.getInnerText(apptSubscriptionOption);
 
         Utilities.selectValueFromDropDownByIndex(confirmAppt.subscriptionTypeDropdown,1);
-
         confirmAppt.selectInteriorNeededOption(serviceAreaProvided);
         confirmAppt.selectTargetPestsOption(pestTreaded);
 
         //Click Schedule button Appointment Card
         confirmAppt.clickScheduleButton();
 
-    }//addAppointment()
+  }//scheduleAppointmentOnRoute()
 
     @And("I add a chemical in unit tab")
     public void addChemicalInUnitTab() {

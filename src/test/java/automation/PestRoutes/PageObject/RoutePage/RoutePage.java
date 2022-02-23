@@ -4,6 +4,8 @@ import automation.PestRoutes.Controller.CustomRoute.CustomRoute;
 import automation.PestRoutes.Controller.Renewal.ValidateRenewal;
 import automation.PestRoutes.Controller.Schedules.ScheduleAppt;
 import automation.PestRoutes.PageObject.BasePage;
+import automation.PestRoutes.PageObject.Header;
+import automation.PestRoutes.PageObject.Scheduling.SchedulingTab;
 import automation.PestRoutes.Utilities.FindElement;
 import automation.PestRoutes.Utilities.Utilities;
 import automation.PestRoutes.Utilities.FindElement.InputType;
@@ -81,6 +83,7 @@ public class RoutePage extends BasePage {
                 + "']/following-sibling::div", ElementType.XPath);
     }
 
+
     @And ("I add a route group if not already existing")
     public void addGroupIfNotExisting() {
         route = new RoutePage();
@@ -97,46 +100,61 @@ public class RoutePage extends BasePage {
             }
         }
 
+    public boolean isRouteGroupPresent(String routeGroupName) {
+       return Utilities.isPresent("//h3[text() ='" + routeGroupName + "']");
+    }
+
     @And("I add a route group")
     public void addGroup() {
-        String groupXpath = "//h3[text()= 'TestRoutes']/parent::div";
-        String group = "groupButton";
-        customRoute = new CustomRoute();
-            Utilities.scrollToElementJS(addGroup);
-            Utilities.clickElement(addGroup, ElementType.XPath);
-            FindElement.elementByAttribute(groupTitle, InputType.XPath).sendKeys("TestRoutes");
-            Utilities.waitUntileElementIsVisible(groupTemplate);
-            Utilities.selectValueFromDropDownByValue("//select[@name='templateID']", "TestRoutes");
-            Utilities.waitUntileElementIsVisible(saveButton);
-            Utilities.clickElement(saveButton, ElementType.XPath);
-        }
+        addGroup( "TestRoutes");
+    }
 
-        @Then("I delete a routing group")
-        public void deleteGroup () {
-            validateRenewal = new ValidateRenewal();
-            try {
-                validateRenewal.navigateToSchedulingTab();
-                WebElement elm = getDescription("TestRoutes");
-                if (elm.isDisplayed()) {
-                    int elementCount = Utilities.getElementCount("//h3[text() = 'TestRoutes']");
-                    for (int i = elementCount; i>0; i--) {
-                        Utilities.waitUntileElementIsVisible("//h3[text() = 'TestRoutes']");
-                        Utilities.clickElement("//h3[text() = 'TestRoutes']", ElementType.XPath);
-                        Utilities.waitUntileElementIsVisible("//h3[text() = 'TestRoutes']/following-sibling::div[@class = 'clickToEdit']");
-                        Utilities.clickElement("//h3[text() = 'TestRoutes']/following-sibling::div[@class = 'clickToEdit']", ElementType.XPath);
-                        Utilities.waitUntileElementIsVisible("//div[@id = 'editGroupDialog']/following-sibling::div[1]//span[text()='Delete']");
-                        Utilities.clickElement("//div[@id = 'editGroupDialog']/following-sibling::div[1]//span[text()='Delete']", ElementType.XPath);
-                        Utilities.waitUntileElementIsVisible("//span[text()='Delete Group?']/ancestor::div//span[text()='Delete Group']");
-                        Utilities.clickElement("//span[text()='Delete Group?']/ancestor::div//span[text()='Delete Group']", ElementType.XPath, false, true);
-                        validateRenewal.navigateToSchedulingTab();
-                    }
+    public void addGroup(String routeGroupName){
+        Utilities.scrollToElementJS(addGroup);
+        Utilities.clickElement(addGroup, ElementType.XPath);
+        FindElement.elementByAttribute(groupTitle, InputType.XPath).sendKeys(routeGroupName);
+        Utilities.waitUntileElementIsVisible(groupTemplate);
+        Utilities.waitUntileElementIsVisible(saveButton);
+        Utilities.clickElement(saveButton, ElementType.XPath);
+    }//addGroup()
+
+    @Then("I delete a routing group")
+    public void deleteGroup () {
+        deleteGroup("TestRoutes");
+    }
+
+    public void deleteGroup (String routeGroupName) {
+        Header header = new Header();
+        SchedulingTab scheduleDay = new SchedulingTab();
+
+        try {
+            header.navigateTo(header.schedulingTab);
+            scheduleDay.addScheduleDateToProperties();
+            scheduleDay.clickScheduleDay();
+
+            WebElement elm = getDescription(routeGroupName);
+            if (elm.isDisplayed()) {
+                int elementCount = Utilities.getElementCount("//h3[text() = '" + routeGroupName + "']");
+                for (int i = elementCount; i>0; i--) {
+                    Utilities.waitUntileElementIsVisible("//h3[text() = '" + routeGroupName + "']");
+                    Utilities.clickElement("//h3[text() = '" + routeGroupName + "']", ElementType.XPath);
+                    Utilities.waitUntileElementIsVisible("//h3[text() = '" + routeGroupName + "']/following-sibling::div[@class = 'clickToEdit']");
+                    Utilities.clickElement("//h3[text() = '" + routeGroupName +"']/following-sibling::div[@class = 'clickToEdit']", ElementType.XPath);
+                    Utilities.waitUntileElementIsVisible("//div[@id = 'editGroupDialog']/following-sibling::div[1]//span[text()='Delete']");
+                    Utilities.clickElement("//div[@id = 'editGroupDialog']/following-sibling::div[1]//span[text()='Delete']", ElementType.XPath);
+                    Utilities.waitUntileElementIsVisible("//span[text()='Delete Group?']/ancestor::div//span[text()='Delete Group']");
+                    Utilities.clickElement("//span[text()='Delete Group?']/ancestor::div//span[text()='Delete Group']", ElementType.XPath, false, true);
+                    header.navigateTo(header.schedulingTab);
+                    scheduleDay.addScheduleDateToProperties();
+                    scheduleDay.clickScheduleDay();
                 }
             }
-            catch (Exception e){
-
-            }
         }
-    public void deleteFirstRoute() {
+        catch (Exception e){}
+    }
+
+
+    public void deleteFirstRoute()  {
         Utilities.waitUntileElementIsVisible("//div[@class='routes']//div[@groupid][1]//div[text()='Route Actions']");
         Utilities.clickElement("//div[@class='routes']//div[@groupid][1]//div[text()='Route Actions']", ElementType.XPath);
         Utilities.waitUntileElementIsVisible("//div[@class='routes']//div[@groupid][1]//div[text()='Route Actions']//following-sibling::div//p[text()='Delete Route']");

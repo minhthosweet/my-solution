@@ -51,7 +51,7 @@ public class MarchantInfoPage extends BasePage {
         String  defaultConfiguredGateway;
 
         switch (merchantGateway){
-            case "BRAINTREE":
+            case "BRAIN":
                  defaultConfiguredGateway = GATEWAY_BRAINTREE;
                 break;
             case "ELEMENT":

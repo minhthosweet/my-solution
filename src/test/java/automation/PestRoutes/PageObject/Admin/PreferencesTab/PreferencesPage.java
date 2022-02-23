@@ -55,9 +55,17 @@ public class PreferencesPage extends AdminMainPage {
 	public String equipmentTypesText = "//li[text() = 'Equipment Types']";
 	public String productsText = "//li[text() = 'Products']";
 
-	//Mobile Navigation
+	//Billing Preferences
+	public String billingPreferencesSectionTitle = "//*[@id='billingLetterPrefs']//div[contains(text(), 'Billing Preferences')]";
+	private By lnkSave_BillingPreferences = By.xpath("//*[@id='enclosure05']");
+	private By lnkCancel_BillingPreferences = By.xpath("//*[@id='enclosure05']//following-sibling::div[contains(text(),'cancel')]");
+	private By lnkEdit_BillingPreferences = By.xpath("//*[@id='enclosure05']//preceding-sibling::div[contains(text(),'edit')]");
+
+	private By useConsolidatedInvoicing= By.xpath("//*[@id='billingLetterPrefs']//div/select[@name ='useConsolidatedInvoicing']");
+
+	//Mobile navigation
 	private By mobileRelatedNav = By.xpath("//h2[@id='mobile']");
-	
+
 	/*
 	 * Actions
 	 * Below methods perform actions such as selecting from drop drown or click an object
@@ -74,6 +82,16 @@ public class PreferencesPage extends AdminMainPage {
 		Utilities.clickElement(needPage, ElementType.XPath);
 	}
 
+	//*************** Setters **************
+
+
+	//*********** Getters ******************
+
+	//*************** General Methods and Functions ***************
+
+	public void clickMerchantinfolink(){
+		click(merchantInfo);
+	}
 	public MarchantInfoPage clickMerchantInfo(){
 		click(merchantInfo);
 		return new MarchantInfoPage();
@@ -97,4 +115,21 @@ public class PreferencesPage extends AdminMainPage {
 		click(triggerRules);
 		return new TriggerRules();
 	}
+
+	public void clickEdit_BillingPreferences(){
+		scrollToElementJS(find(lnkEdit_BillingPreferences));
+		click(lnkEdit_BillingPreferences);
+	}//clickEdit_BillingPreferences()
+
+	public void clickCancel_BillingPreferences(){
+		click(lnkCancel_BillingPreferences);
+	}//clickCancel_BillingPreferences()
+
+	public void clickSave_BillingPreferences(){
+		click(lnkSave_BillingPreferences);
+	}//clickSave_BillingPreferences()
+
+	public void selectUseConsolidatedInvoicing(String option){
+		selectFromDropDown(option, useConsolidatedInvoicing);
+	}//clickSave_BillingPreferences()
 }

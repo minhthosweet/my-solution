@@ -73,7 +73,6 @@ public class CustomerViewDialog_Header extends BasePage {
 
     public void clickSaveButton() {
         Utilities.clickElement(saveButton, ElementType.XPath);
-        Utilities.dismissAlert();
     }
 
     public void clickCustomerCardScheduleButton (){
@@ -118,7 +117,7 @@ public class CustomerViewDialog_Header extends BasePage {
     public void clickSaveChangesButton () {
         if (elementIsVisible(saveChangesButton)){
             click(saveChangesButton);
-            delay(3000);
+            delay(500);
         }
     }
 

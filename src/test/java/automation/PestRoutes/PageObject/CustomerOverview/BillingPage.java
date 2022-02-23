@@ -265,9 +265,6 @@ public class BillingPage extends BasePage {
 	}
 
 	public void enterElementNewCardInformation(String cardNumber, String expirationDate){
-		if (find(enterCreditCardButton).isDisplayed()){
-			click(enterCreditCardButton);
-		}
 		switchToIframeByXpath(elementIframe);
 		type(cardNumber, elementCardNumberField);
 		String[] separateMonthYear = expirationDate.split("/");

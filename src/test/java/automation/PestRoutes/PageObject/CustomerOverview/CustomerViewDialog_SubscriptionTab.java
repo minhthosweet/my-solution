@@ -35,6 +35,7 @@ public class CustomerViewDialog_SubscriptionTab extends BasePage {
 	public String freezeSubscriptionButton = "//span[text()='Freeze Subscription']";
 	private By freezeCancelSubscriptionButton = By.xpath("//span[text()='Freeze Subscription']");
 	public String cancelButton_cancelSubscriptionDialog = "//span[text()='Freeze Subscription']/parent::button/preceding-sibling::button[1]/span[text()='Cancel']";
+	private By  chkboxEligibleForConsolidation = By.xpath("//*[@id='eligibleForConsolidation']");
 
 	//***Sales Info/Billing Options objects***
 	public String newSubscriptionButton = "//div[text()=  '+ New Subscription']";
@@ -688,5 +689,9 @@ public class CustomerViewDialog_SubscriptionTab extends BasePage {
 	public void clickFreezeSubscriptionButtonOnCancelSubscriptionDialog() {
 		wait.until(ExpectedConditions.visibilityOfElementLocated(freezeCancelSubscriptionButton));
 		click(freezeCancelSubscriptionButton);
+	}
+	public void checkEigibleForConsolidation(){
+		Utilities.delay(500);
+		Utilities.checkBox(chkboxEligibleForConsolidation);
 	}
 }

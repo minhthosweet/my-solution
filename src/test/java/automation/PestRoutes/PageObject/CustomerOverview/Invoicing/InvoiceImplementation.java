@@ -13,6 +13,8 @@ import org.openqa.selenium.support.ui.Select;
 import static automation.PestRoutes.Utilities.Utilities.*;
 import static automation.PestRoutes.Utilities.Utilities.switchToIframeByXpath;
 
+import java.util.List;
+
 public class InvoiceImplementation extends BasePage {
 
     // Values on Invoicing Landing Page
@@ -20,10 +22,14 @@ public class InvoiceImplementation extends BasePage {
     public String invoiceAccountSummaryClick = "//ul[@id='invoiceGroupListContainer']/ul/li";
     public String initialInvoice = "//span[text()='Initial Balance']";
     public String accountStatementReport = "//li[text()='Account Balance Summary']";
+    public By lnkAccountBalanceSummary = By.xpath("//li[text()='Account Balance Summary']");
     public String remainingBalanceAmount = "//span[text()='Remaining Balance']/parent::div";
+
+    private By lnkConsolidatedInvoices =  By.xpath("//*[@id='billingPanel']//li[contains(text(),'Consolidated Invoices')]");
 
     //Most Recent Invoice's Invoice-Number
     private By mostRecentInvoiceNumber = By.xpath("//ul[@id='invoiceGroupListContainer']//span[text()='Invoice']/parent::div[1]");
+    private By  invoicesList = By.xpath("//ul[@id='invoiceGroupListContainer']//span[text()='Invoice']/parent::div");
 
      // Invoice Amount
     private String newInvoice = "//form[@id=\"newInvoiceParams\"]//input[@type=\"number\"]";
@@ -65,6 +71,8 @@ public class InvoiceImplementation extends BasePage {
 
     // Payment Result
     private String successfulCharge = "//h2[contains(@class,'bold aCenter clr font24') and contains(text(),'Successfully Charged Cash!')]";
+    private By paymentSuccessMessage = By.xpath("//h2[contains(@class,'bold aCenter clr font24') and contains(text(),'Successfully Charged')]");
+
     private String successfulChargeAmount = "//form[@id=\"singlePaymentForm\"]//h2[@class=\"bold aCenter clr\"]";
 
     public By paymentResultsScreenTitle = By.xpath("//form[@id='singlePaymentForm']//h3");
@@ -78,6 +86,8 @@ public class InvoiceImplementation extends BasePage {
     public String accountBalance1 = "//div[@id='billingPanel']//div[@data-balance]";
     public String printInvoiceAmountDue = "//th[text()='Amount Due']//following-sibling::td[1]";
     public String printInvoiceAmountDue1= "//span[text()='Amount Due:']/parent::th/following-sibling::td/span[2]";
+
+    private By lnkAddPaymentAcctSummary = By.xpath("//*[@id='billingPanel']//div[contains(text(),'+ Add Payment')]");
 
     //Initial Invoice Objects
     public String printInvoicePaymentBalance = "//th[text()='Invoice Total']//following-sibling::td[1]";
@@ -161,6 +171,11 @@ public class InvoiceImplementation extends BasePage {
 
     private By processTransactionButton = By.xpath("//a[@id='submit'] [text()='PROCESS TRANSACTION ']");
     private By limitedToSubscriptionField = By.xpath("//form[@id='singlePaymentForm']//span[text()='Any Subscription']");
+
+    private By applyToFirstField = By.xpath("//*[@id='singlePaymentForm']//div[contains(text(),'Apply To First')]/following-sibling::div");
+    private By applyToFirstInvoiceOptions= By.xpath("//*[@id='singlePaymentForm']//div[contains(text(),'Apply To First')]/following-sibling::div/div/ul/li/ul/li");
+    private By selectedApplyToFirstOption = By.xpath("//*[@id='singlePaymentForm']//div[contains(text(),'Apply To First')]/following-sibling::div/p");
+
     private By checkSubscription = By.xpath("//form[@id='singlePaymentForm']//label[contains(text(),'Subscription')]");
     private By renewalDateCheckBox = By.xpath("//form[@id='singlePaymentForm']//input[@name='updateRenewalDate']");
     private By renewalDate = By.xpath("//form[@id='singlePaymentForm']//input[@name='renewalDate']");
@@ -171,7 +186,7 @@ public class InvoiceImplementation extends BasePage {
     private By sendToJobPoolField = By.xpath("//form[@id='singlePaymentForm']//input[@name='customDate']");
 
     //Payment Details
-    private By btnActions = By.xpath("//*[@id='paymentForm']/div[1]/div[2]/div[contains(text(),'Actions')]");
+    private By btnActions = By.xpath("//*[@id='paymentForm']//div[contains(text(),'Actions')]");
     private By lnkUpdatePayment = By.xpath("//*[@id='modifyPaymentButton']");
     private By inputPaymentTransactionAmount  = By.xpath("//*[@id='paymentForm']//div//input[@name ='originalAmount']");
     private By inputPaymentTransactionDate = By.xpath("//*[@id='paymentForm']//div//input[@name ='paymentDate']");
@@ -180,10 +195,30 @@ public class InvoiceImplementation extends BasePage {
     private By lnkSaveRedistribute = By.xpath("//*[@id='savePaymentDetails']");
     private By lblCustomerPaymentDetails = By.xpath("//*[@id='paymentForm']/div[2]/div[1]/h3[contains(text(), 'Customer Payment Details')]");
 
+    //Payment Actions Options
+    private By btnActionsRefund = By.xpath("//*[@id='refundPaymentButton']");
+    private By btnActionsReverse = By.xpath("//*[@id='reversePaymentButton']");
+
+    //Reverse/Refund Dialog
+    public By lblTitleRefundDialog = By.xpath("//*[@id='refundProcessBox']/p[contains(text(),'Refund amount')]");
+    public By lblTitleReverseDialog = By.xpath("//*[@id='refundProcessBox']/p[contains(text(),'Reversing a payment')]");
+    private By inputRefund = By.xpath("//*[@id='refundProcessBox']//input[@id='refundAmountInput']");
+    private By btnContinue_ReverseRefund = By.xpath("//*[@id='refundProcessBox']/following-sibling::div//div//button/span[contains(text(),'Continue')]");
+    private By btnCancel_ReverseRefund = By.xpath("//*[@id='refundProcessBox']/following-sibling::div//div//button/span[contains(text(),'Cancel')]");
+    private By textRefundResultMessage = By.xpath("//*[@id='billingPanel']//div[contains(text(),'Result')]//following-sibling::div[1]");
+    private By textRefundResultAmount = By.xpath("//*[@id='billingPanel']//div[contains(text(),'Amount')]//following-sibling::div[1]");
+
+    private By  acctBalanceSummaryBeginningBal = By.xpath("//span[contains(text(),'Beginning Balance')]/../../following-sibling::div/div[contains(@class,'half left accountBalanceSummaryBalanceNumbers ')]/span");
+    private By  acctBalanceSummaryEndingBal = By.xpath("//span[contains(text(),'Ending Balance')]/../../following-sibling::div//div[contains(@class, 'half right accountBalanceSummaryBalanceNumbers')]/span");
+
+    private By chkboxEligibleForConsolidation = By.xpath("//*[@id='eligibleForConsolidation']");
+
+
     //------------------------------------------------------
     //Constants
     //------------------------------------------------------
     public static  String  nextExpirationDate;
+
     //Payment Results Messages
     public final String PAYMENT_SUCCESS_MSG_CASH = "Successfully Charged Cash!";
     public final String PAYMENT_SUCCESS_MSG_CHECK = "Successfully Applied Check!";
@@ -191,6 +226,14 @@ public class InvoiceImplementation extends BasePage {
     public final String PAYMENT_SUCCESS_MSG_ACH = "Successfully Charged ACH Account!";
     public final String PAYMENT_SUCCESS_MSG_COUPON = "Coupon Applied Successfully!";
     public final String PAYMENT_DETAILS_SECTION_TITLE = "Customer Payment Details";
+    public final String REFUND_RESULT_SCREEN_TITLE = "Refund Result";
+    public final String REVERSE_RESULT_SCREEN_TITLE = "Reverse Result";
+    public final String REFUND_SUCCESS_MSG= "Successfully Refunded";
+    public final String REFUND_SUCCESS_MSG_BRAINTREE = "Refund Successfully Issued";
+    public final String REFUND_SUCCESS_MSG_ELEMENT = "Approved";
+    public final String REFUND_SUCCESS_MSG_NMI = "SUCCESS";
+    public final String REFUND_SUCCESS_MSG_SPREEDLY = "succeeded";
+    public final String REVERSE_SUCCESS_MSG = "Marked payment for Reversal";
 
     //------------------------------------------------------
     // Methods
@@ -349,6 +392,7 @@ public class InvoiceImplementation extends BasePage {
     public void selectTaxableOption(String taxableOption){
         selectFromDropDown(taxableOption, drpdwnTaxable);
     }//selectTaxableOption()
+
     public void loadPaymentDetails() {
         //Click "Actions" button
         click(btnActions);
@@ -356,8 +400,9 @@ public class InvoiceImplementation extends BasePage {
         //Click "Update Payment" link
         click(lnkUpdatePayment);
          //Wait Until Payment Details Are Loaded
-        Utilities.waitUntileElementIsVisible(lblCustomerPaymentDetails, 5);
+        Utilities.waitUntileElementIsVisible(lblCustomerPaymentDetails, 2);
     }//loadPaymentDetails()
+
     public void checkExpirationDateBox() throws Exception { Utilities.checkBox(expirationDateCheckBox);}
     public void uncheckExpirationDateBox() throws Exception { Utilities.uncheckBox(expirationDateCheckBox);}
 
@@ -546,6 +591,40 @@ public class InvoiceImplementation extends BasePage {
          return getText(calTaxValue).replaceAll("[^0-9.]","");
     }//getInvoiceNumber()
 
+    public String getRefundDialogTitle(){
+       return getText(lblTitleRefundDialog);
+    }//getRefundDialogTitle()
+
+    public String getRefundReverseResultMessage()
+    {
+        return getText(textRefundResultMessage);
+    }//getRefundResultMessage()
+
+    public String getRefundReverseResultAmount()
+    {
+        return getText(textRefundResultAmount);
+    }//getRefundReverseResultAmount()
+
+    public String getPaymentSuccessMessage()
+    {
+        return getText(paymentSuccessMessage);
+    }//getPaymentSuccessMessage()
+
+    public String getRefundResultScreenTitle()
+    {
+        return getText(textRefundResultMessage);
+    }
+
+    public String getAcctBalancesSummaryBeginningBal()
+    {
+        return getText(acctBalanceSummaryBeginningBal);
+    }//getAcctBalancesSummaryBeginningBal()
+
+    public String getAcctBalancesSummaryEndingBal()
+    {
+        return getText(acctBalanceSummaryEndingBal);
+    }//getAcctBalancesSummaryEndingBal()
+
     public void clickCreditMemoButton(){
         Utilities.waitUntileElementIsVisible(invoiceActionButton);
         Utilities.hoverElement(invoiceActionButton, creditMemoButton);
@@ -555,6 +634,38 @@ public class InvoiceImplementation extends BasePage {
         Utilities.waitUntileElementIsVisible(needObject);
         Utilities.clickElement(needObject, ElementType.XPath);
     }
+
+    public void clickPaymentActionsRefundButton(){
+        Utilities.waitUntileElementIsVisible(btnActions);
+        Utilities.hoverElement(btnActions,btnActionsRefund);
+    }//clickPaymentActionsRefundButton()
+
+    public void clickPaymentActionsReverseButton(){
+        Utilities.waitUntileElementIsVisible(btnActions);
+        Utilities.hoverElement(btnActions,btnActionsReverse);
+    }//clickPaymentActionsReverseButton()
+
+
+    public void clickReverseRefundContinueButton() {
+        click(btnContinue_ReverseRefund);
+    }//clickReverseRefundContinueButton()
+
+    public void clickConsolidatedInvoices(){
+        delay(1000);
+        click(lnkConsolidatedInvoices);
+    }//clickConsolidatedInvoices()
+
+    public void clickAddPaymentAccountSummary() {
+        click(lnkAddPaymentAcctSummary);
+    }//clickAddPaymentAccountSummary()
+
+    public void checkEligibleForConsolidation()
+    { Utilities.checkBox(chkboxEligibleForConsolidation);}
+
+    public void clickAccountBalanceSummary(){
+        click(lnkAccountBalanceSummary);
+    }//clickAccountBalanceSummary()
+
 
     // Setters
     //--------------------------------------------------------------
@@ -640,6 +751,9 @@ public class InvoiceImplementation extends BasePage {
         type(expirationDate, braintreeExpirationDateField);
         driver.switchTo().defaultContent();
         clickChargeSingleCardButton();
+       acceptAlert();
+        //Utilities.waitUntileElementIsVisible(paymentResultsScreenTitle);
+        delay(2000);
     }
 
     public void enterElementNewCardInformation(String cardNumber, String expirationDate, String cvv){
@@ -688,6 +802,7 @@ public class InvoiceImplementation extends BasePage {
         type(cvv, spreedlyCVVField);
         driver.switchTo().defaultContent();
         clickChargeSingleCardButton();
+        acceptAlert();
     }
 
     public void enterPestRoutesPaymentsNewCardInformation(String cardNumber, String expirationDate, String cvv) {
@@ -704,6 +819,7 @@ public class InvoiceImplementation extends BasePage {
         type(cvv, pestRoutesPaymentsCVVField);
         driver.switchTo().defaultContent();
         clickChargeSingleCardButton();
+        acceptAlert();
     }
 
     public void enterNewCardInformation(String gateway, String cardNumber, String expirationDate, String cvv) {
@@ -725,4 +841,107 @@ public class InvoiceImplementation extends BasePage {
                 break;
         }
     }
+
+    public void setRefundAmount(String refundAmt)
+    {
+      type(refundAmt, inputRefund);
+    }//setRefundAmount()
+
+    public String getSelectedApplyToFirstOption() {
+        return getText(selectedApplyToFirstOption);
+    }//getSelectedApplyToFirstOption()
+
+    public void applyToFirstInvoice(String invoiceNum)
+    {
+        click (applyToFirstField);
+        List<WebElement>  invoiceLabels = findElements(By.xpath("//*[@id='singlePaymentForm']//div[contains(text(),'Apply To First')]/following-sibling::div/div/ul/li/ul/li/label"));
+        List<WebElement> generatedInvoicesOptions = findElements(applyToFirstInvoiceOptions);
+
+          for(WebElement invoiceLabel: invoiceLabels )
+            {
+                  if (invoiceLabel.getText().contains(invoiceNum)){
+                    generatedInvoicesOptions.get(invoiceLabels.indexOf(invoiceLabel)).click();
+                    break;
+                  }
+            }
+    }//applyToFirstInvoice()
+
+    public String getInvoiceNumByIndex(Integer invoiceIndex)
+    {
+       String strInvoiceNum = null;
+       List<WebElement> generatedInvoices = driver.findElements(invoicesList);
+
+        if (generatedInvoices.size() > 0) {
+            strInvoiceNum = generatedInvoices.get(invoiceIndex - 1).getText().trim();
+            strInvoiceNum = strInvoiceNum.replaceAll("\\s.*", "");
+        }
+       return strInvoiceNum;
+    }//getInvoiceNumByIndex()
+
+    public String getInvoicePaymentByIndex(Integer invoiceIndex)
+    {
+        String strInvoiceNum = null;
+        List<WebElement> generatedInvoices = findElements(invoicesList);
+
+        if (generatedInvoices.size() > 0) {
+            strInvoiceNum = generatedInvoices.get(invoiceIndex - 1).getText().trim();
+            strInvoiceNum = strInvoiceNum.replaceAll("\\s.*", "");
+        }
+        return strInvoiceNum;
+    }//getInvoicePaymentByIndex()
+
+    public List<WebElement> getGeneratedInvoices()
+    {
+         List<WebElement> generatedInvoices = findElements(invoicesList);
+         return generatedInvoices;
+    }
+
+    public String getInvoiceInitialBalance(String invoiceNum){
+        String initialBalAmt = getText(By.xpath("//ul[@id='invoiceGroupListContainer']//div[contains(text(), '" + invoiceNum +
+                "')]/following-sibling::div/span[text()='Initial Balance']//.."));
+        String initialBalanceAmount = initialBalAmt.replaceAll("[^0-9.]","");
+
+        return initialBalanceAmount;
+    }//getInvoiceInitialBalance()
+
+    public String getInvoiceRemainingBalance(String invoiceNum){
+        String remainingBalAmt = getText(By.xpath("//ul[@id='invoiceGroupListContainer']//div[contains(text(), '" + invoiceNum +
+                "')]/following-sibling::div/span[text()='Remaining Balance']//.."));
+        String remainingBalanceAmount = remainingBalAmt.replaceAll("[^0-9.]","");
+
+        return remainingBalanceAmount;
+    }//getInvoiceRemainingBalance()
+
+    public String getInvoicePaymentBalanceStatus(String invoiceNum){
+        Utilities.delay(3000);
+        Utilities.scrollToElement(By.xpath("//*[@id='invoiceGroupListContainer']/ul/li[@ticketid='" + invoiceNum +
+                "']//div[contains(@class, 'payment-status')]"));
+        String invoiceBalStatus= getText(By.xpath("//*[@id='invoiceGroupListContainer']/ul/li[@ticketid='" + invoiceNum +
+                                                  "']//div[contains(@class, 'payment-status')]"));
+        return invoiceBalStatus;
+    }//getInvoiceRemainingBalance()
+
+    public String getConsolidatedTotalInitialBalance(){
+      delay(500);
+      return getText(By.xpath("//*[@id='consolidatedInvoiceDetails']//div[@class='col-2']//span[contains(text()," +
+                                "'Initial Balance')]/following-sibling::span"));
+    }//getConsolidatedTotalInitialBalance()
+
+    public String getConsolidatedTotalRemainingBalance(){
+        delay(500);
+        return getText(By.xpath("//*[@id='consolidatedInvoiceDetails']//div[@class='col-2']//span[contains(text()," +
+                                    "'Remaining Balance')]/following-sibling::span"));
+    }//getConsolidatedTotalRemainingBalance()
+
+    public String getConsolidatedInvoiceInitialBalance(String consolidatedInvoiceNum){
+        delay(500);
+        return getText(By.xpath("//*[@id='consolidatedInvoiceDetails']//span[contains(text(),'Initial Balance')]" +
+                "/following-sibling::span/../..//div[@class='left half']/span[contains(text(),'" + consolidatedInvoiceNum + "')] "));
+    }//getConsolidatedInvoiceInitialBalance()
+
+    public String getConsolidatedInvoiceRemainingBalance(String consolidatedInvoiceNum){
+        delay(500);
+        return getText(By.xpath("//*[@id='consolidatedInvoiceDetails']//span[contains(text(),'Remaining Balance')]" +
+                "/following-sibling::span/../..//div[@class='left half']/span[contains(text(),'" + consolidatedInvoiceNum + "')] "));
+    }//getConsolidatedInvoiceRemainingBalance()
 }

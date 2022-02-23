@@ -11,7 +11,6 @@ import automation.PestRoutes.PageObject.CustomerOverview.Invoicing.RoutePageInvo
 import automation.PestRoutes.Utilities.FindElement;
 import automation.PestRoutes.Utilities.Utilities;
 import io.cucumber.java.en.Then;
-import org.openqa.selenium.WebElement;
 
 import static automation.PestRoutes.Utilities.AssertException.result;
 
@@ -55,6 +54,7 @@ public class SingleCardPayment {
             chargeSinglePayrixCc(needCC);
         }
     }
+
     //***Author Aarbi
     @Then("I charge cc with braintree gateway {string}")
     public void chargeSignleBrainTreeCc(String needBrainTreeCC) {
@@ -86,6 +86,7 @@ public class SingleCardPayment {
         String expectedConfirmation = "Successfully Charged Credit Card!";
         result(expectedConfirmation, actualResult, "Credit Card Confirmation", "Card on file payment");
     }
+
     //***Author Aarbi
     @Then("I charge cc with element gateway {string}")
     public void chargeSingleElementCc(String needElementCC) {
@@ -103,6 +104,7 @@ public class SingleCardPayment {
         String expectedConfirmation = "Successfully Charged Credit Card!";
         result(expectedConfirmation, actualResult, "Credit Card Confirmation", "Card on file payment");
     }
+
     //***Author Aarbi
     @Then("I charge cc with spreedly gateway {string}")
     public void chargeSignleSpreedlyCc(String needSpreedlyCC) {
@@ -123,6 +125,7 @@ public class SingleCardPayment {
         String expectedConfirmation = "Successfully Charged Credit Card!";
         result(expectedConfirmation, actualResult, "Credit Card Confirmation", "Card on file payment");
     }
+
     //***Author Aarbi
     @Then("I charge cc with nmi gateway {string}")
     public void chargeSingleNmiCc(String needNmiCC) {
@@ -139,6 +142,7 @@ public class SingleCardPayment {
         String expectedConfirmation = "Successfully Charged Credit Card!";
         result(expectedConfirmation, actualResult, "Credit Card Confirmation", "Card on file payment");
     }
+
     //***Author Aarbi
     @Then("I charge cc with payrix gateway {string}")
     public void chargeSinglePayrixCc(String needPayrixCC) {

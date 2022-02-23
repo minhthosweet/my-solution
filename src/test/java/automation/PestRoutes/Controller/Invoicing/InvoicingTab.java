@@ -6,15 +6,16 @@ import automation.PestRoutes.Controller.Subscriptions.AddSubscription;
 import automation.PestRoutes.PageObject.Admin.AdminMainPage;
 import automation.PestRoutes.PageObject.Admin.PreferencesTab.MerchantInfoTab.MarchantInfoPage;
 import automation.PestRoutes.PageObject.Admin.PreferencesTab.OfficeSettingsTab.OfficeSettingsObjects;
-import automation.PestRoutes.PageObject.BasePage;
+import automation.PestRoutes.PageObject.Admin.PreferencesTab.PreferencesPage;
+import automation.PestRoutes.PageObject.Billing.BillingModule.BillingModule;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_SubscriptionTab;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerviewDialog_AppointmentsTab;
 import automation.PestRoutes.PageObject.CustomerOverview.Invoicing.CreateNewInvoicePopUp;
 import automation.PestRoutes.PageObject.DashboardPage;
 import automation.PestRoutes.PageObject.Header;
+import automation.PestRoutes.PageObject.RoutePage.RoutePage;
 import automation.PestRoutes.PageObject.Scheduling.SchedulingTab;
 import automation.PestRoutes.Utilities.*;
-import automation.PestRoutes.Utilities.AppData;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -36,7 +37,7 @@ import java.util.Locale;
 import static automation.PestRoutes.Utilities.AssertException.result;
 import static java.lang.Double.parseDouble;
 
-public class InvoicingTab extends BasePage{
+public class InvoicingTab extends AppData{
 
     InvoiceImplementation invImplementation = new InvoiceImplementation();
     CreateNewInvoicePopUp newInvoice;
@@ -51,11 +52,14 @@ public class InvoicingTab extends BasePage{
     DashboardPage userDashboard = new DashboardPage();
     Header header = new Header();
     AdminMainPage admin = new AdminMainPage();
+    BillingModule billingComponent;
     ScheduleAppt scheduleAppointment;
     CustomerviewDialog_AppointmentsTab appointmentsTab;
     SingleCardPayment cardPayment;
     MarchantInfoPage merchantPage;
-    AppData appData = new AppData();
+    PreferencesPage preferencesPage;
+    OfficeSettingsObjects officeSettings;
+    AddSubscription testSubscription = new AddSubscription();
 
     private String treatmentAmount = "900";
     private Integer partialPaymentAmount = Integer.parseInt(treatmentAmount) / 2;
@@ -70,6 +74,8 @@ public class InvoicingTab extends BasePage{
     public static String paymentAmount;
     public static String invoiceSubTotal;
     public static String invoicePaymentBalance;
+    public static String applyToFirstInvoiceNum;
+    public static String addonInvoiceNum;
 
     @Test
     public void CustomerInvoicing() throws Exception {
@@ -96,6 +102,36 @@ public class InvoicingTab extends BasePage{
         newInvoice.select(newInvoice.serviceTypeDropdown, "Automation Renewal");
         newInvoice.click(newInvoice.createButton);
     }
+    @And("I create standalone service invoice {string} for service {string}")
+    public void createStandAloneServiceInvoice(String needAmount, String requestedService){
+        newInvoice = new CreateNewInvoicePopUp();
+        customerCardHeader = new CustomerViewDialog_Header();
+        customerCardHeader.navigateTo(customerCardHeader.invoicesTabInDialog);
+        invoiceRoutesTab.clickAddNewInvoice(invoiceRoutesTab.addNewInvoice);
+        newInvoice.set(newInvoice.dateField, Utilities.currentDate("MM/dd/yyyy"));
+        newInvoice.set(newInvoice.amountInputField, needAmount);
+        newInvoice.select(newInvoice.serviceTypeDropdown, requestedService);
+        newInvoice.click(newInvoice.createButton);
+    }
+
+    public void createStandAloneServiceInvoice(String invoiceDate, String needAmount, String requestedService){
+        newInvoice = new CreateNewInvoicePopUp();
+
+        invoiceRoutesTab.clickAddNewInvoice(invoiceRoutesTab.addNewInvoice);
+        newInvoice.set(newInvoice.dateField, invoiceDate);
+        newInvoice.set(newInvoice.amountInputField, needAmount);
+        newInvoice.select(newInvoice.serviceTypeDropdown, requestedService);
+        newInvoice.click(newInvoice.createButton);
+    }
+    public void createStandAloneServiceInvoiceWithAddonAndMarkConsolidate(String invoiceDate, String needAmount, String requestedService, String addonItem){
+        createStandAloneServiceInvoice (invoiceDate,needAmount,requestedService);
+        Utilities.isPresent(invoiceRoutesTab.invoiceScreenTitle);
+
+        //Mark invoice "Eligible for Consolidation" and add a ticket add-ons
+        invImplementation.checkEligibleForConsolidation();
+        invoiceRoutesTab.invoiceDetails();
+        invoiceRoutesTab.selectAvailableItems(addonItem);
+    }//createStandAloneServiceInvoiceWithAddonAndMarkConsolidate()
 
     // Add a new invoice to the customer
     public void addNewInvoice(String date) throws Exception {
@@ -168,7 +204,7 @@ public class InvoicingTab extends BasePage{
         customerCardHeader.navigateTo(customerCardHeader.invoicesTabInDialog);
         result(initialInvoiceValue, invImplementation.getAccountBalance(), "Total Initial Invoice Value",
                 "Invoice Validation");
-        invImplementation.clickInvoice(appData.getData("serviceDescription", appData.generalData));
+        invImplementation.clickInvoice(getData("serviceDescription", generalData));
         result(initialInvoiceValue, invImplementation.getChargesBalance(), "Total Initial Invoice Value",
                 "Invoice Validation");
         result(initialInvoiceValue, invImplementation.getBalanceInPayments(), "Total Initial Invoice Value",
@@ -255,9 +291,9 @@ public class InvoicingTab extends BasePage{
         invoiceCharges = invImplementation.getChargesBalance();
         invoiceBalance = invImplementation.getBalanceInPayments();
         generateAccountStatementReport(reportType, day);
-        result(invImplementation.getInvoiceAmount_accountStatementReport(appData.getData("serviceDescription", appData.generalData)), invoiceCharges, "Invoice Value",
+        result(invImplementation.getInvoiceAmount_accountStatementReport(getData("serviceDescription", generalData)), invoiceCharges, "Invoice Value",
                 "Account Statement Report Validation");
-        result(invImplementation.getInvoiceBalance_accountStatementReport(appData.getData("serviceDescription", appData.generalData)), invoiceBalance, "Invoice Value",
+        result(invImplementation.getInvoiceBalance_accountStatementReport(getData("serviceDescription", generalData)), invoiceBalance, "Invoice Value",
                 "Account Statement Report Validation");
     }
 
@@ -347,7 +383,7 @@ public class InvoicingTab extends BasePage{
 
     //**Author Aarbi
     @Then("I make payment with credit card on file {string}")
-    public void makeCardOnFile_CCPayment(String needMessage) throws InterruptedException {
+    public void makeCardOnFile_CCPayment(String needMessage){
         invoiceHeader = new Invoice_Header();
         CardOnFile cardOnFile = new CardOnFile();
         CreditCardConfirmationPage confirmationPage = new CreditCardConfirmationPage();
@@ -371,7 +407,7 @@ public class InvoicingTab extends BasePage{
 
     //Author: Aditya
     @Then("I make partial payment with credit card on file")
-    public void makeCardOnFile_PartialCCPayment() throws InterruptedException {
+    public void makeCardOnFile_PartialCCPayment() {
         invoiceHeader = new Invoice_Header();
         CardOnFile cardOnFile = new CardOnFile();
         CreditCardConfirmationPage confirmationPage = new CreditCardConfirmationPage();
@@ -398,7 +434,7 @@ public class InvoicingTab extends BasePage{
 
     //**Author Adi
     @Then("I make payment with ACH Account on file")
-    public void makePayment_ACHOnFile() throws InterruptedException {
+    public void makePayment_ACHOnFile() {
         invoiceHeader = new Invoice_Header();
         CardOnFile cardOnFile = new CardOnFile();
         achOnFile = new ACHOnFile();
@@ -445,7 +481,7 @@ public class InvoicingTab extends BasePage{
 
     //*** Author: F. White
     @And("I add a payment via pay option {string} in this amount {string}")
-    public void addInvoicePayment(String paymentOption, String paymentAmt) throws InterruptedException {
+    public void addInvoicePayment(String paymentOption, String paymentAmt){
         invoiceHeader = new Invoice_Header();
         customerCardHeader = new CustomerViewDialog_Header();
         customerCardHeader.navigateTo(customerCardHeader.invoicesTabInDialog);
@@ -527,7 +563,7 @@ public class InvoicingTab extends BasePage{
     }
 
     @Then("I validate the taxable option on invoice")
-    public void validateTaxableOptionOnInvoice() throws InterruptedException {
+    public void validateTaxableOptionOnInvoice(){
         double zeroTaxAmt = 0.0;
         customerCardHeader = new CustomerViewDialog_Header();
         customerCardHeader.navigateTo(customerCardHeader.invoicesTabInDialog);
@@ -560,8 +596,8 @@ public class InvoicingTab extends BasePage{
         customerCardHeader.clickSaveButton();
     }//freezeSubscription
 
-    @And("I add an annual subscription with Service Type {string} and an Expiration Date")
-    public void addAnnualSubscription(String strServiceType) {
+    @And("I add a subscription with Service Type {string} and an Expiration Date")
+    public void addSubscription(String strServiceType) {
         customerCardHeader = new CustomerViewDialog_Header();
         subscriptionTab = new CustomerViewDialog_SubscriptionTab();
         customerCardHeader.navigateTo(customerCardHeader.subscriptionTabInDialog);
@@ -576,27 +612,25 @@ public class InvoicingTab extends BasePage{
         customerCardHeader.clickSaveButton();
     }//addAnnualSubscription()
 
-
     @And("I schedule and complete an appointment for subscription with Service Type {string}")
-    public void scheduleAndCompleteServiceAppointment(String serviceType) {
+    public void scheduleAndCompleteServiceAppointment(String serviceType){
         customerCardHeader = new CustomerViewDialog_Header();
         createCustomer = new CreateNewCustomer();
-        //routePg = new RoutePage();
         scheduleAppointment = new ScheduleAppt();
         appointmentsTab = new CustomerviewDialog_AppointmentsTab();
+        RoutePage routePage = new RoutePage();
         String customerFullName =createCustomer.getCustomerFullName();
 
-        //Create a Route on Today's Schedule
+        //Today's Schedule
         schedulingTab = userDashboard.goToSchedulingComponent();
         schedulingTab.addScheduleDateToProperties();
         schedulingTab.clickScheduleDay();
-     //   routePg.addGroup();
-      //  routePg.addRoutesByQuantity("1");
 
         //Schedule The Appointment
         header.searchCustomerWithName(customerFullName);
         subscriptionTab = customerCardHeader.goToSubscriptionTab();
-        scheduleAppointment.scheduleAppointmentOnRoute(serviceType,appData.getData("timeSlot", appData.generalData));
+
+        scheduleAppointment.scheduleAppointmentOnRoute(serviceType);
 
         //Complete The Appointment
         header.searchCustomerWithName(customerFullName);
@@ -627,12 +661,16 @@ public class InvoicingTab extends BasePage{
         invoiceHeader = new Invoice_Header();
         customerCardHeader = new CustomerViewDialog_Header();
         cardPayment = new SingleCardPayment();
+        String expirationDate = "09/29";
         customerCardHeader.navigateTo(customerCardHeader.invoicesTabInDialog);
         Utilities.waitUntileElementIsVisible(invoiceRoutesTab.addNewInvoice);
 
         invImplementation.clickInitialInvoice();
         invoiceRoutesTab.clickAddPayment();
         invoiceHeader.navigateTo(invoiceHeader.creditCard);
+
+        if(activeGateway.equalsIgnoreCase(merchantPage.GATEWAY_SPREEDLY))
+            expirationDate= "September/29";
 
         //Enter Full Balance Due
        String paymentAmount = invImplementation.getPaymentAmount();
@@ -651,36 +689,28 @@ public class InvoicingTab extends BasePage{
          invImplementation.uncheckSendToJobPoolBox();
 
         //charge Single Use Card full amount due
-        if (activeGateway.equalsIgnoreCase(merchantPage.GATEWAY_BRAINTREE))
-            cardPayment.chargeSignleBrainTreeCc(creditCardNum);
-        else if (activeGateway.equalsIgnoreCase(merchantPage.GATEWAY_ELEMENT))
-            cardPayment.chargeSingleElementCc(creditCardNum);
-        else if (activeGateway.equalsIgnoreCase(merchantPage.GATEWAY_SPREEDLY))
-            cardPayment.chargeSignleSpreedlyCc(creditCardNum);
-        else if (activeGateway.equalsIgnoreCase(merchantPage.GATEWAY_NMI))
-            cardPayment.chargeSingleNmiCc(creditCardNum);
-        else if (activeGateway.equalsIgnoreCase(merchantPage.GATEWAY_PESTROUTES_PAYMENTS))
-            cardPayment.chargeSinglePayrixCc(creditCardNum);
+        invImplementation.enterNewCardInformation(activeGateway, creditCardNum, expirationDate,"930");
+
     }//makeCardPaymentToAdvanceExpirationDate()
 
     @Then("I validate the Expiration Date on the subscription has advanced")
     public void verifyExpirationDatAdvanced() {
         customerCardHeader = new CustomerViewDialog_Header();
         customerCardHeader.navigateTo(customerCardHeader.subscriptionTabInDialog);
-        Utilities.waitUntileElementIsVisible(subscriptionTab.newSubscriptionButton,5);
+        Utilities.elementIsVisible( subscriptionTab.newSubscriptionButton);
 
-        Assert.assertEquals(subscriptionTab.getSubscriptionExpirationDate(),nextExpirationDate,"Subscription Expiration Date Advancement Validation Failed!!! ");
-      }//verifyExpirationDatAdvanced()
+        result(nextExpirationDate,subscriptionTab.getSubscriptionExpirationDate(),"Subscription Expiration Date Advancement Validation!!!", "Subscription Expiration Date Validation");
+    }//verifyExpirationDatAdvanced()
 
     @Then("I validate the subscription's status is {string}")
     public void verifySubscriptionStatus(String expectedStatus) {
         customerCardHeader = new CustomerViewDialog_Header();
         customerCardHeader.navigateTo(customerCardHeader.subscriptionTabInDialog);
-        Utilities.waitUntileElementIsVisible(subscriptionTab.newSubscriptionButton,5);
+        Utilities.isPresent(subscriptionTab.newSubscriptionButton);
 
         String currentStatus = subscriptionTab.getSubscriptionStatus();
-        Assert.assertEquals(currentStatus.toUpperCase(Locale.ROOT),expectedStatus.toUpperCase(Locale.ROOT),"Subscription Status Validation Fail!!!");
-    }//verifyExpirationDatAdvanced()
+        result(currentStatus.toUpperCase(Locale.ROOT),expectedStatus.toUpperCase(Locale.ROOT),"Subscription Status Validation","Subscription Status Validation");
+     }//verifyExpirationDatAdvanced()
 
     @Given("I retrieve the merchant's configured gateway")
     public String retrieveConfiguredGateway() {
@@ -745,4 +775,223 @@ public class InvoicingTab extends BasePage{
         sameUser.clickXButton();
         sameUser.clickSaveChangesButton();
     }
+
+    @And("I make full payment via pay option {string} {string} or {string} for balance due")
+    public void makeFullCardPayment(String cardPaymentOption, String creditCardNum, String nmiCreditCardNum) throws Exception {
+        invoiceHeader = new Invoice_Header();
+        customerCardHeader = new CustomerViewDialog_Header();
+        cardPayment = new SingleCardPayment();
+        customerCardHeader.navigateTo(customerCardHeader.invoicesTabInDialog);
+        Utilities.waitUntileElementIsVisible(invoiceRoutesTab.addNewInvoice);
+
+        //Pay full invoice amount
+        invImplementation.clickInitialInvoice();
+        invoiceRoutesTab.clickAddPayment();
+
+        if (cardPaymentOption.equalsIgnoreCase("SINGLE USE CARD"))
+            {
+            cardPayment.makeSingleCardPayment(creditCardNum, nmiCreditCardNum);
+        } else {
+            result(cardPaymentOption, "UNKNOWN CARD PAYMENT OPTION", "Card Option Selection", "Single Use Card Payment");
+        }
+    }//makeFullCardPayment()
+
+    @And("I give a full refund")
+    public void processRefundOrReversePayment() {
+        invoiceHeader = new Invoice_Header();
+        customerCardHeader = new CustomerViewDialog_Header();
+        cardPayment = new SingleCardPayment();
+         customerCardHeader.navigateTo(customerCardHeader.invoicesTabInDialog);
+        Utilities.waitUntileElementIsVisible(invoiceRoutesTab.addNewInvoice);
+
+        //Click the initial Invoice and on a payment line-item
+        invImplementation.clickInitialInvoice();
+        invImplementation.clickMostRecentPayment();
+
+        //Reverse or Refund Payment
+        if (activeGateway.equalsIgnoreCase(merchantPage.GATEWAY_PESTROUTES_PAYMENTS)) {
+                invImplementation.clickPaymentActionsReverseButton();
+                Utilities.waitUntileElementIsVisible(invImplementation.lblTitleReverseDialog,1);
+             }
+        else {
+                String paymentTransAmt = invImplementation.getPaymentTransactionAmount();
+                invImplementation.clickPaymentActionsRefundButton();
+                Utilities.waitUntileElementIsVisible(invImplementation.lblTitleRefundDialog, 1);
+                invImplementation.setRefundAmount(paymentTransAmt);
+            }
+        invImplementation.clickReverseRefundContinueButton();
+    }//processRefund()
+
+    @Then("I validate the refund processed successfully")
+    public void verifyRefundProcessed() {
+        String  resultMessage = invImplementation.getRefundReverseResultMessage();
+
+        if (activeGateway.equalsIgnoreCase(merchantPage.GATEWAY_PESTROUTES_PAYMENTS))
+            result(invImplementation.REVERSE_SUCCESS_MSG, resultMessage, "Payrix Gateway: Payment Reversal Validation", "Payment Reversal Validation");
+        else {
+                if (activeGateway.equalsIgnoreCase(merchantPage.GATEWAY_BRAINTREE))
+                   result(invImplementation.REFUND_SUCCESS_MSG_BRAINTREE, resultMessage, "Braintree Gateway: Payment Refund Validation", "Payment Refund Validation");
+                else if (activeGateway.equalsIgnoreCase(merchantPage.GATEWAY_ELEMENT))
+                    result(invImplementation.REFUND_SUCCESS_MSG_ELEMENT, resultMessage, "Element Gateway: Payment Refund Validation", "Payment Refund Validation");
+                else if (activeGateway.equalsIgnoreCase(merchantPage.GATEWAY_NMI))
+                    result(invImplementation.REFUND_SUCCESS_MSG_NMI, resultMessage, "Element Gateway: Payment Refund Validation", "Payment Refund Validation");
+                else if (activeGateway.equalsIgnoreCase(merchantPage.GATEWAY_SPREEDLY))
+                    result(invImplementation.REFUND_SUCCESS_MSG_SPREEDLY, resultMessage, "Element Gateway: Payment Refund Validation", "Payment Refund Validation");
+        }
+    }//verifyRefundProcessed
+
+    @And("I create multiple standalone service invoices")
+    public void createMultipleStandaloneInvoices() {
+        customerCardHeader = new CustomerViewDialog_Header();
+        customerCardHeader.navigateTo(customerCardHeader.invoicesTabInDialog);
+        Utilities.waitUntileElementIsVisible(invoiceRoutesTab.addNewInvoice, 1);
+
+        //Add 3 StandAlone Invoices
+        createStandAloneServiceInvoice(Utilities.currentDate("MM/dd/yyyy"),"100.00", "Misc Service");
+        createStandAloneServiceInvoice(Utilities.currentDate("MM/dd/yyyy"),"120.00", "Annual Automation Inspection");
+        createStandAloneServiceInvoice(Utilities.currentDate("MM/dd/yyyy"),"125.00", "Automation Renewal");
+        invImplementation.clickAccountSummary();
+    }//createMultipleStandaloneInvoices()
+
+    @And("I make a full payment via pay option Single Use Card {string} or {string} with \\(Apply To First) selected")
+    public void processCardPaymentWithApplyToFirstSelected(String creditCardNumber, String nmiCreditCardNumber) {
+        customerCardHeader = new CustomerViewDialog_Header();
+        invoiceHeader = new Invoice_Header();
+        customerCardHeader.navigateTo(customerCardHeader.invoicesTabInDialog);
+        Utilities.waitUntileElementIsVisible(invoiceRoutesTab.addNewInvoice,2);
+
+        String  cardNum = creditCardNumber;
+        if(activeGateway.equalsIgnoreCase(merchantPage.GATEWAY_NMI))
+            cardNum= nmiCreditCardNumber;
+
+        //Click "Account Summary" and  add  payment
+        invImplementation.clickAccountSummary();
+        invImplementation.clickAddPaymentAccountSummary();
+        invoiceHeader.navigateTo(invoiceHeader.creditCard );
+        Utilities.acceptAlert();
+        Utilities.isTextPresent("Card Payment");
+
+        //Limit Payment to a single invoice
+        applyToFirstInvoiceNum = invImplementation.getInvoiceNumByIndex(1);
+        String payAmt = invImplementation.getInvoiceInitialBalance(applyToFirstInvoiceNum);
+        invImplementation.typePaymentAmount(payAmt);
+        invImplementation.typeConfirmationAmount(payAmt);
+
+        invImplementation.applyToFirstInvoice(applyToFirstInvoiceNum);
+
+        //Update Billing Address
+        invImplementation.typeAddress("10001 Loop Ln.");
+
+        //Charge Credit Card
+        invImplementation.enterNewCardInformation(activeGateway,cardNum,"12/29","145");
+      }//makePaymentWithApplyToFirstSelected
+
+
+    @Then("I validate the payment was applied only to the selected invoice")
+    public void assertPaymentWasAppliedOnlyToTheSelectedInvoice() {
+       result("FULLY PAID", invImplementation.getInvoicePaymentBalanceStatus( applyToFirstInvoiceNum.trim() ), "Apply To First Invoice Validation","Apply To First Invoice Validation");
+    }
+
+    @And("I create multiple standalone service invoices with addons and marked eligible for consolidation")
+    public void generateInvoicesWithAddonsAndMarkConsolidate() {
+        customerCardHeader = new CustomerViewDialog_Header();
+        invoiceHeader = new Invoice_Header();
+        customerCardHeader.navigateTo(customerCardHeader.invoicesTabInDialog);
+        Utilities.waitUntileElementIsVisible(invoiceRoutesTab.addNewInvoice,2);
+
+        //Create multiple invoices with added ticket item and marked  "Eligible for Consolidation"
+        createStandAloneServiceInvoiceWithAddonAndMarkConsolidate(Utilities.currentDate("MM/dd/yyyy"),"100.00", "Misc Service", "Animal Removal");
+        createStandAloneServiceInvoiceWithAddonAndMarkConsolidate(Utilities.currentDate("MM/dd/yyyy"),"120.00", "Annual Automation Inspection","Animal Removal");
+        createStandAloneServiceInvoiceWithAddonAndMarkConsolidate(Utilities.currentDate("MM/dd/yyyy"),"125.00", "Automation Renewal","Animal Removal");
+        invImplementation.clickAccountSummary();
+
+    }//generateInvoicesWithAddonsAndMarkConsolidate()
+
+    @Given("I enable Preferences option Eligible for Consolidation in the system")
+    public void enableOptionEligibleForConsolidation() {
+        header.navigateTo(header.adminTab);
+        admin.navigateTo(admin.preferences);
+        officeSettings = new OfficeSettingsObjects();
+        officeSettings.navigateTo(officeSettings.preferences);
+
+        preferencesPage  = new PreferencesPage();
+        Utilities.scrollToElementJS(preferencesPage.billingPreferencesSectionTitle);
+        preferencesPage.clickEdit_BillingPreferences();
+        preferencesPage.selectUseConsolidatedInvoicing("Yes");
+        preferencesPage.clickSave_BillingPreferences();
+    }//enableOptionEligibleForConsolidation()
+
+    @And("I add a subscription with Service Type {string} and marked Eligible for Consolidation")
+    public void addSubscriptionAnddMarkEligibleForConsolidation(String serviceType) {
+        customerCardHeader = new CustomerViewDialog_Header();
+        subscriptionTab = new CustomerViewDialog_SubscriptionTab();
+        customerCardHeader.navigateTo(customerCardHeader.subscriptionTabInDialog);
+
+        //Create  Subscription
+        addSubscription(serviceType);
+
+        //Mark it Eligible for Consolidation
+        subscriptionTab.checkEigibleForConsolidation();
+        customerCardHeader.clickSaveButton();
+    }//addSubscriptionAnddMarkEligibleForConsolidation()
+
+    @And("I schedule and complete multiple appointments for the subscription {string}")
+    public void scheduleAndCompleteMultipleAppointmentsForASubscription(String serviceType){
+        //Schedule and complete 3 appointments
+        for(int i=1; i <=3; i++) {
+            scheduleAndCompleteServiceAppointment(serviceType);
+            Utilities.delay(4000);
+       }
+    }//scheduleAndCompleteMultipleAppointmentsForASubscription()
+
+    @And("I include add-on {string} to a completed service generated invoice marked eligible for consolidation")
+    public void addTicketItemAddonToInvoice(String addonItem) {
+        customerCardHeader = new CustomerViewDialog_Header();
+        customerCardHeader.navigateTo(customerCardHeader.invoicesTabInDialog);
+
+        Utilities.delay(2000);
+         addonInvoiceNum = invImplementation.getInvoiceNumByIndex(1);
+
+        //Add a ticket item add-ons to the invoice
+        invImplementation.click("//*[@id='invoiceGroupListContainer']/ul/li[@ticketid='" + addonInvoiceNum + "']");
+        invoiceRoutesTab.clickAddTicketItem();
+        invoiceRoutesTab.selectAvailableItems(addonItem);
+    }//addTicketItemAddonToInvoice()
+
+    @And("I consolidate all invoices")
+    public void consolidateAllInvoices(){
+        billingComponent = new BillingModule();
+        createCustomer = new CreateNewCustomer();
+        customerCardHeader = new CustomerViewDialog_Header();
+
+        customerCardHeader.navigateTo(customerCardHeader.infoTabInDialog);
+        String customerName = createCustomer.getCustomerFullName();
+        header.navigateTo(header.billingTab);
+        billingComponent.clickConsolidateInvoices();
+
+        billingComponent.selectAllICustomerInvoicesForConsolidation(customerName);
+        billingComponent.clickActions();
+        billingComponent.clickConsolidateInvoicesAction();
+        Utilities.delay(1000);
+
+        createCustomer.searchCustomer();
+    }//consolidateAllInvoices()
+
+    @Then("I validate the Consolidated Totals are correct")
+    public void validateConsolidatedInvoiceTotals() {
+        customerCardHeader = new CustomerViewDialog_Header();
+        customerCardHeader.navigateTo(customerCardHeader.invoicesTabInDialog);
+
+        invImplementation.clickAccountBalanceSummary();
+        String accountInitialBalance = invImplementation.getAcctBalancesSummaryBeginningBal();
+        String accountRemainingBalance = invImplementation.getAcctBalancesSummaryEndingBal();
+        String  addonInvoiceTotal = invImplementation.getInvoiceRemainingBalance(addonInvoiceNum);
+
+        invImplementation.clickConsolidatedInvoices();
+        String consolidatedTotalRemainingBalance = invImplementation.getConsolidatedTotalRemainingBalance();
+        String consolidatedAddonInvoiceRemainingBalance = invImplementation.getInvoiceRemainingBalance(addonInvoiceNum);
+
+        result(accountRemainingBalance,consolidatedTotalRemainingBalance,"Consolidated Invoices: Remaining Balances Validation","Consolidated Invoices Validation");
+        result(addonInvoiceTotal,consolidatedAddonInvoiceRemainingBalance,"Consolidated Invoice With Addon Remaining Balances Validation","Consolidated Invoices Validation");
+    }//validateConsolidatedInvoiceTotals()
 }

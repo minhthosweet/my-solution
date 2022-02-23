@@ -18,6 +18,8 @@ public class RoutePageInvoicing extends BasePage {
 	private By newInvoice = By.xpath("//li[text()='+ New Invoice']");
 	private By invoiceNumber = By.xpath("//ul[@id='invoiceGroupListContainer']//span[text()='Invoice']/..");
 	public String addTicketItem = "//div[contains(@class,'grayButton full aCenter  serviceTicketButton left') and contains(text(),'Add Ticket Item')]";
+	private By lnkAddTicketItem =  By.xpath("//div[contains(text(),'+ Add Ticket Item')]/parent::div[@id='serviceTicket' and @displaycontext='ticketDisplay']");
+
 	public String clickAddPartialPayment = "//div[contains(@class,'grayButton full aCenter  serviceTicketButton ticketPaymentButton left') and contains(text(),'Add Payment')]";
 	private String addAvailableTicket = "//div[@id='availableItems']//li[1]";
 	private By backToAccountSummaryButton = By.xpath("//div[@id='billingPanel']//div[text()='Back to Account Summary']");
@@ -28,6 +30,7 @@ public class RoutePageInvoicing extends BasePage {
 	private By recentMemo = By.xpath("//div[@id='billingPanel']//div[contains(text(), 'applied')]");
 	private By initialBalance = By.xpath("//ul[@id='invoiceGroupListContainer']//span[text()='Initial Balance']/..");
 	private By subStatusAmount = By.xpath("//div[@class='statusBox']//div[@class='subInactive']");
+    public By  invoiceScreenTitle = By.xpath("//*[@id='billingPanel']//h3[contains(text(), 'Invoices')]");
 
 	// Setter
 
@@ -60,6 +63,11 @@ public class RoutePageInvoicing extends BasePage {
 		Utilities.clickElement(addTicketItem, ElementType.XPath);
 	}
 
+	public void clickAddTicketItem(){
+		Utilities.isPresent(lnkAddTicketItem);
+		click(lnkAddTicketItem);
+	}
+
 	public void clickAddPartialPayments() {
 		Utilities.waitUntileElementIsVisible(clickAddPartialPayment);
 		Utilities.clickElement(clickAddPartialPayment, ElementType.XPath);
@@ -69,6 +77,12 @@ public class RoutePageInvoicing extends BasePage {
 		Utilities.waitUntileElementIsVisible(addAvailableTicket);
 		Utilities.clickElement(addAvailableTicket, ElementType.XPath);
 	}
+
+	public void selectAvailableItems( String  addOnTicketItem) {
+		String strXpath = "//*[@id='availableItems']/li//span[contains(text(),'" + addOnTicketItem + "')]";
+		Utilities.waitUntileElementIsVisible(strXpath);
+		Utilities.clickElement(strXpath, ElementType.XPath);
+	}//selectAvailableItems()
 
 	public boolean clickBackToAccountSummaryButton () {
 		if (driver.findElements(backToAccountSummaryButton).size() > 0) {
@@ -110,6 +124,7 @@ public class RoutePageInvoicing extends BasePage {
 				"\\s.*", "");
 		return balanceAmount;
 	}
+
 
 	public String getSubStatusAmount(){
 		return getText(subStatusAmount);

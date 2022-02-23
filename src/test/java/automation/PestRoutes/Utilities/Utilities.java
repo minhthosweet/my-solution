@@ -36,7 +36,11 @@ public class Utilities {
 	public static List list= new ArrayList<String>();
 
 	public static String getAlertText() {
-		return driver.switchTo().alert().getText();
+		Alert alert = alertPopUp();
+		if (alert != null) {
+			return alert.getText();
+		}
+		return "";
 	}
 
 	public static void clickElementInIframe(String needXpath) {
@@ -95,29 +99,28 @@ public class Utilities {
 	}
 
 	public static void acceptAlert() {
-		for(int i = 0; i < 5; i++) {
-			try {
-				driver.switchTo().alert().accept();
-				break;
-			} catch(Exception e) {
-				delay(1000);
-			}
+		Alert alert = alertPopUp();
+		if (alert != null) {
+			alert.accept();
 		}
 	}
 
 	public static void dismissAlert() {
-		for(int i = 0; i < 5; i++) {
-			try {
-				driver.switchTo().alert().dismiss();
-				break;
-			} catch(Exception e) {
-				delay(1000);
-			}
+		Alert alert = alertPopUp();
+		if (alert != null) {
+			alert.dismiss();
 		}
 	}
 
 	public static Alert alertPopUp() {
-		return driver.switchTo().alert();
+		for(int i = 0; i < 5; i++) {
+			try {
+				return driver.switchTo().alert();
+			} catch(Exception e) {
+				delay(1000);
+			}
+		}
+		return null;
 	}
 
 	public static void hitEnter(String needAttributeXpath) {
@@ -261,7 +264,7 @@ public class Utilities {
 	}
 
 	public static String getAttributeValue(String needXpath, String needAttribute) {
-		waitUntileElementIsVisible(needXpath, 7);
+		waitUntileElementIsVisible(needXpath, 2);
 		return driver.findElement(By.xpath(needXpath)).getAttribute(needAttribute);
 	}
 
@@ -324,6 +327,12 @@ public class Utilities {
 				moveToElement(driver.findElement(By.xpath(needAttributeToClick))).click().perform();
 	}
 
+	public static void hoverElement(By needElementToHover, By needAttributeToClick) {
+		Actions action = new Actions(driver);
+		action.moveToElement(driver.findElement(needElementToHover)).
+				moveToElement(driver.findElement(needAttributeToClick)).click().perform();
+	}
+
 	private static WebElement locateElement(String needAttribute, ElementType Attribute_Type) {
 		switch (Attribute_Type) {
 			case ID:
@@ -367,7 +376,7 @@ public class Utilities {
 	public static String getElementTextValue(String needAttribute, ElementType Attribute_Type) {
 		for (int i = 0; i < 10; i++) {
 			try {
-				waitUntileElementIsVisible(needAttribute, 7);
+				waitUntileElementIsVisible(needAttribute, 2);
 				WebElement attribute = locateElement(needAttribute, Attribute_Type);
 				return attribute.getText();
 			} catch (Exception e) {
@@ -678,7 +687,6 @@ public class Utilities {
 		WebElement elemBox = driver.findElement(locator);
 		if(!elemBox.isSelected())
 		{
-			System.out.println("checkBox(): Checked box...");
 			elemBox.click();
 		}
 	}//checkBox
@@ -726,14 +734,39 @@ public class Utilities {
 	}//selectFromDropDown()
 
 	public static boolean isPresent(String XPath) {
-		return driver.findElements(By.xpath(XPath)).size() > 0;
+		return isPresent(By.xpath(XPath));
 	}
-
+	public static boolean isPresent(By locator) {
+		return driver.findElements( locator).size() > 0;
+	}
 	public static void delay(int timeout) {
 		try {
 			Thread.sleep(timeout);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
+		}
+	}
+
+	private void alertCondition() throws Exception {
+		int i = 0;
+		while (i++ < 5) {
+			try {
+				Alert alert = alertPopUp();
+				String actionAlert = getAlertText();
+				String expected = "Action Required!";
+				if (actionAlert.contains(expected)) {
+					alert.accept();
+					Utilities.clickElement("//div[text()='Save Anyways']", ElementType.XPath);
+					break;
+				}
+				if (actionAlert.contains("This customer is closer to")) {
+					alert.dismiss();
+				}
+
+			} catch (NoAlertPresentException e) {
+				delay(500);
+				continue;
+			}
 		}
 	}
 }

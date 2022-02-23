@@ -7,6 +7,7 @@ import automation.PestRoutes.PageObject.CustomerOverview.*;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_InfoTab;
 import automation.PestRoutes.PageObject.DashboardPage;
 import automation.PestRoutes.PageObject.Search.SearchBox;
+import static automation.PestRoutes.Utilities.Utilities.*;
 import automation.PestRoutes.Utilities.*;
 import io.cucumber.java.en.Given;
 import org.openqa.selenium.Alert;
@@ -21,6 +22,7 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
 import static automation.PestRoutes.Utilities.AssertException.result;
+import static automation.PestRoutes.Utilities.Utilities.acceptAlert;
 
 public class CreateNewCustomer extends AppData {
     CreateCustomerDialog customer;
@@ -389,7 +391,7 @@ public class CreateNewCustomer extends AppData {
     }
 
     @And("I search customer")
-    public void searchCustomer() throws Exception {
+    public void searchCustomer(){
         header = new Header();
         //header.searchCustomer_History(lName + ", " + fName);
         header.searchCustomerWithName(customerName);
@@ -554,22 +556,15 @@ public class CreateNewCustomer extends AppData {
         customerDialog_Header.clickSaveButton();
     }
 
-    private void alertCondition() throws Exception {
-        int i = 0;
-        while (i++ < 5) {
-            try {
-                Alert alert = Utilities.alertPopUp();
-                String actionAlert = Utilities.getAlertText();
-                String expected = "Action Required!";
-                if (actionAlert.contains(expected)) {
-                    alert.accept();
-                    Utilities.clickElement("//div[text()='Save Anyways']", ElementType.XPath);
-                }
-                break;
-            } catch (NoAlertPresentException e) {
-                Thread.sleep(500);
-                continue;
-            }
+    private void alertCondition() {
+        if (getAlertText().contains("This customer is closer to")) {
+            dismissAlert();
+        }
+        if (getAlertText().contains("Action Required!")) {
+            dismissAlert();
+        }
+        if (isPresent("//div[text()='Save Anyways']")) {
+            clickElement("//div[text()='Save Anyways']", ElementType.XPath);
         }
     }
 
@@ -591,6 +586,7 @@ public class CreateNewCustomer extends AppData {
     public String getCustomerFullName() {
         customerDialog_Header = new CustomerViewDialog_Header();
         customerViewDialog_infoTab = new CustomerViewDialog_InfoTab();
+        acceptAlert();
         customerDialog_Header.navigateTo(customerDialog_Header.infoTabInDialog);
         Utilities.waitUntileElementIsVisible(customerViewDialog_infoTab.state);
         return customerViewDialog_infoTab.getFirstName() + " " + customerViewDialog_infoTab.getLastName();
@@ -621,7 +617,7 @@ public class CreateNewCustomer extends AppData {
     }
 
     //Author: FWhite
-    @Given("I create customer with {string},{string},{string},{string},{string}, and {string}, if not already exist")
+    @Given("I create customer with {string},{string},{string},{string},{string}, and {string}")
     public String createCustomerWithNameEmailAddrStreetAddrPhNumZipCode(String firstName, String lastName, String emailAddr, String phNum, String streetAddr, String zipCode) throws Exception {
 
         customerDialog_Header = new CustomerViewDialog_Header();
@@ -637,28 +633,19 @@ public class CreateNewCustomer extends AppData {
         String addrCity = addressArray[1];
         String addrStateAbbrev = addressArray[2];
 
-        try {
-            if (searchBox.containsInAutoCompleteSearch(firstName + " " + lastName).contains(firstName + " " + lastName)) {
-                System.out.println("Customer found: " + firstName + " " + lastName);
-                Utilities.clickElement("//li[@role='presentation']//span[contains(text(),'"+firstName + " " + lastName+"')]", ElementType.XPath);
-                customerName =  firstName + " " + lastName;
-            }
-        }catch (Exception e){
-            System.out.println("Creating customer: " + firstName + " " + lastName);
-            header.navigateTo(header.newCustomerTab);
-            customer.setFirstName(firstName);
-            customer.setLastName(lastName);
-            customer.selectUnit("Multi Unit");
-            customer.setCellPhone(phNum);
-            customer.setEmailAddress(emailAddr);
-            customer.setAddress(addrStreet);
-            customer.setZipCode(zipCode);
-            customer.clickSmsCheckBox();
-            customerDialog_Header.clickSaveButton();
-            alertCondition();
-            customerName = getCustomerFullName();
+        header.navigateTo(header.newCustomerTab);
+        customer.setFirstName(firstName);
+        customer.setLastName(lastName);
+        customer.selectUnit("Multi Unit");
+        customer.setCellPhone(phNum);
+        customer.setEmailAddress(emailAddr);
+        customer.setAddress(addrStreet);
+        customer.setZipCode(zipCode);
+        customer.clickSmsCheckBox();
+        customerDialog_Header.clickSaveButton();
+        alertCondition();
+        customerName = getCustomerFullName();
 
-        }
         return customerName;
     }//createCustomerWithNameEmailAddrStreetAddrPhNumZipCode()
 

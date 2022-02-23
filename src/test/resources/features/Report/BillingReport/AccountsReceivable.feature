@@ -5,24 +5,24 @@
 @RegressionARB
 @AccountReceivable
 Feature: Validate if all fields present and are enabled
-  @Smoke
-  @FieldValidations_AccountReceivable
-  Scenario: Fields validations
-    Given I add a renewal service
-    Given I have disabled ECA
-    When I create customer with first name, last name, email and address
-#    Then I validate if customer name and address match in overview tab
-    And I create a subscription of type "After Agreement Signed"
-    And I search customer
-    And I sign the agreement for subscription of type After Agreement Signed
-    And I search customer
-    And I validate the if agreement is created
-    And I close customer card
-    And If discard changes dialog displays, I discard unsaved changes
-    And I navigate to account receivable under Billings
-    Then I validate if all fields are displaying and are enabled in account receivable page
-    Then I validate if the customer displays once account status is Active in account receivable page
-    And I validate if there are errors exist in the list
+#  @Smoke
+#  @FieldValidations_AccountReceivable
+#  Scenario: Fields validations
+#    Given I add a renewal service
+#    Given I have disabled ECA
+#    When I create customer with first name, last name, email and address
+##    Then I validate if customer name and address match in overview tab
+#    And I create a subscription of type "After Agreement Signed"
+#    And I search customer
+#    And I sign the agreement for subscription of type After Agreement Signed
+#    And I search customer
+#    And I validate the if agreement is created
+#    And I close customer card
+#    And If discard changes dialog displays, I discard unsaved changes
+#    And I navigate to account receivable under Billings
+#    Then I validate if all fields are displaying and are enabled in account receivable page
+#    Then I validate if the customer displays once account status is Active in account receivable page
+#    And I validate if there are errors exist in the list
   @AutoPayCC_Customer_AccountReceivable
   Scenario: Customer with CC Auto Pay validation
     When I create customer with first name, last name, email and address

@@ -8,7 +8,7 @@ import org.openqa.selenium.By;
 public class CustomerViewDialog_OverviewTab extends BasePage {
 	public String overviewTab_Address = "//h3[contains (text(),  'Account Overview')]/div";
 	public String customerNameInDialogHeader = "//span[@id='ui-id-11']";
-	public String customerID_InDialogHeader = "//span[@id='ui-id-11']/span[1]";
+	public String customerID_InDialogHeader = "//span[@class='ui-dialog-title']/span[1]";
 	public String customerSinceValue = "//div[text()='Customer Since']/following-sibling::div";
 	public String contractRemainingValue = "//div[text()='Contract Remaining']/following-sibling::div";
 	public String lastCompletedValue = "//div[text()='Last Completed']/following-sibling::div";

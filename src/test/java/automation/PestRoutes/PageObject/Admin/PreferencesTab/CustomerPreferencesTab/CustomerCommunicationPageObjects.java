@@ -549,7 +549,7 @@ public class CustomerCommunicationPageObjects extends BasePage {
         updateField(String.valueOf(testData.get(keyReviewlinkOption).toString()),dropdwnReviewlinkOption,DROP_DOWN,lnkEdit_ReviewlinkOption);
         saveField(lnkSave_ReviewlinkOption);
 
-        updateField(String.valueOf(testData.get(keyCustomReviewLink).toString()),inputCustomReviewLink,INPUT,lnkEdit_ReviewlinkOption);
+        updateField(String.valueOf(testData.get(keyCustomReviewLink).toString()),inputCustomReviewLink,INPUT,null);
         saveField(lnkSave_ReviewlinkOption);
 
         //Custom Email Blurb
@@ -723,12 +723,15 @@ public class CustomerCommunicationPageObjects extends BasePage {
         saveField(lnkSave_DeliverySettings);
     } //updateDeliverySettingsSection()
 
-    public boolean updateField (String value,By webElmField, String fieldType, By editBtn) throws Exception{
+    public boolean updateField (String value,By webElmField, String fieldType, By editBtn) {
         boolean boolUpdateFlag = false;
 
-        //Scroll to and click Edit Button
-        Utilities.scrollToElementJS(editBtn);
-        click(editBtn);
+        //Scroll to and click Edit Button]
+        if (editBtn != null) {
+            Utilities.scrollToElementJS(editBtn);
+            click(editBtn);
+        }
+
 
         //Locate field and update
         try {
@@ -756,7 +759,7 @@ public class CustomerCommunicationPageObjects extends BasePage {
         return boolUpdateFlag;
     }//updateField()
 
-    public void blockDays (By daysToBlockLbls, By daysToBlockChks ,String channel, String days, By editBtn) throws InterruptedException {
+    public void blockDays (By daysToBlockLbls, By daysToBlockChks ,String channel, String days, By editBtn) {
         String[] blockDayArray = days.split(",");
         List<WebElement> blockedDayLbls = findElements(daysToBlockLbls);
         List<WebElement> blockedDayChkboxs = findElements(daysToBlockChks);
@@ -790,7 +793,7 @@ public class CustomerCommunicationPageObjects extends BasePage {
         }
      }//blockDays()
 
-    public boolean saveField(By saveBtn) throws Exception{
+    public boolean saveField(By saveBtn) {
         try {
             Utilities.scrollToElementJS(saveBtn);
             click(saveBtn);
@@ -804,7 +807,7 @@ public class CustomerCommunicationPageObjects extends BasePage {
         }
     }//saveField()
 
-    public  void verifySaveProcess(HashMap<String, String> testData) throws Exception {
+    public  void verifySaveProcess(HashMap<String, String> testData) {
         int startTimeIndx = 0;
         int endTimeIndx = 1;
         String strByValue = "value";
