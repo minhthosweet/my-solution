@@ -42,6 +42,7 @@ public class TestOneTimePayment {
 
     @Then("I See The Subscription Renewal Date Move Forward After Making Single Use Card Payment For Each {string}")
     public void testSubscriptionRenewalDateTask(String gateway) {
+        acceptAlert();
         userOnInvoicesTab.clickBackToAccountSummaryButton();
         userOnSubscriptionTab = sameUser.goToSubscriptionTab();
         userOnSubscriptionTab.clickActiveSubscription();
@@ -50,9 +51,9 @@ public class TestOneTimePayment {
         System.out.println("\t Expected Renewal Date: " + invoiceRenewalDate);
         System.out.println("\t Actual Renewal Date:   " + subscriptionRenewalDate);
         softAssert.assertEquals(subscriptionRenewalDate, invoiceRenewalDate,
-                "\n Actual Renewal Date: " + subscriptionRenewalDate +
+                "\n Actual Renewal Date:   " + subscriptionRenewalDate +
                         "\n Expected Renewal Date: " + invoiceRenewalDate +
-                        "\n The Subscription Actual Renewal Date & Expected Renewal Date Does Not Match");
+                        "\n The Subscription Actual Renewal Date & Expected Renewal Date Does Not Match \n");
         softAssert.assertAll();
         testCustomer.removeCustomer();
     }

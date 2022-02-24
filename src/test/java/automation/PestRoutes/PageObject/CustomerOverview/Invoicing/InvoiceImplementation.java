@@ -286,7 +286,6 @@ public class InvoiceImplementation extends BasePage {
     public void clickRecordPayment() {
         Utilities.waitUntileElementIsVisible(recordPayment);
         Utilities.clickElement(recordPayment, ElementType.XPath);
-        //Optimized For Encapsulation Below via clickRecordPaymentButton() Using A Private Modifier With By Class
     }
 
     public void clickRecordPaymentButton() {
@@ -299,12 +298,13 @@ public class InvoiceImplementation extends BasePage {
     }
 
     public void clickInvoice(String needServiceName) {
+        delay(3000);
         Utilities.waitUntileElementIsVisible("//ul[@id='invoiceGroupListContainer']//div[contains(text(),'" + needServiceName + "')]");
         Utilities.clickElement("//ul[@id='invoiceGroupListContainer']//div[contains(text(),'" + needServiceName + "')]", ElementType.XPath);
     }
 
     public void clickInitialInvoice() {
-        delay(100);
+        delay(3000);
         Utilities.waitUntileElementIsVisible(initialInvoice);
         Utilities.clickElement(initialInvoice, ElementType.XPath);
     }
@@ -508,6 +508,7 @@ public class InvoiceImplementation extends BasePage {
     }
 
     public String getBalanceInPayments(){
+        delay(1000);
         Utilities.waitUntileElementIsVisible(invoiceDate);
         return Utilities.getElementTextValue(balanceInPayments, ElementType.XPath);
     }
@@ -523,46 +524,55 @@ public class InvoiceImplementation extends BasePage {
     }
 
     public String getServiceCostBeforeTax(){
+        delay(1000);
         Utilities.waitUntileElementIsVisible(invoiceDate);
         return Utilities.getAttributeValue(serviceCostBeforeTax,"value");
     }
 
     public String getAddOnValue(String addOn){
+        delay(1000);
         Utilities.waitUntileElementIsVisible(invoiceDate);
         return Utilities.getAttributeValue("//div[not(@ticketid='0')and@subscriptionid='0']//div[text()='"+addOn+"']/following-sibling::input","value");
     }
 
     public String getSubTotalValue(){
+        delay(3000);
         Utilities.waitUntileElementIsVisible(subTotalValue);
         return Utilities.getElementTextValue(subTotalValue, ElementType.XPath);
     }
 
     public String getTaxValue(){
+        delay(1000);
         Utilities.waitUntileElementIsVisible(invoiceDate);
         return Utilities.getElementTextValue(taxValue, ElementType.XPath);
     }
 
     public String getInitialDiscountValue(){
+        delay(1000);
         Utilities.waitUntileElementIsVisible(invoiceDate);
         return Utilities.getAttributeValue(initialDiscountValue,"value");
     }
 
     public String getInvoiceDate(){
+        delay(1000);
         Utilities.waitUntileElementIsVisible(invoiceDate);
         return Utilities.getElementTextValue(invoiceDate, ElementType.XPath);
     }
 
     public String getDueDate(){
+        delay(1000);
         Utilities.waitUntileElementIsVisible(invoiceDate);
         return Utilities.getElementTextValue(dueDate, ElementType.XPath);
     }
 
     public String getAppointmentDate(){
+        delay(1000);
         Utilities.waitUntileElementIsVisible(invoiceDate);
         return Utilities.getElementTextValue(appointmentDate, ElementType.XPath);
     }
 
     public String getRemainingBalanceAmount(){
+        delay(1000);
         Utilities.waitUntileElementIsVisible(remainingBalanceAmount);
         return (Utilities.getElementTextValue(remainingBalanceAmount, ElementType.XPath)).replaceAll("[^0-9.]","");
     }

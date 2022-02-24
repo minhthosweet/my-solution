@@ -15,6 +15,7 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 
 import java.util.List;
 
@@ -35,6 +36,7 @@ public class RoutePage extends BasePage {
     public String deleteGroup = "//span[text()='Delete Group']";
     private By allFixedAppointments = By.xpath("//div[@id='routesView']//div[text()='Schedule Fixed Appointment']");
     private By newCustomerField = By.xpath("//input[@name='newCustomer']");
+    private By existingCustomerField = By.xpath("//input[@name='customer']");
     private By newCustomerButton = By.xpath("//div[@id='newCustomerAppointmentButton']");
     private By routeActions = By.xpath("//div[@id='routesView']//div[text()='Route Actions']");
 
@@ -172,6 +174,7 @@ public class RoutePage extends BasePage {
         if (elementIsVisible(routeActions)) {
             for(WebElement availableAppointment : fixedAppointments) {
                 if (!availableAppointment.isSelected()) {
+                    scrollToElementJS(availableAppointment);
                     availableAppointment.click();
                     break;
                 }
@@ -186,8 +189,9 @@ public class RoutePage extends BasePage {
         }
     }
 
-    public void selectCustomer(String customer) {
-        type(customer, newCustomerField);
-        click(newCustomerButton);
+    public void selectExistingCustomer(String customer) {
+        type(customer, existingCustomerField);
+        WebElement existingCustomer = find(By.xpath("//div[@aria-describedby='chooseCustomerDialog']//span[@class='left searchName' and contains(text(), '"+ customer +"')]"));
+        existingCustomer.click();
     }
 }

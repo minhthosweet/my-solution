@@ -10,7 +10,7 @@ import org.openqa.selenium.WebElement;
 
 import java.util.List;
 
-import static automation.PestRoutes.Utilities.Utilities.delay;
+import static automation.PestRoutes.Utilities.Utilities.*;
 
 public class CustomerviewDialog_AppointmentsTab extends BasePage {
 
@@ -139,7 +139,9 @@ public class CustomerviewDialog_AppointmentsTab extends BasePage {
     }
 
     public void clickSaveAndCompleteButton() {
-        Utilities.waitUntileElementIsVisible(serviceNotes_Complete);
+        if (elementIsVisible(serviceNotes_Complete)) {
+            Utilities.clickElement(saveAndCompleteButton_InCompletingApptDialog, ElementType.XPath);
+        }
         Utilities.clickElement(saveAndCompleteButton_InCompletingApptDialog, ElementType.XPath);
     }
 
@@ -317,8 +319,8 @@ public class CustomerviewDialog_AppointmentsTab extends BasePage {
     public String getServiceNotes() {
         delay(1000);
         click(subStatusButton);
-        clickSaveAndCompleteButton();
         String serviceNotes = getText(serviceNotesField);
+        clickSaveAndCompleteButton();
         return serviceNotes;
     }
 

@@ -82,8 +82,9 @@ public class CreateGLAccount extends AppData {
         service.navigateToServiceType();
         service.searchService(getData("serviceDescription", generalData));
         glAccountCreation.editService(getData("serviceDescription", generalData));
-        glAccountCreation.clickGLAccountOnServiceType(getData("serviceDescription", generalData));
-        glAccountCreation.selectGLAccountFromDropDown(getData("serviceDescription", generalData), glAccNo);
+        //glAccountCreation.clickGLAccountOnServiceType(getData("serviceDescription", generalData));
+        //glAccountCreation.selectGLAccountFromDropDown(getData("serviceDescription", generalData), glAccNo);
+        glAccountCreation.selectFromGLAccount("Automation Renewal", glAccNo);
         glAccountCreation.saveService();
 
     }

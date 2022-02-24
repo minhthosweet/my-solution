@@ -61,7 +61,7 @@ public class CustomerViewDialog_Header extends BasePage {
     }
 
     public void navigateTo(String chooseTabFromConst) {
-        delay(800);
+        delay(3000);
         Utilities.waitUntileElementIsVisible("//li[@name= '" + chooseTabFromConst + "']");
         Utilities.clickElement("//li[@name = '" + chooseTabFromConst + "']", ElementType.XPath, true, false);
         delay(100);
@@ -73,6 +73,7 @@ public class CustomerViewDialog_Header extends BasePage {
 
     public void clickSaveButton() {
         Utilities.clickElement(saveButton, ElementType.XPath);
+        alertCondition();
     }
 
     public void clickCustomerCardScheduleButton (){
@@ -133,37 +134,37 @@ public class CustomerViewDialog_Header extends BasePage {
     }
 
     public CustomerViewDialog_InfoTab goToInfoTab() {
-        wait.until(ExpectedConditions.visibilityOfElementLocated(infoTab));
+        delay(3000);
         click(infoTab);
         return new CustomerViewDialog_InfoTab();
     }
 
     public CustomerViewDialog_SubscriptionTab goToSubscriptionTab () {
-        wait.until(ExpectedConditions.visibilityOfElementLocated(subscriptionTab));
+        delay(3000);
         click(subscriptionTab);
         return new CustomerViewDialog_SubscriptionTab();
     }
 
     public LeadsPage goToLeadsTab () {
-        wait.until(ExpectedConditions.visibilityOfElementLocated(leadsTab));
+        delay(3000);
         click(leadsTab);
         return new LeadsPage();
     }
 
     public BillingPage goToBillingTab(){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(billingTab));
+        delay(3000);
         click(billingTab);
         return new BillingPage();
     }
 
     public CustomerViewDialog_Notes goToNotesTab() {
-        wait.until(ExpectedConditions.visibilityOfElementLocated(notesTab));
+        delay(3000);
         click(notesTab);
         return new CustomerViewDialog_Notes();
     }
 
     public CustomerviewDialog_AppointmentsTab goToAppointmentsTab () {
-        wait.until(ExpectedConditions.visibilityOfElementLocated(appointmentsTab));
+        delay(3000);
         click(appointmentsTab);
         return new CustomerviewDialog_AppointmentsTab();
     }

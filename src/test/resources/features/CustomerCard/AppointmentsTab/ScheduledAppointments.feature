@@ -14,6 +14,7 @@ Feature: Appointments Tab Renders Correct Information After Scheduling An Appoin
 
   Rule: User views the Appointments tab and sees the correct information
 
+  @RegressionREX_CustomerCard
   @VerifyAppointmentInfoOnAppointmentsTab
   Scenario: Verify Appointments Tab Displays Correct Information Immediately After Scheduling An Appointment
     Given I Open The Appointments Tab

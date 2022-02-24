@@ -130,7 +130,7 @@ public class ValidateRenewal extends AppData {
 
     //Author FK
     @And("I validate recommended route filters and schedule an appointment")
-    public void validateFilters() throws InterruptedException, IOException {
+    public void validateFilters() throws InterruptedException {
         appt = new ScheduleAppt();
         route = new RoutePage();
         confirmAppt = new SchedulingAppointmentDialog();
@@ -145,9 +145,7 @@ public class ValidateRenewal extends AppData {
         confirmAppt.selectInteriorNeededOption(appt.serviceAreaProvided);
         confirmAppt.selectTargetPestsOption(appt.pestTreaded);
         confirmAppt.clickScheduleButton();
-
     }
-
 
     @And("I schedule an service appointment")
     public void scheduleAnAppointment() {
@@ -158,7 +156,8 @@ public class ValidateRenewal extends AppData {
         scheduleDay.clickScheduleButton();
         int totalCount = Utilities.getElementCount(appt.routes);
         String routesCount = Integer.toString(totalCount);
-        route.scheduleAppointment(routesCount, getData("timeSlot", generalData));
+        //route.scheduleAppointment(routesCount, getData("timeSlot", generalData));
+        route.selectAvailableAppointment();
         confirmAppt.selectServiceType(serviceType);
         confirmAppt.selectInteriorNeededOption(appt.serviceAreaProvided);
         confirmAppt.selectTargetPestsOption(appt.pestTreaded);
@@ -166,7 +165,7 @@ public class ValidateRenewal extends AppData {
     }
 
     @And("I schedule a subscription appointment")
-    public void subscriptionAppointment() throws Exception {
+    public void subscriptionAppointment() {
         appt = new ScheduleAppt();
         route = new RoutePage();
         confirmAppt = new SchedulingAppointmentDialog();
@@ -179,7 +178,7 @@ public class ValidateRenewal extends AppData {
         confirmAppt.clickScheduleButton();
     }
 
-    public void scheduleSubscription(String needTimeSlot) throws Exception {
+    public void scheduleSubscription(String needTimeSlot) {
         header = new Header();
         route = new RoutePage();
         appt = new ScheduleAppt();
@@ -228,7 +227,7 @@ public class ValidateRenewal extends AppData {
     }
 
     @And("I cancel the appointment")
-    public void cancelAppointment() throws InterruptedException, IOException {
+    public void cancelAppointment() {
         appointmentTab = new CustomerviewDialog_AppointmentsTab();
         overviewHeader = new CustomerViewDialog_Header();
         overviewHeader.navigateTo(overviewHeader.appointmentsTabInDialog);
@@ -254,12 +253,10 @@ public class ValidateRenewal extends AppData {
         System.out.println(routesCount);
         route.scheduleAppointment(routesCount, getData("timeSlot", generalData));
         confirmAppt.clickRescheduleButton();
-
-
     }
 
     @Then("I validate if the renewal date has posted")
-    public void validateRenewalDate() throws Exception {
+    public void validateRenewalDate() {
         header = new Header();
         overviewHeader = new CustomerViewDialog_Header();
         overviewHeader.navigateTo(overviewHeader.subscriptionTabInDialog);
@@ -270,7 +267,7 @@ public class ValidateRenewal extends AppData {
     }
 
     @And("I freeze the subscription")
-    public void freezeSubscription() throws InterruptedException {
+    public void freezeSubscription() {
         overviewHeader = new CustomerViewDialog_Header();
         header = new Header();
         customerDialogHeader = new CustomerViewDialog_Header();
@@ -283,7 +280,7 @@ public class ValidateRenewal extends AppData {
     }
 
     @And("I reactive a frozen subscription")
-    public void reActivateSubscription() throws Exception {
+    public void reActivateSubscription() {
         customerDialogHeader = new CustomerViewDialog_Header();
         customerDialogHeader.navigateTo(customerDialogHeader.subscriptionTabInDialog);
         subscription.clickActivateDeActivateButton();
@@ -373,5 +370,4 @@ public class ValidateRenewal extends AppData {
         scheduleDay.selectFirstOptionFromDropDown(scheduleDay.filterTypes("filterGroups"));
         scheduleDay.clickButton(scheduleDay.recommendedRoutesRefreshButton);
     }
-
 }

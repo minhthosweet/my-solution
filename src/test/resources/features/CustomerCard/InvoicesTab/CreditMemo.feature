@@ -18,6 +18,7 @@ Feature: Credit Memo
 # Ticket 103672: Credit Memo Error (Unable to change invoice amount that has credit memo)
 # https://fieldroutes.freshdesk.com/a/tickets/103672
   @RegressionREX
+  @RegressionREX_CustomerCard
   @VerifyInvoiceAmountWithCreditMemoCanChange
   Scenario: Change The Invoice Amount For An Invoice With A Credit Memo
     Given I Create A Customer With A Subscription

@@ -178,6 +178,7 @@ public class AddSubscription extends AppData {
 		double serviceTax = subscription.getRecurringTax();
 		double serviceTotal = subscription.getRecurringTotal();
 		double subTotal = recurringQuote + ticketAmount;
+
 		String expectedSubTotal = Double.toString(subTotal);
 		String actual_ServiceSubTotal = Double.toString(actualServiceSubtotal);
 		Reporter.status("Service invoice sub total validation ", expectedSubTotal, actual_ServiceSubTotal,

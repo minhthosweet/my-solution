@@ -319,7 +319,8 @@ public class InvoicingTab extends AppData{
         String recurringInvoiceValue = subscriptionTab.getRecurringInvoiceValue().substring(1);
         String accountPendingBalance = Double.toString(parseDouble(recurringInvoiceValue) + parseDouble(initialInvoiceValue));
         String recurringSubTotal = Double.toString(subscriptionTab.getRecurringSubTotal());
-        String taxAmount = Double.toString(subscriptionTab.getRecurringTax());
+        //String taxAmount = Double.toString(subscriptionTab.getRecurringTax());
+        String taxAmount = String.format("%.2f", subscriptionTab.getRecurringTax());
         customerCardHeader.navigateTo(customerCardHeader.invoicesTabInDialog);
         result("$" + accountPendingBalance, invImplementation.getAccountBalance(), "Total Invoice Value Validation",
                 "Invoice Validation");

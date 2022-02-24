@@ -5,6 +5,7 @@ import org.openqa.selenium.WebElement;
 
 import automation.PestRoutes.Utilities.FindElement;
 import automation.PestRoutes.Utilities.Utilities;
+import static automation.PestRoutes.Utilities.Utilities.*;
 import automation.PestRoutes.Utilities.FindElement.InputType;
 import automation.PestRoutes.Utilities.Utilities.ElementType;
 
@@ -52,6 +53,7 @@ public class DocumentsPage {
 		Utilities.clickElement("//div[text() = '"+needFormName+"']", ElementType.XPath);
 	}
 	public void sign(String needAttribute) {
+		delay(1000);
 		Utilities.waitUntileElementIsVisible(needAttribute);
 		WebElement elem = FindElement.elementByAttribute(needAttribute, InputType.XPath);
 		Utilities.sign(elem);

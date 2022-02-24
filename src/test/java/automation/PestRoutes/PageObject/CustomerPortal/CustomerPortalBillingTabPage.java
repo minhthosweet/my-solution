@@ -148,6 +148,7 @@ public class CustomerPortalBillingTabPage extends CustomerPortalBasePage {
             String buttonMakePayment = "//button[@id='submitPaymentOptionsButton']";
             isPresent(buttonMakePayment);
             click(makePaymentButton);
+            acceptAlert();
         }
     }
 

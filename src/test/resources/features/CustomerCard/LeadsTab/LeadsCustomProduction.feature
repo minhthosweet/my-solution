@@ -14,6 +14,7 @@ Feature: Leads Custom Production
 
   Rule: The user creates a lead using Recurring Invoice Template and Custom Production updates to the correct amount
 
+  @RegressionREX_CustomerCard
   @VerifyCustomProductionInLeadsTab
   Scenario Outline: Verify The Custom Production Amount Is Correct For A Lead Using The Recurring Invoice Template
     Given I Create A Customer With A Lead

@@ -740,6 +740,10 @@ public class Utilities {
 		return driver.findElements(locator).size() > 0;
 	}
 
+	public static boolean isPresent(By locator) {
+		return driver.findElements(locator).size() > 0;
+	}
+
 	public static void delay(int timeout) {
 		try {
 			Thread.sleep(timeout);

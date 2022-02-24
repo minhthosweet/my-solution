@@ -3,10 +3,12 @@ package automation.PestRoutes.PageObject.Admin.PreferencesTab.OfficeSettingsTab.
 import automation.PestRoutes.PageObject.Admin.PreferencesTab.OfficeSettingsTab.OfficeSettingsObjects;
 import automation.PestRoutes.PageObject.Admin.PreferencesTab.OfficeSettingsTab.TriggerTypes.TriggerRules;
 import automation.PestRoutes.PageObject.Admin.PreferencesTab.ServiceRelatedTab.ServiceTypes;
+import automation.PestRoutes.PageObject.BasePage;
 import automation.PestRoutes.Utilities.FindElement;
 import automation.PestRoutes.Utilities.Utilities;
+import org.openqa.selenium.By;
 
-public class GLAccountCreation {
+public class GLAccountCreation extends BasePage {
     TriggerRules triggerAdmin;
     OfficeSettingsObjects officeSettingsObjects;
     ServiceTypes serviceTypes;
@@ -22,6 +24,8 @@ public class GLAccountCreation {
     public String titleFieldValue = "//li[not(contains(@style,'display: none;'))]//input[@name='title']/preceding-sibling::span[text()]";
     public String descriptionFieldValue = "//li[not(contains(@style,'display: none;'))]//input[@name='description']/preceding-sibling::span[text()]";
     public String glAccountNumberInServiceType = "//li[not(contains(@style,'display: none;'))]//div[@data-global]/preceding-sibling::div[1]";
+    private By originalOffice_glAccountDropDown = By.xpath("//div[@id='serviceTypesItem']//select[@name='glAccountID']");
+    private By glAccountHeader = By.xpath("//div[@id='preferenceHeader']/div[text()='GL Account']");
 
     public void navigateToGLAccount() {
         triggerAdmin = new TriggerRules();
@@ -71,7 +75,17 @@ public class GLAccountCreation {
     }
 
     public String getGLAccountNumberInServiceType() {
-        return Utilities.getElementTextValue(glAccountNumberInServiceType, Utilities.ElementType.XPath).trim();
+        // The GL Account Element Is Located In Different Places Depending On The Office.
+        // try - catch Statement Is Flexible To Select From Either Place
+        try {
+            if(Utilities.elementIsVisible(glAccountHeader)) {
+                return Utilities.getElementTextValue(glAccountNumberInServiceType, Utilities.ElementType.XPath).trim();
+            }
+        } catch(Exception exc) {
+            exc.printStackTrace();
+        }
+        editService("Automation Renewal");
+        return find(originalOffice_glAccountDropDown).getAttribute("placeholder");
     }
 
     public String getGLTitle() {
@@ -101,6 +115,16 @@ public class GLAccountCreation {
         serviceTypes = new ServiceTypes();
         serviceTypes.clickSave();
     }
+
+    public void selectFromGLAccount(String serviceType, String glNumber) {
+        // The GL Account Element Is Located In Different Places Depending On The Office.
+        // try - catch Statement Is Flexible To Select From Either Place
+        try{
+            clickGLAccountOnServiceType(serviceType);
+            selectGLAccountFromDropDown(serviceType, glNumber);
+        } catch(Exception exc) {
+            exc.printStackTrace();
+            selectFromDropDown(glNumber, originalOffice_glAccountDropDown);
+        }
+    }
 }
-
-

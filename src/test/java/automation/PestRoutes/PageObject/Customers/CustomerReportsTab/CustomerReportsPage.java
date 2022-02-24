@@ -266,6 +266,7 @@ public class CustomerReportsPage extends BasePage {
     }
 
     public String getTextValue(String needXpath) {
+        delay(3000);
         Utilities.waitUntileElementIsVisible(needXpath);
         Utilities.scrollToElementJS(needXpath);
         return Utilities.getElementTextValue(needXpath, Utilities.ElementType.XPath);

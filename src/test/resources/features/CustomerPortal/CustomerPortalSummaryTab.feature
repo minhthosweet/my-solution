@@ -47,10 +47,10 @@ Feature: Customer Portal - Summary Tab Displays Accurate Information
       Then  I Verify A Frozen Subscription Service Is Not Available via Service Plan Section
 
     @VerifyServicePlanDoesNotShowCancelledAppointments
-    Scenario: Verify Service Plans Section Does Not Show Cancelled Scheduled Appointments
+    Scenario: Defect_Verify Service Plans Section Does Not Show Cancelled Scheduled Appointments
       Given I Create A Customer With A Subscription
-      When  I Schedule An Appointment
-      And   I Cancel The Scheduled Subscription Appointment
+      When  I Schedule An Appointment From The Routes Page
+      And   I Cancel The Scheduled Appointment
       Then  I Verify The Cancelled Scheduled Appointment Is Not Displayed via Service Plan Section
 
     @VerifyBillingTabBalanceForUnpaidInvoice

@@ -137,8 +137,6 @@ public class CustomerViewDialog_SubscriptionTab extends BasePage {
 	 */
 	public void clickNewSubscriptionButton() {
 		Utilities.clickElement(newSubscriptionButton, ElementType.XPath);
-		//Optimized For Encapsulation Below via clickNewSubscription() Using A Private Modifier With By Class
-		//click(newSubscriptionButton); Optimize Later With A Private Modifier & By Class
 	}
 
 	public void clickNewSubscription() { click(newSubscription); }
@@ -261,7 +259,6 @@ public class CustomerViewDialog_SubscriptionTab extends BasePage {
 			Utilities.waitUntileElementIsVisible(serviceTypeDropdown);
 		}
 		Utilities.selectValueFromDropDownByValue(serviceTypeDropdown, needServiceType);
-		//Optimized For Encapsulation Below via selectRecurringServiceType() By Passing In A String & Using A Private Modifier With By Class
 	}
 
 	public void selectRecurringServiceType(String serviceType) {
@@ -322,7 +319,6 @@ public class CustomerViewDialog_SubscriptionTab extends BasePage {
 		Utilities.waitUntileElementIsVisible("//span[text()=  '" + needItem + "']");
 		Utilities.scrollToElementJS("//span[text()=  '" + needItem + "']");
 		delay(1000);
-//		Utilities.waitUntileElementIsVisible("//span[text()=  '" + needItem + "']");
 		Utilities.clickElement("//span[text()=  '" + needItem + "']", ElementType.XPath);
 		try{
 			Utilities.waitUntileElementIsVisible("//div[text()='"+needItem+"']");
@@ -426,7 +422,6 @@ public class CustomerViewDialog_SubscriptionTab extends BasePage {
 		Utilities.waitUntileElementIsVisible(customDateInputField);
 		FindElement.elementByAttribute(customDateInputField, InputType.XPath).sendKeys(needCustomDate);
 		FindElement.elementByAttribute(customDateInputField, InputType.XPath).sendKeys(Keys.ENTER);
-		//Optimized For Encapsulation Below via selectCustomDate() By Passing In A String & Using A Private Modifier With By Class
 	}
 
 	public void selectCustomDate(String customDate) {
@@ -434,21 +429,16 @@ public class CustomerViewDialog_SubscriptionTab extends BasePage {
 		find(customDateField).sendKeys(Keys.ENTER);
 	}
 
-	public void setInitialServiceQuote(String needAmount) throws InterruptedException {
+	public void setInitialServiceQuote(String needAmount) {
+		delay(1000);
+		scrollToElementJS(initialQuoteInputField);
 		driver.findElement(By.xpath(initialQuoteInputField)).sendKeys(Keys.CONTROL, "a");
-//		Utilities.highLight(initialQuoteInputField);
 		driver.findElement(By.xpath(initialQuoteInputField)).sendKeys(Keys.DELETE);
-//		if (SystemUtils.IS_OS_LINUX) {
-//			Thread.sleep(500);
-//			FindElement.elementByAttribute(initialQuoteInputField, InputType.XPath).sendKeys(Keys.DELETE);
-//			Thread.sleep(1000);
-//		}
 		driver.findElement(By.xpath(initialQuoteInputField)).sendKeys(needAmount);
-//		FindElement.elementByAttribute(initialQuoteInputField, InputType.XPath).sendKeys(needAmount);
-		//Optimize Later via Below typeInitialQuote() By Passing In A String & Using A Private Modifier With By Class
 	}
 
 	public void setInitialServiceDiscount(String needAmount) throws InterruptedException {
+		delay(1000);
 		Utilities.scrollToElementJS(initialTotalValue);
 		Utilities.waitUntileElementIsVisible(initialTotalValue);
 		FindElement.elementByAttribute(initialDiscountInputField, InputType.XPath).clear();
@@ -460,10 +450,10 @@ public class CustomerViewDialog_SubscriptionTab extends BasePage {
 		}
 		FindElement.elementByAttribute(initialDiscountInputField, InputType.XPath).sendKeys(needAmount);
 		Utilities.clickElement(initialTotalValue, ElementType.XPath);
-		//Optimize Later via Below typeInitialDiscount() By Passing In A String & Using A Private Modifier With By Class
 	}
 
 	public void setServiceQuote(String needService, String needAmount) throws InterruptedException {
+		delay(1000);
 		Utilities.waitUntileElementIsVisible("//div[text()= '" + needService + "']/parent::div//input[@name='serviceCharge']");
 		Utilities.highLight("//div[text()= '" + needService + "']/parent::div//input[@name='serviceCharge']");
 		if (SystemUtils.IS_OS_LINUX) {
@@ -480,11 +470,12 @@ public class CustomerViewDialog_SubscriptionTab extends BasePage {
 	}
 
 	public void setInitialInvoiceType(String initialInvoiceType) {
+		scrollToElementJS(billingInitialInvoiceDropdown);
 		Utilities.selectValueFromDropDownByValue(billingInitialInvoiceDropdown, initialInvoiceType);
-		//Optimized For Encapsulation Below via selectInitialInvoice() By Passing In A String & Using A Private Modifier With By Class
 	}
 
 	public void selectInitialInvoice(String initialInvoice) {
+		scrollToElementJS(initialInvoiceDropDown);
 		selectFromDropDown(initialInvoice, initialInvoiceDropDown);
 	}
 
@@ -588,7 +579,6 @@ public class CustomerViewDialog_SubscriptionTab extends BasePage {
 
 	public String getInitialInvoiceValue() {
 		return Utilities.getElementTextValue(initialTotalValue, ElementType.XPath);
-		//Optimized For Encapsulation Below via getInitialInvoiceTotal() Using A Private Modifier With By Class
 	}
 
 	public String getInitialInvoiceTotal (){
@@ -688,6 +678,9 @@ public class CustomerViewDialog_SubscriptionTab extends BasePage {
 
 	public void clickFreezeSubscriptionButtonOnCancelSubscriptionDialog() {
 		wait.until(ExpectedConditions.visibilityOfElementLocated(freezeCancelSubscriptionButton));
+		if(elementIsVisible(cancellationCategoryDropdown_cancelSubscriptionDialog)){
+			selectValueFromDropDownByIndex(cancellationCategoryDropdown_cancelSubscriptionDialog,0);
+		}
 		click(freezeCancelSubscriptionButton);
 	}
 	public void checkEigibleForConsolidation(){

@@ -107,11 +107,12 @@ public class RoutePageInvoicing extends BasePage {
 	}
 
 	public String getPaymentBalance(){
-		wait.until(ExpectedConditions.visibilityOfElementLocated(paymentBalanceField));
+		delay(1000);
 		return getText(paymentBalanceField);
 	}
 
 	public String getInvoiceNumber(){
+		delay(1000);
 		String invoiceNum = getText(invoiceNumber);
 		String accountInvoiceNumber = invoiceNum.replaceAll(
 				"\\s.*", "");
@@ -119,6 +120,7 @@ public class RoutePageInvoicing extends BasePage {
 	}
 
 	public String getInitialBalance(){
+		delay(1000);
 		String initialBalanceAmount = getText(initialBalance);
 		String balanceAmount = initialBalanceAmount.replaceAll(
 				"\\s.*", "");
@@ -127,6 +129,7 @@ public class RoutePageInvoicing extends BasePage {
 
 
 	public String getSubStatusAmount(){
+		delay(1000);
 		return getText(subStatusAmount);
 	}
 

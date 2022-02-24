@@ -52,7 +52,6 @@ public class TestCustomerPortalSummaryTab {
     String expectedTechnician = testAppointment.techName;
     String expectedInvoiceNumber = testAppointment.invoiceNumber;
     List<String> expectedSubscriptionServiceType = testSubscription.serviceType;
-    List<String> schedulingSubscription;
     String expectedDate = Utilities.currentDate("MM/dd/yy");
 
     @When("I Navigate To Customer Portal From Customer Card - Admin Tab")
@@ -114,50 +113,30 @@ public class TestCustomerPortalSummaryTab {
         testCustomer.removeCustomer();
     }
 
-    @When("I Deactivate-Freeze The Subscription")
-    public void automateDeactivatingTheSubscription() {
-        userOnSubscriptionTab.clickActivateDeactivateButton();
-        userOnSubscriptionTab.clickFreezeSubscriptionButtonOnCancelSubscriptionDialog();
-    }
-
     @Then("I Verify A Frozen Subscription Service Is Not Available via Service Plan Section")
     public void testFrozenSubscriptionDoesNotShowUpInServicePlanSection() {
-        softAssert.assertEquals(0, userOnCustomerPortalSummaryTab.numberOfServiceTypes(),
-                "The Number Of Service Types Do Not Equal Zero (0)");
+        int actualNumberOfServices = userOnCustomerPortalSummaryTab.numberOfServiceTypes();
+        int expectedNumberOfServices = 0;
+        softAssert.assertEquals(actualNumberOfServices,0,
+                "\n Actual Number Of Services:   " + actualNumberOfServices +
+                        "\n Expected Number Of Services: " + expectedNumberOfServices +
+                        "\n The Actual Number Of Services Should Equal Zero (0) Since The Subscription Was Frozen \n");
         softAssert.assertAll();
         closeTab();
         switchToOldWindowOpened();
         testCustomer.removeCustomer();
-    }
-  
-    @When("I Schedule An Appointment")
-    public void automateSchedulingAnAppointment() {
-        sameUser.goToAppointmentsTab();
-        userOnSchedulingComponent = userOnDashboard.goToSchedulingComponent();
-        userOnSchedulingComponent.addScheduleDateToProperties();
-        userOnSchedulingComponent.clickScheduleDay();
-        userOnRoutePage.selectAvailableAppointment();
-        userOnRoutePage.selectCustomer(testCustomer.customerName);
-        userOnSchedulingDialog.selectTypeOfService("Automation Renewal");
-        userOnSchedulingDialog.selectSubscription("Stand-Alone Service or Reservice");
-        schedulingSubscription = userOnSchedulingDialog.getSubscription();
-        userOnSchedulingDialog.clickBlueScheduleButton();
-    }
-
-    @And("I Cancel The Scheduled Subscription Appointment")
-    public void automateCancellingTheScheduledSubscriptionAppointment() {
-        sameUser.goToAppointmentsTab();
-        userOnAppointmentsTab.clickPendingAppointment("Automation Renewal");
-        userOnAppointmentsTab.clickCancelAppointmentButton();
-        userOnAppointmentsTab.clickConfirmCancellationButton();
     }
 
     @Then("I Verify The Cancelled Scheduled Appointment Is Not Displayed via Service Plan Section")
     public void testScheduledAppointmentDoesNotShowUpInServicePlanSection() {
         userOnAdminTab = sameUser.goToAdminTab();
         userOnCustomerPortalSummaryTab = userOnAdminTab.clickPortalLogin();
-        softAssert.assertEquals(0, userOnCustomerPortalSummaryTab.numberOfServiceTypes(),
-                "The Number Of Service Types Do Not Equal Zero (0)");
+        int actualNumberOfServices = userOnCustomerPortalSummaryTab.numberOfServiceTypes();
+        int expectedNumberOfServices = 0;
+        softAssert.assertEquals(actualNumberOfServices,0,
+                "\n Actual Number Of Services:   " + actualNumberOfServices +
+                        "\n Expected Number Of Services: " + expectedNumberOfServices +
+                        "\n The Actual Number Of Services Should Equal Zero (0) Since The Appointment Was Canceled \n");
         softAssert.assertAll();
         closeTab();
         switchToOldWindowOpened();

@@ -6,6 +6,7 @@ import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_Head
 import automation.PestRoutes.PageObject.Header;
 import automation.PestRoutes.Utilities.FindElement;
 import automation.PestRoutes.Utilities.Utilities;
+import static automation.PestRoutes.Utilities.Utilities.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
@@ -242,6 +243,7 @@ public class BillingByServiceTypeTab {
     }
 
     public void clickDescription_reportDetails(String customerName) {
+        delay(3000);
         Utilities.waitUntileElementIsClickable(By.xpath("//tr[@detailvalues]//td[text()='" + customerName + "']"), 10);
         Utilities.scrollToElementJS("//tr[@detailvalues]//td[text()='" + customerName + "']");
         Utilities.jsClickElement("//tr[@detailvalues]//td[text()='" + customerName + "']", Utilities.ElementType.XPath);

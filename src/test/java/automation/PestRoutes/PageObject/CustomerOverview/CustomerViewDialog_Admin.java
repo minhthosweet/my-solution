@@ -1,6 +1,7 @@
 package automation.PestRoutes.PageObject.CustomerOverview;
 
 import automation.PestRoutes.PageObject.BasePage;
+import automation.PestRoutes.PageObject.CustomerPortal.CustomerPortalBasePage;
 import automation.PestRoutes.PageObject.CustomerPortal.CustomerPortalSummaryTabPage;
 import automation.PestRoutes.Utilities.Driver.GetWebDriver;
 import automation.PestRoutes.Utilities.FindElement;
@@ -24,6 +25,7 @@ public class CustomerViewDialog_Admin extends BasePage {
 
     static WebDriver driver = GetWebDriver.getInstance();
     WebDriverWait wait = new WebDriverWait(driver, 5);
+    CustomerPortalBasePage customerPortalBasePage = new CustomerPortalBasePage();
 
     //Remove Customer
     public String removeButton = "//div[text()='Remove']";
@@ -128,14 +130,11 @@ public class CustomerViewDialog_Admin extends BasePage {
         for (String currentWindow : allWindows) {
             if(!customerCardWindow.equals(currentWindow)){
                 driver.switchTo().window(currentWindow);
-                refreshPage();
-                delay(3000);
-                refreshPage();
             }
         }
-        refreshPage();
-        delay(3000);
-        refreshPage();
+        while(!customerPortalBasePage.isSummaryTabDisplayed()) {
+            refreshPage();
+        }
         return new CustomerPortalSummaryTabPage();
     }
 

@@ -15,6 +15,7 @@ Feature: Tech Name On Payment By Service Type Report
 
   Rule: Customer views their Payment By Service Type Report and sees correct technician name
 
+  @RegressionREX_CustomerCard
   @VerifyTechNameStandAloneInvoice
   Scenario: Verify No Tech On The Payment By Service Type Report After Paying A Stand Alone Invoice
     Given I Create A Customer With A Subscription
@@ -22,6 +23,7 @@ Feature: Tech Name On Payment By Service Type Report
     And I Pay Off The Stand Alone Invoice
     Then I See No Tech Is Displayed On The Payment By Service Type Report
 
+  @RegressionREX_CustomerCard
   @VerifyTechNameCreatedAppointment
   Scenario: Verify Technician Name On The Payment By Service Type Report After Creating An Appointment
     Given I Create A Customer With A Subscription

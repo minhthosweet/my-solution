@@ -14,8 +14,8 @@ Feature: One Time Payments Perform All Renewal Tasks
 
   Rule: User views the application and confirms all renewal tasks after processing a one time payment
 
-    @Defect
-    @Defect_VerifyApplicationPerformsRenewalTaskAfterSingleUseCC
+    @RegressionREX_Payments
+    @VerifyApplicationPerformsRenewalTaskAfterSingleUseCC
     Scenario Outline: Defect_Verify Application Performs Renewal Task After Single Use Credit Card Payment
       Given I Set Up The Application For "<Gateway>"
       Given I Create A Customer With A Subscription

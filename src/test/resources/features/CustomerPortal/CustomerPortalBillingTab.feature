@@ -4,7 +4,6 @@
 @RegressionREX
 @Regression
 @CustomerCard
-@CustomerPortal
 @CustomerPortalBillingTab
 
 Feature: Customer Portal - Billing Tab Displays Accurate Information
@@ -14,6 +13,43 @@ Feature: Customer Portal - Billing Tab Displays Accurate Information
   for all customers
 
   Rule: User views the Billing Tab within the Customer Portal and see accurate information
+
+    @RegressionREX_Payments
+    @VerifyTotalAmountUsingOneTimeCardForEachGateway
+    Scenario Outline: Verify Paying Total Amount Using One Time Card For Each Gateway
+      Given I Set Up The Application For "<Gateway>"
+      Given I Create A Customer With A Subscription
+      When  I Generate A Stand Alone Invoice
+      And   I Navigate To Customer Portal From Customer Card - Admin Tab
+      Then  I Verify Paying The Total Amount With A One Time Card Using "<Gateway>", "<Credit Card #>", "12/25", "234"
+
+      Examples:
+        | Gateway             | Credit Card #       |
+        | Braintree           | 4111 1111 1111 1111 |
+        | Element             | 4111 1111 1111 1111 |
+  #      | NMI                 | 5412 7501 0905 6250 |
+        | Spreedly            | 4111 1111 1111 1111 |
+        | PestRoutes Payments | 4111 1111 1111 1111 |
+
+    @RegressionREX_Payments
+    @VerifyTotalAmountUsingCardOnFileForEachGateway
+    Scenario Outline: Verify Paying Total Amount Using Card On File For Each Gateway
+      Given I Set Up The Application For "<Gateway>"
+      Given I Create A Customer With A Subscription
+      When  I Add A Card On File Using "<Gateway>", "<Credit Card #>", "12/25", "234"
+      When  I Generate A Stand Alone Invoice
+      And   I Navigate To Customer Portal From Customer Card - Admin Tab
+      Then  I Verify Paying The Total Amount With A Card On File
+
+      Examples:
+        | Gateway             | Credit Card #       |
+        | Braintree           | 4111 1111 1111 1111 |
+        | Element             | 4111 1111 1111 1111 |
+  #      | NMI                 | 5412 7501 0905 6250 |
+        | Spreedly            | 4111 1111 1111 1111 |
+        | PestRoutes Payments | 4111 1111 1111 1111 |
+
+@CustomerPortal
     @VerifyBillingTabFirstNameInWelcomeBanner
     Scenario: Verify Customer First Name In The Welcome Banner Message via Billing Tab
       Given I Create A Customer With A Subscription
@@ -78,35 +114,3 @@ Feature: Customer Portal - Billing Tab Displays Accurate Information
        | Spreedly            |
        | PestRoutes Payments |
 
-    @VerifyTotalAmountUsingOneTimeCardForEachGateway
-    Scenario Outline: Verify Paying Total Amount Using One Time Card For Each Gateway
-      Given I Set Up The Application For "<Gateway>"
-      Given I Create A Customer With A Subscription
-      When  I Generate A Stand Alone Invoice
-      And   I Navigate To Customer Portal From Customer Card - Admin Tab
-      Then  I Verify Paying The Total Amount With A One Time Card Using "<Gateway>", "<Credit Card #>", "12/30", "234"
-
-      Examples:
-        | Gateway             | Credit Card #       |
-        | Braintree           | 4111 1111 1111 1111 |
-        | Element             | 4111 1111 1111 1111 |
-  #      | NMI                 | 5412 7501 0905 6250 |
-        | Spreedly            | 4111 1111 1111 1111 |
-        | PestRoutes Payments | 4111 1111 1111 1111 |
-
-    @VerifyTotalAmountUsingCardOnFileForEachGateway
-    Scenario Outline: Verify Paying Total Amount Using Card On File For Each Gateway
-      Given I Set Up The Application For "<Gateway>"
-      Given I Create A Customer With A Subscription
-      When  I Add A Card On File Using "<Gateway>", "<Credit Card #>", "12/30", "234"
-      When  I Generate A Stand Alone Invoice
-      And   I Navigate To Customer Portal From Customer Card - Admin Tab
-      Then  I Verify Paying The Total Amount With A Card On File
-
-      Examples:
-        | Gateway             | Credit Card #       |
-        | Braintree           | 4111 1111 1111 1111 |
-        | Element             | 4111 1111 1111 1111 |
-        | NMI                 | 5412 7501 0905 6250 |
-        | Spreedly            | 4111 1111 1111 1111 |
-        | PestRoutes Payments | 4111 1111 1111 1111 |

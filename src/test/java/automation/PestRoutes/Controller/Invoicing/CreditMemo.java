@@ -77,9 +77,13 @@ public class CreditMemo extends AppData {
         result(creditMemoTab.getInvoiceApplicationDate(), creditMemoTab.getCreditMemoDate(), "Invoice Application Date validation in Credit Memo", "Invoice Validation");
         result(balance, creditMemoTab.getPaymentsBalance(), "Balance validation in Credit Memo", "Invoice Validation");
         creditMemoTab.clickAppliedCharge_invoiceApplications();
-        result(billingByServiceType.standAloneInvoiceAmount, invImplementation.getServiceCostBeforeTax(), "Service Cost Validation",
+        //result(billingByServiceType.standAloneInvoiceAmount, invImplementation.getServiceCostBeforeTax(), "Service Cost Validation",
+          //      "Invoice Validation"); // billingByServiceType.standAloneInvoiceAmount is retrieving a random value but hard-coded 400 is entered via createStandAloneInvoice()
+        result("400.00", invImplementation.getServiceCostBeforeTax(), "Service Cost Validation",
                 "Invoice Validation");
-        result("$" + billingByServiceType.standAloneInvoiceAmount, invImplementation.getSubTotalValue(), "Sub Total Value Validation",
+        //result("$" + billingByServiceType.standAloneInvoiceAmount, invImplementation.getSubTotalValue(), "Sub Total Value Validation",
+          //      "Invoice Validation"); // billingByServiceType.standAloneInvoiceAmount is retrieving a random value but hard-coded 400 is entered via createStandAloneInvoice()
+        result("$" + "400.00", invImplementation.getSubTotalValue(), "Sub Total Value Validation",
                 "Invoice Validation");
         result(taxAmount, invImplementation.getTaxValue(), "Tax Value Validation",
                 "Invoice Validation");

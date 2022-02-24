@@ -53,7 +53,7 @@ public class TestScheduledAppointments {
         userOnSchedulingComponent.addScheduleDateToProperties();
         userOnSchedulingComponent.clickScheduleDay();
         userOnRoutePage.selectAvailableAppointment();
-        userOnRoutePage.selectCustomer(testCustomer.customerName);
+        userOnRoutePage.selectExistingCustomer(testCustomer.customerName);
         userOnSchedulingDialog.selectTypeOfService("Automation Renewal");
         userOnSchedulingDialog.selectSubscription("Stand-Alone Service or Reservice");
         schedulingSubscription = userOnSchedulingDialog.getSubscription();
@@ -73,7 +73,7 @@ public class TestScheduledAppointments {
     public void automateSchedulingAnotherAppointment() {
         dragCustomerCard(200, 0);
         userOnRoutePage.selectAvailableAppointment();
-        userOnRoutePage.selectCustomer(testCustomer.customerName);
+        userOnRoutePage.selectExistingCustomer(testCustomer.customerName);
         userOnSchedulingDialog.selectTypeOfService("Automation Renewal");
         userOnSchedulingDialog.selectSubscription("Stand-Alone Service or Reservice");
         schedulingSubscription = userOnSchedulingDialog.getSubscription();
@@ -83,7 +83,7 @@ public class TestScheduledAppointments {
     @Then("I See The Correct Appointment Information On The Appointments Tab")
     public void testCorrectAppointmentInformation() {
         sameUser.goToAppointmentsTab();
-        userOnAppointmentsTab.clickPendingAppointment("Automation Renewal");
+        //userOnAppointmentsTab.clickPendingAppointment("Automation Renewal");
         List<String> expectedSubscription = schedulingSubscription;
         String actualSubscription = userOnAppointmentsTab.getAppointmentsTabSubscription();
         softAssert.assertTrue(expectedSubscription.contains(actualSubscription),
@@ -119,5 +119,11 @@ public class TestScheduledAppointments {
         invoiceNumber = userOnInvoicesTab.getInvoiceNumber();
         initialBalance = userOnInvoicesTab.getInitialBalance();
         subStatusAmount = userOnInvoicesTab.getSubStatusAmount();
+    }
+
+    @When("I Deactivate-Freeze The Subscription")
+    public void automateDeactivatingTheSubscription() {
+        userOnSubscriptionTab.clickActivateDeactivateButton();
+        userOnSubscriptionTab.clickFreezeSubscriptionButtonOnCancelSubscriptionDialog();
     }
 }

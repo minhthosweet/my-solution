@@ -111,18 +111,25 @@ public class TriggerDaysBefore_Reminder extends BaseClass {
 		userOnInfoTab.selectCustomerGenericFlag(flagCode);
 		sameUser.clickSaveButton();
 		testAppointment.automateSchedulingAppointment();
+	}
 
-		// For Some Reason, The Last Name Field Combines First Name & Last Name After Scheduling An Appointment
-		// First Name, Phone, Email, & Generic Flag Are Removed From Customer
-		// Below Statements Re-Enter The Values Since They Were Removed After Scheduling An Appointment
+	@When("I Add {string} Flag To The Customer Before Canceling An Appointment")
+	public void automateSettingUpCustomerWithFlagAndCancelAppointment(String flagCode) {
+		testCustomer.createCustomerWithBasicInfo();
 		userOnInfoTab = sameUser.goToInfoTab();
-		userCreateNewCustomer.typeFirstName(testCustomer.customerFirstName);
-		userCreateNewCustomer.typeLastName(testCustomer.customerLastName);
-		userCreateNewCustomer.typePhone1(testCustomer.phone1);
-		userCreateNewCustomer.typeEmailAddress(testCustomer.emailAddress);
 		userOnInfoTab.selectCustomerGenericFlag(flagCode);
-		dragCustomerCard(200,0); // Allows Us To See The Scheduled Appointment While Running Automation Script
 		sameUser.clickSaveButton();
+		testAppointment.automateSchedulingAppointment();
+		testAppointment.automateCancellingAppointment();
+	}
+
+	@When("I Add {string} Flag To The Customer Before Completing An Appointment")
+	public void automateSettingUpCustomerWithFlagAndCompleteAppointment(String flagCode) {
+		testCustomer.automateCreatingCustomerWithSubscription();
+		userOnInfoTab = sameUser.goToInfoTab();
+		userOnInfoTab.selectCustomerGenericFlag(flagCode);
+		sameUser.clickSaveButton();
+		testAppointment.automateCompletingAnAppointment();
 	}
 
 	@When("I Add {string} Flag To The Customer Before Canceling An Appointment")
