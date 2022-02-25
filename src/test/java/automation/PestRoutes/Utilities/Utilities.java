@@ -736,9 +736,6 @@ public class Utilities {
 	public static boolean isPresent(String XPath) {
 		return isPresent(By.xpath(XPath));
 	}
-	public static boolean isPresent(By locator) {
-		return driver.findElements(locator).size() > 0;
-	}
 
 	public static boolean isPresent(By locator) {
 		return driver.findElements(locator).size() > 0;

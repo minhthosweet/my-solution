@@ -1,29 +1,30 @@
 package automation.PestRoutes.Controller.CustomerCreation;
 
-import java.io.IOException;
-
 import automation.PestRoutes.Controller.Subscriptions.AddSubscription;
+import automation.PestRoutes.PageObject.CreateCustomer.CreateCustomerDialog;
 import automation.PestRoutes.PageObject.CustomerOverview.*;
-import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_InfoTab;
 import automation.PestRoutes.PageObject.DashboardPage;
+import automation.PestRoutes.PageObject.Header;
 import automation.PestRoutes.PageObject.Search.SearchBox;
-import static automation.PestRoutes.Utilities.Utilities.*;
-import automation.PestRoutes.Utilities.*;
-import static automation.PestRoutes.Utilities.Utilities.*;
+import automation.PestRoutes.Utilities.AppData;
+import automation.PestRoutes.Utilities.AssertException;
+import automation.PestRoutes.Utilities.FindElement;
+import automation.PestRoutes.Utilities.Utilities;
+import automation.PestRoutes.Utilities.Utilities.ElementType;
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.WebElement;
 import org.testng.annotations.Test;
-import automation.PestRoutes.PageObject.Header;
-import automation.PestRoutes.PageObject.CreateCustomer.CreateCustomerDialog;
-import automation.PestRoutes.Utilities.Utilities.ElementType;
-import io.cucumber.java.en.And;
-import io.cucumber.java.en.Then;
-import io.cucumber.java.en.When;
+
+import java.io.IOException;
 
 import static automation.PestRoutes.Utilities.AssertException.result;
 import static automation.PestRoutes.Utilities.Utilities.acceptAlert;
+import static automation.PestRoutes.Utilities.Utilities.delay;
 
 public class CreateNewCustomer extends AppData {
     CreateCustomerDialog customer;
@@ -570,15 +571,25 @@ public class CreateNewCustomer extends AppData {
         customerDialog_Header.clickSaveButton();
     }
 
-    private void alertCondition() {
-        if (getAlertText().contains("This customer is closer to")) {
-            dismissAlert();
-        }
-        if (getAlertText().contains("Action Required!")) {
-            dismissAlert();
-        }
-        if (isPresent("//div[text()='Save Anyways']")) {
-            clickElement("//div[text()='Save Anyways']", ElementType.XPath);
+    private void alertCondition() throws Exception {
+        int i = 0;
+        while (i++ < 10) {
+            try {
+                Alert alert = Utilities.alertPopUp();
+                String actionAlert = Utilities.getAlertText();
+                String expected = "Action Required!";
+                if (actionAlert.contains(expected)) {
+                    alert.accept();
+                    Utilities.clickElement("//div[text()='Save Anyways']", ElementType.XPath);
+                    break;
+                }
+                if (actionAlert.contains("This customer is closer to")) {
+                    alert.dismiss();
+                }
+            } catch (NoAlertPresentException e) {
+                Thread.sleep(500);
+                continue;
+            }
         }
     }
 

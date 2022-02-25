@@ -9,10 +9,9 @@ import io.cucumber.java.en.And;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoAlertPresentException;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import static automation.PestRoutes.Utilities.Utilities.*;
+import static automation.PestRoutes.Utilities.Utilities.elementIsVisible;
 
 public class CustomerViewDialog_Header extends BasePage {
 
@@ -73,7 +72,27 @@ public class CustomerViewDialog_Header extends BasePage {
 
     public void clickSaveButton() {
         Utilities.clickElement(saveButton, ElementType.XPath);
-        alertCondition();
+        //Utilities.dismissAlert(); This dimissAlert() Statement Does Not Cover Each Alert
+        int i = 0;
+        while (i++ < 10) {
+            try {
+                Alert alert = Utilities.alertPopUp();
+                String actionAlert = Utilities.getAlertText();
+                String expected = "Action Required!";
+                if (actionAlert.contains(expected)) {
+                    alert.accept();
+                    Utilities.clickElement("//div[text()='Save Anyways']", ElementType.XPath);
+                    break;
+                }
+                if (actionAlert.contains("This customer is closer to"))
+                {
+                    alert.dismiss();
+                }
+            } catch (NoAlertPresentException e) {
+                delay(500);
+                continue;
+            }
+        }
     }
 
     public void clickCustomerCardScheduleButton (){
