@@ -61,6 +61,7 @@ public class Footer extends BasePage {
 			scrollToElementJS(customer);
 			if(customer.getText().equalsIgnoreCase(customerName)) {
 				customer.click();
+				break;
 			}
 		}
 	}

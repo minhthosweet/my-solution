@@ -33,7 +33,6 @@ public class TriggerDaysBefore_Reminder extends BaseClass {
 	CustomerViewDialog_InfoTab userOnInfoTab = new CustomerViewDialog_InfoTab();
 	CreateNewCustomer testCustomer = new CreateNewCustomer();
 	TestScheduledAppointments testAppointment = new TestScheduledAppointments();
-	CreateCustomerDialog userCreateNewCustomer = new CreateCustomerDialog();
 
 	private String description_TriggerBeforeDays = "TriggerBeforeDays_Reminder";
 
@@ -105,7 +104,7 @@ public class TriggerDaysBefore_Reminder extends BaseClass {
 	}
 
 	@When("I Add {string} Flag To The Customer Before Scheduling An Appointment")
-	public void automateSettingUpCustomerWithFlagAndScheduleAppointment(String flagCode) {
+	public void automateSettingUpCustomerWithFlagAndScheduleAppointment(String flagCode) throws Exception {
 		testCustomer.createCustomerWithBasicInfo();
 		userOnInfoTab = sameUser.goToInfoTab();
 		userOnInfoTab.selectCustomerGenericFlag(flagCode);
@@ -114,17 +113,18 @@ public class TriggerDaysBefore_Reminder extends BaseClass {
 	}
 
 	@When("I Add {string} Flag To The Customer Before Canceling An Appointment")
-	public void automateSettingUpCustomerWithFlagAndCancelAppointment(String flagCode) {
+	public void automateSettingUpCustomerWithFlagAndCancelAppointment(String flagCode) throws Exception {
 		testCustomer.createCustomerWithBasicInfo();
 		userOnInfoTab = sameUser.goToInfoTab();
 		userOnInfoTab.selectCustomerGenericFlag(flagCode);
 		sameUser.clickSaveButton();
 		testAppointment.automateSchedulingAppointment();
 		testAppointment.automateCancellingAppointment();
+		sameUser.clickCloseButton();
 	}
 
 	@When("I Add {string} Flag To The Customer Before Completing An Appointment")
-	public void automateSettingUpCustomerWithFlagAndCompleteAppointment(String flagCode) {
+	public void automateSettingUpCustomerWithFlagAndCompleteAppointment(String flagCode) throws Exception {
 		testCustomer.automateCreatingCustomerWithSubscription();
 		userOnInfoTab = sameUser.goToInfoTab();
 		userOnInfoTab.selectCustomerGenericFlag(flagCode);

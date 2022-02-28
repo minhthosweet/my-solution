@@ -71,7 +71,7 @@ public class AppointmentStatusPage extends PreferencesPage {
         }
         type("1", addTaskDaysTillDueField);
         scrollToElementJS(textAreaMessageNotes);
-        type("Appointment Status - Task Test For Trigger Rules", textAreaMessageNotes);
+        type("Status - Task Test For Trigger Rules", textAreaMessageNotes);
         selectFromDropDown("Appt Status", addTaskCategoryDropDown);
     }
 
@@ -81,7 +81,7 @@ public class AppointmentStatusPage extends PreferencesPage {
             selectFromDropDown(voiceType, voiceTypeDropDown);
             elementIsVisible(textAreaMessageNotes);
             scrollToElementJS(textAreaMessageNotes);
-            type("Appointment Status - Voice Test For Trigger Rules", textAreaMessageNotes);
+            type("Status - Voice Test For Trigger Rules", textAreaMessageNotes);
         } else if (voiceType.equalsIgnoreCase("Pre-recorded Message")) {
             selectFromDropDown(voiceType, voiceTypeDropDown);
             selectValueFromDropDownByIndex(voiceMessage, 0);
@@ -91,16 +91,16 @@ public class AppointmentStatusPage extends PreferencesPage {
     public void completeSendEmailAction() {
         type("Automation Trigger Rule Test", emailTitleField);
         scrollToElementJS(emailTitleField);
-        type("Appointment Status - Email Test For Trigger Rules", textArea_EmailMessage);
+        type("Status - Email Test For Trigger Rules", textArea_EmailMessage);
     }
 
-     public void completeAppointmentStatusAction(String action, String details) {
+     public void completeStatusAction(String action, String details) {
         waitUntileElementIsVisible(actionDropDown);
         selectFromDropDown(action, actionDropDown);
         switch(action) {
             case "Add Alert":
-                delay(500);
-                type("Appointment Status - Alert Test For Trigger Rules", textAreaMessageNotes);
+                delay(2000);
+                type("Status - Alert Test For Trigger Rules", textAreaMessageNotes);
                 break;
             case "Add Task":
                 completeAddTaskAction(details);
@@ -109,7 +109,7 @@ public class AppointmentStatusPage extends PreferencesPage {
                 completeSendEmailAction();
                 break;
             case "Send SMS":
-                type("Appointment Status - SMS Test For Trigger Rules", textAreaMessageNotes);
+                type("Status - SMS Test For Trigger Rules", textAreaMessageNotes);
                 break;
             case "Send Voice":
                 completeSendVoiceAction(details);
@@ -123,13 +123,13 @@ public class AppointmentStatusPage extends PreferencesPage {
         waitUntileElementIsVisible(secondActionDropDown);
         selectFromDropDown(action2, secondActionDropDown);
         if (action2.equalsIgnoreCase("Add Alert")) {
-            type("Appointment Status - Alert Test For Trigger Rules", textAreaMessageNotes);
+            type("Status - Alert Test For Trigger Rules", textAreaMessageNotes);
         } else if (action2.equalsIgnoreCase("Add Task")) {
             completeAddTaskAction(details);
         } else if (action2.equalsIgnoreCase("Send Email")) {
             completeSendEmailAction();
         } else if (action2.equalsIgnoreCase("Send SMS")) {
-            type("Appointment Status - SMS Test For Trigger Rules", textAreaMessageNotes);
+            type("Status - SMS Test For Trigger Rules", textAreaMessageNotes);
         } else if (action2.equalsIgnoreCase("Send Voice")) {
             completeSendVoiceAction(details);
         }
@@ -140,7 +140,7 @@ public class AppointmentStatusPage extends PreferencesPage {
         selectFromDropDown(action1, actionDropDown);
         switch (action1) {
             case "Add Alert":
-                type("Appointment Status - Alert Test For Trigger Rules", textAreaMessageNotes);
+                type("Status - Alert Test For Trigger Rules", textAreaMessageNotes);
                 completeSecondAction(action2, details);
                 break;
             case "Add Task":
@@ -152,7 +152,7 @@ public class AppointmentStatusPage extends PreferencesPage {
                 completeSecondAction(action2, details);
                 break;
             case "Send SMS":
-                type("Appointment Status - SMS Test For Trigger Rules", textAreaMessageNotes);
+                type("Status - SMS Test For Trigger Rules", textAreaMessageNotes);
                 completeSecondAction(action2, details);
                 break;
             case "Send Voice":
@@ -169,9 +169,9 @@ public class AppointmentStatusPage extends PreferencesPage {
 
     public String getActionNotes(String action) {
         if (action.equalsIgnoreCase("Add Task")) {
-            return "Appointment Status - Task Test For Trigger Rules";
+            return "Status - Task Test For Trigger Rules";
         } else if (action.equalsIgnoreCase("Add Alert")) {
-            return "Appointment Status - Alert Test For Trigger Rules";
+            return "Status - Alert Test For Trigger Rules";
         }
         return null;
     }

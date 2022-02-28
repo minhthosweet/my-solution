@@ -148,8 +148,9 @@ public class CustomerPortalBillingTabPage extends CustomerPortalBasePage {
             String buttonMakePayment = "//button[@id='submitPaymentOptionsButton']";
             isPresent(buttonMakePayment);
             click(makePaymentButton);
-            acceptAlert();
+            delay(5000);
         }
+        delay(5000);
     }
 
     public void clickPayAnotherAmount(){

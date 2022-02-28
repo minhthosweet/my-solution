@@ -99,4 +99,15 @@ public class GetDate {
 		int year = localDate.getYear();
 		return year;
 	}
+
+	public static String convert_4DigitYear_2DigitMonth_2DigitDay(String date) {
+		// Incoming Date Is Formatted As YYYY-MM-DD
+		// Return Date Is Formatted As M/DD/YYYY
+
+		String[] separateYearMonthDay = date.split("-");
+		String year = separateYearMonthDay[0];
+		String month = separateYearMonthDay[1].replaceFirst("^0*", "");
+		String day = separateYearMonthDay[2].replaceFirst("^0*", "");
+		return month + "/" + day + "/" + year;
+	}
 }

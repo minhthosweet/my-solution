@@ -43,7 +43,7 @@ public class CreateNewCustomer extends AppData {
 
     public String streetAddress = Integer.toString(Utilities.generateRandomNumber(4)) + " " + Utilities.generateRandomString(5);
     public String city = Utilities.generateRandomString(4);
-    public String zipcode = "77008";
+    public String zipcode = "75241";
     public String email = Utilities.generateRandomString(3) + "." + Utilities.generateRandomString(4) + "" + "@gmail.com";
     public String primaryPhoneNumber = "6" + Integer.toString(Utilities.generateRandomNumber(9));
 
@@ -571,9 +571,9 @@ public class CreateNewCustomer extends AppData {
         customerDialog_Header.clickSaveButton();
     }
 
-    private void alertCondition() throws Exception {
+    private void alertCondition() {
         int i = 0;
-        while (i++ < 10) {
+        while (i++ < 5) {
             try {
                 Alert alert = Utilities.alertPopUp();
                 String actionAlert = Utilities.getAlertText();
@@ -587,7 +587,7 @@ public class CreateNewCustomer extends AppData {
                     alert.dismiss();
                 }
             } catch (NoAlertPresentException e) {
-                Thread.sleep(500);
+                delay(500);
                 continue;
             }
         }
@@ -696,6 +696,7 @@ public class CreateNewCustomer extends AppData {
         userCreateNewCustomer.typeEmailAddress(email);
         emailAddress = userCreateNewCustomer.getEmailAddress();
         sameUser.clickSaveButton();
+        alertCondition();
     }
 
     @Given("I Create A Customer With A Subscription")

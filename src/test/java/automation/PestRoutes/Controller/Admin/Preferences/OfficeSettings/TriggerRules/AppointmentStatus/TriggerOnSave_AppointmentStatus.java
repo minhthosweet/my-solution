@@ -123,9 +123,9 @@ public class TriggerOnSave_AppointmentStatus extends AppData {
     }
 
     @And("I Complete {string} Action With {string} Details")
-    public void automateSendingCompleteActionForAppointmentStatus(String action, String details) {
+    public void automateSendingCompleteStatusAction(String action, String details) {
         userSelectsAppointmentStatusTrigger.clickAddActionButton();
-        userSelectsAppointmentStatusTrigger.completeAppointmentStatusAction(action, details);
+        userSelectsAppointmentStatusTrigger.completeStatusAction(action, details);
         notes = userSelectsAppointmentStatusTrigger.getActionNotes(action);
         category = userSelectsAppointmentStatusTrigger.getActionCategory(action);
         userSelectsAppointmentStatusTrigger.clickSaveButton();
@@ -133,7 +133,6 @@ public class TriggerOnSave_AppointmentStatus extends AppData {
 
     @Then("I Verify Tasks Are Added After Executing The Trigger")
     public void testAddedTasksAfterExecutingTrigger(){
-        sameUser.clickXButton();
         sameUser.goToTasks();
         String actualCustomer = footer.getCustomerFromList(testCustomer.customerName).toUpperCase();
         String expectedCustomer = testCustomer.customerName.toUpperCase();
@@ -160,7 +159,6 @@ public class TriggerOnSave_AppointmentStatus extends AppData {
 
     @Then("I Verify The Alert Has Been Added After Executing The Trigger")
     public void testAddsAlertAfterExecutingTrigger() {
-        sameUser.clickXButton();
         sameUser.goToAlerts();
         String actualCustomer = footer.getCustomerFromList(testCustomer.customerName).toUpperCase();
         String expectedCustomer = testCustomer.customerName.toUpperCase();

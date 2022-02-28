@@ -118,7 +118,7 @@ public class AR_Age extends AppData {
     }
 
     @When("I Add {string} Flag To The Customer With A New Invoice")
-    public void automateSettingUpCustomerWithFlagSubscriptionAndInvoice(String flagCode) {
+    public void automateSettingUpCustomerWithFlagSubscriptionAndInvoice(String flagCode) throws Exception {
         InvoicingTab testUserOnInvoicesTab = new InvoicingTab();
         testUser.createCustomerWithBasicInfo();
         userOnInfoTab = sameUser.goToInfoTab();
@@ -130,7 +130,6 @@ public class AR_Age extends AppData {
 
     @And("I Execute Trigger {string} On Subdomain {string} For Office {string}")
     public void automateExecutingTriggerOnSubdomainWithEndPoint(String triggerName, String subdomain, String officeID) {
-        String stagingdemoURL = "https://stagingdemo.pestroutes.com/resources/scripts/triggerEvents.php?debug=1&office=4&testing=1";
         String url = "https://" + subdomain + ".pestroutes.com/resources/scripts/" + triggerName +
                     ".php?debug=1&office=" + officeID + "&testing=1";
         WebDriver driver = loadIncognitoChromeBrowser(url);
@@ -139,6 +138,7 @@ public class AR_Age extends AppData {
 
     @Then("I Verify The Customer Received {string} Note After Executing The Trigger")
     public void testCustomerReceivedDetailNoteLog(String noteDetail) {
+       userOnHeader.searchCustomerWithName(testCustomer.customerName);
        sameUser.goToNotesTab();
        boolean isNoteSent = userOnNotesTab.getNotesLogInfo().contains(noteDetail);
        softAssert.assertTrue(isNoteSent,

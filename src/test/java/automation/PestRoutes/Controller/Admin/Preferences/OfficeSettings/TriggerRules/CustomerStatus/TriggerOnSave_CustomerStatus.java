@@ -4,10 +4,17 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import automation.PestRoutes.Controller.Admin.Preferences.OfficeSettings.TriggerRules.AR.AR_Age;
+import automation.PestRoutes.PageObject.Admin.AdminMainPage;
+import automation.PestRoutes.PageObject.Admin.PreferencesTab.OfficeSettingsTab.TriggerTypes.CustomerStatusPage;
+import automation.PestRoutes.PageObject.Admin.PreferencesTab.PreferencesPage;
+import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_InfoTab;
+import automation.PestRoutes.PageObject.DashboardPage;
 import automation.PestRoutes.Utilities.AppData;
 import automation.PestRoutes.Utilities.AssertException;
 import automation.PestRoutes.Utilities.Reporter;
 import io.cucumber.java.en.And;
+import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.testng.annotations.Test;
@@ -21,6 +28,8 @@ import automation.PestRoutes.PageObject.CreateCustomer.CreateCustomerDialog;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_Admin;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_Header;
 
+import static automation.PestRoutes.Utilities.Utilities.currentDate;
+
 public class TriggerOnSave_CustomerStatus extends AppData {
 
     CreateTrigger_CustomerStatus createCustomerStatus = new CreateTrigger_CustomerStatus();
@@ -33,6 +42,15 @@ public class TriggerOnSave_CustomerStatus extends AppData {
     CreateCustomerDialog customer;
     Billing billing;
     Header header;
+    AdminMainPage userOnAdminComponent = new AdminMainPage();
+    DashboardPage userOnDashboard = new DashboardPage();
+    PreferencesPage userOnPreferences = new PreferencesPage();
+    TriggerRules userOnTriggerRulesPage = new TriggerRules();
+    CustomerStatusPage userSelectsCustomerStatusTrigger = new CustomerStatusPage();
+    AR_Age testTrigger = new AR_Age();
+    CreateNewCustomer testCustomer = new CreateNewCustomer();
+    CustomerViewDialog_InfoTab userOnInfoTab = new CustomerViewDialog_InfoTab();
+    CustomerViewDialog_Header sameUser = new CustomerViewDialog_Header();
 
     private String description_TriggerOnSave = "TriggerOnSave_CustomerStatus";
     public List list = new ArrayList<String>();
@@ -209,6 +227,29 @@ public class TriggerOnSave_CustomerStatus extends AppData {
 
     public void validateIfFailureExist() {
         AssertException.assertFailure(list);
+    }
+
+    @Given("I Set Up A Trigger Type For {string} That {string} When Status Changed To {string}")
+    public void automateSettingUpTriggerTypeCustomerStatus(String trigger, String whenToTrigger, String changeStatus) {
+        userOnAdminComponent = userOnDashboard.goToAdminComponent();
+        userOnPreferences = userOnAdminComponent.clickPreferencesSubComponent();
+        userOnTriggerRulesPage = userOnPreferences.clickTriggerRules();
+        userOnTriggerRulesPage.addActiveTrigger
+                (trigger, trigger + " Automation Trigger", currentDate("MM/dd/yy"));
+        userSelectsCustomerStatusTrigger.selectStatusChangedTo(changeStatus);
+        userSelectsCustomerStatusTrigger.selectWhenToTrigger(whenToTrigger);
+        userSelectsCustomerStatusTrigger.typeIncludeCustomerFlag(testTrigger.genericFlag);
+    }
+
+    @When("I Add {string} Flag To The Customer Before Updating The Customer Status")
+    public void automateSettingUpCustomerWithFlagAndUpdatingCustomerStatus(String flagCode) throws Exception {
+        CustomerViewDialog_Admin userOnAdminTab = new CustomerViewDialog_Admin();
+        testCustomer.createCustomerWithBasicInfo();
+        userOnInfoTab = sameUser.goToInfoTab();
+        userOnInfoTab.selectCustomerGenericFlag(flagCode);
+        sameUser.clickSaveButton();
+        userOnAdminTab.changeAccountStatus_Active();
+        sameUser.clickCloseButton();
     }
 }
 

@@ -761,9 +761,8 @@ public class InvoiceImplementation extends BasePage {
         type(expirationDate, braintreeExpirationDateField);
         driver.switchTo().defaultContent();
         clickChargeSingleCardButton();
-       acceptAlert();
-        //Utilities.waitUntileElementIsVisible(paymentResultsScreenTitle);
-        delay(2000);
+        delay(3000);
+        acceptAlert();
     }
 
     public void enterElementNewCardInformation(String cardNumber, String expirationDate, String cvv){
@@ -777,6 +776,7 @@ public class InvoiceImplementation extends BasePage {
         selectFromDropDown("20"+ year, elementExpirationYear);
         type(cvv, elementCVVField);
         click(elementProcessTransactionButton);
+        delay(3000);
         acceptAlert();
         driver.switchTo().defaultContent();
     }
@@ -812,6 +812,7 @@ public class InvoiceImplementation extends BasePage {
         type(cvv, spreedlyCVVField);
         driver.switchTo().defaultContent();
         clickChargeSingleCardButton();
+        delay(3000);
         acceptAlert();
     }
 
@@ -829,6 +830,7 @@ public class InvoiceImplementation extends BasePage {
         type(cvv, pestRoutesPaymentsCVVField);
         driver.switchTo().defaultContent();
         clickChargeSingleCardButton();
+        delay(3000);
         acceptAlert();
     }
 
@@ -850,6 +852,7 @@ public class InvoiceImplementation extends BasePage {
                 enterPestRoutesPaymentsNewCardInformation(cardNumber, expirationDate, cvv);
                 break;
         }
+        delay(3000);
     }
 
     public void setRefundAmount(String refundAmt)

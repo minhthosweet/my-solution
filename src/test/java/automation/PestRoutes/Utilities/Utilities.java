@@ -117,7 +117,7 @@ public class Utilities {
 			try {
 				return driver.switchTo().alert();
 			} catch(Exception e) {
-				delay(1000);
+				delay(200);
 			}
 		}
 		return null;
@@ -772,5 +772,3 @@ public class Utilities {
 		}
 	}
 }
-
-
