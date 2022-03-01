@@ -3,8 +3,8 @@ package automation.PestRoutes.PageObject.CustomerOverview.Invoicing;
 import automation.PestRoutes.PageObject.BasePage;
 import automation.PestRoutes.Utilities.FindElement;
 import automation.PestRoutes.Utilities.FindElement.InputType;
-import automation.PestRoutes.Utilities.Utilities;
 import automation.PestRoutes.Utilities.Utilities.ElementType;
+import automation.PestRoutes.Utilities.Utilities;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
@@ -75,8 +75,11 @@ public class InvoiceImplementation extends BasePage {
 
     private String successfulChargeAmount = "//form[@id=\"singlePaymentForm\"]//h2[@class=\"bold aCenter clr\"]";
 
-    public By paymentResultsScreenTitle = By.xpath("//form[@id='singlePaymentForm']//h3");
+
+    public By paymentResultsScreenTitle = By.xpath("//form[@id='singlePaymentForm']//h3[contains(text(),'Payment Result')]");
     public By paymentConfirmationMsg = By.xpath("//*[@id='singlePaymentForm']/div/h2[1]");
+    public By singleUseCardPaymentResultsScreenTitle = By.xpath("//*[@id='billingPanel']//div/h3[contains(text(),'Payment Result')]");
+    public By singleUseCardPaymentConfirmationMsg = By.xpath("//*[@id='billingPanel']//div/h2[1]");
 
     //Create New Invoice
     private String createNewInvoice_date = "//input[@name='date']";
@@ -135,6 +138,8 @@ public class InvoiceImplementation extends BasePage {
 
     //Payments
     public String addPaymentButton = "//div[text() = '+ Add Payment']";
+    private By btnCardOnFile = By.xpath("//*[@id='singlePaymentCardOptions']/label[@for = 'cardOnFile']");
+    private By bthChargeCard = By. xpath("//*[@id='chargeCardButton']");
 
     //Print Invoice Objects
     public String additionalNotes ="//div[contains(@id,'additionalNotes')]//following-sibling::textarea";
@@ -220,6 +225,7 @@ public class InvoiceImplementation extends BasePage {
     public static  String  nextExpirationDate;
 
     //Payment Results Messages
+    public final String PAYMENT_RESULT_SCREEN_TITLE = "Payment Result";
     public final String PAYMENT_SUCCESS_MSG_CASH = "Successfully Charged Cash!";
     public final String PAYMENT_SUCCESS_MSG_CHECK = "Successfully Applied Check!";
     public final String PAYMENT_SUCCESS_MSG_CARD = "Successfully Charged Credit Card!";
@@ -577,6 +583,11 @@ public class InvoiceImplementation extends BasePage {
         return (Utilities.getElementTextValue(remainingBalanceAmount, ElementType.XPath)).replaceAll("[^0-9.]","");
     }
 
+    public String getSingleUseCardPaymentConfirmMsg(){
+        return getText(singleUseCardPaymentConfirmationMsg);
+    }//getSingleUseCardPaymentConfirmMsg()
+
+    //Note: Used by the following payment methods: Card-on-file, Cash, Check, ACH
     public String getPaymentConfirmationMessage(){
         return getText(paymentConfirmationMsg);
     }//getPaymentConfirmationMessage()
@@ -697,7 +708,9 @@ public class InvoiceImplementation extends BasePage {
         Utilities.clickElement("//label[contains (text(), '" + needServiceName + " Subscription Invoices')]", ElementType.XPath);
     }
 
-    public void clickChargeSingleCardButton() { click(chargeSingleCardButton); }
+    public void clickChargeSingleCardButton() {
+        click(chargeSingleCardButton);
+    }
 
     public void clickNMIChargeSingleCardButton() {
         click(nmiChargeSingleCardButton);
@@ -752,7 +765,7 @@ public class InvoiceImplementation extends BasePage {
         type(paymentNotes, textareaPaymentNotes);
     }//setPaymentNotes()
 
-    public void enterBraintreeNewCardInformation(String cardNumber, String expirationDate){
+    public void enterBraintreeNewCardInformation(String cardNumber, String expirationDate) {
         click(payWithCard);
         switchToIframeByXpath("braintree-hosted-field-number");
         type(cardNumber, braintreeCardNumberField);
@@ -760,14 +773,16 @@ public class InvoiceImplementation extends BasePage {
         switchToIframeByXpath("braintree-hosted-field-expirationDate");
         type(expirationDate, braintreeExpirationDateField);
         driver.switchTo().defaultContent();
+        delay(1000);
         clickChargeSingleCardButton();
+
         delay(3000);
         acceptAlert();
     }
 
     public void enterElementNewCardInformation(String cardNumber, String expirationDate, String cvv){
         clickChargeSingleCardButton();
-        switchToIframeByXpath("elementSingleFrame");
+        switchToIframeByXpath( "elementSingleFrame");
         type(cardNumber, elementCardNumberField);
         String[] separateMonthYear = expirationDate.split("/");
         String month = separateMonthYear[0];
@@ -776,9 +791,13 @@ public class InvoiceImplementation extends BasePage {
         selectFromDropDown("20"+ year, elementExpirationYear);
         type(cvv, elementCVVField);
         click(elementProcessTransactionButton);
+
         delay(3000);
         acceptAlert();
         driver.switchTo().defaultContent();
+
+        delay(1000);
+        acceptAlert(); //Accept successful payment alert
     }
 
     public void enterNMINewCardInformation(String cardNumber, String expirationDate, String cvv) {
@@ -793,9 +812,11 @@ public class InvoiceImplementation extends BasePage {
         type(cvv, nmiCVVField);
         click(submitPaymentButton);
         driver.switchTo().defaultContent();
+
+        acceptAlert(); //Accept successful payment alert
     }
 
-    public void enterSpreedlyNewCardInformation(String cardNumber, String expirationDate, String cvv){
+    public void enterSpreedlyNewCardInformation(String cardNumber, String expirationDate, String cvv) {
         WebElement iFrameCardNumber = find(By.xpath("//iframe[contains(@id,'spreedly-number-frame')]"));
         driver.switchTo().frame(iFrameCardNumber);
         scrollToElementJS(find(spreedlyCardNumber));
@@ -812,8 +833,9 @@ public class InvoiceImplementation extends BasePage {
         type(cvv, spreedlyCVVField);
         driver.switchTo().defaultContent();
         clickChargeSingleCardButton();
+
         delay(3000);
-        acceptAlert();
+        acceptAlert(); //Accept successful payment alert
     }
 
     public void enterPestRoutesPaymentsNewCardInformation(String cardNumber, String expirationDate, String cvv) {
@@ -830,27 +852,29 @@ public class InvoiceImplementation extends BasePage {
         type(cvv, pestRoutesPaymentsCVVField);
         driver.switchTo().defaultContent();
         clickChargeSingleCardButton();
+
         delay(3000);
-        acceptAlert();
+        acceptAlert(); //Accept successful payment alert
     }
 
-    public void enterNewCardInformation(String gateway, String cardNumber, String expirationDate, String cvv) {
+    public void  enterNewCardInformation(String gateway, String cardNumber, String expirationDate, String cvv) {
         switch(gateway) {
             case "Braintree":
-                enterBraintreeNewCardInformation(cardNumber, expirationDate);
+                  enterBraintreeNewCardInformation(cardNumber, expirationDate);
                 break;
             case "Element":
-                enterElementNewCardInformation(cardNumber, expirationDate, cvv);
+                  enterElementNewCardInformation(cardNumber, expirationDate, cvv);
                 break;
             case "NMI":
-                enterNMINewCardInformation(cardNumber, expirationDate, cvv);
+                  enterNMINewCardInformation(cardNumber, expirationDate, cvv);
                 break;
             case "Spreedly":
-                enterSpreedlyNewCardInformation(cardNumber, expirationDate, cvv);
+                 enterSpreedlyNewCardInformation(cardNumber, expirationDate, cvv);
                 break;
             case "PestRoutes Payments":
-                enterPestRoutesPaymentsNewCardInformation(cardNumber, expirationDate, cvv);
+                 enterPestRoutesPaymentsNewCardInformation(cardNumber, expirationDate, cvv);
                 break;
+            default:
         }
         delay(3000);
     }
@@ -907,7 +931,7 @@ public class InvoiceImplementation extends BasePage {
     {
          List<WebElement> generatedInvoices = findElements(invoicesList);
          return generatedInvoices;
-    }
+    }//getGeneratedInvoices()
 
     public String getInvoiceInitialBalance(String invoiceNum){
         String initialBalAmt = getText(By.xpath("//ul[@id='invoiceGroupListContainer']//div[contains(text(), '" + invoiceNum +
@@ -957,4 +981,25 @@ public class InvoiceImplementation extends BasePage {
         return getText(By.xpath("//*[@id='consolidatedInvoiceDetails']//span[contains(text(),'Remaining Balance')]" +
                 "/following-sibling::span/../..//div[@class='left half']/span[contains(text(),'" + consolidatedInvoiceNum + "')] "));
     }//getConsolidatedInvoiceRemainingBalance()
+
+    public void clickCardOnFile()
+    {
+       click(btnCardOnFile);
+    }//clickCardOnFile()
+
+    public void clickChargeCardButton()
+    {
+        click(bthChargeCard);
+    }//clickCardOnFile()
+
+    public String payWithCardOnFile(String paymentAmt)
+    {
+       clickCardOnFile();
+       typeConfirmationAmount(paymentAmt);
+       clickChargeCardButton();
+
+       Utilities.elementIsVisible( paymentConfirmationMsg);
+       String paymentStatusMsg = getPaymentConfirmationMessage();
+       return paymentStatusMsg;
+    }//payWithCardOnFile()
 }

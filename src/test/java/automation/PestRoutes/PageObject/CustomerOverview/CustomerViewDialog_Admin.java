@@ -30,6 +30,7 @@ public class CustomerViewDialog_Admin extends BasePage {
     //Remove Customer
     public String removeButton = "//div[text()='Remove']";
     public String confirmRemoveButton = "//span[text()='Remove Customer?']/ancestor::div//span[text() = 'Confirm Remove']";
+
     public String accountStatusChange = "//div[@id='completeButton']/span";
 
     // Cancel Category
@@ -144,6 +145,6 @@ public class CustomerViewDialog_Admin extends BasePage {
 
     public void clickConfirmRemoveButton() {
         elementIsVisible(confirmRemoveButton);
-        find(By.xpath(confirmRemoveButton)).click();
+       find(By.xpath(confirmRemoveButton)).click();
     }
 }

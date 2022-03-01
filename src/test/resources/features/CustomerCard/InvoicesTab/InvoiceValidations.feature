@@ -5,9 +5,10 @@
 # Ticket 124444: Expiration Date Does Not Advance
 # Ticket 122268: Unable to type decimals in refund window/Firefox specific issue
 # Ticket 123838: Payment applied to incorrect invoice/Customer db specific issue
-# Ticket 123784: Customers Displaying a Balance when No Balance Should Exist. (Related to #120838)
-# Ticket 123825: No Invoice # for customer account #86355 for Special service. (Related to #120838)
+# Ticket 123784: Customers Displaying a Balance when No Balance Should Exist. (Related to: 120838)
+# Ticket 123825: No Invoice # for customer account #86355 for Special service. (Related to: 120838)
 # Ticket 127013: Consolidated Invoices not including add-on
+# Ticket 127056 : Incorrect Card Charged - Previous Linked Billing Accounts (Related to: 127031, 127727)
 @Regression_FWhite
 @CustomerCard
 
@@ -107,3 +108,32 @@ Feature: Validate Customer Invoice
     Then I validate the Consolidated Totals are correct
     And I validate if there are errors exist in the list
     Then I remove the customer
+
+  @VerifyIncorrectCardCharged_1
+  Scenario: 127056-Verify "Billing Info Is Used..." Message is displayed for each linked account when trying to edit a shared credit card
+    Given I retrieve the merchant's configured gateway
+    And I create two linked customers with first name, last name, email, address and zip
+    And I add a shared credit card to linked properties
+    And I validate a message is displayed when editing details of a shared credit card by customers
+    Then I validate if there are errors exist in the list
+    Then I remove linked customers
+
+  @VerifyIncorrectCardCharged_2
+  Scenario: 127056-Verify "Billing Info Is Used..." Message is not displayed for each linked account when editing a credit card that is not shared
+  Given I retrieve the merchant's configured gateway
+  And I create two linked customers with first name, last name, email, address and zip
+  And I add a non-shared credit card to each linked customer
+  And I edit the linked customers' non-shared credit card and validate a <Billing Info Is Used> message is not displayed
+  Then I validate if there are errors exist in the list
+  Then I remove linked customers
+
+  @VerifyIncorrectCardCharged_3
+  Scenario: 127056- Verify a newly added credit card to a linked account is charged after removing a shared credit card
+    Given I retrieve the merchant's configured gateway
+    And I create two linked customers with first name, last name, email, address and zip
+    And I add a shared credit card to linked properties
+    Then I remove the shared credit card and add a non-shared credit card to a linked customer
+    And I add a standalone invoice to a linked customer
+    And I make full payment via pay option "Use Card On File" "4111 1111 1111 1111" or "5412 7501 0905 6250" for balance due
+    Then I validate if there are errors exist in the list
+    Then I remove linked customers

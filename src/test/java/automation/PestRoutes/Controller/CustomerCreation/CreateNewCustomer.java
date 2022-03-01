@@ -12,6 +12,7 @@ import automation.PestRoutes.Utilities.FindElement;
 import automation.PestRoutes.Utilities.Utilities;
 import automation.PestRoutes.Utilities.Utilities.ElementType;
 import io.cucumber.java.en.And;
+import automation.PestRoutes.Utilities.Utilities.*;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -433,6 +434,7 @@ public class CreateNewCustomer extends AppData {
         customer.clickVoiceCheckBox();
         customerDialog_Header.clickSaveButton();
         alertCondition();
+        customerDialog_Header.saveAnyways();
         customerName = getCustomerFullName();
     }
 
@@ -583,12 +585,17 @@ public class CreateNewCustomer extends AppData {
                     Utilities.clickElement("//div[text()='Save Anyways']", ElementType.XPath);
                     break;
                 }
-                if (actionAlert.contains("This customer is closer to")) {
+                if (actionAlert.contains("This customer is closer to"))
+                {
                     alert.dismiss();
                 }
             } catch (NoAlertPresentException e) {
-                delay(500);
-                continue;
+                try {
+                    Thread.sleep(500);
+                    continue;
+                } catch (InterruptedException ex) {
+                    ex.printStackTrace();
+                }
             }
         }
     }
@@ -632,6 +639,21 @@ public class CreateNewCustomer extends AppData {
         customerDialog_Header.discardChanges();
     }
 
+    @Then("I remove the customer {string}")
+    public void removeCustomer(String nameOfCustomer) {
+        header = new Header();
+        customerDialog_Header = new CustomerViewDialog_Header();
+        adminTab = new CustomerViewDialog_Admin();
+        overview = new CustomerViewDialog_OverviewTab();
+
+        header.searchCustomerWithName(nameOfCustomer);
+        Utilities.elementIsVisible(customerDialog_Header.overviewPageTitle);
+        customerDialog_Header.navigateTo(customerDialog_Header.adminTabInDialog);
+        adminTab.clickRemoveButton();
+        customerDialog_Header.confirmCustomerRemoval();
+        customerDialog_Header.discardChanges();
+    }
+
     //Author FK
     public void searchCustomer_SearchField(String needSearchField) {
         createNewCustomer = new CreateNewCustomer();
@@ -644,13 +666,14 @@ public class CreateNewCustomer extends AppData {
     //Author: FWhite
     @Given("I create customer with {string},{string},{string},{string},{string}, and {string}")
     public String createCustomerWithNameEmailAddrStreetAddrPhNumZipCode(String firstName, String lastName, String emailAddr, String phNum, String streetAddr, String zipCode) throws Exception {
-
         customerDialog_Header = new CustomerViewDialog_Header();
         customer = new CreateCustomerDialog();
         overview = new CustomerViewDialog_OverviewTab();
         header = new Header();
         searchBox = new SearchBox();
-        header.searchCustomer_SearchField(firstName + " " + lastName);
+
+        if (customerDialog_Header.checkCustomerExist(firstName, lastName))
+            removeCustomer(firstName + " " + lastName);
 
         //Separate Address parts
         String[] addressArray = streetAddr.split(",");
@@ -665,12 +688,36 @@ public class CreateNewCustomer extends AppData {
         customer.setCellPhone(phNum);
         customer.setEmailAddress(emailAddr);
         customer.setAddress(addrStreet);
+        customer.setCity(addrCity);
         customer.setZipCode(zipCode);
         customer.clickSmsCheckBox();
         customerDialog_Header.clickSaveButton();
         alertCondition();
+        customerDialog_Header.saveAnyways();
         customerName = getCustomerFullName();
+        return customerName;
+    }//createCustomerWithNameEmailAddrStreetAddrPhNumZipCode()
 
+    @Given("I create customer with first name, last name, email, address and {string}")
+    public String createCustomerWithNameEmailAddrStreetAddrPhNumZipCode(String customerZipCode) throws Exception {
+        header = new Header();
+        customerDialog_Header = new CustomerViewDialog_Header();
+        customer = new CreateCustomerDialog();
+
+        header.navigateTo(header.newCustomerTab);
+        customer.setFirstName(fName);
+        customer.setLastName(lName);
+        customer.setCellPhone(primaryPhoneNumber);
+        customer.setEmailAddress(email);
+        customer.setAddress(streetAddress);
+        customer.setZipCode(customerZipCode);
+        zipcode = customerZipCode;
+        customer.clickSmsCheckBox();
+        customer.clickEmailCheckBox();
+        customer.clickVoiceCheckBox();
+        customerDialog_Header.clickSaveButton();
+        alertCondition();
+        customerName = getCustomerFullName();
         return customerName;
     }//createCustomerWithNameEmailAddrStreetAddrPhNumZipCode()
 

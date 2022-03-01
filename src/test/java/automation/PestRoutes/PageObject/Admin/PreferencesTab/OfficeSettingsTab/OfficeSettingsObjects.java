@@ -28,5 +28,6 @@ public class OfficeSettingsObjects extends BasePage {
     {
         Utilities.elementIsVisible(subComponent);
         click(subComponent);
+        delay(500);
     }
 }

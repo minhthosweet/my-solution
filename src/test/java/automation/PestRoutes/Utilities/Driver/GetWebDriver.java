@@ -17,6 +17,7 @@ public class GetWebDriver {
 		if(driver == null) {
 			ChromeOptions options = new ChromeOptions();
 			options.addArguments("--window-size=1366,768","--ignore-certificate-errors");
+			//options.addArguments("headless");
 			WebDriverManager.chromedriver().setup();
 			if(SystemUtils.IS_OS_MAC_OSX) {
 				options.addArguments("--headless", "--disable-gpu");

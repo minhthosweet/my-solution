@@ -39,6 +39,12 @@ public class BillingModule extends BasePage {
         return new CollectionsPage();
     }
 
+    public void navigateTo(String needTab) {
+        Utilities.waitUntileElementIsVisible("//p[text() = '"+needTab+"']");
+        Utilities.clickElement("//p[text() = '"+needTab+"']", Utilities.ElementType.XPath);
+        delay(500);
+    }
+
     public void selectAllICustomerInvoicesForConsolidation(String customerName)
     {
         Utilities.scrollToElement(By.xpath("//*[@id='consolidateInvoicesTable']//span[contains(text(),'" + customerName +"')]"));

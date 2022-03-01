@@ -11,12 +11,14 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
-import static automation.PestRoutes.Utilities.Utilities.switchToIframeByXpath;
+import java.util.Locale;
+
+import static automation.PestRoutes.Utilities.Utilities.*;
 
 public class BillingPage extends BasePage {
 
-	//Page title objects
 	public String paymentMethodTitle = "//div[@id='billingInfoContent']//h3";
+	public By  textBillingInfoUsedMsg = By.xpath("//div[contains(text(),'This billing information is used')]");
 
 	//**********Left navigation objects**********
 	public String billingInfoButton = "//li[text()='Billing Info']";
@@ -45,6 +47,8 @@ public class BillingPage extends BasePage {
 	public String saveBillingInfoButton = "//div[text()='Save Billing Info']";
 	private By btnSaveBillingInfo = By.xpath("//div[text()='Save Billing Info']");
 	private By addAdditionalContactButton = By.xpath("//h3[text()='Additional Contacts']/following-sibling::div[text()='+ Add Contact']");
+	private By ccRemoveAccountButton = By.xpath("//*[@id='paymentProfileForm']//button[contains(text(),'Remove Account')]");
+	private By ccRemovePaymentMethodButton = By.xpath("//*[@id='paymentProfileForm']//button[contains(text(),'Remove Payment Method')]");
 
 	//***Input Fields***
 	private By firstNameInputField = By.xpath("//input[@name='billingFName']");
@@ -77,8 +81,13 @@ public class BillingPage extends BasePage {
 	public String addBankAccountButton = "//div[@id='billingInfoContent']//div[text()='Bank Account']";
 
 	public String ccSecurelyEnterCardInfoButton = "//div[text()='Securely Enter Card Info']";
-	private By ccRemoveAccountButton = By.xpath("//div[text()='Remove Account']");
 	private By ccCopyAccountButton = By.xpath("//div[text()='Copy Account']");
+
+	private By ccCopyAccountLink = By.xpath("//*[@id='paymentProfileForm']/button[contains(text(),'Copy Account')]");
+
+	//private By ccEditCardDetailsLnk = By.xpath("//*[@id='showDuplicatePaymentProfileWarning' and contains(text(),'Edit Card Details')]");
+	private By ccEditCardDetailsLnk = By.xpath("//button[contains(text(),'Edit Card Details')]");
+
 	public String ccSaveCardButton = "//button[@id='submit-payment']";
 	private By cc_X_ButtonInAddCreditCardDialog = By.xpath("//form[@id='lightbox']//div[@class='x-container']");
 	public String tokenValue = "//b[text()='Token:']/parent::td/following-sibling::td";
@@ -167,6 +176,10 @@ public class BillingPage extends BasePage {
 	public String nmiCvvInputField = "//input[@id='cvv']";
 	public String nmiSavedCc = "//input[@name='accountNumber']";
 
+	public final String sharedBillingInfoMsg = "This billing information is used in " +
+			"more than one account and cannot be updated. If you need to make a change you can " +
+			"remove this payment method and create a new one.";
+
 	/*
 	 * Below methods click or select element
 	 */
@@ -196,6 +209,7 @@ public class BillingPage extends BasePage {
 		}
 		FindElement.elementByAttribute(needInputField, InputType.XPath).sendKeys(needValue);
 	}
+	/* **************** End of Setters() ******************************/
 
 	/*
 	 * Below methods gets the text value or attribute value of an element
@@ -229,9 +243,18 @@ public class BillingPage extends BasePage {
 				"\\s.*", "");
 		return customerAccountID;
 	}
+	public String getSharedBillingInfoMsg(){
+		return getText(textBillingInfoUsedMsg);
+	}//getSharedBillingInfoMsg()
 
+	/* **************** End of Getters() ******************************/
+
+	/*
+	 ****************** General Methods and Functions ********************
+	 */
 	public void clickAddPaymentMethod() {
-		delay(3000);
+		//delay(3000);
+		Utilities.elementIsVisible(addPaymentMethod);
 		click(addPaymentMethod);
 	}
 
@@ -242,6 +265,22 @@ public class BillingPage extends BasePage {
 	public void clickSavePaymentMethodButton(){
 		click(buttonSavePaymentMethod);
 	}
+
+	public void clickCopyAccountLnk(){
+		delay(500);
+		click(ccCopyAccountLink);
+	}//clickCopyAccountLnk()
+
+	public void clickEditCardDetails(){
+		delay(500);
+		click(ccEditCardDetailsLnk);
+	}//clickEditCardDetails()
+
+    public void clickEnterCreditCardButton(){
+        Utilities.elementIsVisible (enterCreditCardButton);
+        click( enterCreditCardButton);
+    }//clickEnterCreditCardButton()
+
 
 	public void enterBraintreeNewCardInformation(String cardNumber, String expirationDate, String cvv){
 		driver.switchTo().defaultContent();
@@ -311,7 +350,7 @@ public class BillingPage extends BasePage {
 		clickSavePaymentMethodButton();
 	}
 
-	public void enterPestRoutesPaymentsNewCardInformation(String cardNumber, String expirationDate, String cvv) {
+	public void  enterPestRoutesPaymentsNewCardInformation(String cardNumber, String expirationDate, String cvv) {
 		switchToIframeByXpath(payrixIframe);
 		switchToIframeByXpath(pestRoutesIframeCc);
 		type(cardNumber, pestRoutesPaymentsCardNumber);
@@ -362,5 +401,45 @@ public class BillingPage extends BasePage {
 	public void clickBillingIfoLink() {
 		click(lnkBillingInfo);
 	}//clickBillingIfoLink()
+
+	public String shareCustomerCreditCardInfo(String customerName){
+		clickCreditCardButton();
+		clickCopyAccountLnk();
+
+		//Click on the customer with the  credit card that should be shared
+		click(By.xpath("//*[@id='billingInfoContent']//strong[contains(text(),'" + customerName + "')]"));
+
+		acceptAlert(); //Accept the "Confirm Copy" Message'
+System.out.println("******************** DEBUG: Alert-1");
+		acceptAlert();//Accept the "Successfully Copied" Message
+		acceptAlert();//Accept the "Successfully Copied" Message
+
+//System.out.println("******************** DEBUG: Alert-1");
+
+		return (getTokenValue(ccOptionOnLeft, tokenValue)).toLowerCase(Locale.ROOT);
+	}//shareCustomerCreditCardInfo()
+
+
+	/* Note: This method assumes only 1 payment method exists; and it's a shared credit card*/
+	public void clickSharedCardOnFile(){
+		delay(500);
+		click(By.xpath("//*[@id='billingInfoPanel']//li/span[text()='Credit Card']"));
+	}//clickSharedCardOnFile()
+
+	public void clickRemoveAccount() {
+		click(ccRemoveAccountButton);
+	}//clickRemoveAccount()
+
+	public void clickRemovePaymentMethod() {
+		click(ccRemovePaymentMethodButton);
+	}//clickRemovePaymentMethod()
+
+
+	public void removeCCPaymentMethod(){
+		click(ccRemoveAccountButton);
+		if(elementIsVisible(ccRemovePaymentMethodButton))
+			click(ccRemovePaymentMethodButton);
+	}//removePaymentMethod()
+
 
 }

@@ -8,8 +8,7 @@ import automation.PestRoutes.PageObject.Admin.PreferencesTab.MerchantInfoTab.Mar
 import automation.PestRoutes.PageObject.Admin.PreferencesTab.OfficeSettingsTab.OfficeSettingsObjects;
 import automation.PestRoutes.PageObject.Admin.PreferencesTab.PreferencesPage;
 import automation.PestRoutes.PageObject.Billing.BillingModule.BillingModule;
-import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_SubscriptionTab;
-import automation.PestRoutes.PageObject.CustomerOverview.CustomerviewDialog_AppointmentsTab;
+import automation.PestRoutes.PageObject.CustomerOverview.*;
 import automation.PestRoutes.PageObject.CustomerOverview.Invoicing.CreateNewInvoicePopUp;
 import automation.PestRoutes.PageObject.DashboardPage;
 import automation.PestRoutes.PageObject.Header;
@@ -21,10 +20,10 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.apache.commons.lang.StringUtils;
+import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_Header;
 import automation.PestRoutes.PageObject.CustomerOverview.Invoicing.InvoiceImplementation;
 import automation.PestRoutes.PageObject.CustomerOverview.Invoicing.Invoice_Header;
 import automation.PestRoutes.PageObject.CustomerOverview.Invoicing.RoutePageInvoicing;
@@ -60,6 +59,7 @@ public class InvoicingTab extends AppData{
     PreferencesPage preferencesPage;
     OfficeSettingsObjects officeSettings;
     AddSubscription testSubscription = new AddSubscription();
+    BillingPage billingTab = new BillingPage();
 
     private String treatmentAmount = "900";
     private Integer partialPaymentAmount = Integer.parseInt(treatmentAmount) / 2;
@@ -76,6 +76,8 @@ public class InvoicingTab extends AppData{
     public static String invoicePaymentBalance;
     public static String applyToFirstInvoiceNum;
     public static String addonInvoiceNum;
+    public static String linkedCustomer1FullName = null;
+    public static String linkedCustomer2FullName = null;
 
     @Test
     public void CustomerInvoicing() throws Exception {
@@ -123,6 +125,7 @@ public class InvoicingTab extends AppData{
         newInvoice.select(newInvoice.serviceTypeDropdown, requestedService);
         newInvoice.click(newInvoice.createButton);
     }
+
     public void createStandAloneServiceInvoiceWithAddonAndMarkConsolidate(String invoiceDate, String needAmount, String requestedService, String addonItem){
         createStandAloneServiceInvoice (invoiceDate,needAmount,requestedService);
         Utilities.isPresent(invoiceRoutesTab.invoiceScreenTitle);
@@ -627,12 +630,11 @@ public class InvoicingTab extends AppData{
         schedulingTab.addScheduleDateToProperties();
         schedulingTab.clickScheduleDay();
 
-        //Schedule The Appointment
+         //Schedule The Appointment
         header.searchCustomerWithName(customerFullName);
         subscriptionTab = customerCardHeader.goToSubscriptionTab();
 
         scheduleAppointment.scheduleAppointmentOnRoute(serviceType);
-
         //Complete The Appointment
         header.searchCustomerWithName(customerFullName);
         appointmentsTab = customerCardHeader.goToAppointmentsTab();
@@ -669,9 +671,6 @@ public class InvoicingTab extends AppData{
         invImplementation.clickInitialInvoice();
         invoiceRoutesTab.clickAddPayment();
         invoiceHeader.navigateTo(invoiceHeader.creditCard);
-
-        if(activeGateway.equalsIgnoreCase(merchantPage.GATEWAY_SPREEDLY))
-            expirationDate= "September/29";
 
         //Enter Full Balance Due
        String paymentAmount = invImplementation.getPaymentAmount();
@@ -788,12 +787,25 @@ public class InvoicingTab extends AppData{
         //Pay full invoice amount
         invImplementation.clickInitialInvoice();
         invoiceRoutesTab.clickAddPayment();
+        invoiceHeader.clickCard();
 
-        if (cardPaymentOption.equalsIgnoreCase("SINGLE USE CARD"))
-            {
-            cardPayment.makeSingleCardPayment(creditCardNum, nmiCreditCardNum);
+        String amtDue = invImplementation.getPaymentAmount();
+        if (cardPaymentOption.equalsIgnoreCase("SINGLE USE CARD")) {
+            if ((activeGateway.equalsIgnoreCase(merchantPage.GATEWAY_BRAINTREE)) ||
+                (activeGateway.equalsIgnoreCase(merchantPage.GATEWAY_SPREEDLY)) ||
+                (activeGateway.equalsIgnoreCase(merchantPage.GATEWAY_ELEMENT)) ||
+                (activeGateway.equalsIgnoreCase(merchantPage.GATEWAY_PESTROUTES_PAYMENTS))) {
+                invImplementation.typeConfirmationAmount(amtDue);
+                invImplementation.enterNewCardInformation(activeGateway, "4111 1111 1111 1111", "12/29", "145");
+            }else if (activeGateway.equalsIgnoreCase(merchantPage.GATEWAY_NMI)) {
+                invImplementation.typeConfirmationAmount(amtDue);
+                invImplementation.enterNewCardInformation(activeGateway, "5412 7501 0905 6250", "12/29", "146");
+            }
+        }
+        else if (cardPaymentOption.equalsIgnoreCase("USE CARD ON FILE")) {
+                invImplementation.payWithCardOnFile(invImplementation.getPaymentAmount());
         } else {
-            result(cardPaymentOption, "UNKNOWN CARD PAYMENT OPTION", "Card Option Selection", "Single Use Card Payment");
+            result(cardPaymentOption, "UNKNOWN CARD PAYMENT OPTION", "Card Option Selection", "Card Payment Selection Validation");
         }
     }//makeFullCardPayment()
 
@@ -995,4 +1007,211 @@ public class InvoicingTab extends AppData{
         result(accountRemainingBalance,consolidatedTotalRemainingBalance,"Consolidated Invoices: Remaining Balances Validation","Consolidated Invoices Validation");
         result(addonInvoiceTotal,consolidatedAddonInvoiceRemainingBalance,"Consolidated Invoice With Addon Remaining Balances Validation","Consolidated Invoices Validation");
     }//validateConsolidatedInvoiceTotals()
+
+    @And("I create and link customers,{string} and {string} with first name, last name, email and address")
+    public void createLinkedCustomers(String customer1FullName, String customer2FullName) throws Exception {
+        customerCardHeader = new CustomerViewDialog_Header();
+        CreateNewCustomer customer1 = new CreateNewCustomer();
+        CreateNewCustomer customer2 = new CreateNewCustomer();
+        CustomerViewDialog_Properties propertiesTab = new CustomerViewDialog_Properties();
+        String[] cust1FirstAndLastName = customer1FullName.split(" ");
+        String[] cust2FirstAndLastName = customer2FullName.split(" ");
+
+
+        String customer1Name = customer1.createCustomerWithNameEmailAddrStreetAddrPhNumZipCode(cust1FirstAndLastName[0], cust1FirstAndLastName[1],"tester@test.com", "214-111-1111", "10001 Loop Ln.,Dallas,TX", "75010");
+        String customer2Name = customer2.createCustomerWithNameEmailAddrStreetAddrPhNumZipCode(cust2FirstAndLastName[0], cust2FirstAndLastName[1],"tester@test.com", "214-111-2222", "20002 Loop Ln.,Dallas,TX", "75115");
+
+        header.searchCustomer_History(header.convertName(customer1Name));
+        Utilities.elementIsVisible(customerCardHeader.adminPageTitle);
+        propertiesTab.gotoPropertiesTab();
+        propertiesTab.linkThisProperty(customer2Name);
+    }//createLinkedCustomers()
+
+    @And("I add a shared credit card to linked properties")
+    public void addASharedCreditCardToLinkedProperties() {
+        merchantPage = new MarchantInfoPage();
+        customerCardHeader = new CustomerViewDialog_Header();
+
+        //Add a credit card to customer1
+        header.searchCustomer_History(header.convertName(linkedCustomer1FullName ));
+        Utilities.elementIsVisible(customerCardHeader.adminPageTitle);
+        customerCardHeader.navigateTo(customerCardHeader.billingTabInDialog);
+        billingTab.clickAddPaymentMethod();
+        billingTab.clickCreditCardButton();
+
+        if ((activeGateway.equalsIgnoreCase(merchantPage.GATEWAY_BRAINTREE)) ||
+            (activeGateway.equalsIgnoreCase(merchantPage.GATEWAY_ELEMENT)) ||
+            (activeGateway.equalsIgnoreCase(merchantPage.GATEWAY_SPREEDLY)) ||
+            (activeGateway.equalsIgnoreCase(merchantPage.GATEWAY_PESTROUTES_PAYMENTS)))
+                 billingTab.enterNewCardInformation(activeGateway,"4111 1111 1111 1111","12/29","145" );
+        else if (activeGateway.equalsIgnoreCase(merchantPage.GATEWAY_NMI))
+            billingTab.enterNewCardInformation(activeGateway,"5412 7501 0905 6250","12/29","146" );
+
+        String ccToken1= (billingTab.getTokenValue(billingTab.ccOptionOnLeft, billingTab.tokenValue)).toLowerCase(Locale.ROOT);
+
+        //Share customer1's credit card with customer2
+        header.searchCustomer_History(header.convertName(linkedCustomer2FullName));
+        Utilities.elementIsVisible(customerCardHeader.adminPageTitle);
+        customerCardHeader.navigateTo(customerCardHeader.billingTabInDialog);
+        billingTab.clickAddPaymentMethod();
+        String ccToken2= billingTab.shareCustomerCreditCardInfo(linkedCustomer1FullName);
+
+        result(ccToken1,ccToken2,"Credit Card Tokens Match","Shared Credit Card Validation");
+    }//addASharedCreditCardToLinkedProperties
+
+    @And("I validate a message is displayed when editing details of a shared credit card by customers")
+    public void validateSharedCreditCardCannotBeEdited() {
+
+         //Verify shared credit card cannot be edited by customer1
+        header.searchCustomer_History(header.convertName(linkedCustomer1FullName));
+        Utilities.isTextPresent("Account Overview");
+        customerCardHeader.navigateTo(customerCardHeader.billingTabInDialog);
+        billingTab.clickSharedCardOnFile();
+        billingTab.clickEditCardDetails();
+        String cust1Msg= billingTab.getSharedBillingInfoMsg();
+
+        //Verify shared credit card cannot be edited by customer1
+        header.searchCustomer_History(header.convertName(linkedCustomer2FullName));
+        customerCardHeader.navigateTo(customerCardHeader.billingTabInDialog);
+        billingTab.clickSharedCardOnFile();
+        billingTab.clickEditCardDetails();
+        String cust2Msg = billingTab.getSharedBillingInfoMsg();
+
+        result(cust1Msg,billingTab.sharedBillingInfoMsg,"(Shared CC): 'Billing Information In Used' Message displayed for Customer1", "'Billing Information In Use' Message  Validation");
+        result(cust2Msg,billingTab.sharedBillingInfoMsg,"(Shared CC): 'Billing Information In Used' Message displayed for Customer1", "'Billing Information In Use' Message  Validation");
+    }//validateSharedCreditCardCannotBeEdited()
+
+    @Then("I remove the linked properties , {string} and {string}")
+    public void removeLinkedProperties(String customer1FullName, String customer2FullName) {
+        createCustomer = new CreateNewCustomer();
+        customerCardHeader = new CustomerViewDialog_Header();
+
+        //Remove Customers
+        createCustomer.removeCustomer(customer2FullName);
+        Utilities.delay(500);
+        createCustomer.removeCustomer(customer1FullName);
+    }//removeLinkedProperties()
+
+    @And("I create two linked customers with first name, last name, email, address and zip")
+    public void  createTwoLinkedCustomers() throws Exception {
+        customerCardHeader = new CustomerViewDialog_Header();
+        CreateNewCustomer customer1 = new CreateNewCustomer();
+        CreateNewCustomer customer2 = new CreateNewCustomer();
+        CustomerViewDialog_Properties propertiesTab = new CustomerViewDialog_Properties();
+
+         linkedCustomer1FullName = customer1.createCustomerWithNameEmailAddrStreetAddrPhNumZipCode("75166");
+         linkedCustomer2FullName = customer2.createCustomerWithNameEmailAddrStreetAddrPhNumZipCode("75115");
+
+        header.searchCustomer_History(header.convertName(linkedCustomer1FullName));
+        Utilities.elementIsVisible(customerCardHeader.overviewPageTitle);
+        propertiesTab.gotoPropertiesTab();
+        propertiesTab.linkThisProperty(linkedCustomer2FullName);
+    }//createTwoLinkedCustomers()
+
+    @And("I add a non-shared credit card to each linked customer")
+    public void addNonSharedCreditCardToLinkedCustomers() {
+        merchantPage = new MarchantInfoPage();
+        customerCardHeader = new CustomerViewDialog_Header();
+        String creditCardNumber = "4111 1111 1111 1111";
+
+        if(activeGateway.equalsIgnoreCase(merchantPage.GATEWAY_NMI))
+            creditCardNumber = "5412 7501 0905 6250";
+
+        addCreditCardToCustomerAccount(activeGateway,creditCardNumber,linkedCustomer1FullName);
+        addCreditCardToCustomerAccount(activeGateway,creditCardNumber,linkedCustomer2FullName);
+    }//addNonSharedCreditCardToLinkedCustomers()
+
+    @And("I add a credit card to customer account ")
+    public String addCreditCardToCustomerAccount(String gateway, String ccNumber,String customerFullName) {
+        merchantPage = new MarchantInfoPage();
+        customerCardHeader = new CustomerViewDialog_Header();
+
+        //Add a credit card to customer1
+        header.searchCustomer_History(header.convertName(customerFullName));
+        Utilities.elementIsVisible(customerCardHeader.overviewPageTitle);
+        customerCardHeader.navigateTo(customerCardHeader.billingTabInDialog);
+        billingTab.clickAddPaymentMethod();
+        billingTab.clickCreditCardButton();
+
+        if (gateway.equalsIgnoreCase(merchantPage.GATEWAY_BRAINTREE) ||
+            gateway.equalsIgnoreCase(merchantPage.GATEWAY_ELEMENT) ||
+            gateway.equalsIgnoreCase(merchantPage.GATEWAY_SPREEDLY) ||
+            gateway.equalsIgnoreCase(merchantPage.GATEWAY_PESTROUTES_PAYMENTS))
+            billingTab.enterNewCardInformation(activeGateway, ccNumber, "12/29", "140");
+        else if  (gateway.equalsIgnoreCase(merchantPage.GATEWAY_NMI))
+            billingTab.enterNewCardInformation(activeGateway,ccNumber,"12/29", "141" );
+
+        String ccToken= (billingTab.getTokenValue(billingTab.ccOptionOnLeft, billingTab.tokenValue)).toLowerCase(Locale.ROOT);
+
+        return ccToken;
+    }//addCreditCardToCustomerAccount()
+
+    @And("I update customer's {string} non-shared credit card")
+    public String updateNonSharedCreditCardForCustomer(String customerFullName, String gateway,String cardNumber, String  cvv) {
+
+        //Verify credit card can be updated successfully
+        header.searchCustomer_History(header.convertName(customerFullName));
+        Utilities.elementIsVisible(customerCardHeader.overviewPageTitle);
+        customerCardHeader.navigateTo(customerCardHeader.billingTabInDialog);
+        billingTab.clickSharedCardOnFile();
+        billingTab.clickEditCardDetails();
+        String billingInfoMsg = billingTab.getSharedBillingInfoMsg();
+
+        return billingInfoMsg;
+    }//validateNonSharedCreditCardCanBeEdited()
+
+    @And("I edit the linked customers' non-shared credit card and validate a <Billing Info Is Used> message is not displayed")
+    public void editLinkedCustomersNonSharedCreditCard() {
+        String cardNumber = "4111 1111 1111 1111";
+        if(activeGateway.equalsIgnoreCase(merchantPage.GATEWAY_NMI))
+             cardNumber = "5412 7501 0905 6250";
+
+        String billingInUseMsg1 = updateNonSharedCreditCardForCustomer(linkedCustomer1FullName,activeGateway,cardNumber, "101");
+        result("",billingInUseMsg1.toString(),"Customer (" + linkedCustomer1FullName + ") 'Billing Information In Use...' Message Not Displayed Validation", "Message Not Displayed Validation");
+
+        String billingInUseMsg2 = updateNonSharedCreditCardForCustomer(linkedCustomer2FullName,activeGateway,cardNumber, "202");
+        result("",billingInUseMsg2.toString(),"Customer (" + linkedCustomer2FullName + ") 'Billing Information In Use...' Message Not Displayed Validation", "Message Not Displayed Validation");
+    }//editLinkedCustomersNonSharedCreditCard()
+
+    @Then("I remove linked customers")
+    public void removeLinkedCustomers() {
+        createCustomer = new CreateNewCustomer();
+        customerCardHeader = new CustomerViewDialog_Header();
+
+        //Remove Customers  - Note: The non-master account must be removed first
+        createCustomer.removeCustomer(linkedCustomer2FullName);
+        createCustomer.removeCustomer(linkedCustomer1FullName);
+    }//removeLinkedCustomers()
+
+
+    @Then("I remove the shared credit card and add a non-shared credit card to a linked customer")
+    public void removeSharedCreditCardAndAddANonSharedCreditCard() {
+        merchantPage = new MarchantInfoPage();
+        customerCardHeader = new CustomerViewDialog_Header();
+        String creditCardNumber = "4111 1111 1111 1111";
+
+        if (activeGateway.equalsIgnoreCase(merchantPage.GATEWAY_NMI))
+            creditCardNumber = "5412 7501 0905 6250";
+
+        header.searchCustomer_History(header.convertName(linkedCustomer2FullName));
+        Utilities.elementIsVisible(customerCardHeader.overviewPageTitle);
+        customerCardHeader.navigateTo(customerCardHeader.billingTabInDialog);
+        billingTab.clickSharedCardOnFile();
+        billingTab.removeCCPaymentMethod();
+
+        //Add a non-shared credit card
+        Utilities.elementIsVisible(billingTab.addPaymentMethodButton);
+        addCreditCardToCustomerAccount(activeGateway,creditCardNumber,linkedCustomer2FullName);
+
+    }//removeSharedCreditCardAndAddANonSharedCreditCard
+
+    @And("I add a standalone invoice to a linked customer")
+    public void addStandaloneInvoiceLinkedCustomer() {
+        customerCardHeader = new CustomerViewDialog_Header();
+
+        header.searchCustomer_History(header.convertName(linkedCustomer2FullName));
+        Utilities.elementIsVisible(customerCardHeader.overviewPageTitle);
+        customerCardHeader.navigateTo(customerCardHeader.invoicesTabInDialog);
+        createStandAloneServiceInvoice("150.00", "One-Time Automation");
+    }//addStandaloneInvoiceLinkedCustomer()
 }

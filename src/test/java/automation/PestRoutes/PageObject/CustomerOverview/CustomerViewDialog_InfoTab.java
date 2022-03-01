@@ -1,5 +1,6 @@
 package automation.PestRoutes.PageObject.CustomerOverview;
 
+import automation.PestRoutes.Controller.CustomerCreation.CreateNewCustomer;
 import automation.PestRoutes.PageObject.BasePage;
 import automation.PestRoutes.Utilities.Utilities;
 import org.openqa.selenium.By;
@@ -83,4 +84,5 @@ public class CustomerViewDialog_InfoTab extends BasePage {
     public void selectCustomerGenericFlag(String flagCode) {
         selectFromDropDown(flagCode, genericFlagsDropDown);
     }
+
 }

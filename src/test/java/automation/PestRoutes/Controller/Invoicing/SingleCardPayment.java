@@ -55,6 +55,28 @@ public class SingleCardPayment {
         }
     }
 
+    public void makeSingleCardPayment(String gateWay, String needCC, String needNmiCC) throws Exception {
+        invImplementation.clickInitialInvoice();
+        invoiceRoutesTab.clickAddPayment();
+        invoiceHeader.navigate(invoiceHeader.creditCard);
+        Utilities.waitUntileElementIsVisible(payment.paymentAmountField);
+        String confirmAmount = Utilities.getAttributeValue(payment.paymentAmountField, "value");
+        Utilities.clickElement(payment.confirmAmountField, Utilities.ElementType.XPath);
+        FindElement.elementByAttribute(payment.confirmAmountField, FindElement.InputType.XPath).sendKeys(confirmAmount);
+
+        if (gateWay.contains("Braintree")){
+            chargeSignleBrainTreeCc(needCC);
+        }else if (gateWay.contains("Element")){
+            chargeSingleElementCc(needCC);
+        } else if(gateWay.contains("Spreedly")){
+            chargeSignleSpreedlyCc(needCC);
+        } else if(gateWay.contains("NMI")){
+            chargeSingleNmiCc(needNmiCC);
+        } else if (gateWay.contains("PestRoutes Payments")){
+            chargeSinglePayrixCc(needCC);
+        }
+    }
+
     //***Author Aarbi
     @Then("I charge cc with braintree gateway {string}")
     public void chargeSignleBrainTreeCc(String needBrainTreeCC) {
@@ -87,6 +109,34 @@ public class SingleCardPayment {
         result(expectedConfirmation, actualResult, "Credit Card Confirmation", "Card on file payment");
     }
 
+    public void chargeSignleBrainTreeCc(String needBrainTreeCC, String expirationMthYr, String cvv) {
+        String  expMonthAndYr = expirationMthYr.replace("/", "");
+
+        int i=0;
+        while(i++<5)
+        {
+            try
+            {
+                FindElement.elementByAttribute(payment.ccNumberField, FindElement.InputType.XPath).sendKeys(needBrainTreeCC);
+                Utilities.switchBackToDom();
+                break;
+            }
+            catch(Exception e)
+            {
+                Utilities.delay(500);
+                Utilities.switchBackToDom();
+                Utilities.clickElement(payment.payingWithCardButton, Utilities.ElementType.XPath);
+                continue;
+            }
+        }
+        Utilities.switchToIframeByXpath(payment.brainTreeExpIframe);
+        FindElement.elementByAttribute(payment.ccExpField, FindElement.InputType.XPath).sendKeys(expMonthAndYr);
+        Utilities.switchBackToDom();
+        Utilities.clickElement(payment.chargeSingleCard, Utilities.ElementType.XPath);
+        Utilities.acceptAlert();
+        Utilities.elementIsVisible(confirmationPage.singleCardPaymentResult);
+     }//chargeSignleBrainTreeCc()
+
     //***Author Aarbi
     @Then("I charge cc with element gateway {string}")
     public void chargeSingleElementCc(String needElementCC) {
@@ -104,6 +154,23 @@ public class SingleCardPayment {
         String expectedConfirmation = "Successfully Charged Credit Card!";
         result(expectedConfirmation, actualResult, "Credit Card Confirmation", "Card on file payment");
     }
+
+    public void chargeSingleElementCc(String needElementCC, String expirationMthYr, String cvv) {
+        String[] separateMonthYear = expirationMthYr.split("/");
+        String month = separateMonthYear[0];
+        String year = separateMonthYear[1];
+
+        Utilities.clickElement(payment.chargeSingleCard, Utilities.ElementType.XPath);
+        Utilities.switchToIframeByXpath(payment.elementIframe);
+        FindElement.elementByAttribute(payment.elementCcInputField, FindElement.InputType.XPath).sendKeys(needElementCC);
+        Utilities.selectValueFromDropDownByValue(payment.elementExpMonthDropdown, month);
+        Utilities.selectValueFromDropDownByValue(payment.elementExpYearDropdown, year);
+        FindElement.elementByAttribute(payment.elementCvvInputField, FindElement.InputType.XPath).sendKeys(cvv);
+        Utilities.clickElement(payment.elementProcessTransactionButton, Utilities.ElementType.XPath);
+        Utilities.switchBackToDom();
+        Utilities.acceptAlert();
+        Utilities.elementIsVisible(confirmationPage.singleCardPaymentResult);
+    }//chargeSingleElementCc()
 
     //***Author Aarbi
     @Then("I charge cc with spreedly gateway {string}")
@@ -126,6 +193,27 @@ public class SingleCardPayment {
         result(expectedConfirmation, actualResult, "Credit Card Confirmation", "Card on file payment");
     }
 
+    public void chargeSignleSpreedlyCc(String needSpreedlyCC, String expirationMthYr, String cvv) {
+        String[] separateMonthYear = expirationMthYr.split("/");
+        String month = separateMonthYear[0];
+        String year = separateMonthYear[1];
+
+        String spreedlyIframe = Utilities.getAttributeValue(payment.spreedlyOneTimeCcNumberIframe, "id");
+        Utilities.switchToIframeByXpath(spreedlyIframe);
+        FindElement.elementByAttribute(payment.spreedlyOneTimeCardNumberInputField, FindElement.InputType.XPath).sendKeys(needSpreedlyCC);
+        Utilities.switchBackToDom();
+        String spreedlyCvvIframe = Utilities.getAttributeValue(payment.spreedlyOneTimeCvvIframe, "id");
+        Utilities.switchToIframeByXpath(spreedlyCvvIframe);
+        FindElement.elementByAttribute(payment.spreedlyOneTimeCvvInputField, FindElement.InputType.XPath).sendKeys(cvv);
+        Utilities.switchBackToDom();
+        Utilities.selectValueFromDropDownByValue(payment.spreedlyOneTimeExpMonthDropdown, month);
+        Utilities.selectValueFromDropDownByValue(payment.spreedlyOneTimeExpYearDropdown, year);
+        Utilities.clickElement(payment.chargeSingleCard, Utilities.ElementType.XPath);
+        Utilities.acceptAlert();
+        Utilities.waitUntileElementIsVisible(confirmationPage.singleCardPaymentResult);
+       }// chargeSignleSpreedlyCc()
+
+
     //***Author Aarbi
     @Then("I charge cc with nmi gateway {string}")
     public void chargeSingleNmiCc(String needNmiCC) {
@@ -142,6 +230,20 @@ public class SingleCardPayment {
         String expectedConfirmation = "Successfully Charged Credit Card!";
         result(expectedConfirmation, actualResult, "Credit Card Confirmation", "Card on file payment");
     }
+
+    public void chargeSingleNmiCc(String needNmiCC, String expirationMthYr,String cvv) {
+        String expMthYr = expirationMthYr.replace("/", "");
+
+        Utilities.clickElement(payment.nmiChargeSingleCardButton, Utilities.ElementType.XPath);
+        Utilities.switchToIframeByXpath(payment.nmiIframe);
+        FindElement.elementByAttribute(payment.nmiCcNumberInputField, FindElement.InputType.XPath).sendKeys(needNmiCC);
+        FindElement.elementByAttribute(payment.nmiCcExpInputField, FindElement.InputType.XPath).sendKeys(expMthYr);
+        FindElement.elementByAttribute(payment.nmiCvvInputField, FindElement.InputType.XPath).sendKeys(cvv);
+        Utilities.clickElement(payment.nmiSubmitPaymentButton, Utilities.ElementType.XPath);
+        Utilities.switchBackToDom();
+        Utilities.acceptAlert();
+        Utilities.waitUntileElementIsVisible(confirmationPage.paymentResultTitle);
+    }// chargeSingleNmiCc()
 
     //***Author Aarbi
     @Then("I charge cc with payrix gateway {string}")
@@ -165,4 +267,24 @@ public class SingleCardPayment {
         String expectedConfirmation = "Successfully Charged Credit Card!";
         result(expectedConfirmation, actualResult, "Credit Card Confirmation", "Card on file payment");
     }
+
+    public void chargeSinglePayrixCc(String needPayrixCC, String expriationMthYr, String cvv) {
+       String expMthYr = expriationMthYr.replace("/", "");
+
+        Utilities.switchToIframeByXpath(payment.singlePayrixIframe);
+        Utilities.switchToIframeByXpath(payment.payrixCcIframe);
+        FindElement.elementByAttribute(payment.payrixCcNumberInputField, FindElement.InputType.XPath).sendKeys(needPayrixCC);
+        Utilities.switchBackToDom();
+        Utilities.switchToIframeByXpath(payment.singlePayrixIframe);
+        Utilities.switchToIframeByXpath(payment.payrixExpIframe);
+        FindElement.elementByAttribute(payment.payrixExpInputField, FindElement.InputType.XPath).sendKeys(expMthYr);
+        Utilities.switchBackToDom();
+        Utilities.switchToIframeByXpath(payment.singlePayrixIframe);
+        Utilities.switchToIframeByXpath(payment.payrixCvvIframe);
+        FindElement.elementByAttribute(payment.payrixCvvInputField, FindElement.InputType.XPath).sendKeys(cvv);
+        Utilities.switchBackToDom();
+        Utilities.clickElement(payment.chargeSingleCard, Utilities.ElementType.XPath);
+        Utilities.acceptAlert();
+    }//chargeSinglePayrixCc()
+
 }

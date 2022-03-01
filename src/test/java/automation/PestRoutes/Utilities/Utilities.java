@@ -35,6 +35,7 @@ public class Utilities {
 
 	public static List list= new ArrayList<String>();
 
+
 	public static String getAlertText() {
 		Alert alert = alertPopUp();
 		if (alert != null) {
@@ -322,9 +323,7 @@ public class Utilities {
 	}
 
 	public static void hoverElement(String needElementToHover, String needAttributeToClick) {
-		Actions action = new Actions(driver);
-		action.moveToElement(driver.findElement(By.xpath(needElementToHover))).
-				moveToElement(driver.findElement(By.xpath(needAttributeToClick))).click().perform();
+		hoverElement(By.xpath(needElementToHover), By.xpath(needAttributeToClick));
 	}
 
 	public static void hoverElement(By needElementToHover, By needAttributeToClick) {
@@ -394,7 +393,6 @@ public class Utilities {
 		WebElement elm = FindElement.elementByAttribute(needAttribute, FindElement.InputType.XPath);
 		try {
 			if (elm.isDisplayed()) {
-				waitUntileElementIsVisible(needAttribute, 7);
 				scrollToElement(needAttribute);
 				clickElement(needAttribute, Attribute_Type, false, false);
 			}
@@ -746,29 +744,6 @@ public class Utilities {
 			Thread.sleep(timeout);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
-		}
-	}
-
-	private void alertCondition() throws Exception {
-		int i = 0;
-		while (i++ < 5) {
-			try {
-				Alert alert = alertPopUp();
-				String actionAlert = getAlertText();
-				String expected = "Action Required!";
-				if (actionAlert.contains(expected)) {
-					alert.accept();
-					Utilities.clickElement("//div[text()='Save Anyways']", ElementType.XPath);
-					break;
-				}
-				if (actionAlert.contains("This customer is closer to")) {
-					alert.dismiss();
-				}
-
-			} catch (NoAlertPresentException e) {
-				delay(500);
-				continue;
-			}
 		}
 	}
 }
