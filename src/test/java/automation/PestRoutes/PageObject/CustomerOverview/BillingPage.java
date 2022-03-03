@@ -410,11 +410,9 @@ public class BillingPage extends BasePage {
 		click(By.xpath("//*[@id='billingInfoContent']//strong[contains(text(),'" + customerName + "')]"));
 
 		acceptAlert(); //Accept the "Confirm Copy" Message'
-System.out.println("******************** DEBUG: Alert-1");
-		acceptAlert();//Accept the "Successfully Copied" Message
+		delay(3000);
 		acceptAlert();//Accept the "Successfully Copied" Message
 
-//System.out.println("******************** DEBUG: Alert-1");
 
 		return (getTokenValue(ccOptionOnLeft, tokenValue)).toLowerCase(Locale.ROOT);
 	}//shareCustomerCreditCardInfo()

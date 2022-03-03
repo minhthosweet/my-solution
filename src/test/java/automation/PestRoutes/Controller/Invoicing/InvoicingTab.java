@@ -982,6 +982,9 @@ public class InvoicingTab extends AppData{
         header.navigateTo(header.billingTab);
         billingComponent.clickConsolidateInvoices();
 
+        billingComponent.setDateRange("This Week");
+        billingComponent.clickRefresh();
+
         billingComponent.selectAllICustomerInvoicesForConsolidation(customerName);
         billingComponent.clickActions();
         billingComponent.clickConsolidateInvoicesAction();
