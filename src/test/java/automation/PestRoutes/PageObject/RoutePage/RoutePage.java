@@ -199,6 +199,7 @@ public class RoutePage extends BasePage {
 
     public void selectExistingCustomer(String customer) {
         if (elementIsVisible(existingCustomerField)) {
+            delay(1000);
             type(customer, existingCustomerField);
             WebElement existingCustomer = find(By.xpath("//div[@aria-describedby='chooseCustomerDialog']//span[@class='left searchName' and contains(text(), '"+ customer +"')]"));
             existingCustomer.click();

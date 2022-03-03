@@ -575,7 +575,7 @@ public class CreateNewCustomer extends AppData {
 
     private void alertCondition() {
         int i = 0;
-        while (i++ < 5) {
+        while (i++ < 3) {
             try {
                 Alert alert = Utilities.alertPopUp();
                 String actionAlert = Utilities.getAlertText();

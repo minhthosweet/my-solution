@@ -97,31 +97,37 @@ public class BasePage {
      */
 
     public CreateCustomerDialog goToNewCustomerComponent () {
+        scrollToElementJS(newCustomerComponent);
         click(newCustomerComponent);
         return new CreateCustomerDialog ();
     }
 
     public SchedulingTab goToSchedulingComponent () {
+        scrollToElementJS(schedulingComponent);
         click(schedulingComponent);
         return new SchedulingTab();
     }
 
     public BillingModule goToBillingComponent(){
+        scrollToElementJS(billingComponent);
         click(billingComponent);
         return new BillingModule();
     }
 
     public ReportingMainPage goToReportingComponent () {
+        scrollToElementJS(reportingComponent);
         click(reportingComponent);
         return new ReportingMainPage();
     }
 
     public AdminMainPage goToAdminComponent(){
+        scrollToElementJS(adminComponent);
         click(adminComponent);
         return new AdminMainPage();
     }
 
     public void goToCustomerSearchComponent(String customerIDorName) {
+        scrollToElementJS(customerSearchField);
         click(customerSearchField);
         type(customerIDorName, customerSearchField);
         click(customer);

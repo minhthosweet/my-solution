@@ -531,6 +531,7 @@ public class CustomerViewDialog_SubscriptionTab extends BasePage {
 	}
 
 	public double getRecurringService_NewTicketItemPrice(String needTicketItem) {
+		delay(3000);
 		String ticketValue = Utilities.getAttributeValue("//div[@id='recurringServices']//div[text() = '" + needTicketItem + "']/following-sibling::input", "value");
 //		String val = ticketValue.substring(3);
 //		return Double.parseDouble(val);
