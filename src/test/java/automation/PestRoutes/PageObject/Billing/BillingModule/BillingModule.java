@@ -28,6 +28,8 @@ public class BillingModule extends BasePage {
     //******* Actions Objects **************
     private By dropdwnActions = By.xpath("//*[@id='consolidateInvoicesTableActions']");
     private By actionConsolidateInvoices = By.xpath("//*[@id='consolidateInvoicesAction']");
+    private By dateRange = By.xpath("//input[@name='dateRange-consolidateInvoicesFilterParams']");
+    private By btnRefresh = By.xpath("//*[@id='consolidateInvoicesFilterWrapper']//div[contains(text(),'Refresh')]");
 
     public void navigate(String needPath){
         Utilities.clickElement(needPath, Utilities.ElementType.XPath);
@@ -73,4 +75,16 @@ public class BillingModule extends BasePage {
         click(actionConsolidateInvoices);
         delay(500);
     }//clickConsolidateInvoicesAction();
+
+    public void clickRefresh(){
+        click(btnRefresh);
+        delay(500);
+    }//clickRefresh();
+
+    public void setDateRange(String dateRangeValue) {
+        Utilities.waitUntileElementIsVisible(dateRange,5);
+        click(dateRange);
+        Utilities.waitUntileElementIsVisible("//div[contains(@style,'block')]//li[text()='" + dateRangeValue + "']",5);
+        click(By.xpath("//div[contains(@style,'block')]//li[text()='" + dateRangeValue + "']"));
+    }
 }
