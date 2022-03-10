@@ -54,7 +54,7 @@ public class TestOneTimePayment {
                 "\n Actual Renewal Date:   " + subscriptionRenewalDate +
                         "\n Expected Renewal Date: " + invoiceRenewalDate +
                         "\n The Subscription Actual Renewal Date & Expected Renewal Date Does Not Match \n");
-        softAssert.assertAll();
         testCustomer.removeCustomer();
+        softAssert.assertAll();
     }
 }

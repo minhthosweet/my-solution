@@ -143,10 +143,10 @@ public class AR_Age extends AppData {
        boolean isNoteSent = userOnNotesTab.getNotesLogInfo().contains(noteDetail);
        softAssert.assertTrue(isNoteSent,
                 "Customer Did Not Receive " + noteDetail + " After Executing Trigger");
-       softAssert.assertAll();
        sameUser.goToAdminTab();
        userOnAdminTab.clickRemoveButton();
        userOnAdminTab.clickConfirmRemoveButton();
+       softAssert.assertAll();
     }
 
     @Then("I Verify The Customer Received {string} After Executing The Trigger")
@@ -166,9 +166,9 @@ public class AR_Age extends AppData {
                 "\n" + genericFlag + " Is Not Displayed On The Info Tab After Executing Trigger" );
         softAssert.assertTrue(isAdditionalFlagDisplayedOnInfoTab,
                 additionalFlag + " Is Not Displayed On The Info Tab After Executing Trigger \n" );
-        softAssert.assertAll();
         sameUser.goToAdminTab();
         userOnAdminTab.clickRemoveButton();
         userOnAdminTab.clickConfirmRemoveButton();
+        softAssert.assertAll();
     }
 }

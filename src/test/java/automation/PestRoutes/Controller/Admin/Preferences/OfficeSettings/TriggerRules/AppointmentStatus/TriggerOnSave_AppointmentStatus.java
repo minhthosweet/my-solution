@@ -152,9 +152,9 @@ public class TriggerOnSave_AppointmentStatus extends AppData {
                 "\n Actual Category:   " + actualCategory +
                         "\n Expected Category: " + expectedCategory +
                         "\n The Actual & Expected Categories Do Not Match \n");
-        softAssert.assertAll();
         footer.clickCustomerFromList(testCustomer.customerName);
         testCustomer.removeCustomer();
+        softAssert.assertAll();
     }
 
     @Then("I Verify The Alert Has Been Added After Executing The Trigger")
@@ -172,8 +172,8 @@ public class TriggerOnSave_AppointmentStatus extends AppData {
                 "\n Actual Notification:   " + actualNotification +
                         "\n Expected Notification: " + expectedNotification +
                         "\n The Actual & Expected Notifications Do Not Match \n");
-        softAssert.assertAll();
         footer.clickCustomerFromList(testCustomer.customerName);
         testCustomer.removeCustomer();
+        softAssert.assertAll();
     }
 }

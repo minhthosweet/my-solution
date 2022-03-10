@@ -219,7 +219,6 @@ public class CreateCustomerDialog extends BasePage {
         FindElement.elementByAttribute(firstNameInputField, InputType.XPath).sendKeys(needFirstName);
     }
     public void typeFirstName (String firstName) {
-        delay(1000);
         type(firstName, firstNameField);
     }
 

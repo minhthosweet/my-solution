@@ -99,30 +99,35 @@ public class BasePage {
     public CreateCustomerDialog goToNewCustomerComponent () {
         scrollToElementJS(newCustomerComponent);
         click(newCustomerComponent);
+        delay(1000);
         return new CreateCustomerDialog ();
     }
 
     public SchedulingTab goToSchedulingComponent () {
         scrollToElementJS(schedulingComponent);
         click(schedulingComponent);
+        delay(1000);
         return new SchedulingTab();
     }
 
     public BillingModule goToBillingComponent(){
         scrollToElementJS(billingComponent);
         click(billingComponent);
+        delay(1000);
         return new BillingModule();
     }
 
     public ReportingMainPage goToReportingComponent () {
         scrollToElementJS(reportingComponent);
         click(reportingComponent);
+        delay(1000);
         return new ReportingMainPage();
     }
 
     public AdminMainPage goToAdminComponent(){
         scrollToElementJS(adminComponent);
         click(adminComponent);
+        delay(1000);
         return new AdminMainPage();
     }
 
@@ -131,6 +136,7 @@ public class BasePage {
         click(customerSearchField);
         type(customerIDorName, customerSearchField);
         click(customer);
+        delay(1000);
     }
 
     public void goToTasks() {

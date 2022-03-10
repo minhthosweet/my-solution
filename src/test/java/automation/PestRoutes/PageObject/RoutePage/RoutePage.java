@@ -187,9 +187,9 @@ public class RoutePage extends BasePage {
             addRoutesByQuantity("1");
             find(allFixedAppointments).click();
         }
-        delay(1000);
+        delay(2000);
         if(!elementIsVisible(existingCustomerField)) {
-            delay(1000);
+            delay(2000);
             if (!elementIsVisible(serviceTypeDropDown)) {
                 addRoutesByQuantity("1");
                 find(allFixedAppointments).click();

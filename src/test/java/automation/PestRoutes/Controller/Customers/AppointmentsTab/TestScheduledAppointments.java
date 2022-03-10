@@ -90,8 +90,8 @@ public class TestScheduledAppointments {
                 "\n Expected Subscription: " + expectedSubscription +
                         "\n Actual Subscription: " + actualSubscription +
                         "\n The Expected Subscription Is Not Contained In The Actual Subscription");
-        softAssert.assertAll();
         testCustomer.removeCustomer();
+        softAssert.assertAll();
     }
 
     @When("I Complete An Appointment")

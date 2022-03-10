@@ -48,7 +48,7 @@ public class TestCustomProduction {
                 "\n Actual: " + actualCustomProductionAmount +
                         "\n Expected: " + expectedCustomProductionAmount +
                         "\n The Actual & Expected Custom Production Amounts Do Not Match");
-        softAssert.assertAll();
         testCustomer.removeCustomer();
+        softAssert.assertAll();
     }
 }

@@ -206,11 +206,6 @@ public class CustomerViewDialog_Header extends BasePage {
         return new CustomerViewDialog_Admin();
     }
 
-    public void removeCustomer(String customerName){
-
-    }
-
-
     public boolean checkCustomerExist(String firstName, String lastName) {
         Header header = new Header();
         SearchBox searchBox = new SearchBox();

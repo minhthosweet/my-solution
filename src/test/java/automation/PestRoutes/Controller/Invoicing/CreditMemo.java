@@ -125,7 +125,7 @@ public class CreditMemo extends AppData {
                 "\n The Memo Does Not Contain Payment Amount: " +
                         "\n Payment Amount Is " + payment +
                         "\n Memo Is " + userOnInvoicesTab.getRecentMemo());
-        softAssert.assertAll();
         testCustomer.removeCustomer();
+        softAssert.assertAll();
     }
 }

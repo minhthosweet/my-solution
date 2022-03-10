@@ -65,10 +65,10 @@ public class TestCustomerPortalSummaryTab {
         String actualMessage = userOnCustomerPortalSummaryTab.getFirstNameFromWelcomeBanner();
         softAssert.assertTrue(actualMessage.contains(expectedFirstName),
                 "Welcome Message Does Not Contain The Correct First Name");
-        softAssert.assertAll();
         closeTab();
         switchToOldWindowOpened();
         testCustomer.removeCustomer();
+        softAssert.assertAll();
     }
 
     @Then("I Verify The Property Details Section")
@@ -82,10 +82,10 @@ public class TestCustomerPortalSummaryTab {
                 "Expected City, State, and Zip Is Not Contained In The Property Details Section");
         softAssert.assertTrue(actualPropertyDetails.contains(expectedEmailAddress),
                 "Expected Email Address Is Not Contained In The Property Details Section");
-        softAssert.assertAll();
         closeTab();
         switchToOldWindowOpened();
         testCustomer.removeCustomer();
+        softAssert.assertAll();
     }
 
     @Then("I Verify Share The Love Message")
@@ -94,10 +94,10 @@ public class TestCustomerPortalSummaryTab {
         softAssert.assertTrue(actualShareTheLoveMessage.equalsIgnoreCase(
                 "Share The Love"),
                 "The Actual And Expected Share The Love Text Do Not Match");
-        softAssert.assertAll();
         closeTab();
         switchToOldWindowOpened();
         testCustomer.removeCustomer();
+        softAssert.assertAll();
     }
 
     @Then("I Verify Service Type Is Correct In Summary Tab via Service Plan Section")
@@ -107,10 +107,10 @@ public class TestCustomerPortalSummaryTab {
         softAssert.assertTrue(expectedServiceType.contains(actualServiceType),
                 "Service Plan Section Contains " + actualServiceType +
                         " And Does Not Contain A Service Type Labeled " + expectedServiceType);
-        softAssert.assertAll();
         closeTab();
         switchToOldWindowOpened();
         testCustomer.removeCustomer();
+        softAssert.assertAll();
     }
 
     @Then("I Verify A Frozen Subscription Service Is Not Available via Service Plan Section")
@@ -121,10 +121,10 @@ public class TestCustomerPortalSummaryTab {
                 "\n Actual Number Of Services:   " + actualNumberOfServices +
                         "\n Expected Number Of Services: " + expectedNumberOfServices +
                         "\n The Actual Number Of Services Should Equal Zero (0) Since The Subscription Was Frozen \n");
-        softAssert.assertAll();
         closeTab();
         switchToOldWindowOpened();
         testCustomer.removeCustomer();
+        softAssert.assertAll();
     }
 
     @Then("I Verify The Cancelled Scheduled Appointment Is Not Displayed via Service Plan Section")
@@ -137,10 +137,10 @@ public class TestCustomerPortalSummaryTab {
                 "\n Actual Number Of Services:   " + actualNumberOfServices +
                         "\n Expected Number Of Services: " + expectedNumberOfServices +
                         "\n The Actual Number Of Services Should Equal Zero (0) Since The Appointment Was Canceled \n");
-        softAssert.assertAll();
         closeTab();
         switchToOldWindowOpened();
         testCustomer.removeCustomer();
+        softAssert.assertAll();
     }
 
     @Then("I Verify The Responsible Balance via Summary Tab Matches The Invoice Balance")
@@ -149,10 +149,10 @@ public class TestCustomerPortalSummaryTab {
         softAssert.assertEquals(actualPaymentBalance, expectedPaymentBalance,
                 "Actual Responsible Balance: " + actualPaymentBalance +
                         " & Expected Balance: " + expectedPaymentBalance + " Do Not Match");
-        softAssert.assertAll();
         closeTab();
         switchToOldWindowOpened();
         testCustomer.removeCustomer();
+        softAssert.assertAll();
     }
 
     @Then("I Verify The Fields Contain Correct Information")
@@ -183,10 +183,10 @@ public class TestCustomerPortalSummaryTab {
         softAssert.assertTrue(userOnCustomerPortalSummaryTab.getMostRecentServiceSection()
                 .contains(expectedServiceNotes),
                 "The Most Recent Service Section Does Not Contain Correct Service Notes");
-        softAssert.assertAll();
         closeTab();
         switchToOldWindowOpened();
         testCustomer.removeCustomer();
+        softAssert.assertAll();
     }
 
     @Then("I Verify The Links Are Displayed via Most Recent Service Section")
@@ -195,10 +195,10 @@ public class TestCustomerPortalSummaryTab {
                 "The Service Notification Link Is Not Displayed via Most Recent Service Section");
         softAssert.assertEquals(userOnCustomerPortalSummaryTab.isInvoiceLinkDisplayed(), true,
                 "The Invoice Link Is Not Displayed via Most Recent Service Section");
-        softAssert.assertAll();
         closeTab();
         switchToOldWindowOpened();
         testCustomer.removeCustomer();
+        softAssert.assertAll();
     }
 
     @Then("I Verify The Technical Review Area And Star Rating Are Displayed via Most Recent Service Section")
@@ -207,9 +207,9 @@ public class TestCustomerPortalSummaryTab {
                 "The Technical Review Text Area Is Not Displayed via Most Recent Service Section");
         softAssert.assertEquals(userOnCustomerPortalSummaryTab.isStarRatingsDisplayed(), true,
                 "The Star Ratings Are Not Displayed via Most Recent Service Section");
-        softAssert.assertAll();
         closeTab();
         switchToOldWindowOpened();
         testCustomer.removeCustomer();
+        softAssert.assertAll();
     }
 }

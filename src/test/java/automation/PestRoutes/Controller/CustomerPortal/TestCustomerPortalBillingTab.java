@@ -49,10 +49,10 @@ public class TestCustomerPortalBillingTab {
         softAssert.assertTrue(actualMessage.contains(expectedFirstName),
                 "Welcome Message Does Not Contain The Correct First Name" + "\n" +
                         "First Name " + expectedFirstName + " Is Not Located In " + actualMessage);
-        softAssert.assertAll();
         closeTab();
         switchToOldWindowOpened();
         testCustomer.removeCustomer();
+        softAssert.assertAll();
     }
 
     @Then("I Verify The Responsible Balance via Billing Tab Matches The Invoice Balance")
@@ -62,10 +62,10 @@ public class TestCustomerPortalBillingTab {
         softAssert.assertEquals(actualPaymentBalance, expectedPaymentBalance,
                 "Actual Responsible Balance: " + actualPaymentBalance +
                         " & Expected Balance: " + expectedPaymentBalance + " Do Not Match");
-        softAssert.assertAll();
         closeTab();
         switchToOldWindowOpened();
         testCustomer.removeCustomer();
+        softAssert.assertAll();
     }
 
     @Then("I Verify The Billing History Section via Billing Tab")
@@ -97,10 +97,10 @@ public class TestCustomerPortalBillingTab {
                 "The Previous Link Is Not Displayed via Billing Tab");
         softAssert.assertEquals(userOnCustomerPortalBillingTab.isNextLinkDisplayed(), true,
                 "The Next Link Is Not Displayed via Billing Tab");
-        softAssert.assertAll();
         closeTab();
         switchToOldWindowOpened();
         testCustomer.removeCustomer();
+        softAssert.assertAll();
     }
 
     @Then("I Verify The Service Type-Amount Is Correct via Current Section")
@@ -112,10 +112,10 @@ public class TestCustomerPortalBillingTab {
               "The Current Section Does Not Contain Correct Service Type");
         softAssert.assertTrue(userOnCustomerPortalBillingTab.getCurrentSectionText().contains(expectedCurrentSubscriptionAmount),
               "The Current Section Does Not Contain Correct Amount");
-        softAssert.assertAll();
         closeTab();
         switchToOldWindowOpened();
         testCustomer.removeCustomer();
+        softAssert.assertAll();
     }
 
     @Then("I Verify An Error Shows Up When Selecting Pay Total Amount Due Without Selecting a Payment Method")
@@ -126,10 +126,10 @@ public class TestCustomerPortalBillingTab {
         String paymentMethodError = userOnCustomerPortalBillingTab.getPaymentMethodErrorMessage();
         softAssert.assertTrue(paymentMethodError.contains("Please choose a method of payment"),
                 "The Payment Method Error Message Is Not Available Or Not Correct");
-        softAssert.assertAll();
         closeTab();
         switchToOldWindowOpened();
         testCustomer.removeCustomer();
+        softAssert.assertAll();
     }
 
     @Then("I Verify An Error Shows Up When Selecting Pay Another Amount Without Selecting a Payment Method")
@@ -141,10 +141,10 @@ public class TestCustomerPortalBillingTab {
         String paymentMethodError = userOnCustomerPortalBillingTab.getPaymentMethodErrorMessage();
         softAssert.assertTrue(paymentMethodError.contains("Please choose a method of payment"),
                 "The Payment Method Error Message Is Not Available Or Not Correct");
-        softAssert.assertAll();
         closeTab();
         switchToOldWindowOpened();
         testCustomer.removeCustomer();
+        softAssert.assertAll();
     }
 
     @Then("I Verify The Billing Tab Has An Image-Link To Make A Payment")
@@ -152,10 +152,10 @@ public class TestCustomerPortalBillingTab {
         userOnCustomerPortalBillingTab = userOnCustomerPortalSummaryTab.goToBillingTab();
         softAssert.assertTrue(userOnCustomerPortalBillingTab.isMakePaymentImageDisplayed(),
                 "The Make Payment Image Is Not Displayed via Billing Tab");
-        softAssert.assertAll();
         closeTab();
         switchToOldWindowOpened();
         testCustomer.removeCustomer();
+        softAssert.assertAll();
     }
 
     @Then("I Verify All Of The Required Fields To Pay Total Amount Using A One Time Card For Each {string}")
@@ -170,10 +170,10 @@ public class TestCustomerPortalBillingTab {
                 "Expiration Date Does Not Have A Required Field Error Message");
         softAssert.assertTrue(userOnCustomerPortalBillingTab.isPayTotalCVVErrorDisplayed(gateway),
                 "CVV Does Not Have A Required Field Error Message");
-        softAssert.assertAll();
         closeTab();
         switchToOldWindowOpened();
         testCustomer.removeCustomer();
+        softAssert.assertAll();
     }
 
     @Given("I Set Up The Application For {string}")
@@ -198,10 +198,10 @@ public class TestCustomerPortalBillingTab {
         softAssert.assertEquals(actualPaymentBalance, "$0.00",
                 "Actual Responsible Balance: " + actualPaymentBalance +
                         " & Expected Balance: " + "$0.00" + " Do Not Match");
-        softAssert.assertAll();
         closeTab();
         switchToOldWindowOpened();
         testCustomer.removeCustomer();
+        softAssert.assertAll();
     }
 
     @When("I Add A Card On File Using {string}, {string}, {string}, {string}")
@@ -223,9 +223,9 @@ public class TestCustomerPortalBillingTab {
         softAssert.assertEquals(actualPaymentBalance, "$0.00",
                 "Actual Responsible Balance: " + actualPaymentBalance +
                         " & Expected Balance: " + "$0.00" + " Do Not Match");
-        softAssert.assertAll();
         closeTab();
         switchToOldWindowOpened();
         testCustomer.removeCustomer();
+        softAssert.assertAll();
     }
 }

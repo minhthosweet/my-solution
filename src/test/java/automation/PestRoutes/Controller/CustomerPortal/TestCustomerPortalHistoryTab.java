@@ -34,10 +34,10 @@ public class TestCustomerPortalHistoryTab {
         String actualMessage = userOnCustomerPortalHistoryTab.getFirstNameFromWelcomeBanner();
         softAssert.assertTrue(actualMessage.contains(expectedFirstName),
                 "Welcome Message Does Not Contain The Correct First Name");
-        softAssert.assertAll();
         closeTab();
         switchToOldWindowOpened();
         testCustomer.removeCustomer();
+        softAssert.assertAll();
     }
 
     @Then("I Verify The Responsible Balance via History Tab Matches The Invoice Balance")
@@ -47,10 +47,10 @@ public class TestCustomerPortalHistoryTab {
         softAssert.assertEquals(actualPaymentBalance, expectedPaymentBalance,
                 "Actual Responsible Balance: " + actualPaymentBalance +
                         " & Expected Balance: " + expectedPaymentBalance + " Do Not Match");
-        softAssert.assertAll();
         closeTab();
         switchToOldWindowOpened();
         testCustomer.removeCustomer();
+        softAssert.assertAll();
     }
 
     @Then("I Verify View Details Button Directs A User To The Billing Tab")
@@ -59,10 +59,10 @@ public class TestCustomerPortalHistoryTab {
         userOnCustomerPortalHistoryTab.clickViewDetailsButton();
         softAssert.assertTrue(userOnCustomerPortalHistoryTab.isBillingTabActive(),
                 "The Billing Tab Is Not Active After Clicking The View Details Button");
-        softAssert.assertAll();
         closeTab();
         switchToOldWindowOpened();
         testCustomer.removeCustomer();
+        softAssert.assertAll();
     }
 
     @Then("I Verify Service Type Is Correct In History Tab via Service Plan Section")
@@ -73,10 +73,10 @@ public class TestCustomerPortalHistoryTab {
         softAssert.assertTrue(expectedServiceType.contains(actualServiceType),
                 "Service Plan Section Contains " + actualServiceType +
                         " And Does Not Contain A Service Type Labeled " + expectedServiceType);
-        softAssert.assertAll();
         closeTab();
         switchToOldWindowOpened();
         testCustomer.removeCustomer();
+        softAssert.assertAll();
     }
 
     @Then("I Verify The Service History Section Contains Accurate Information For Completed Appointment")
@@ -85,9 +85,9 @@ public class TestCustomerPortalHistoryTab {
         String actualAppointmentID = userOnCustomerPortalHistoryTab.getAppointmentID();
         softAssert.assertTrue(actualAppointmentID.contains(expectedAppointmentTabID),
                 "The History Tab Does Not Contain Correct Appointment via Service History Section");
-        softAssert.assertAll();
         closeTab();
         switchToOldWindowOpened();
         testCustomer.removeCustomer();
+        softAssert.assertAll();
     }
 }

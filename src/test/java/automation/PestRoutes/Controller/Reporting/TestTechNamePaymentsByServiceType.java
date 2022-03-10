@@ -29,8 +29,8 @@ public class TestTechNamePaymentsByServiceType {
         softAssert.assertTrue(userOnPaymentByServiceType.getCustomerName(testCustomer.customerName),
                 "\n Customer Name Is " + testCustomer.customerName +
                         "\n Customer Is Not Available After Selecting A Technician");
-        softAssert.assertAll();
         testCustomer.removeCustomer();
+        softAssert.assertAll();
     }
 
     @Then("I See The Correct Technician Is Displayed On The Payment By Service Type Report")
@@ -45,7 +45,7 @@ public class TestTechNamePaymentsByServiceType {
         softAssert.assertTrue(userOnPaymentByServiceType.getCustomerName(testCustomer.customerName),
                 "\n Customer Name Is " + testCustomer.customerName +
                         "\n Customer Is Not Available After Selecting A Technician");
-        softAssert.assertAll();
         testCustomer.removeCustomer();
+        softAssert.assertAll();
     }
 }
