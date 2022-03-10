@@ -585,13 +585,12 @@ public class CreateNewCustomer extends AppData {
                     Utilities.clickElement("//div[text()='Save Anyways']", ElementType.XPath);
                     break;
                 }
-                if (actionAlert.contains("This customer is closer to"))
-                {
-                    alert.dismiss();
+                if (actionAlert.contains("This customer is closer to")) {
+                     alert.dismiss();
                 }
             } catch (NoAlertPresentException e) {
                 try {
-                    Thread.sleep(500);
+                    Thread.sleep(1000);
                     continue;
                 } catch (InterruptedException ex) {
                     ex.printStackTrace();

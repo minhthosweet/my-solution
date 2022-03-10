@@ -31,6 +31,8 @@ import automation.PestRoutes.PageObject.CustomerOverview.Invoicing.CreditCard.Ca
 import automation.PestRoutes.PageObject.CustomerOverview.Invoicing.CreditCard.CreditCardConfirmationPage;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Locale;
 
 import static automation.PestRoutes.Utilities.AssertException.result;
@@ -78,6 +80,7 @@ public class InvoicingTab extends AppData{
     public static String addonInvoiceNum;
     public static String linkedCustomer1FullName = null;
     public static String linkedCustomer2FullName = null;
+    public static ArrayList<String> generatedInvoiceIDsList = null;
 
     @Test
     public void CustomerInvoicing() throws Exception {
@@ -116,9 +119,7 @@ public class InvoicingTab extends AppData{
         newInvoice.click(newInvoice.createButton);
     }
 
-    public void createStandAloneServiceInvoice(String invoiceDate, String needAmount, String requestedService){
-        newInvoice = new CreateNewInvoicePopUp();
-
+   public void createStandAloneServiceInvoice(String invoiceDate, String needAmount, String requestedService){
         invoiceRoutesTab.clickAddNewInvoice(invoiceRoutesTab.addNewInvoice);
         newInvoice.set(newInvoice.dateField, invoiceDate);
         newInvoice.set(newInvoice.amountInputField, needAmount);
@@ -127,7 +128,7 @@ public class InvoicingTab extends AppData{
     }
 
     public void createStandAloneServiceInvoiceWithAddonAndMarkConsolidate(String invoiceDate, String needAmount, String requestedService, String addonItem){
-        createStandAloneServiceInvoice (invoiceDate,needAmount,requestedService);
+        invImplementation.createStandAloneServiceInvoice (invoiceDate,needAmount,requestedService);
         Utilities.isPresent(invoiceRoutesTab.invoiceScreenTitle);
 
         //Mark invoice "Eligible for Consolidation" and add a ticket add-ons
@@ -696,20 +697,30 @@ public class InvoicingTab extends AppData{
     @Then("I validate the Expiration Date on the subscription has advanced")
     public void verifyExpirationDatAdvanced() {
         customerCardHeader = new CustomerViewDialog_Header();
-        customerCardHeader.navigateTo(customerCardHeader.subscriptionTabInDialog);
+        createCustomer = new CreateNewCustomer();
+        subscriptionTab = new CustomerViewDialog_SubscriptionTab();
+
+        header.searchCustomer_History(header.convertName(createCustomer.customerName));
+        customerCardHeader.goToSubscriptionTab();
         Utilities.elementIsVisible( subscriptionTab.newSubscriptionButton);
 
         result(nextExpirationDate,subscriptionTab.getSubscriptionExpirationDate(),"Subscription Expiration Date Advancement Validation!!!", "Subscription Expiration Date Validation");
+        customerCardHeader.clickCloseButton();
     }//verifyExpirationDatAdvanced()
 
     @Then("I validate the subscription's status is {string}")
     public void verifySubscriptionStatus(String expectedStatus) {
         customerCardHeader = new CustomerViewDialog_Header();
-        customerCardHeader.navigateTo(customerCardHeader.subscriptionTabInDialog);
-        Utilities.isPresent(subscriptionTab.newSubscriptionButton);
+        createCustomer = new CreateNewCustomer();
+        subscriptionTab = new CustomerViewDialog_SubscriptionTab();
+
+        header.searchCustomer_History(header.convertName(createCustomer.customerName));
+        customerCardHeader.goToSubscriptionTab();
+        Utilities.elementIsVisible( subscriptionTab.newSubscriptionButton);
 
         String currentStatus = subscriptionTab.getSubscriptionStatus();
         result(currentStatus.toUpperCase(Locale.ROOT),expectedStatus.toUpperCase(Locale.ROOT),"Subscription Status Validation","Subscription Status Validation");
+        customerCardHeader.clickCloseButton();
      }//verifyExpirationDatAdvanced()
 
     @Given("I retrieve the merchant's configured gateway")
@@ -857,12 +868,14 @@ public class InvoicingTab extends AppData{
     public void createMultipleStandaloneInvoices() {
         customerCardHeader = new CustomerViewDialog_Header();
         customerCardHeader.navigateTo(customerCardHeader.invoicesTabInDialog);
-        Utilities.waitUntileElementIsVisible(invoiceRoutesTab.addNewInvoice, 1);
+        Utilities.elementIsVisible(invoiceRoutesTab.addNewInvoice);
 
         //Add 3 StandAlone Invoices
-        createStandAloneServiceInvoice(Utilities.currentDate("MM/dd/yyyy"),"100.00", "Misc Service");
-        createStandAloneServiceInvoice(Utilities.currentDate("MM/dd/yyyy"),"120.00", "Annual Automation Inspection");
-        createStandAloneServiceInvoice(Utilities.currentDate("MM/dd/yyyy"),"125.00", "Automation Renewal");
+        for (int i = 1; i <=3; i++)
+        {
+            invImplementation.createStandAloneServiceInvoice(Utilities.currentDate("MM/dd/yyyy"), "125.00", "One-Time Automation");
+            Utilities.isPresent(invImplementation.accountSummaryButton);
+        }
         invImplementation.clickAccountSummary();
     }//createMultipleStandaloneInvoices()
 
@@ -902,7 +915,13 @@ public class InvoicingTab extends AppData{
 
     @Then("I validate the payment was applied only to the selected invoice")
     public void assertPaymentWasAppliedOnlyToTheSelectedInvoice() {
-       result("FULLY PAID", invImplementation.getInvoicePaymentBalanceStatus( applyToFirstInvoiceNum.trim() ), "Apply To First Invoice Validation","Apply To First Invoice Validation");
+        customerCardHeader = new CustomerViewDialog_Header();
+
+        header.searchCustomer_History(header.convertName(createCustomer.customerName));
+        customerCardHeader.navigateTo(customerCardHeader.invoicesTabInDialog);
+        Utilities.elementIsVisible(invoiceRoutesTab.addNewInvoice);
+
+        result("FULLY PAID", invImplementation.getInvoicePaymentBalanceStatus( applyToFirstInvoiceNum.trim() ), "Apply To First Invoice Validation","Apply To First Invoice Validation");
     }
 
     @And("I create multiple standalone service invoices with addons and marked eligible for consolidation")
@@ -1217,4 +1236,109 @@ public class InvoicingTab extends AppData{
         customerCardHeader.navigateTo(customerCardHeader.invoicesTabInDialog);
         createStandAloneServiceInvoice("150.00", "One-Time Automation");
     }//addStandaloneInvoiceLinkedCustomer()
+
+    @And("I make a full {string} payment via {string} screen")
+    public void makeFullPaymentViaAccountSummaryScreen(String paymentOption, String paymentScreen) {
+        makeFullPaymentWithDistributionDetailsApplied(paymentOption,paymentScreen,"");
+    }//makeFullPaymentViaAccountSummaryScreen()
+
+    @And("I give a partial refund payment {string} via {string} screen")
+    public void givePartialRefund(String partialRefundAmt, String screenName) {
+        customerCardHeader = new CustomerViewDialog_Header();
+        customerCardHeader.navigateTo(customerCardHeader.invoicesTabInDialog);
+        Utilities.elementIsVisible(invoiceRoutesTab.addNewInvoice);
+
+        invImplementation.processRefundPayment("Partial",partialRefundAmt,screenName,activeGateway);
+    }//givePartialRefund()
+
+    @Given("I configure credit card gateway {string}")
+    public void configureCCGateway(String gateway) {
+        merchantPage = new MarchantInfoPage();
+        preferencesPage = new PreferencesPage();
+
+        header.navigateTo(header.adminTab);
+        admin.clickPreferencesSubComponent();
+        preferencesPage.clickMerchantinfolink();
+
+        merchantPage.clickEditForDefaultSettings();
+        merchantPage.selectCreditCardGateway(gateway);
+        merchantPage.clickSaveForDefaultSettings();
+        Utilities.isTextPresent(merchantPage.HDR_DEFAULT_VAULT_SETTINGS);
+    }//configureCCGateway()
+
+    @Then("I validate refund order")
+    public void validateRefundOrder() {
+        customerCardHeader = new CustomerViewDialog_Header();
+
+        header.searchCustomer_History(header.convertName(createCustomer.customerName));
+        customerCardHeader.navigateTo(customerCardHeader.invoicesTabInDialog);
+        Utilities.elementIsVisible(invoiceRoutesTab.addNewInvoice);
+
+        generatedInvoiceIDsList = invImplementation.getGeneratedInvoicesNumbers();
+        System.out.println("Generated Invoice ID's: " + generatedInvoiceIDsList);
+
+        result("UNPAID",invImplementation.getInvoicePaymentBalanceStatus(generatedInvoiceIDsList.get(0)), "REFUND NEWEST TICKETS FIRST", "REFUND ORDER VALIDATION");
+        result("PARTIALLY PAID",invImplementation.getInvoicePaymentBalanceStatus(generatedInvoiceIDsList.get(1)), "REFUND NEWEST TICKETS FIRST", "REFUND ORDER VALIDATION");
+        result("FULLY PAID",invImplementation.getInvoicePaymentBalanceStatus(generatedInvoiceIDsList.get(2)), "RREFUND NEWEST TICKETS FIRST", "REFUND ORDER VALIDATION");
+    } //validateRefundOrder()
+
+    @And("I make a full {string} payment via {string} screen with payment priority applied")
+    public void makeFullPaymentWithPaymentPriorityApplied(String paymentOption, String paymentScreen) {
+       //Make payment with "Apply to First" priority applied
+        makeFullPaymentWithDistributionDetailsApplied(paymentOption,paymentScreen,invImplementation.DISTRIBUTION_APPLY_TO_FIRST);
+    }//makeAFullPaymentWithPaymentPriorityApplied
+
+    @And("I make a full {string} payment via {string} screen with Distribution Details {string} applied")
+    public void makeFullPaymentWithDistributionDetailsApplied(String paymentOption, String paymentScreen,String distributionOption) {
+        customerCardHeader = new CustomerViewDialog_Header();
+        invoiceHeader = new Invoice_Header();
+        customerCardHeader.navigateTo(customerCardHeader.invoicesTabInDialog);
+        Utilities.elementIsVisible(invoiceRoutesTab.addNewInvoice);
+
+        if(paymentScreen.equalsIgnoreCase("Account Summary")) {
+            invImplementation.clickAccountSummary();
+            invImplementation.clickAddPaymentAccountSummary();
+        }
+        else if(paymentScreen.equalsIgnoreCase("Invoice"))
+        {
+            invImplementation.clickInitialInvoice();
+            invoiceRoutesTab.clickAddPayment();
+        }
+
+        //Select Payment Option
+        if (paymentOption.equalsIgnoreCase("CASH"))
+            invoiceHeader.clickCash();
+        else if (paymentOption.equalsIgnoreCase("CHECK"))
+            invoiceHeader.clickCheck();
+        else if (paymentOption.equalsIgnoreCase("COUPON"))
+            invoiceHeader.clickCouponCredit();
+
+        //Apply Distribution Option
+        if(distributionOption.equalsIgnoreCase(invImplementation.DISTRIBUTION_APPLY_TO_FIRST)) {
+            generatedInvoiceIDsList = invImplementation.getGeneratedInvoicesNumbers();
+            invImplementation.applyToFirstInvoice(generatedInvoiceIDsList.get(1));
+
+            //Add a customer comment so the "Apply to First" section will close
+            invImplementation.addCustomerPaymentNote("Applying Distribution Details: 'Apply to First' " +
+                    "ticket (ID: " + generatedInvoiceIDsList.get(1)  + ") ");
+        }
+
+        invImplementation.makeFullPayment(paymentOption);
+    }//makeFullPaymentWithDistributionDetailsApplied()
+
+    @Then("I validate refund order with payment priority applied")
+    public void validateRefundOrderWithPaymentPriorityApplied() {
+        customerCardHeader = new CustomerViewDialog_Header();
+
+        header.searchCustomer_History(header.convertName(createCustomer.customerName));
+        customerCardHeader.navigateTo(customerCardHeader.invoicesTabInDialog);
+        Utilities.elementIsVisible(invoiceRoutesTab.addNewInvoice);
+
+        generatedInvoiceIDsList = invImplementation.getGeneratedInvoicesNumbers();
+        System.out.println("Generated Invoice ID's: " + generatedInvoiceIDsList);
+
+        result("UNPAID",invImplementation.getInvoicePaymentBalanceStatus(generatedInvoiceIDsList.get(0)), "REFUND WITH PAYMENT PRIORITY APPLIED", "REFUND ORDER VALIDATION");
+        result("FULLY PAID",invImplementation.getInvoicePaymentBalanceStatus(generatedInvoiceIDsList.get(1)), "REFUND WITH PAYMENT PRIORITY APPLIED", "REFUND ORDER VALIDATION");
+        result("PARTIALLY PAID",invImplementation.getInvoicePaymentBalanceStatus(generatedInvoiceIDsList.get(2)), "REFUND WITH PAYMENT PRIORITY APPLIED", "REFUND ORDER VALIDATION");
+    } //validateRefundOrderWithPaymentPriorityApplied()
 }

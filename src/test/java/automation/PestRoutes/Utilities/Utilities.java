@@ -661,7 +661,7 @@ public class Utilities {
 
 	public static boolean isTextPresent(String text){
 		try{
-			driver.findElement(By.xpath("//*[contains(text(),'" + text +"')]"));
+			driver.findElement(By.xpath("//*[contains(text(),'" + text +"')]")).isDisplayed();
 			return true;
 		}
 		catch(Exception e){

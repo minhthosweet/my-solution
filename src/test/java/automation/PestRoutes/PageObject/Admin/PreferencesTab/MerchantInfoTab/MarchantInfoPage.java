@@ -19,12 +19,13 @@ public class MarchantInfoPage extends BasePage {
     private By saveDefaultSettings = By.xpath("//form[@name='defaultSettings']/div[text()='save']");
     private By creditCardGatewayDropDown = By.xpath("//div[@id='merchantInfo']//select[@name='paymentGateway']");
 
-     public final String GATEWAY_BRAINTREE = "Braintree";
+    public final String GATEWAY_BRAINTREE = "Braintree";
     public final String GATEWAY_ELEMENT = "Element";
     public final String GATEWAY_SPREEDLY = "Spreedly";
     public final String GATEWAY_NMI = "NMI";
     public final String GATEWAY_PESTROUTES_PAYMENTS = "PestRoutes Payments";
 
+    public final String HDR_DEFAULT_VAULT_SETTINGS = "Default Vault Settings";
 
     public void select(String needDropdown, String needText){
         Utilities.selectValueFromDropDownByValue(needDropdown, needText);
@@ -70,6 +71,5 @@ public class MarchantInfoPage extends BasePage {
                 defaultConfiguredGateway ="UNKNOWN GATEWAY";
         }
         return  defaultConfiguredGateway;
-
     }//getDefaultCreditCardGateway()
 }

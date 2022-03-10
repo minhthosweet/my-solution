@@ -20,10 +20,6 @@ public class Invoice_Header extends BasePage {
 	private By couponPayment = By.xpath("//div[@class='wallet']//div[text()='Coupon / Credit']");
 	public String addPayment = "//div[text()='+ Add Payment']";
 
-
-
-
-
 	public void navigate(String needTab) {
 		try {
 		WebElement elm = FindElement.elementByAttribute(needTab, FindElement.InputType.XPath);
@@ -52,7 +48,6 @@ public class Invoice_Header extends BasePage {
 			System.out.println("******** navigateTo(): Unable to Click Payment Method Tab...");
 		}
 	}
-
 
 	public void clickCash() { click(cashPayment); }
 

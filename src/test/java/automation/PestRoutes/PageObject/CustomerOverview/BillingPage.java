@@ -413,7 +413,6 @@ public class BillingPage extends BasePage {
 		delay(3000);
 		acceptAlert();//Accept the "Successfully Copied" Message
 
-
 		return (getTokenValue(ccOptionOnLeft, tokenValue)).toLowerCase(Locale.ROOT);
 	}//shareCustomerCreditCardInfo()
 

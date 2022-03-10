@@ -1,6 +1,8 @@
 package automation.PestRoutes.PageObject.CustomerOverview.Invoicing;
 
+import automation.PestRoutes.PageObject.Admin.PreferencesTab.MerchantInfoTab.MarchantInfoPage;
 import automation.PestRoutes.PageObject.BasePage;
+import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_Header;
 import automation.PestRoutes.Utilities.FindElement;
 import automation.PestRoutes.Utilities.FindElement.InputType;
 import automation.PestRoutes.Utilities.Utilities.ElementType;
@@ -10,10 +12,14 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
+import static automation.PestRoutes.Utilities.AssertException.result;
 import static automation.PestRoutes.Utilities.Utilities.*;
 import static automation.PestRoutes.Utilities.Utilities.switchToIframeByXpath;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 
 public class InvoiceImplementation extends BasePage {
 
@@ -205,6 +211,8 @@ public class InvoiceImplementation extends BasePage {
     private By btnActionsReverse = By.xpath("//*[@id='reversePaymentButton']");
 
     //Reverse/Refund Dialog
+    public By lblTitleRefundResult = By.xpath("//*[@id='billingPanel']//div/h3[contains(text(),'Refund Result')]");
+    public By lblTitleReverseResult = By.xpath("//*[@id='billingPanel']//div/h3[contains(text(),'Reverse Result')]");
     public By lblTitleRefundDialog = By.xpath("//*[@id='refundProcessBox']/p[contains(text(),'Refund amount')]");
     public By lblTitleReverseDialog = By.xpath("//*[@id='refundProcessBox']/p[contains(text(),'Reversing a payment')]");
     private By inputRefund = By.xpath("//*[@id='refundProcessBox']//input[@id='refundAmountInput']");
@@ -240,6 +248,9 @@ public class InvoiceImplementation extends BasePage {
     public final String REFUND_SUCCESS_MSG_NMI = "SUCCESS";
     public final String REFUND_SUCCESS_MSG_SPREEDLY = "succeeded";
     public final String REVERSE_SUCCESS_MSG = "Marked payment for Reversal";
+    public final String DISTRIBUTION_LIMITED_TO_CUSTOMER = "Limited To Customer";
+    public final String DISTRIBUTION_LIMITED_TO_SUBSCRIPTION = "Limited To Subscription";
+    public final String DISTRIBUTION_APPLY_TO_FIRST = "Apply To First";
 
     //------------------------------------------------------
     // Methods
@@ -633,7 +644,7 @@ public class InvoiceImplementation extends BasePage {
 
     public String getRefundResultScreenTitle()
     {
-        return getText(textRefundResultMessage);
+        return getText(lblTitleRefundResult);
     }
 
     public String getAcctBalancesSummaryBeginningBal()
@@ -794,6 +805,7 @@ public class InvoiceImplementation extends BasePage {
 
         delay(3000);
         acceptAlert();
+
         driver.switchTo().defaultContent();
 
         delay(1000);
@@ -933,6 +945,18 @@ public class InvoiceImplementation extends BasePage {
          return generatedInvoices;
     }//getGeneratedInvoices()
 
+    public ArrayList<String> getGeneratedInvoicesNumbers()
+    {
+        ArrayList<String> generatedInvoiceNums = new ArrayList<>();
+        List<WebElement> generatedInvoices = findElements(invoicesList);
+        for(WebElement invoice: generatedInvoices)
+        {
+            generatedInvoiceNums.add(invoice.getText().trim().replaceAll("\\s.*", ""));
+        }
+        generatedInvoiceNums.sort(Collections.reverseOrder());
+        return generatedInvoiceNums;
+    }//getGeneratedInvoicesNumbers()
+
     public String getInvoiceInitialBalance(String invoiceNum){
         String initialBalAmt = getText(By.xpath("//ul[@id='invoiceGroupListContainer']//div[contains(text(), '" + invoiceNum +
                 "')]/following-sibling::div/span[text()='Initial Balance']//.."));
@@ -956,7 +980,7 @@ public class InvoiceImplementation extends BasePage {
         String invoiceBalStatus= getText(By.xpath("//*[@id='invoiceGroupListContainer']/ul/li[@ticketid='" + invoiceNum +
                                                   "']//div[contains(@class, 'payment-status')]"));
         return invoiceBalStatus;
-    }//getInvoiceRemainingBalance()
+    }//getInvoicePaymentBalanceStatus()
 
     public String getConsolidatedTotalInitialBalance(){
       delay(500);
@@ -1002,4 +1026,106 @@ public class InvoiceImplementation extends BasePage {
        String paymentStatusMsg = getPaymentConfirmationMessage();
        return paymentStatusMsg;
     }//payWithCardOnFile()
+
+    public void createStandAloneServiceInvoice(String invoiceDate, String needAmount, String requestedService){
+        CreateNewInvoicePopUp newInvoice = new CreateNewInvoicePopUp();
+        RoutePageInvoicing invoiceRoutesTab = new RoutePageInvoicing();
+        invoiceRoutesTab.clickAddNewInvoice(invoiceRoutesTab.addNewInvoice);
+
+        newInvoice.set(newInvoice.dateField, invoiceDate);
+        newInvoice.set(newInvoice.amountInputField, needAmount);
+        newInvoice.select(newInvoice.serviceTypeDropdown, requestedService);
+        newInvoice.click(newInvoice.createButton);
+    }//createStandAloneServiceInvoice()
+
+    public String makeFullPayment(String paymentOption) {
+        Invoice_Header invoiceHeader = new Invoice_Header();
+        String paymentConfirmation ="";
+        String amtDue= "0";
+
+        //Make payment based on selected payment option
+        switch (paymentOption.toUpperCase(Locale.ROOT)) {
+            case "CASH":
+                amtDue = getPaymentAmount();
+                typeConfirmationAmount(amtDue);
+                clickRecordPaymentButton();
+
+                if (Utilities.isPresent(paymentResultsScreenTitle))
+                    paymentConfirmation = getPaymentConfirmationMessage();
+                break;
+            case "CHECK":
+                amtDue = getPaymentAmount();
+                typeConfirmationAmount(amtDue);
+                clickRecordCheckButton();
+
+                if (Utilities.isPresent(paymentResultsScreenTitle))
+                    paymentConfirmation = getPaymentConfirmationMessage();
+                break;
+            case "COUPON":
+                amtDue = getPaymentAmount();
+                typeConfirmationAmount(amtDue);
+                clickRecordCouponButton();
+
+                if (Utilities.isPresent(paymentResultsScreenTitle))
+                    paymentConfirmation = getPaymentConfirmationMessage();
+                break;
+            default:
+                 paymentConfirmation = "INVALID PAYMENT OPTION";
+        }
+        return paymentConfirmation;
+    }//makeFullPayment()
+
+    public String processRefundPayment(String refundTypeFull, String screenName , String gateway) {
+       return processRefundPayment("FULL","",screenName,gateway);
+    }//processRefundPayment()
+
+    public String  processRefundPayment(String refundTypeFullOrPartial,String paymentAmount,String screenName,String gateway) {
+        CustomerViewDialog_Header customerCardHeader = new CustomerViewDialog_Header();
+        RoutePageInvoicing invoiceRoutesTab = new RoutePageInvoicing();
+        MarchantInfoPage merchantPage = new MarchantInfoPage();
+        String refundStatusMessage = "";
+
+        customerCardHeader.navigateTo(customerCardHeader.invoicesTabInDialog);
+        Utilities.elementIsVisible(invoiceRoutesTab.addNewInvoice);
+        clickAccountSummary();
+
+        if(screenName.equalsIgnoreCase("Account Summary")) {
+          //Click first line item below "Add Payment" link
+            clickMostRecentPayment();
+        }
+        else if(screenName.equalsIgnoreCase("Invoice"))
+        {
+            //Click the initial Invoice and on a payment line-item
+            clickInitialInvoice(); //Note: This is a fully or partially paid invoice
+            clickMostRecentPayment();
+        }
+
+        String fullPaymentAmt = getPaymentTransactionAmount();
+        //Reverse or Refund Payment
+        if (gateway.equalsIgnoreCase(merchantPage.GATEWAY_PESTROUTES_PAYMENTS)) {
+            clickPaymentActionsReverseButton();
+            Utilities.waitUntileElementIsVisible(lblTitleReverseDialog,1);
+        }
+        else {
+                clickPaymentActionsRefundButton();
+                Utilities.waitUntileElementIsVisible(lblTitleRefundDialog, 1);
+
+                if (refundTypeFullOrPartial.equalsIgnoreCase("PARTIAL"))
+                    setRefundAmount(paymentAmount);
+                else
+                    setRefundAmount(fullPaymentAmt);
+        }
+
+        clickReverseRefundContinueButton();
+        if (isPresent(lblTitleRefundResult) || isPresent(lblTitleReverseResult) )
+            refundStatusMessage = getRefundReverseResultMessage();
+
+        return refundStatusMessage;
+    }//processRefund()
+
+    public void addCustomerPaymentNote(String comments)
+    {
+        click(By.xpath(custPaymentNotes));
+        type(comments, By.xpath(custPaymentNotes)) ;
+    }//addCustomerPaymentNote()
 }

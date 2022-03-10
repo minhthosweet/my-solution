@@ -108,96 +108,96 @@ public class ScheduleAppt extends AppData {
         confirmAppt.selectTargetPestsOption(pestTreaded);
     }
 
-
     public void scheduleAppointmentOnRoute(String serviceType) {
             scheduleDay = new SchedulingTab();
             route = new RoutePage();
             scheduleDay.clickScheduleButton();
 
-            //If Route Group Doesn't Exist Create Group & Route
-            if (!route.isRouteGroupPresent("TestRoutes")) {
-                route.addGroup("TestRoutes");
-                route.addRoutesByQuantity("1");
-            }
-
-            int totalCount = Utilities.getElementCount(routes);
-            String routesCount = Integer.toString(totalCount);
-            //System.out.println("****** scheduleAppointmentOnRoute(): Number of Routes: " + routesCount);
-
-            //Select the first available appointment slot
-            route.selectAvailableAppointment();
-            confirmAppt.selectServiceType(serviceType);
-
-            //Retrieve the enrolled Subscription based on the selected Service
-            By apptSubscriptionOption = By.xpath("//*[@id='overviewPanel']//div//select[@name ='subscriptionID']//option[contains(text(), '" + serviceType + "')]");
-            String strEnrolledSubscription = Utilities.getInnerText(apptSubscriptionOption);
-
-            Utilities.selectValueFromDropDownByIndex(confirmAppt.subscriptionTypeDropdown, 1);
-            confirmAppt.selectInteriorNeededOption(serviceAreaProvided);
-            confirmAppt.selectTargetPestsOption(pestTreaded);
-
-            //Click Schedule button Appointment Card
-            confirmAppt.clickScheduleButton();
-
-        }//scheduleAppointmentOnRoute()
-
-        @And("I add a chemical in unit tab")
-        public void addChemicalInUnitTab () {
-            unitsTab.clickUnitsScheduleApt();
-            unitsTab.AddUnitsSchApt();
-            unitsTab.clickDetails();
-            confirmAppt.clickAddProduct();
-            appointmentTab.chooseProduct(product);
-            appointmentTab.chooseApplicationMethod(applicationMethod);
-            appointmentTab.chooseTargetIssue(targetIssue);
-            appointmentTab.chooseTargetArea(targetArea);
-            confirmAppt.clickScheduleButton();
+        //If Route Group Doesn't Exist Create Group
+        if(!route.isRouteGroupPresent("TestRoutes")) {
+            route.addGroup("TestRoutes");
         }
 
-        @And("I add chemical")
-        public void addChemical (String userID) throws Exception {
-            overviewHeader = new CustomerViewDialog_Header();
-            header.searchCustomer_History(userID);
-            overviewHeader.navigateTo(overviewHeader.appointmentsTabInDialog);
-            appointmentTab.clickScheduledService(serviceType);
-            appointmentTab.clickStatusButton();
-            appointmentTab.clickAddProductButton_InCompletingApptDialog();
-            appointmentTab.chooseProduct(product);
-            appointmentTab.chooseApplicationMethod(applicationMethod);
-            appointmentTab.chooseTargetIssue(targetIssue);
-            appointmentTab.chooseTargetArea(targetArea);
-            appointmentTab.chooseInteriorServiced(getData("interiorServiced", generalData));
-            appointmentTab.clickSaveAndCompleteButton();
-        }
+       //Select the first available appointment slot on existing route,
+       //If, no route exist or all available appointments are taken create
+       //another route
+       route.selectAvailableAppointment();
 
-        @Then("I verify chemical in unit")
-        public void verifyChemicalinUnit () {
-            appointmentTab.clickScheduledService(serviceType);
-            appointmentTab.clickUnitName();
-            String actualUnitArea = appointmentTab.getUnitAreaTreated();
-            String actualUnitPest = appointmentTab.getUnitPestsTreated();
-            String actualUnitProductUsed = appointmentTab.getUnitChemicalName();
-            list = AssertException.result(product, actualUnitProductUsed, "Validate multiUnit product");
-            Reporter.status("Product for multiUnit", product, actualUnitProductUsed, "Add Chemicals To An Appointment");
-            list = AssertException.result(targetArea, actualUnitArea, "Validate multiUnit target area");
-            Reporter.status("target are for multiUnit", targetArea, actualUnitArea, "Add Chemicals To An Appointment");
-            list = AssertException.result(targetIssue, actualUnitPest, "Validate multiUnit target issue");
-            Reporter.status("target issue for multiUnit", targetIssue, actualUnitPest, "Add Chemicals To An Appointment");
+        //Select the enrolled serviced
+       confirmAppt.selectServiceType(serviceType);
 
-        }
+        //Retrieve the enrolled Subscription based on the selected Service
+        By apptSubscriptionOption = By.xpath("//*[@id='overviewPanel']//div//select[@name ='subscriptionID']//option[contains(text(), '" + serviceType + "')]" );
+        String strEnrolledSubscription = Utilities.getInnerText(apptSubscriptionOption);
 
-        @Then("I verify chemical")
-        public void verifyChemical () {
-            appointmentTab.clickScheduledService(serviceType);
-            String actualProductUsed = appointmentTab.getChemicalName();
-            String actualArea = appointmentTab.getTreatedArea();
-            String actualPest = appointmentTab.getTreatedPests();
-            list = AssertException.result(product, actualProductUsed, "Product Validation");
-            Reporter.status("Product ", product, actualProductUsed, "Add Chemicals To An Appointment");
-            list = AssertException.result(targetArea, actualArea, "Target Area Validation");
-            Reporter.status("Target Area ", targetArea, actualArea, "Add Chemicals To An Appointment");
-            Reporter.status("Target Issue ", targetIssue, actualPest, "Add Chemicals To An Appointment");
-            list = AssertException.result(targetIssue, actualPest, "Target Issue Validation");
+        Utilities.selectValueFromDropDownByIndex(confirmAppt.subscriptionTypeDropdown,1);
+        confirmAppt.selectInteriorNeededOption(serviceAreaProvided);
+        confirmAppt.selectTargetPestsOption(pestTreaded);
 
-        }
+        //Click Schedule button Appointment Card
+        confirmAppt.clickScheduleButton();
+
+  }//scheduleAppointmentOnRoute()
+
+    @And("I add a chemical in unit tab")
+    public void addChemicalInUnitTab() {
+        unitsTab.clickUnitsScheduleApt();
+        unitsTab.AddUnitsSchApt();
+        unitsTab.clickDetails();
+        confirmAppt.clickAddProduct();
+        appointmentTab.chooseProduct(product);
+        appointmentTab.chooseApplicationMethod(applicationMethod);
+        appointmentTab.chooseTargetIssue(targetIssue);
+        appointmentTab.chooseTargetArea(targetArea);
+        confirmAppt.clickScheduleButton();
+
+    }
+
+    @And("I add chemical")
+    public void addChemical(String userID) throws Exception {
+        overviewHeader = new CustomerViewDialog_Header();
+        header.searchCustomer_History(userID);
+        overviewHeader.navigateTo(overviewHeader.appointmentsTabInDialog);
+        appointmentTab.clickScheduledService(serviceType);
+        appointmentTab.clickStatusButton();
+        appointmentTab.clickAddProductButton_InCompletingApptDialog();
+        appointmentTab.chooseProduct(product);
+        appointmentTab.chooseApplicationMethod(applicationMethod);
+        appointmentTab.chooseTargetIssue(targetIssue);
+        appointmentTab.chooseTargetArea(targetArea);
+        appointmentTab.chooseInteriorServiced(getData("interiorServiced", generalData));
+        appointmentTab.clickSaveAndCompleteButton();
+
+    }
+
+    @Then("I verify chemical in unit")
+    public void verifyChemicalinUnit () {
+        appointmentTab.clickScheduledService(serviceType);
+        appointmentTab.clickUnitName();
+        String actualUnitArea = appointmentTab.getUnitAreaTreated();
+        String actualUnitPest = appointmentTab.getUnitPestsTreated();
+        String actualUnitProductUsed = appointmentTab.getUnitChemicalName();
+        list = AssertException.result(product, actualUnitProductUsed, "Validate multiUnit product");
+        Reporter.status("Product for multiUnit", product, actualUnitProductUsed, "Add Chemicals To An Appointment");
+        list = AssertException.result(targetArea, actualUnitArea, "Validate multiUnit target area");
+        Reporter.status("target are for multiUnit", targetArea, actualUnitArea, "Add Chemicals To An Appointment");
+        list = AssertException.result(targetIssue, actualUnitPest, "Validate multiUnit target issue");
+        Reporter.status("target issue for multiUnit", targetIssue, actualUnitPest, "Add Chemicals To An Appointment");
+
+    }
+
+    @Then("I verify chemical")
+    public void verifyChemical () {
+        appointmentTab.clickScheduledService(serviceType);
+        String actualProductUsed = appointmentTab.getChemicalName();
+        String actualArea = appointmentTab.getTreatedArea();
+        String actualPest = appointmentTab.getTreatedPests();
+        list = AssertException.result(product, actualProductUsed, "Product Validation");
+        Reporter.status("Product ", product, actualProductUsed, "Add Chemicals To An Appointment");
+        list = AssertException.result(targetArea, actualArea, "Target Area Validation");
+        Reporter.status("Target Area ", targetArea, actualArea, "Add Chemicals To An Appointment");
+        Reporter.status("Target Issue ", targetIssue, actualPest, "Add Chemicals To An Appointment");
+        list = AssertException.result(targetIssue, actualPest, "Target Issue Validation");
+
+    }
 }

@@ -1,6 +1,7 @@
 package automation.PestRoutes.PageObject.CustomerOverview;
 
 import automation.PestRoutes.PageObject.BasePage;
+import automation.PestRoutes.PageObject.CreateCustomer.CreateCustomerDialog;
 import automation.PestRoutes.PageObject.CustomerOverview.Invoicing.RoutePageInvoicing;
 import automation.PestRoutes.PageObject.Header;
 import automation.PestRoutes.PageObject.Leads.LeadsPage;
@@ -83,8 +84,10 @@ public class CustomerViewDialog_Header extends BasePage {
         click(scheduleButton);
     }
 
-    public void clickCloseButton() throws InterruptedException {
-        Thread.sleep(500);
+    public void clickCloseButton(){
+        try {
+            Thread.sleep(500);
+        }catch(InterruptedException e){e.printStackTrace();}
         Utilities.waitUntileElementIsVisible(closeButton);
         Utilities.clickElement(closeButton, ElementType.XPath);
         clickSaveChangesButton();
@@ -129,10 +132,6 @@ public class CustomerViewDialog_Header extends BasePage {
            if(elem.isDisplayed())
                 elem.click();
     }//removeCustomerConfirmation()
-
-
-
-
 
     public void saveAnyways() {
         if (Utilities.elementIsVisible(saveAnyways)) {

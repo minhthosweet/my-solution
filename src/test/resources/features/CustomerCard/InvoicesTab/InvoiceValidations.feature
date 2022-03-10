@@ -9,9 +9,10 @@
 # Ticket 123825: No Invoice # for customer account #86355 for Special service. (Related to: 120838)
 # Ticket 127013: Consolidated Invoices not including add-on
 # Ticket 127056 : Incorrect Card Charged - Previous Linked Billing Accounts (Related to: 127031, 127727)
+# Ticket 124356 : Fix Unpaid Invoice 6134609 for 582944 (Related to: 124319)
+
 @Regression_FWhite
 @CustomerCard
-
 Feature: Validate Customer Invoice
     This feature verifies various invoice functionalities...
     1. Verifies the "customer notes", "transaction amount", and  "transaction date & time"  fields on  "Cash",
@@ -128,7 +129,7 @@ Feature: Validate Customer Invoice
   Then I remove linked customers
 
   @VerifyIncorrectCardCharged_3
-  Scenario: 127056- Verify a newly added credit card to a linked account is charged after removing a shared credit card
+  Scenario: 127056 - Verify a newly added credit card to a linked account is charged after removing a shared credit card
     Given I retrieve the merchant's configured gateway
     And I create two linked customers with first name, last name, email, address and zip
     And I add a shared credit card to linked properties
@@ -137,3 +138,42 @@ Feature: Validate Customer Invoice
     And I make full payment via pay option "Use Card On File" "4111 1111 1111 1111" or "5412 7501 0905 6250" for balance due
     Then I validate if there are errors exist in the list
     Then I remove linked customers
+
+  @VerifyRefundsAreAppliedToNewestTicketsFirst
+  Scenario Outline: 124356 - Verify refunds are applied to newest tickets first
+    Given I configure credit card gateway "<Gateway>"
+    Given I retrieve the merchant's configured gateway
+    Given I create customer with first name, last name, email and address
+    And I create multiple standalone service invoices
+    And I make a full "CHECK" payment via "Account Summary" screen
+    And I give a partial refund payment "200.00" via "Account Summary" screen
+    Then I validate refund order
+    Then I validate if there are errors exist in the list
+    Then I remove the customer
+
+    Examples:
+      | Gateway       |
+      | Element       |
+      | Spreedly      |
+      | NMI           |
+      | Braintree     |
+
+  @VerifyRefundOrderWithPaymentPriorityApplied
+  Scenario Outline: 124356 - Verify refund order with payment priority applied
+    Given I configure credit card gateway "<Gateway>"
+    Given I retrieve the merchant's configured gateway
+    Given I create customer with first name, last name, email and address
+    And I create multiple standalone service invoices
+    And I make a full "CHECK" payment via "Account Summary" screen with payment priority applied
+    And I give a partial refund payment "200.00" via "Account Summary" screen
+    Then I validate refund order with payment priority applied
+    Then I validate if there are errors exist in the list
+    Then I remove the customer
+
+    Examples:
+      | Gateway       |
+      | Element       |
+      | Spreedly      |
+      | NMI           |
+      | Braintree     |
+

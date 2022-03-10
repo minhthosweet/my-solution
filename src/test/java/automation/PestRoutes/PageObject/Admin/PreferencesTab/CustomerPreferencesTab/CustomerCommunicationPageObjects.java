@@ -572,6 +572,7 @@ public class CustomerCommunicationPageObjects extends BasePage {
         updateField(String.valueOf(testData.get(keySalesRoutesAndCustomerPortalAutoPaymentMessage).toString()),rtextareaSalesRoutesAndCustomerPortalAutoPaymentMessage,RTEXTAREA,lnkEdit_SalesRoutesAndCustomerPortalAutoPaymentMessage);
         saveField(lnkSave_SalesRoutesAndCustomerPortalAutoPaymentMessage);
 
+/* Comment out CA WDO- fields because they are not configured in all offices
         //CA WDO Pre Findings and Recommendations Legal
         updateField(String.valueOf(testData.get(keyCAWDOPreFindingsAndRecommendationsLegal).toString()),rtextareaCAWDOPreFindingsAndRecommendationsLegal,RTEXTAREA,lnkEdit_CAWDOPreFindingsAndRecommendationsLegal);
         saveField(lnkSave_CAWDOPreFindingsAndRecommendationsLegal);
@@ -582,7 +583,7 @@ public class CustomerCommunicationPageObjects extends BasePage {
 
        //CA WDO Work Authorization Legal
        updateField(String.valueOf(testData.get(keyCAWDOWorkAuthorizationLegal).toString()),rtextareaCAWDOWorkAuthorizationLegal,TEXTAREA,lnkEdit_CAWDOWorkAuthorizationLegal);
-        saveField(lnkSave_CAWDOWorkAuthorizationLegal);
+*/       saveField(lnkSave_CAWDOWorkAuthorizationLegal);
 
     }//updateAllFields()
 
@@ -955,6 +956,7 @@ public class CustomerCommunicationPageObjects extends BasePage {
             navigateToAndClickBtn(lblCustomerPortalSignFormWelcomeMessage, lnkEdit_SalesRoutesAndCustomerPortalAutoPaymentMessage);
             Assert.assertEquals(Utilities.getInnerText(rtextareaSalesRoutesAndCustomerPortalAutoPaymentMessage).trim(), String.valueOf(testData.get(keySalesRoutesAndCustomerPortalAutoPaymentMessage).toString()),"(" + keySalesRoutesAndCustomerPortalAutoPaymentMessage + "): " + genericErrorMsg);
 
+/* Comment out CA WDO- fields because they are not configured in offices
             //CA WDO Pre Findings and Recommendations Legal (Note: Navigated to the previous field to make sure the desired field is displayed)
             navigateToAndClickBtn(lblSalesRoutesAndCustomerPortalAutoPaymentMessage, lnkEdit_CAWDOPreFindingsAndRecommendationsLegal);
             Assert.assertEquals(Utilities.getInnerText(rtextareaCAWDOPreFindingsAndRecommendationsLegal).trim(), String.valueOf(testData.get(keyCAWDOPreFindingsAndRecommendationsLegal).toString()),"(" + keyCAWDOPreFindingsAndRecommendationsLegal + "): " + genericErrorMsg);
@@ -966,7 +968,7 @@ public class CustomerCommunicationPageObjects extends BasePage {
             //CA WDO Work Authorization Legal (Note: Navigated to the previous field to make sure the desired field is displayed)
             navigateToAndClickBtn(lblCAWDOPostFindingsAndRecommendationsLegal, lnkEdit_CAWDOWorkAuthorizationLegal);
             Assert.assertEquals(Utilities.getInnerText(rtextareaCAWDOWorkAuthorizationLegal).trim(), String.valueOf(testData.get(keyCAWDOWorkAuthorizationLegal).toString()),"(" + keyCAWDOWorkAuthorizationLegal + "): " + genericErrorMsg);
-
+*/
         } catch(Exception exp) {
              System.out.println("********************* SAVE ERROR: All fields were NOT saved successfully!");
             exp.printStackTrace();
