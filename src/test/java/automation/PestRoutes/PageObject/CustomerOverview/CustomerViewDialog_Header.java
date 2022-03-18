@@ -1,7 +1,6 @@
 package automation.PestRoutes.PageObject.CustomerOverview;
 
 import automation.PestRoutes.PageObject.BasePage;
-import automation.PestRoutes.PageObject.CreateCustomer.CreateCustomerDialog;
 import automation.PestRoutes.PageObject.CustomerOverview.Invoicing.RoutePageInvoicing;
 import automation.PestRoutes.PageObject.Header;
 import automation.PestRoutes.PageObject.Leads.LeadsPage;
@@ -14,6 +13,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import static automation.PestRoutes.Utilities.Utilities.elementIsVisible;
 import org.openqa.selenium.WebElement;
 import java.util.List;
+
 import static automation.PestRoutes.Utilities.Utilities.*;
 
 public class CustomerViewDialog_Header extends BasePage {
@@ -55,6 +55,7 @@ public class CustomerViewDialog_Header extends BasePage {
     private By appointmentsTab = By.xpath("//a[text()='Appointments']");
     private By invoicesTab = By.xpath("//a[text()='Invoices']");
     private By adminTab = By.xpath("//li[@name='adminTab']//a[text()='Admin']");
+    private By customerIDStatus = By.xpath("//span[@class='customerTitleSpan']");
 
     //Notes tab objects
     public String customerContacts_Notes = "//li[text()='Customer Contacts']";
@@ -100,6 +101,12 @@ public class CustomerViewDialog_Header extends BasePage {
     public void clickXButton() {
         delay(500);
         click(xButton);
+    }
+
+    public void clickClose() {
+        delay(3000);
+        click(By.xpath(closeButton));
+        clickSaveChangesButton();
     }
 
     //Author Aarbi
@@ -158,48 +165,57 @@ public class CustomerViewDialog_Header extends BasePage {
     }
 
     public CustomerViewDialog_InfoTab goToInfoTab() {
+        acceptAlert();
+        isPresent(infoTab);
         delay(3000);
         click(infoTab);
         return new CustomerViewDialog_InfoTab();
     }
 
     public CustomerViewDialog_SubscriptionTab goToSubscriptionTab () {
+        isPresent(subscriptionTab);
         delay(3000);
         click(subscriptionTab);
         return new CustomerViewDialog_SubscriptionTab();
     }
 
     public LeadsPage goToLeadsTab () {
+        isPresent(leadsTab);
         delay(3000);
         click(leadsTab);
         return new LeadsPage();
     }
 
     public BillingPage goToBillingTab(){
+        isPresent(billingTab);
         delay(3000);
         click(billingTab);
         return new BillingPage();
     }
 
     public CustomerViewDialog_Notes goToNotesTab() {
+        isPresent(notesTab);
         delay(3000);
         click(notesTab);
         return new CustomerViewDialog_Notes();
     }
 
     public CustomerviewDialog_AppointmentsTab goToAppointmentsTab () {
+        isPresent(appointmentsTab);
         delay(3000);
         click(appointmentsTab);
         return new CustomerviewDialog_AppointmentsTab();
     }
 
     public RoutePageInvoicing goToInvoicesTab () {
+        isPresent(invoicesTab);
         delay(3000);
         click(invoicesTab);
         return new RoutePageInvoicing();
     }
 
     public CustomerViewDialog_Admin goToAdminTab() {
+        isPresent(adminTab);
         delay(3000);
         click(adminTab);
         return new CustomerViewDialog_Admin();
@@ -218,4 +234,12 @@ public class CustomerViewDialog_Header extends BasePage {
         } catch (Exception e) {}
         return boolflag;
     }//checkCustomerExist()
+
+    public String getCustomerID() {
+        delay(1000);
+        String customerIDNumber = getText(customerIDStatus);
+        String customerID = removeFirstAndLastCharacter(customerIDNumber);
+        System.out.println("Customer ID: " + customerID);
+        return customerID;
+    }
 }

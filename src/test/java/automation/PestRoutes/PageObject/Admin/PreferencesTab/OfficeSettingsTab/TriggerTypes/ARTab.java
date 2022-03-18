@@ -132,7 +132,7 @@ public class ARTab extends PreferencesPage {
 			case "Maximum Balance":
 				find(By.xpath(minimum_Balance)).clear();
 				find(By.xpath(maximum_Balance)).clear();
-				type("100", find(By.xpath(maximum_Balance)));
+				type("1000", find(By.xpath(maximum_Balance)));
 				break;
 			default:
 				find(By.xpath(minimum_Balance)).clear();
@@ -175,6 +175,7 @@ public class ARTab extends PreferencesPage {
 
 	public void completeAction(String action, String details) {
 		elementIsVisible(actionDropDown);
+		delay(1000);
 		selectFromDropDown(action, actionDropDown);
 		switch(action) {
 			case "Add Flags":

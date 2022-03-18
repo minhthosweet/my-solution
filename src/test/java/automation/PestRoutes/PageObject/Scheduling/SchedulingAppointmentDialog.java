@@ -120,7 +120,7 @@ public class SchedulingAppointmentDialog extends BasePage {
     }
 
     public void selectTypeOfService (String serviceType) {
-        wait.until(ExpectedConditions.elementToBeClickable(serviceTypeDropDown));
+        elementIsVisible(serviceTypeDropDown);
         selectFromDropDown(serviceType, serviceTypeDropDown);
     }
 

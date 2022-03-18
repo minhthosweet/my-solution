@@ -746,4 +746,41 @@ public class Utilities {
 			e.printStackTrace();
 		}
 	}
+
+	public static void alertCondition(int timeout) {
+		int i = 0;
+		while (i++ < 3) {
+			try {
+				Alert alert = popUpAlert(timeout);
+				String actionAlert = getAlertText();
+				String expected = "Action Required!";
+				if (actionAlert.contains(expected)) {
+					alert.accept();
+					Utilities.clickElement("//div[text()='Save Anyways']", ElementType.XPath);
+					break;
+				}
+				if (actionAlert.contains("This customer is closer to")) {
+					alert.dismiss();
+				}
+			} catch (NoAlertPresentException e) {
+				delay(500);
+				continue;
+			}
+		}
+	}
+
+	public static Alert popUpAlert(int timeout) {
+		for(int i = 0; i < 3; i++) {
+			try {
+				return driver.switchTo().alert();
+			} catch(Exception e) {
+				delay(timeout);
+			}
+		}
+		return null;
+	}
+
+	public static String removeFirstAndLastCharacter(String value) {
+		return value.substring(1, value.length() -1);
+	}
 }

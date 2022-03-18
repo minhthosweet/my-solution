@@ -2,9 +2,12 @@ package automation.PestRoutes.PageObject.Admin.PreferencesTab.OfficeSettingsTab.
 
 import automation.PestRoutes.PageObject.Admin.PreferencesTab.OfficeSettingsTab.OfficeSettingsObjects;
 import automation.PestRoutes.PageObject.Admin.PreferencesTab.PreferencesPage;
+import automation.PestRoutes.Utilities.*;
 import automation.PestRoutes.Utilities.FindElement;
 import automation.PestRoutes.Utilities.FindElement.InputType;
 import automation.PestRoutes.Utilities.Utilities;
+
+import static automation.PestRoutes.Utilities.AppData.*;
 import static automation.PestRoutes.Utilities.Utilities.*;
 import automation.PestRoutes.Utilities.Utilities.ElementType;
 import io.cucumber.java.en.When;
@@ -16,6 +19,8 @@ import java.util.List;
 public class TriggerRules extends PreferencesPage {
 
     OfficeSettingsObjects officeSettingsObjects;
+
+    By selectedOffice = By.xpath("//select[@id='officeSwitcher']/option[@selected='SELECTED']");
     // Search Trigger
     public String searchTrigger = "//input[@id='triggerSearch']";
 
@@ -148,17 +153,12 @@ public class TriggerRules extends PreferencesPage {
     }
 
     public void typeTriggerDescription(String description) {
-        // The Following 3 Methods (waitUntileElementIsVisible, elementIsVisible, isPresent) Did Not Work
-        // However delay Worked Every Time
-        // waitUntileElementIsVisible(descriptionField);
-        // elementIsVisible(descriptionField);
-        // isPresent(descriptionField);
         delay(500);
         type(description, descriptionField);
     }
 
     public void typeStartDate(String date) {
-        waitUntileElementIsVisible(startDateField);
+        elementIsVisible(startDateField);
         type(date, find(startDateField));
     }
 
@@ -206,7 +206,28 @@ public class TriggerRules extends PreferencesPage {
            selectTriggerType(triggerType);
            typeTriggerDescription(description);
            selectFromDropDown("Active", activeDropDown);
+           delay(1000);
            typeStartDate(date);
        }
+    }
+
+    public String resetMostRecentDateTrigger() {
+        return getData("url", environment) + "resources/scripts/internal/resetMostRecentDateTriggered.php";
+    }
+
+    public String getTriggerURL(String triggerName) {
+        String officeID = find(selectedOffice).getAttribute("value");
+        return getData("url", environment) + "resources/scripts/" + triggerName +
+                ".php?debug=1&office=" + officeID + "&testing=1";
+
+   /*
+   Plan To Use Remove The Above return Statement And
+   Implement The Below return Statement
+   When Trigger Rule Gets Merged Into StagingDemo
+   Currently, Only A Few Trigger Rule Scenarios Pass In StagingDemo
+
+        return getData("url", environment) + "resources/scripts/" + triggerName +
+              ".php";
+    */
     }
 }

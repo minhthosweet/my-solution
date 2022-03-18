@@ -120,7 +120,7 @@ public class TriggerDaysBefore_Reminder extends BaseClass {
 		sameUser.clickSaveButton();
 		testAppointment.automateSchedulingAppointment();
 		testAppointment.automateCancellingAppointment();
-		sameUser.clickCloseButton();
+		sameUser.clickClose();
 	}
 
 	@When("I Add {string} Flag To The Customer Before Completing An Appointment")

@@ -1,11 +1,27 @@
 package automation.PestRoutes.Controller.Admin.Preferences.OfficeSettings.TriggerRules.SubscriptionStatus;
 
 import java.io.IOException;
+
+import automation.PestRoutes.Controller.Admin.Preferences.OfficeSettings.TriggerRules.AR.AR_Age;
+import automation.PestRoutes.Controller.CustomerCreation.CreateNewCustomer;
+import automation.PestRoutes.Controller.Customers.AppointmentsTab.TestScheduledAppointments;
+import automation.PestRoutes.PageObject.Admin.AdminMainPage;
+import automation.PestRoutes.PageObject.Admin.PreferencesTab.OfficeSettingsTab.TriggerTypes.SubscriptionStatusTab;
+import automation.PestRoutes.PageObject.Admin.PreferencesTab.OfficeSettingsTab.TriggerTypes.TriggerRules;
+import automation.PestRoutes.PageObject.Admin.PreferencesTab.PreferencesPage;
+import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_Header;
+import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_InfoTab;
+import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_SubscriptionTab;
+import automation.PestRoutes.PageObject.DashboardPage;
+import io.cucumber.java.en.Given;
+import io.cucumber.java.en.When;
 import org.testng.annotations.Test;
 import automation.PestRoutes.Controller.Admin.Preferences.OfficeSettings.TriggerRules.AppointmentStatus.TriggerOnSave_AppointmentStatus;
 import automation.PestRoutes.Controller.Admin.Preferences.OfficeSettings.TriggerRules.CustomerStatus.TriggerOnSave_CustomerStatus;
 import automation.PestRoutes.Controller.Renewal.ValidateRenewal;
 import automation.PestRoutes.Utilities.BaseClass;
+
+import static automation.PestRoutes.Utilities.Utilities.currentDate;
 
 public class TriggerOnSave_SubscriptionStatus extends BaseClass {
 
@@ -14,6 +30,16 @@ public class TriggerOnSave_SubscriptionStatus extends BaseClass {
     TriggerOnSave_AppointmentStatus triggerOnSave_AppointmentStatus = new TriggerOnSave_AppointmentStatus();
     TriggerOnSave_CustomerStatus triggerOnSave = new TriggerOnSave_CustomerStatus();
     ValidateRenewal renewal;
+    CreateNewCustomer testCustomer = new CreateNewCustomer();
+    CustomerViewDialog_Header sameUser = new CustomerViewDialog_Header();
+    CustomerViewDialog_InfoTab userOnInfoTab = new CustomerViewDialog_InfoTab();
+    CustomerViewDialog_SubscriptionTab userOnSubscriptionTab = new CustomerViewDialog_SubscriptionTab();
+    AdminMainPage userOnAdminComponent = new AdminMainPage();
+    DashboardPage userOnDashboard = new DashboardPage();
+    PreferencesPage userOnPreferences = new PreferencesPage();
+    TriggerRules userOnTriggerRulesPage = new TriggerRules();
+    AR_Age testTrigger = new AR_Age();
+    SubscriptionStatusTab userSelectsSubscriptionStatusTrigger = new SubscriptionStatusTab();
 
     private String description_TriggerOnSave = "TriggerOnSave_SubscriptionStatus";
 
@@ -72,5 +98,35 @@ public class TriggerOnSave_SubscriptionStatus extends BaseClass {
         triggerOnSave_AppointmentStatus.createCutomerWithSubscription();
         renewal.freezeSubscription();
         renewal.reActivateSubscription();
+    }
+
+    @Given("I Set Up Trigger Type {string} That {string} When Status Changed To {string}")
+    public void automateSettingUpTriggerTypeSubscriptionStatus(String trigger, String whenToTrigger, String changeStatus) {
+        userOnAdminComponent = userOnDashboard.goToAdminComponent();
+        userOnPreferences = userOnAdminComponent.clickPreferencesSubComponent();
+        userOnTriggerRulesPage = userOnPreferences.clickTriggerRules();
+        userOnTriggerRulesPage.addActiveTrigger
+                (trigger, trigger + " Automation Trigger", currentDate("MM/dd/yy"));
+        userSelectsSubscriptionStatusTrigger.selectWhenToTrigger(whenToTrigger);
+        userSelectsSubscriptionStatusTrigger.selectStatusChangedTo(changeStatus);
+        userSelectsSubscriptionStatusTrigger.typeIncludeCustomerFlag(testTrigger.genericFlag);
+    }
+
+    @When("I Add {string} Flag To The Customer Before Changing The Subscription Status")
+    public void automateSettingUpCustomerWithFlagAndChangeSubscriptionStatus(String flagCode) {
+        testCustomer.createCustomerWithBasicInfo();
+        userOnInfoTab = sameUser.goToInfoTab();
+        userOnInfoTab.selectCustomerGenericFlag(flagCode);
+        sameUser.clickSaveButton();
+
+        sameUser.goToSubscriptionTab();
+        userOnSubscriptionTab.clickNewSubscription();
+        userOnSubscriptionTab.selectRecurringServiceType("Automation Renewal");
+        sameUser.clickSaveButton();
+
+        userOnSubscriptionTab.clickActivateDeactivateButton();
+        userOnSubscriptionTab.clickFreezeSubscriptionButtonOnCancelSubscriptionDialog();
+        sameUser.clickSaveButton();
+        sameUser.clickClose();
     }
 }

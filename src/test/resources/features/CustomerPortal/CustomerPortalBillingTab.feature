@@ -16,7 +16,7 @@ Feature: Customer Portal - Billing Tab Displays Accurate Information
 
     @RegressionREX_Payments
     @VerifyTotalAmountUsingOneTimeCardForEachGateway
-    Scenario Outline: Verify Paying Total Amount Using One Time Card For Each Gateway
+    Scenario Outline: Defect_Verify Paying Total Amount Using One Time Card For Each Gateway
       Given I Set Up The Application For "<Gateway>"
       Given I Create A Customer With A Subscription
       When  I Generate A Stand Alone Invoice

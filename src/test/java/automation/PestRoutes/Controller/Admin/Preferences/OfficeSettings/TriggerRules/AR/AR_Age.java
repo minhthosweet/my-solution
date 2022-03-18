@@ -19,6 +19,7 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
@@ -128,12 +129,15 @@ public class AR_Age extends AppData {
         testUserOnInvoicesTab.automateGeneratingStandAloneInvoice();
     }
 
-    @And("I Execute Trigger {string} On Subdomain {string} For Office {string}")
-    public void automateExecutingTriggerOnSubdomainWithEndPoint(String triggerName, String subdomain, String officeID) {
-        String url = "https://" + subdomain + ".pestroutes.com/resources/scripts/" + triggerName +
-                    ".php?debug=1&office=" + officeID + "&testing=1";
-        WebDriver driver = loadIncognitoChromeBrowser(url);
-        closeIncognitoBrowser(driver);
+    @And("I Execute Trigger {string}")
+    public void automateExecutingTriggerWithEndPoint(String triggerName) {
+        String resetTrigger = userOnTriggerRulesPage.resetMostRecentDateTrigger();
+        WebDriver driver = new ChromeDriver();
+        driver.get(resetTrigger);
+
+        String triggerURL = userOnTriggerRulesPage.getTriggerURL(triggerName);
+        driver.get(triggerURL);
+        driver.close();
     }
 
     @Then("I Verify The Customer Received {string} Note After Executing The Trigger")

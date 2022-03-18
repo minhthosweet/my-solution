@@ -60,6 +60,7 @@ public class Footer extends BasePage {
 		for (WebElement customer : allCustomers) {
 			scrollToElementJS(customer);
 			if(customer.getText().equalsIgnoreCase(customerName)) {
+				delay(1000);
 				customer.click();
 				break;
 			}

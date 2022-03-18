@@ -249,7 +249,7 @@ public class TriggerOnSave_CustomerStatus extends AppData {
         userOnInfoTab.selectCustomerGenericFlag(flagCode);
         sameUser.clickSaveButton();
         userOnAdminTab.changeAccountStatus_Active();
-        sameUser.clickCloseButton();
+        sameUser.clickClose();
     }
 }
 

@@ -133,6 +133,7 @@ public class BasePage {
 
     public void goToCustomerSearchComponent(String customerIDorName) {
         scrollToElementJS(customerSearchField);
+        delay(1000);
         click(customerSearchField);
         type(customerIDorName, customerSearchField);
         click(customer);

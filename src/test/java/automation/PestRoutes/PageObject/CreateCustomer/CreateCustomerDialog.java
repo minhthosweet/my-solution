@@ -219,7 +219,6 @@ public class CreateCustomerDialog extends BasePage {
         FindElement.elementByAttribute(firstNameInputField, InputType.XPath).sendKeys(needFirstName);
     }
     public void typeFirstName (String firstName) {
-        delay(1000);
         type(firstName, firstNameField);
     }
 
@@ -328,15 +327,20 @@ public class CreateCustomerDialog extends BasePage {
     public String getCustomerFullName() {
         String customerFullName = find(firstNameField).getAttribute("value") + " " +
                               find(lastNameField).getAttribute("value");
+        System.out.println("Full Name: " + customerFullName);
         return customerFullName;
     }
 
     public String getCustomerFirstName() {
-        return find(firstNameField).getAttribute("value");
+        String firstName = find(firstNameField).getAttribute("value");
+        System.out.println("First Name: " + firstName);
+        return firstName;
     }
 
     public String getCustomerLastName() {
-        return find(lastNameField).getAttribute("value");
+        String lastName = find(lastNameField).getAttribute("value");
+        System.out.println("Last Name: " + lastName);
+        return lastName;
     }
 
     public void typePropertyAddress(String propertyAddress) {
@@ -344,14 +348,18 @@ public class CreateCustomerDialog extends BasePage {
     }
 
     public String getPropertyAddress(){
-        return find(propertyAddressField).getAttribute("value");
+        String propertyAddress = find(propertyAddressField).getAttribute("value");
+        System.out.println("Address: " + propertyAddress);
+        return propertyAddress;
     }
 
     public String getCityStateZip() {
         String city = find(cityField).getAttribute("value");
         String state = find(stateDropdown).getAttribute("value");
         String zipCode = find(zipCodeField).getAttribute("value");
-        return city + ", " + state + " " + zipCode;
+        String cityStateZip = city + ", " + state + " " + zipCode;
+        System.out.println("City, State Zip: " + cityStateZip);
+        return cityStateZip;
     }
 
     public void typeEmailAddress(String emailAddress) {
@@ -359,10 +367,14 @@ public class CreateCustomerDialog extends BasePage {
     }
 
     public String getEmailAddress() {
-        return find(emailAddressField).getAttribute("value");
+        String email = find(emailAddressField).getAttribute("value");
+        System.out.println("Email: " + email);
+        return email;
     }
 
     public String getPhone1() {
-        return find(By.xpath(cellPhoneInputField)).getAttribute("value");
+        String phone1 = find(By.xpath(cellPhoneInputField)).getAttribute("value");
+        System.out.println("Phone 1: " + phone1);
+        return phone1;
     }
 }

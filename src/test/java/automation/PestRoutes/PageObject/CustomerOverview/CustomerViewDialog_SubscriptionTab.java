@@ -400,7 +400,7 @@ public class CustomerViewDialog_SubscriptionTab extends BasePage {
 
 	}
 
-	public void setMergeBillingAccountField(String needMergeCustomerName) throws InterruptedException {
+	public void setMergeBillingAccountField(String needMergeCustomerName) {
 		Utilities.waitUntileElementIsVisible(mergeBillingAccountField);
 		FindElement.elementByAttribute(mergeBillingAccountField, InputType.XPath).sendKeys(needMergeCustomerName);
 		FindElement.elementByAttribute(mergeBillingAccountField, InputType.XPath).sendKeys(Keys.ARROW_DOWN);

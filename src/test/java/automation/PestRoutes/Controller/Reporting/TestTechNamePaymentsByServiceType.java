@@ -19,10 +19,10 @@ public class TestTechNamePaymentsByServiceType {
     CreateNewCustomer testCustomer = new CreateNewCustomer();
 
     @Then("I See No Tech Is Displayed On The Payment By Service Type Report")
-    public void testNoTechOnPaymentByServiceTypeReport() throws InterruptedException {
+    public void testNoTechOnPaymentByServiceTypeReport() {
         userOnReportingComponent = userOnDashboard.goToReportingComponent();
         userOnPaymentByServiceType = userOnReportingComponent.clickPaymentsByServiceType();
-        userOnPaymentByServiceType.selectDateFor("Today");
+        userOnPaymentByServiceType.selectDateFor("This Week");
         userOnPaymentByServiceType.selectGroupBy("Technician");
         userOnPaymentByServiceType.clickRefreshButton();
         userOnPaymentByServiceType.clickDescription("No Tech");
@@ -34,10 +34,10 @@ public class TestTechNamePaymentsByServiceType {
     }
 
     @Then("I See The Correct Technician Is Displayed On The Payment By Service Type Report")
-    public void testCorrectTechnicianOnPaymentByServiceTypeReport() throws InterruptedException {
+    public void testCorrectTechnicianOnPaymentByServiceTypeReport() {
         userOnReportingComponent = userOnDashboard.goToReportingComponent();
         userOnReportingComponent.clickPaymentsByServiceType();
-        userOnPaymentByServiceType.selectDateFor("Today");
+        userOnPaymentByServiceType.selectDateFor("This Week");
         userOnPaymentByServiceType.selectGroupBy("Technician");
         userOnPaymentByServiceType.clickRefreshButton();
         String transformTechName = transformName(testAppointment.techName);

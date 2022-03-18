@@ -68,7 +68,9 @@ public class RoutePage extends BasePage {
 //        } catch (Exception e) {
 //            System.out.println("Exception is " + e);
 //        }
+        scrollToElementJS(route.addRoutesButton);
         route.clickButton(route.addRoutesButton);
+        delay(1000);
         Utilities.waitUntileElementIsVisible("//p[text()= 'Add " + insertQuantity + " Route']");
         Utilities.scrollToElementJS("//p[text()= 'Add " + insertQuantity + " Route']");
         Utilities.clickElement("//p[text()= 'Add " + insertQuantity + " Route']", ElementType.XPath);
@@ -84,7 +86,6 @@ public class RoutePage extends BasePage {
         Utilities.jsClickElement("//div[@class='routes']/div[" + needRouteSlotNumber + "]" + "//div[text()='" + needTime
                 + "']/following-sibling::div", ElementType.XPath);
     }
-
 
     @And ("I add a route group if not already existing")
     public void addGroupIfNotExisting() {

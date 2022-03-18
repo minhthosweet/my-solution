@@ -174,8 +174,12 @@ public class ReminderTab extends PreferencesPage {
 
 	public void completeSendEmailAction(String emailType) {
 		if (emailType.equalsIgnoreCase("Standard Reminder Email")) {
+			elementIsVisible(emailTypeDropDown);
+			delay(1000);
 			selectFromDropDown(emailType, emailTypeDropDown);
 		} else if (emailType.equalsIgnoreCase("Custom Reminder Email")){
+			elementIsVisible(emailTypeDropDown);
+			delay(1000);
 			selectFromDropDown(emailType, emailTypeDropDown);
 			type("Email - Reminder Trigger Rules Test", actionTextAreaMessage);
 		}
@@ -183,8 +187,12 @@ public class ReminderTab extends PreferencesPage {
 
 	public void completeSendSMSAction(String smsType) {
 		if (smsType.equalsIgnoreCase("Standard Reminder Text Message")) {
+			elementIsVisible(smsTypeDropDown);
+			delay(1000);
 			selectFromDropDown(smsType, smsTypeDropDown);
 		} else if (smsType.equalsIgnoreCase("Custom Text Message")){
+			elementIsVisible(smsTypeDropDown);
+			delay(1000);
 			selectFromDropDown(smsType, smsTypeDropDown);
 			type("SMS - Reminder Trigger Rules Test", actionTextAreaMessage);
 		}
@@ -193,11 +201,17 @@ public class ReminderTab extends PreferencesPage {
 	public void completeSendVoiceAction(String voiceType) {
 		String voiceMessage = "//select[@name='observerItemValue' and @data-observeritemtype='recordedMessages']";
 		if (voiceType.equalsIgnoreCase("Standard Reminder Voice Message")) {
+			elementIsVisible(voiceTypeDropDown);
+			delay(1000);
 			selectFromDropDown(voiceType, voiceTypeDropDown);
 		} else if (voiceType.equalsIgnoreCase("Custom Voice Message")){
+			elementIsVisible(voiceTypeDropDown);
+			delay(1000);
 			selectFromDropDown(voiceType, voiceTypeDropDown);
 			type("Voice - Reminder Trigger Rules Test", actionTextAreaMessage);
 		} else if (voiceType.equalsIgnoreCase("Pre-recorded Message")) {
+			elementIsVisible(voiceTypeDropDown);
+			delay(1000);
 			selectFromDropDown(voiceType, voiceTypeDropDown);
 			selectValueFromDropDownByIndex(voiceMessage, 0);
 		}
@@ -205,6 +219,7 @@ public class ReminderTab extends PreferencesPage {
 
 	public void completeReminderAction(String action, String type) {
 		elementIsVisible(actionDropDown);
+		delay(1000);
 		selectFromDropDown(action, actionDropDown);
 		switch (action) {
 			case "Send Email Reminder":

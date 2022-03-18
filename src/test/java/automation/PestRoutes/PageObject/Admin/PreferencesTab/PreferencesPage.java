@@ -6,10 +6,10 @@ import automation.PestRoutes.PageObject.Admin.PreferencesTab.CustomerPreferences
 import automation.PestRoutes.PageObject.Admin.PreferencesTab.MerchantInfoTab.MarchantInfoPage;
 import automation.PestRoutes.PageObject.Admin.PreferencesTab.OfficeSettingsTab.TriggerTypes.TriggerRules;
 import automation.PestRoutes.Utilities.Utilities;
-import static automation.PestRoutes.Utilities.Utilities.scrollToElementJS;
-import static automation.PestRoutes.Utilities.Utilities.waitUntileElementIsVisible;
 import automation.PestRoutes.Utilities.Utilities.ElementType;
 import org.openqa.selenium.By;
+
+import static automation.PestRoutes.Utilities.Utilities.*;
 
 public class PreferencesPage extends AdminMainPage {
 	
@@ -104,7 +104,8 @@ public class PreferencesPage extends AdminMainPage {
 	}
 
 	public GenericFlagsPage clickGenericFlags() {
-		waitUntileElementIsVisible(genericFlagsListItem,5);
+		elementIsVisible(genericFlagsListItem);
+		scrollToElementJS(genericFlagsListItem);
 		click(genericFlagsListItem);
 		return new GenericFlagsPage();
 	}

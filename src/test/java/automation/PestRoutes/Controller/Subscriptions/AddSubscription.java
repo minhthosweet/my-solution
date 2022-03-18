@@ -325,6 +325,7 @@ public class AddSubscription extends AppData {
 		totalInitialInvoice = userOnSubscriptionTab.getInitialInvoiceTotal();
 	}
 
+	@When("I Create A New Subscription With Only Service Type")
 	public void createNewSubscriptionWithOnlyServiceType() {
 		CustomerViewDialog_Header sameUser = new CustomerViewDialog_Header();
 		CustomerViewDialog_SubscriptionTab userOnSubscriptionTab = new CustomerViewDialog_SubscriptionTab();

@@ -62,7 +62,7 @@ public class TestScheduledAppointments {
 
     @And("I Cancel The Scheduled Appointment")
     public void automateCancellingAppointment() {
-        userOnRoutePage.goToCustomerSearchComponent(testCustomer.customerName);
+        userOnCustomerHeader.searchCustomerWithName(testCustomer.customerName);
         sameUser.goToAppointmentsTab();
         userOnAppointmentsTab.clickPendingAppointment("Automation Renewal");
         userOnAppointmentsTab.clickCancelAppointmentButton();

@@ -22,6 +22,7 @@ import org.openqa.selenium.WebElement;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
+import java.util.Objects;
 
 import static automation.PestRoutes.Utilities.AssertException.result;
 import static automation.PestRoutes.Utilities.Utilities.acceptAlert;
@@ -575,7 +576,7 @@ public class CreateNewCustomer extends AppData {
 
     private void alertCondition() {
         int i = 0;
-        while (i++ < 3) {
+        while (i++ < 5) {
             try {
                 Alert alert = Utilities.alertPopUp();
                 String actionAlert = Utilities.getAlertText();
@@ -742,19 +743,18 @@ public class CreateNewCustomer extends AppData {
         userCreateNewCustomer.typeEmailAddress(email);
         emailAddress = userCreateNewCustomer.getEmailAddress();
         sameUser.clickSaveButton();
-        alertCondition();
+        if(!Objects.equals(getData("userName", environment), "mind")) {
+            Utilities.alertCondition(200);
+        }
     }
 
     @Given("I Create A Customer With A Subscription")
     public void automateCreatingCustomerWithSubscription() {
         CustomerViewDialog_Header sameUser = new CustomerViewDialog_Header();
-        BillingPage userOnBillingTab = new BillingPage();
         AddSubscription testSubscription = new AddSubscription();
 
         createCustomerWithBasicInfo();
-        sameUser.goToBillingTab();
-        customerAccountID = userOnBillingTab.getCustomerAccountID();
+        customerAccountID = sameUser.getCustomerID();
         testSubscription.createNewSubscriptionWithBasicInfo();
-        sameUser.clickSaveButton();
     }
 }
