@@ -60,7 +60,8 @@ public class AddSubscription extends AppData {
 	public void startSubscriptionWithSalesRep(String needSalesmanName, String needSubscriptionFlagName) throws Exception {
 		customerDialogHeader = new CustomerViewDialog_Header();
 		header = new Header();
-		customerDialogHeader.navigateTo(customerDialogHeader.subscriptionTabInDialog);
+		customerDialogHeader.goToSubscriptionTab();
+		//customerDialogHeader.navigateTo(customerDialogHeader.subscriptionTabInDialog);
 		subscription.clickNewSubscriptionButton();
 		subscription.selectServiceType(getData("serviceDescription", generalData));
 		subscription.setCustomDate(getData("customDate", quarterlyPreferredDayData));

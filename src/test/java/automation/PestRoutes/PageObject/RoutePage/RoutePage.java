@@ -70,7 +70,7 @@ public class RoutePage extends BasePage {
 //        }
         scrollToElementJS(route.addRoutesButton);
         route.clickButton(route.addRoutesButton);
-        delay(1000);
+        delay(3000);
         Utilities.waitUntileElementIsVisible("//p[text()= 'Add " + insertQuantity + " Route']");
         Utilities.scrollToElementJS("//p[text()= 'Add " + insertQuantity + " Route']");
         Utilities.clickElement("//p[text()= 'Add " + insertQuantity + " Route']", ElementType.XPath);
@@ -113,12 +113,14 @@ public class RoutePage extends BasePage {
     }
 
     public void addGroup(String routeGroupName){
-        Utilities.scrollToElementJS(addGroup);
-        Utilities.clickElement(addGroup, ElementType.XPath);
-        FindElement.elementByAttribute(groupTitle, InputType.XPath).sendKeys(routeGroupName);
-        Utilities.waitUntileElementIsVisible(groupTemplate);
-        Utilities.waitUntileElementIsVisible(saveButton);
-        Utilities.clickElement(saveButton, ElementType.XPath);
+        if (!find(By.xpath(addGroup)).isDisplayed()) {
+            Utilities.scrollToElementJS(addGroup);
+            Utilities.clickElement(addGroup, ElementType.XPath);
+            FindElement.elementByAttribute(groupTitle, InputType.XPath).sendKeys(routeGroupName);
+            Utilities.waitUntileElementIsVisible(groupTemplate);
+            Utilities.waitUntileElementIsVisible(saveButton);
+            Utilities.clickElement(saveButton, ElementType.XPath);
+        }
     }//addGroup()
 
     @Then("I delete a routing group")

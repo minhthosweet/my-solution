@@ -25,8 +25,7 @@ import java.io.IOException;
 import java.util.Objects;
 
 import static automation.PestRoutes.Utilities.AssertException.result;
-import static automation.PestRoutes.Utilities.Utilities.acceptAlert;
-import static automation.PestRoutes.Utilities.Utilities.delay;
+import static automation.PestRoutes.Utilities.Utilities.*;
 
 public class CreateNewCustomer extends AppData {
     CreateCustomerDialog customer;
@@ -619,7 +618,8 @@ public class CreateNewCustomer extends AppData {
         customerDialog_Header = new CustomerViewDialog_Header();
         customerViewDialog_infoTab = new CustomerViewDialog_InfoTab();
         acceptAlert();
-        customerDialog_Header.navigateTo(customerDialog_Header.infoTabInDialog);
+        customerDialog_Header.goToInfoTab();
+        //customerDialog_Header.navigateTo(customerDialog_Header.infoTabInDialog);
         Utilities.waitUntileElementIsVisible(customerViewDialog_infoTab.state);
         return customerViewDialog_infoTab.getFirstName() + " " + customerViewDialog_infoTab.getLastName();
     }
