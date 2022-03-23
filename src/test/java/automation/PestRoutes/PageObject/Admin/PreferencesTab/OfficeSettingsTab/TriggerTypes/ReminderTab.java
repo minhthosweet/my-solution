@@ -70,6 +70,11 @@ public class ReminderTab extends PreferencesPage {
 	// get Credit Card Info in Billing
 	public String CCInfo = "//li[@class='gatewayCC']//div[text()='No Payment Info']";
 
+	// Custom Messages For Email, SMS, and Voice Reminders
+	private final String CUSTOM_EMAIL_MESSAGE = "Hi {{fname}}! We will be servicing your home this {{serviceDate}}. \n Email - Reminder Trigger Rules Test";
+	private final String CUSTOM_SMS_MESSAGE = "Hi {{fname}}! We will be servicing your home this {{serviceDate}}. \n SMS - Reminder Trigger Rules Test";
+	private final String CUSTOM_VOICE_MESSAGE = "Hi {{fname}}! We will be servicing your home this {{serviceDate}}. \n Voice - Reminder Trigger Rules Test";
+
 	public void setdaysBefore_Reminder(String numberOfDays) {
 		Utilities.waitUntileElementIsVisible(daysBefore_Reminder);
 		FindElement.elementByAttribute(daysBefore_Reminder, InputType.XPath).clear();
@@ -182,7 +187,7 @@ public class ReminderTab extends PreferencesPage {
 			elementIsVisible(emailTypeDropDown);
 			delay(1000);
 			selectFromDropDown(emailType, emailTypeDropDown);
-			type("Email - Reminder Trigger Rules Test", emailTextAreaMessage);
+			type(CUSTOM_EMAIL_MESSAGE, emailTextAreaMessage);
 		}
 	}
 
@@ -195,7 +200,7 @@ public class ReminderTab extends PreferencesPage {
 			elementIsVisible(smsTypeDropDown);
 			delay(1000);
 			selectFromDropDown(smsType, smsTypeDropDown);
-			type("SMS - Reminder Trigger Rules Test", textAreaMessageVoiceSMS);
+			type(CUSTOM_SMS_MESSAGE, textAreaMessageVoiceSMS);
 		}
 	}
 
@@ -209,7 +214,7 @@ public class ReminderTab extends PreferencesPage {
 			elementIsVisible(voiceTypeDropDown);
 			delay(1000);
 			selectFromDropDown(voiceType, voiceTypeDropDown);
-			type("Voice - Reminder Trigger Rules Test", textAreaMessageVoiceSMS);
+			type(CUSTOM_VOICE_MESSAGE, textAreaMessageVoiceSMS);
 		} else if (voiceType.equalsIgnoreCase("Pre-recorded Message")) {
 			elementIsVisible(voiceTypeDropDown);
 			delay(1000);

@@ -110,4 +110,28 @@ public class GetDate {
 		String day = separateYearMonthDay[2].replaceFirst("^0*", "");
 		return month + "/" + day + "/" + year;
 	}
+
+	public static String convert_2DigitMonth_2DigitDay_2DigitYear(String date) {
+		// Incoming Date Is Formatted As MM/dd/yy
+		// Return Date Is Formatted As M/DD/YYYY
+
+		String[] separateYearMonthDay = date.split("/");
+		String month = separateYearMonthDay[0].replaceFirst("^0*", "");
+		String day = separateYearMonthDay[1].replaceFirst("^0*", "");
+		String year = "20" + separateYearMonthDay[2];
+		return month + "/" + day + "/" + year;
+	}
+
+	public static String display_DayOfWeek_Date(String date, String dateFormat) throws ParseException {
+		// Pass In The Date & Format
+		// Return Day of Week & Date (i.e., Sunday, May 8)
+
+		Date convertDate = new SimpleDateFormat(dateFormat).parse(date);
+		String dayOfWeek = new SimpleDateFormat("EEEE").format(convertDate);
+
+		SimpleDateFormat month_date = new SimpleDateFormat("MMM d");
+		Calendar calendar = Calendar.getInstance();
+		String month_day = month_date.format(calendar.getTime());
+		return dayOfWeek + ", " + month_day;
+	}
 }

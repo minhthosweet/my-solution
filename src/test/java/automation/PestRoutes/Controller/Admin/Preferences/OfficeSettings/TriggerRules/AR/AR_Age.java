@@ -13,6 +13,7 @@ import automation.PestRoutes.PageObject.DashboardPage;
 import automation.PestRoutes.PageObject.Header;
 import automation.PestRoutes.Utilities.AppData;
 import automation.PestRoutes.Utilities.GetDate;
+import static automation.PestRoutes.Utilities.GetDate.*;
 import automation.PestRoutes.Utilities.Utilities;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
@@ -22,6 +23,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
+
+import java.text.ParseException;
 
 import static automation.PestRoutes.Utilities.Utilities.*;
 
@@ -50,6 +53,7 @@ public class AR_Age extends AppData {
     private String description_TriggerAge = "TriggerAge_AR";
     public String age = "1";
     public static String genericFlag;
+    public String todaysDate = Utilities.currentDate("MM/dd/yy");
 
     @Test
     public void daysPastDue_AR() throws Exception {
@@ -144,7 +148,7 @@ public class AR_Age extends AppData {
     public void testCustomerReceivedDetailNoteLog(String noteDetail) {
        userOnHeader.searchCustomerWithName(testCustomer.customerName);
        sameUser.goToNotesTab();
-       boolean isNoteSent = userOnNotesTab.getNotesLogInfo().contains(noteDetail);
+       boolean isNoteSent = userOnNotesTab.getNotesContactType().contains(noteDetail);
        softAssert.assertTrue(isNoteSent,
                 "Customer Did Not Receive " + noteDetail + " After Executing Trigger");
        sameUser.goToAdminTab();
@@ -170,6 +174,32 @@ public class AR_Age extends AppData {
                 "\n" + genericFlag + " Is Not Displayed On The Info Tab After Executing Trigger" );
         softAssert.assertTrue(isAdditionalFlagDisplayedOnInfoTab,
                 additionalFlag + " Is Not Displayed On The Info Tab After Executing Trigger \n" );
+        sameUser.goToAdminTab();
+        userOnAdminTab.clickRemoveButton();
+        userOnAdminTab.clickConfirmRemoveButton();
+        softAssert.assertAll();
+    }
+
+    @Then("I Verify The Customer Received {string} Note With Correct Dates After Executing The Trigger")
+    public void testCustomerReceivedDetailNoteLogAfterExecutingTrigger(String noteDetail) throws ParseException {
+        userOnHeader.searchCustomerWithName(testCustomer.customerName);
+        sameUser.goToNotesTab();
+
+        String serviceDate = display_DayOfWeek_Date(todaysDate, "MM/dd/yy");
+        boolean isServiceDateDisplayed = userOnNotesTab.getNotesLogMessage().contains(serviceDate);
+        softAssert.assertTrue(isServiceDateDisplayed,
+                "\n Service Date In Email Header Is Not Correct \n");
+
+        boolean isContactTypeSent = userOnNotesTab.getNotesContactType().contains(noteDetail);
+        softAssert.assertTrue(isContactTypeSent,
+                "\n Customer Did Not Receive " + noteDetail + " After Executing Trigger \n");
+
+        String expectedDateAdded = convert_2DigitMonth_2DigitDay_2DigitYear(todaysDate);
+        boolean isDateAddedSent = userOnNotesTab.getNotesDateAdded().contains(expectedDateAdded);
+        softAssert.assertTrue(isDateAddedSent,
+                "\n Customer Did Not Receive " + noteDetail + " On The Correct Date" +
+                        "\n Expected Date: " + expectedDateAdded +
+                        "\n Actual Date:   " + userOnNotesTab.getNotesDateAdded() + "\n");
         sameUser.goToAdminTab();
         userOnAdminTab.clickRemoveButton();
         userOnAdminTab.clickConfirmRemoveButton();

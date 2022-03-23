@@ -59,3 +59,14 @@ Feature: Reminders Trigger Rule
     When  I Add "Reminders Automation Trigger Rule" Flag To The Customer Before Scheduling An Appointment
     And   I Execute Trigger "triggerReminders"
     Then  I Verify The Customer Received "Email" Note After Executing The Trigger
+
+# Ticket 123678: Email Header Showing Incorrect Date of Wednesday, DEC 31ST
+# https://fieldroutes.freshdesk.com/a/tickets/123678
+  @VerifyCorrectDateForRemindersTriggerRule
+  Scenario: Verify Correct Date For Reminder Trigger Rules
+    Given I Set Up A Customer "Reminders Automation Trigger Rule" Flag If The Flag Does Not Exist
+    Given I Set Up "Reminders" Trigger Type That "Trigger Days Before" An Appointment
+    And   I Complete An Action To "Send Email Reminder" With "Custom Reminder Email" Type
+    When  I Add "Reminders Automation Trigger Rule" Flag To The Customer Before Scheduling An Appointment
+    And   I Execute Trigger "triggerReminders"
+    Then  I Verify The Customer Received "Email" Note With Correct Dates After Executing The Trigger
