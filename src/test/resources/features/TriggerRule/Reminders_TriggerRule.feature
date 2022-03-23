@@ -37,3 +37,25 @@ Feature: Reminders Trigger Rule
     When  I Add "Reminders Automation Trigger Rule" Flag To The Customer Before Scheduling An Appointment
     And   I Execute Trigger "triggerReminders"
     Then  I Verify The Customer Received "Voice" Note After Executing The Trigger
+
+# Ticket 108825: Trigger Rule Not Working Properly
+# https://fieldroutes.freshdesk.com/a/tickets/108825
+  @VerifyReminderTriggerRuleWorkForCustomSMS
+  Scenario: Verify Reminder Trigger Rules Work Properly For Custom SMS
+    Given I Set Up A Customer "Reminders Automation Trigger Rule" Flag If The Flag Does Not Exist
+    Given I Set Up "Reminders" Trigger Type That "Trigger Days Before" An Appointment
+    And   I Complete An Action To "Send SMS Reminder" With "Custom Text Message" Type
+    When  I Add "Reminders Automation Trigger Rule" Flag To The Customer Before Scheduling An Appointment
+    And   I Execute Trigger "triggerReminders"
+    Then  I Verify The Customer Received "SMS" Note After Executing The Trigger
+
+# Ticket 108825: Trigger Rule Not Working Properly
+# https://fieldroutes.freshdesk.com/a/tickets/108825
+  @VerifyReminderTriggerRuleWorkForCustomEmail
+  Scenario: Verify Reminder Trigger Rules Work Properly For Custom Email
+    Given I Set Up A Customer "Reminders Automation Trigger Rule" Flag If The Flag Does Not Exist
+    Given I Set Up "Reminders" Trigger Type That "Trigger Days Before" An Appointment
+    And   I Complete An Action To "Send Email Reminder" With "Custom Reminder Email" Type
+    When  I Add "Reminders Automation Trigger Rule" Flag To The Customer Before Scheduling An Appointment
+    And   I Execute Trigger "triggerReminders"
+    Then  I Verify The Customer Received "Email" Note After Executing The Trigger

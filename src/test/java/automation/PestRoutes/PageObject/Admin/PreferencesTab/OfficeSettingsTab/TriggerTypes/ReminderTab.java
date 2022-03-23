@@ -26,7 +26,8 @@ public class ReminderTab extends PreferencesPage {
 	private By greenActionButton = By.xpath("//div[text()='+ Action']");
 	private By saveTriggerButton = By.xpath("//span[text()='save']");
 	private By actionDropDown = By.xpath("//div[@id='observer']//select[@name='eventObserverID']");
-	private By actionTextAreaMessage = By.xpath("//textarea[@name='observerItemValue']");
+	private By textAreaMessageVoiceSMS = By.xpath("//textarea[@name='observerItemValue']");
+	private By emailTextAreaMessage = By.xpath("//textarea[@name='observerItemValue']/preceding::div[1]");
 	private By emailTypeDropDown = By.xpath("//label[text()='Email Type']//following::select[@name='observerItemValue']");
 	private By smsTypeDropDown = By.xpath("//label[text()='SMS Type']//following::select[@name='observerItemValue']");
 	private By voiceTypeDropDown = By.xpath("//label[text()='Voice Type']//following::select[@name='observerItemValue']");
@@ -181,7 +182,7 @@ public class ReminderTab extends PreferencesPage {
 			elementIsVisible(emailTypeDropDown);
 			delay(1000);
 			selectFromDropDown(emailType, emailTypeDropDown);
-			type("Email - Reminder Trigger Rules Test", actionTextAreaMessage);
+			type("Email - Reminder Trigger Rules Test", emailTextAreaMessage);
 		}
 	}
 
@@ -194,7 +195,7 @@ public class ReminderTab extends PreferencesPage {
 			elementIsVisible(smsTypeDropDown);
 			delay(1000);
 			selectFromDropDown(smsType, smsTypeDropDown);
-			type("SMS - Reminder Trigger Rules Test", actionTextAreaMessage);
+			type("SMS - Reminder Trigger Rules Test", textAreaMessageVoiceSMS);
 		}
 	}
 
@@ -208,7 +209,7 @@ public class ReminderTab extends PreferencesPage {
 			elementIsVisible(voiceTypeDropDown);
 			delay(1000);
 			selectFromDropDown(voiceType, voiceTypeDropDown);
-			type("Voice - Reminder Trigger Rules Test", actionTextAreaMessage);
+			type("Voice - Reminder Trigger Rules Test", textAreaMessageVoiceSMS);
 		} else if (voiceType.equalsIgnoreCase("Pre-recorded Message")) {
 			elementIsVisible(voiceTypeDropDown);
 			delay(1000);
