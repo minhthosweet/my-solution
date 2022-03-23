@@ -58,3 +58,12 @@ Feature: AR Trigger Rule
     When  I close customer card
     And   I Execute Trigger "triggerEvents"
     Then  I Verify The Customer Received "Automation Flag" After Executing The Trigger
+
+# Ticket 97608: AR Trigger Not Saving Service Type
+# https://fieldroutes.freshdesk.com/a/tickets/97608
+  @VerifyServiceTypeRemainsSavedForCreateInvoiceAction
+  Scenario: Verify Service Type Is Not Deleted After Saving Create Invoice Action For AR Trigger
+    Given I Set Up A Customer "AR Automation Trigger Rule" Flag If The Flag Does Not Exist
+    Given I Set Up "AR" Trigger Type That Has "Days Past Due" Filter With "Minimum Balance" Filter
+    And   I Complete An Action To "Create Invoices" With "Misc Service" Details
+    Then  I Verify The "Misc Service" Service Type Is Not Deleted After Saving The "AR" Trigger Type

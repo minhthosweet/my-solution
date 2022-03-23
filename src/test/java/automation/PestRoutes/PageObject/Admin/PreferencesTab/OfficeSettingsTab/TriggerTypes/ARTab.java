@@ -8,7 +8,6 @@ import static automation.PestRoutes.Utilities.Utilities.*;
 import automation.PestRoutes.Utilities.Utilities.ElementType;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-
 import java.util.List;
 
 public class ARTab extends PreferencesPage {
@@ -49,7 +48,7 @@ public class ARTab extends PreferencesPage {
 	private By voiceTypeDropDown = By.xpath("//select[@name='observerItemValue' and @value='new']");
 	private By createInvoicesValueTypeDropDown = By.xpath("//label[contains(text(),'Value Type')]//following::select[@id='observerItem']");
 	private By createInvoicesValueField = By.xpath("//input[@id='observerItem' and @name='observerItemValue']");
-	private By createInvoicesServiceTypeDropDown = By.xpath("//label[contains(text(),'Value Type')]//following::select[@id='observerItem']//following::select[@id='observerItem']");
+	private By createInvoicesServiceTypeDropDown = By.xpath("//select[@data-observeritemtype='serviceID']");
 	private By freezeCustomersCancellationReasonDropDown = By.xpath("//label[text()='Cancellation Reason']//following::select[@id='observerItem']");
 	private By textArea_Email_FreezeCustomer_Message = By.xpath("//textarea[@id='observerItem']/../div");
 	private By textArea_SMS_Voice_Message = By.xpath("//textarea[@id='observerItem']");
@@ -206,5 +205,11 @@ public class ARTab extends PreferencesPage {
 	public void clickSaveButton() {
 		scrollToElementJS(saveTriggerButton);
 		click(saveTriggerButton);
+	}
+
+	public String getCreateInvoiceServiceType() {
+		String serviceType = getSelectedOptionFromDropDown(createInvoicesServiceTypeDropDown);
+		System.out.println("Service Type: " + serviceType);
+		return serviceType;
 	}
 }

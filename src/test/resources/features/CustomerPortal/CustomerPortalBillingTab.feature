@@ -16,7 +16,7 @@ Feature: Customer Portal - Billing Tab Displays Accurate Information
 
     @RegressionREX_Payments
     @VerifyTotalAmountUsingOneTimeCardForEachGateway
-    Scenario Outline: Defect_Verify Paying Total Amount Using One Time Card For Each Gateway
+    Scenario Outline: Verify Paying Total Amount Using One Time Card For Each Gateway
       Given I Set Up The Application For "<Gateway>"
       Given I Create A Customer With A Subscription
       When  I Generate A Stand Alone Invoice
@@ -27,7 +27,7 @@ Feature: Customer Portal - Billing Tab Displays Accurate Information
         | Gateway             | Credit Card #       |
         | Braintree           | 4111 1111 1111 1111 |
         | Element             | 4111 1111 1111 1111 |
-  #      | NMI                 | 5412 7501 0905 6250 |
+        | NMI                 | 5412 7501 0905 6250 |
         | Spreedly            | 4111 1111 1111 1111 |
         | PestRoutes Payments | 4111 1111 1111 1111 |
 

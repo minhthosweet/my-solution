@@ -230,4 +230,18 @@ public class TriggerRules extends PreferencesPage {
               ".php";
     */
     }
+
+    public void editExistingTrigger(String description) {
+        List<WebElement> listOfDescriptionValues = findElements(descriptionColumnValues);
+        By editButton = By.xpath("//div[@id='triggerRulesTable']/div[2]//div[text()='"+ description +"']//following::span");
+        for(WebElement descriptionValue : listOfDescriptionValues) {
+            scrollToElementJS(descriptionValue);
+            if (descriptionValue.getText().equals(description)) {
+                delay(1000);
+                scrollToElementJS(editButton);
+                find(editButton).click();
+                break;
+            }
+        }
+    }
 }

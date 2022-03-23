@@ -7,14 +7,11 @@ import automation.PestRoutes.Utilities.Utilities;
 import automation.PestRoutes.Utilities.Utilities.ElementType;
 import static automation.PestRoutes.Utilities.Utilities.*;
 import org.openqa.selenium.By;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
 
 public class SchedulingAppointmentDialog extends BasePage {
 
-    WebDriverWait wait = new WebDriverWait(driver, 5);
     //******************************Page objects******************************
 
     //*****Scheduling tab objects*****

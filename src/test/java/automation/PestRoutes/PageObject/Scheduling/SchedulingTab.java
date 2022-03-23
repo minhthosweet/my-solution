@@ -67,7 +67,8 @@ public class SchedulingTab extends BasePage {
         overviewHeader = new CustomerViewDialog_Header();
         overviewHeader.navigateTo(overviewHeader.subscriptionTabInDialog);
         Utilities.jsClickElement(scheduleButtonInDialog, ElementType.XPath);
-        Utilities.waitUntileElementIsVisible(closeRecommendedRoutes);
+        delay(3000);
+        //Utilities.waitUntileElementIsVisible(closeRecommendedRoutes);
         Utilities.jsClickElement(closeRecommendedRoutes, ElementType.XPath);
     }
 

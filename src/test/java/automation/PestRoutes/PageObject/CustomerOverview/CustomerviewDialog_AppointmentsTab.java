@@ -73,9 +73,10 @@ public class CustomerviewDialog_AppointmentsTab extends BasePage {
      * Action Methods Below function will click or select objects from drop down
      */
     public void clickScheduledService(String needServiceName) {
-        Utilities.waitUntileElementIsVisible(
-                "//span[text()='Pending']/parent::div/preceding-sibling::div[contains (text(), '" + needServiceName
-                        + "')]");
+        delay(3000);
+        //Utilities.waitUntileElementIsVisible(
+          //      "//span[text()='Pending']/parent::div/preceding-sibling::div[contains (text(), '" + needServiceName
+            //            + "')]");
         Utilities.clickElement("//span[text()='Pending']/parent::div/preceding-sibling::div[contains (text(), '"
                 + needServiceName + "')]", ElementType.XPath);
     }
