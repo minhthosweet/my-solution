@@ -58,6 +58,7 @@ public class AppointmentStatusPage extends PreferencesPage {
 
     public void clickAddActionButton() {
         elementIsVisible(greenActionButton);
+        scrollToElementJS(greenActionButton);
         click(greenActionButton);
     }
 

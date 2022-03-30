@@ -12,10 +12,15 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
 import java.util.Locale;
+import java.util.Random;
 
 import static automation.PestRoutes.Utilities.Utilities.*;
 
 public class BillingPage extends BasePage {
+
+	Random random = new Random();
+	String[] routingNumber = {"111000614", "051000017", "122101706"};
+	String[] accountNumber = {"111222333", "222333444", "333444555"};
 
 	public String paymentMethodTitle = "//div[@id='billingInfoContent']//h3";
 	public By  textBillingInfoUsedMsg = By.xpath("//div[contains(text(),'This billing information is used')]");
@@ -438,5 +443,36 @@ public class BillingPage extends BasePage {
 			click(ccRemovePaymentMethodButton);
 	}//removePaymentMethod()
 
+	public void clickBillingInfo() {
+		delay(3000);
+		click(By.xpath(billingInfoButton));
+	}
 
+	public void clickBankAccountButton() {
+		click(By.xpath(addBankAccountButton));
+	}
+
+	public void typeBankName(String bankName) {
+		type(bankName, By.xpath(bankAccountBankNameInputField));
+	}
+
+	public void typeRoutingNumber() {
+		//String[] routingNumber = {"111000614", "051000017", "122101706"};
+		int selectRouting = random.nextInt(routingNumber.length);
+		type(routingNumber[selectRouting], By.xpath(bankAccountRoutingNumberInputField));
+	}
+
+	public void typeAccountNumber() {
+		//String[] accountNumber = {"111222333", "222333444", "333444555"};
+		int selectAccount = random.nextInt(accountNumber.length);
+		type(accountNumber[selectAccount], By.xpath(bankAccountAccountNumberInputField));
+	}
+
+	public void clickSaveBankAccountButton() {
+		click(By.xpath(saveBankAccountButton));
+	}
+
+	public void selectAutoPay() {
+		selectValueFromDropDownByIndex(autoPayDropdown, 1);
+	}
 }

@@ -108,7 +108,7 @@ public class ARTab extends PreferencesPage {
 	}
 
 	public boolean typeFlagToInclude(String flagCode) {
-		List<WebElement> allFlags = findElements(By.xpath("//div[@id='s2id_filterItem9']/ul/li/div"));
+		List<WebElement> allFlags = findElements(By.xpath("//div[@id='s2id_filterItem11']/ul/li/div"));
 		WebElement includeCustomerFlagsMultiField = find(includeCustomerFlagsMultiDropDown);
 		for (WebElement flag : allFlags) {
 			if (flag.getText().contains(flagCode)) {
@@ -141,6 +141,7 @@ public class ARTab extends PreferencesPage {
 
 	public void clickAddActionButton() {
 		elementIsVisible(greenActionButton);
+		scrollToElementJS(greenActionButton);
 		click(greenActionButton);
 	}
 

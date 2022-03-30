@@ -136,4 +136,10 @@ public class RoutePageInvoicing extends BasePage {
 	public String getRecentMemo(){
 		return getText(recentMemo);
 	}
+
+	public String getFullyPaidStatus() {
+		String paymentStatus = getText(fullyPaidPaymentStatus);
+		System.out.println("Payment Status: " + paymentStatus);
+		return paymentStatus;
+	}
 }

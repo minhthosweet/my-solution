@@ -175,6 +175,7 @@ public class ReminderTab extends PreferencesPage {
 
 	public void clickAddActionButton() {
 		elementIsVisible(greenActionButton);
+		scrollToElementJS(greenActionButton);
 		click(greenActionButton);
 	}
 

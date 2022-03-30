@@ -29,6 +29,7 @@ import automation.PestRoutes.PageObject.CustomerOverview.Invoicing.Invoice_Heade
 import automation.PestRoutes.PageObject.CustomerOverview.Invoicing.RoutePageInvoicing;
 import automation.PestRoutes.PageObject.CustomerOverview.Invoicing.CreditCard.CardOnFile;
 import automation.PestRoutes.PageObject.CustomerOverview.Invoicing.CreditCard.CreditCardConfirmationPage;
+import org.testng.asserts.SoftAssert;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -40,6 +41,7 @@ import static java.lang.Double.parseDouble;
 
 public class InvoicingTab extends AppData{
 
+    SoftAssert softAssert = new SoftAssert();
     InvoiceImplementation invImplementation = new InvoiceImplementation();
     CreateNewInvoicePopUp newInvoice;
     CreateNewCustomer createCustomer;
@@ -60,8 +62,10 @@ public class InvoicingTab extends AppData{
     MarchantInfoPage merchantPage;
     PreferencesPage preferencesPage;
     OfficeSettingsObjects officeSettings;
-    AddSubscription testSubscription = new AddSubscription();
     BillingPage billingTab = new BillingPage();
+    Header userOnHeader = new Header();
+    CustomerViewDialog_Header sameUser = new CustomerViewDialog_Header();
+    CustomerViewDialog_Admin userOnAdminTab = new CustomerViewDialog_Admin();
 
     private String treatmentAmount = "900";
     private Integer partialPaymentAmount = Integer.parseInt(treatmentAmount) / 2;
@@ -1341,4 +1345,19 @@ public class InvoicingTab extends AppData{
         result("FULLY PAID",invImplementation.getInvoicePaymentBalanceStatus(generatedInvoiceIDsList.get(1)), "REFUND WITH PAYMENT PRIORITY APPLIED", "REFUND ORDER VALIDATION");
         result("PARTIALLY PAID",invImplementation.getInvoicePaymentBalanceStatus(generatedInvoiceIDsList.get(2)), "REFUND WITH PAYMENT PRIORITY APPLIED", "REFUND ORDER VALIDATION");
     } //validateRefundOrderWithPaymentPriorityApplied()
+
+   @Then("I Verify The Customer Has A Fully Paid Balance After Being Charged via Auto Pay")
+   public void testCustomerHasFullyPaidBalanceAfterAutoPay() {
+       userOnHeader.searchCustomerWithName(CreateNewCustomer.customerName);
+       sameUser.goToInvoicesTab();
+       String paymentStatus = invoiceRoutesTab.getFullyPaidStatus();
+       softAssert.assertTrue(paymentStatus.contains("FULLY PAID"),
+               "\n The Payment Is Not Fully Paid" +
+                       "\n Actual Status Is " + paymentStatus);
+       sameUser.goToAdminTab();
+       userOnAdminTab.clickRemoveButton();
+       userOnAdminTab.clickConfirmRemoveButton();
+       softAssert.assertAll();
+       softAssert.assertAll();
+   }
 }

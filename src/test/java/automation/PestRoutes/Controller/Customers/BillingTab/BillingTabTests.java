@@ -4,11 +4,13 @@ import automation.PestRoutes.PageObject.CustomerOverview.*;
 import automation.PestRoutes.Utilities.Utilities;
 import automation.PestRoutes.PageObject.CustomerOverview.BillingPage;
 import io.cucumber.java.en.And;
-import org.testng.Assert;
+
+import java.util.Random;
 
 public class BillingTabTests {
     CustomerViewDialog_Header customerCardHeader;
     BillingPage billingPage;
+    CustomerViewDialog_Header sameUser = new CustomerViewDialog_Header();
 
     @And("I set Autopay option to {string} for customer,{string} {string}")
     public void setAutopayOption(String strAutopayOption, String firstName, String lastName) throws Exception {
@@ -34,5 +36,28 @@ public class BillingTabTests {
            throw new Exception(e);
        }
     }// setAutopayOption()
+
+    @And("I Select Credit Card {string} For Auto Pay Using {string}, {string}, {string}, {string}")
+    public void automateAddingCreditCardAutoPay(String creditCard, String gateway, String creditCardNumber, String expirationDate, String cvv) {
+        billingPage = sameUser.goToBillingTab();
+        billingPage.clickAddPaymentMethod();
+        billingPage.clickCreditCardButton();
+        billingPage.enterNewCardInformation(gateway, creditCardNumber, expirationDate, cvv);
+        billingPage.clickBillingInfo();
+        billingPage.selectAutoPayOption(creditCard);
+    }
+
+    @And("I Select Bank Account For Auto Pay")
+    public void automateAddingBankAccountAutoPay() {
+        billingPage = sameUser.goToBillingTab();
+        billingPage.clickAddPaymentMethod();
+        billingPage.clickBankAccountButton();
+        billingPage.typeBankName("JP Morgan");
+        billingPage.typeRoutingNumber();
+        billingPage.typeAccountNumber();
+        billingPage.clickSaveBankAccountButton();
+        billingPage.clickBillingInfo();
+        billingPage.selectAutoPay();
+    }
 
 }//BillingTabTests
