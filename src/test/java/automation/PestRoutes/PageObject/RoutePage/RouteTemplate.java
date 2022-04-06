@@ -2,8 +2,8 @@ package automation.PestRoutes.PageObject.RoutePage;
 
 import automation.PestRoutes.PageObject.Admin.AdminMainPage;
 import automation.PestRoutes.PageObject.Header;
-import automation.PestRoutes.Utilities.FindElement;
-import automation.PestRoutes.Utilities.Utilities;
+import automation.PestRoutes.Utilities.*;
+import automation.PestRoutes.Utilities.Deprecated;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.WebElement;
@@ -37,116 +37,116 @@ public class RouteTemplate {
     }
 
     public void createNewRouteTemplate(String routeName) throws InterruptedException {
-        Utilities.waitUntileElementIsVisible(selectAllBlock);
-        Utilities.scrollToElementJS(termOfService);
-        Utilities.scrollToBottomElementJS(termOfService);
-        Utilities.scrollToElementJS(newRouteTemplate_button);
-        Utilities.waitUntileElementIsVisible(newRouteTemplate_button);
-        Utilities.clickElement(newRouteTemplate_button, Utilities.ElementType.XPath);
-        Utilities.waitUntileElementIsVisible(newRouteTemplate_name);
-        FindElement.elementByAttribute(newRouteTemplate_name, FindElement.InputType.XPath).sendKeys(routeName);
-        Utilities.waitUntileElementIsVisible(newRouteTemplate_save);
-        Utilities.clickElement(newRouteTemplate_save, Utilities.ElementType.XPath);
+        Deprecated.waitVisible(selectAllBlock);
+        Deprecated.scrollToElementJS(termOfService);
+        Utilities.jsScrollToBottom();
+        Deprecated.scrollToElementJS(newRouteTemplate_button);
+        Deprecated.waitVisible(newRouteTemplate_button);
+        Deprecated.clickElement(newRouteTemplate_button);
+        Deprecated.waitVisible(newRouteTemplate_name);
+        Deprecated.locate(newRouteTemplate_name).sendKeys(routeName);
+        Deprecated.waitVisible(newRouteTemplate_save);
+        Deprecated.clickElement(newRouteTemplate_save);
     }
 
     public void blockSpecificTimeSlot(String slotNumber) throws InterruptedException {
-        Utilities.waitUntileElementIsVisible("//div[text()='Time Description']/parent::div/following-sibling::div[" + slotNumber + "]//input[@class='markBlocked']");
-        Utilities.clickElement("//div[text()='Time Description']/parent::div/following-sibling::div[" + slotNumber + "]//input[@class='markBlocked']", Utilities.ElementType.XPath);
+        Deprecated.waitVisible("//div[text()='Time Description']/parent::div/following-sibling::div[" + slotNumber + "]//input[@class='markBlocked']");
+        Deprecated.clickElement("//div[text()='Time Description']/parent::div/following-sibling::div[" + slotNumber + "]//input[@class='markBlocked']");
     }
 
     public void clickRouteTempalate(String routeName) {
-        Utilities.waitUntileElementIsVisible("//li[text()='" + routeName + "']");
-        Utilities.jsClickElement("//li[text()='" + routeName + "']", Utilities.ElementType.XPath);
+        Deprecated.waitVisible("//li[text()='" + routeName + "']");
+        Deprecated.jsClickElement("//li[text()='" + routeName + "']");
     }
 
     public void deleteRoute() {
-        Utilities.waitUntileElementIsVisible(selectAllBlock);
-        Utilities.scrollToElementJS(deleteCustomRoute);
-        Utilities.clickElement(deleteCustomRoute, Utilities.ElementType.XPath);
+        Deprecated.waitVisible(selectAllBlock);
+        Deprecated.scrollToElementJS(deleteCustomRoute);
+        Deprecated.clickElement(deleteCustomRoute);
     }
 
     public String getRouteTemplateTextValue(String actualRouteTemplatename) {
-        return Utilities.getElementTextValue("//li[text()='" + actualRouteTemplatename + "']", Utilities.ElementType.XPath);
+        return Deprecated.getElementTextValue("//li[text()='" + actualRouteTemplatename + "']");
     }
 
     public String getTemplateNameTextValue() {
-        return Utilities.getAttributeValue("//label[text()='Template Name: ']/following-sibling::input", "value");
+        return Deprecated.getAttribute("//label[text()='Template Name: ']/following-sibling::input", "value");
     }
 
     public String getDescriptionTextValue() {
-        return Utilities.getAttributeValue("//div[@id='templateSpots']//div[text()='End']/parent::div/following-sibling::div[1]/div[text()='to']/following-sibling::input[2]", "value");
+        return Deprecated.getAttribute("//div[@id='templateSpots']//div[text()='End']/parent::div/following-sibling::div[1]/div[text()='to']/following-sibling::input[2]", "value");
     }
 
     public void setStartTime(String hour, String minute) throws Exception {
-        Utilities.waitUntileElementIsVisible(clickStartHour);
-        Utilities.clickElement(clickStartHour, Utilities.ElementType.XPath);
-        Utilities.waitUntileElementIsVisible("//td[@data-hour='" + hour + "']//a[text()='" + hour + "']");
-        Utilities.clickElement("//td[@data-hour='" + hour + "']//a[text()='" + hour + "']", Utilities.ElementType.XPath);
-        Utilities.waitUntileElementIsVisible("//td[@data-minute='" + minute + "']//a[text()='" + minute + "']");
-        Utilities.clickElement("//td[@data-minute='" + minute + "']//a[text()='" + minute + "']", Utilities.ElementType.XPath);
+        Deprecated.waitVisible(clickStartHour);
+        Deprecated.clickElement(clickStartHour);
+        Deprecated.waitVisible("//td[@data-hour='" + hour + "']//a[text()='" + hour + "']");
+        Deprecated.clickElement("//td[@data-hour='" + hour + "']//a[text()='" + hour + "']");
+        Deprecated.waitVisible("//td[@data-minute='" + minute + "']//a[text()='" + minute + "']");
+        Deprecated.clickElement("//td[@data-minute='" + minute + "']//a[text()='" + minute + "']");
     }
 
     public void setEndTime(String hour, String minute) {
-        Utilities.waitUntileElementIsVisible(clickEndTime);
-        Utilities.clickElement(clickEndTime, Utilities.ElementType.XPath);
-        Utilities.waitUntileElementIsVisible("//td[@data-hour='" + hour + "']//a[text()='" + hour + "']");
-        Utilities.clickElement("//td[@data-hour='" + hour + "']//a[text()='" + hour + "']", Utilities.ElementType.XPath);
-        Utilities.waitUntileElementIsVisible("//td[@data-minute='" + minute + "']//a[text()='" + minute + "']");
-        Utilities.clickElement("//td[@data-minute='" + minute + "']//a[text()='" + minute + "']", Utilities.ElementType.XPath);
+        Deprecated.waitVisible(clickEndTime);
+        Deprecated.clickElement(clickEndTime);
+        Deprecated.waitVisible("//td[@data-hour='" + hour + "']//a[text()='" + hour + "']");
+        Deprecated.clickElement("//td[@data-hour='" + hour + "']//a[text()='" + hour + "']");
+        Deprecated.waitVisible("//td[@data-minute='" + minute + "']//a[text()='" + minute + "']");
+        Deprecated.clickElement("//td[@data-minute='" + minute + "']//a[text()='" + minute + "']");
     }
 
     public void setInterval(String minutes) {
-        Utilities.waitUntileElementIsVisible(clickInterval);
-        Utilities.clickElement(clickInterval, Utilities.ElementType.XPath);
-        Utilities.waitUntileElementIsVisible("//select[@id='generate_interval']//option[text()='" + minutes + " minutes']");
-        Utilities.clickElement("//select[@id='generate_interval']//option[text()='" + minutes + " minutes']", Utilities.ElementType.XPath);
+        Deprecated.waitVisible(clickInterval);
+        Deprecated.clickElement(clickInterval);
+        Deprecated.waitVisible("//select[@id='generate_interval']//option[text()='" + minutes + " minutes']");
+        Deprecated.clickElement("//select[@id='generate_interval']//option[text()='" + minutes + " minutes']");
     }
 
     public void setDescription(String description) {
-        Utilities.waitUntileElementIsVisible(fillDescription);
-        FindElement.elementByAttribute(fillDescription, FindElement.InputType.XPath).sendKeys(description);
+        Deprecated.waitVisible(fillDescription);
+        Deprecated.locate(fillDescription).sendKeys(description);
     }
 
     public void clearDescription() {
-        Utilities.waitUntileElementIsVisible(fillDescription);
-        FindElement.elementByAttribute(fillDescription, FindElement.InputType.XPath).clear();
+        Deprecated.waitVisible(fillDescription);
+        Deprecated.locate(fillDescription).clear();
     }
 
     public void clickGenerate() {
-        Utilities.waitUntileElementIsVisible(clickGenerate);
-        Utilities.clickElement(clickGenerate, Utilities.ElementType.XPath);
+        Deprecated.waitVisible(clickGenerate);
+        Deprecated.clickElement(clickGenerate);
     }
 
     public void clickClear() {
-        Utilities.waitUntileElementIsVisible(clickClear);
-        Utilities.clickElement(clickClear, Utilities.ElementType.XPath);
+        Deprecated.waitVisible(clickClear);
+        Deprecated.clickElement(clickClear);
     }
 
     public void clickFillDescription() {
-        Utilities.waitUntileElementIsVisible(clickFillDescription);
-        Utilities.clickElement(clickFillDescription, Utilities.ElementType.XPath);
+        Deprecated.waitVisible(clickFillDescription);
+        Deprecated.clickElement(clickFillDescription);
     }
 
     public void saveRoute() {
-        Utilities.waitUntileElementIsVisible(saveTemplate);
-        Utilities.scrollToElementJS(saveTemplate);
-        Utilities.clickElement(saveTemplate, Utilities.ElementType.XPath);
+        Deprecated.waitVisible(saveTemplate);
+        Deprecated.scrollToElementJS(saveTemplate);
+        Deprecated.clickElement(saveTemplate);
     }
 
     public WebElement getDescription(String needText) {
-        return FindElement.elementByAttribute("//li[(text()= '" + needText + "')]", FindElement.InputType.XPath);
+        return Deprecated.locate("//li[(text()= '" + needText + "')]");
     }
 
     public void setBlockDescription(String blockText) {
-        Utilities.waitUntileElementIsVisible(blockDescriptionTextBox);
-        FindElement.elementByAttribute(blockDescriptionTextBox, FindElement.InputType.XPath).sendKeys(blockText);
+        Deprecated.waitVisible(blockDescriptionTextBox);
+        Deprecated.locate(blockDescriptionTextBox).sendKeys(blockText);
     }
 
     public void routeDelete_alertCondition() throws Exception {
         int i = 0;
         while (i++ < 5) {
             try {
-                Alert alert = Utilities.alertPopUp();
+                Alert alert = Utilities.getAlert();
                 String actionAlert = Utilities.getAlertText();
                 String expected = "Are you sure you want to delete this template?";
                 if (actionAlert.contains(expected)) {
@@ -164,7 +164,7 @@ public class RouteTemplate {
         int i = 0;
         while (i++ < 5) {
             try {
-                Alert alert = Utilities.alertPopUp();
+                Alert alert = Utilities.getAlert();
                 String actionAlert = Utilities.getAlertText();
                 String expected = "This will remove any current spots on the template and replace them with new ones. Are you sure you want to continue?";
                 if (actionAlert.contains(expected)) {
@@ -182,7 +182,7 @@ public class RouteTemplate {
         int i = 0;
         while (i++ < 5) {
             try {
-                Alert alert = Utilities.alertPopUp();
+                Alert alert = Utilities.getAlert();
                 String actionAlert = Utilities.getAlertText();
                 String expected = "Are you sure you want to clear the route?";
                 if (actionAlert.contains(expected)) {
@@ -200,7 +200,7 @@ public class RouteTemplate {
         int i = 0;
         while (i++ < 5) {
             try {
-                Alert alert = Utilities.alertPopUp();
+                Alert alert = Utilities.getAlert();
                 String actionAlert = Utilities.getAlertText();
                 String expected = "Please";
                 if (actionAlert.contains(expected)) {

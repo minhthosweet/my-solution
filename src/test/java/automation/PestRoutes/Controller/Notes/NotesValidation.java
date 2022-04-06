@@ -4,20 +4,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 import automation.PestRoutes.Utilities.*;
+import automation.PestRoutes.Utilities.Data.*;
+import automation.PestRoutes.Utilities.Deprecated;
+import automation.PestRoutes.Utilities.Report.*;
 import org.openqa.selenium.Keys;
 import org.testng.annotations.Test;
 import automation.PestRoutes.PageObject.Header;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_Header;
 import automation.PestRoutes.PageObject.NotesTab.NotesPage;
-import automation.PestRoutes.Utilities.FindElement.InputType;
 
 public class NotesValidation extends AppData {
 	
 	Header mainHeader;
 	CustomerViewDialog_Header customerCardHeader;
 	NotesPage notes = new NotesPage();
-	String notesMessage = Utilities.generateRandomString(8);
-	String taskMessage = Utilities.generateRandomString(8);
+	String notesMessage = GetData.generateRandomString(8);
+	String taskMessage = GetData.generateRandomString(8);
 	List list = new ArrayList<String>();
 	@Test
 	public void notesTabValidation() throws Exception {
@@ -63,7 +65,7 @@ public class NotesValidation extends AppData {
 	private void validateCreation
 	(String needStepName, String messageType, String needNoteType, String needDeleteButton) throws InterruptedException {
 		notes.navigateToNoteType(needNoteType);
-		FindElement.elementByAttribute(notes.searchField, InputType.XPath).sendKeys(Keys.CONTROL,"a");
+		Deprecated.locate(notes.searchField).sendKeys(Keys.CONTROL,"a");
 		notes.setInputField(notes.searchField, messageType);
 		String searchResult = notes.getText(notes.savedEntry);
 		result(messageType, searchResult, needStepName, "Validate Notes Entries");

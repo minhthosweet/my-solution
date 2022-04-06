@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import automation.PestRoutes.Utilities.*;
+import automation.PestRoutes.Utilities.Data.*;
+import automation.PestRoutes.Utilities.Deprecated;
+import automation.PestRoutes.Utilities.Report.*;
 import org.testng.annotations.Test;
 import automation.PestRoutes.PageObject.Header;
 import automation.PestRoutes.PageObject.Admin.AdminMainPage;
@@ -23,11 +26,11 @@ public class CreateTrigger_AR extends AppData {
 
     private String descriptionTrigger = "trigger_ar_all_actions";
     private String age_PastDueDropDownValue = "Age";
-    private String age_pastDueDays_InputField_Value = Double.toString(Utilities.generateRandomInteger(1));
+    private String age_pastDueDays_InputField_Value = Double.toString(GetData.generateRandomInteger(1));
     private String minimum_Balance = "0";
     private String maximum_Balance = "10000";
     private String valueType_DropDownValue = "Percentage";
-    private String value_createInvoice_Action = Double.toString(Utilities.generateRandomInteger(2));
+    private String value_createInvoice_Action = Double.toString(GetData.generateRandomInteger(2));
     private String serviceType_createInvoice_Action = "Misc Service";
     public List list = new ArrayList<String>();
 
@@ -51,8 +54,8 @@ public class CreateTrigger_AR extends AppData {
         adminMainPage.navigateTo(adminMainPage.preferences);
         triggerAdmin.navigateToTriggerRules();
         triggerAdmin.clickAddTrigerButton();
-        triggerAdmin.setStartDate(Utilities.currentDate("MM/dd/yyyy"));
-        triggerAdmin.setEndDate(GetDate.addOneYearToDate(Utilities.currentDate("MM/dd/yyyy")));
+        triggerAdmin.setStartDate(GetDate.currentDate("MM/dd/yyyy"));
+        triggerAdmin.setEndDate(GetDate.addOneYearToDate(GetDate.currentDate("MM/dd/yyyy")));
         triggerAdmin.setDescription(descriptionName);
         triggerAdmin.selectDropdown(triggerAdmin.triggerTypeDropdown, triggerAdmin.triggerType_AR);
         triggerAdmin.selectDropdown(triggerAdmin.globalType, triggerAdmin.global_SpecificToThisOffice);
@@ -115,7 +118,7 @@ public class CreateTrigger_AR extends AppData {
         triggerActions.clickAddActionButton();
         triggerAdmin.selectDropdown(triggerActions.actionTypeDropDown, triggerActions.EmailMessageType_Action);
         triggerAdmin.selectDropdown(triggerActions.ignoreContactPrefsDropDown, triggerActions.ignoreContactPrefsTypes_No);
-        triggerActions.setEmailTitle(Utilities.generateRandomString(5));
+        triggerActions.setEmailTitle(GetData.generateRandomString(5));
         triggerAdmin.selectDropdown(triggerActions.email_Type, triggerActions.emailType_emailStatement);
         triggerAdmin.selectDropdown(triggerActions.email_Type, triggerActions.emailType_newEmailMessage);
         triggerActions.setMessageinAction_Type2(triggerActions.EmailMessageType_Action, triggerActions.getPlaceHolders());
@@ -154,7 +157,7 @@ public class CreateTrigger_AR extends AppData {
         triggerActions.clickAddActionButton();
         triggerAdmin.selectDropdown(triggerActions.actionTypeDropDown, triggerActions.setCollectionsStageMessageType_Action);
         triggerActions.setCollectionsStage();
-        Utilities.clickElement(triggerActions.collectionsStage_Stage, Utilities.ElementType.XPath);
+        Deprecated.clickElement(triggerActions.collectionsStage_Stage);
         triggerAdmin.selectDropdown(triggerActions.collectionsStage_Stage, triggerActions.stage_Sent);
         triggerAdmin.clickSaveButton();
     }
@@ -217,6 +220,6 @@ public class CreateTrigger_AR extends AppData {
 
     // trigger Queue query
     public void hitTriggerEvent() {
-        Utilities.navigateToUrl("https://adityam.pestroutes.com/resources/scripts/triggerEvents.php");
+        GetWebDriver.navigateToUrl("https://adityam.pestroutes.com/resources/scripts/triggerEvents.php");
     }
 }

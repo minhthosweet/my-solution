@@ -1,6 +1,7 @@
 package automation.PestRoutes.PageObject.CustomerOverview;
 
 import automation.PestRoutes.PageObject.BasePage;
+import automation.PestRoutes.Utilities.*;
 import org.openqa.selenium.By;
 
 public class CustomerViewDialog_Notes extends BasePage {
@@ -11,19 +12,19 @@ public class CustomerViewDialog_Notes extends BasePage {
     private By logInfoDateAdded = By.xpath("//div[@id='contactsPanelWrapper']//div[@name='contactTypeName']/following-sibling::div");
 
     public String getNotesLogMessage() {
-        String message = getText(logInfoMessage);
+        String message = Utilities.getText(logInfoMessage);
         System.out.println("Custom Message: " + message);
         return message;
     }
 
     public String getNotesContactType() {
-        String contactType = getText(logInfoContactType);
+        String contactType = Utilities.getText(logInfoContactType);
         System.out.println("Contact Type: " + contactType);
         return contactType;
     }
 
     public String getNotesDateAdded() {
-        String dateAdded = getText(logInfoDateAdded);
+        String dateAdded = Utilities.getText(logInfoDateAdded);
         System.out.println("Contact Date Time: " + dateAdded);
         return dateAdded;
     }

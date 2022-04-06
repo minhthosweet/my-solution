@@ -13,7 +13,8 @@ import automation.PestRoutes.PageObject.Admin.PreferencesTab.PreferencesPage;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_Header;
 import automation.PestRoutes.PageObject.DashboardPage;
 import automation.PestRoutes.PageObject.Footer;
-import automation.PestRoutes.Utilities.AppData;
+import automation.PestRoutes.Utilities.*;
+import automation.PestRoutes.Utilities.Data.AppData;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -22,10 +23,9 @@ import automation.PestRoutes.Controller.Admin.Preferences.OfficeSettings.Trigger
 import automation.PestRoutes.Controller.Admin.Preferences.OfficeSettings.TriggerRules.CustomerStatus.TriggerOnSave_CustomerStatus;
 import automation.PestRoutes.Controller.Renewal.ValidateRenewal;
 import automation.PestRoutes.PageObject.Admin.PreferencesTab.OfficeSettingsTab.TriggerTypes.TriggerRules;
-import automation.PestRoutes.Utilities.Utilities;
 import org.testng.asserts.SoftAssert;
 
-import static automation.PestRoutes.Utilities.Utilities.currentDate;
+import static automation.PestRoutes.Utilities.Data.GetDate.currentDate;
 
 public class TriggerOnSave_AppointmentStatus extends AppData {
 
@@ -100,7 +100,7 @@ public class TriggerOnSave_AppointmentStatus extends AppData {
 
     // Hit trigger AppointmentStatus
     public void hitTriggerAppointmentStatus() {
-        Utilities.navigateToUrl("https://adityam.pestroutes.com/resources/scripts/triggerAppointmentStatus.php");
+        GetWebDriver.navigateToUrl("https://adityam.pestroutes.com/resources/scripts/triggerAppointmentStatus.php");
     }
 
     // assert SMS Log

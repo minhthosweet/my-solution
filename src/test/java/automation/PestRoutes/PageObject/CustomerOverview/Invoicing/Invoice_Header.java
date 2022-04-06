@@ -1,9 +1,8 @@
 package automation.PestRoutes.PageObject.CustomerOverview.Invoicing;
 
 import automation.PestRoutes.PageObject.BasePage;
-import automation.PestRoutes.Utilities.FindElement;
-import automation.PestRoutes.Utilities.Utilities;
-import automation.PestRoutes.Utilities.Utilities.ElementType;
+import automation.PestRoutes.Utilities.*;
+import automation.PestRoutes.Utilities.Deprecated;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
@@ -22,13 +21,13 @@ public class Invoice_Header extends BasePage {
 
 	public void navigate(String needTab) {
 		try {
-		WebElement elm = FindElement.elementByAttribute(needTab, FindElement.InputType.XPath);
+		WebElement elm = Deprecated.locate(needTab);
 			if (elm.isDisplayed()){
-				Utilities.clickElement(needTab, ElementType.XPath);
-				Utilities.clickElement("//div[contains(@class,'paymentMethod bluGradientBG') and contains(text(),'"+needTab+"')]",ElementType.XPath, true, false);
+				Deprecated.clickElement(needTab);
+				Deprecated.clickElement("//div[contains(@class,'paymentMethod bluGradientBG') and contains(text(),'"+needTab+"')]", true, false);
 			}
 		} catch(Exception e) {
-			Utilities.clickElement("//div[contains(@class,'paymentMethod bluGradientBG') and contains(text(),'"+needTab+"')]",ElementType.XPath, true, false);
+			Deprecated.clickElement("//div[contains(@class,'paymentMethod bluGradientBG') and contains(text(),'"+needTab+"')]", true, false);
 		}
 	}
 
@@ -36,10 +35,10 @@ public class Invoice_Header extends BasePage {
 		try {
 			String strPaymentMethodTab = "//div[contains(@class,'paymentMethod bluGradientBG') and contains(text(),'"+ paymentMethodTab+"')]";
 
-			WebElement elm = FindElement.elementByAttribute(strPaymentMethodTab, FindElement.InputType.XPath);
+			WebElement elm = Deprecated.locate(strPaymentMethodTab);
 			if (elm.isDisplayed()){
-				Utilities.clickElement(strPaymentMethodTab, ElementType.XPath);
-				Utilities.clickElement(strPaymentMethodTab,ElementType.XPath, true, false);
+				Deprecated.clickElement(strPaymentMethodTab);
+				Deprecated.clickElement(strPaymentMethodTab, true, false);
 
 				//Wait to the Invoice Payment  Screen to load
 				Thread.sleep(1000);
@@ -49,12 +48,12 @@ public class Invoice_Header extends BasePage {
 		}
 	}
 
-	public void clickCash() { click(cashPayment); }
+	public void clickCash() { Utilities.click(cashPayment); }
 
-	public void clickCard() { click(cardPayment);}
+	public void clickCard() { Utilities.click(cardPayment);}
 
-	public void clickCheck() { click(checkPayment);}
+	public void clickCheck() { Utilities.click(checkPayment);}
 
-	public void clickCouponCredit() { click(couponPayment);}
+	public void clickCouponCredit() { Utilities.click(couponPayment);}
 
 }

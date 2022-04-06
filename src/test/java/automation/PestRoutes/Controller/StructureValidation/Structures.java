@@ -2,8 +2,10 @@ package automation.PestRoutes.Controller.StructureValidation;
 
 import java.io.IOException;
 
+import automation.PestRoutes.Controller.*;
 import automation.PestRoutes.Controller.CustomerCreation.CreateNewCustomer;
-import automation.PestRoutes.Utilities.*;
+import automation.PestRoutes.Utilities.Data.*;
+import automation.PestRoutes.Utilities.Report.*;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import org.testng.annotations.Test;
@@ -17,12 +19,12 @@ public class Structures extends AppData {
     StructuresTab structures = new StructuresTab();
     CustomerviewDialog_AppointmentsTab appointmentTab = new CustomerviewDialog_AppointmentsTab();
 
-    private String mainStructureName = Utilities.generateRandomString(5);
+    private String mainStructureName = GetData.generateRandomString(5);
     private String product = "UP-STAR";
     private String applicationMethod = "Direct Spray";
     private String targetIssue = "Bat";
-    private String subUnit = Utilities.generateRandomString(5);
-    private String subSubUnit = Utilities.generateRandomString(5);
+    private String subUnit = GetData.generateRandomString(5);
+    private String subSubUnit = GetData.generateRandomString(5);
 
     @Test
     public void validateStructures() throws Exception {
@@ -107,7 +109,7 @@ public class Structures extends AppData {
     @SuppressWarnings("unchecked")
     private void result(String expected, String actual, String stepName, String testName) {
         if (AssertException.result(expected, actual, stepName).size() > 0) {
-            Utilities.list.add(AssertException.result(expected, actual, stepName));
+            CucumberBaseClass.list.add(AssertException.result(expected, actual, stepName));
         }
         Reporter.status(stepName, expected, actual, testName);
     }

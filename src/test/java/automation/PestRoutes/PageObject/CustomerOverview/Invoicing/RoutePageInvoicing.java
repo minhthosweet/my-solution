@@ -1,12 +1,12 @@
 package automation.PestRoutes.PageObject.CustomerOverview.Invoicing;
 
 import automation.PestRoutes.PageObject.BasePage;
-import automation.PestRoutes.Utilities.Utilities;
-import automation.PestRoutes.Utilities.Utilities.ElementType;
-import static automation.PestRoutes.Utilities.Utilities.*;
+import automation.PestRoutes.Utilities.*;
+import automation.PestRoutes.Utilities.Deprecated;
 import org.openqa.selenium.By;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import static automation.PestRoutes.Utilities.GetWebDriver.*;
 
 public class RoutePageInvoicing extends BasePage {
 
@@ -35,58 +35,58 @@ public class RoutePageInvoicing extends BasePage {
 	// Setter
 
 	public void clickAddNewInvoice(String needTab) {
-		Utilities.clickElement(needTab,ElementType.XPath);
+		Deprecated.clickElement(needTab);
 	}
 
 	public void clickNewInvoice() {
-		delay(3000);
-		click(newInvoice);
+		Utilities.delay(3000);
+		Utilities.click(newInvoice);
 	}
 
 	public void clickAddPayment() {
-		Utilities.waitUntileElementIsVisible(addPayment);
-		Utilities.clickElement(addPayment, ElementType.XPath);
+		Deprecated.waitVisible(addPayment);
+		Deprecated.clickElement(addPayment);
 	}
 
 	public void addPayment() {
-		delay(3000);
-		click(addInvoicePayment);
+		Utilities.delay(3000);
+		Utilities.click(addInvoicePayment);
 	}
 
 	public void jsClickAddPayment() {
-		Utilities.waitUntileElementIsVisible(addPayment);
-		Utilities.jsClickElement(addPayment, ElementType.XPath);
+		Deprecated.waitVisible(addPayment);
+		Deprecated.jsClickElement(addPayment);
 	}
 
 	public void invoiceDetails() {
-		Utilities.waitUntileElementIsVisible(addTicketItem);
-		Utilities.clickElement(addTicketItem, ElementType.XPath);
+		Deprecated.waitVisible(addTicketItem);
+		Deprecated.clickElement(addTicketItem);
 	}
 
 	public void clickAddTicketItem(){
 		Utilities.isPresent(lnkAddTicketItem);
-		click(lnkAddTicketItem);
+		Utilities.click(lnkAddTicketItem);
 	}
 
 	public void clickAddPartialPayments() {
-		Utilities.waitUntileElementIsVisible(clickAddPartialPayment);
-		Utilities.clickElement(clickAddPartialPayment, ElementType.XPath);
+		Deprecated.waitVisible(clickAddPartialPayment);
+		Deprecated.clickElement(clickAddPartialPayment);
 	}
 
 	public void selectAvailableItems() {
-		Utilities.waitUntileElementIsVisible(addAvailableTicket);
-		Utilities.clickElement(addAvailableTicket, ElementType.XPath);
+		Deprecated.waitVisible(addAvailableTicket);
+		Deprecated.clickElement(addAvailableTicket);
 	}
 
 	public void selectAvailableItems( String  addOnTicketItem) {
 		String strXpath = "//*[@id='availableItems']/li//span[contains(text(),'" + addOnTicketItem + "')]";
-		Utilities.waitUntileElementIsVisible(strXpath);
-		Utilities.clickElement(strXpath, ElementType.XPath);
+		Deprecated.waitVisible(strXpath);
+		Deprecated.clickElement(strXpath);
 	}//selectAvailableItems()
 
 	public boolean clickBackToAccountSummaryButton () {
 		if (driver.findElements(backToAccountSummaryButton).size() > 0) {
-			click(backToAccountSummaryButton);
+			Utilities.click(backToAccountSummaryButton);
 			return true;
 		} else {
 			return false;
@@ -94,34 +94,34 @@ public class RoutePageInvoicing extends BasePage {
 	}
 
 	public void clickFullyPaidPaymentStatus() {
-		delay(3000);
-		click(fullyPaidPaymentStatus);
+		Utilities.delay(3000);
+		Utilities.click(fullyPaidPaymentStatus);
 	}
 
 	public void typeServiceChargeAmount(String serviceCharge){
-		type(serviceCharge, serviceChargeField);
+		Deprecated.type(serviceCharge, serviceChargeField);
 	}
 
 	public void typeInitialDiscount(String initialDiscount){
-		type(initialDiscount, initialDiscountField);
+		Deprecated.type(initialDiscount, initialDiscountField);
 	}
 
 	public String getPaymentBalance(){
-		delay(1000);
-		return getText(paymentBalanceField);
+		Utilities.delay(1000);
+		return Utilities.getText(paymentBalanceField);
 	}
 
 	public String getInvoiceNumber(){
-		delay(1000);
-		String invoiceNum = getText(invoiceNumber);
+		Utilities.delay(1000);
+		String invoiceNum = Utilities.getText(invoiceNumber);
 		String accountInvoiceNumber = invoiceNum.replaceAll(
 				"\\s.*", "");
 		return accountInvoiceNumber;
 	}
 
 	public String getInitialBalance(){
-		delay(1000);
-		String initialBalanceAmount = getText(initialBalance);
+		Utilities.delay(1000);
+		String initialBalanceAmount = Utilities.getText(initialBalance);
 		String balanceAmount = initialBalanceAmount.replaceAll(
 				"\\s.*", "");
 		return balanceAmount;
@@ -129,16 +129,16 @@ public class RoutePageInvoicing extends BasePage {
 
 
 	public String getSubStatusAmount(){
-		delay(1000);
-		return getText(subStatusAmount);
+		Utilities.delay(1000);
+		return Utilities.getText(subStatusAmount);
 	}
 
 	public String getRecentMemo(){
-		return getText(recentMemo);
+		return Utilities.getText(recentMemo);
 	}
 
 	public String getFullyPaidStatus() {
-		String paymentStatus = getText(fullyPaidPaymentStatus);
+		String paymentStatus = Utilities.getText(fullyPaidPaymentStatus);
 		System.out.println("Payment Status: " + paymentStatus);
 		return paymentStatus;
 	}

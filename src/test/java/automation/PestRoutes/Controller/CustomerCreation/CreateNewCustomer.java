@@ -1,18 +1,17 @@
 package automation.PestRoutes.Controller.CustomerCreation;
 
+import automation.PestRoutes.Controller.*;
 import automation.PestRoutes.Controller.Subscriptions.AddSubscription;
 import automation.PestRoutes.PageObject.CreateCustomer.CreateCustomerDialog;
 import automation.PestRoutes.PageObject.CustomerOverview.*;
 import automation.PestRoutes.PageObject.DashboardPage;
 import automation.PestRoutes.PageObject.Header;
 import automation.PestRoutes.PageObject.Search.SearchBox;
-import automation.PestRoutes.Utilities.AppData;
-import automation.PestRoutes.Utilities.AssertException;
-import automation.PestRoutes.Utilities.FindElement;
-import automation.PestRoutes.Utilities.Utilities;
-import automation.PestRoutes.Utilities.Utilities.ElementType;
+import automation.PestRoutes.Utilities.*;
+import automation.PestRoutes.Utilities.Data.*;
+import automation.PestRoutes.Utilities.Deprecated;
+import automation.PestRoutes.Utilities.Report.AssertException;
 import io.cucumber.java.en.And;
-import automation.PestRoutes.Utilities.Utilities.*;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -24,7 +23,7 @@ import org.testng.annotations.Test;
 import java.io.IOException;
 import java.util.Objects;
 
-import static automation.PestRoutes.Utilities.AssertException.result;
+import static automation.PestRoutes.Utilities.Report.AssertException.result;
 import static automation.PestRoutes.Utilities.Utilities.*;
 
 public class CreateNewCustomer extends AppData {
@@ -38,15 +37,15 @@ public class CreateNewCustomer extends AppData {
     SearchBox searchBox;
 
     // if fName and lName length is changed, update method validateEmailAddressInSearch() as well
-    public String fName = Utilities.generateRandomString(3);
-    public String lName = Utilities.generateRandomString(4);
+    public String fName = GetData.generateRandomString(3);
+    public String lName = GetData.generateRandomString(4);
     String expectedAlert = "Required: You must fill in the customer's last name or company name!";
 
-    public String streetAddress = Integer.toString(Utilities.generateRandomNumber(4)) + " " + Utilities.generateRandomString(5);
-    public String city = Utilities.generateRandomString(4);
+    public String streetAddress = Integer.toString(GetData.generateRandomNumber(4)) + " " + GetData.generateRandomString(5);
+    public String city = GetData.generateRandomString(4);
     public String zipcode = "75241";
-    public String email = Utilities.generateRandomString(3) + "." + Utilities.generateRandomString(4) + "" + "@gmail.com";
-    public String primaryPhoneNumber = "6" + Integer.toString(Utilities.generateRandomNumber(9));
+    public String email = GetData.generateRandomString(3) + "." + GetData.generateRandomString(4) + "" + "@gmail.com";
+    public String primaryPhoneNumber = "6" + Integer.toString(GetData.generateRandomNumber(9));
 
     public static String customerName = "";
     public static String customerAccountID;
@@ -67,7 +66,7 @@ public class CreateNewCustomer extends AppData {
 
     @When("I create customer without required last name field")
     public void createCustomerWithOutRequiredField() throws InterruptedException {
-        String fName = Utilities.generateRandomString(7);
+        String fName = GetData.generateRandomString(7);
         customerDialog_Header = new CustomerViewDialog_Header();
         customer = new CreateCustomerDialog();
         overview = new CustomerViewDialog_OverviewTab();
@@ -162,7 +161,7 @@ public class CreateNewCustomer extends AppData {
         customer = new CreateCustomerDialog();
         customerDialog_Header = new CustomerViewDialog_Header();
         customerDialog_Header.navigateTo(customerDialog_Header.infoTabInDialog);
-        Utilities.highLight(customer.zipCodeInputField);
+        Deprecated.highLight(customer.zipCodeInputField);
         customer.setZipCode(needZip);
         customerDialog_Header.clickSaveButton();
     }
@@ -186,18 +185,18 @@ public class CreateNewCustomer extends AppData {
     public void validateTransferAccountOption(String needAgent) {
         customerDialog_Header = new CustomerViewDialog_Header();
         delay(1000);
-        Utilities.clickElement(customerDialog_Header.tranferButtonInDialog, ElementType.XPath);
+        Deprecated.clickElement(customerDialog_Header.tranferButtonInDialog);
         // WebElement agent = FindElement.elementByAttribute("//p[text() = '" + needAgent + "']", FindElement.InputType.XPath);
         // AssertException.conditionResult(agent);
 
         // Different Offices Pass In A Different Value (Jared Green & Web Automation)
         // The Following try-catch Block Automates Each Scenario
         try {
-            WebElement agent = FindElement.elementByAttribute("//p[text() = '" + needAgent + "']", FindElement.InputType.XPath);
+            WebElement agent = Deprecated.locate("//p[text() = '" + needAgent + "']");
             AssertException.conditionResult(agent);
         } catch(Exception exc) {
             exc.printStackTrace();
-            WebElement agent = FindElement.elementByAttribute("//p[text() = 'Web Automation']", FindElement.InputType.XPath);
+            WebElement agent = Deprecated.locate("//p[text() = 'Web Automation']");
             AssertException.conditionResult(agent);
         }
 
@@ -475,7 +474,7 @@ public class CreateNewCustomer extends AppData {
         try {
             if (searchBox.containsInAutoCompleteSearch(firstName + " " + lastName).contains(firstName + " " + lastName)) {
                 System.out.println("Customer found");
-                Utilities.clickElement("//li[@role='presentation']//span[contains(text(),'"+firstName + " " + lastName+"')]", ElementType.XPath);
+                Deprecated.clickElement("//li[@role='presentation']//span[contains(text(),'"+firstName + " " + lastName+"')]");
             }
         }catch (Exception e){
             System.out.println("Creating customer");
@@ -498,7 +497,7 @@ public class CreateNewCustomer extends AppData {
 
     @Then("I refresh the browser")
     public void refreshPage() {
-        Utilities.refreshPage();
+        GetWebDriver.refreshPage();
     }
 
     @When("I create customer with first name, last name, address, email and Structure")
@@ -523,14 +522,14 @@ public class CreateNewCustomer extends AppData {
         customerDialog_Header.clickSaveButton();
         alertCondition();
         customerDialog_Header.saveAnyways();
-        Utilities.waitUntileElementIsVisible(overview.overviewTab_Address);
+        Deprecated.waitVisible(overview.overviewTab_Address);
         customerDialog_Header.navigateTo(customerDialog_Header.infoTabInDialog);
         String customerNameInHeader = customerViewDialog_infoTab.getFirstName();
         customerName = getCustomerFullName();
         result(fName, customerNameInHeader, "Created customer ", "Structure Validation");
         String newId = overview.getCustomerIDFromHeader();
         addData("strutureUID", newId, generalData);
-        AssertException.assertFailure(Utilities.list);
+        AssertException.assertFailure(CucumberBaseClass.list);
     }
 
     @Then("I validate if customer name and address match in overview tab")
@@ -541,7 +540,7 @@ public class CreateNewCustomer extends AppData {
         customerDialog_Header.navigateTo(customerDialog_Header.infoTabInDialog);
         String expectedAddress = streetAddress + " " + customerViewDialog_infoTab.getCity() + ", " + customerViewDialog_infoTab.getState() + " " + zipcode;
         customerDialog_Header.navigateTo(customerDialog_Header.overviewTabInDialog);
-        Utilities.waitUntileElementIsVisible(overview.overviewTab_Address);
+        Deprecated.waitVisible(overview.overviewTab_Address);
         String actualAddress = overview.getFullAddress();
         result(expectedAddress, actualAddress, "Created customer address", "Customer creation");
         customerDialog_Header.navigateTo(customerDialog_Header.infoTabInDialog);
@@ -552,7 +551,7 @@ public class CreateNewCustomer extends AppData {
 
     @Then("I validate if customer name match in overview tab")
     public void validateCreatedCustomerName() {
-        Utilities.waitUntileElementIsVisible(overview.overviewTab_Address);
+        Deprecated.waitVisible(overview.overviewTab_Address);
         String customerNameInHeader = overview.getCustomerNameFromHeader();
         result(fName, customerNameInHeader, "Created customer name ", "Customer creation");
     }
@@ -560,7 +559,7 @@ public class CreateNewCustomer extends AppData {
     @And("I navigate to Subscription Tab")
     public void navigateToSubscriptionTab() throws InterruptedException {
         customerDialog_Header = new CustomerViewDialog_Header();
-        Utilities.waitUntileElementIsVisible("//li[@name = '" + customerDialog_Header.subscriptionTabInDialog + "']");
+        Deprecated.waitVisible("//li[@name = '" + customerDialog_Header.subscriptionTabInDialog + "']");
         customerDialog_Header.navigateTo(customerDialog_Header.subscriptionTabInDialog);
     }
 
@@ -577,12 +576,12 @@ public class CreateNewCustomer extends AppData {
         int i = 0;
         while (i++ < 5) {
             try {
-                Alert alert = Utilities.alertPopUp();
+                Alert alert = Utilities.getAlert();
                 String actionAlert = Utilities.getAlertText();
                 String expected = "Action Required!";
                 if (actionAlert.contains(expected)) {
                     alert.accept();
-                    Utilities.clickElement("//div[text()='Save Anyways']", ElementType.XPath);
+                    Deprecated.clickElement("//div[text()='Save Anyways']");
                     break;
                 }
                 if (actionAlert.contains("This customer is closer to")) {
@@ -620,7 +619,7 @@ public class CreateNewCustomer extends AppData {
         acceptAlert();
         customerDialog_Header.goToInfoTab();
         //customerDialog_Header.navigateTo(customerDialog_Header.infoTabInDialog);
-        Utilities.waitUntileElementIsVisible(customerViewDialog_infoTab.state);
+        Deprecated.waitVisible(customerViewDialog_infoTab.state);
         return customerViewDialog_infoTab.getFirstName() + " " + customerViewDialog_infoTab.getLastName();
     }
 
@@ -632,10 +631,10 @@ public class CreateNewCustomer extends AppData {
         overview = new CustomerViewDialog_OverviewTab();
         header.searchCustomerWithName(customerName);
         customerDialog_Header.navigateTo(customerDialog_Header.adminTabInDialog);
-        Utilities.waitUntileElementIsVisible(adminTab.removeButton);
-        Utilities.clickElement(adminTab.removeButton, ElementType.XPath);
-        Utilities.waitUntileElementIsVisible(adminTab.confirmRemoveButton);
-        Utilities.clickElement(adminTab.confirmRemoveButton, ElementType.XPath);
+        Deprecated.waitVisible(adminTab.removeButton);
+        Deprecated.clickElement(adminTab.removeButton);
+        Deprecated.waitVisible(adminTab.confirmRemoveButton);
+        Deprecated.clickElement(adminTab.confirmRemoveButton);
         customerDialog_Header.discardChanges();
     }
 
@@ -647,7 +646,7 @@ public class CreateNewCustomer extends AppData {
         overview = new CustomerViewDialog_OverviewTab();
 
         header.searchCustomerWithName(nameOfCustomer);
-        Utilities.elementIsVisible(customerDialog_Header.overviewPageTitle);
+        Deprecated.isVisible(customerDialog_Header.overviewPageTitle);
         customerDialog_Header.navigateTo(customerDialog_Header.adminTabInDialog);
         adminTab.clickRemoveButton();
         customerDialog_Header.confirmCustomerRemoval();
@@ -659,8 +658,8 @@ public class CreateNewCustomer extends AppData {
         createNewCustomer = new CreateNewCustomer();
         header = new Header();
         String convertedCustomerName = header.convertName(customerName);
-        Utilities.clickElement(needSearchField, ElementType.XPath);
-        FindElement.elementByAttribute(needSearchField, FindElement.InputType.XPath).sendKeys(convertedCustomerName);
+        Deprecated.clickElement(needSearchField);
+        Deprecated.locate(needSearchField).sendKeys(convertedCustomerName);
     }
 
     //Author: FWhite
@@ -744,7 +743,25 @@ public class CreateNewCustomer extends AppData {
         emailAddress = userCreateNewCustomer.getEmailAddress();
         sameUser.clickSaveButton();
         if(!Objects.equals(getData("userName", environment), "mind")) {
-            Utilities.alertCondition(200);
+            int i = 0;
+            while (i++ < 3) {
+                try {
+                    Alert alert = Utilities.getAlert(200);
+                    String actionAlert = getAlertText();
+                    String expected = "Action Required!";
+                    if (actionAlert.contains(expected)) {
+                        alert.accept();
+                        Deprecated.clickElement("//div[text()='Save Anyways']");
+                        break;
+                    }
+                    if (actionAlert.contains("This customer is closer to")) {
+                        alert.dismiss();
+                    }
+                } catch (NoAlertPresentException e) {
+                    delay(500);
+                    continue;
+                }
+            }
         }
     }
 

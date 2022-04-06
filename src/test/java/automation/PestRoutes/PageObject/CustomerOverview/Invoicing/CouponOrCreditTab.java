@@ -1,7 +1,6 @@
 package automation.PestRoutes.PageObject.CustomerOverview.Invoicing;
 
-import automation.PestRoutes.Utilities.FindElement;
-import automation.PestRoutes.Utilities.Utilities;
+import automation.PestRoutes.Utilities.Deprecated;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -16,8 +15,8 @@ public class CouponOrCreditTab {
     public String successAppliedAmount = "//form[@id='singlePaymentForm']//p";
 
     public void click(String needIdentifier) {
-        Utilities.waitUntileElementIsVisible(needIdentifier);
-        Utilities.clickElement(needIdentifier, Utilities.ElementType.XPath);
+        Deprecated.waitVisible(needIdentifier);
+        Deprecated.clickElement(needIdentifier);
     }
 
     public Map<String, String> filter_Types = new HashMap<String, String>();
@@ -52,25 +51,25 @@ public class CouponOrCreditTab {
     }
 
     public void doubleClickBoxes(String needIdentifier) {
-        Utilities.waitUntileElementIsVisible(needIdentifier);
-        Utilities.doubleClick(needIdentifier);
+        Deprecated.waitVisible(needIdentifier);
+        Deprecated.doubleClick(needIdentifier);
     }
 
     //getters
 
     public String getPaymentAmount(String needXPath) {
-        Utilities.waitUntileElementIsVisible(needXPath);
-        return Utilities.getAttributeValue(needXPath, "value");
+        Deprecated.waitVisible(needXPath);
+        return Deprecated.getAttribute(needXPath, "value");
     }
 
     public String getTextValue(String needXPath) {
-        Utilities.waitUntileElementIsVisible(needXPath);
-        return Utilities.getElementTextValue(needXPath, Utilities.ElementType.XPath);
+        Deprecated.waitVisible(needXPath);
+        return Deprecated.getElementTextValue(needXPath);
     }
 
     //setters
     public void set(String needIdentifier, String needValue) {
-        Utilities.waitUntileElementIsVisible(needIdentifier);
-        FindElement.elementByAttribute(needIdentifier, FindElement.InputType.XPath).sendKeys(needValue);
+        Deprecated.waitVisible(needIdentifier);
+        Deprecated.locate(needIdentifier).sendKeys(needValue);
     }
 }

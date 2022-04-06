@@ -1,9 +1,6 @@
 package automation.PestRoutes.PageObject.Scheduling;
 
-import automation.PestRoutes.Utilities.FindElement;
-import automation.PestRoutes.Utilities.Utilities;
-import automation.PestRoutes.Utilities.FindElement.InputType;
-import automation.PestRoutes.Utilities.Utilities.ElementType;
+import automation.PestRoutes.Utilities.Deprecated;
 
 public class UnitsTab {
 
@@ -24,26 +21,26 @@ public class UnitsTab {
 	private String customMask = "//div[@id=\"select2-custom-mask\"]";
 
 	public void selectUnit(String needUnit) {
-		Utilities.clickElement(unitType, ElementType.XPath);
-		Utilities.clickElement("//option[text()='" + needUnit + "']", ElementType.XPath);
+		Deprecated.clickElement(unitType);
+		Deprecated.clickElement("//option[text()='" + needUnit + "']");
 	}
 
 	public void newUnitClick() {
-		Utilities.waitUntileElementIsVisible(newUnitClick);
-		Utilities.clickElement(newUnitClick, ElementType.XPath);
+		Deprecated.waitVisible(newUnitClick);
+		Deprecated.clickElement(newUnitClick);
 	}
 
 	public void setupUnit(String building, String unit, String barcode) {
 		try {
-			if (Utilities.getElementCount(availableUnit) == 0) {
-				Utilities.waitUntileElementIsVisible(buildingDetails);
-				FindElement.elementByAttribute(buildingDetails, InputType.XPath).sendKeys(building);
-				Utilities.waitUntileElementIsVisible(unitDetails);
-				FindElement.elementByAttribute(unitDetails, InputType.XPath).sendKeys(unit);
-				Utilities.waitUntileElementIsVisible(barcodeDetails);
-				FindElement.elementByAttribute(barcodeDetails, InputType.XPath).sendKeys(barcode);
-				Utilities.waitUntileElementIsVisible(saveTopRight);
-				Utilities.clickElement(saveTopRight, ElementType.XPath);
+			if (Deprecated.countElements(availableUnit) == 0) {
+				Deprecated.waitVisible(buildingDetails);
+				Deprecated.locate(buildingDetails).sendKeys(building);
+				Deprecated.waitVisible(unitDetails);
+				Deprecated.locate(unitDetails).sendKeys(unit);
+				Deprecated.waitVisible(barcodeDetails);
+				Deprecated.locate(barcodeDetails).sendKeys(barcode);
+				Deprecated.waitVisible(saveTopRight);
+				Deprecated.clickElement(saveTopRight);
 			}
 		} catch (Exception e) {
 			System.out.println("Exception is == " + e.getMessage());
@@ -52,25 +49,25 @@ public class UnitsTab {
 	}
 
 	public void clickUnitsScheduleApt() {
-		Utilities.clickElement(unitsSchedule, ElementType.XPath);
+		Deprecated.clickElement(unitsSchedule);
 	}
 
 	public void AddUnitsSchApt() {
-		Utilities.waitUntileElementIsVisible(unitsScheduleApt);
-		Utilities.clickElement(unitsScheduleApt, ElementType.XPath);
-		Utilities.waitUntileElementIsVisible(addUnitsSchApt);
-		Utilities.clickElement(addUnitsSchApt, ElementType.XPath);
+		Deprecated.waitVisible(unitsScheduleApt);
+		Deprecated.clickElement(unitsScheduleApt);
+		Deprecated.waitVisible(addUnitsSchApt);
+		Deprecated.clickElement(addUnitsSchApt);
 	}
 
 	public void clickDetails() {
 
-		if (Utilities.getElementCount(clickXSchedulingButton) > 0) {
+		if (Deprecated.countElements(clickXSchedulingButton) > 0) {
 
-			Utilities.clickElement(clickXSchedulingButton, ElementType.XPath);
-			Utilities.clickElement(customMask, ElementType.XPath);
+			Deprecated.clickElement(clickXSchedulingButton);
+			Deprecated.clickElement(customMask);
 		}
-		Utilities.waitUntileElementIsVisible(details);
-		Utilities.clickElement(details, ElementType.XPath);
+		Deprecated.waitVisible(details);
+		Deprecated.clickElement(details);
 	}
 
 }

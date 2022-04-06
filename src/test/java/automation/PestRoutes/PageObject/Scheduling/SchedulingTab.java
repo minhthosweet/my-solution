@@ -2,9 +2,9 @@ package automation.PestRoutes.PageObject.Scheduling;
 
 import automation.PestRoutes.PageObject.BasePage;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_Header;
-import automation.PestRoutes.Utilities.AppData;
-import automation.PestRoutes.Utilities.Utilities;
-import automation.PestRoutes.Utilities.Utilities.ElementType;
+import automation.PestRoutes.Utilities.*;
+import automation.PestRoutes.Utilities.Data.*;
+import automation.PestRoutes.Utilities.Deprecated;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -34,76 +34,76 @@ public class SchedulingTab extends BasePage {
     }
 
     public void clickScheduleDay() {
-        String date = Utilities.currentDate("M/d/yyyy");
-        Utilities.jsClickElement("//div[@date='"+ date +"']", ElementType.XPath);
+        String date = GetDate.currentDate("M/d/yyyy");
+        Deprecated.jsClickElement("//div[@date='"+ date +"']");
     }
 
     public void clickScheduleSameDay() {
-        Utilities.jsClickElement(scheduleSameDay, ElementType.XPath);
+        Deprecated.jsClickElement(scheduleSameDay);
     }
 
     public void clickScheduleDaysBefore(String days) {
-        Utilities.jsClickElement("//div[@style='border:1px solid;']/preceding-sibling::div[" + days + "]", ElementType.XPath);
+        Deprecated.jsClickElement("//div[@style='border:1px solid;']/preceding-sibling::div[" + days + "]");
     }
 
     public void clickScheduleDaysAfter(String days) {
-        Utilities.jsClickElement("//div[@style='border:1px solid;']/following-sibling::div[" + days + "]", ElementType.XPath);
+        Deprecated.jsClickElement("//div[@style='border:1px solid;']/following-sibling::div[" + days + "]");
     }
 
     public void clickJobPool() {
-        Utilities.waitUntileElementIsVisible(jobPool);
-        Utilities.clickElement(jobPool, ElementType.XPath, true, true);
+        Deprecated.waitVisible(jobPool);
+        Deprecated.clickElement(jobPool, true, true);
     }
 
     public void addScheduleDateToProperties() {
-        String date = Utilities.currentDate("M/d/yyyy");
+        String date = GetDate.currentDate("M/d/yyyy");
         String currentDay = "//div[@date='"+ date +"']";
-        Utilities.waitUntileElementIsVisible(currentDay);
-        String scheduleDate = Utilities.getAttributeValue(currentDay, "date");
+        Deprecated.waitVisible(currentDay);
+        String scheduleDate = Deprecated.getAttribute(currentDay, "date");
         app.addData("scheduleDate", scheduleDate, app.generalData);
     }
 
     public void clickScheduleButton() {
         overviewHeader = new CustomerViewDialog_Header();
         overviewHeader.navigateTo(overviewHeader.subscriptionTabInDialog);
-        Utilities.jsClickElement(scheduleButtonInDialog, ElementType.XPath);
-        delay(3000);
+        Deprecated.jsClickElement(scheduleButtonInDialog);
+        Utilities.delay(3000);
         //Utilities.waitUntileElementIsVisible(closeRecommendedRoutes);
-        Utilities.jsClickElement(closeRecommendedRoutes, ElementType.XPath);
+        Deprecated.jsClickElement(closeRecommendedRoutes);
     }
 
     public void clickOnlyScheduleButton() throws InterruptedException {
         overviewHeader = new CustomerViewDialog_Header();
         overviewHeader.navigateTo(overviewHeader.subscriptionTabInDialog);
-        Utilities.jsClickElement(scheduleButtonInDialog, ElementType.XPath);
+        Deprecated.jsClickElement(scheduleButtonInDialog);
     }
 
     public void closeRemmendedRoutesDialog() {
-        Utilities.waitUntileElementIsVisible(closeRecommendedRoutes);
-        Utilities.jsClickElement(closeRecommendedRoutes, ElementType.XPath);
+        Deprecated.waitVisible(closeRecommendedRoutes);
+        Deprecated.jsClickElement(closeRecommendedRoutes);
     }
 
     public void selectServiceType(String serviceType) {
-        Utilities.waitUntileElementIsVisible("//optgroup[@label='Subscriptions']/option[contains(text(),'" + serviceType + "')]");
-        Utilities.clickElement("//optgroup[@label='Subscriptions']/option[contains(text(),'" + serviceType + "')]", ElementType.XPath);
+        Deprecated.waitVisible("//optgroup[@label='Subscriptions']/option[contains(text(),'" + serviceType + "')]");
+        Deprecated.clickElement("//optgroup[@label='Subscriptions']/option[contains(text(),'" + serviceType + "')]");
     }
 
     public void clickButton(String needElement) throws InterruptedException {
-        Utilities.scrollToElementJS(needElement);
-        Utilities.waitUntileElementIsVisible(needElement);
-        Utilities.clickElement(needElement, ElementType.XPath);
+        Deprecated.scrollToElementJS(needElement);
+        Deprecated.waitVisible(needElement);
+        Deprecated.clickElement(needElement);
     }
 
     public void selectFirstOptionFromDropDown(String needElement) {
-        Utilities.waitUntileElementIsVisible(needElement);
-        Utilities.selectValueFromDropDownByIndex(needElement, 1);
+        Deprecated.waitVisible(needElement);
+        Deprecated.selectByIndex(needElement, 1);
     }
 
      //Author: F. White
     public void clickFillRoutesLink() throws InterruptedException {
-        Utilities.waitUntileElementIsVisible(linkFillRoutes, 45);
+        Deprecated.waitVisible(linkFillRoutes, 45);
         Thread.sleep(3000);
-        Utilities.clickElement(linkFillRoutes, ElementType.XPath);
+        Deprecated.clickElement(linkFillRoutes);
     }
 
 }

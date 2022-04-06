@@ -9,15 +9,15 @@ import automation.PestRoutes.PageObject.CustomerOverview.Invoicing.InvoiceImplem
 import automation.PestRoutes.PageObject.CustomerOverview.Invoicing.Invoice_Header;
 import automation.PestRoutes.PageObject.CustomerOverview.Invoicing.RoutePageInvoicing;
 import automation.PestRoutes.PageObject.Header;
-import automation.PestRoutes.Utilities.AppData;
-import automation.PestRoutes.Utilities.Utilities;
+import automation.PestRoutes.Utilities.Data.*;
+import automation.PestRoutes.Utilities.Deprecated;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import org.testng.asserts.SoftAssert;
 
 import java.io.IOException;
 
-import static automation.PestRoutes.Utilities.AssertException.result;
+import static automation.PestRoutes.Utilities.Report.AssertException.result;
 
 public class CreditMemo extends AppData {
 
@@ -69,11 +69,13 @@ public class CreditMemo extends AppData {
         String taxAmount = invImplementation.getTaxValue();
         String chargesBalance = invImplementation.getChargesBalance();
         String paymentBalance = invImplementation.getBalanceInPayments();
-        invImplementation.click(creditMemoTab.getTicketID());
+        String ticketID = creditMemoTab.getTicketID();
+        Deprecated.waitVisible(ticketID);
+        Deprecated.clickElement(ticketID);
         creditMemoTab.validateServiceTypeName();
         result("-" + totalInvoiceValue, creditMemoTab.getChargesAmount_creditMemo(), "Charges validation in Credit Memo", "Invoice Validation");
         result(customerName + "(SELF)", creditMemoTab.getBilledAccount(), "Billed To validation in Credit Memo", "Invoice Validation");
-        result(Utilities.currentDate("MM/dd/yy").replaceAll("0", ""), creditMemoTab.getCreditMemoDate().replaceAll("0", ""), "Credit Memo Date validation in Credit Memo", "Invoice Validation");
+        result(GetDate.currentDate("MM/dd/yy").replaceAll("0", ""), creditMemoTab.getCreditMemoDate().replaceAll("0", ""), "Credit Memo Date validation in Credit Memo", "Invoice Validation");
         result(creditMemoTab.getInvoiceApplicationDate(), creditMemoTab.getCreditMemoDate(), "Invoice Application Date validation in Credit Memo", "Invoice Validation");
         result(balance, creditMemoTab.getPaymentsBalance(), "Balance validation in Credit Memo", "Invoice Validation");
         creditMemoTab.clickAppliedCharge_invoiceApplications();
@@ -91,9 +93,9 @@ public class CreditMemo extends AppData {
                 "Invoice Validation");
         result(paymentBalance, invImplementation.getBalanceInPayments(), "Total Invoice Value in Payments Validation",
                 "Invoice Validation");
-        result(Utilities.currentDate("MM/dd/yy").replaceAll("0", ""), invImplementation.getInvoiceDate().replaceAll("0", ""), "Invoice Date Validation",
+        result(GetDate.currentDate("MM/dd/yy").replaceAll("0", ""), invImplementation.getInvoiceDate().replaceAll("0", ""), "Invoice Date Validation",
                 "Invoice Validation");
-        result(Utilities.currentDate("MM/dd/yy").replaceAll("0", ""), invImplementation.getDueDate().replaceAll("0", ""), "Due Date Validation",
+        result(GetDate.currentDate("MM/dd/yy").replaceAll("0", ""), invImplementation.getDueDate().replaceAll("0", ""), "Due Date Validation",
                 "Invoice Validation");
         result("N/A", "N/A", "Appointment Date Validation",
                 "Invoice Validation");

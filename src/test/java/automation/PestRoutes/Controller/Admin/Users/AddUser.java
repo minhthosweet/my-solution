@@ -2,19 +2,15 @@ package automation.PestRoutes.Controller.Admin.Users;
 
 import java.io.IOException;
 
-import automation.PestRoutes.Utilities.AppData;
-import automation.PestRoutes.Utilities.Utilities;
+import automation.PestRoutes.Utilities.Data.AppData;
+import automation.PestRoutes.Utilities.Deprecated;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 
 import automation.PestRoutes.PageObject.Header;
 import automation.PestRoutes.PageObject.Admin.AdminMainPage;
 import automation.PestRoutes.PageObject.Admin.UsersPage.AddUserDialog;
 import automation.PestRoutes.PageObject.CreateCustomer.CreateCustomers;
-import automation.PestRoutes.Utilities.FindElement;
-import automation.PestRoutes.Utilities.FindElement.InputType;
 
 public class AddUser extends AppData {
 
@@ -37,10 +33,10 @@ public class AddUser extends AppData {
 		adminPage.navigateTo(adminPage.users);
 
 		// Click on the User button
-		if (Utilities.isPresent(adminPage.existingUser)) {
+		if (Deprecated.isPresent(adminPage.existingUser)) {
 			deactivateUser();
 		}
-		Utilities.clickElement(adminPage.userButton, Utilities.ElementType.XPath);
+		Deprecated.clickElement(adminPage.userButton);
 		addUserDialog.setInputValue(addUserDialog.firstNameInputField, userFirstName);
 		addUserDialog.setInputValue(addUserDialog.lastNameInputField, userLastName);
 		addUserDialog.selectValueFromDropDown(addUserDialog.accountTypeDropDown, needAccountType);
@@ -56,12 +52,12 @@ public class AddUser extends AppData {
 		header.navigateTo(header.adminTab);
 		adminPage.navigateTo(adminPage.users);
 		try {
-			Utilities.scrollToElementJS(adminPage.preExistingUser);
-			Utilities.clickElement(adminPage.existingUser, Utilities.ElementType.XPath);
+			Deprecated.scrollToElementJS(adminPage.preExistingUser);
+			Deprecated.clickElement(adminPage.existingUser);
 			addUserDialog.clickButton(addUserDialog.deactivateLink);
 			addUserDialog.clickButton(addUserDialog.deactivateSaveButton);
 			Thread.sleep(3000);
-			Utilities.scrollToElementJS(addUserDialog.closeButton);
+			Deprecated.scrollToElementJS(addUserDialog.closeButton);
 			addUserDialog.clickButton(addUserDialog.closeButton);
 		} catch (Exception e) {
 			System.out.println("Unable to find existing automation user or click on the cancel button");

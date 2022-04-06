@@ -3,8 +3,8 @@ package automation.PestRoutes.PageObject.Admin.PreferencesTab.CustomerPreference
 import automation.PestRoutes.PageObject.Admin.AdminMainPage;
 import automation.PestRoutes.PageObject.Admin.PreferencesTab.PreferencesPage;
 import automation.PestRoutes.PageObject.Header;
-import automation.PestRoutes.Utilities.FindElement;
-import automation.PestRoutes.Utilities.Utilities;
+import automation.PestRoutes.Utilities.*;
+import automation.PestRoutes.Utilities.Deprecated;
 import io.cucumber.java.en.Given;
 import org.apache.commons.lang3.SystemUtils;
 import org.openqa.selenium.WebElement;
@@ -39,19 +39,19 @@ public class ECA {
 
     //edit ECA
     public void clickEditECA() {
-        Utilities.waitUntileElementIsVisible(editECAButton);
-        Utilities.scrollToElementJS(editECAButton);
-        Utilities.jsClickElement(editECAButton, Utilities.ElementType.XPath);
+        Deprecated.waitVisible(editECAButton);
+        Deprecated.scrollToElementJS(editECAButton);
+        Deprecated.jsClickElement(editECAButton);
     }
 
     public void disableECA() {
         clickEditECA();
         try {
-            WebElement elm = FindElement.elementByAttribute(uncheckedECA, FindElement.InputType.XPath);
+            WebElement elm = Deprecated.locate(uncheckedECA);
             if (elm.isDisplayed()) {
             }
         } catch (Exception e) {
-            Utilities.clickElement(checkBox, Utilities.ElementType.XPath);
+            Deprecated.clickElement(checkBox);
         }
         clickSave();
     }
@@ -59,12 +59,12 @@ public class ECA {
     public void enableECA() {
         clickEditECA();
         try {
-            WebElement elm = FindElement.elementByAttribute(checkedECA, FindElement.InputType.XPath);
+            WebElement elm = Deprecated.locate(checkedECA);
             if (elm.isDisplayed()) {
                 System.out.println("ECA Enabled");
             }
         } catch (Exception e) {
-            Utilities.clickElement(checkBox, Utilities.ElementType.XPath);
+            Deprecated.clickElement(checkBox);
         }
         clickSave();
     }
@@ -73,8 +73,8 @@ public class ECA {
         if (SystemUtils.IS_OS_LINUX) {
             Utilities.acceptAlert();
         }
-        Utilities.scrollToElement(serviceFollowUpEmail);
-        Utilities.waitUntileElementIsVisible(clickSave);
-        Utilities.clickElement(clickSave, Utilities.ElementType.XPath);
+        Deprecated.scrollToElement(serviceFollowUpEmail);
+        Deprecated.waitVisible(clickSave);
+        Deprecated.clickElement(clickSave);
     }
 }

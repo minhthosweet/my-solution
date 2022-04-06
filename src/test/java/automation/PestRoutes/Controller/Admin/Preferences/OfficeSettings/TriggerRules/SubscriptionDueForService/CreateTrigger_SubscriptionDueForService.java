@@ -6,6 +6,8 @@ import java.util.List;
 import automation.PestRoutes.Controller.Admin.Preferences.OfficeSettings.TriggerRules.CustomerStatus.CreateTrigger_CustomerStatus;
 import automation.PestRoutes.Controller.Admin.Preferences.OfficeSettings.TriggerRules.SubscriptionStatus.CreateTrigger_SubscriptionStatus;
 import automation.PestRoutes.Utilities.*;
+import automation.PestRoutes.Utilities.Data.*;
+import automation.PestRoutes.Utilities.Report.*;
 import org.openqa.selenium.WebElement;
 import org.testng.annotations.Test;
 import automation.PestRoutes.Controller.CustomerCreation.CreateNewCustomer;
@@ -42,7 +44,7 @@ public class CreateTrigger_SubscriptionDueForService extends AppData {
     private String descriptionTrigger = "trigger_subscriptionDueForService_all_actions";
     private String days_before_afterDueDate_InputField_Value = "1";
     private String SMSMAppointmentSubscriptionNote = "Sent to: ";
-    private String employeeEmailValue = Utilities.generateRandomString(5) + "@gmail.com";
+    private String employeeEmailValue = GetData.generateRandomString(5) + "@gmail.com";
     private String alertTextinNotes = "Alert - Customer Status (UnRead)";
     private String taskTextinNotes = "Task - Customer Status (Pending)";
     private String employeeVoiceinNotes = "help unable to send message [bad phone number]";
@@ -93,8 +95,8 @@ public class CreateTrigger_SubscriptionDueForService extends AppData {
         adminMainPage.navigateTo(adminMainPage.preferences);
         triggerAdmin.navigateToTriggerRules();
         triggerAdmin.clickAddTrigerButton();
-        triggerAdmin.setStartDate(Utilities.currentDate("MM/dd/yyyy"));
-        triggerAdmin.setEndDate(GetDate.addOneYearToDate(Utilities.currentDate("MM/dd/yyyy")));
+        triggerAdmin.setStartDate(GetDate.currentDate("MM/dd/yyyy"));
+        triggerAdmin.setEndDate(GetDate.addOneYearToDate(GetDate.currentDate("MM/dd/yyyy")));
         triggerAdmin.setDescription(description);
         triggerAdmin.selectDropdown(triggerAdmin.triggerTypeDropdown,
                 triggerAdmin.triggerType_SubscriptionDueforService);
@@ -154,7 +156,7 @@ public class CreateTrigger_SubscriptionDueForService extends AppData {
         triggerActions.clickAddActionButton();
         triggerAdmin.selectDropdown(triggerActions.actionTypeDropDown, triggerActions.EmailMessageType_Action);
         triggerAdmin.selectDropdown(triggerActions.ignoreContactPrefsDropDown, triggerActions.ignoreContactPrefsTypes_No);
-        triggerActions.setEmailTitle(Utilities.generateRandomString(5));
+        triggerActions.setEmailTitle(GetData.generateRandomString(5));
         triggerActions.setMessageinAction_Type2(triggerActions.EmailMessageType_Action, triggerActions.getPlaceHolders());
         triggerAdmin.clickSaveButton();
     }
@@ -183,7 +185,7 @@ public class CreateTrigger_SubscriptionDueForService extends AppData {
     public void sendEmployeeEmail_SubscriptionDueForService() {
         triggerActions.clickAddActionButton();
         triggerAdmin.selectDropdown(triggerActions.actionTypeDropDown, triggerActions.sendEmployeeEmail_SubscriptionStatus);
-        triggerActions.setEmailTitle_SubscriptionStatus(Utilities.generateRandomString(5));
+        triggerActions.setEmailTitle_SubscriptionStatus(GetData.generateRandomString(5));
         triggerActions.setEmailAddress_SubscriptionStatus(employeeEmailValue);
         triggerActions.setMessageinAction_Type2(triggerActions.sendEmployeeEmail_SubscriptionStatus, triggerActions.getPlaceHolders());
         triggerAdmin.clickSaveButton();
@@ -201,7 +203,7 @@ public class CreateTrigger_SubscriptionDueForService extends AppData {
     public void addTask_SubscriptionDueForService() {
         triggerActions.clickAddActionButton();
         triggerAdmin.selectDropdown(triggerActions.actionTypeDropDown, triggerActions.addTask_SubscriptionStatus);
-        triggerActions.setDaysTillDueAddTask_SubscriptionStatus(Double.toString(Utilities.generateRandomInteger(1)));
+        triggerActions.setDaysTillDueAddTask_SubscriptionStatus(Double.toString(GetData.generateRandomInteger(1)));
         triggerActions.setMessageinAction_Type1(triggerActions.addTask_SubscriptionStatus, triggerActions.getPlaceHolders());
         triggerAdmin.clickSaveButton();
     }
@@ -271,12 +273,12 @@ public class CreateTrigger_SubscriptionDueForService extends AppData {
 
     // Hit the Script
     public void hitTriggerSubscriptionDueForService_Query() {
-        Utilities.navigateToUrl("https://adityam.pestroutes.com/resources/scripts/triggerServiceDue.php");
+        GetWebDriver.navigateToUrl("https://adityam.pestroutes.com/resources/scripts/triggerServiceDue.php");
     }
 
     // Navigate to customer and validate the SMS log
     public void assertSMSLog() throws IOException, Exception {
-        Utilities.navigateToUrl("https://adityam.pestroutes.com/");
+        GetWebDriver.navigateToUrl("https://adityam.pestroutes.com/");
         header = new Header();
         reminder = new ReminderTab();
         header.searchCustomer_History(getData("customerName", generalData));
@@ -289,7 +291,7 @@ public class CreateTrigger_SubscriptionDueForService extends AppData {
 
     // Navigate to customer and validate the Email log
     public void assertEMailLog() throws IOException, Exception {
-        Utilities.navigateToUrl("https://adityam.pestroutes.com/");
+        GetWebDriver.navigateToUrl("https://adityam.pestroutes.com/");
         header = new Header();
         reminder = new ReminderTab();
         createCustomer = new CreateNewCustomer();
@@ -302,7 +304,7 @@ public class CreateTrigger_SubscriptionDueForService extends AppData {
 
     // Navigate to customer and validate the Voice log
     public void assertVoiceLog() throws IOException, Exception {
-        Utilities.navigateToUrl("https://adityam.pestroutes.com/");
+        GetWebDriver.navigateToUrl("https://adityam.pestroutes.com/");
         header = new Header();
         reminder = new ReminderTab();
         header.searchCustomer_History(getData("customerName", generalData));
@@ -314,7 +316,7 @@ public class CreateTrigger_SubscriptionDueForService extends AppData {
 
     // Navigate to customer and validate the Snail Mail log
     public void assertSnailMailLog() throws IOException, Exception {
-        Utilities.navigateToUrl("https://adityam.pestroutes.com/");
+        GetWebDriver.navigateToUrl("https://adityam.pestroutes.com/");
         header = new Header();
         reminder = new ReminderTab();
         createCustomer = new CreateNewCustomer();
@@ -327,7 +329,7 @@ public class CreateTrigger_SubscriptionDueForService extends AppData {
 
     // Navigate to customer and validate the Employee EMmail log
     public void assertEmployeeEMailLog() throws IOException, Exception {
-        Utilities.navigateToUrl("https://adityam.pestroutes.com/");
+        GetWebDriver.navigateToUrl("https://adityam.pestroutes.com/");
         header = new Header();
         reminder = new ReminderTab();
         createCustomer = new CreateNewCustomer();
@@ -340,7 +342,7 @@ public class CreateTrigger_SubscriptionDueForService extends AppData {
 
     // Navigate to customer and validate the Alert log
     public void assertAlertLog() throws IOException, Exception {
-        Utilities.navigateToUrl("https://adityam.pestroutes.com/");
+        GetWebDriver.navigateToUrl("https://adityam.pestroutes.com/");
         header = new Header();
         reminder = new ReminderTab();
         createCustomer = new CreateNewCustomer();
@@ -353,7 +355,7 @@ public class CreateTrigger_SubscriptionDueForService extends AppData {
 
     // Navigate to customer and validate the Task log
     public void assertTaskLog() throws IOException, Exception {
-        Utilities.navigateToUrl("https://adityam.pestroutes.com/");
+        GetWebDriver.navigateToUrl("https://adityam.pestroutes.com/");
         header = new Header();
         reminder = new ReminderTab();
         createCustomer = new CreateNewCustomer();
@@ -370,7 +372,7 @@ public class CreateTrigger_SubscriptionDueForService extends AppData {
 
     // Navigate to customer and validate the Employee Voice log
     public void assertEmplopeeVoiceLog() throws IOException, Exception {
-        Utilities.navigateToUrl("https://adityam.pestroutes.com/");
+        GetWebDriver.navigateToUrl("https://adityam.pestroutes.com/");
         header = new Header();
         reminder = new ReminderTab();
         createCustomer = new CreateNewCustomer();
@@ -383,7 +385,7 @@ public class CreateTrigger_SubscriptionDueForService extends AppData {
 
     // Navigate to customer and validate the Employee Voice log
     public void assertRemovePaymentLog() throws IOException, Exception {
-        Utilities.navigateToUrl("https://adityam.pestroutes.com/");
+        GetWebDriver.navigateToUrl("https://adityam.pestroutes.com/");
         header = new Header();
         reminder = new ReminderTab();
         createCustomer = new CreateNewCustomer();

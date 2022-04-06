@@ -1,7 +1,8 @@
 package automation.PestRoutes.PageObject.ReportingPage.OfficePage;
 
 import automation.PestRoutes.PageObject.BasePage;
-import automation.PestRoutes.Utilities.Utilities;
+import automation.PestRoutes.Utilities.*;
+import automation.PestRoutes.Utilities.Deprecated;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
@@ -9,6 +10,8 @@ import org.openqa.selenium.support.ui.Select;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static automation.PestRoutes.Utilities.GetWebDriver.*;
 
 public class PaymentsByServiceTypeTab extends BasePage {
 
@@ -78,30 +81,30 @@ public class PaymentsByServiceTypeTab extends BasePage {
     }
 
     public String getAppliedPaymentsBeforeTax_MultiGroupReport(String needCustomerID) {
-        return Utilities.getElementTextValue("//td[text()='" + needCustomerID + "']/following-sibling::td[1]", Utilities.ElementType.XPath);
+        return Deprecated.getElementTextValue("//td[text()='" + needCustomerID + "']/following-sibling::td[1]");
     }
 
     public String getPaymentServices_MultiGroupReport(String needCustomerID) {
-        return Utilities.getElementTextValue("//td[text()='" + needCustomerID + "']/parent::tr[@detailvalues]//td[10]", Utilities.ElementType.XPath);
+        return Deprecated.getElementTextValue("//td[text()='" + needCustomerID + "']/parent::tr[@detailvalues]//td[10]");
     }
 
     public String getTaxRate_MultiGroupReport(String needCustomerID) {
-        return Utilities.getElementTextValue("//td[text()='" + needCustomerID + "']/parent::tr[@detailvalues]//td[3]", Utilities.ElementType.XPath);
+        return Deprecated.getElementTextValue("//td[text()='" + needCustomerID + "']/parent::tr[@detailvalues]//td[3]");
     }
 
     public void selectDateFor (String value) {
-        click(dateField);
-        find(By.xpath("//body[@id='reportsPage']/div[18]//li[text()='" + value + "']")).click();
+        Utilities.click(dateField);
+        Utilities.locate(By.xpath("//body[@id='reportsPage']/div[18]//li[text()='" + value + "']")).click();
     }
 
     public void selectGroupBy (String value) {
-        WebElement groupBy = find(groupByField);
+        WebElement groupBy = Utilities.locate(groupByField);
         Select selectGroupBy = new Select(groupBy);
         selectGroupBy.selectByVisibleText(value);
     }
 
     public void clickRefreshButton(){
-        click(refreshButton);
+        Utilities.click(refreshButton);
     }
 
     public void clickDescription(String value) {

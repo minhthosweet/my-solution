@@ -1,12 +1,14 @@
 package automation.PestRoutes.PageObject.Admin.PreferencesTab.OfficeSettingsTab.TriggerTypes;
 
 import automation.PestRoutes.PageObject.Admin.PreferencesTab.PreferencesPage;
+import automation.PestRoutes.Utilities.*;
+import automation.PestRoutes.Utilities.Deprecated;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import java.util.List;
 
-import static automation.PestRoutes.Utilities.Utilities.scrollToElementJS;
+import static automation.PestRoutes.Utilities.Deprecated.scrollToElementJS;
 
 public class CustomerStatusPage extends PreferencesPage {
 
@@ -15,26 +17,26 @@ public class CustomerStatusPage extends PreferencesPage {
     private By includeCustomerFlagsMultiDropDown = By.xpath("//label[text()='Include Customer Flags']/parent::div[@class='col-6']//following-sibling::div/div//ul//input");
 
     public void selectStatusChangedTo(String changeStatus) {
-        scrollToElementJS(statusChangedToDropDown);
-        selectFromDropDown(changeStatus, statusChangedToDropDown);
+        Deprecated.scrollToElementJS(statusChangedToDropDown);
+        Utilities.selectByText(statusChangedToDropDown, changeStatus);
         System.out.println("Customer Status Changed To " + changeStatus);
     }
 
     public void selectWhenToTrigger(String whenToTrigger) {
-        scrollToElementJS(whenToTriggerDropDown);
-        selectFromDropDown(whenToTrigger, whenToTriggerDropDown);
+        Deprecated.scrollToElementJS(whenToTriggerDropDown);
+        Utilities.selectByText(whenToTriggerDropDown, whenToTrigger);
     }
 
     public boolean typeIncludeCustomerFlag(String flagCode) {
-        List<WebElement> allFlags = findElements(By.xpath("//label[text()='Include Customer Flags']/parent::div[@class='col-6']//following-sibling::div/div//ul//div"));
-        WebElement includeCustomerFlagsMultiField = find(includeCustomerFlagsMultiDropDown);
+        List<WebElement> allFlags = Utilities.locateAll(By.xpath("//label[text()='Include Customer Flags']/parent::div[@class='col-6']//following-sibling::div/div//ul//div"));
+        WebElement includeCustomerFlagsMultiField = Utilities.locate(includeCustomerFlagsMultiDropDown);
         for (WebElement flag : allFlags) {
             if (flag.getText().contains(flagCode)) {
                 return true;
             }
         }
-        scrollToElementJS(includeCustomerFlagsMultiField);
-        type(flagCode, includeCustomerFlagsMultiField);
+        Deprecated.scrollToElementJS(includeCustomerFlagsMultiField);
+        Deprecated.type(flagCode, includeCustomerFlagsMultiField);
         System.out.println("Customer Flag: " + flagCode);
         return false;
     }

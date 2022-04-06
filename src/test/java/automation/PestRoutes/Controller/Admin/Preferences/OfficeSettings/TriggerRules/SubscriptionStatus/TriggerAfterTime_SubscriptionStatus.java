@@ -4,12 +4,11 @@ import automation.PestRoutes.Controller.Admin.Preferences.OfficeSettings.Trigger
 import automation.PestRoutes.Controller.Admin.Preferences.OfficeSettings.TriggerRules.CustomerStatus.TriggerOnSave_CustomerStatus;
 import automation.PestRoutes.PageObject.Admin.PreferencesTab.OfficeSettingsTab.TriggerTypes.TriggerRules;
 import automation.PestRoutes.PageObject.Admin.PreferencesTab.OfficeSettingsTab.TriggerTypes.SubscriptionStatusTab;
-import automation.PestRoutes.Utilities.BaseClass;
-import automation.PestRoutes.Utilities.Utilities;
+import automation.PestRoutes.Utilities.*;
 import org.testng.annotations.Test;
 import java.io.IOException;
 
-public class TriggerAfterTime_SubscriptionStatus extends BaseClass {
+public class TriggerAfterTime_SubscriptionStatus {
     CreateTrigger_SubscriptionStatus createSubscriptionStatus = new CreateTrigger_SubscriptionStatus();
     TriggerRules triggerAdmin;
     SubscriptionStatusTab subscriptionStatus;
@@ -67,7 +66,7 @@ public class TriggerAfterTime_SubscriptionStatus extends BaseClass {
 
     // Run script
     public void hitTriggerSubscriptionStatus() {
-        Utilities.navigateToUrl("https://adityam.pestroutes.com/resources/scripts/triggerCustomerStatus.php");
+        GetWebDriver.navigateToUrl("https://adityam.pestroutes.com/resources/scripts/triggerCustomerStatus.php");
     }
 
 }

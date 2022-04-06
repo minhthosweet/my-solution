@@ -1,6 +1,8 @@
 package automation.PestRoutes.PageObject.Admin.PreferencesTab.OfficeSettingsTab.TriggerTypes;
 
 import automation.PestRoutes.PageObject.Admin.PreferencesTab.PreferencesPage;
+import automation.PestRoutes.Utilities.*;
+import automation.PestRoutes.Utilities.Deprecated;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
@@ -27,81 +29,81 @@ public class AppointmentStatusPage extends PreferencesPage {
     private By addTaskCategoryDropDown = By.xpath("//select[@id='observerItem' and @data-observeritemtype='category']");
 
     public void selectStatusChangedTo(String changeStatus) {
-        scrollToElementJS(statusChangedToDropDown);
-        selectFromDropDown(changeStatus, statusChangedToDropDown);
+        Deprecated.scrollToElementJS(statusChangedToDropDown);
+        Utilities.selectByText(statusChangedToDropDown, changeStatus);
         System.out.println("Appointment Status Changed To " + changeStatus);
     }
 
     public void selectWhenToTrigger(String whenToTrigger) {
-        scrollToElementJS(whenToTriggerDropDown);
-        selectFromDropDown(whenToTrigger, whenToTriggerDropDown);
+        Deprecated.scrollToElementJS(whenToTriggerDropDown);
+        Utilities.selectByText(whenToTriggerDropDown, whenToTrigger);
     }
 
     public boolean typeIncludeCustomerFlag(String flagCode) {
-        List<WebElement> allFlags = findElements(By.xpath("//label[text()='Include Customer Flags']/parent::div[@class='col-6']//following-sibling::div/div//ul//div"));
-        WebElement includeCustomerFlagsMultiField = find(includeCustomerFlagsMultiDropDown);
+        List<WebElement> allFlags = locateAll(By.xpath("//label[text()='Include Customer Flags']/parent::div[@class='col-6']//following-sibling::div/div//ul//div"));
+        WebElement includeCustomerFlagsMultiField = Utilities.locate(includeCustomerFlagsMultiDropDown);
         for (WebElement flag : allFlags) {
             if (flag.getText().contains(flagCode)) {
                 return true;
             }
         }
-        scrollToElementJS(includeCustomerFlagsMultiField);
-        type(flagCode, includeCustomerFlagsMultiField);
+        Deprecated.scrollToElementJS(includeCustomerFlagsMultiField);
+        Deprecated.type(flagCode, includeCustomerFlagsMultiField);
         System.out.println("Customer Flag: " + flagCode);
         return false;
     }
 
     public void selectAppointmentType(String appointmentType) {
-        scrollToElementJS(appointmentTypeDropDown);
-        selectFromDropDown(appointmentType, appointmentTypeDropDown);
+        Deprecated.scrollToElementJS(appointmentTypeDropDown);
+        Utilities.selectByText(appointmentTypeDropDown, appointmentType);
     }
 
     public void clickAddActionButton() {
-        elementIsVisible(greenActionButton);
-        scrollToElementJS(greenActionButton);
+        isVisible(greenActionButton);
+        Deprecated.scrollToElementJS(greenActionButton);
         click(greenActionButton);
     }
 
     public void completeAddTaskAction(String assignTo) {
         String addTaskEmployee = "//select[@id='observerItem' and @data-observeritemtype='employeeID']";
 
-        waitUntileElementIsVisible(addTaskAssignToDropDown);
-        selectFromDropDown(assignTo, addTaskAssignToDropDown);
+        waitVisible(addTaskAssignToDropDown);
+        Utilities.selectByText(addTaskAssignToDropDown, assignTo);
         if(assignTo.equalsIgnoreCase("Specific Employee")) {
-            selectValueFromDropDownByIndex(addTaskEmployee, 0);
+            Deprecated.selectByIndex(addTaskEmployee, 0);
         }
-        type("1", addTaskDaysTillDueField);
-        scrollToElementJS(textAreaMessageNotes);
-        type("Status - Task Test For Trigger Rules", textAreaMessageNotes);
-        selectFromDropDown("Appt Status", addTaskCategoryDropDown);
+        Deprecated.type("1", addTaskDaysTillDueField);
+        Deprecated.scrollToElementJS(textAreaMessageNotes);
+        Deprecated.type("Status - Task Test For Trigger Rules", textAreaMessageNotes);
+        Utilities.selectByText(addTaskCategoryDropDown, "Appt Status");
     }
 
     public void completeSendVoiceAction(String voiceType) {
         String voiceMessage = "//select[@name='observerItemValue' and @data-observeritemtype='recordedMessages']";
         if (voiceType.equalsIgnoreCase("New Message")) {
-            selectFromDropDown(voiceType, voiceTypeDropDown);
-            elementIsVisible(textAreaMessageNotes);
-            scrollToElementJS(textAreaMessageNotes);
-            type("Status - Voice Test For Trigger Rules", textAreaMessageNotes);
+            Utilities.selectByText(voiceTypeDropDown, voiceType);
+            isVisible(textAreaMessageNotes);
+            Deprecated.scrollToElementJS(textAreaMessageNotes);
+            Deprecated.type("Status - Voice Test For Trigger Rules", textAreaMessageNotes);
         } else if (voiceType.equalsIgnoreCase("Pre-recorded Message")) {
-            selectFromDropDown(voiceType, voiceTypeDropDown);
-            selectValueFromDropDownByIndex(voiceMessage, 0);
+            Utilities.selectByText(voiceTypeDropDown, voiceType);
+            Deprecated.selectByIndex(voiceMessage, 0);
         }
     }
 
     public void completeSendEmailAction() {
-        type("Automation Trigger Rule Test", emailTitleField);
-        scrollToElementJS(emailTitleField);
-        type("Status - Email Test For Trigger Rules", textArea_EmailMessage);
+        Deprecated.type("Automation Trigger Rule Test", emailTitleField);
+        Deprecated.scrollToElementJS(emailTitleField);
+        Deprecated.type("Status - Email Test For Trigger Rules", textArea_EmailMessage);
     }
 
      public void completeStatusAction(String action, String details) {
-        waitUntileElementIsVisible(actionDropDown);
-        selectFromDropDown(action, actionDropDown);
+        waitVisible(actionDropDown);
+        Utilities.selectByText(actionDropDown, action);
         switch(action) {
             case "Add Alert":
                 delay(2000);
-                type("Status - Alert Test For Trigger Rules", textAreaMessageNotes);
+                Deprecated.type("Status - Alert Test For Trigger Rules", textAreaMessageNotes);
                 break;
             case "Add Task":
                 completeAddTaskAction(details);
@@ -110,7 +112,7 @@ public class AppointmentStatusPage extends PreferencesPage {
                 completeSendEmailAction();
                 break;
             case "Send SMS":
-                type("Status - SMS Test For Trigger Rules", textAreaMessageNotes);
+                Deprecated.type("Status - SMS Test For Trigger Rules", textAreaMessageNotes);
                 break;
             case "Send Voice":
                 completeSendVoiceAction(details);
@@ -121,27 +123,27 @@ public class AppointmentStatusPage extends PreferencesPage {
     public void completeSecondAction(String action2, String details) {
         By secondActionDropDown = By.xpath("//select[@id='observerItem' and @data-observeritemtype='ignoreContactPrefs']//preceding::select[2]");
         clickAddActionButton();
-        waitUntileElementIsVisible(secondActionDropDown);
-        selectFromDropDown(action2, secondActionDropDown);
+        waitVisible(secondActionDropDown);
+        Utilities.selectByText(secondActionDropDown, action2);
         if (action2.equalsIgnoreCase("Add Alert")) {
-            type("Status - Alert Test For Trigger Rules", textAreaMessageNotes);
+            Deprecated.type("Status - Alert Test For Trigger Rules", textAreaMessageNotes);
         } else if (action2.equalsIgnoreCase("Add Task")) {
             completeAddTaskAction(details);
         } else if (action2.equalsIgnoreCase("Send Email")) {
             completeSendEmailAction();
         } else if (action2.equalsIgnoreCase("Send SMS")) {
-            type("Status - SMS Test For Trigger Rules", textAreaMessageNotes);
+            Deprecated.type("Status - SMS Test For Trigger Rules", textAreaMessageNotes);
         } else if (action2.equalsIgnoreCase("Send Voice")) {
             completeSendVoiceAction(details);
         }
     }
 
     public void completeTwoAppointmentStatusActions(String action1, String action2, String details) {
-        waitUntileElementIsVisible(actionDropDown);
-        selectFromDropDown(action1, actionDropDown);
+        waitVisible(actionDropDown);
+        Utilities.selectByText(actionDropDown, action1);
         switch (action1) {
             case "Add Alert":
-                type("Status - Alert Test For Trigger Rules", textAreaMessageNotes);
+                Deprecated.type("Status - Alert Test For Trigger Rules", textAreaMessageNotes);
                 completeSecondAction(action2, details);
                 break;
             case "Add Task":
@@ -153,7 +155,7 @@ public class AppointmentStatusPage extends PreferencesPage {
                 completeSecondAction(action2, details);
                 break;
             case "Send SMS":
-                type("Status - SMS Test For Trigger Rules", textAreaMessageNotes);
+                Deprecated.type("Status - SMS Test For Trigger Rules", textAreaMessageNotes);
                 completeSecondAction(action2, details);
                 break;
             case "Send Voice":
@@ -164,7 +166,7 @@ public class AppointmentStatusPage extends PreferencesPage {
     }
 
     public void clickSaveButton() {
-        scrollToElementJS(saveTriggerButton);
+        Deprecated.scrollToElementJS(saveTriggerButton);
         click(saveTriggerButton);
     }
 
@@ -179,7 +181,7 @@ public class AppointmentStatusPage extends PreferencesPage {
 
     public String getActionCategory(String action) {
         if(action.equalsIgnoreCase("Add Task")) {
-            return getSelectedOptionFromDropDown(addTaskCategoryDropDown);
+            return getFirstSelected(addTaskCategoryDropDown);
         }
         return null;
     }

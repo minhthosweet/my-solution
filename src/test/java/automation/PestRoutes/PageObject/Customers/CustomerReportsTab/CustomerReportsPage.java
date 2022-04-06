@@ -1,9 +1,9 @@
 package automation.PestRoutes.PageObject.Customers.CustomerReportsTab;
 
 import automation.PestRoutes.PageObject.BasePage;
-import automation.PestRoutes.Utilities.AppData;
-import automation.PestRoutes.Utilities.FindElement;
-import automation.PestRoutes.Utilities.Utilities;
+import automation.PestRoutes.Utilities.*;
+import automation.PestRoutes.Utilities.Data.AppData;
+import automation.PestRoutes.Utilities.Deprecated;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 
@@ -266,108 +266,108 @@ public class CustomerReportsPage extends BasePage {
     }
 
     public String getTextValue(String needXpath) {
-        delay(3000);
-        Utilities.waitUntileElementIsVisible(needXpath);
-        Utilities.scrollToElementJS(needXpath);
-        return Utilities.getElementTextValue(needXpath, Utilities.ElementType.XPath);
+        Utilities.delay(3000);
+        Deprecated.waitVisible(needXpath);
+        Deprecated.scrollToElementJS(needXpath);
+        return Deprecated.getElementTextValue(needXpath);
     }
 
     public String getTextValue(By locator) {
-        Utilities.waitUntileElementIsVisible(locator);
-        Utilities.scrollToElementJS(locator);
-        return getText(locator);
+        Utilities.waitVisible(locator);
+        Deprecated.scrollToElementJS(locator);
+        return Utilities.getText(locator);
     }
 
     public void click(String needButton) throws InterruptedException {
-        Utilities.waitUntileElementIsVisible(needButton);
-        Utilities.clickElement(needButton, Utilities.ElementType.XPath);
+        Deprecated.waitVisible(needButton);
+        Deprecated.clickElement(needButton);
     }
 
     public void setValueFromDropdown(String needXpath, String needValue) {
-        Utilities.waitUntileElementIsVisible(needXpath);
-        Utilities.scrollToElementJS(needXpath);
-        Utilities.selectValueFromDropDownByValue(needXpath, needValue);
+        Deprecated.waitVisible(needXpath);
+        Deprecated.scrollToElementJS(needXpath);
+        Deprecated.selectByText(needXpath, needValue);
     }
 
     public void setType(String needXpath, String type) throws InterruptedException {
-        Utilities.scrollToBottomElementJS(needXpath);
-        FindElement.elementByAttribute(needXpath, FindElement.InputType.XPath).sendKeys(type);
+        Utilities.jsScrollToBottom();
+        Deprecated.locate(needXpath).sendKeys(type);
     }
 
     public void set(String needXpath, String needType) {
-        Utilities.waitUntileElementIsVisible(needXpath);
-        Utilities.scrollToElementJS(needXpath);
-        Utilities.waitUntileElementIsVisible(needXpath);
-        Utilities.selectValueFromDropDownByValue(needXpath, needType);
+        Deprecated.waitVisible(needXpath);
+        Deprecated.scrollToElementJS(needXpath);
+        Deprecated.waitVisible(needXpath);
+        Deprecated.selectByText(needXpath, needType);
     }
 
     public void setProperty(String needXpath, String type) throws InterruptedException, IOException {
-        Utilities.scrollToBottomElementJS(needXpath);
-        Utilities.clickElement(needXpath, Utilities.ElementType.XPath);
-        FindElement.elementByAttribute(needXpath, FindElement.InputType.XPath).sendKeys(type);
-        Utilities.clickElement("//span[text()='" + type + "']", Utilities.ElementType.XPath);
+        Utilities.jsScrollToBottom();
+        Deprecated.clickElement(needXpath);
+        Deprecated.locate(needXpath).sendKeys(type);
+        Deprecated.clickElement("//span[text()='" + type + "']");
     }
 
     public void searchCustomer_CustomerReports(String needXpath, String customerName) throws InterruptedException {
-        Utilities.scrollToBottomElementJS(needXpath);
-        FindElement.elementByAttribute(needXpath, FindElement.InputType.XPath).sendKeys(customerName);
+        Utilities.jsScrollToBottom();
+        Deprecated.locate(needXpath).sendKeys(customerName);
     }
 
     public void clickCustomerReport() {
-        Utilities.waitUntileElementIsVisible(customerReportFirstEntry);
-        Utilities.scrollToElementJS(searchBox);
-        Utilities.clickElement(customerReportFirstEntry, Utilities.ElementType.XPath);
+        Deprecated.waitVisible(customerReportFirstEntry);
+        Deprecated.scrollToElementJS(searchBox);
+        Deprecated.clickElement(customerReportFirstEntry);
     }
 
     public void clickActionType_action(String actionType) throws IOException {
-        Utilities.waitUntileElementIsVisible(actionsDropDown);
-        Utilities.scrollToElementJS(actionsDropDown);
-        Utilities.hoverElement(actionsDropDown, actionType);
+        Deprecated.waitVisible(actionsDropDown);
+        Deprecated.scrollToElementJS(actionsDropDown);
+        Deprecated.hoverElement(actionsDropDown, actionType);
     }
 
     public void addFlag_action() throws IOException, InterruptedException {
         AppData appData = new AppData();
-        Utilities.waitUntileElementIsVisible("//span[text()='Add / Remove Flags']");
+        Deprecated.waitVisible("//span[text()='Add / Remove Flags']");
         click(addFlags);
-        FindElement.elementByAttribute(addFlags, FindElement.InputType.XPath).sendKeys(AppData.getData("flag", appData.generalData));
+        Deprecated.locate(addFlags).sendKeys(AppData.getData("flag", appData.generalData));
         click("//div[@id='select2-drop']//span[text()='" + AppData.getData("flag", appData.generalData) + "']");
         click(applyButton_addRemoveFlags_CR);
     }
 
     public void sendMessage_action(String textMessage) throws InterruptedException {
-        Utilities.waitUntileElementIsVisible(textMessage_actions);
-        FindElement.elementByAttribute(textMessage_actions, FindElement.InputType.XPath).clear();
-        FindElement.elementByAttribute(textMessage_actions, FindElement.InputType.XPath).sendKeys(textMessage);
+        Deprecated.waitVisible(textMessage_actions);
+        Deprecated.locate(textMessage_actions).clear();
+        Deprecated.locate(textMessage_actions).sendKeys(textMessage);
         click("//div[@id='showMessagePlaceholdersButton']");
         click(sendMessageButton);
         Utilities.acceptAlert();
     }
 
     public void setBulkFreezeNote(String textMessage) {
-        Utilities.waitUntileElementIsVisible(cancellationNotesTextBox);
-        FindElement.elementByAttribute(cancellationNotesTextBox, FindElement.InputType.XPath).sendKeys(textMessage);
+        Deprecated.waitVisible(cancellationNotesTextBox);
+        Deprecated.locate(cancellationNotesTextBox).sendKeys(textMessage);
     }
 
     public void listBy(String listBy) {
-        Utilities.selectValueFromDropDownByValue("//label[text()='List By']/parent::div//select", listBy);
+        Deprecated.selectByText("//label[text()='List By']/parent::div//select", listBy);
     }
 
     public void updateSubscriptionPrice_action(String priceChange) throws InterruptedException {
-        FindElement.elementByAttribute(fixedAmountTextBox_actions, FindElement.InputType.XPath).clear();
-        FindElement.elementByAttribute(fixedAmountTextBox_actions, FindElement.InputType.XPath).sendKeys(priceChange);
+        Deprecated.locate(fixedAmountTextBox_actions).clear();
+        Deprecated.locate(fixedAmountTextBox_actions).sendKeys(priceChange);
         click(proceedToVerificationButton);
-        Utilities.waitUntileElementIsVisible(confirmChangeButton_subscriptionPriceChange);
-        Utilities.clickElement(confirmChangeButton_subscriptionPriceChange, Utilities.ElementType.XPath);
+        Deprecated.waitVisible(confirmChangeButton_subscriptionPriceChange);
+        Deprecated.clickElement(confirmChangeButton_subscriptionPriceChange);
         Utilities.acceptAlert();
     }
 
     public void clickSelectColumnsToDisplayLink(){
-        click(lnkSelectColumnsToDisplay);
+        Utilities.click(lnkSelectColumnsToDisplay);
     }//clickSelectColumnsToDisplayLink()
 
     public void displayColumnOnReport(String colName){
-        type(colName,inputSelectColumnsToDisplay);
-        find(inputSelectColumnsToDisplay).sendKeys(Keys.ENTER);
+        Deprecated.type(colName,inputSelectColumnsToDisplay);
+        Utilities.locate(inputSelectColumnsToDisplay).sendKeys(Keys.ENTER);
     }//clickSelectColumnsToDisplayLink()
 
     public String getNoDataResults(){

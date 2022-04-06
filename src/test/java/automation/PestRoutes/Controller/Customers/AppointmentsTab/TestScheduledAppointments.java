@@ -12,11 +12,14 @@ import automation.PestRoutes.PageObject.RoutePage.RoutePage;
 import automation.PestRoutes.PageObject.Scheduling.SchedulingAppointmentDialog;
 import automation.PestRoutes.PageObject.Scheduling.SchedulingTab;
 import io.cucumber.java.en.*;
+import org.openqa.selenium.*;
+import org.openqa.selenium.interactions.*;
 import org.testng.asserts.SoftAssert;
 
 import java.util.List;
 
-import static automation.PestRoutes.Utilities.Utilities.dragCustomerCard;
+import static automation.PestRoutes.Utilities.GetWebDriver.*;
+import static automation.PestRoutes.Utilities.Utilities.*;
 
 public class TestScheduledAppointments {
 
@@ -71,7 +74,10 @@ public class TestScheduledAppointments {
 
     @But("I Schedule Another Appointment From The Routes Page")
     public void automateSchedulingAnotherAppointment() {
-        dragCustomerCard(200, 0);
+        WebElement customerCard = driver.findElement(By.xpath("//body[@id='daysPage']//div[@aria-describedby='customerWindow']/div"));
+        Actions act = new Actions(driver);
+        act.dragAndDropBy(customerCard, 200, 0).perform();
+        delay(3000);
         userOnRoutePage.selectAvailableAppointment();
         userOnRoutePage.selectExistingCustomer(testCustomer.customerName);
         userOnSchedulingDialog.selectTypeOfService("Automation Renewal");

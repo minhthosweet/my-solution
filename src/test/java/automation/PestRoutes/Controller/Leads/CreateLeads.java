@@ -1,6 +1,9 @@
 package automation.PestRoutes.Controller.Leads;
 
-import automation.PestRoutes.Utilities.*;
+import automation.PestRoutes.Controller.*;
+import automation.PestRoutes.Utilities.Data.*;
+import automation.PestRoutes.Utilities.Deprecated;
+import automation.PestRoutes.Utilities.Report.*;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import org.testng.annotations.Test;
@@ -69,7 +72,7 @@ public class CreateLeads extends AppData {
 		leads.selectAdditionalItem(leads.addInitialInvoiceTicketItemButton, additialItem);
 		leads.selectAdditionalItem(leads.addRecurringInvoiceTicketItemButton, additialItem);
 		header.clickSaveButton();
-		Utilities.waitUntileElementIsVisible(leads.newButton);
+		Deprecated.waitVisible(leads.newButton);
 		leads.clickButton(leads.addLeadsNotesButton);
 		leads.setInputField(leads.notesInputField, getData("source", generalData));
 		leads.clickButton(leads.saveNotesButton);
@@ -107,18 +110,18 @@ public class CreateLeads extends AppData {
 		header = new CustomerViewDialog_Header();
 		CustomerViewDialog_Header customerCart = new CustomerViewDialog_Header();
 		String subscriptionTitle= "//li[@subscriptionid]//div[text()='"+ serviceType +"']";
-		Utilities.waitUntileElementIsVisible(leads.newButton);
+		Deprecated.waitVisible(leads.newButton);
 		leads.clickButton(leads.convertToLeadButton);
 		customerCart.navigateTo(customerCart.subscriptionTabInDialog);
-		Utilities.waitUntileElementIsVisible(subscriptionTitle);
-		String actualServiceTypeConverted = Utilities.getElementTextValue(subscriptionTitle, Utilities.ElementType.XPath);
+		Deprecated.waitVisible(subscriptionTitle);
+		String actualServiceTypeConverted = Deprecated.getElementTextValue(subscriptionTitle);
 		result(serviceType, actualServiceTypeConverted, "serviceType Validation", "");
 	}
 	
 	@SuppressWarnings("unchecked")
 	private void result(String expected, String actual, String stepName, String testName) {
 		if(AssertException.result(expected, actual, stepName).size()>0) {
-			Utilities.list.add(AssertException.result(expected, actual, stepName));
+			CucumberBaseClass.list.add(AssertException.result(expected, actual, stepName));
 		}
 		Reporter.status(stepName,expected, actual, testName);
 	}

@@ -3,13 +3,12 @@ package automation.PestRoutes.Controller.Schedules;
 import automation.PestRoutes.PageObject.Header;
 import automation.PestRoutes.PageObject.Scheduling.SchedulingTab;
 import automation.PestRoutes.PageObject.Scheduling.FillRoutesPageObjects;
-import automation.PestRoutes.Utilities.BaseClass;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
 
-public class FillRoutesTests  extends BaseClass{
+public class FillRoutesTests {
     Header header = new Header();
     SchedulingTab scheduler = new SchedulingTab();
     FillRoutesPageObjects fillRoutesPageObjs = new FillRoutesPageObjects();

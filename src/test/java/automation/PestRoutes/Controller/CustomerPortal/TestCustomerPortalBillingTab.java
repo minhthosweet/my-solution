@@ -12,6 +12,7 @@ import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_Head
 import automation.PestRoutes.PageObject.CustomerPortal.CustomerPortalBillingTabPage;
 import automation.PestRoutes.PageObject.CustomerPortal.CustomerPortalSummaryTabPage;
 import automation.PestRoutes.PageObject.DashboardPage;
+import automation.PestRoutes.Utilities.*;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -49,8 +50,8 @@ public class TestCustomerPortalBillingTab {
         softAssert.assertTrue(actualMessage.contains(expectedFirstName),
                 "Welcome Message Does Not Contain The Correct First Name" + "\n" +
                         "First Name " + expectedFirstName + " Is Not Located In " + actualMessage);
-        closeTab();
-        switchToOldWindowOpened();
+        GetWebDriver.closeTab();
+//        GetWebDriver.switchToOldWindowOpened();
         testCustomer.removeCustomer();
         softAssert.assertAll();
     }
@@ -62,8 +63,8 @@ public class TestCustomerPortalBillingTab {
         softAssert.assertEquals(actualPaymentBalance, expectedPaymentBalance,
                 "Actual Responsible Balance: " + actualPaymentBalance +
                         " & Expected Balance: " + expectedPaymentBalance + " Do Not Match");
-        closeTab();
-        switchToOldWindowOpened();
+        GetWebDriver.closeTab();
+        GetWebDriver.switchToOldWindowOpened();
         testCustomer.removeCustomer();
         softAssert.assertAll();
     }
@@ -97,8 +98,8 @@ public class TestCustomerPortalBillingTab {
                 "The Previous Link Is Not Displayed via Billing Tab");
         softAssert.assertEquals(userOnCustomerPortalBillingTab.isNextLinkDisplayed(), true,
                 "The Next Link Is Not Displayed via Billing Tab");
-        closeTab();
-        switchToOldWindowOpened();
+        GetWebDriver.closeTab();
+        GetWebDriver.switchToOldWindowOpened();
         testCustomer.removeCustomer();
         softAssert.assertAll();
     }
@@ -112,8 +113,8 @@ public class TestCustomerPortalBillingTab {
               "The Current Section Does Not Contain Correct Service Type");
         softAssert.assertTrue(userOnCustomerPortalBillingTab.getCurrentSectionText().contains(expectedCurrentSubscriptionAmount),
               "The Current Section Does Not Contain Correct Amount");
-        closeTab();
-        switchToOldWindowOpened();
+        GetWebDriver.closeTab();
+        GetWebDriver.switchToOldWindowOpened();
         testCustomer.removeCustomer();
         softAssert.assertAll();
     }
@@ -126,8 +127,8 @@ public class TestCustomerPortalBillingTab {
         String paymentMethodError = userOnCustomerPortalBillingTab.getPaymentMethodErrorMessage();
         softAssert.assertTrue(paymentMethodError.contains("Please choose a method of payment"),
                 "The Payment Method Error Message Is Not Available Or Not Correct");
-        closeTab();
-        switchToOldWindowOpened();
+        GetWebDriver.closeTab();
+        GetWebDriver.switchToOldWindowOpened();
         testCustomer.removeCustomer();
         softAssert.assertAll();
     }
@@ -141,8 +142,8 @@ public class TestCustomerPortalBillingTab {
         String paymentMethodError = userOnCustomerPortalBillingTab.getPaymentMethodErrorMessage();
         softAssert.assertTrue(paymentMethodError.contains("Please choose a method of payment"),
                 "The Payment Method Error Message Is Not Available Or Not Correct");
-        closeTab();
-        switchToOldWindowOpened();
+        GetWebDriver.closeTab();
+        GetWebDriver.switchToOldWindowOpened();
         testCustomer.removeCustomer();
         softAssert.assertAll();
     }
@@ -152,8 +153,8 @@ public class TestCustomerPortalBillingTab {
         userOnCustomerPortalBillingTab = userOnCustomerPortalSummaryTab.goToBillingTab();
         softAssert.assertTrue(userOnCustomerPortalBillingTab.isMakePaymentImageDisplayed(),
                 "The Make Payment Image Is Not Displayed via Billing Tab");
-        closeTab();
-        switchToOldWindowOpened();
+        GetWebDriver.closeTab();
+        GetWebDriver.switchToOldWindowOpened();
         testCustomer.removeCustomer();
         softAssert.assertAll();
     }
@@ -170,8 +171,8 @@ public class TestCustomerPortalBillingTab {
                 "Expiration Date Does Not Have A Required Field Error Message");
         softAssert.assertTrue(userOnCustomerPortalBillingTab.isPayTotalCVVErrorDisplayed(gateway),
                 "CVV Does Not Have A Required Field Error Message");
-        closeTab();
-        switchToOldWindowOpened();
+        GetWebDriver.closeTab();
+        GetWebDriver.switchToOldWindowOpened();
         testCustomer.removeCustomer();
         softAssert.assertAll();
     }
@@ -198,8 +199,8 @@ public class TestCustomerPortalBillingTab {
         softAssert.assertEquals(actualPaymentBalance, "$0.00",
                 "Actual Responsible Balance: " + actualPaymentBalance +
                         " & Expected Balance: " + "$0.00" + " Do Not Match");
-        closeTab();
-        switchToOldWindowOpened();
+        GetWebDriver.closeTab();
+        GetWebDriver.switchToOldWindowOpened();
         testCustomer.removeCustomer();
         softAssert.assertAll();
     }
@@ -223,8 +224,8 @@ public class TestCustomerPortalBillingTab {
         softAssert.assertEquals(actualPaymentBalance, "$0.00",
                 "Actual Responsible Balance: " + actualPaymentBalance +
                         " & Expected Balance: " + "$0.00" + " Do Not Match");
-        closeTab();
-        switchToOldWindowOpened();
+        GetWebDriver.closeTab();
+        GetWebDriver.switchToOldWindowOpened();
         testCustomer.removeCustomer();
         softAssert.assertAll();
     }

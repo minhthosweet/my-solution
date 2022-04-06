@@ -1,8 +1,8 @@
 package automation.PestRoutes.Controller.HeaderAndFooter;
 import automation.PestRoutes.PageObject.Scheduling.SchedulingTab;
 import automation.PestRoutes.PageObject.Footer;
-import automation.PestRoutes.Utilities.AssertException;
-import automation.PestRoutes.Utilities.Utilities;
+import automation.PestRoutes.Utilities.*;
+import automation.PestRoutes.Utilities.Report.AssertException;
 import io.cucumber.java.en.Then;
 
 public class OfficeValidation {
@@ -13,7 +13,7 @@ public class OfficeValidation {
     @Then("I validate if sorted offices displayed")
     public void validateOfficesDisplayed(){
         schedulingTab = new SchedulingTab();
-        String url = Utilities.getCurrentUrl();
+        String url = GetWebDriver.getCurrentUrl();
         officeValidation();
         if (url.contains("calendar")){
             schedulingTab.clickScheduleDay();

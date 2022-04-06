@@ -1,9 +1,6 @@
 package automation.PestRoutes.PageObject.Admin.UsersPage;
 
-import automation.PestRoutes.Utilities.FindElement;
-import automation.PestRoutes.Utilities.Utilities;
-import automation.PestRoutes.Utilities.FindElement.InputType;
-import automation.PestRoutes.Utilities.Utilities.ElementType;
+import automation.PestRoutes.Utilities.Deprecated;
 
 public class AddUserDialog {
 	
@@ -22,25 +19,25 @@ public class AddUserDialog {
 	
 	//Action methods
 	public void selectValueFromDropDown(String needDropDown, String needValue) {
-		Utilities.waitUntileElementIsVisible(needDropDown);
-		Utilities.selectValueFromDropDownByValue(needDropDown, needValue);
+		Deprecated.waitVisible(needDropDown);
+		Deprecated.selectByText(needDropDown, needValue);
 		
 	}
 	
 	public void clickButton(String needButton) {
-		Utilities.waitUntileElementIsVisible(needButton);
-		Utilities.clickElement(needButton, ElementType.XPath);
+		Deprecated.waitVisible(needButton);
+		Deprecated.clickElement(needButton);
 	}
 	
 	
 	//Setters
 	public void setInputValue(String needInputField, String keysToSend) {
-		FindElement.elementByAttribute(needInputField, InputType.XPath).sendKeys(keysToSend);
+		Deprecated.locate(needInputField).sendKeys(keysToSend);
 	}
 	
 	//Getters
 	public String getFieldValue(String needFieldName) {
-		Utilities.waitUntileElementIsVisible(needFieldName);
-		return Utilities.getElementTextValue(needFieldName, ElementType.XPath);
+		Deprecated.waitVisible(needFieldName);
+		return Deprecated.getElementTextValue(needFieldName);
 	}
 }

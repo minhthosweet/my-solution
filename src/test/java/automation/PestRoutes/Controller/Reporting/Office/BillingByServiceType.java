@@ -1,5 +1,6 @@
 package automation.PestRoutes.Controller.Reporting.Office;
 
+import automation.PestRoutes.Controller.*;
 import automation.PestRoutes.Controller.Billings.AccountReceivable;
 import automation.PestRoutes.Controller.Billings.Billing;
 import automation.PestRoutes.Controller.CustomerCreation.CreateNewCustomer;
@@ -8,7 +9,6 @@ import automation.PestRoutes.PageObject.CreateCustomer.CreateCustomerDialog;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_Admin;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_Header;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_OverviewTab;
-import automation.PestRoutes.Utilities.*;
 import automation.PestRoutes.PageObject.CustomerOverview.Invoicing.CreditMemoTab;
 import automation.PestRoutes.PageObject.Header;
 import automation.PestRoutes.PageObject.CustomerOverview.Invoicing.InvoiceImplementation;
@@ -17,6 +17,9 @@ import automation.PestRoutes.PageObject.ReportingPage.OfficePage.BillingByServic
 import java.io.IOException;
 import java.util.Locale;
 
+import automation.PestRoutes.Utilities.Data.*;
+import automation.PestRoutes.Utilities.Deprecated;
+import automation.PestRoutes.Utilities.Report.*;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -25,7 +28,7 @@ import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebElement;
 import org.testng.annotations.Test;
 
-import static automation.PestRoutes.Utilities.AssertException.result;
+import static automation.PestRoutes.Utilities.Report.AssertException.result;
 
 public class BillingByServiceType extends AppData {
     CreateCustomerDialog createCustomerDialog;
@@ -130,7 +133,7 @@ public class BillingByServiceType extends AppData {
     //Author: Aditya
     @And("I validate if the billing by service type report is linked to the customer card")
     public void validateLink_customerCard_BST() throws Exception {
-        if (!Utilities.isPresent("//tr[@detailvalues]//td[text()='" + customerName_BST + "']")){
+        if (!Deprecated.isPresent("//tr[@detailvalues]//td[text()='" + customerName_BST + "']")){
             billingByServiceTypeTab.click(billingByServiceTypeTab.refresh_bbst);
         }
         billingByServiceTypeTab.clickDescription_reportDetails(customerName_BST);
@@ -184,8 +187,8 @@ public class BillingByServiceType extends AppData {
     @And("I validate line item data in Billing by service type report")
     public void validateLineItemValues_BillingReport() throws IOException {
         if (CucumberBaseClass.scenarioName().equals("Credit memo validation is BST")) {
-            result(Utilities.currentDate("MM-dd-yyyy"), billingByServiceTypeTab.get(billingByServiceTypeTab.paymentDate_lineItem), "Payment Date Validation in Detail Report", "BBST Report Validation");
-            result(Utilities.currentDate("MM-dd-YYYY"), billingByServiceTypeTab.get(billingByServiceTypeTab.invoiceDate_lineItem), "Invoice Date Validation", "BBST Report Validation");
+            result(GetDate.currentDate("MM-dd-yyyy"), billingByServiceTypeTab.get(billingByServiceTypeTab.paymentDate_lineItem), "Payment Date Validation in Detail Report", "BBST Report Validation");
+            result(GetDate.currentDate("MM-dd-YYYY"), billingByServiceTypeTab.get(billingByServiceTypeTab.invoiceDate_lineItem), "Invoice Date Validation", "BBST Report Validation");
             result("$-" + totalCollected.substring(1), billingByServiceTypeTab.get(billingByServiceTypeTab.totalCollected_Customer), "Total Collected in the detail report", "BBST Report Validation");
             result(billingByServiceTypeTab.getBilledServiceValue_Customer(), "$-" + (subTotalValue.substring(1)), "Sub Total Value Validation in detailed report",
                     "BBST Report Validation");
@@ -206,7 +209,7 @@ public class BillingByServiceType extends AppData {
                     "BBST Report Validation");
             result(billingByServiceTypeTab.getBilledTaxValue_Customer(), taxValue, "Tax Value Validation in detailed report",
                     "BBST Report Validation");
-            result(Utilities.currentDate("MM-dd-YYYY"), billingByServiceTypeTab.get(billingByServiceTypeTab.invoiceDate_lineItem), "Invoice Date Validation", "BBST Report Validation");
+            result(GetDate.currentDate("MM-dd-YYYY"), billingByServiceTypeTab.get(billingByServiceTypeTab.invoiceDate_lineItem), "Invoice Date Validation", "BBST Report Validation");
         }
 //        result(billingByServiceTypeTab.getAttributeValue
 //                (invImplementation.activeInvoiceOnTheLeft, "ticketid"), billingByServiceTypeTab.get
@@ -298,7 +301,7 @@ public class BillingByServiceType extends AppData {
         createNewCustomer.createCustomerWithPrefPaperAndResidentialProperty();
         customerName_BST = createNewCustomer.getCustomerFullName();
         createStandAloneInvoice();
-        invoiceID = Utilities.getAttributeValue(invImplementation.invoiceAccountSummaryClick, "ticketid");
+        invoiceID = Deprecated.getAttribute(invImplementation.invoiceAccountSummaryClick, "ticketid");
         customerID_BST = customerViewDialog_overviewTab.getCustomerIDFromHeader();
         createNewCustomer.closeCustomerCard();
         header.searchCustomerWithName(customerName_BST);
@@ -311,7 +314,7 @@ public class BillingByServiceType extends AppData {
 //                (standAloneInvoiceAmount, Utilities.currentDate("MM/dd/yyyy"),
 //                        getData("serviceDescription", generalData));
         accountReceivable.createStandAloneServiceInvoice
-                ("400", Utilities.currentDate("MM/dd/yyyy"),
+                ("400", GetDate.currentDate("MM/dd/yyyy"),
                         getData("serviceDescription", generalData));
     }
 
@@ -359,14 +362,14 @@ public class BillingByServiceType extends AppData {
         String[] balanceAge = {"7+ Days Old", "30+ Days Old (Past Due)", "90+ Days Old (Way, Way Past Due)"};
         int[] invoiceDaysPastDue = {7, 30, 90};
         for (int i = 0; i < balanceAge.length; i++) {
-            String fname = Utilities.generateRandomString(7).toLowerCase(Locale.ROOT);
-            String lname = Utilities.generateRandomString(6).toLowerCase(Locale.ROOT);
+            String fname = GetData.generateRandomString(7).toLowerCase(Locale.ROOT);
+            String lname = GetData.generateRandomString(6).toLowerCase(Locale.ROOT);
             customerName_BST = fname + " " + lname;
             Thread.sleep(100);
             createNewCustomer.createACustomer(fname, lname);
-            int currentMonth = GetDate.getMonth(Utilities.currentDate("MM/dd/yyyy"));
-            int currentYear = GetDate.getYear(Utilities.currentDate("MM/dd/yyyy"));
-            dateOfInvoice = GetDate.minusGenericDayToDate(Utilities.currentDate("MM/dd/yyyy"), invoiceDaysPastDue[i]);
+            int currentMonth = GetDate.getMonth(GetDate.currentDate("MM/dd/yyyy"));
+            int currentYear = GetDate.getYear(GetDate.currentDate("MM/dd/yyyy"));
+            dateOfInvoice = GetDate.minusGenericDayToDate(GetDate.currentDate("MM/dd/yyyy"), invoiceDaysPastDue[i]);
             int monthOfInv = GetDate.getMonth(dateOfInvoice);
             int yearOfInv = GetDate.getYear(dateOfInvoice);
             String amount = "400";
@@ -493,11 +496,11 @@ public class BillingByServiceType extends AppData {
     //Author: Aditya
     @And("I validate Billing or Payment by service type report generated from Billing Frequency, Customer ID and Invoice")
     public void validateAllThreeGroups() {
-        String customerID_BBSTReport = Utilities.getElementTextValue("//tr//td[text()='" + customerID_BST + "']", Utilities.ElementType.XPath);
-        String billingFrequency_BBSTReport = Utilities.getElementTextValue("//tr//td[text()='" + customerID_BST + "']/parent::tr/preceding-sibling::tr[not(contains(@detailvalues,'customerID'))]/td[1]", Utilities.ElementType.XPath);
-        String invoiceID_BBSTReport = Utilities.getElementTextValue("//tr//td[text()='" + customerID_BST + "']/parent::tr/following-sibling::tr/td[1]", Utilities.ElementType.XPath);
+        String customerID_BBSTReport = Deprecated.getElementTextValue("//tr//td[text()='" + customerID_BST + "']");
+        String billingFrequency_BBSTReport = Deprecated.getElementTextValue("//tr//td[text()='" + customerID_BST + "']/parent::tr/preceding-sibling::tr[not(contains(@detailvalues,'customerID'))]/td[1]");
+        String invoiceID_BBSTReport = Deprecated.getElementTextValue("//tr//td[text()='" + customerID_BST + "']/parent::tr/following-sibling::tr/td[1]");
         try {
-            WebElement elm = FindElement.elementByAttribute("//tr//td[text()='" + customerID_BST + "']", FindElement.InputType.XPath);
+            WebElement elm = Deprecated.locate("//tr//td[text()='" + customerID_BST + "']");
             if (elm.isDisplayed()) {
                 result(customerID_BST, customerID_BBSTReport, "Customer ID validation", "Report Validation");
                 if (CucumberBaseClass.scenarioName().equals("Multi Group By filter validation in PST")) {
@@ -517,7 +520,7 @@ public class BillingByServiceType extends AppData {
     public void searchCustomerBillingFrequencyLineItem() throws InterruptedException {
         billingByServiceTypeTab.click("//tr//td[text()='" + customerID_BST + "']");
         billingByServiceTypeTab.searchNewCustomer(billingByServiceTypeTab.search_lineItem, customerID_BST);
-        FindElement.elementByAttribute(billingByServiceTypeTab.search_lineItem, FindElement.InputType.XPath).sendKeys(Keys.ENTER);
+        Deprecated.locate(billingByServiceTypeTab.search_lineItem).sendKeys(Keys.ENTER);
         Thread.sleep(500);
     }
 

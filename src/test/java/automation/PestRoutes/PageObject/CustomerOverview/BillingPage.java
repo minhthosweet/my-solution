@@ -1,10 +1,8 @@
 package automation.PestRoutes.PageObject.CustomerOverview;
 
 import automation.PestRoutes.PageObject.BasePage;
-import automation.PestRoutes.Utilities.FindElement;
-import automation.PestRoutes.Utilities.FindElement.InputType;
-import automation.PestRoutes.Utilities.Utilities;
-import automation.PestRoutes.Utilities.Utilities.ElementType;
+import automation.PestRoutes.Utilities.*;
+import automation.PestRoutes.Utilities.Deprecated;
 import org.apache.commons.lang3.SystemUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
@@ -14,6 +12,7 @@ import org.openqa.selenium.support.ui.Select;
 import java.util.Locale;
 import java.util.Random;
 
+import static automation.PestRoutes.Utilities.GetWebDriver.*;
 import static automation.PestRoutes.Utilities.Utilities.*;
 
 public class BillingPage extends BasePage {
@@ -190,14 +189,14 @@ public class BillingPage extends BasePage {
 	 */
 
 	public void clickElement(String needElement) throws InterruptedException {
-		Utilities.clickElement(needElement, ElementType.XPath);
+		Deprecated.clickElement(needElement);
 		Thread.sleep(100);
 	}
 
 	public void selectDropdown(String needDropdown, String needValue) throws InterruptedException {
 		Thread.sleep(100);
-		Utilities.waitUntileElementIsVisible(needDropdown);
-		Utilities.selectValueFromDropDownByValue(needDropdown, needValue);
+		Deprecated.waitVisible(needDropdown);
+		Deprecated.selectByText(needDropdown, needValue);
 	}
 
 	/*
@@ -205,14 +204,14 @@ public class BillingPage extends BasePage {
 	 */
 
 	public void setInputField(String needInputField, String needValue) {
-		Utilities.waitUntileElementIsVisible(needInputField);
-		Utilities.clickElement(needInputField, ElementType.XPath);
+		Deprecated.waitVisible(needInputField);
+		Deprecated.clickElement(needInputField);
 		if (SystemUtils.IS_OS_MAC_OSX){
-			Utilities.doubleClick(needInputField);
+			Deprecated.doubleClick(needInputField);
 		}else {
-			FindElement.elementByAttribute(needInputField, InputType.XPath).sendKeys(Keys.CONTROL, "a");
+			Deprecated.locate(needInputField).sendKeys(Keys.CONTROL, "a");
 		}
-		FindElement.elementByAttribute(needInputField, InputType.XPath).sendKeys(needValue);
+		Deprecated.locate(needInputField).sendKeys(needValue);
 	}
 	/* **************** End of Setters() ******************************/
 
@@ -221,23 +220,23 @@ public class BillingPage extends BasePage {
 	 */
 
 	public String getTextValue(String needElement) {
-		return Utilities.getElementTextValue(needElement, ElementType.XPath);
+		return Deprecated.getElementTextValue(needElement);
 	}
 
 	public String getAttributeValue(String needElement, String needAttribute) {
-		return Utilities.getAttributeValue(needElement, needAttribute);
+		return Deprecated.getAttribute(needElement, needAttribute);
 	}
 
 	public String getAutoPayValue(){
-		return Utilities.getElementTextValue(autoPaySetValue, ElementType.XPath);
+		return Deprecated.getElementTextValue(autoPaySetValue);
 	}
 
 	//Author : Aditya
 	public String getTokenValue(String paymentOption, String tokenNumber) {
-		Utilities.waitUntileElementIsVisible(paymentOption);
-		Utilities.clickElement(paymentOption, Utilities.ElementType.XPath);
-		Utilities.waitUntileElementIsVisible(tokenNumber);
-		String entireToken = Utilities.getElementTextValue(tokenNumber, Utilities.ElementType.XPath);
+		Deprecated.waitVisible(paymentOption);
+		Deprecated.clickElement(paymentOption);
+		Deprecated.waitVisible(tokenNumber);
+		String entireToken = Deprecated.getElementTextValue(tokenNumber);
 		int startingIndexOfToken = entireToken.indexOf("/", entireToken.indexOf("/") + 1);
 		return entireToken.substring(startingIndexOfToken + 1, entireToken.length());
 	}
@@ -259,7 +258,7 @@ public class BillingPage extends BasePage {
 	 */
 	public void clickAddPaymentMethod() {
 		//delay(3000);
-		Utilities.elementIsVisible(addPaymentMethod);
+		Utilities.isVisible(addPaymentMethod);
 		click(addPaymentMethod);
 	}
 
@@ -282,93 +281,93 @@ public class BillingPage extends BasePage {
 	}//clickEditCardDetails()
 
     public void clickEnterCreditCardButton(){
-        Utilities.elementIsVisible (enterCreditCardButton);
+        Utilities.isVisible(enterCreditCardButton);
         click( enterCreditCardButton);
     }//clickEnterCreditCardButton()
 
 
 	public void enterBraintreeNewCardInformation(String cardNumber, String expirationDate, String cvv){
 		driver.switchTo().defaultContent();
-		switchToIframeByXpath(brainCcIframe);
-		type(cardNumber, braintreeCardNumberField);
+		switchToIframe(brainCcIframe);
+		Deprecated.type(cardNumber, braintreeCardNumberField);
 		driver.switchTo().defaultContent();
 		String[] separateMonthYear = expirationDate.split("/");
 		String month = separateMonthYear[0];
 		String year = separateMonthYear[1];
-		switchToIframeByXpath(brainExpMonthIframe);
-		type(month, braintreeExpirationMonth);
+		switchToIframe(brainExpMonthIframe);
+		Deprecated.type(month, braintreeExpirationMonth);
 		driver.switchTo().defaultContent();
-		switchToIframeByXpath(brainExpYearIframe);
-		type(year, braintreeExpirationYear);
+		switchToIframe(brainExpYearIframe);
+		Deprecated.type(year, braintreeExpirationYear);
 		driver.switchTo().defaultContent();
-		switchToIframeByXpath(brainCvvIframe);
-		type(cvv, braintreeCVVField);
+		switchToIframe(brainCvvIframe);
+		Deprecated.type(cvv, braintreeCVVField);
 		driver.switchTo().defaultContent();
 		clickSavePaymentMethodButton();
 	}
 
 	public void enterElementNewCardInformation(String cardNumber, String expirationDate){
 		click(enterCreditCardButton);
-		switchToIframeByXpath(elementIframe);
-		type(cardNumber, elementCardNumberField);
+		switchToIframe(elementIframe);
+		Deprecated.type(cardNumber, elementCardNumberField);
 		String[] separateMonthYear = expirationDate.split("/");
 		String month = separateMonthYear[0];
 		String year = separateMonthYear[1];
-		selectFromDropDown(month, elementExpirationMonth);
-		selectFromDropDown("20"+ year, elementExpirationYear);
+		Utilities.selectByText(elementExpirationMonth, month);
+		Utilities.selectByText(elementExpirationYear, "20"+ year);
 		click(elementProcessTransactionButton);
 		driver.switchTo().defaultContent();
 	}
 
 	public void enterNMINewCardInformation(String cardNumber, String expirationDate, String cvv) {
-		switchToIframeByXpath(nmiCcNumberIframe);
-		type(cardNumber, nmiCardNumberField);
+		switchToIframe(nmiCcNumberIframe);
+		Deprecated.type(cardNumber, nmiCardNumberField);
 		driver.switchTo().defaultContent();
-		switchToIframeByXpath(nmiExpIframe);
+		switchToIframe(nmiExpIframe);
 		String[] separateMonthYear = expirationDate.split("/");
 		String month = separateMonthYear[0];
 		String year = separateMonthYear[1];
 		String expirationMonthYear = month + "/20" + year;
-		type(expirationMonthYear, nmiExpirationDateField);
+		Deprecated.type(expirationMonthYear, nmiExpirationDateField);
 		driver.switchTo().defaultContent();
-		switchToIframeByXpath(nmiCvvIframe);
-		type(cvv, nmiCVVField);
+		switchToIframe(nmiCvvIframe);
+		Deprecated.type(cvv, nmiCVVField);
 		driver.switchTo().defaultContent();
 		clickSavePaymentMethodButton();
 	}
 
 	public void enterSpreedlyNewCardInformation(String cardNumber, String expirationDate, String cvv){
-		WebElement iFrameCardNumber = find(By.xpath("//iframe[contains(@id,'spreedly-number-frame')]"));
+		WebElement iFrameCardNumber = Utilities.locate(By.xpath("//iframe[contains(@id,'spreedly-number-frame')]"));
 		driver.switchTo().frame(iFrameCardNumber);
-		type(cardNumber, spreedlyCardNumber);
+		Deprecated.type(cardNumber, spreedlyCardNumber);
 		driver.switchTo().defaultContent();
 		String[] separateMonthYear = expirationDate.split("/");
 		String month = separateMonthYear[0];
 		String year = separateMonthYear[1];
-		Select findDropDown = new Select(find(spreedlyExpirationMonth));
+		Select findDropDown = new Select(Utilities.locate(spreedlyExpirationMonth));
 		findDropDown.selectByValue(month);
-		selectFromDropDown("20"+ year, spreedlyExpirationYear);
-		WebElement iFrameCVV = find(By.xpath("//iframe[contains(@id,'spreedly-cvv-frame')]"));
+		Utilities.selectByText(spreedlyExpirationYear, "20"+ year);
+		WebElement iFrameCVV = Utilities.locate(By.xpath("//iframe[contains(@id,'spreedly-cvv-frame')]"));
 		driver.switchTo().frame(iFrameCVV);
-		type(cvv, spreedlyCVVField);
+		Deprecated.type(cvv, spreedlyCVVField);
 		driver.switchTo().defaultContent();
 		clickSavePaymentMethodButton();
 	}
 
 	public void  enterPestRoutesPaymentsNewCardInformation(String cardNumber, String expirationDate, String cvv) {
-		switchToIframeByXpath(payrixIframe);
-		switchToIframeByXpath(pestRoutesIframeCc);
-		type(cardNumber, pestRoutesPaymentsCardNumber);
+		switchToIframe(payrixIframe);
+		switchToIframe(pestRoutesIframeCc);
+		Deprecated.type(cardNumber, pestRoutesPaymentsCardNumber);
 		driver.switchTo().defaultContent();
-		switchToIframeByXpath(payrixIframe);
-		switchToIframeByXpath(pestRoutesIframeExp);
-		type(expirationDate, pestRoutesPaymentsExpirationDate);
+		switchToIframe(payrixIframe);
+		switchToIframe(pestRoutesIframeExp);
+		Deprecated.type(expirationDate, pestRoutesPaymentsExpirationDate);
 		driver.switchTo().defaultContent();
-		switchToIframeByXpath(payrixIframe);
-		switchToIframeByXpath(pestRoutesIframeCvv);
-		type(cvv, pestRoutesPaymentsCVVField);
+		switchToIframe(payrixIframe);
+		switchToIframe(pestRoutesIframeCvv);
+		Deprecated.type(cvv, pestRoutesPaymentsCVVField);
 		driver.switchTo().defaultContent();
-		switchToIframeByXpath(payrixIframe);
+		switchToIframe(payrixIframe);
 		clickSavePaymentMethodButton();
 		driver.switchTo().defaultContent();
 	}
@@ -400,7 +399,7 @@ public class BillingPage extends BasePage {
 
 	public void selectAutoPayOption(String strOption)
 	{
-		selectFromDropDown(strOption,dropdwnAutoPay);
+		Utilities.selectByText(dropdwnAutoPay, strOption);
 	}//selectAutoPayOption()
 
 	public void clickBillingIfoLink() {
@@ -439,7 +438,7 @@ public class BillingPage extends BasePage {
 
 	public void removeCCPaymentMethod(){
 		click(ccRemoveAccountButton);
-		if(elementIsVisible(ccRemovePaymentMethodButton))
+		if(isVisible(ccRemovePaymentMethodButton))
 			click(ccRemovePaymentMethodButton);
 	}//removePaymentMethod()
 
@@ -453,19 +452,19 @@ public class BillingPage extends BasePage {
 	}
 
 	public void typeBankName(String bankName) {
-		type(bankName, By.xpath(bankAccountBankNameInputField));
+		Deprecated.type(bankName, By.xpath(bankAccountBankNameInputField));
 	}
 
 	public void typeRoutingNumber() {
 		//String[] routingNumber = {"111000614", "051000017", "122101706"};
 		int selectRouting = random.nextInt(routingNumber.length);
-		type(routingNumber[selectRouting], By.xpath(bankAccountRoutingNumberInputField));
+		Deprecated.type(routingNumber[selectRouting], By.xpath(bankAccountRoutingNumberInputField));
 	}
 
 	public void typeAccountNumber() {
 		//String[] accountNumber = {"111222333", "222333444", "333444555"};
 		int selectAccount = random.nextInt(accountNumber.length);
-		type(accountNumber[selectAccount], By.xpath(bankAccountAccountNumberInputField));
+		Deprecated.type(accountNumber[selectAccount], By.xpath(bankAccountAccountNumberInputField));
 	}
 
 	public void clickSaveBankAccountButton() {
@@ -473,6 +472,6 @@ public class BillingPage extends BasePage {
 	}
 
 	public void selectAutoPay() {
-		selectValueFromDropDownByIndex(autoPayDropdown, 1);
+		Deprecated.selectByIndex(autoPayDropdown, 1);
 	}
 }

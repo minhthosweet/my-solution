@@ -3,17 +3,16 @@ package automation.PestRoutes.Controller.Reporting;
 import java.util.ArrayList;
 import java.util.List;
 
+import automation.PestRoutes.Utilities.Data.*;
 import org.testng.annotations.Test;
 
 import automation.PestRoutes.PageObject.Header;
 import automation.PestRoutes.PageObject.ReportingPage.ReportingMainPage;
 import automation.PestRoutes.PageObject.ReportingPage.Inventory.InventoryTab;
-import automation.PestRoutes.Utilities.AssertException;
-import automation.PestRoutes.Utilities.BaseClass;
-import automation.PestRoutes.Utilities.Reporter;
-import automation.PestRoutes.Utilities.Utilities;
+import automation.PestRoutes.Utilities.Report.AssertException;
+import automation.PestRoutes.Utilities.Report.Reporter;
 
-public class Inventory extends BaseClass {
+public class Inventory {
 
 	Header header = new Header();
 	ReportingMainPage reportingMainPage = new ReportingMainPage();
@@ -21,9 +20,9 @@ public class Inventory extends BaseClass {
 	public List list = new ArrayList<String>();
 	String productName = "BNNF";
 
-	String addedStockValue = Double.toString((Utilities.generateRandomInteger(3)));
+	String addedStockValue = Double.toString((GetData.generateRandomInteger(3)));
 	String updatedStockValue = Double
-			.toString(Double.parseDouble(addedStockValue) - (Utilities.generateRandomInteger(2)));
+			.toString(Double.parseDouble(addedStockValue) - (GetData.generateRandomInteger(2)));
 	String removedStockvalue = Double.toString(Double.parseDouble(updatedStockValue) / 2);
 	String finalStockValue = Double.toString(Double.parseDouble(addedStockValue) - Double.parseDouble(updatedStockValue)
 			- Double.parseDouble(removedStockvalue));

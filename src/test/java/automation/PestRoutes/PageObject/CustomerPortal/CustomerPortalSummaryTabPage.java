@@ -1,9 +1,12 @@
 package automation.PestRoutes.PageObject.CustomerPortal;
 
+import automation.PestRoutes.Utilities.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import java.util.List;
+
+import static automation.PestRoutes.Utilities.GetWebDriver.*;
 
 public class CustomerPortalSummaryTabPage extends CustomerPortalBasePage {
     private By propertyDetailsSection = By.xpath("//div[@id='content']//h3[text()='Property Details']/..");
@@ -21,15 +24,15 @@ public class CustomerPortalSummaryTabPage extends CustomerPortalBasePage {
     private By fiveStarRatings = By.xpath("//div[contains(@class,'star-rating')]");
 
     public String getPropertyDetails() {
-        return getText(propertyDetailsSection);
+        return Utilities.getText(propertyDetailsSection);
     }
 
     public String getShareTheLoveInformation() {
-        return getText(shareTheLove);
+        return Utilities.getText(shareTheLove);
     }
 
     public String getServiceType() {
-        return getText(serviceType);
+        return Utilities.getText(serviceType);
     }
 
     public int numberOfServiceTypes() {
@@ -38,52 +41,52 @@ public class CustomerPortalSummaryTabPage extends CustomerPortalBasePage {
     }
 
     public String getMostRecentServiceSection(){
-        return getText(mostRecentServiceSection);
+        return Utilities.getText(mostRecentServiceSection);
     }
 
     public String getDate(){
-        return getText(dateField);
+        return Utilities.getText(dateField);
     }
 
     public String getTechnician(){
-        return getText(technicianField);
+        return Utilities.getText(technicianField);
     }
 
     public String getInvoiceNumber(){
-        return getText(invoiceField);
+        return Utilities.getText(invoiceField);
     }
 
     public String getTotalAmount(){
-        return getText(totalField);
+        return Utilities.getText(totalField);
     }
 
     public String getBalanceAmount(){
-        return getText(balanceField);
+        return Utilities.getText(balanceField);
     }
 
     public boolean isServiceNotificationLinkDisplayed(){
-        if (find(serviceNotificationLink).isDisplayed()) {
+        if (Utilities.locate(serviceNotificationLink).isDisplayed()) {
             return true;
         }
         return false;
     }
 
     public boolean isInvoiceLinkDisplayed(){
-        if (find(invoiceLink).isDisplayed()) {
+        if (Utilities.locate(invoiceLink).isDisplayed()) {
             return true;
         }
         return false;
     }
 
     public boolean isTechnicianReviewTextAreaDisplayed(){
-        if (find(technicianReviewTextArea).isDisplayed()) {
+        if (Utilities.locate(technicianReviewTextArea).isDisplayed()) {
             return true;
         }
         return false;
     }
 
     public boolean isStarRatingsDisplayed(){
-        if (find(fiveStarRatings).isDisplayed()) {
+        if (Utilities.locate(fiveStarRatings).isDisplayed()) {
             return true;
         }
         return false;

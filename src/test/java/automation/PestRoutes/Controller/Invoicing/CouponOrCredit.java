@@ -7,8 +7,8 @@ import automation.PestRoutes.PageObject.CustomerOverview.Invoicing.InvoiceImplem
 import automation.PestRoutes.PageObject.CustomerOverview.Invoicing.Invoice_Header;
 import automation.PestRoutes.PageObject.CustomerOverview.Invoicing.RoutePageInvoicing;
 import automation.PestRoutes.PageObject.Header;
-import automation.PestRoutes.Utilities.AssertException;
-import automation.PestRoutes.Utilities.Utilities;
+import automation.PestRoutes.Utilities.Data.*;
+import automation.PestRoutes.Utilities.Report.AssertException;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 
@@ -22,7 +22,7 @@ public class CouponOrCredit {
     RoutePageInvoicing routePageInvoicing;
     CouponOrCreditTab couponOrCreditTab = new CouponOrCreditTab();
 
-    private String randomNotes = Utilities.generateRandomString(10);
+    private String randomNotes = GetData.generateRandomString(10);
 
     //Author: Aditya
     @And("I validate all the fields in the Coupons or Credit window")

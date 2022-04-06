@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import automation.PestRoutes.Utilities.*;
+import automation.PestRoutes.Utilities.Data.*;
+import automation.PestRoutes.Utilities.Report.*;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -71,8 +73,8 @@ public class CreateTrigger_Renewal extends AppData {
 		adminMainPage.navigateTo(adminMainPage.preferences);
 		triggerAdmin.navigateToTriggerRules();
 		triggerAdmin.clickAddTrigerButton();
-		triggerAdmin.setStartDate(GetDate.minusOneWeekToDate(Utilities.currentDate("MM/dd/yyyy")));
-		triggerAdmin.setEndDate(GetDate.addOneYearToDate(Utilities.currentDate("MM/dd/yyyy")));
+		triggerAdmin.setStartDate(GetDate.minusOneWeekToDate(GetDate.currentDate("MM/dd/yyyy")));
+		triggerAdmin.setEndDate(GetDate.addOneYearToDate(GetDate.currentDate("MM/dd/yyyy")));
 		triggerAdmin.selectDropdown(triggerAdmin.globalType, triggerAdmin.global_SpecificToThisOffice);
 		triggerAdmin.selectDropdown(triggerAdmin.activeType, triggerAdmin.activeType_Active);
 		triggerAdmin.setDescription(descriptionName);
@@ -125,7 +127,7 @@ public class CreateTrigger_Renewal extends AppData {
 		triggerAdmin.selectDropdown(triggerActions.actionTypeDropDown, triggerActions.EmailMessageType_Action);
 		triggerAdmin.selectDropdown(triggerActions.messageTypeDropDown, triggerActions.renewalNotice);
 		triggerAdmin.selectDropdown(triggerActions.ignoreContactPrefsDropDown, triggerActions.ignoreContactPrefsTypes_No);
-		triggerActions.enterSubjectText(Utilities.generateRandomString(5));
+		triggerActions.enterSubjectText(GetData.generateRandomString(5));
 		triggerAdmin.selectDropdown(triggerActions.renewalLinkDropDown, triggerActions.renewalLinkDropdown_Include);
 		triggerAdmin.clickSaveButton();
 	}
@@ -210,7 +212,7 @@ public class CreateTrigger_Renewal extends AppData {
 		overviewHeader = new CustomerViewDialog_Header();
 		validateRenewal.renewalFieldsValidation();
 		validateRenewal.createRenewalSubscription();
-		subscription.setExpDate(GetDate.addOneDayToDate(Utilities.currentDate("MM/dd/yyyy")));
+		subscription.setExpDate(GetDate.addOneDayToDate(GetDate.currentDate("MM/dd/yyyy")));
 		overviewHeader.clickSaveButton();
 	}
 
@@ -227,13 +229,13 @@ public class CreateTrigger_Renewal extends AppData {
 	// Hit the Script
 	@Then("I run the trigger renewal script")
 	public void hitTriggerRenewalQuery() {
-		Utilities.navigateToUrl("https://adityam.pestroutes.com/resources/scripts/triggerRenewal.php");
+		GetWebDriver.navigateToUrl("https://adityam.pestroutes.com/resources/scripts/triggerRenewal.php");
 	}
 
 	// Navigate to customer and validate the log
 	@Then("I assert the renewal trigger rules log")
 	public void assertLog() throws IOException, Exception {
-		Utilities.navigateToUrl("https://adityam.pestroutes.com/");
+		GetWebDriver.navigateToUrl("https://adityam.pestroutes.com/");
 		header = new Header();
 		reminder = new ReminderTab();
 		header.searchCustomer_History(getData("userID", generalData));
@@ -253,7 +255,7 @@ public class CreateTrigger_Renewal extends AppData {
 		validateRenewal = new ValidateRenewal();
 		validateRenewal.renewalFieldsValidation();
 		validateRenewal.createRenewalSubscription();
-		subscription.setExpDate(GetDate.minusOneDayToDate(Utilities.currentDate("MM/dd/yyyy")));
+		subscription.setExpDate(GetDate.minusOneDayToDate(GetDate.currentDate("MM/dd/yyyy")));
 		overviewHeader.clickSaveButton();
 	}
 
@@ -268,7 +270,7 @@ public class CreateTrigger_Renewal extends AppData {
 		Thread.sleep(3000);
 		triggerAdmin.selectDropdown(subscription.billingFrequencyDropdown, subscription.billingFrequency_Renewal);
 		triggerAdmin.selectDropdown(subscription.billingInitialInvoiceDropdown, subscription.billing_initialBillingDate);
-		subscription.setInitialBillingDate(GetDate.addOneDayToDate(Utilities.currentDate("MM/dd/yyyy")));
+		subscription.setInitialBillingDate(GetDate.addOneDayToDate(GetDate.currentDate("MM/dd/yyyy")));
 		overviewHeader.clickSaveButton();
 	}
 
@@ -283,7 +285,7 @@ public class CreateTrigger_Renewal extends AppData {
 		Thread.sleep(3000);
 		triggerAdmin.selectDropdown(subscription.billingFrequencyDropdown, subscription.billingFrequency_Renewal);
 		triggerAdmin.selectDropdown(subscription.billingInitialInvoiceDropdown, subscription.billing_initialBillingDate);
-		subscription.setInitialBillingDate(GetDate.minusOneDayToDate(Utilities.currentDate("MM/dd/yyyy")));
+		subscription.setInitialBillingDate(GetDate.minusOneDayToDate(GetDate.currentDate("MM/dd/yyyy")));
 		overviewHeader.clickSaveButton();
 	}
 
@@ -296,7 +298,7 @@ public class CreateTrigger_Renewal extends AppData {
 		validateRenewal.renewalFieldsValidation();
 		validateRenewal.createRenewalSubscription();
 		subscription.clickSubscription(subscription.getSubscriptionID(validateRenewal.serviceType));
-		subscription.setCustomDate(GetDate.addOneDayToDate(Utilities.currentDate("MM/dd/yyyy")));
+		subscription.setCustomDate(GetDate.addOneDayToDate(GetDate.currentDate("MM/dd/yyyy")));
 		overviewHeader.clickSaveButton();
 	}
 
@@ -308,7 +310,7 @@ public class CreateTrigger_Renewal extends AppData {
 		validateRenewal = new ValidateRenewal();
 		validateRenewal.renewalFieldsValidation();
 		subscription.clickSubscription(subscription.getSubscriptionID(validateRenewal.serviceType));
-		subscription.setCustomDate(GetDate.minusOneDayToDate(Utilities.currentDate("MM/dd/yyyy")));
+		subscription.setCustomDate(GetDate.minusOneDayToDate(GetDate.currentDate("MM/dd/yyyy")));
 		validateRenewal.createRenewalSubscription();
 		overviewHeader.clickSaveButton();
 	}
@@ -320,7 +322,7 @@ public class CreateTrigger_Renewal extends AppData {
 		overviewHeader = new CustomerViewDialog_Header();
 		validateRenewal = new ValidateRenewal();
 		validateRenewal.renewalFieldsValidation();
-		subscription.setRenewalDate(GetDate.minusOneDayToDate(Utilities.currentDate("MM/dd/yyyy")));
+		subscription.setRenewalDate(GetDate.minusOneDayToDate(GetDate.currentDate("MM/dd/yyyy")));
 		validateRenewal.createRenewalSubscription();
 		overviewHeader.clickSaveButton();
 	}
@@ -332,7 +334,7 @@ public class CreateTrigger_Renewal extends AppData {
 		overviewHeader = new CustomerViewDialog_Header();
 		validateRenewal = new ValidateRenewal();
 		validateRenewal.renewalFieldsValidation();
-		subscription.setRenewalDate(GetDate.addOneDayToDate(Utilities.currentDate("MM/dd/yyyy")));
+		subscription.setRenewalDate(GetDate.addOneDayToDate(GetDate.currentDate("MM/dd/yyyy")));
 		validateRenewal.createRenewalSubscription();
 		overviewHeader.clickSaveButton();
 	}

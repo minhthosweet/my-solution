@@ -1,5 +1,6 @@
 package automation.PestRoutes.PageObject.CustomerPortal;
 
+import automation.PestRoutes.Utilities.*;
 import org.openqa.selenium.By;
 
 public class CustomerPortalHistoryTabPage extends CustomerPortalBasePage {
@@ -9,14 +10,14 @@ public class CustomerPortalHistoryTabPage extends CustomerPortalBasePage {
     private By appointmentID = By.xpath("//div[@id='serviceHistory']//h4/a");
 
     public void clickViewDetailsButton(){
-        click(viewDetailsButton);
+        Utilities.click(viewDetailsButton);
     }
 
     public String getServiceType() {
-        return getText(serviceType);
+        return Utilities.getText(serviceType);
     }
 
     public String getAppointmentID(){
-        return find(appointmentID).getAttribute("href");
+        return Utilities.locate(appointmentID).getAttribute("href");
     }
 }

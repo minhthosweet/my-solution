@@ -1,8 +1,6 @@
 package automation.PestRoutes.PageObject.CustomerOverview;
 
-import automation.PestRoutes.Utilities.FindElement;
-import automation.PestRoutes.Utilities.Utilities;
-import automation.PestRoutes.Utilities.Utilities.ElementType;
+import automation.PestRoutes.Utilities.Deprecated;
 
 public class CustomerViewDialog_Equipment {
 
@@ -21,21 +19,21 @@ public class CustomerViewDialog_Equipment {
 
 
     public void clickButton(String needButton) {
-        Utilities.waitUntileElementIsVisible(needButton);
-        Utilities.clickElement(needButton, ElementType.XPath);
+        Deprecated.waitVisible(needButton);
+        Deprecated.clickElement(needButton);
     }
 
     public void setItem(String needItem, String needValue) {
-        FindElement.elementByAttribute(needItem, FindElement.InputType.XPath).sendKeys(needValue);
+        Deprecated.locate(needItem).sendKeys(needValue);
     }
 
     public String getItem() {
-        Utilities.waitUntileElementIsVisible(equipmentAdded);
-        return Utilities.getElementTextValue(equipmentAdded, ElementType.XPath);
+        Deprecated.waitVisible(equipmentAdded);
+        return Deprecated.getElementTextValue(equipmentAdded);
     }
 
     public void selectItemFromDropDown (String needField, String needType) {
-        Utilities.selectValueFromDropDownByValue(needField, needType);
+        Deprecated.selectByText(needField, needType);
 
 
 

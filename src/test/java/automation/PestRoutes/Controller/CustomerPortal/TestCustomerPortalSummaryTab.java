@@ -13,8 +13,7 @@ import automation.PestRoutes.PageObject.DashboardPage;
 import automation.PestRoutes.PageObject.RoutePage.RoutePage;
 import automation.PestRoutes.PageObject.Scheduling.SchedulingAppointmentDialog;
 import automation.PestRoutes.PageObject.Scheduling.SchedulingTab;
-import automation.PestRoutes.Utilities.Utilities;
-import io.cucumber.java.en.And;
+import automation.PestRoutes.Utilities.Data.*;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.testng.asserts.SoftAssert;
@@ -22,8 +21,8 @@ import org.testng.asserts.SoftAssert;
 import java.math.BigDecimal;
 import java.util.List;
 
-import static automation.PestRoutes.Utilities.Utilities.closeTab;
-import static automation.PestRoutes.Utilities.Utilities.switchToOldWindowOpened;
+import static automation.PestRoutes.Utilities.GetWebDriver.closeTab;
+import static automation.PestRoutes.Utilities.GetWebDriver.switchToOldWindowOpened;
 
 public class TestCustomerPortalSummaryTab {
 
@@ -52,7 +51,7 @@ public class TestCustomerPortalSummaryTab {
     String expectedTechnician = testAppointment.techName;
     String expectedInvoiceNumber = testAppointment.invoiceNumber;
     List<String> expectedSubscriptionServiceType = testSubscription.serviceType;
-    String expectedDate = Utilities.currentDate("MM/dd/yy");
+    String expectedDate = GetDate.currentDate("MM/dd/yy");
 
     @When("I Navigate To Customer Portal From Customer Card - Admin Tab")
     public void automateNavigatingFromCustomerCardToCustomerPortal() {

@@ -10,15 +10,18 @@ import automation.PestRoutes.PageObject.CustomerOverview.Invoicing.RoutePageInvo
 import automation.PestRoutes.PageObject.CustomerOverview.Invoicing.CreateNewInvoicePopUp;
 import automation.PestRoutes.Utilities.*;
 import automation.PestRoutes.PageObject.Header;
+import automation.PestRoutes.Utilities.Data.*;
+import automation.PestRoutes.Utilities.Deprecated;
+import automation.PestRoutes.Utilities.Report.*;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import org.testng.annotations.Test;
 import automation.PestRoutes.Controller.Login.SignIn;
 import java.util.Locale;
 
-import static automation.PestRoutes.Utilities.AssertException.result;
+import static automation.PestRoutes.Utilities.Report.AssertException.result;
 
-public class AccountReceivable extends BaseClass {
+public class AccountReceivable {
     RoutePageInvoicing invoice;
     CreateCustomerDialog infoTab;
     BillingModule billingModule;
@@ -61,7 +64,7 @@ public class AccountReceivable extends BaseClass {
         admin = new CustomerViewDialog_Admin();
         customerCardHeader = new CustomerViewDialog_Header();
         accountReceivable.select(accountReceivable.accountStatusDropdown, "Active");
-        accountReceivable.insert(accountReceivable.asOfDateInputField, Utilities.currentDate("MM/dd/yyyy"));
+        accountReceivable.insert(accountReceivable.asOfDateInputField, GetDate.currentDate("MM/dd/yyyy"));
         accountReceivable.click(accountReceivable.refreshButton);
         String customerName = customer.getCustomerName("1");
         customerCardHeader.clickCloseButton();
@@ -95,7 +98,7 @@ public class AccountReceivable extends BaseClass {
         String customerName = customer.getCustomerFullName();
         billing.addPaymentCC("4111111111111111", "5412750109056250");
         billing.addCustomerOnAutoPay();
-        createStandAloneServiceInvoice("400", Utilities.currentDate("MM/dd/yyyy"), "Automation Renewal");
+        createStandAloneServiceInvoice("400", GetDate.currentDate("MM/dd/yyyy"), "Automation Renewal");
         customer.closeCustomerCard();
         navigateToAccountReceivablePage();
         accountReceivable.select(accountReceivable.autoPayDropdown, "Card AutoPay");
@@ -114,7 +117,7 @@ public class AccountReceivable extends BaseClass {
         String customerName = customer.getCustomerFullName();
         billing.addBankAccount();
         billing.addCustomerOnAutoPay();
-        createStandAloneServiceInvoice("400", Utilities.currentDate("MM/dd/yyyy"), "Automation Renewal");
+        createStandAloneServiceInvoice("400", GetDate.currentDate("MM/dd/yyyy"), "Automation Renewal");
         customer.closeCustomerCard();
         navigateToAccountReceivablePage();
         accountReceivable.select(accountReceivable.autoPayDropdown, "Card or ACH AutoPay");
@@ -137,7 +140,7 @@ public class AccountReceivable extends BaseClass {
             customerCardHeader.navigateTo(customerCardHeader.infoTabInDialog);
             infoTab.selectProperty(typeOfCustomer[i]);
             customerCardHeader.clickSaveButton();
-            createStandAloneServiceInvoice("400", Utilities.currentDate("MM/dd/yyyy"), "Automation Renewal");
+            createStandAloneServiceInvoice("400", GetDate.currentDate("MM/dd/yyyy"), "Automation Renewal");
             customer.closeCustomerCard();
             navigateToAccountReceivablePage();
             accountReceivable.select(accountReceivable.propertyDropdown, propType[i]);
@@ -166,7 +169,7 @@ public class AccountReceivable extends BaseClass {
         admin = new CustomerViewDialog_Admin();
         customer.createCustomerWithEmail();
         customerCardHeader.navigateTo(customerCardHeader.invoicesTabInDialog);
-        createStandAloneServiceInvoice("400", Utilities.currentDate("MM/dd/yyyy"), "Automation Renewal");
+        createStandAloneServiceInvoice("400", GetDate.currentDate("MM/dd/yyyy"), "Automation Renewal");
         customerCardHeader.navigateTo(customerCardHeader.adminTabInDialog);
         admin.changeAccountStatus_Active();
 //        customer.closeCustomerCard();
@@ -190,13 +193,13 @@ public class AccountReceivable extends BaseClass {
         String[] daysOverDue = {"7+ Days Overdue", "30+ Days Overdue", "90+ Days Overdue"};
         int[] invoiceDaysPastDue = {7, 30, 90};
         for (int i = 0; i < balanceAge.length; i++) {
-            String fname = Utilities.generateRandomString(7).toLowerCase(Locale.ROOT);
-            String lname = Utilities.generateRandomString(6).toLowerCase(Locale.ROOT);
+            String fname = GetData.generateRandomString(7).toLowerCase(Locale.ROOT);
+            String lname = GetData.generateRandomString(6).toLowerCase(Locale.ROOT);
             System.out.println(fname + " " + lname);
             customer.createACustomer(fname, lname);
-            int currentMonth = GetDate.getMonth(Utilities.currentDate("MM/dd/yyyy"));
-            int currentYear = GetDate.getYear(Utilities.currentDate("MM/dd/yyyy"));
-            String dateOfInvoice = GetDate.minusGenericDayToDate(Utilities.currentDate("MM/dd/yyyy"), invoiceDaysPastDue[i]);
+            int currentMonth = GetDate.getMonth(GetDate.currentDate("MM/dd/yyyy"));
+            int currentYear = GetDate.getYear(GetDate.currentDate("MM/dd/yyyy"));
+            String dateOfInvoice = GetDate.minusGenericDayToDate(GetDate.currentDate("MM/dd/yyyy"), invoiceDaysPastDue[i]);
             int monthOfInv = GetDate.getMonth(dateOfInvoice);
             int yearOfInv = GetDate.getYear(dateOfInvoice);
             createStandAloneServiceInvoice("400", dateOfInvoice, "Automation Renewal");
@@ -223,7 +226,7 @@ public class AccountReceivable extends BaseClass {
         customer = new CreateNewCustomer();
         customerCardHeader = new CustomerViewDialog_Header();
         String customerName = customer.getCustomerFullName();
-        createStandAloneServiceInvoice("400", Utilities.currentDate("MM/dd/yyyy"), "Automation Renewal");
+        createStandAloneServiceInvoice("400", GetDate.currentDate("MM/dd/yyyy"), "Automation Renewal");
         navigateToAccountReceivablePage();
         accountReceivable.click(accountReceivable.advanceFilterLink);
         accountReceivable.select(accountReceivable.prefPaperDropdown, "Yes");
@@ -237,14 +240,14 @@ public class AccountReceivable extends BaseClass {
     public void validateCustomerWithEmail() throws Exception {
         customer = new CreateNewCustomer();
         String customerName = customer.getCustomerFullName();
-        createStandAloneServiceInvoice("400", Utilities.currentDate("MM/dd/yyyy"), "Automation Renewal");
+        createStandAloneServiceInvoice("400", GetDate.currentDate("MM/dd/yyyy"), "Automation Renewal");
         customer.closeCustomerCard();
         navigateToAccountReceivablePage();
         accountReceivable.click(accountReceivable.advanceFilterLink);
         accountReceivable.select(accountReceivable.hasEmailDropdown, "Yes");
         accountReceivable.click(accountReceivable.refreshButton);
         searchAndValidateCustomer_AccountReceivable(customerName, " Customer with email");
-        Utilities.hoverElement(accountReceivable.actionsButton, accountReceivable.emailStatementsButton_UnderActions);
+        Deprecated.hoverElement(accountReceivable.actionsButton, accountReceivable.emailStatementsButton_UnderActions);
         Utilities.acceptAlert();
         Utilities.acceptAlert();
         customer.removeCustomer();
@@ -260,7 +263,7 @@ public class AccountReceivable extends BaseClass {
         String customerName = customer.getCustomerFullName();
         billing.addPaymentCC("4111111111111111", "5412750109056250");
         billing.addCustomerOnAutoPayCCWithMaxLimit("CC","400");
-        createStandAloneServiceInvoice("400", Utilities.currentDate("MM/dd/yyyy"), "Automation Renewal");
+        createStandAloneServiceInvoice("400", GetDate.currentDate("MM/dd/yyyy"), "Automation Renewal");
         customer.closeCustomerCard();
         navigateToAccountReceivablePage();
         accountReceivable.click(accountReceivable.advanceFilterLink);
@@ -268,10 +271,10 @@ public class AccountReceivable extends BaseClass {
         accountReceivable.select(accountReceivable.maxMonthlyDropdown, "Yes");
         accountReceivable.click(accountReceivable.refreshButton);
         searchAndValidateCustomer_AccountReceivable(customerName, " Customer with autopay and max monthly limit");
-        Utilities.hoverElement(accountReceivable.actionsButton, accountReceivable.exportToExcelButton_UnderActions);
-        Utilities.hoverElement(accountReceivable.actionsButton, accountReceivable.printStatementsButton_UnderActions);
-        Utilities.switchToOldWindowOpened();
-        Utilities.hoverElement(accountReceivable.actionsButton, accountReceivable.snailMailButton_UnderActions);
+        Deprecated.hoverElement(accountReceivable.actionsButton, accountReceivable.exportToExcelButton_UnderActions);
+        Deprecated.hoverElement(accountReceivable.actionsButton, accountReceivable.printStatementsButton_UnderActions);
+        GetWebDriver.switchToOldWindowOpened();
+        Deprecated.hoverElement(accountReceivable.actionsButton, accountReceivable.snailMailButton_UnderActions);
         Utilities.acceptAlert();
         customer.removeCustomer();
     }
@@ -286,7 +289,7 @@ public class AccountReceivable extends BaseClass {
         String customerName = customer.getCustomerFullName();
         billing.addPaymentCC(needRegularCC, needNMICC);
         billing.addCustomerOnAutoPayCCWithMaxLimit("CC","400");
-        createStandAloneServiceInvoice("400", Utilities.currentDate("MM/dd/yyyy"), "Automation Renewal");
+        createStandAloneServiceInvoice("400", GetDate.currentDate("MM/dd/yyyy"), "Automation Renewal");
         customer.closeCustomerCard();
         navigateToAccountReceivablePage();
         accountReceivable.click(accountReceivable.advanceFilterLink);
@@ -315,7 +318,7 @@ public class AccountReceivable extends BaseClass {
         String customerName = customer.getCustomerFullName();
         billing.addPaymentCC("4111111111111111", "5412750109056250");
         billing.addCustomerOnAutoPayCCWithMaxLimit("CC","400");
-        createStandAloneServiceInvoice("400", Utilities.currentDate("MM/dd/yyyy"), "Automation Renewal");
+        createStandAloneServiceInvoice("400", GetDate.currentDate("MM/dd/yyyy"), "Automation Renewal");
         customer.closeCustomerCard();
         navigateToAccountReceivablePage();
         accountReceivable.click(accountReceivable.advanceFilterLink);
@@ -380,8 +383,8 @@ public class AccountReceivable extends BaseClass {
     @Then("I send {string} message under actions with subject {string} and text {string}")
     public void sendMessageUnderActions(String needMessageType, String needSubject, String needText) throws InterruptedException {
         customer = new CreateNewCustomer();
-        Utilities.hoverElement(accountReceivable.actionsButton, accountReceivable.sendMessageButton_UnderActions);
-        Utilities.waitUntileElementIsVisible(accountReceivable.sendMessagesButton);
+        Deprecated.hoverElement(accountReceivable.actionsButton, accountReceivable.sendMessageButton_UnderActions);
+        Deprecated.waitVisible(accountReceivable.sendMessagesButton);
         accountReceivable.click(accountReceivable.ignoreContactPreferencesCheckBox);
         accountReceivable.click(accountReceivable.getIgnoreMaxPerMinuteCheckBox);
         if (needMessageType.equals("Email")) {

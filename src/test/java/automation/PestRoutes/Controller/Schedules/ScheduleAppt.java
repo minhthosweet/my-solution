@@ -4,6 +4,9 @@ import automation.PestRoutes.Controller.CustomRoute.CustomRoute;
 import automation.PestRoutes.PageObject.DashboardPage;
 import automation.PestRoutes.PageObject.Scheduling.SchedulingTab;
 import automation.PestRoutes.Utilities.*;
+import automation.PestRoutes.Utilities.Data.*;
+import automation.PestRoutes.Utilities.Deprecated;
+import automation.PestRoutes.Utilities.Report.*;
 import org.openqa.selenium.By;
 import org.testng.annotations.Test;
 import automation.PestRoutes.PageObject.Header;
@@ -99,7 +102,7 @@ public class ScheduleAppt extends AppData {
         header.searchCustomer_History(needUserID);
         scheduleDay = new SchedulingTab();
         scheduleDay.clickScheduleButton();
-        int totalCount = Utilities.getElementCount(routes);
+        int totalCount = Deprecated.countElements(routes);
         String routesCount = Integer.toString(totalCount);
         System.out.println(routesCount);
         route.scheduleAppointment(routesCount, needTimeSlot);
@@ -128,9 +131,9 @@ public class ScheduleAppt extends AppData {
 
         //Retrieve the enrolled Subscription based on the selected Service
         By apptSubscriptionOption = By.xpath("//*[@id='overviewPanel']//div//select[@name ='subscriptionID']//option[contains(text(), '" + serviceType + "')]" );
-        String strEnrolledSubscription = Utilities.getInnerText(apptSubscriptionOption);
+        String strEnrolledSubscription = Utilities.jsGetText(apptSubscriptionOption);
 
-        Utilities.selectValueFromDropDownByIndex(confirmAppt.subscriptionTypeDropdown,1);
+        Deprecated.selectByIndex(confirmAppt.subscriptionTypeDropdown,1);
         confirmAppt.selectInteriorNeededOption(serviceAreaProvided);
         confirmAppt.selectTargetPestsOption(pestTreaded);
 

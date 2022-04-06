@@ -1,7 +1,6 @@
 package automation.PestRoutes.PageObject.Customers;
 
-import automation.PestRoutes.Utilities.Utilities;
-import automation.PestRoutes.Utilities.Utilities.ElementType;
+import automation.PestRoutes.Utilities.Deprecated;
 
 public class CustomersMainPage {
 	
@@ -13,7 +12,7 @@ public class CustomersMainPage {
 	private String actions = "//div[@id='customerReportTableActions']";
 	
 	public void navigateTo(String needReportType) {
-		Utilities.waitUntileElementIsVisible(actions);
-		Utilities.clickElement("//ul[@id='customerNav']//p[text()='"+needReportType+"']", ElementType.XPath);
+		Deprecated.waitVisible(actions);
+		Deprecated.clickElement("//ul[@id='customerNav']//p[text()='"+needReportType+"']");
 	}
 }

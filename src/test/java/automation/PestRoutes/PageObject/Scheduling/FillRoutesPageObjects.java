@@ -1,9 +1,8 @@
 package automation.PestRoutes.PageObject.Scheduling;
 
-import automation.PestRoutes.Utilities.FindElement;
-import automation.PestRoutes.Utilities.AppData;
-import automation.PestRoutes.Utilities.Utilities;
-import automation.PestRoutes.Utilities.Utilities.ElementType;
+import automation.PestRoutes.Utilities.*;
+import automation.PestRoutes.Utilities.Data.AppData;
+import automation.PestRoutes.Utilities.Deprecated;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
@@ -124,21 +123,21 @@ public class FillRoutesPageObjects extends AppData {
 
         switch (strSectionTitle){
             case JOBS_AVAILABLE_SECTION:
-                Utilities.elementIsVisible(btnRefresh_JobsAvailable);
-                Utilities.clickElement(btnRefresh_JobsAvailable, ElementType.XPath);
+                Deprecated.isVisible(btnRefresh_JobsAvailable);
+                Deprecated.clickElement(btnRefresh_JobsAvailable);
                 break;
             case ROUTES_TO_FILL_SECTION:
-                Utilities.scrollToElement(routesToFill_SectionTitle_IncludeAllRoutes);
-                Utilities.elementIsVisible(btnRefresh_RoutesToFill);
-                Utilities.clickElement(btnRefresh_RoutesToFill, ElementType.XPath);
+                Deprecated.scrollToElement(routesToFill_SectionTitle_IncludeAllRoutes);
+                Deprecated.isVisible(btnRefresh_RoutesToFill);
+                Deprecated.clickElement(btnRefresh_RoutesToFill);
                 break;
         }
      }//clickRefreshBtn()
 
     public void clickFillRoutesBtn() {
-        Utilities.elementIsVisible(btnFillRoutes);
-        Utilities.clickElement(btnFillRoutes, ElementType.XPath);
-        Utilities.waitUntileElementIsVisible(dialogTitle);
+        Deprecated.isVisible(btnFillRoutes);
+        Deprecated.clickElement(btnFillRoutes);
+        Deprecated.waitVisible(dialogTitle);
     }// public void clickFillRoutesBtn()
 
     public void addDueBetweenCriteria(String strStartDate, String strEndDate) throws InterruptedException {
@@ -152,7 +151,7 @@ public class FillRoutesPageObjects extends AppData {
 
     public void addDateRangeCriteria(String strStartDate, String strEndDate) throws InterruptedException {
         //Scroll to the "Routes To Fill"
-        Utilities.scrollToElementJS(routesToFill_SectionTitle_IncludeAllRoutes);
+        Deprecated.scrollToElementJS(routesToFill_SectionTitle_IncludeAllRoutes);
 
         //Add a start date for "Date Range"
         loadFilterValue(inputDateRangeStart, strStartDate);
@@ -169,7 +168,7 @@ public class FillRoutesPageObjects extends AppData {
         int routesCount;
         int customerCount;
 
-        String strRouteCustomerCounts = FindElement.elementByAttribute(unscheduledStopsRoutingCustomerCounts,FindElement.InputType.XPath).getText();
+        String strRouteCustomerCounts = Deprecated.locate(unscheduledStopsRoutingCustomerCounts).getText();
         String[] routesCustomerArray= strRouteCustomerCounts.split(splitToken);
         String strRoutesCounts = routesCustomerArray[0].replaceAll(numberOnlyRegexp,replacementToken);
         String strCustomerCounts = routesCustomerArray[1].replaceAll(numberOnlyRegexp,replacementToken);
@@ -193,43 +192,43 @@ public class FillRoutesPageObjects extends AppData {
 
     public boolean routesToFillCheck() {
         // Verify there are displayed routes to be filled
-        boolean  routeChkFlag = Utilities.elementIsVisible(routesByDateGroups);
+        boolean  routeChkFlag = Deprecated.isVisible(routesByDateGroups);
         return routeChkFlag;
     }//routesToFillCheck()
 
     public void fillAvailableRoutes(String strMaxTimes){
         // Check for dialog being displayed
-        if(Utilities.elementIsVisible(dialogTitle))
+        if(Deprecated.isVisible(dialogTitle))
         {
             //Select Max Time option
-           Utilities.selectValueFromDropDownByValue(maxTimeDropDown, strMaxTimes);
+           Deprecated.selectByText(maxTimeDropDown, strMaxTimes);
             clickFillRoutesWithAvailableJobsBtn();
         }
     } //fillAvailableRoutes()
 
     public void executeOptimizeQueueScript() throws InterruptedException {
         //Allow the "In Progress Banner to load
-        Utilities.waitUntileElementIsVisible(inprogressBanner_FillRoutsReviewPg, 6);
+        Deprecated.waitVisible(inprogressBanner_FillRoutsReviewPg, 6);
 
-        if(Utilities.elementIsVisible(inprogressBanner_FillRoutsReviewPg)) {
+        if(Deprecated.isVisible(inprogressBanner_FillRoutsReviewPg)) {
             // Load an incognito browser and execute the optimizeQueue.php script
-            incognitoBrowser = Utilities.loadIncognitoChromeBrowser(OPTIMIZEQUEUE_PHP_URL);
+            incognitoBrowser = GetWebDriver.loadIncognitoChromeBrowser(OPTIMIZEQUEUE_PHP_URL);
          }
     }//executeOptimizeQueueScript()
 
     public void clickFillRoutesWithAvailableJobsBtn() {
         //Click the "Fill Routes with Available Jobs" button
-        if( Utilities.elementIsVisible(btnFillRoutesWithAvailableJobs))
-            Utilities.clickElement(btnFillRoutesWithAvailableJobs, ElementType.XPath);
+        if( Deprecated.isVisible(btnFillRoutesWithAvailableJobs))
+            Deprecated.clickElement(btnFillRoutesWithAvailableJobs);
     } //clickFillRoutesWithAvailableJobsBtn()
 
     public void loadFilterValue(String strFilterXpath, String strValue) throws InterruptedException{
         //Make sure the field(s) are displayed
-         if (Utilities.elementIsVisible(strFilterXpath)) {
+         if (Deprecated.isVisible(strFilterXpath)) {
              //Clear the Date Range startDate field and load new value
-             FindElement.elementByAttribute(strFilterXpath, FindElement.InputType.XPath).clear();
-             FindElement.elementByAttribute(strFilterXpath, FindElement.InputType.XPath).sendKeys(strValue);
-             FindElement.elementByAttribute(strFilterXpath, FindElement.InputType.XPath).sendKeys(Keys.ENTER);
+             Deprecated.locate(strFilterXpath).clear();
+             Deprecated.locate(strFilterXpath).sendKeys(strValue);
+             Deprecated.locate(strFilterXpath).sendKeys(Keys.ENTER);
          }
          else
          {
@@ -239,22 +238,22 @@ public class FillRoutesPageObjects extends AppData {
 
     public void saveOptimizedRoutes() throws InterruptedException {
         //Allow time for the "Fill Routes Review" Page to display
-        Utilities.waitUntileElementIsVisible(fillRoutesReviewPage,3);
+        Deprecated.waitVisible(fillRoutesReviewPage,3);
 
          //Click [Save] button to save optimized routes
-        if( Utilities.elementIsVisible(fillRoutesReviewPage)) {
+        if( Deprecated.isVisible(fillRoutesReviewPage)) {
 
             //Close incognito browser
-            Utilities.closeIncognitoBrowser(incognitoBrowser);
+            GetWebDriver.closeIncognitoBrowser(incognitoBrowser);
 
             //Click [Save] to save the optimized routes
-            Utilities.clickElement(btnSave_FillRoutsReviewPg, ElementType.XPath);
+            Deprecated.clickElement(btnSave_FillRoutsReviewPg);
 
             //Accepts any windows alerts
             Utilities.acceptAlert();
 
             //Verify the "Save" process has completed and the "Fill Routes" landing page is displayed
-            Utilities.waitUntileElementIsVisible(jobsAvailable_SectionTitle_IncludeAllRoutes);
+            Deprecated.waitVisible(jobsAvailable_SectionTitle_IncludeAllRoutes);
         }
         else {
             Assert.fail("Fill Routes' Review Page DID NOT LOAD");

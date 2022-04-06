@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import automation.PestRoutes.Utilities.*;
+import automation.PestRoutes.Utilities.Data.*;
+import automation.PestRoutes.Utilities.Deprecated;
+import automation.PestRoutes.Utilities.Report.*;
 import org.testng.annotations.Test;
 import com.aventstack.extentreports.ExtentTest;
 import automation.PestRoutes.PageObject.Header;
@@ -35,8 +38,8 @@ public class AccountStatus extends AppData {
 	// Creates customer
 	public void createCustomer() throws Exception {
 		String expectedAlert = "Required: You must fill in the customer's last name or company name!";
-		fName = Utilities.generateRandomString(7);
-		lName = Utilities.generateRandomString(6);
+		fName = GetData.generateRandomString(7);
+		lName = GetData.generateRandomString(6);
 		header.navigateTo(header.newCustomerTab);
 		customer.setFirstName(fName);
 		customer.selectUnit("Multi Unit");
@@ -46,7 +49,7 @@ public class AccountStatus extends AppData {
 		Utilities.acceptAlert();
 		customer.setLastName(lName);
 		dialog.clickSaveButton();
-		Utilities.waitUntileElementIsVisible(overview.overviewTab_Address);
+		Deprecated.waitVisible(overview.overviewTab_Address);
 		String customerNameInHeader = overview.getCustomerNameFromHeader();
 		System.out.println("Customer Name found is " + customerNameInHeader);
 		list.add(AssertException.result(fName, customerNameInHeader, "Validate Customer Creation"));

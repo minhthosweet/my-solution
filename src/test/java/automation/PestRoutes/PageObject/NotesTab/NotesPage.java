@@ -1,9 +1,6 @@
 package automation.PestRoutes.PageObject.NotesTab;
 
-import automation.PestRoutes.Utilities.FindElement;
-import automation.PestRoutes.Utilities.FindElement.InputType;
-import automation.PestRoutes.Utilities.Utilities;
-import automation.PestRoutes.Utilities.Utilities.ElementType;
+import automation.PestRoutes.Utilities.Deprecated;
 
 public class NotesPage {
 	//Main objects
@@ -60,27 +57,27 @@ public class NotesPage {
 	//Methods
 	
 	public void clickButton(String needButton) {
-		Utilities.waitUntileElementIsVisible(needButton);
-		Utilities.clickElement(needButton, ElementType.XPath);
+		Deprecated.waitVisible(needButton);
+		Deprecated.clickElement(needButton);
 	}
 	
 	public void setInputField(String needInputField, String needValue) {
-		Utilities.waitUntileElementIsVisible(needInputField);
-		FindElement.elementByAttribute(needInputField, InputType.XPath).sendKeys(needValue);
+		Deprecated.waitVisible(needInputField);
+		Deprecated.locate(needInputField).sendKeys(needValue);
 	}
 	
 	public void selectTextFromDropdown(String needDropdown, String needText) {
-		Utilities.waitUntileElementIsVisible(needDropdown);
-		Utilities.selectValueFromDropDownByValue(needDropdown, needText);
+		Deprecated.waitVisible(needDropdown);
+		Deprecated.selectByText(needDropdown, needText);
 	}
 	
 	public String getText(String needAttribute) {
-		Utilities.waitUntileElementIsVisible(needAttribute);
-		return Utilities.getElementTextValue(needAttribute, ElementType.XPath);
+		Deprecated.waitVisible(needAttribute);
+		return Deprecated.getElementTextValue(needAttribute);
 	}
 	
 	public void navigateToNoteType(String needNoteType) {
-		Utilities.clickElement("//li[text()='"+needNoteType+"']", ElementType.XPath);
+		Deprecated.clickElement("//li[text()='"+needNoteType+"']");
 	}
 
 }

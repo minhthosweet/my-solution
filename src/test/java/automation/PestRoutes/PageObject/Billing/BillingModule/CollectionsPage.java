@@ -1,5 +1,7 @@
 package automation.PestRoutes.PageObject.Billing.BillingModule;
 
+import automation.PestRoutes.Utilities.*;
+import automation.PestRoutes.Utilities.Deprecated;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
@@ -14,24 +16,24 @@ public class CollectionsPage extends BillingModule {
     private By stageColumnValue = By.xpath("//table[@id='collectionBatch']/tbody//td[14]");
 
     public void clickAdvancedFilters() {
-        click(advancedFiltersButton);
+        Utilities.click(advancedFiltersButton);
     }
 
     public void typeFlagToInclude(String flag) {
-        type(flag, includeFlagsField);
+        Deprecated.type(flag, includeFlagsField);
     }
 
     public void clickRefreshButton() {
-        click(refreshButton);
+        Utilities.click(refreshButton);
     }
 
     public String getStageValue(String customerName) {
-        List<WebElement> listOfNameValues = findElements(nameColumnValues);
+        List<WebElement> listOfNameValues = Utilities.locateAll(nameColumnValues);
         for (WebElement name : listOfNameValues) {
             if (name.getText().equalsIgnoreCase(customerName)) {
-                return getText(stageColumnValue);
+                return Utilities.getText(stageColumnValue);
             }
         }
-        return getText(stageColumnValue);
+        return Utilities.getText(stageColumnValue);
     }
 }

@@ -2,7 +2,7 @@ package automation.PestRoutes.Controller.Reporting.Office;
 
 import automation.PestRoutes.PageObject.Header;
 import automation.PestRoutes.PageObject.ReportingPage.ReportingMainPage;
-import automation.PestRoutes.Utilities.Utilities;
+import automation.PestRoutes.Utilities.Deprecated;
 import io.cucumber.java.en.And;
 
 public class OfficeObjects {
@@ -11,8 +11,8 @@ public class OfficeObjects {
     ReportingMainPage reportingMainPage;
 
     public void click(String needTab) {
-        Utilities.scrollToElementJS("//li[text() = '"+needTab+"']");
-        Utilities.clickElement("//li[text() = '"+needTab+"']", Utilities.ElementType.XPath);
+        Deprecated.scrollToElementJS("//li[text() = '"+needTab+"']");
+        Deprecated.clickElement("//li[text() = '"+needTab+"']");
     }
 
     //Author: Aditya

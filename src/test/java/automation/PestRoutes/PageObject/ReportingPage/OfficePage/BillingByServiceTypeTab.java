@@ -4,9 +4,11 @@ import automation.PestRoutes.Controller.CustomerCreation.CreateNewCustomer;
 import automation.PestRoutes.Controller.Reporting.Office.OfficeObjects;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_Header;
 import automation.PestRoutes.PageObject.Header;
-import automation.PestRoutes.Utilities.FindElement;
-import automation.PestRoutes.Utilities.Utilities;
+import automation.PestRoutes.Utilities.*;
+
 import static automation.PestRoutes.Utilities.Utilities.*;
+
+import automation.PestRoutes.Utilities.Deprecated;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
@@ -127,8 +129,8 @@ public class BillingByServiceTypeTab {
     //Author: Aditya
     public void setGroupFilter(String group, String groupByType) {
         officeObjs = new OfficeObjects();
-        Utilities.waitUntileElementIsVisible(group);
-        Utilities.selectValueFromDropDownByValue(group, groupByType);
+        Deprecated.waitVisible(group);
+        Deprecated.selectByText(group, groupByType);
     }
 
     //Author: Aditya
@@ -161,102 +163,103 @@ public class BillingByServiceTypeTab {
     }
 
     public String get(String needIdentifier) {
-        return Utilities.getElementTextValue(needIdentifier, Utilities.ElementType.XPath);
+        return Deprecated.getElementTextValue(needIdentifier);
     }
 
     public String getBilledServices_MultiGroupReport(String needCustomerID) {
-        return Utilities.getElementTextValue("//td[text()='" + needCustomerID + "']/parent::tr[@detailvalues]//td[4]", Utilities.ElementType.XPath);
+        return Deprecated.getElementTextValue("//td[text()='" + needCustomerID + "']/parent::tr[@detailvalues]//td[4]");
     }
 
     public String getTaxRate_MultiGroupReport(String needCustomerID) {
-        return Utilities.getElementTextValue("//td[text()='" + needCustomerID + "']/parent::tr[@detailvalues]//td[6]", Utilities.ElementType.XPath);
+        return Deprecated.getElementTextValue("//td[text()='" + needCustomerID + "']/parent::tr[@detailvalues]//td[6]");
     }
 
     public String getBilledTaxValue_Customer() {
-        return Utilities.getElementTextValue(tax_Customer, Utilities.ElementType.XPath).replace("\n", "");
+        return Deprecated.getElementTextValue(tax_Customer).replace("\n", "");
     }
 
     public String getBilledServiceValue_Customer() {
-        return Utilities.getElementTextValue(billedServices_Customer, Utilities.ElementType.XPath).replace("\n", "");
+        return Deprecated.getElementTextValue(billedServices_Customer).replace("\n", "");
     }
 
     public String getAttributeValue(String needIdentifier, String needAttribute) {
-        return Utilities.getAttributeValue(needIdentifier, needAttribute);
+        return Deprecated.getAttribute(needIdentifier, needAttribute);
     }
 
     public void searchNewCustomer(String searchBox, String searchCustomerParameter) {
-        Utilities.waitUntileElementIsVisible(searchBox);
-        FindElement.elementByAttribute(searchBox, FindElement.InputType.XPath).sendKeys(searchCustomerParameter);
+        Deprecated.waitVisible(searchBox);
+        Deprecated.locate(searchBox).sendKeys(searchCustomerParameter);
     }
 
     public void click(String needButton) {
-        Utilities.waitUntileElementIsClickable(By.xpath(needButton), 10);
-        Utilities.scrollToElementJS(needButton);
-        Utilities.jsClickElement(needButton, Utilities.ElementType.XPath);
+        Utilities.waitClickable(By.xpath(needButton), 10);
+        Deprecated.scrollToElementJS(needButton);
+        Deprecated.jsClickElement(needButton);
     }
 
     public void clickAdvancedFilters() {
-        Utilities.clickAdvancedFilters();
+        waitClickable(By.xpath("//div[@id = 'advancedFilterToggleButton']"), 10);
+        Deprecated.clickElement("//div[@id = 'advancedFilterToggleButton']");
     }
 
     //Author: Aditya
     public void setType(String key, String type) {
-        FindElement.elementByAttribute(filterTypes_BST(key), FindElement.InputType.XPath).sendKeys(type);
-        Utilities.clickElement("//span[text()='" + type + "']", Utilities.ElementType.XPath);
+        Deprecated.locate(filterTypes_BST(key)).sendKeys(type);
+        Deprecated.clickElement("//span[text()='" + type + "']");
     }
 
     public void setIncludeCollections(String includeCollections) {
-        FindElement.elementByAttribute(filterTypes_BST("inclCollections"), FindElement.InputType.XPath).sendKeys(includeCollections);
+        Deprecated.locate(filterTypes_BST("inclCollections")).sendKeys(includeCollections);
     }
 
     public void setSubscriptionSource(String subscriptionSource) {
-        FindElement.elementByAttribute(filterTypes_BST("subSource_bbst"), FindElement.InputType.XPath).sendKeys(subscriptionSource);
+        Deprecated.locate(filterTypes_BST("subSource_bbst")).sendKeys(subscriptionSource);
     }
 
     public void setRegions(String regions) {
-        FindElement.elementByAttribute(filterTypes_BST("regions_bbst"), FindElement.InputType.XPath).sendKeys(regions);
+        Deprecated.locate(filterTypes_BST("regions_bbst")).sendKeys(regions);
     }
 
     public void setOffice_bbst(String office) {
-        FindElement.elementByAttribute(filterTypes_BST("offices_bbst"), FindElement.InputType.XPath).sendKeys(office);
+        Deprecated.locate(filterTypes_BST("offices_bbst")).sendKeys(office);
     }
 
     public void setExcludeFlags(String excludeFlags) {
-        FindElement.elementByAttribute(filterTypes_BST("excludeFlags_bbst"), FindElement.InputType.XPath).sendKeys(excludeFlags);
+        Deprecated.locate(filterTypes_BST("excludeFlags_bbst")).sendKeys(excludeFlags);
     }
 
     public void setScheduledBy(String scheduledBy) {
-        FindElement.elementByAttribute(filterTypes_BST("scheduledBy_bbst"), FindElement.InputType.XPath).sendKeys(scheduledBy);
+        Deprecated.locate(filterTypes_BST("scheduledBy_bbst")).sendKeys(scheduledBy);
     }
 
     public void setSoldBy(String soldBy) {
-        FindElement.elementByAttribute(filterTypes_BST("soldByTeam_bbst"), FindElement.InputType.XPath).sendKeys(soldBy);
+        Deprecated.locate(filterTypes_BST("soldByTeam_bbst")).sendKeys(soldBy);
     }
 
     public void setSoldbySalesRep(String soldbySalesRep) {
-        FindElement.elementByAttribute(filterTypes_BST("soldbySalesRep_bbst"), FindElement.InputType.XPath).sendKeys(soldbySalesRep);
+        Deprecated.locate(filterTypes_BST("soldbySalesRep_bbst")).sendKeys(soldbySalesRep);
     }
 
     public void setSoldDateRange(String dateRange) {
-        Utilities.waitUntileElementIsVisible(soldDateRange);
-        FindElement.elementByAttribute(soldDateRange, FindElement.InputType.XPath).sendKeys(dateRange);
+        Deprecated.waitVisible(soldDateRange);
+        Deprecated.locate(soldDateRange).sendKeys(dateRange);
     }
 
     public void clickDescription_reportDetails(String customerName) {
         delay(3000);
-        Utilities.waitUntileElementIsClickable(By.xpath("//tr[@detailvalues]//td[text()='" + customerName + "']"), 10);
-        Utilities.scrollToElementJS("//tr[@detailvalues]//td[text()='" + customerName + "']");
-        Utilities.jsClickElement("//tr[@detailvalues]//td[text()='" + customerName + "']", Utilities.ElementType.XPath);
+        Utilities.waitClickable(By.xpath("//tr[@detailvalues]//td[text()='" + customerName + "']"), 10);
+        Deprecated.scrollToElementJS("//tr[@detailvalues]//td[text()='" + customerName + "']");
+        Deprecated.jsClickElement("//tr[@detailvalues]//td[text()='" + customerName + "']");
     }
 
     //Author: Aditya
     public void customerDetails(String customerName) throws Exception {
         String customerName_detailed = "//tr[@onmouseup]//td[text()='" + customerName + "']";
         try {
-            WebElement elm = FindElement.elementByAttribute(customerName_detailed, FindElement.InputType.XPath);
+            WebElement elm = Deprecated.locate(customerName_detailed);
             if (elm.isDisplayed()) {
-                Utilities.scrollToElementJS(customerName_detailed);
-                Utilities.clickElement(customerName_detailed, Utilities.ElementType.XPath);
+                Deprecated.scrollToElementJS(customerName_detailed);
+                Deprecated.clickElement(customerName_detailed);
             }
         } catch (Exception e) {
             System.out.println("Customer Card doesn't open");
@@ -264,27 +267,27 @@ public class BillingByServiceTypeTab {
     }
 
     public void set(String needTag, String needType) {
-        Utilities.waitUntileElementIsVisible(needTag);
-        Utilities.selectValueFromDropDownByValue(needTag, needType);
+        Deprecated.waitVisible(needTag);
+        Deprecated.selectByText(needTag, needType);
     }
 
     public void setBalance_bbst(String balance) {
-        Utilities.waitUntileElementIsVisible(balance_bbst);
-        FindElement.elementByAttribute(balance_bbst, FindElement.InputType.XPath).sendKeys(balance);
+        Deprecated.waitVisible(balance_bbst);
+        Deprecated.locate(balance_bbst).sendKeys(balance);
     }
 
     //Author: Aditya
     public void setDateRange(String type, String dateRange) {
-        Utilities.waitUntileElementIsVisible(type);
-        Utilities.clickElement(type, Utilities.ElementType.XPath);
-        Utilities.waitUntileElementIsVisible("//div[contains(@style,'block')]//li[text()='" + dateRange + "']");
-        Utilities.clickElement("//div[contains(@style,'block')]//li[text()='" + dateRange + "']", Utilities.ElementType.XPath);
+        Deprecated.waitVisible(type);
+        Deprecated.clickElement(type);
+        Deprecated.waitVisible("//div[contains(@style,'block')]//li[text()='" + dateRange + "']");
+        Deprecated.clickElement("//div[contains(@style,'block')]//li[text()='" + dateRange + "']");
     }
 
     //Author: Aditya
     public void setSalesRep(String salesRepTab, String salesRepType) {
-        Utilities.waitUntileElementIsVisible(filterTypes_BST(salesRepTab));
-        Utilities.selectValueFromDropDownByValue(filterTypes_BST(salesRepTab), salesRepType);
+        Deprecated.waitVisible(filterTypes_BST(salesRepTab));
+        Deprecated.selectByText(filterTypes_BST(salesRepTab), salesRepType);
     }
 
 }

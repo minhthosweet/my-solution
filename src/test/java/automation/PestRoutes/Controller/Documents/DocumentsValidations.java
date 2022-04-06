@@ -2,9 +2,14 @@ package automation.PestRoutes.Controller.Documents;
 
 import java.io.IOException;
 
+import automation.PestRoutes.Controller.*;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_InfoTab;
 import automation.PestRoutes.Utilities.*;
+import automation.PestRoutes.Utilities.Data.*;
+import automation.PestRoutes.Utilities.Deprecated;
+import automation.PestRoutes.Utilities.Report.*;
 import io.cucumber.java.en.And;
+import org.openqa.selenium.*;
 import org.testng.annotations.Test;
 
 import automation.PestRoutes.Controller.Admin.Preferences.CustomerPreferences.FormTemplates;
@@ -13,6 +18,8 @@ import automation.PestRoutes.Controller.Renewal.ValidateRenewal;
 import automation.PestRoutes.PageObject.Header;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_Header;
 import automation.PestRoutes.PageObject.DocumentsTab.DocumentsPage;
+
+import static automation.PestRoutes.Utilities.GetWebDriver.*;
 
 public class DocumentsValidations extends AppData {
 	
@@ -72,7 +79,7 @@ public class DocumentsValidations extends AppData {
 	}
 	@Test
 	public void signEmployeeForm() throws Exception {
-		String formName = Utilities.generateRandomString(6);
+		String formName = GetData.generateRandomString(6);
 		forms = new FormTemplates();
 		customerCardHeader = new CustomerViewDialog_Header();
 		documents = new DocumentsPage();
@@ -85,14 +92,27 @@ public class DocumentsValidations extends AppData {
 		documents.selectForm(formName);
 		documents.clickButton(documents.actionsButton);
 		documents.clickButton(documents.signButton);
-		Utilities.clickElementInIframe(documents.employeeSignatureButton);
+		int size = driver.findElements(By.tagName("iframe")).size();
+		for (int i = 0; i <= size; i++) {
+			driver.switchTo().frame(i);
+			Deprecated.waitVisible(documents.employeeSignatureButton);
+			int elem = driver.findElements(By.xpath(documents.employeeSignatureButton)).size();
+			System.out.println(elem);
+			if (elem != 0) {
+				driver.findElement(By.xpath(documents.employeeSignatureButton)).click();
+				break;
+			} else {
+				driver.switchTo().defaultContent();
+				continue;
+			}
+		}
 		//Utilities.clickElementInIframe(documents.employeeSignatureButton);
 		//WebElement iframe = FindElement.elementByAttribute(documents.iframe, InputType.XPath);
 		//Utilities.switchToIframeByXpath(iframe);
 		//documents.clickButton(documents.employeeSignatureButton);
 		documents.sign(documents.formSignatureBox);
 		documents.clickButton(documents.formSignatureBoxSignButton);
-		Utilities.switchBackToDom();
+		GetWebDriver.switchBackToDom();
 		
 		
 	}
@@ -103,7 +123,7 @@ public class DocumentsValidations extends AppData {
 		String expectedSuccessMessage = getData("serviceDescription", generalData)+ " Agreement";
 		customerCardHeader = new CustomerViewDialog_Header();
 		customerCardHeader.navigateTo(customerCardHeader.documentsTabInDIalog);
-		String actualSuccessMessage = Utilities.getElementTextValue("//ul[@id='documentList']//div[text()='"+getData("serviceDescription", generalData)+" Agreement']", Utilities.ElementType.XPath);
+		String actualSuccessMessage = Deprecated.getElementTextValue("//ul[@id='documentList']//div[text()='"+getData("serviceDescription", generalData)+" Agreement']");
 		result(expectedSuccessMessage, actualSuccessMessage, "New emailed agreement message", "Documents tab validations");
 	}
 	
@@ -111,7 +131,7 @@ public class DocumentsValidations extends AppData {
 	@SuppressWarnings("unchecked")
 	private void result(String expected, String actual, String stepName, String testName) {
 		if (AssertException.result(expected, actual, stepName).size() > 0) {
-			Utilities.list.add(AssertException.result(expected, actual, stepName));
+			CucumberBaseClass.list.add(AssertException.result(expected, actual, stepName));
 		}
 		Reporter.status(stepName, expected, actual, testName);
 	}

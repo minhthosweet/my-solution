@@ -11,8 +11,8 @@ import org.testng.asserts.SoftAssert;
 
 import java.util.List;
 
-import static automation.PestRoutes.Utilities.Utilities.closeTab;
-import static automation.PestRoutes.Utilities.Utilities.switchToOldWindowOpened;
+import static automation.PestRoutes.Utilities.GetWebDriver.closeTab;
+import static automation.PestRoutes.Utilities.GetWebDriver.switchToOldWindowOpened;
 
 public class TestCustomerPortalHistoryTab {
 

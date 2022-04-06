@@ -3,13 +3,11 @@ package automation.PestRoutes.PageObject.Admin.PreferencesTab.OfficeSettingsTab.
 import automation.PestRoutes.PageObject.Admin.PreferencesTab.OfficeSettingsTab.OfficeSettingsObjects;
 import automation.PestRoutes.PageObject.Admin.PreferencesTab.PreferencesPage;
 import automation.PestRoutes.Utilities.*;
-import automation.PestRoutes.Utilities.FindElement;
-import automation.PestRoutes.Utilities.FindElement.InputType;
-import automation.PestRoutes.Utilities.Utilities;
 
-import static automation.PestRoutes.Utilities.AppData.*;
+import static automation.PestRoutes.Utilities.Data.AppData.*;
 import static automation.PestRoutes.Utilities.Utilities.*;
-import automation.PestRoutes.Utilities.Utilities.ElementType;
+
+import automation.PestRoutes.Utilities.Deprecated;
 import io.cucumber.java.en.When;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -69,130 +67,130 @@ public class TriggerRules extends PreferencesPage {
     private By activeDropDown = By.xpath("//form[@id='triggerRuleForm']//select[@name='active']");
 
     public void clickSaveButton() {
-        Utilities.scrollToElement(addTriggerButton);
-        Utilities.waitUntileElementIsVisible(saveButton);
-        Utilities.clickElement(saveButton, ElementType.XPath);
+        Deprecated.scrollToElement(addTriggerButton);
+        Deprecated.waitVisible(saveButton);
+        Deprecated.clickElement(saveButton);
     }
 
     // Trigger Filter Actions
     public void navigateToTriggerRules() {
         officeSettingsObjects= new OfficeSettingsObjects();
-        Utilities.waitUntileElementIsVisible(officeSettingsText);
-        Utilities.clickElement(officeSettingsObjects.triggerRules, ElementType.XPath);
+        Deprecated.waitVisible(officeSettingsText);
+        Deprecated.clickElement(officeSettingsObjects.triggerRules);
     }
 
     public void clickAddTrigerButton() {
-        Utilities.clickElement(addTriggerButton, ElementType.XPath);
+        Deprecated.clickElement(addTriggerButton);
     }
 
     public void clickEditTrigger(String descriptionName) {
-        Utilities.clickElement("//div[text() = '" + descriptionName + "']//parent::div//span[text()='edit']",
-                ElementType.XPath);
+        Deprecated.clickElement("//div[text() = '" + descriptionName + "']//parent::div//span[text()='edit']"
+        );
     }
 
     public void searchTrigger(String description) {
-        Utilities.waitUntileElementIsVisible(searchTrigger);
-        FindElement.elementByAttribute(searchTrigger, InputType.XPath).sendKeys(description);
+        Deprecated.waitVisible(searchTrigger);
+        Deprecated.locate(searchTrigger).sendKeys(description);
     }
 
     public void selectDropdown(String needObject, String needTextValue) {
-        Utilities.waitUntileElementIsVisible(needObject);
-        Utilities.selectValueFromDropDownByValue(needObject, needTextValue);
+        Deprecated.waitVisible(needObject);
+        Deprecated.selectByText(needObject, needTextValue);
     }
 
     // Get Description text value from Landing page
     public String getDescriptionText(String descriptionSet) {
-        return Utilities.getElementTextValue(
-                "//div[@id= 'triggerRulesHeader']/following-sibling::div//div[text()='" + descriptionSet + "']",
-                ElementType.XPath);
+        return Deprecated.getElementTextValue(
+                "//div[@id= 'triggerRulesHeader']/following-sibling::div//div[text()='" + descriptionSet + "']"
+        );
     }
 
     // Setter methods
     public void setDescription(String needDescription) {
-        FindElement.elementByAttribute(descriptionInputField, InputType.XPath).sendKeys(needDescription);
+        Deprecated.locate(descriptionInputField).sendKeys(needDescription);
     }
 
     public void setStartDate(String needStartDate) {
-        Utilities.waitUntileElementIsVisible(startDateInputField);
-        Utilities.clickElement(startDateInputField, ElementType.XPath);
-        FindElement.elementByAttribute(startDateInputField, InputType.XPath).clear();
-        FindElement.elementByAttribute(startDateInputField, InputType.XPath).sendKeys(needStartDate);
+        Deprecated.waitVisible(startDateInputField);
+        Deprecated.clickElement(startDateInputField);
+        Deprecated.locate(startDateInputField).clear();
+        Deprecated.locate(startDateInputField).sendKeys(needStartDate);
     }
 
     public void setEndDate(String needEndDate) throws InterruptedException {
-        Utilities.waitUntileElementIsVisible(endDateInputField);
-        Utilities.clickElement(endDateInputField, ElementType.XPath);
-        FindElement.elementByAttribute(endDateInputField, InputType.XPath).clear();
-        FindElement.elementByAttribute(endDateInputField, InputType.XPath).sendKeys(needEndDate);
+        Deprecated.waitVisible(endDateInputField);
+        Deprecated.clickElement(endDateInputField);
+        Deprecated.locate(endDateInputField).clear();
+        Deprecated.locate(endDateInputField).sendKeys(needEndDate);
     }
 
     public void setDaysAfterChange(String days) {
-        Utilities.waitUntileElementIsVisible(daysAfterChange);
-        FindElement.elementByAttribute(daysAfterChange, InputType.XPath).sendKeys(days);
+        Deprecated.waitVisible(daysAfterChange);
+        Deprecated.locate(daysAfterChange).sendKeys(days);
     }
 
     // trigger Queue query
     @When("I execute the trigger queue script")
     public void hitTriggerQueue() {
-        Utilities.navigateToUrl("https://adityam.pestroutes.com/resources/scripts/triggerQueue.php");
+        GetWebDriver.navigateToUrl("https://adityam.pestroutes.com/resources/scripts/triggerQueue.php");
     }
 
     //getter method
     public WebElement getDescription(String needText) {
-        return FindElement.elementByAttribute("//div[text()='" + needText + "']", InputType.XPath);
+        return Deprecated.locate("//div[text()='" + needText + "']");
     }
 
     public void clickAddTriggerButton() {
-        scrollToElementJS(find(greenAddTriggerButton));
+        Deprecated.scrollToElementJS(Utilities.locate(greenAddTriggerButton));
         click(greenAddTriggerButton);
     }
 
     public void selectTriggerType(String triggerType) {
-        waitUntileElementIsVisible(triggerTypeDropDown);
-        selectFromDropDown(triggerType, triggerTypeDropDown);
+        waitVisible(triggerTypeDropDown);
+        Utilities.selectByText(triggerTypeDropDown, triggerType);
     }
 
     public void typeTriggerDescription(String description) {
         delay(500);
-        type(description, descriptionField);
+        Deprecated.type(description, descriptionField);
     }
 
     public void typeStartDate(String date) {
-        elementIsVisible(startDateField);
-        type(date, find(startDateField));
+        isVisible(startDateField);
+        Deprecated.type(date, Utilities.locate(startDateField));
     }
 
     public void setAllTriggersToNotActive(String active, String notActive){
-        List<WebElement> listOfActiveValues = findElements(activeColumnValues);
+        List<WebElement> listOfActiveValues = locateAll(activeColumnValues);
         for(WebElement activeValue : listOfActiveValues) {
             if (activeValue.getText().equals(active)) {
                 String activeDataValue = activeValue.getText();
                 System.out.println(activeDataValue);
-                find(editTriggerButton).click();
-                selectFromDropDown(notActive, activeDropDown);
+                Utilities.locate(editTriggerButton).click();
+                Utilities.selectByText(activeDropDown, notActive);
                 click(saveTriggerButton);
             }
         }
     }
 
     public void clickToRemoveAction() {
-        if (elementIsVisible(removeActionButton)) {
-            scrollToElementJS(removeActionButton);
+        if (isVisible(removeActionButton)) {
+            Deprecated.scrollToElementJS(removeActionButton);
             click(removeActionButton);
         }
     }
 
     public boolean isExistingTriggerAvailable(String description, String date){
-        List<WebElement> listOfDescriptionValues = findElements(descriptionColumnValues);
+        List<WebElement> listOfDescriptionValues = locateAll(descriptionColumnValues);
         By editButton = By.xpath("//div[@id='triggerRulesTable']/div[2]//div[text()='"+ description +"']//following::span");
         for(WebElement descriptionValue : listOfDescriptionValues) {
-            scrollToElementJS(descriptionValue);
+            Deprecated.scrollToElementJS(descriptionValue);
             if (descriptionValue.getText().equals(description)) {
                 delay(1000);
-                scrollToElementJS(editButton);
-                find(editButton).click();
+                Deprecated.scrollToElementJS(editButton);
+                Utilities.locate(editButton).click();
                 typeStartDate(date);
-                selectFromDropDown("Active", activeDropDown);
+                Utilities.selectByText(activeDropDown, "Active");
                 clickToRemoveAction();
                 return true;
             }
@@ -205,7 +203,7 @@ public class TriggerRules extends PreferencesPage {
            clickAddTriggerButton();
            selectTriggerType(triggerType);
            typeTriggerDescription(description);
-           selectFromDropDown("Active", activeDropDown);
+           Utilities.selectByText(activeDropDown, "Active");
            delay(1000);
            typeStartDate(date);
        }
@@ -216,7 +214,7 @@ public class TriggerRules extends PreferencesPage {
     }
 
     public String getTriggerURL(String triggerName) {
-        String officeID = find(selectedOffice).getAttribute("value");
+        String officeID = Utilities.locate(selectedOffice).getAttribute("value");
         return getData("url", environment) + "resources/scripts/" + triggerName +
                 ".php?debug=1&office=" + officeID + "&testing=1";
 
@@ -232,14 +230,14 @@ public class TriggerRules extends PreferencesPage {
     }
 
     public void editExistingTrigger(String description) {
-        List<WebElement> listOfDescriptionValues = findElements(descriptionColumnValues);
+        List<WebElement> listOfDescriptionValues = locateAll(descriptionColumnValues);
         By editButton = By.xpath("//div[@id='triggerRulesTable']/div[2]//div[text()='"+ description +"']//following::span");
         for(WebElement descriptionValue : listOfDescriptionValues) {
-            scrollToElementJS(descriptionValue);
+            Deprecated.scrollToElementJS(descriptionValue);
             if (descriptionValue.getText().equals(description)) {
                 delay(1000);
-                scrollToElementJS(editButton);
-                find(editButton).click();
+                Deprecated.scrollToElementJS(editButton);
+                Utilities.locate(editButton).click();
                 break;
             }
         }

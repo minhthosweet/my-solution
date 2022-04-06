@@ -1,15 +1,13 @@
 package automation.PestRoutes.PageObject.Leads;
 
 import automation.PestRoutes.PageObject.BasePage;
-import automation.PestRoutes.Utilities.FindElement;
-import automation.PestRoutes.Utilities.FindElement.InputType;
-import automation.PestRoutes.Utilities.Utilities;
-import automation.PestRoutes.Utilities.Utilities.ElementType;
+import automation.PestRoutes.Utilities.*;
+import automation.PestRoutes.Utilities.Deprecated;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import static automation.PestRoutes.Utilities.Utilities.*;
+import static automation.PestRoutes.Utilities.GetWebDriver.*;
 
 public class LeadsPage extends BasePage {
 	public String statusDropdown = "//select[@id='leadStatusAction']";
@@ -81,19 +79,19 @@ public class LeadsPage extends BasePage {
 	 * Below methods clicks an element/select value from dropdown
 	 */
 	public void clickButton(String needButton) {
-		Utilities.waitUntileElementIsVisible(needButton);
-		Utilities.clickElement(needButton, ElementType.XPath);
+		Deprecated.waitVisible(needButton);
+		Deprecated.clickElement(needButton);
 	}
 	public void selectValueFromDropdown(String needDropDown, String needValue) {
-		Utilities.waitUntileElementIsVisible(needDropDown);
-		Utilities.selectValueFromDropDownByValue(needDropDown, needValue);
+		Deprecated.waitVisible(needDropDown);
+		Deprecated.selectByText(needDropDown, needValue);
 	}
 	
 	public void selectAdditionalItem(String needButton, String needItem) {
-		Utilities.waitUntileElementIsVisible(needButton);
-		Utilities.clickElement(needButton, ElementType.XPath);
-		Utilities.waitUntileElementIsVisible("//span[text()=  '"+needItem+"']");
-		Utilities.clickElement("//span[text()=  '"+needItem+"']", ElementType.XPath);
+		Deprecated.waitVisible(needButton);
+		Deprecated.clickElement(needButton);
+		Deprecated.waitVisible("//span[text()=  '"+needItem+"']");
+		Deprecated.clickElement("//span[text()=  '"+needItem+"']");
 	}
 	
 	/*
@@ -101,10 +99,10 @@ public class LeadsPage extends BasePage {
 	 * Below method sets value to given input field
 	 */
 	public void setInputField(String needInputField, String needValue) {
-		Utilities.waitUntileElementIsVisible(needInputField);
-		Utilities.clearField(needInputField);
-		Utilities.highLight(needInputField);
-		FindElement.elementByAttribute(needInputField, InputType.XPath).sendKeys(needValue);
+		Deprecated.waitVisible(needInputField);
+		Deprecated.clearField(needInputField);
+		Deprecated.highLight(needInputField);
+		Deprecated.locate(needInputField).sendKeys(needValue);
 	}
 	
 	/*
@@ -112,44 +110,44 @@ public class LeadsPage extends BasePage {
 	 * Below method gets the text value of an element
 	 */
 	public String getValueOfAnElement(String needElement) {
-		Utilities.waitUntileElementIsVisible(needElement);
-		return Utilities.getElementTextValue(needElement, ElementType.XPath);
+		Deprecated.waitVisible(needElement);
+		return Deprecated.getElementTextValue(needElement);
 	}
 	public String getValueOfAnElementByAttribute(String needElement) {
-		Utilities.waitUntileElementIsVisible(needElement);
-		return Utilities.getAttributeValue(needElement, "value");
+		Deprecated.waitVisible(needElement);
+		return Deprecated.getAttribute(needElement, "value");
 	}
 
 	public void clickNewQuote() {
-		click(newQuoteButton);
+		Utilities.click(newQuoteButton);
 	}
 
 	public void selectServiceType(String serviceType) {
-		selectFromDropDown(serviceType, serviceTypeDropDown);
+		Utilities.selectByText(serviceTypeDropDown, serviceType);
 	}
 
 	public void selectFrequency(String frequency) {
-		selectFromDropDown(frequency, frequencyDropDown);
+		Utilities.selectByText(frequencyDropDown, frequency);
 	}
 
 	public void selectBilling(String billing) {
-		selectFromDropDown(billing, billingDropDown);
+		Utilities.selectByText(billingDropDown, billing);
 	}
 
 	public void typeRecurringServiceTypeAmount(String serviceTypeAmount) {
-		delay(1000);
-		type(serviceTypeAmount, recurringServiceTypeAmountField);
+		Utilities.delay(1000);
+		Deprecated.type(serviceTypeAmount, recurringServiceTypeAmountField);
 	}
 
 	public String getRecurringServiceTypeAmount() {
-		String serviceTypeAmount = find(recurringServiceTypeAmountField).getAttribute("value");
+		String serviceTypeAmount = Utilities.locate(recurringServiceTypeAmountField).getAttribute("value");
 		return serviceTypeAmount;
 	}
 
 	public String getRecurringCustomProduction() {
 		wait.until(ExpectedConditions.visibilityOfElementLocated(standardProductionButton));
-		click(standardProductionButton);
+		Utilities.click(standardProductionButton);
 		wait.until(ExpectedConditions.visibilityOfElementLocated(customProductionField));
-		return find(customProductionField).getAttribute("value");
+		return Utilities.locate(customProductionField).getAttribute("value");
 	}
 }

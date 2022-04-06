@@ -7,10 +7,9 @@ import org.testng.annotations.Test;
 import automation.PestRoutes.PageObject.Admin.PreferencesTab.OfficeSettingsTab.TriggerTypes.TriggerRules;
 import automation.PestRoutes.PageObject.Admin.PreferencesTab.OfficeSettingsTab.TriggerTypes.ReminderTab;
 import automation.PestRoutes.PageObject.Admin.PreferencesTab.OfficeSettingsTab.TriggerTypes.SubscriptionStatusTab;
-import automation.PestRoutes.Utilities.BaseClass;
 
 //This TC requires FieldRoutes Intervention
-public class TriggerOnCheckIn_Reminder extends BaseClass {
+public class TriggerOnCheckIn_Reminder {
 	CreateTrigger_Reminder createReminder = new CreateTrigger_Reminder();
 	TriggerRules triggerAdmin;
 	SubscriptionStatusTab subscriptionStatus;

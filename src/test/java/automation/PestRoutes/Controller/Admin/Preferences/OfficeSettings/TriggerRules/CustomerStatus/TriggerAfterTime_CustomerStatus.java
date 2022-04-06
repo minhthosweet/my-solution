@@ -2,18 +2,17 @@ package automation.PestRoutes.Controller.Admin.Preferences.OfficeSettings.Trigge
 
 import java.io.IOException;
 
+import automation.PestRoutes.Utilities.*;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.testng.annotations.Test;
 import automation.PestRoutes.PageObject.Admin.PreferencesTab.OfficeSettingsTab.TriggerTypes.TriggerRules;
 import automation.PestRoutes.PageObject.Admin.PreferencesTab.OfficeSettingsTab.TriggerTypes.SubscriptionStatusTab;
-import automation.PestRoutes.Utilities.BaseClass;
-import automation.PestRoutes.Utilities.Utilities;
 
 // need to run query before the trigger
 // update customers set dateCancelled = '[previous day]' where customerID = [Customer ID];
 
-public class TriggerAfterTime_CustomerStatus extends BaseClass {
+public class TriggerAfterTime_CustomerStatus {
 
     TriggerOnSave_CustomerStatus triggerOnSave = new TriggerOnSave_CustomerStatus();
     SubscriptionStatusTab subscriptionStatus;
@@ -103,7 +102,7 @@ public class TriggerAfterTime_CustomerStatus extends BaseClass {
     // Run script
     @When("I execute the trigger customer status script")
     public void hitTriggerCustomerStatus() {
-        Utilities.navigateToUrl("https://adityam.pestroutes.com/resources/scripts/triggerCustomerStatus.php");
+        GetWebDriver.navigateToUrl("https://adityam.pestroutes.com/resources/scripts/triggerCustomerStatus.php");
     }
 
     public void assertFrozen_allActions() throws IOException, Exception {

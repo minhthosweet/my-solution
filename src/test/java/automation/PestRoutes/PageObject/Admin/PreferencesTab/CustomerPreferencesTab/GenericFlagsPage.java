@@ -1,6 +1,8 @@
 package automation.PestRoutes.PageObject.Admin.PreferencesTab.CustomerPreferencesTab;
 
 import automation.PestRoutes.PageObject.BasePage;
+import automation.PestRoutes.Utilities.*;
+import automation.PestRoutes.Utilities.Deprecated;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
@@ -16,19 +18,19 @@ public class GenericFlagsPage extends BasePage {
     private By genericFlagCodeColumnValues = By.xpath("//div[@id='newPreferenceBody']//li/form/div[1]");
 
     public void clickGenericFlagButton() {
-        click(genericFlagButton);
+        Utilities.click(genericFlagButton);
     }
 
     public void typeGenericFlagCode(String genericFlagCode) {
-        type(genericFlagCode, genericFlagCodeField);
+        Deprecated.type(genericFlagCode, genericFlagCodeField);
     }
 
     public void typeGenericFlagDescription(String description) {
-        type(description, descriptionField);
+        Deprecated.type(description, descriptionField);
     }
 
     public void clickSave() {
-        click(saveButton);
+        Utilities.click(saveButton);
     }
 
     public void createCustomerGenericFlag(String flagCode, String flagDescription) {
@@ -43,7 +45,7 @@ public class GenericFlagsPage extends BasePage {
     }
 
     public boolean isGenericFlagDisplayed(String flagCode) {
-        List<WebElement> allGenericFlags = findElements(genericFlagCodeColumnValues);
+        List<WebElement> allGenericFlags = Utilities.locateAll(genericFlagCodeColumnValues);
 
         for (WebElement genericFlag : allGenericFlags) {
             String convertedFlagCode = genericFlag.getText().replaceAll(".+\n", "");
@@ -55,6 +57,6 @@ public class GenericFlagsPage extends BasePage {
     }
 
     public String getGenericFlagCode() {
-        return getText(genericFlagCodeField);
+        return Utilities.getText(genericFlagCodeField);
     }
 }

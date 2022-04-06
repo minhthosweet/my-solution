@@ -26,8 +26,8 @@ public class OfficeSettingsObjects extends BasePage {
 
     public void navigateTo(By subComponent)
     {
-        Utilities.elementIsVisible(subComponent);
-        click(subComponent);
-        delay(500);
+        Utilities.isVisible(subComponent);
+        Utilities.click(subComponent);
+        Utilities.delay(500);
     }
 }

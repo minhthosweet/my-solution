@@ -1,8 +1,7 @@
 package automation.PestRoutes.PageObject.Scheduling;
 
-import automation.PestRoutes.Utilities.AppData;
-import automation.PestRoutes.Utilities.FindElement;
-import automation.PestRoutes.Utilities.Utilities;
+import automation.PestRoutes.Utilities.Data.*;
+import automation.PestRoutes.Utilities.Deprecated;
 import org.openqa.selenium.Keys;
 
 import java.util.HashMap;
@@ -50,69 +49,69 @@ public class JobPoolTab extends AppData {
     }
 
     public void selectFilter(String needFilterType, String needValue) {
-        Utilities.selectValueFromDropDownByValue(needFilterType, needValue);
+        Deprecated.selectByText(needFilterType, needValue);
     }
 
     public void clickRefreshButton() {
-        Utilities.waitUntileElementIsVisible(refreshButton);
-        Utilities.clickElement(refreshButton, Utilities.ElementType.XPath);
+        Deprecated.waitVisible(refreshButton);
+        Deprecated.clickElement(refreshButton);
     }
 
     public void clickAdvanceFilterButton() {
-        Utilities.waitUntileElementIsVisible(advanceToggleButton);
-        Utilities.clickElement(advanceToggleButton, Utilities.ElementType.XPath);
+        Deprecated.waitVisible(advanceToggleButton);
+        Deprecated.clickElement(advanceToggleButton);
     }
 
     public void clickPlayButton(String chooseNameFromConst) {
-        Utilities.waitUntileElementIsVisible("//tr[@customername='"+chooseNameFromConst+"']//td/div");
-        Utilities.clickElement("//tr[@customername='"+chooseNameFromConst+"']//td/div", Utilities.ElementType.XPath);
+        Deprecated.waitVisible("//tr[@customername='"+chooseNameFromConst+"']//td/div");
+        Deprecated.clickElement("//tr[@customername='"+chooseNameFromConst+"']//td/div");
     }
 
 
     public void setDate(String needFilterType) {
-        String todaysDate = Utilities.currentDate("MM/dd/yy");
-        Utilities.clearField(needFilterType);
-        Utilities.highLight(needFilterType);
-        FindElement.elementByAttribute(needFilterType, FindElement.InputType.XPath).sendKeys(todaysDate);
-        FindElement.elementByAttribute(needFilterType, FindElement.InputType.XPath).sendKeys(Keys.ENTER);
+        String todaysDate = GetDate.currentDate("MM/dd/yy");
+        Deprecated.clearField(needFilterType);
+        Deprecated.highLight(needFilterType);
+        Deprecated.locate(needFilterType).sendKeys(todaysDate);
+        Deprecated.locate(needFilterType).sendKeys(Keys.ENTER);
     }
 
     public void setInputFilter(String needFilterType, String needValue) {
-        FindElement.elementByAttribute(needFilterType, FindElement.InputType.XPath).sendKeys(needValue);
+        Deprecated.locate(needFilterType).sendKeys(needValue);
     }
 
     public String getCustomerName(String chooseNameFromConst) {
-        String elm = Utilities.getElementTextValue("//tr[@customername='"+chooseNameFromConst+"']//td/following-sibling::td[2]", Utilities.ElementType.XPath);
+        String elm = Deprecated.getElementTextValue("//tr[@customername='"+chooseNameFromConst+"']//td/following-sibling::td[2]");
         return elm;
     }
 
     public String getCustomerPhone(String chooseNameFromConst) {
-        String elm = Utilities.getElementTextValue("//tr[@customername='"+chooseNameFromConst+"']//td/following-sibling::td[6]", Utilities.ElementType.XPath);
+        String elm = Deprecated.getElementTextValue("//tr[@customername='"+chooseNameFromConst+"']//td/following-sibling::td[6]");
         return elm;
     }
 
     public String getCustomerStreet(String chooseNameFromConst) {
-        String elm = Utilities.getElementTextValue("//tr[@customername='"+chooseNameFromConst+"']//td/following-sibling::td[7]", Utilities.ElementType.XPath);
+        String elm = Deprecated.getElementTextValue("//tr[@customername='"+chooseNameFromConst+"']//td/following-sibling::td[7]");
         return elm;
     }
 
     public String getCustomerCity(String chooseNameFromConst) {
-        String elm = Utilities.getElementTextValue("//tr[@customername='"+chooseNameFromConst+"']//td/following-sibling::td[8]", Utilities.ElementType.XPath);
+        String elm = Deprecated.getElementTextValue("//tr[@customername='"+chooseNameFromConst+"']//td/following-sibling::td[8]");
         return elm;
     }
 
     public String getCustomerZip(String chooseNameFromConst) {
-        String elm = Utilities.getElementTextValue("//tr[@customername='"+chooseNameFromConst+"']//td/following-sibling::td[9]", Utilities.ElementType.XPath);
+        String elm = Deprecated.getElementTextValue("//tr[@customername='"+chooseNameFromConst+"']//td/following-sibling::td[9]");
         return elm;
     }
 
     public String getCustomerRegion(String chooseNameFromConst) {
-        String elm = Utilities.getElementTextValue("//tr[@customername='"+chooseNameFromConst+"']//td/following-sibling::td[12]", Utilities.ElementType.XPath);
+        String elm = Deprecated.getElementTextValue("//tr[@customername='"+chooseNameFromConst+"']//td/following-sibling::td[12]");
         return elm;
     }
 
     public String getServiceType(String chooseNameFromConst) {
-        String elm = Utilities.getElementTextValue("//tr[@customername='"+chooseNameFromConst+"']//td/following-sibling::td[13]", Utilities.ElementType.XPath);
+        String elm = Deprecated.getElementTextValue("//tr[@customername='"+chooseNameFromConst+"']//td/following-sibling::td[13]");
         return elm;
     }
 

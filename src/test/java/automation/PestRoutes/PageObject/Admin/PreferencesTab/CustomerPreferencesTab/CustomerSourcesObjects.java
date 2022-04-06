@@ -1,7 +1,6 @@
 package automation.PestRoutes.PageObject.Admin.PreferencesTab.CustomerPreferencesTab;
 
-import automation.PestRoutes.Utilities.FindElement;
-import automation.PestRoutes.Utilities.Utilities;
+import automation.PestRoutes.Utilities.Deprecated;
 
 public class CustomerSourcesObjects {
 
@@ -15,17 +14,17 @@ public class CustomerSourcesObjects {
     }
 
     public void clickNewCustomerSource() {
-        Utilities.waitUntileElementIsVisible(clickNewCustomerSource);
-        Utilities.clickElement(clickNewCustomerSource, Utilities.ElementType.XPath);
+        Deprecated.waitVisible(clickNewCustomerSource);
+        Deprecated.clickElement(clickNewCustomerSource);
     }
 
     public void setCustomerSourceName(String needCustomerSourceName) {
-        Utilities.waitUntileElementIsVisible(customerSourcesName);
-        FindElement.elementByAttribute(customerSourcesName, FindElement.InputType.XPath).sendKeys(needCustomerSourceName);
+        Deprecated.waitVisible(customerSourcesName);
+        Deprecated.locate(customerSourcesName).sendKeys(needCustomerSourceName);
     }
 
     public static void clickSaveButton() {
-        Utilities.waitUntileElementIsVisible(FormObjects.saveButton);
-        Utilities.clickElement(FormObjects.saveButton, Utilities.ElementType.XPath);
+        Deprecated.waitVisible(FormObjects.saveButton);
+        Deprecated.clickElement(FormObjects.saveButton);
     }
 }

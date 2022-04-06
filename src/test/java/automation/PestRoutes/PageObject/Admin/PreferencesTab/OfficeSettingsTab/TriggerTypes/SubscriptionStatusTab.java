@@ -1,14 +1,12 @@
 package automation.PestRoutes.PageObject.Admin.PreferencesTab.OfficeSettingsTab.TriggerTypes;
 
 import automation.PestRoutes.PageObject.Admin.PreferencesTab.PreferencesPage;
-import automation.PestRoutes.Utilities.Utilities;
-import automation.PestRoutes.Utilities.Utilities.ElementType;
+import automation.PestRoutes.Utilities.*;
+import automation.PestRoutes.Utilities.Deprecated;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import java.util.List;
-
-import static automation.PestRoutes.Utilities.Utilities.*;
 
 public class SubscriptionStatusTab extends PreferencesPage {
 	// Subscription Status Filter Objects
@@ -40,46 +38,46 @@ public class SubscriptionStatusTab extends PreferencesPage {
 
 	// Getters: get actual text value for action created(used for assertions)
 	public String getSendEmployeeEmailActionTextValue() {
-		return Utilities.getElementTextValue(sendEmployeeEmail_actual, ElementType.XPath);
+		return Deprecated.getElementTextValue(sendEmployeeEmail_actual);
 	}
 
 	public String getAddAlertActionTextValue() {
-		return Utilities.getElementTextValue(addAlert_actual, ElementType.XPath);
+		return Deprecated.getElementTextValue(addAlert_actual);
 	}
 
 	public String getAddTaskActionTextValue() {
-		return Utilities.getElementTextValue(addTask_actual, ElementType.XPath);
+		return Deprecated.getElementTextValue(addTask_actual);
 	}
 
 	public String getSendEmploeeSMSActionTextValue() {
-		return Utilities.getElementTextValue(sendEmployeeSMS_actual, ElementType.XPath);
+		return Deprecated.getElementTextValue(sendEmployeeSMS_actual);
 	}
 
 	public String getSendEmployeeVoiceActionTextValue() {
-		return Utilities.getElementTextValue(sendEmployeeVoice_actual, ElementType.XPath);
+		return Deprecated.getElementTextValue(sendEmployeeVoice_actual);
 	}
 
 	public void selectWhenToTrigger(String whenToTriggerValue) {
-		scrollToElementJS(By.xpath(whenToTrigger));
-		selectFromDropDown(whenToTriggerValue, By.xpath(whenToTrigger));
+		Deprecated.scrollToElementJS(By.xpath(whenToTrigger));
+		Utilities.selectByText(By.xpath(whenToTrigger), whenToTriggerValue);
 	}
 
 	public void selectStatusChangedTo(String changeStatus) {
-		scrollToElementJS(By.xpath(statusChangedTo));
-		selectFromDropDown(changeStatus, By.xpath(statusChangedTo));
+		Deprecated.scrollToElementJS(By.xpath(statusChangedTo));
+		Utilities.selectByText(By.xpath(statusChangedTo), changeStatus);
 		System.out.println("Subscription Status Changed To " + changeStatus);
 	}
 
 	    public boolean typeIncludeCustomerFlag(String flagCode) {
-        List<WebElement> allFlags = findElements(By.xpath("//label[text()='Include Customer Flags']/parent::div[@class='col-6']//following-sibling::div/div//ul//div"));
-        WebElement includeCustomerFlagsMultiField = find(includeCustomerFlagsMultiDropDown);
+        List<WebElement> allFlags = Utilities.locateAll(By.xpath("//label[text()='Include Customer Flags']/parent::div[@class='col-6']//following-sibling::div/div//ul//div"));
+        WebElement includeCustomerFlagsMultiField = Utilities.locate(includeCustomerFlagsMultiDropDown);
         for (WebElement flag : allFlags) {
             if (flag.getText().contains(flagCode)) {
                 return true;
             }
         }
-        scrollToElementJS(includeCustomerFlagsMultiField);
-        type(flagCode, includeCustomerFlagsMultiField);
+        Deprecated.scrollToElementJS(includeCustomerFlagsMultiField);
+        Deprecated.type(flagCode, includeCustomerFlagsMultiField);
         System.out.println("Customer Flag: " + flagCode);
         return false;
     }

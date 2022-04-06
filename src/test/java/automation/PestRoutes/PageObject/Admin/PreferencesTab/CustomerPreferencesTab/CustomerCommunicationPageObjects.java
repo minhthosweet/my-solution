@@ -1,7 +1,8 @@
 package automation.PestRoutes.PageObject.Admin.PreferencesTab.CustomerPreferencesTab;
 
 import automation.PestRoutes.PageObject.BasePage;
-import automation.PestRoutes.Utilities.Utilities;
+import automation.PestRoutes.Utilities.*;
+import automation.PestRoutes.Utilities.Deprecated;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
@@ -435,20 +436,20 @@ public class CustomerCommunicationPageObjects extends BasePage {
     //--------------------------------------------------------
     public void loadCustomCommunciationTab() throws InterruptedException {
         //Load Preferences Page
-        click(lnkPreferences);
+        Utilities.click(lnkPreferences);
 
         //Verify Page is loaded and navigate to the "Customer Communication" Screen
-        if( Utilities.isTextPresent(PREFERENCES_PAGE_TITLE)) {
+        if( Deprecated.isTextPresent(PREFERENCES_PAGE_TITLE)) {
             //Close the Default Displayed Menu Section (Office Settings) on initial load
             By lnkOfficeSettings = By.xpath("//h2[@id='office']");
-            click(lnkOfficeSettings);
+            Utilities.click(lnkOfficeSettings);
 
             //Allow menu to close
             Thread.sleep(2000);
 
             //Click the (Customer Preferences > Communication) links in the Left Navigation Menu
-            click(menulnkCustomerPreferences);
-            click(lnkCustomerCommunication);
+            Utilities.click(menulnkCustomerPreferences);
+            Utilities.click(lnkCustomerCommunication);
         }
         else
         {
@@ -505,10 +506,10 @@ public class CustomerCommunicationPageObjects extends BasePage {
         saveField(lnkSave_EmailAppointmentReminderTemplate);
 
         //Require Electronic Consent Agreement -  Electronic Consent Content
-        Utilities.scrollToElementJS(lnkEdit_RequireElectronicConsentAgreement); //(Note: Navigated to the previous field to make sure the desired field is displayed)
-        click(lnkEdit_RequireElectronicConsentAgreement);
+        Deprecated.scrollToElementJS(lnkEdit_RequireElectronicConsentAgreement); //(Note: Navigated to the previous field to make sure the desired field is displayed)
+        Utilities.click(lnkEdit_RequireElectronicConsentAgreement);
         Utilities.checkBox(chkboxRequireElectronicConsentAgreement);
-        type(String.valueOf(testData.get(keyElectronicConsentContent).toString()),rtextareaElectronicConsentContent);
+        Deprecated.type(String.valueOf(testData.get(keyElectronicConsentContent).toString()),rtextareaElectronicConsentContent);
         saveField(lnkSave_RequireElectronicConsentAgreement);
         //updateField(String.valueOf(testData.get(keyElectronicConsentContent).toString()),rtextareaElectronicConsentContent,RTEXTAREA,lnkEdit_InvoiceFooterText);
 
@@ -588,16 +589,16 @@ public class CustomerCommunicationPageObjects extends BasePage {
     }//updateAllFields()
 
     public void updateTimeWindow(By timeRange, String startTime, String endTime, By editBtn) throws Exception{
-        List<WebElement> windowTimes= findElements(timeRange);
+        List<WebElement> windowTimes= Utilities.locateAll(timeRange);
         try {
             //Scroll to and click Edit
-            Utilities.scrollToElementJS(editBtn);
-            click(editBtn);
+            Deprecated.scrollToElementJS(editBtn);
+            Utilities.click(editBtn);
 
             //Enter Start Time
-            type(startTime, windowTimes.get(0));
+            Deprecated.type(startTime, windowTimes.get(0));
             //Enter Start Time
-            type(endTime, windowTimes.get(1));
+            Deprecated.type(endTime, windowTimes.get(1));
         }catch (Exception exp){}
 
     }//updateTimeWindow()
@@ -683,7 +684,7 @@ public class CustomerCommunicationPageObjects extends BasePage {
 
     public void updateDeliverySettingsSection(HashMap<String, String> testData) throws Exception {
         //Scroll to the "Delivery Settings (SMS, Voice and Email)" Section
-        Utilities.scrollToElementJS(lblDeliverySettingsSection);
+        Deprecated.scrollToElementJS(lblDeliverySettingsSection);
 
         //SMS Window
         updateTimeWindow(inputSMSWindow_StartAndEndTimes,String.valueOf(testData.get(keySMSWindow_sTime).toString()),
@@ -729,8 +730,8 @@ public class CustomerCommunicationPageObjects extends BasePage {
 
         //Scroll to and click Edit Button]
         if (editBtn != null) {
-            Utilities.scrollToElementJS(editBtn);
-            click(editBtn);
+            Deprecated.scrollToElementJS(editBtn);
+            Utilities.click(editBtn);
         }
 
 
@@ -738,7 +739,7 @@ public class CustomerCommunicationPageObjects extends BasePage {
         try {
             switch (fieldType) {
                 case DROP_DOWN:
-                    selectFromDropDown(value,webElmField);
+                    Utilities.selectByText(webElmField, value);
                     boolUpdateFlag = true;
                 break;
 
@@ -746,7 +747,7 @@ public class CustomerCommunicationPageObjects extends BasePage {
                 case TEXTAREA:
                 case RTEXTAREA:
                     //System.out.println("*******Input Data: " + value);
-                    type(value,webElmField);
+                    Deprecated.type(value,webElmField);
                     boolUpdateFlag = true;
                 break;
 
@@ -762,13 +763,13 @@ public class CustomerCommunicationPageObjects extends BasePage {
 
     public void blockDays (By daysToBlockLbls, By daysToBlockChks ,String channel, String days, By editBtn) {
         String[] blockDayArray = days.split(",");
-        List<WebElement> blockedDayLbls = findElements(daysToBlockLbls);
-        List<WebElement> blockedDayChkboxs = findElements(daysToBlockChks);
+        List<WebElement> blockedDayLbls = Utilities.locateAll(daysToBlockLbls);
+        List<WebElement> blockedDayChkboxs = Utilities.locateAll(daysToBlockChks);
         String  xpathDayStr = "";
 
         //Scroll to and click Edit Button
-        Utilities.scrollToElementJS(lblDeliverySettingsSection);
-        click(editBtn);
+        Deprecated.scrollToElementJS(lblDeliverySettingsSection);
+        Utilities.click(editBtn);
 
         //Check blocked day...
         for ( String strDay : blockDayArray)
@@ -786,8 +787,8 @@ public class CustomerCommunicationPageObjects extends BasePage {
                             xpathDayStr = "//*[@id='newPreferenceBody']//input[@name='" + strDay.toLowerCase() + "PhoneBlocked']";
                         break;
                     }
-                    if(!Utilities.isChecked(xpathDayStr))
-                        Utilities.clickElement(xpathDayStr, Utilities.ElementType.XPath);
+                    if(!Deprecated.isChecked(xpathDayStr))
+                        Deprecated.clickElement(xpathDayStr);
                     break;
                 }
              }
@@ -796,8 +797,8 @@ public class CustomerCommunicationPageObjects extends BasePage {
 
     public boolean saveField(By saveBtn) {
         try {
-            Utilities.scrollToElementJS(saveBtn);
-            click(saveBtn);
+            Deprecated.scrollToElementJS(saveBtn);
+            Utilities.click(saveBtn);
 
             //Wait to Save Process Completes
             Thread.sleep(2000);
@@ -812,37 +813,37 @@ public class CustomerCommunicationPageObjects extends BasePage {
         int startTimeIndx = 0;
         int endTimeIndx = 1;
         String strByValue = "value";
-        List<WebElement>  smsTimeWindow = findElements(inputSMSWindow_StartAndEndTimes);
-        List<WebElement>  voiceTimeWindow = findElements(inputVoiceWindow_StartAndEndTimes);
-        List<WebElement>  emailTimeWindow = findElements(inputEmailWindow_StartAndEndTimes);
+        List<WebElement>  smsTimeWindow = Utilities.locateAll(inputSMSWindow_StartAndEndTimes);
+        List<WebElement>  voiceTimeWindow = Utilities.locateAll(inputVoiceWindow_StartAndEndTimes);
+        List<WebElement>  emailTimeWindow = Utilities.locateAll(inputEmailWindow_StartAndEndTimes);
         String genericErrorMsg = " The Saved value did not match the entered value...";
 
         try {
-            Utilities.scrollToElementJS(lblCustomerPreferencesSection);
+            Deprecated.scrollToElementJS(lblCustomerPreferencesSection);
 
             //******************** Customer Preferences *******************
             //Open the Customer Preferences Section
-            click(lnkEdit_CustomerPreferences);
+            Utilities.click(lnkEdit_CustomerPreferences);
 
             //Verify All Fields were saved successfully
-            Assert.assertEquals( getSelectedOptionFromDropDown(dropdwnDefaultSMS),String.valueOf(testData.get(keyDefaultSMS).toString()), "(" + keyDefaultSMS + "): " + genericErrorMsg);
-            Assert.assertEquals( getSelectedOptionFromDropDown(dropdwnDefaultVoice),String.valueOf(testData.get(keyDefaultVoice).toString()), "(" + keyDefaultVoice + "): " + genericErrorMsg);
-            Assert.assertEquals( getSelectedOptionFromDropDown(dropdwnDefaultEmail),String.valueOf(testData.get(keyDefaultEmail).toString()), "(" + keyDefaultEmail + "): "+ genericErrorMsg);
-            Assert.assertEquals( getSelectedOptionFromDropDown(dropdwnPortalAccess),String.valueOf(testData.get(keyPortalAccess).toString()), "(" + keyPortalAccess + "): " + genericErrorMsg);
-            Assert.assertEquals( getSelectedOptionFromDropDown(dropdwnPortalFileUploads),String.valueOf(testData.get(keyPortalFileUploads).toString()), "(" + keyPortalFileUploads + "): " + genericErrorMsg);
-            Assert.assertEquals( getSelectedOptionFromDropDown(dropdwnPortalLinksAutoLogin),String.valueOf(testData.get(keyPortalLinksAutoLogin).toString()), "(" + keyPortalLinksAutoLogin + "): " + genericErrorMsg);
-            Assert.assertEquals( getSelectedOptionFromDropDown(dropdwnEnableOnlinePayments),String.valueOf(testData.get(keyEnableOnlinePayments).toString()), "(" + keyEnableOnlinePayments + "): " + genericErrorMsg);
-            Assert.assertEquals( getSelectedOptionFromDropDown(dropdwnAttachInvoiceToEmail),String.valueOf(testData.get(keyAttachInvoiceToEmail).toString()), "(" + keyAttachInvoiceToEmail + "): " + genericErrorMsg);
-            Assert.assertEquals( getSelectedOptionFromDropDown(dropdwnShowInvoiceOnServiceNotification_Followup),String.valueOf(testData.get(keyShowInvoiceOnServiceNotificationFollowup).toString()), "(" + keyShowInvoiceOnServiceNotificationFollowup + "): " + genericErrorMsg);
-            Assert.assertEquals( getSelectedOptionFromDropDown(dropdwnVoiceCallSecretary),String.valueOf(testData.get(keyVoiceCallSecretary).toString()), "(" + keyVoiceCallSecretary + "): " + genericErrorMsg);
-            Assert.assertEquals( getSelectedOptionFromDropDown(dropdwnEmailPaymentReceipts),String.valueOf(testData.get(keyEmailPaymentReceipts).toString()), "(" + keyEmailPaymentReceipts + "): " + genericErrorMsg);
-            Assert.assertEquals( getSelectedOptionFromDropDown(dropdwnSMSReplyAutoResponse),String.valueOf(testData.get(keySMSReplyAutoResponse).toString()), "(" + keySMSReplyAutoResponse + "): " + genericErrorMsg);
-            Assert.assertEquals( getSelectedOptionFromDropDown(dropdwnIncludeAppointmentNotesOnServiceNotification),String.valueOf(testData.get(keyIncludeAppointmentNotesOnServiceNotification).toString()), "(" + keyIncludeAppointmentNotesOnServiceNotification + "): " + genericErrorMsg);
-            Assert.assertEquals( getSelectedOptionFromDropDown(dropdwnServiceFollowupEmail_CustPref),String.valueOf(testData.get(keyServiceFollowupEmail_CustomPref).toString()), "(" + keyServiceFollowupEmail_CustomPref + "): " + genericErrorMsg);
-            Assert.assertEquals( getSelectedOptionFromDropDown(dropdwnVoiceReminderConfirmation),String.valueOf(testData.get(keyVoiceReminderConfirmation).toString()), "(" + keyVoiceReminderConfirmation + "): " + genericErrorMsg);
-            Assert.assertEquals( getSelectedOptionFromDropDown(dropdwnShowInvoiceOnServiceNotification_Followup),String.valueOf(testData.get(keyShowInvoiceOnServiceNotificationFollowup).toString()), "(" + keyShowInvoiceOnServiceNotificationFollowup + "): " + genericErrorMsg);
-            Assert.assertEquals( getSelectedOptionFromDropDown(dropdwnVoipService),String.valueOf(testData.get(keyVoipService).toString()), "(" + keyVoipService + "): " + genericErrorMsg);
-            Assert.assertEquals( getByGetAttribute(inputVoipHostURL,strByValue),String.valueOf(testData.get(keyVoipHostURL).toString()), "(" + keyVoipHostURL + "): " + genericErrorMsg);
+            Assert.assertEquals( Utilities.getFirstSelected(dropdwnDefaultSMS),String.valueOf(testData.get(keyDefaultSMS).toString()), "(" + keyDefaultSMS + "): " + genericErrorMsg);
+            Assert.assertEquals( Utilities.getFirstSelected(dropdwnDefaultVoice),String.valueOf(testData.get(keyDefaultVoice).toString()), "(" + keyDefaultVoice + "): " + genericErrorMsg);
+            Assert.assertEquals( Utilities.getFirstSelected(dropdwnDefaultEmail),String.valueOf(testData.get(keyDefaultEmail).toString()), "(" + keyDefaultEmail + "): "+ genericErrorMsg);
+            Assert.assertEquals( Utilities.getFirstSelected(dropdwnPortalAccess),String.valueOf(testData.get(keyPortalAccess).toString()), "(" + keyPortalAccess + "): " + genericErrorMsg);
+            Assert.assertEquals( Utilities.getFirstSelected(dropdwnPortalFileUploads),String.valueOf(testData.get(keyPortalFileUploads).toString()), "(" + keyPortalFileUploads + "): " + genericErrorMsg);
+            Assert.assertEquals( Utilities.getFirstSelected(dropdwnPortalLinksAutoLogin),String.valueOf(testData.get(keyPortalLinksAutoLogin).toString()), "(" + keyPortalLinksAutoLogin + "): " + genericErrorMsg);
+            Assert.assertEquals( Utilities.getFirstSelected(dropdwnEnableOnlinePayments),String.valueOf(testData.get(keyEnableOnlinePayments).toString()), "(" + keyEnableOnlinePayments + "): " + genericErrorMsg);
+            Assert.assertEquals( Utilities.getFirstSelected(dropdwnAttachInvoiceToEmail),String.valueOf(testData.get(keyAttachInvoiceToEmail).toString()), "(" + keyAttachInvoiceToEmail + "): " + genericErrorMsg);
+            Assert.assertEquals( Utilities.getFirstSelected(dropdwnShowInvoiceOnServiceNotification_Followup),String.valueOf(testData.get(keyShowInvoiceOnServiceNotificationFollowup).toString()), "(" + keyShowInvoiceOnServiceNotificationFollowup + "): " + genericErrorMsg);
+            Assert.assertEquals( Utilities.getFirstSelected(dropdwnVoiceCallSecretary),String.valueOf(testData.get(keyVoiceCallSecretary).toString()), "(" + keyVoiceCallSecretary + "): " + genericErrorMsg);
+            Assert.assertEquals( Utilities.getFirstSelected(dropdwnEmailPaymentReceipts),String.valueOf(testData.get(keyEmailPaymentReceipts).toString()), "(" + keyEmailPaymentReceipts + "): " + genericErrorMsg);
+            Assert.assertEquals( Utilities.getFirstSelected(dropdwnSMSReplyAutoResponse),String.valueOf(testData.get(keySMSReplyAutoResponse).toString()), "(" + keySMSReplyAutoResponse + "): " + genericErrorMsg);
+            Assert.assertEquals( Utilities.getFirstSelected(dropdwnIncludeAppointmentNotesOnServiceNotification),String.valueOf(testData.get(keyIncludeAppointmentNotesOnServiceNotification).toString()), "(" + keyIncludeAppointmentNotesOnServiceNotification + "): " + genericErrorMsg);
+            Assert.assertEquals( Utilities.getFirstSelected(dropdwnServiceFollowupEmail_CustPref),String.valueOf(testData.get(keyServiceFollowupEmail_CustomPref).toString()), "(" + keyServiceFollowupEmail_CustomPref + "): " + genericErrorMsg);
+            Assert.assertEquals( Utilities.getFirstSelected(dropdwnVoiceReminderConfirmation),String.valueOf(testData.get(keyVoiceReminderConfirmation).toString()), "(" + keyVoiceReminderConfirmation + "): " + genericErrorMsg);
+            Assert.assertEquals( Utilities.getFirstSelected(dropdwnShowInvoiceOnServiceNotification_Followup),String.valueOf(testData.get(keyShowInvoiceOnServiceNotificationFollowup).toString()), "(" + keyShowInvoiceOnServiceNotificationFollowup + "): " + genericErrorMsg);
+            Assert.assertEquals( Utilities.getFirstSelected(dropdwnVoipService),String.valueOf(testData.get(keyVoipService).toString()), "(" + keyVoipService + "): " + genericErrorMsg);
+            Assert.assertEquals( Utilities.getAttribute(inputVoipHostURL,strByValue),String.valueOf(testData.get(keyVoipHostURL).toString()), "(" + keyVoipHostURL + "): " + genericErrorMsg);
 
             //******************** Delivery Settings (SMS, Voice and Email) *******************
             //Scroll to and open the Delivery Settings (SMS, Voice and Email) Section
@@ -854,107 +855,107 @@ public class CustomerCommunicationPageObjects extends BasePage {
             Assert.assertEquals(voiceTimeWindow.get(endTimeIndx).getAttribute(strByValue).toString(),String.valueOf(testData.get(keyVoiceWindow_eTime).toString()), "(" + keyVoiceWindow_eTime + "): " + genericErrorMsg);
             Assert.assertEquals(emailTimeWindow.get(startTimeIndx).getAttribute(strByValue).toString(),String.valueOf(testData.get(keyEmailWindow_sTime).toString()), "(" + keyEmailWindow_sTime + "): " + genericErrorMsg);
             Assert.assertEquals(emailTimeWindow.get(endTimeIndx).getAttribute(strByValue).toString(),String.valueOf(testData.get(keyEmailWindow_eTime).toString()), "(" + keyEmailWindow_eTime + "): " + genericErrorMsg);
-            Assert.assertEquals( getByGetAttribute(inputMaxSMSPerMinute,strByValue).toString(),String.valueOf(testData.get(keyMaxSMSPerMinute).toString()), "(" + keyMaxSMSPerMinute + "): " + genericErrorMsg);
-            Assert.assertEquals( getByGetAttribute(inputMaxVoicePerMinute,strByValue).toString(),String.valueOf(testData.get(keyMaxVoicePerMinute).toString()), "(" + keyMaxVoicePerMinute + "): " + genericErrorMsg);
-            Assert.assertEquals( getByGetAttribute(inputMaxEmailPerMinute,strByValue).toString(),String.valueOf(testData.get(keyMaxEmailPerMinute).toString()), "(" + keyMaxEmailPerMinute + "): " + genericErrorMsg);
+            Assert.assertEquals( Utilities.getAttribute(inputMaxSMSPerMinute,strByValue).toString(),String.valueOf(testData.get(keyMaxSMSPerMinute).toString()), "(" + keyMaxSMSPerMinute + "): " + genericErrorMsg);
+            Assert.assertEquals( Utilities.getAttribute(inputMaxVoicePerMinute,strByValue).toString(),String.valueOf(testData.get(keyMaxVoicePerMinute).toString()), "(" + keyMaxVoicePerMinute + "): " + genericErrorMsg);
+            Assert.assertEquals( Utilities.getAttribute(inputMaxEmailPerMinute,strByValue).toString(),String.valueOf(testData.get(keyMaxEmailPerMinute).toString()), "(" + keyMaxEmailPerMinute + "): " + genericErrorMsg);
             savedBlockedWindowCheck(keyBlockedDaysForSendingTextTriggers,String.valueOf(testData.get(keyBlockedDaysForSendingTextTriggers).toString()));
             savedBlockedWindowCheck(keyBlockedDaysForSendingPhoneTriggers,String.valueOf(testData.get(keyBlockedDaysForSendingPhoneTriggers).toString()));
 
             //Enhanced Answering Machine Detection
             navigateToAndClickBtn(lnkEdit_EnhancedAnsweringMachineDetection, lnkEdit_EnhancedAnsweringMachineDetection);
-            Assert.assertEquals( getSelectedOptionFromDropDown(dropdwnEnhancedAnsweringMachineDetection),String.valueOf(testData.get(keyEnhancedAnsweringMachineDetection).toString()), "(" + keyEnhancedAnsweringMachineDetection + "): " + genericErrorMsg);
+            Assert.assertEquals( Utilities.getFirstSelected(dropdwnEnhancedAnsweringMachineDetection),String.valueOf(testData.get(keyEnhancedAnsweringMachineDetection).toString()), "(" + keyEnhancedAnsweringMachineDetection + "): " + genericErrorMsg);
 
             //Account Statement Tear Sheet
             navigateToAndClickBtn(lnkEdit_AccountStatementTearSheet, lnkEdit_AccountStatementTearSheet);
-            Assert.assertEquals( getSelectedOptionFromDropDown(dropdwnAccountStatementTearSheet),String.valueOf(testData.get(keyAccountStatementTearSheet).toString()), "(" + keyAccountStatementTearSheet + "): " + genericErrorMsg);
+            Assert.assertEquals( Utilities.getFirstSelected(dropdwnAccountStatementTearSheet),String.valueOf(testData.get(keyAccountStatementTearSheet).toString()), "(" + keyAccountStatementTearSheet + "): " + genericErrorMsg);
 
             //Accounts Receivable Hold Time - Residential Customers , Commercial Customers
             navigateToAndClickBtn(lnkEdit_AccountsReceivableHoldTime, lnkEdit_AccountsReceivableHoldTime);
-            Assert.assertEquals( getByGetAttribute(inputResidentialCustomers,strByValue),String.valueOf(testData.get(keyResidentialCustomers).toString()), "(" + keyResidentialCustomers + "): " + genericErrorMsg);
-            Assert.assertEquals( getByGetAttribute(inputCommercialCustomers,strByValue),String.valueOf(testData.get(keyCommercialCustomers).toString()), "(" + keyCommercialCustomers + "): " + genericErrorMsg);
+            Assert.assertEquals( Utilities.getAttribute(inputResidentialCustomers,strByValue),String.valueOf(testData.get(keyResidentialCustomers).toString()), "(" + keyResidentialCustomers + "): " + genericErrorMsg);
+            Assert.assertEquals( Utilities.getAttribute(inputCommercialCustomers,strByValue),String.valueOf(testData.get(keyCommercialCustomers).toString()), "(" + keyCommercialCustomers + "): " + genericErrorMsg);
 
             //SMS Appointment Reminder Template
             navigateToAndClickBtn(lnkEdit_SMSAppointmentReminderTemplate, lnkEdit_SMSAppointmentReminderTemplate);
-            Assert.assertEquals(getByGetAttribute(textareaSMSAppointmentReminderTemplate,strByValue),String.valueOf(testData.get(keySMSAppointmentReminderTemplate).toString()), "(" + keySMSAppointmentReminderTemplate + "): " + genericErrorMsg);
+            Assert.assertEquals(Utilities.getAttribute(textareaSMSAppointmentReminderTemplate,strByValue),String.valueOf(testData.get(keySMSAppointmentReminderTemplate).toString()), "(" + keySMSAppointmentReminderTemplate + "): " + genericErrorMsg);
 
             //SMS Reply Auto Response [Confirmed Appointment]
             navigateToAndClickBtn(lnkEdit_SMSReplyAutoResponse_ConfirmAppt, lnkEdit_SMSReplyAutoResponse_ConfirmAppt);
-            Assert.assertEquals(getByGetAttribute(textareaSMSReplyAutoResponse_ConfirmAppt,strByValue),String.valueOf(testData.get(keySMSReplyAutoResponseConfirmedAppt).toString()), "(" + keySMSReplyAutoResponseConfirmedAppt + "): " + genericErrorMsg);
+            Assert.assertEquals(Utilities.getAttribute(textareaSMSReplyAutoResponse_ConfirmAppt,strByValue),String.valueOf(testData.get(keySMSReplyAutoResponseConfirmedAppt).toString()), "(" + keySMSReplyAutoResponseConfirmedAppt + "): " + genericErrorMsg);
 
             //SMS Reply Auto Response [Default]
             navigateToAndClickBtn(lnkEdit_SMSReplyAutoResponse_Default, lnkEdit_SMSReplyAutoResponse_Default);
-            Assert.assertEquals(getByGetAttribute(textareaSMSReplyAutoResponse_Default,strByValue),String.valueOf(testData.get(keySMSReplyAutoResponseDefault).toString()), "(" + keySMSReplyAutoResponseDefault + "): " + genericErrorMsg);
+            Assert.assertEquals(Utilities.getAttribute(textareaSMSReplyAutoResponse_Default,strByValue),String.valueOf(testData.get(keySMSReplyAutoResponseDefault).toString()), "(" + keySMSReplyAutoResponseDefault + "): " + genericErrorMsg);
 
             //Invoice Footer Text
             navigateToAndClickBtn(lblInvoiceFooterText, lnkEdit_InvoiceFooterText);
-            Assert.assertEquals(Utilities.getInnerText(rtextareaInvoiceFooterText).trim(),String.valueOf(testData.get(keyInvoiceFooterText).toString()), "(" + keyInvoiceFooterText + "): " + genericErrorMsg);
+            Assert.assertEquals(Utilities.jsGetText(rtextareaInvoiceFooterText).trim(),String.valueOf(testData.get(keyInvoiceFooterText).toString()), "(" + keyInvoiceFooterText + "): " + genericErrorMsg);
 
             //Statement and Invoice Footer Text (Note: Navigated to the previous field to make sure the desired field is displayed)
             navigateToAndClickBtn(lblInvoiceFooterText, lnkEdit_StatementAndInvoiceFooterText);
-            Assert.assertEquals(Utilities.getInnerText(rtextareaStatementAndInvoiceFooterText).trim(),String.valueOf(testData.get(keyStatementAndInvoiceFooterText).toString()), "(" + keyStatementAndInvoiceFooterText + "): " + genericErrorMsg);
+            Assert.assertEquals(Utilities.jsGetText(rtextareaStatementAndInvoiceFooterText).trim(),String.valueOf(testData.get(keyStatementAndInvoiceFooterText).toString()), "(" + keyStatementAndInvoiceFooterText + "): " + genericErrorMsg);
 
             //Email Appointment Reminder Template (Note: Navigated to the previous field to make sure the desired field is displayed)
             navigateToAndClickBtn(lblStatementAndInvoiceFooterText, lnkEdit_EmailAppointmentReminderTemplate);
-            Assert.assertEquals(Utilities.getInnerText(rtextareaEmailAppointmentReminderTemplate).trim(),String.valueOf(testData.get(keyEmailAppointmentReminderTemplate).toString()), "(" + keyEmailAppointmentReminderTemplate + "): " + genericErrorMsg);
+            Assert.assertEquals(Utilities.jsGetText(rtextareaEmailAppointmentReminderTemplate).trim(),String.valueOf(testData.get(keyEmailAppointmentReminderTemplate).toString()), "(" + keyEmailAppointmentReminderTemplate + "): " + genericErrorMsg);
 
             //Require Electronic Consent Agreement
-            click(lnkEdit_RequireElectronicConsentAgreement);
+            Utilities.click(lnkEdit_RequireElectronicConsentAgreement);
             Utilities.checkBox(chkboxRequireElectronicConsentAgreement);
-            Assert.assertEquals(Utilities.getInnerText(rtextareaElectronicConsentContent).trim(),String.valueOf(testData.get(keyElectronicConsentContent).toString()), "(" + keyElectronicConsentContent + "): " + genericErrorMsg);
+            Assert.assertEquals(Utilities.jsGetText(rtextareaElectronicConsentContent).trim(),String.valueOf(testData.get(keyElectronicConsentContent).toString()), "(" + keyElectronicConsentContent + "): " + genericErrorMsg);
 
             //Agreement Signature Email Subject
             navigateToAndClickBtn(lblRequireElectronicConsentAgreement, lnkEdit_AgreementSignatureEmailSubject);
-            Assert.assertEquals(getByGetAttribute(textareaAgreementSignatureEmailSubject,strByValue),String.valueOf(testData.get(keyAgreementSignatureEmailSubject).toString()), "(" + keyAgreementSignatureEmailSubject + "): " + genericErrorMsg);
+            Assert.assertEquals(Utilities.getAttribute(textareaAgreementSignatureEmailSubject,strByValue),String.valueOf(testData.get(keyAgreementSignatureEmailSubject).toString()), "(" + keyAgreementSignatureEmailSubject + "): " + genericErrorMsg);
 
            //Agreement Signature Email Body
            navigateToAndClickBtn(lblAgreementSignatureEmailBody, lnkEdit_AgreementSignatureEmailBody);
-           Assert.assertEquals(Utilities.getInnerText(rtextareaAgreementSignatureEmailBody).trim(),String.valueOf(testData.get(keyAgreementSignatureEmailBody).toString()), "(" + keyEmailAppointmentReminderTemplate + "): " + genericErrorMsg);
+           Assert.assertEquals(Utilities.jsGetText(rtextareaAgreementSignatureEmailBody).trim(),String.valueOf(testData.get(keyAgreementSignatureEmailBody).toString()), "(" + keyEmailAppointmentReminderTemplate + "): " + genericErrorMsg);
 
            //Allow Contracts via SMS Text - dropdown , Agreement Signature SMS Text Body
            navigateToAndClickBtn(lblAgreementSignatureEmailBody, lnkEdit_AllowContractsViaSMSText);
-           Assert.assertEquals(getSelectedOptionFromDropDown(dropdwnAllowContractsViaSMSText),String.valueOf(testData.get(keyAllowContractsViaSMSText).toString()), "(" + keyAllowContractsViaSMSText + "): " + genericErrorMsg);
-           Assert.assertEquals(getByGetAttribute(textareaAgreementSignatureSMSTextBody,strByValue), String.valueOf(testData.get(keyAgreementSignatureSMSTextBody).toString()),"(" + keyAgreementSignatureSMSTextBody + "): " + genericErrorMsg);
+           Assert.assertEquals(Utilities.getFirstSelected(dropdwnAllowContractsViaSMSText),String.valueOf(testData.get(keyAllowContractsViaSMSText).toString()), "(" + keyAllowContractsViaSMSText + "): " + genericErrorMsg);
+           Assert.assertEquals(Utilities.getAttribute(textareaAgreementSignatureSMSTextBody,strByValue), String.valueOf(testData.get(keyAgreementSignatureSMSTextBody).toString()),"(" + keyAgreementSignatureSMSTextBody + "): " + genericErrorMsg);
 
             //Service Follow-up Email
             navigateToAndClickBtn(lblServiceFollowupEmail, lnkEdit_ServiceFollowupEmail);
-            Assert.assertEquals(Utilities.getInnerText(rtextareaServiceFollowupEmail).trim(),String.valueOf(testData.get(keyServiceFollowupEmail).toString().trim()), "(" + keyServiceFollowupEmail + "): " + genericErrorMsg);
+            Assert.assertEquals(Utilities.jsGetText(rtextareaServiceFollowupEmail).trim(),String.valueOf(testData.get(keyServiceFollowupEmail).toString().trim()), "(" + keyServiceFollowupEmail + "): " + genericErrorMsg);
 
             //Service Notifications Notes / Caution Statements (Note: Navigated to the previous field to make sure the desired field is displayed)
             navigateToAndClickBtn(lblAllowContractsViaSMSText, lnkEdit_ServiceNotificationsNotes_CautionStatements);
-            Assert.assertEquals(Utilities.getInnerText(rtextareaServiceNotificationsNotes_CautionStatements).trim(),String.valueOf(testData.get(keyServiceNotificationsNotesCautionStatements).toString().trim()), "(" + keyServiceNotificationsNotesCautionStatements + "): " + genericErrorMsg);
+            Assert.assertEquals(Utilities.jsGetText(rtextareaServiceNotificationsNotes_CautionStatements).trim(),String.valueOf(testData.get(keyServiceNotificationsNotesCautionStatements).toString().trim()), "(" + keyServiceNotificationsNotesCautionStatements + "): " + genericErrorMsg);
 
             //Custom Review Header  (Note: Navigated to the previous field to make sure the desired field is displayed)
             navigateToAndClickBtn(lblServiceNotificationsNotes_CautionStatements, lnkEdit_CustomReviewHeader);
-            Assert.assertEquals(getByGetAttribute(textareaCustomReviewHeader,strByValue), String.valueOf(testData.get(keyCustomReviewHeader).toString()),"(" + keyCustomReviewHeader + "): " + genericErrorMsg);
+            Assert.assertEquals(Utilities.getAttribute(textareaCustomReviewHeader,strByValue), String.valueOf(testData.get(keyCustomReviewHeader).toString()),"(" + keyCustomReviewHeader + "): " + genericErrorMsg);
 
             //Custom Review Message (Note: Navigated to the previous field to make sure the desired field is displayed)
             navigateToAndClickBtn(lblCustomReviewHeader, lnkEdit_CustomReviewMessage);
-            Assert.assertEquals(Utilities.getInnerText(rtextareaCustomReviewMessage).trim(), String.valueOf(testData.get(keyCustomReviewMessage).toString()),"(" + keyCustomReviewMessage + "): " + genericErrorMsg);
+            Assert.assertEquals(Utilities.jsGetText(rtextareaCustomReviewMessage).trim(), String.valueOf(testData.get(keyCustomReviewMessage).toString()),"(" + keyCustomReviewMessage + "): " + genericErrorMsg);
 
             //Review link option, Custom Review Link (Note: Navigated to the previous field to make sure the desired field is displayed)
             navigateToAndClickBtn(lblCustomReviewHeader, lnkEdit_ReviewlinkOption);
-            Assert.assertEquals(getSelectedOptionFromDropDown(dropdwnReviewlinkOption),String.valueOf(testData.get(keyReviewlinkOption).toString()), "(" + keyReviewlinkOption + "): " + genericErrorMsg);
-            Assert.assertEquals(getByGetAttribute(inputCustomReviewLink, strByValue), String.valueOf(testData.get(keyCustomReviewLink).toString()),"(" + keyCustomReviewLink + "): " + genericErrorMsg);
+            Assert.assertEquals(Utilities.getFirstSelected(dropdwnReviewlinkOption),String.valueOf(testData.get(keyReviewlinkOption).toString()), "(" + keyReviewlinkOption + "): " + genericErrorMsg);
+            Assert.assertEquals(Utilities.getAttribute(inputCustomReviewLink, strByValue), String.valueOf(testData.get(keyCustomReviewLink).toString()),"(" + keyCustomReviewLink + "): " + genericErrorMsg);
 
             //Custom Email Blurb (Note: Navigated to the previous field to make sure the desired field is displayed)
             navigateToAndClickBtn(lblReviewlinkOption, lnkEdit_CustomEmailBlurb);
-            Assert.assertEquals(Utilities.getInnerText(rtextareaCustomEmailBlurb).trim(), String.valueOf(testData.get(keyCustomEmailBlurb).toString()),"(" + keyCustomEmailBlurb + "): " + genericErrorMsg);
+            Assert.assertEquals(Utilities.jsGetText(rtextareaCustomEmailBlurb).trim(), String.valueOf(testData.get(keyCustomEmailBlurb).toString()),"(" + keyCustomEmailBlurb + "): " + genericErrorMsg);
 
             //Customer Portal Sign Agreement Welcome Message (Note: Navigated to the previous field to make sure the desired field is displayed)
             navigateToAndClickBtn(lblCustomEmailBlurb, lnkEdit_CustomerPortalSignAgreementWelcomeMessage);
-            Assert.assertEquals(Utilities.getInnerText(rtextareaCustomerPortalSignAgreementWelcomeMessage).trim(), String.valueOf(testData.get(keyCustomerPortalSignAgreementWelcomeMessage).toString()),"(" + keyCustomerPortalSignAgreementWelcomeMessage + "): " + genericErrorMsg);
+            Assert.assertEquals(Utilities.jsGetText(rtextareaCustomerPortalSignAgreementWelcomeMessage).trim(), String.valueOf(testData.get(keyCustomerPortalSignAgreementWelcomeMessage).toString()),"(" + keyCustomerPortalSignAgreementWelcomeMessage + "): " + genericErrorMsg);
 
             //Customer Portal Sign Form Welcome Message (Note: Navigated to the previous field to make sure the desired field is displayed)
             navigateToAndClickBtn(lblCustomerPortalSignAgreementWelcomeMessage, lnkEdit_CustomerPortalSignFormWelcomeMessage);
-            Assert.assertEquals(Utilities.getInnerText(rtextareaCustomerPortalSignFormWelcomeMessage).trim(), String.valueOf(testData.get(keyCustomerPortalSignFormWelcomeMessage).toString()),"(" + keyCustomerPortalSignFormWelcomeMessage + "): " + genericErrorMsg);
+            Assert.assertEquals(Utilities.jsGetText(rtextareaCustomerPortalSignFormWelcomeMessage).trim(), String.valueOf(testData.get(keyCustomerPortalSignFormWelcomeMessage).toString()),"(" + keyCustomerPortalSignFormWelcomeMessage + "): " + genericErrorMsg);
 
             //SalesRoutes and Customer Portal Contract Agreement Message (Note: Navigated to the previous field to make sure the desired field is displayed)
             navigateToAndClickBtn(lblCustomerPortalSignFormWelcomeMessage, lnkEdit_SalesRoutesAndCustomerPortalContractAgreementMessage);
-            Assert.assertEquals(Utilities.getInnerText(rtextareaSalesRoutesAndCustomerPortalContractAgreementMessage).trim(), String.valueOf(testData.get(keySalesRoutesAndCustomerPortalContractAgreementMessage).toString()),"(" + keySalesRoutesAndCustomerPortalContractAgreementMessage + "): " + genericErrorMsg);
+            Assert.assertEquals(Utilities.jsGetText(rtextareaSalesRoutesAndCustomerPortalContractAgreementMessage).trim(), String.valueOf(testData.get(keySalesRoutesAndCustomerPortalContractAgreementMessage).toString()),"(" + keySalesRoutesAndCustomerPortalContractAgreementMessage + "): " + genericErrorMsg);
 
             //SalesRoutes and Customer Portal Auto Payment Message (Note: Navigated to the previous field to make sure the desired field is displayed)
             navigateToAndClickBtn(lblCustomerPortalSignFormWelcomeMessage, lnkEdit_SalesRoutesAndCustomerPortalAutoPaymentMessage);
-            Assert.assertEquals(Utilities.getInnerText(rtextareaSalesRoutesAndCustomerPortalAutoPaymentMessage).trim(), String.valueOf(testData.get(keySalesRoutesAndCustomerPortalAutoPaymentMessage).toString()),"(" + keySalesRoutesAndCustomerPortalAutoPaymentMessage + "): " + genericErrorMsg);
+            Assert.assertEquals(Utilities.jsGetText(rtextareaSalesRoutesAndCustomerPortalAutoPaymentMessage).trim(), String.valueOf(testData.get(keySalesRoutesAndCustomerPortalAutoPaymentMessage).toString()),"(" + keySalesRoutesAndCustomerPortalAutoPaymentMessage + "): " + genericErrorMsg);
 
 /* Comment out CA WDO- fields because they are not configured in offices
             //CA WDO Pre Findings and Recommendations Legal (Note: Navigated to the previous field to make sure the desired field is displayed)
@@ -976,8 +977,8 @@ public class CustomerCommunicationPageObjects extends BasePage {
     }//verifySaveProcess()
 
     protected void navigateToAndClickBtn(By scrollToElem, By btn) throws InterruptedException {
-        Utilities.scrollToElementJS(scrollToElem);
-        click(btn);
+        Deprecated.scrollToElementJS(scrollToElem);
+        Utilities.click(btn);
     }//navigateToAndClickBtn()
 
     protected void savedBlockedWindowCheck(String windowSection, String savedBlockedDays) throws InterruptedException {

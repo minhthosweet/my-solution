@@ -11,10 +11,11 @@ import automation.PestRoutes.PageObject.Admin.PreferencesTab.PreferencesPage;
 import automation.PestRoutes.PageObject.CustomerOverview.*;
 import automation.PestRoutes.PageObject.DashboardPage;
 import automation.PestRoutes.PageObject.Header;
-import automation.PestRoutes.Utilities.AppData;
-import automation.PestRoutes.Utilities.GetDate;
-import static automation.PestRoutes.Utilities.GetDate.*;
-import automation.PestRoutes.Utilities.Utilities;
+import automation.PestRoutes.Utilities.Data.AppData;
+import automation.PestRoutes.Utilities.Data.GetDate;
+import static automation.PestRoutes.Utilities.Data.GetDate.*;
+import static automation.PestRoutes.Utilities.GetWebDriver.*;
+
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -25,8 +26,6 @@ import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
 import java.text.ParseException;
-
-import static automation.PestRoutes.Utilities.Utilities.*;
 
 public class AR_Age extends AppData {
 
@@ -53,7 +52,7 @@ public class AR_Age extends AppData {
     private String description_TriggerAge = "TriggerAge_AR";
     public String age = "1";
     public static String genericFlag;
-    public String todaysDate = Utilities.currentDate("MM/dd/yy");
+    public String todaysDate = currentDate("MM/dd/yy");
 
     @Test
     public void daysPastDue_AR() throws Exception {
@@ -79,7 +78,7 @@ public class AR_Age extends AppData {
     @When("I create customer with Invoice")
     public void createCustomerWithInvoice() throws Exception {
         invoiceTab = new InvoicingTab();
-        invoiceTab.addNewInvoice(GetDate.minusOneDayToDate(Utilities.currentDate("MM/dd/yyyy")));
+        invoiceTab.addNewInvoice(GetDate.minusOneDayToDate(currentDate("MM/dd/yyyy")));
     }
 
     @When("I execute the trigger event script")
@@ -136,7 +135,6 @@ public class AR_Age extends AppData {
     @And("I Execute Trigger {string}")
     public void automateExecutingTriggerWithEndPoint(String triggerName) {
         String resetTrigger = userOnTriggerRulesPage.resetMostRecentDateTrigger();
-        WebDriver driver = new ChromeDriver();
         driver.get(resetTrigger);
 
         String triggerURL = userOnTriggerRulesPage.getTriggerURL(triggerName);

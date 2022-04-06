@@ -2,6 +2,8 @@ package automation.PestRoutes.Controller.Admin.Preferences.ServiceRelated;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import automation.PestRoutes.Utilities.Data.*;
 import org.testng.annotations.Test;
 
 import automation.PestRoutes.PageObject.Header;
@@ -9,11 +11,9 @@ import automation.PestRoutes.PageObject.Admin.AdminMainPage;
 import automation.PestRoutes.PageObject.Admin.PreferencesTab.ServiceRelatedTab.ProductTypes;
 import automation.PestRoutes.PageObject.Admin.PreferencesTab.PreferencesPage;
 import automation.PestRoutes.PageObject.Admin.PreferencesTab.ServiceRelatedTab.ServiceTypes;
-import automation.PestRoutes.Utilities.AssertException;
-import automation.PestRoutes.Utilities.BaseClass;
-import automation.PestRoutes.Utilities.Utilities;
+import automation.PestRoutes.Utilities.Report.AssertException;
 
-public class Product extends BaseClass {
+public class Product {
 
 	Header header = new Header();
 	AdminMainPage adminMainPage = new AdminMainPage();
@@ -22,8 +22,8 @@ public class Product extends BaseClass {
 	ServiceTypes serviceTypes = new ServiceTypes();
 	public List list = new ArrayList<String>();
 
-	private String productName = Utilities.generateRandomString(4).toUpperCase();
-	private String productLabel = Utilities.generateRandomString(4).toUpperCase();
+	private String productName = GetData.generateRandomString(4).toUpperCase();
+	private String productLabel = GetData.generateRandomString(4).toUpperCase();
 
 	@Test
 	public void validateProduct() throws InterruptedException {
@@ -47,7 +47,7 @@ public class Product extends BaseClass {
 		productAdmin.setDefaultDilution("10%");
 		productAdmin.setUnit(productAdmin.dilutedUnit_placeHolder, productAdmin.fluidOunces);
 		productAdmin.setMeasurementType(productAdmin.volume);
-		productAdmin.setManufacturer(Utilities.generateRandomString(4));
+		productAdmin.setManufacturer(GetData.generateRandomString(4));
 		productAdmin.setSentriconBait(productAdmin.no);
 		productAdmin.setUnit(productAdmin.inventoryUnit_placeHolder, productAdmin.fluidOunces);
 		productAdmin.setNumerator("75", productAdmin.fluidOunces);

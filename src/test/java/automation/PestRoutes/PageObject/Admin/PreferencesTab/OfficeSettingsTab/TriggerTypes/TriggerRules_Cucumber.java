@@ -3,8 +3,7 @@ package automation.PestRoutes.PageObject.Admin.PreferencesTab.OfficeSettingsTab.
 import automation.PestRoutes.PageObject.Header;
 import automation.PestRoutes.PageObject.Admin.AdminMainPage;
 import automation.PestRoutes.PageObject.ReportingPage.Inventory.InventoryTab;
-import automation.PestRoutes.Utilities.GetDate;
-import automation.PestRoutes.Utilities.Utilities;
+import automation.PestRoutes.Utilities.Data.*;
 import io.cucumber.java.en.And;
 
 public class TriggerRules_Cucumber {
@@ -33,7 +32,7 @@ public class TriggerRules_Cucumber {
 		// Negative Scenario
 		triggerAdmin.setStartDate(startDate);
 		triggerAdmin.selectDropdown(triggerAdmin.triggerTypeDropdown, typeOfTrigger);
-		triggerAdmin.setEndDate(Utilities.currentDate("MM/dd/yyyy"));
+		triggerAdmin.setEndDate(GetDate.currentDate("MM/dd/yyyy"));
 		triggerAdmin.clickSaveButton();
 	}
 
@@ -41,11 +40,11 @@ public class TriggerRules_Cucumber {
 	public void update_with_positive_scenarios() throws InterruptedException, Exception {
 		System.out.println(inventory.removeAlertText());
 		inventory.removeAlertAccept();
-		triggerAdmin.setStartDate(Utilities.currentDate("MM/dd/yyyy"));
+		triggerAdmin.setStartDate(GetDate.currentDate("MM/dd/yyyy"));
 		triggerAdmin.clickSaveButton();
 		System.out.println(inventory.removeAlertText());
 		inventory.removeAlertAccept();
-		triggerAdmin.setEndDate(GetDate.addOneYearToDate(Utilities.currentDate("MM/dd/yyyy")));
+		triggerAdmin.setEndDate(GetDate.addOneYearToDate(GetDate.currentDate("MM/dd/yyyy")));
 	}
 
 	@And("set before_AfterDropdowm to Before Expiration Date")
@@ -133,7 +132,7 @@ public class TriggerRules_Cucumber {
 
 	@And("I enter subject")
 	public void i_enter_subject() {
-		triggerActions.enterSubjectText(Utilities.generateRandomString(5));
+		triggerActions.enterSubjectText(GetData.generateRandomString(5));
 	}
 
 	@And("I select Snail Mail")

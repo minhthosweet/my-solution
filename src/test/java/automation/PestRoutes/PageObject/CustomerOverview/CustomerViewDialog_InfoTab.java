@@ -1,8 +1,8 @@
 package automation.PestRoutes.PageObject.CustomerOverview;
 
-import automation.PestRoutes.Controller.CustomerCreation.CreateNewCustomer;
 import automation.PestRoutes.PageObject.BasePage;
-import automation.PestRoutes.Utilities.Utilities;
+import automation.PestRoutes.Utilities.*;
+import automation.PestRoutes.Utilities.Deprecated;
 import org.openqa.selenium.By;
 
 public class CustomerViewDialog_InfoTab extends BasePage {
@@ -21,68 +21,68 @@ public class CustomerViewDialog_InfoTab extends BasePage {
     private By genericFlagsDropDown = By.xpath("//select[@id= 'customerGenericFlags']");
 
     public String getTaxRate() {
-        String taxRatePercentage = Utilities.getAttributeValue(taxRate, "value");
+        String taxRatePercentage = Deprecated.getAttribute(taxRate, "value");
         return String.valueOf(taxRatePercentage.replaceAll("[%]", ""));
     }
 
     public String getFirstName() {
-        Utilities.waitUntileElementIsVisible(firstName);
-        return Utilities.getAttributeValue(firstName, "value");
+        Deprecated.waitVisible(firstName);
+        return Deprecated.getAttribute(firstName, "value");
     }
 
     public String getLastName() {
-        Utilities.waitUntileElementIsVisible(lastName);
-        return Utilities.getAttributeValue(lastName, "value");
+        Deprecated.waitVisible(lastName);
+        return Deprecated.getAttribute(lastName, "value");
     }
 
     public String getStreetAddress(){
-        return Utilities.getAttributeValue(address,"value");
+        return Deprecated.getAttribute(address,"value");
     }
 
     public String getCity(){
-        return Utilities.getAttributeValue(city,"value");
+        return Deprecated.getAttribute(city,"value");
     }
 
     public String getZip(){
-        return Utilities.getAttributeValue(zip,"value");
+        return Deprecated.getAttribute(zip,"value");
     }
 
     public String getState(){
-        return Utilities.getElementTextValue(state, Utilities.ElementType.XPath);
+        return Deprecated.getElementTextValue(state);
     }
 
     public String getCountry(){
-        return Utilities.getElementTextValue(country, Utilities.ElementType.XPath);
+        return Deprecated.getElementTextValue(country);
     }
 
     public String getCounty(){
-        return Utilities.getElementTextValue(county, Utilities.ElementType.XPath);
+        return Deprecated.getElementTextValue(county);
     }
 
     public String getPrimaryPhoneNumber(){
-        return Utilities.getAttributeValue(primaryPhoneNumber,"value");
+        return Deprecated.getAttribute(primaryPhoneNumber,"value");
     }
 
     public String getEmail(){
-        return Utilities.getAttributeValue(email, "value");
+        return Deprecated.getAttribute(email, "value");
     }
 
     public String getFlagOnCustomerCard() {
-        Utilities.waitUntileElementIsVisible(flagOnCustomerCard);
-        return Utilities.getElementTextValue(flagOnCustomerCard, Utilities.ElementType.XPath);
+        Deprecated.waitVisible(flagOnCustomerCard);
+        return Deprecated.getElementTextValue(flagOnCustomerCard);
     }
 
     public boolean getGenericFlag(String flag) {
         By genericFlag = By.xpath("//div[text()='"+ flag +"']");
-        if (find(genericFlag).isDisplayed()) {
-            System.out.println("Info Tab (Generic Flag): " + getText(genericFlag));
+        if (Utilities.locate(genericFlag).isDisplayed()) {
+            System.out.println("Info Tab (Generic Flag): " + Utilities.getText(genericFlag));
             return true;
         }
         return false;
     }
 
     public void selectCustomerGenericFlag(String flagCode) {
-        selectFromDropDown(flagCode, genericFlagsDropDown);
+        Utilities.selectByText(genericFlagsDropDown, flagCode);
     }
 
 }

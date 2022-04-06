@@ -5,8 +5,8 @@ import automation.PestRoutes.PageObject.Admin.AdminMainPage;
 import automation.PestRoutes.PageObject.Admin.PreferencesTab.CustomerPreferencesTab.GenericFlagsPage;
 import automation.PestRoutes.PageObject.Admin.PreferencesTab.MerchantInfoTab.MarchantInfoPage;
 import automation.PestRoutes.PageObject.Admin.PreferencesTab.OfficeSettingsTab.TriggerTypes.TriggerRules;
-import automation.PestRoutes.Utilities.Utilities;
-import automation.PestRoutes.Utilities.Utilities.ElementType;
+import automation.PestRoutes.Utilities.*;
+import automation.PestRoutes.Utilities.Deprecated;
 import org.openqa.selenium.By;
 
 import static automation.PestRoutes.Utilities.Utilities.*;
@@ -71,15 +71,15 @@ public class PreferencesPage extends AdminMainPage {
 	 * Below methods perform actions such as selecting from drop drown or click an object
 	 */
 	public void navigateTo(String needMenuArea, String needPage) throws InterruptedException {
-		Utilities.clickElement("//h2[@id='office']", ElementType.XPath);
+		Deprecated.clickElement("//h2[@id='office']");
 		Thread.sleep(300);
 		//Utilities.scrollToElement("//li[text()='WDO Findings']");
-		Utilities.waitUntileElementIsVisible(needMenuArea);
-		Utilities.clickElement(needMenuArea, ElementType.XPath);
+		Deprecated.waitVisible(needMenuArea);
+		Deprecated.clickElement(needMenuArea);
 		Thread.sleep(300);
-		Utilities.scrollToElementJS(needPage);
-		Utilities.waitUntileElementIsVisible(needPage);
-		Utilities.clickElement(needPage, ElementType.XPath);
+		Deprecated.scrollToElementJS(needPage);
+		Deprecated.waitVisible(needPage);
+		Deprecated.clickElement(needPage);
 	}
 
 	//*************** Setters **************
@@ -99,26 +99,26 @@ public class PreferencesPage extends AdminMainPage {
 
 	public void clickCustomerPreferences() {
 		delay(2000);
-		scrollToElementJS(find(customerPreferences));
+		Deprecated.scrollToElementJS(Utilities.locate(customerPreferences));
 		click(customerPreferences);
 	}
 
 	public GenericFlagsPage clickGenericFlags() {
-		elementIsVisible(genericFlagsListItem);
-		scrollToElementJS(genericFlagsListItem);
+		isVisible(genericFlagsListItem);
+		Deprecated.scrollToElementJS(genericFlagsListItem);
 		click(genericFlagsListItem);
 		return new GenericFlagsPage();
 	}
 
 	public TriggerRules clickTriggerRules() {
 		delay(2000);
-		scrollToElementJS(find(triggerRules));
+		Deprecated.scrollToElementJS(Utilities.locate(triggerRules));
 		click(triggerRules);
 		return new TriggerRules();
 	}
 
 	public void clickEdit_BillingPreferences(){
-		scrollToElementJS(find(lnkEdit_BillingPreferences));
+		Deprecated.scrollToElementJS(Utilities.locate(lnkEdit_BillingPreferences));
 		click(lnkEdit_BillingPreferences);
 	}//clickEdit_BillingPreferences()
 
@@ -131,6 +131,6 @@ public class PreferencesPage extends AdminMainPage {
 	}//clickSave_BillingPreferences()
 
 	public void selectUseConsolidatedInvoicing(String option){
-		selectFromDropDown(option, useConsolidatedInvoicing);
+		Utilities.selectByText(useConsolidatedInvoicing, option);
 	}//clickSave_BillingPreferences()
 }

@@ -1,11 +1,13 @@
 package automation.PestRoutes.PageObject.CustomerOverview;
 
 import automation.PestRoutes.PageObject.BasePage;
-import automation.PestRoutes.Utilities.FindElement;
-import automation.PestRoutes.Utilities.FindElement.InputType;
-import automation.PestRoutes.Utilities.Utilities;
-import automation.PestRoutes.Utilities.Utilities.ElementType;
+import automation.PestRoutes.Utilities.*;
+import automation.PestRoutes.Utilities.Data.*;
+
+import static automation.PestRoutes.Utilities.GetWebDriver.*;
 import static automation.PestRoutes.Utilities.Utilities.*;
+
+import automation.PestRoutes.Utilities.Deprecated;
 import org.apache.commons.lang3.SystemUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -136,220 +138,220 @@ public class CustomerViewDialog_SubscriptionTab extends BasePage {
 	 * Below methods click or select objects
 	 */
 	public void clickNewSubscriptionButton() {
-		Utilities.clickElement(newSubscriptionButton, ElementType.XPath);
+		Deprecated.clickElement(newSubscriptionButton);
 	}
 
 	public void clickNewSubscription() { click(newSubscription); }
 
 	public void clickButton(String needButton) {
-		Utilities.waitUntileElementIsVisible(needButton);
-		Utilities.clickElement(needButton, ElementType.XPath);
+		Deprecated.waitVisible(needButton);
+		Deprecated.clickElement(needButton);
 	}
 
 	public void clickActivateDeActivateButton() {
-		Utilities.waitUntileElementIsVisible(ActivateDeactivateButton);
-		Utilities.clickElement(ActivateDeactivateButton, ElementType.XPath);
+		Deprecated.waitVisible(ActivateDeactivateButton);
+		Deprecated.clickElement(ActivateDeactivateButton);
 	}
 
 	public void clickFreezeSubscriptionButton() {
-		Utilities.waitUntileElementIsVisible(freezeSubscriptionButton);
-		Utilities.clickElement(freezeSubscriptionButton, ElementType.XPath);
+		Deprecated.waitVisible(freezeSubscriptionButton);
+		Deprecated.clickElement(freezeSubscriptionButton);
 	}
 
 	public void clickCancelButton_CancenSubscriptionDialog() {
-		Utilities.clickElement(cancelButton_cancelSubscriptionDialog, ElementType.XPath);
+		Deprecated.clickElement(cancelButton_cancelSubscriptionDialog);
 	}
 
 	public void clickSubscription(String subscriptionID) {
-		Utilities.waitUntileElementIsVisible("//li[@subscriptionid='" + subscriptionID + "']");
-		Utilities.clickElement("//li[@subscriptionid='" + subscriptionID + "']", ElementType.XPath);
+		Deprecated.waitVisible("//li[@subscriptionid='" + subscriptionID + "']");
+		Deprecated.clickElement("//li[@subscriptionid='" + subscriptionID + "']");
 	}
 
 	public void clickEditCustomInitialScheduleButton() {
-		Utilities.waitUntileElementIsVisible(editCustomInitialScheduleButton);
-		Utilities.clickElement(editCustomInitialScheduleButton, ElementType.XPath);
+		Deprecated.waitVisible(editCustomInitialScheduleButton);
+		Deprecated.clickElement(editCustomInitialScheduleButton);
 	}
 
 	public void clickEditCustomRecurringScheduleButton() {
-		Utilities.waitUntileElementIsVisible(editCustomRecurringScheduleButton);
-		Utilities.clickElement(editCustomRecurringScheduleButton, ElementType.XPath);
+		Deprecated.waitVisible(editCustomRecurringScheduleButton);
+		Deprecated.clickElement(editCustomRecurringScheduleButton);
 	}
 
 	public void clickRecurringSubTotalValue() {
-		Utilities.clickElement(recurringSubTotalValue, ElementType.XPath);
+		Deprecated.clickElement(recurringSubTotalValue);
 	}
 
 	public void clickSpecificDateButton_initialCustomSchedule() {
-		Utilities.waitUntileElementIsVisible("//div[@scheduletype='3']//h4[text()='" + Utilities.getCurrentMonth() + "']/following-sibling::div[contains(text(),'Specific Date')]");
-		Utilities.clickElement("//div[@scheduletype='3']//h4[text()='" + Utilities.getCurrentMonth() + "']/following-sibling::div[contains(text(),'Specific Date')]", ElementType.XPath);
+		Deprecated.waitVisible("//div[@scheduletype='3']//h4[text()='" + GetDate.getCurrentMonth() + "']/following-sibling::div[contains(text(),'Specific Date')]");
+		Deprecated.clickElement("//div[@scheduletype='3']//h4[text()='" + GetDate.getCurrentMonth() + "']/following-sibling::div[contains(text(),'Specific Date')]");
 	}
 
 	public void clickDayOfTheWeekButton_recurringCustomSchedule() {
-		Utilities.waitUntileElementIsVisible("//h4[text()='" + Utilities.getMonthsInFuture(1) + "']/following-sibling::div[text()='+ Day of Week']");
-		Utilities.clickElement("//h4[text()='" + Utilities.getMonthsInFuture(1) + "']/following-sibling::div[text()='+ Day of Week']", ElementType.XPath);
+		Deprecated.waitVisible("//h4[text()='" + GetDate.getMonthsInFuture(1) + "']/following-sibling::div[text()='+ Day of Week']");
+		Deprecated.clickElement("//h4[text()='" + GetDate.getMonthsInFuture(1) + "']/following-sibling::div[text()='+ Day of Week']");
 	}
 
 	public void clickSpecificDateButton_recurringCustomSchedule() {
-		Utilities.waitUntileElementIsVisible("//h4[text()='" + Utilities.getCurrentMonth() + "']/following-sibling::div[text()='+ Day of Week']/preceding-sibling::div[text()='+ Specific Date']");
-		Utilities.clickElement("//h4[text()='" + Utilities.getCurrentMonth() + "']/following-sibling::div[text()='+ Day of Week']/preceding-sibling::div[text()='+ Specific Date']", ElementType.XPath);
+		Deprecated.waitVisible("//h4[text()='" + GetDate.getCurrentMonth() + "']/following-sibling::div[text()='+ Day of Week']/preceding-sibling::div[text()='+ Specific Date']");
+		Deprecated.clickElement("//h4[text()='" + GetDate.getCurrentMonth() + "']/following-sibling::div[text()='+ Day of Week']/preceding-sibling::div[text()='+ Specific Date']");
 	}
 
 	public void selectCurrentDateSpecificDate_recurringCustomSchedule(String needCurrentDate) {
-		Utilities.waitUntileElementIsVisible("//h4[text()='" + Utilities.getCurrentMonth() + "']/parent::div//select//option[text()='" + needCurrentDate + "']");
-		Utilities.clickElement("//h4[text()='" + Utilities.getCurrentMonth() + "']/parent::div//select//option[text()='" + needCurrentDate + "']", ElementType.XPath);
+		Deprecated.waitVisible("//h4[text()='" + GetDate.getCurrentMonth() + "']/parent::div//select//option[text()='" + needCurrentDate + "']");
+		Deprecated.clickElement("//h4[text()='" + GetDate.getCurrentMonth() + "']/parent::div//select//option[text()='" + needCurrentDate + "']");
 	}
 
 	public void selectDayOfTheWeek(String needWeek, String needDay) {
-		Utilities.waitUntileElementIsVisible("//h4[text()='" + Utilities.getMonthsInFuture(1) + "']/parent::div//select[@name='ordinal']/option");
-		Utilities.selectValueFromDropDownByValue("//h4[text()='" + Utilities.getMonthsInFuture(1) + "']/parent::div//select[@name='ordinal']", needWeek);
-		Utilities.waitUntileElementIsVisible("//h4[text()='" + Utilities.getMonthsInFuture(1) + "']/parent::div//select[@name='dayOfWeek']/option");
-		Utilities.selectValueFromDropDownByValue("//h4[text()='" + Utilities.getMonthsInFuture(1) + "']/parent::div//select[@name='dayOfWeek']", needDay);
+		Deprecated.waitVisible("//h4[text()='" + GetDate.getMonthsInFuture(1) + "']/parent::div//select[@name='ordinal']/option");
+		Deprecated.selectByText("//h4[text()='" + GetDate.getMonthsInFuture(1) + "']/parent::div//select[@name='ordinal']", needWeek);
+		Deprecated.waitVisible("//h4[text()='" + GetDate.getMonthsInFuture(1) + "']/parent::div//select[@name='dayOfWeek']/option");
+		Deprecated.selectByText("//h4[text()='" + GetDate.getMonthsInFuture(1) + "']/parent::div//select[@name='dayOfWeek']", needDay);
 	}
 
 	public void clickFinishEditingSchedule() {
-		Utilities.waitUntileElementIsVisible(finishEditingCustomScheduleButton);
-		Utilities.clickElement(finishEditingCustomScheduleButton, ElementType.XPath);
+		Deprecated.waitVisible(finishEditingCustomScheduleButton);
+		Deprecated.clickElement(finishEditingCustomScheduleButton);
 	}
 
 	public void selectCurrentDate_CustomSchedule() {
-		FindElement.elementByAttribute("//div[@scheduletype='3']//h4[text()='" + Utilities.getCurrentMonth() + "']/following-sibling::div//select", InputType.XPath).sendKeys(Utilities.getCurrentDate());
+		Deprecated.locate("//div[@scheduletype='3']//h4[text()='" + GetDate.getCurrentMonth() + "']/following-sibling::div//select").sendKeys(GetDate.getCurrentDate());
 	}
 
 	public void selectCancellationCategory(String needCategory) {
-		Utilities.waitUntileElementIsVisible(cancellationCategoryDropdown_cancelSubscriptionDialog);
-		Utilities.selectValueFromDropDownByValue(cancellationCategoryDropdown_cancelSubscriptionDialog, needCategory);
+		Deprecated.waitVisible(cancellationCategoryDropdown_cancelSubscriptionDialog);
+		Deprecated.selectByText(cancellationCategoryDropdown_cancelSubscriptionDialog, needCategory);
 	}
 
 	public void selectSalesRep(String needSalesRap) {
-		FindElement.elementByAttribute("//h3[text()=  'Sales Info']/following-sibling::select[@name='creditTo']", InputType.XPath).sendKeys(needSalesRap);
+		Deprecated.locate("//h3[text()=  'Sales Info']/following-sibling::select[@name='creditTo']").sendKeys(needSalesRap);
 	}
 
 	public void selectSalesRep2(String needSalesRap) {
-		Utilities.selectValueFromDropDownByValue(second_SalesRepDropdown, needSalesRap);
+		Deprecated.selectByText(second_SalesRepDropdown, needSalesRap);
 	}
 
 	public void selectSalesRep3(String needSalesRap) {
-		Utilities.selectValueFromDropDownByValue(third_SalesRepDropdown, needSalesRap);
+		Deprecated.selectByText(third_SalesRepDropdown, needSalesRap);
 	}
 
 	public void selectSource(String needSource) {
-		Utilities.selectValueFromDropDownByValue(sourceDropdown, needSource);
+		Deprecated.selectByText(sourceDropdown, needSource);
 	}
 
 	public void selectContractLength(String needContractLength) {
-		Utilities.selectValueFromDropDownByValue(contractLengthDropdown, needContractLength);
+		Deprecated.selectByText(contractLengthDropdown, needContractLength);
 	}
 
 	public void selectSetRenewalDate(String needOption) {
-		Utilities.waitUntileElementIsVisible(setRenewalDateDropdown);
-		Utilities.selectValueFromDropDownByValue(setRenewalDateDropdown, needOption);
+		Deprecated.waitVisible(setRenewalDateDropdown);
+		Deprecated.selectByText(setRenewalDateDropdown, needOption);
 	}
 
 	public void selectRenewalFrequency(String needOption) {
-		Utilities.waitUntileElementIsVisible(renewalFrequencyDropdown);
-		Utilities.selectValueFromDropDownByValue(renewalFrequencyDropdown, needOption);
+		Deprecated.waitVisible(renewalFrequencyDropdown);
+		Deprecated.selectByText(renewalFrequencyDropdown, needOption);
 	}
 
 	public void selectBillingFrequency(String needBillingFrequency) {
-		Utilities.selectValueFromDropDownByValue(billingFrequencyDropdown, needBillingFrequency);
+		Deprecated.selectByText(billingFrequencyDropdown, needBillingFrequency);
 	}
 
 	public void selectServiceType(String needServiceType) throws Exception {
-		if (!Utilities.isPresent(serviceTypeDropdown)){
-			Utilities.waitUntileElementIsVisible(serviceTypeDropdown);
+		if (!Deprecated.isPresent(serviceTypeDropdown)){
+			Deprecated.waitVisible(serviceTypeDropdown);
 		}
-		Utilities.selectValueFromDropDownByValue(serviceTypeDropdown, needServiceType);
+		Deprecated.selectByText(serviceTypeDropdown, needServiceType);
 	}
 
 	public void selectRecurringServiceType(String serviceType) {
-		selectFromDropDown(serviceType, serviceTypeDropDown);
+		Utilities.selectByText(serviceTypeDropDown, serviceType);
 	}
 
 	public List<String> getRecurringServiceType() {
-		return getAllSelectedOptionsFromDropDown(serviceTypeDropDown);
+		return Deprecated.getAllSelectedOptionsFromDropDown(serviceTypeDropDown);
 	}
 
 	public void selectServiceFrequency(String needServiceFrequency) {
-		Utilities.selectValueFromDropDownByValue(serviceFrequencyDropdown, needServiceFrequency);
+		Deprecated.selectByText(serviceFrequencyDropdown, needServiceFrequency);
 	}
 
 	public void selectServiceDuration(String needDuration) {
-		Utilities.selectValueFromDropDownByValue(serviceDurationDropdown, needDuration);
+		Deprecated.selectByText(serviceDurationDropdown, needDuration);
 	}
 
 	public void selectCallAheadOption(String needOption) {
-		Utilities.selectValueFromDropDownByValue(callAheadDropdown, needOption);
+		Deprecated.selectByText(callAheadDropdown, needOption);
 	}
 
 	public void selectSeasonalOption(String needOption) {
-		Utilities.selectValueFromDropDownByValue(seasonalDropdown, needOption);
+		Deprecated.selectByText(seasonalDropdown, needOption);
 	}
 
 	public void selectAutoScheduleOption(String needOption) {
-		Utilities.selectValueFromDropDownByValue(autoScheduleDropdown, needOption);
+		Deprecated.selectByText(autoScheduleDropdown, needOption);
 	}
 
 	public void selectInitialFollowupOption(String needOption) {
-		Utilities.selectValueFromDropDownByValue(initialFollowupDropdown, needOption);
+		Deprecated.selectByText(initialFollowupDropdown, needOption);
 	}
 
 	public void selectRoutineRegionOption(String needOption) {
-		Utilities.selectValueFromDropDownByValue(routineRegionDropdown, needOption);
+		Deprecated.selectByText(routineRegionDropdown, needOption);
 	}
 
 	public void selectPreferTechOption(String needOption) {
-		Utilities.selectValueFromDropDownByValue(preferredTechDropdown, needOption);
+		Deprecated.selectByText(preferredTechDropdown, needOption);
 	}
 
 	public void selectPreferredDayOption(String needOption) {
-		Utilities.waitUntileElementIsVisible(preferredDayDropdown);
-		Utilities.selectValueFromDropDownByValue(preferredDayDropdown, needOption);
+		Deprecated.waitVisible(preferredDayDropdown);
+		Deprecated.selectByText(preferredDayDropdown, needOption);
 	}
 
 	public void selectPrefferedTimeOption(String needOption) {
-		Utilities.selectValueFromDropDownByValue(preferredTimeDropdown, needOption);
+		Deprecated.selectByText(preferredTimeDropdown, needOption);
 	}
 
 	public void selectAdditionalItem_ToInitialInvoice(String needItem) {
-		Utilities.scrollToElementJS(initialInvoice_AddTicketItemButton);
-		Utilities.clickElement(initialInvoice_AddTicketItemButton, ElementType.XPath);
+		Deprecated.scrollToElementJS(initialInvoice_AddTicketItemButton);
+		Deprecated.clickElement(initialInvoice_AddTicketItemButton);
 		if (SystemUtils.IS_OS_LINUX) {
 			Utilities.acceptAlert();
 		}
-		Utilities.waitUntileElementIsVisible("//span[text()=  '" + needItem + "']");
+		Deprecated.waitVisible("//span[text()=  '" + needItem + "']");
 		delay(1000);
-		Utilities.clickElement("//span[text()=  '" + needItem + "']", ElementType.XPath);
+		Deprecated.clickElement("//span[text()=  '" + needItem + "']");
 		try{
-			Utilities.waitUntileElementIsVisible("//div[text()='"+needItem+"']");
+			Deprecated.waitVisible("//div[text()='"+needItem+"']");
 		}catch (Exception e){
-			Utilities.clickElement(initialInvoice_AddTicketItemButton, ElementType.XPath);
+			Deprecated.clickElement(initialInvoice_AddTicketItemButton);
 			if (SystemUtils.IS_OS_LINUX) {
 				Utilities.acceptAlert();
 			}
-			Utilities.waitUntileElementIsVisible("//span[text()=  '" + needItem + "']");
-			Utilities.scrollToElementJS("//span[text()=  '" + needItem + "']");
+			Deprecated.waitVisible("//span[text()=  '" + needItem + "']");
+			Deprecated.scrollToElementJS("//span[text()=  '" + needItem + "']");
 			delay(1000);
-			Utilities.clickElement("//span[text()=  '" + needItem + "']", ElementType.XPath);
+			Deprecated.clickElement("//span[text()=  '" + needItem + "']");
 		}
-		Utilities.waitUntileElementIsVisible("//div[text()='"+needItem+"']");
+		Deprecated.waitVisible("//div[text()='"+needItem+"']");
 	}
 
 	public void selectAdditionalItem_ToRecurringInvoice(String needItem) throws InterruptedException {
 		Thread.sleep(500);
-		Utilities.scrollToElementJS(recurringInvoice_AddTicketItemButton);
-		Utilities.waitUntileElementIsVisible(recurringInvoice_AddTicketItemButton);
-		Utilities.clickElement(recurringInvoice_AddTicketItemButton, ElementType.XPath);
+		Deprecated.scrollToElementJS(recurringInvoice_AddTicketItemButton);
+		Deprecated.waitVisible(recurringInvoice_AddTicketItemButton);
+		Deprecated.clickElement(recurringInvoice_AddTicketItemButton);
 		if (SystemUtils.IS_OS_LINUX) {
 			Utilities.acceptAlert();
 		}
-		Utilities.scrollToElementJS("//span[text()=  '" + needItem + "']");
-		Utilities.waitUntileElementIsVisible("//span[text()=  '" + needItem + "']");
-		Utilities.clickElement("//span[text()=  '" + needItem + "']", ElementType.XPath);
+		Deprecated.scrollToElementJS("//span[text()=  '" + needItem + "']");
+		Deprecated.waitVisible("//span[text()=  '" + needItem + "']");
+		Deprecated.clickElement("//span[text()=  '" + needItem + "']");
 	}
 
 	public void clearCustomDate() {
-		Utilities.waitUntileElementIsVisible(customDateInputField);
-		FindElement.elementByAttribute(customDateInputField, InputType.XPath).clear();
+		Deprecated.waitVisible(customDateInputField);
+		Deprecated.locate(customDateInputField).clear();
 	}
 
 	/*
@@ -358,79 +360,79 @@ public class CustomerViewDialog_SubscriptionTab extends BasePage {
 	 */
 
 	public void setCancelSubscriptionNotes(String needNotes) {
-		FindElement.elementByAttribute(cancelNotesInputField, InputType.XPath).sendKeys(needNotes);
+		Deprecated.locate(cancelNotesInputField).sendKeys(needNotes);
 	}
 
 	public void setSoldDate(String needSoldDate) {
-		FindElement.elementByAttribute(soldDateField, InputType.XPath).sendKeys(needSoldDate);
+		Deprecated.locate(soldDateField).sendKeys(needSoldDate);
 	}
 
 	public void setExpDate(String needExpDate) {
-		FindElement.elementByAttribute(expirationDateInputField, InputType.XPath).clear();
-		FindElement.elementByAttribute(expirationDateInputField, InputType.XPath).sendKeys(needExpDate);
+		Deprecated.locate(expirationDateInputField).clear();
+		Deprecated.locate(expirationDateInputField).sendKeys(needExpDate);
 	}
 
 	public void selectSubscriptionFlag(String needSubscriptionFlag) {
-		Utilities.waitUntileElementIsVisible(subscriptionFlagDropdown);
-		Utilities.selectValueFromDropDownByValue(subscriptionFlagDropdown, needSubscriptionFlag);
+		Deprecated.waitVisible(subscriptionFlagDropdown);
+		Deprecated.selectByText(subscriptionFlagDropdown, needSubscriptionFlag);
 	}
 
 	public void setInitialBillingDate(String needInitialBillingDate) {
-		Utilities.waitUntileElementIsVisible(initialBillingDateInputField);
-		FindElement.elementByAttribute(initialBillingDateInputField, InputType.XPath).clear();
-		FindElement.elementByAttribute(initialBillingDateInputField, InputType.XPath).sendKeys(needInitialBillingDate);
+		Deprecated.waitVisible(initialBillingDateInputField);
+		Deprecated.locate(initialBillingDateInputField).clear();
+		Deprecated.locate(initialBillingDateInputField).sendKeys(needInitialBillingDate);
 	}
 
 	public void setRenewalDate(String needDate) {
-		FindElement.elementByAttribute(renewalDateField, InputType.XPath).sendKeys(Keys.CONTROL, "a");
-		FindElement.elementByAttribute(renewalDateField, InputType.XPath).sendKeys(needDate);
+		Deprecated.locate(renewalDateField).sendKeys(Keys.CONTROL, "a");
+		Deprecated.locate(renewalDateField).sendKeys(needDate);
 	}
 
 	public void set_PO_Number(String needPoNum) {
-		FindElement.elementByAttribute(pO_NumberInputField, InputType.XPath).sendKeys(needPoNum);
+		Deprecated.locate(pO_NumberInputField).sendKeys(needPoNum);
 	}
 
 	public void setSubscriptionNotes(String needNotes) {
-		FindElement.elementByAttribute(notesInputField, InputType.XPath).sendKeys(needNotes);
+		Deprecated.locate(notesInputField).sendKeys(needNotes);
 	}
 
 	public void setAutoPayProfileDropdown() {
-		Utilities.waitUntileElementIsVisible(autoPayProfileDropdown);
-		Utilities.selectValueFromDropDownByIndex(autoPayProfileDropdown, 1);
+		Deprecated.waitVisible(autoPayProfileDropdown);
+		Deprecated.selectByIndex(autoPayProfileDropdown, 1);
 
 	}
 
 	public void setMergeBillingAccountField(String needMergeCustomerName) {
-		Utilities.waitUntileElementIsVisible(mergeBillingAccountField);
-		FindElement.elementByAttribute(mergeBillingAccountField, InputType.XPath).sendKeys(needMergeCustomerName);
-		FindElement.elementByAttribute(mergeBillingAccountField, InputType.XPath).sendKeys(Keys.ARROW_DOWN);
+		Deprecated.waitVisible(mergeBillingAccountField);
+		Deprecated.locate(mergeBillingAccountField).sendKeys(needMergeCustomerName);
+		Deprecated.locate(mergeBillingAccountField).sendKeys(Keys.ARROW_DOWN);
 		try {
-			Utilities.waitUntileElementIsVisible("//li[@role='presentation']//span[contains(text(),'"+needMergeCustomerName+"')]", 10);
-			Utilities.clickElement("//li[@role='presentation']//span[contains(text(),'"+needMergeCustomerName+"')]", ElementType.XPath);
+			Deprecated.waitVisible("//li[@role='presentation']//span[contains(text(),'"+needMergeCustomerName+"')]", 10);
+			Deprecated.clickElement("//li[@role='presentation']//span[contains(text(),'"+needMergeCustomerName+"')]");
 		} catch (Exception e) {
-			FindElement.elementByAttribute(mergeBillingAccountField, InputType.XPath).sendKeys(Keys.ARROW_DOWN);
-			Utilities.clickElement("//li[@role='presentation']//span[contains(text(),'"+needMergeCustomerName+"')]", ElementType.XPath);
+			Deprecated.locate(mergeBillingAccountField).sendKeys(Keys.ARROW_DOWN);
+			Deprecated.clickElement("//li[@role='presentation']//span[contains(text(),'"+needMergeCustomerName+"')]");
 		}
 	}
 
 	public void setNetBillingDays(String needBillingDays) {
-		FindElement.elementByAttribute(netBillingDaysInputField, InputType.XPath).sendKeys(needBillingDays);
+		Deprecated.locate(netBillingDaysInputField).sendKeys(needBillingDays);
 	}
 
 	public void setCustomDate(String needCustomDate) {
-		Utilities.waitUntileElementIsVisible(customDateInputField);
-		FindElement.elementByAttribute(customDateInputField, InputType.XPath).sendKeys(needCustomDate);
-		FindElement.elementByAttribute(customDateInputField, InputType.XPath).sendKeys(Keys.ENTER);
+		Deprecated.waitVisible(customDateInputField);
+		Deprecated.locate(customDateInputField).sendKeys(needCustomDate);
+		Deprecated.locate(customDateInputField).sendKeys(Keys.ENTER);
 	}
 
 	public void selectCustomDate(String customDate) {
-		type(customDate, customDateField);
-		find(customDateField).sendKeys(Keys.ENTER);
+		Deprecated.type(customDate, customDateField);
+		Utilities.locate(customDateField).sendKeys(Keys.ENTER);
 	}
 
 	public void setInitialServiceQuote(String needAmount) {
 		delay(1000);
-		scrollToElementJS(initialQuoteInputField);
+		Deprecated.scrollToElementJS(initialQuoteInputField);
 		driver.findElement(By.xpath(initialQuoteInputField)).sendKeys(Keys.CONTROL, "a");
 		driver.findElement(By.xpath(initialQuoteInputField)).sendKeys(Keys.DELETE);
 		driver.findElement(By.xpath(initialQuoteInputField)).sendKeys(needAmount);
@@ -438,52 +440,52 @@ public class CustomerViewDialog_SubscriptionTab extends BasePage {
 
 	public void setInitialServiceDiscount(String needAmount) throws InterruptedException {
 		delay(1000);
-		Utilities.scrollToElementJS(initialTotalValue);
-		Utilities.waitUntileElementIsVisible(initialTotalValue);
-		FindElement.elementByAttribute(initialDiscountInputField, InputType.XPath).clear();
-		Utilities.highLight(initialDiscountInputField);
+		Deprecated.scrollToElementJS(initialTotalValue);
+		Deprecated.waitVisible(initialTotalValue);
+		Deprecated.locate(initialDiscountInputField).clear();
+		Deprecated.highLight(initialDiscountInputField);
 		if (SystemUtils.IS_OS_LINUX) {
 			Thread.sleep(500);
-			FindElement.elementByAttribute(initialQuoteInputField, InputType.XPath).sendKeys(Keys.DELETE);
+			Deprecated.locate(initialQuoteInputField).sendKeys(Keys.DELETE);
 			Thread.sleep(500);
 		}
-		FindElement.elementByAttribute(initialDiscountInputField, InputType.XPath).sendKeys(needAmount);
-		Utilities.clickElement(initialTotalValue, ElementType.XPath);
+		Deprecated.locate(initialDiscountInputField).sendKeys(needAmount);
+		Deprecated.clickElement(initialTotalValue);
 	}
 
 	public void setServiceQuote(String needService, String needAmount) throws InterruptedException {
 		delay(1000);
-		Utilities.waitUntileElementIsVisible("//div[text()= '" + needService + "']/parent::div//input[@name='serviceCharge']");
-		Utilities.highLight("//div[text()= '" + needService + "']/parent::div//input[@name='serviceCharge']");
+		Deprecated.waitVisible("//div[text()= '" + needService + "']/parent::div//input[@name='serviceCharge']");
+		Deprecated.highLight("//div[text()= '" + needService + "']/parent::div//input[@name='serviceCharge']");
 		if (SystemUtils.IS_OS_LINUX) {
 			Thread.sleep(500);
-			FindElement.elementByAttribute("//div[text()= '" + needService + "']/parent::div//input[@name='serviceCharge']", InputType.XPath).sendKeys(Keys.DELETE);
+			Deprecated.locate("//div[text()= '" + needService + "']/parent::div//input[@name='serviceCharge']").sendKeys(Keys.DELETE);
 			Thread.sleep(500);
 		}
-		FindElement.elementByAttribute("//div[text()= '" + needService + "']/parent::div//input[@name='serviceCharge']", InputType.XPath).sendKeys(needAmount);
+		Deprecated.locate("//div[text()= '" + needService + "']/parent::div//input[@name='serviceCharge']").sendKeys(needAmount);
 	}
 
 	public void setAdditionalItemAmount(String needItemName, String needAmount) {
-		Utilities.highLight("//h3[text()='Recurring Invoice Template']/following-sibling::div/div[text()='" + needItemName + "']/following-sibling::div/input");
-		FindElement.elementByAttribute("//h3[text()='Recurring Invoice Template']/following-sibling::div/div[text()='" + needItemName + "']/following-sibling::div/input", InputType.XPath).sendKeys(needAmount);
+		Deprecated.highLight("//h3[text()='Recurring Invoice Template']/following-sibling::div/div[text()='" + needItemName + "']/following-sibling::div/input");
+		Deprecated.locate("//h3[text()='Recurring Invoice Template']/following-sibling::div/div[text()='" + needItemName + "']/following-sibling::div/input").sendKeys(needAmount);
 	}
 
 	public void setInitialInvoiceType(String initialInvoiceType) {
-		scrollToElementJS(billingInitialInvoiceDropdown);
-		Utilities.selectValueFromDropDownByValue(billingInitialInvoiceDropdown, initialInvoiceType);
+		Deprecated.scrollToElementJS(billingInitialInvoiceDropdown);
+		Deprecated.selectByText(billingInitialInvoiceDropdown, initialInvoiceType);
 	}
 
 	public void selectInitialInvoice(String initialInvoice) {
-		scrollToElementJS(initialInvoiceDropDown);
-		selectFromDropDown(initialInvoice, initialInvoiceDropDown);
+		Deprecated.scrollToElementJS(initialInvoiceDropDown);
+		Utilities.selectByText(initialInvoiceDropDown, initialInvoice);
 	}
 
 	public void setAmount_CustomSchedule() {
-		FindElement.elementByAttribute("//div[@scheduletype='3']//h4[text()='" + Utilities.getCurrentMonth() + "']/following-sibling::div//input[@name='amount']", InputType.XPath).sendKeys(String.valueOf(Utilities.generateRandomInteger(3)));
+		Deprecated.locate("//div[@scheduletype='3']//h4[text()='" + GetDate.getCurrentMonth() + "']/following-sibling::div//input[@name='amount']").sendKeys(String.valueOf(GetData.generateRandomInteger(3)));
 	}
 
 	public void setSubscriptionExpirationDate(String strExpirationDate) {
-		 type(strExpirationDate,fieldExpirationDate,"ENTER");
+		 Deprecated.type(strExpirationDate,fieldExpirationDate,"ENTER");
 	}
 
 	/*
@@ -492,47 +494,47 @@ public class CustomerViewDialog_SubscriptionTab extends BasePage {
 	 */
 
 	public String getStatusText() {
-		Utilities.waitUntileElementIsVisible(statusText);
-		return Utilities.getElementTextValue(statusText, ElementType.XPath);
+		Deprecated.waitVisible(statusText);
+		return Deprecated.getElementTextValue(statusText);
 	}
 
 	public String getRenewalDate() {
-		Utilities.waitUntileElementIsVisible(renewalDateField);
-		return Utilities.getAttributeValue(renewalDateField, "value");
+		Deprecated.waitVisible(renewalDateField);
+		return Deprecated.getAttribute(renewalDateField, "value");
 	}
 
 	public String getUpcomingAppt(String chooseAppt) {
-		Utilities.waitUntileElementIsVisible(chooseAppt);
-		return Utilities.getElementTextValue(chooseAppt, ElementType.XPath);
+		Deprecated.waitVisible(chooseAppt);
+		return Deprecated.getElementTextValue(chooseAppt);
 	}
 
 	public double getInitialService_NewTicketItemPrice(String needTicketItem) {
-		WebElement elm = FindElement.elementByAttribute("//div[@id='initialTicket']//div[text() = '" + needTicketItem + "']/following-sibling::input", InputType.XPath);
+		WebElement elm = Deprecated.locate("//div[@id='initialTicket']//div[text() = '" + needTicketItem + "']/following-sibling::input");
 		String val = elm.getAttribute("value");
 		return Double.parseDouble(val);
 	}
 
 	public double getInitialSubTotal() {
-		String elm = Utilities.getElementTextValue(initialSubTotalValue, ElementType.XPath);
+		String elm = Deprecated.getElementTextValue(initialSubTotalValue);
 		String newElm = elm.replace("$", "");
 		return Double.parseDouble(newElm);
 	}
 
 	public double getInitialTax() {
-		String elm = Utilities.getElementTextValue(initialTaxValue, ElementType.XPath);
+		String elm = Deprecated.getElementTextValue(initialTaxValue);
 		String newElm = elm.replace("$", "");
 		return Double.parseDouble(newElm);
 	}
 
 	public double getInitialTotal() {
-		String elm = Utilities.getElementTextValue(initialTotalValue, ElementType.XPath);
+		String elm = Deprecated.getElementTextValue(initialTotalValue);
 		String newElm = elm.replace("$", "");
 		return Double.parseDouble(newElm);
 	}
 
 	public double getRecurringService_NewTicketItemPrice(String needTicketItem) {
 		delay(3000);
-		String ticketValue = Utilities.getAttributeValue("//div[@id='recurringServices']//div[text() = '" + needTicketItem + "']/following-sibling::input", "value");
+		String ticketValue = Deprecated.getAttribute("//div[@id='recurringServices']//div[text() = '" + needTicketItem + "']/following-sibling::input", "value");
 //		String val = ticketValue.substring(3);
 //		return Double.parseDouble(val);
 		return Double.parseDouble(ticketValue);
@@ -542,43 +544,43 @@ public class CustomerViewDialog_SubscriptionTab extends BasePage {
 		if (SystemUtils.IS_OS_LINUX) {
 			Utilities.acceptAlert();
 		}
-		WebElement elm = FindElement.elementByAttribute("//span[text()='Custom Production']/following-sibling::input[@name='productionValue']", InputType.XPath);
+		WebElement elm = Deprecated.locate("//span[text()='Custom Production']/following-sibling::input[@name='productionValue']");
 		return elm.getAttribute("value");
 	}
 
 	public double getRecurringSubTotal() {
-		String elm = Utilities.getElementTextValue(recurringSubTotalValue, ElementType.XPath);
+		String elm = Deprecated.getElementTextValue(recurringSubTotalValue);
 		String newElm = elm.replace("$", "");
 		return Double.parseDouble(newElm);
 	}
 
 	public double getRecurringTax() {
-		String elm = Utilities.getElementTextValue(recurringTaxValue, ElementType.XPath);
+		String elm = Deprecated.getElementTextValue(recurringTaxValue);
 		String newElm = elm.replace("$", "");
 		return Double.parseDouble(newElm);
 	}
 
 	public double getRecurringTotal() {
-		String elm = Utilities.getElementTextValue(recurringTotalValue, ElementType.XPath);
+		String elm = Deprecated.getElementTextValue(recurringTotalValue);
 		String newElm = elm.replace("$", "");
 		return Double.parseDouble(newElm);
 	}
 
 	public double getContractValue(String needServiceType) {
 		String subscriptionTitle = "//h3[contains (text(), '" + needServiceType + "')]";
-		Utilities.waitUntileElementIsVisible(subscriptionTitle);
-		String elm = Utilities.getElementTextValue(contractValue, ElementType.XPath);
+		Deprecated.waitVisible(subscriptionTitle);
+		String elm = Deprecated.getElementTextValue(contractValue);
 		String newElm = elm.replaceAll("[^\\\\.0123456789]", "");
 		return Double.parseDouble(newElm);
 	}
 
 	public String getSubscriptionID(String serviceType) {
-		return Utilities.getElementTextValue("//h3[contains(text(),'" + serviceType + "')]/span[not(contains(text(),'Contract'))]", ElementType.XPath);
+		return Deprecated.getElementTextValue("//h3[contains(text(),'" + serviceType + "')]/span[not(contains(text(),'Contract'))]");
 
 	}
 
 	public String getInitialInvoiceValue() {
-		return Utilities.getElementTextValue(initialTotalValue, ElementType.XPath);
+		return Deprecated.getElementTextValue(initialTotalValue);
 	}
 
 	public String getInitialInvoiceTotal (){
@@ -586,21 +588,21 @@ public class CustomerViewDialog_SubscriptionTab extends BasePage {
 	}
 
 	public String getRecurringInvoiceValue() {
-		return Utilities.getElementTextValue(recurringTotalValue, ElementType.XPath);
+		return Deprecated.getElementTextValue(recurringTotalValue);
 	}
 
 	public String getBilling_initialBillingDate() {
-		return Utilities.getAttributeValue(initialBillingDateInputField, "value");
+		return Deprecated.getAttribute(initialBillingDateInputField, "value");
 	}
 
 	public String getCurrentDate() {
-		return Utilities.currentDateWithZeroDelimiterOnDate("MM/dd/yyyy");
+		return GetDate.currentDateWithZeroDelimiterOnDate("MM/dd/yyyy");
 	}
 
 	public String getInitialInvoiceAmountWithoutTax_CustomSchedule() {
-		Utilities.waitUntileElementIsVisible(selectedCustomScheduleOption);
+		Deprecated.waitVisible(selectedCustomScheduleOption);
 		clickEditCustomInitialScheduleButton();
-		return Utilities.getAttributeValue("//div[@scheduletype='3']//h4[text()='" + Utilities.getCurrentMonth() + "']/following-sibling::div//input[@name='amount']", "value");
+		return Deprecated.getAttribute("//div[@scheduletype='3']//h4[text()='" + GetDate.getCurrentMonth() + "']/following-sibling::div//input[@name='amount']", "value");
 	}
 
 	public String getInitialInvoiceTotalAmount_CustomerSchedule() throws InterruptedException {
@@ -619,7 +621,7 @@ public class CustomerViewDialog_SubscriptionTab extends BasePage {
 		int i = 0;
 		while (i++ < 5) {
 			try {
-				Alert alert = Utilities.alertPopUp();
+				Alert alert = Utilities.getAlert();
 				String actionAlert = Utilities.getAlertText();
 				String expected = "Custom initial billing schedules cannot be empty. These changes have not been saved.";
 				if (actionAlert.contains(expected)) {
@@ -633,13 +635,13 @@ public class CustomerViewDialog_SubscriptionTab extends BasePage {
 	}
 
 	public String getUpcomingAppointment_specificDate(String needDate, int addMonths) {
-		return Utilities.addYearstoCurrentYear("MM/dd/yy", addMonths);
+		return GetDate.addYearstoCurrentYear("MM/dd/yy", addMonths);
 	}
 
 	public String getUpcomingAppointment_specificDay_everyYear(int appointmentNumber) {
 		String[] datesResult = new String[7];
 		int counter = 0;
-		String inputDate = Utilities.currentDate("MM/dd/yy");
+		String inputDate = GetDate.currentDate("MM/dd/yy");
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yy");
 		LocalDate date = LocalDate.parse(inputDate, formatter).plusMonths(1);
 
@@ -659,14 +661,14 @@ public class CustomerViewDialog_SubscriptionTab extends BasePage {
 	}
 
 	public String getServiceType() {
-		return Utilities.getElementTextValue(selectedBillingInitialInvoiceDropdown, ElementType.XPath);
+		return Deprecated.getElementTextValue(selectedBillingInitialInvoiceDropdown);
 	}
 
 	public String getSubscriptionExpirationDate() {
-		return find(fieldExpirationDate).getAttribute("value");
+		return Utilities.locate(fieldExpirationDate).getAttribute("value");
 	}
 
-	public String getSubscriptionRenewalDate() { return find(fieldRenewalDate).getAttribute("value");
+	public String getSubscriptionRenewalDate() { return Utilities.locate(fieldRenewalDate).getAttribute("value");
 	}
 
 	public void clickActiveSubscription(){ click(activeSubscription); }
@@ -678,8 +680,8 @@ public class CustomerViewDialog_SubscriptionTab extends BasePage {
 
 	public void clickFreezeSubscriptionButtonOnCancelSubscriptionDialog() {
 		wait.until(ExpectedConditions.visibilityOfElementLocated(freezeCancelSubscriptionButton));
-		if(elementIsVisible(cancellationCategoryDropdown_cancelSubscriptionDialog)){
-			selectValueFromDropDownByIndex(cancellationCategoryDropdown_cancelSubscriptionDialog,0);
+		if(Deprecated.isVisible(cancellationCategoryDropdown_cancelSubscriptionDialog)){
+			Deprecated.selectByIndex(cancellationCategoryDropdown_cancelSubscriptionDialog,0);
 		}
 		click(freezeCancelSubscriptionButton);
 	}

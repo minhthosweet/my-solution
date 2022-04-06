@@ -1,7 +1,6 @@
 package automation.PestRoutes.PageObject.Admin.PreferencesTab.CustomerPreferencesTab;
 
-import automation.PestRoutes.Utilities.FindElement;
-import automation.PestRoutes.Utilities.Utilities;
+import automation.PestRoutes.Utilities.Deprecated;
 
 public class DivisionsObjects {
 
@@ -18,17 +17,17 @@ public class DivisionsObjects {
     }
 
     public void clickNewDivision() {
-        Utilities.waitUntileElementIsVisible(clickNewDivision);
-        Utilities.clickElement(clickNewDivision, Utilities.ElementType.XPath);
+        Deprecated.waitVisible(clickNewDivision);
+        Deprecated.clickElement(clickNewDivision);
     }
 
     public void setDivisionCode(String needDivisionCode) {
-        Utilities.waitUntileElementIsVisible(divisionCode);
-        FindElement.elementByAttribute(divisionCode, FindElement.InputType.XPath).sendKeys(needDivisionCode);
+        Deprecated.waitVisible(divisionCode);
+        Deprecated.locate(divisionCode).sendKeys(needDivisionCode);
     }
 
     public void setDivisionDescription(String needDivisionDescription) {
-        Utilities.waitUntileElementIsVisible(divisionDescription);
-        FindElement.elementByAttribute(divisionDescription, FindElement.InputType.XPath).sendKeys(needDivisionDescription);
+        Deprecated.waitVisible(divisionDescription);
+        Deprecated.locate(divisionDescription).sendKeys(needDivisionDescription);
     }
 }

@@ -2,7 +2,7 @@ package automation.PestRoutes.Controller.Customers.SalesReport;
 
 import java.io.IOException;
 
-import automation.PestRoutes.Utilities.*;
+import automation.PestRoutes.Utilities.Data.*;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import org.testng.annotations.Test;
@@ -17,7 +17,7 @@ import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_Over
 import automation.PestRoutes.PageObject.Customers.CustomersMainPage;
 import automation.PestRoutes.PageObject.Customers.SalesReport.SalesReportPage;
 
-import static automation.PestRoutes.Utilities.AssertException.result;
+import static automation.PestRoutes.Utilities.Report.AssertException.result;
 
 public class SalesReport extends AppData {
 

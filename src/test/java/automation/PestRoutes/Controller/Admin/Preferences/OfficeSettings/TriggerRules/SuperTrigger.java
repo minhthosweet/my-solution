@@ -18,9 +18,8 @@ import io.cucumber.java.en.Given;
 import org.openqa.selenium.WebElement;
 import org.testng.annotations.Test;
 import automation.PestRoutes.Controller.Admin.Preferences.OfficeSettings.TriggerRules.SubscriptionStatus.CreateTrigger_SubscriptionStatus;
-import automation.PestRoutes.Utilities.BaseClass;
 
-public class SuperTrigger extends BaseClass {
+public class SuperTrigger {
     CreateTrigger_SubscriptionStatus SubscriptionStatus_trigger = new CreateTrigger_SubscriptionStatus();
     CreateTrigger_Renewal createTrigger_renewal;
     TriggerRules triggerAdmin;

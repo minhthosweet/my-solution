@@ -1,15 +1,15 @@
 package automation.PestRoutes.PageObject.CustomerOverview;
 
 import automation.PestRoutes.PageObject.BasePage;
-import automation.PestRoutes.Utilities.FindElement;
-import automation.PestRoutes.Utilities.Utilities;
-import automation.PestRoutes.Utilities.Utilities.ElementType;
+import automation.PestRoutes.Utilities.Data.*;
+import automation.PestRoutes.Utilities.Deprecated;
 import io.cucumber.java.en.When;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import java.util.List;
 
+import static automation.PestRoutes.Utilities.GetWebDriver.*;
 import static automation.PestRoutes.Utilities.Utilities.*;
 
 public class CustomerviewDialog_AppointmentsTab extends BasePage {
@@ -77,8 +77,8 @@ public class CustomerviewDialog_AppointmentsTab extends BasePage {
         //Utilities.waitUntileElementIsVisible(
           //      "//span[text()='Pending']/parent::div/preceding-sibling::div[contains (text(), '" + needServiceName
             //            + "')]");
-        Utilities.clickElement("//span[text()='Pending']/parent::div/preceding-sibling::div[contains (text(), '"
-                + needServiceName + "')]", ElementType.XPath);
+        Deprecated.clickElement("//span[text()='Pending']/parent::div/preceding-sibling::div[contains (text(), '"
+                + needServiceName + "')]");
     }
 
     public void clickPendingAppointment(String serviceType) {
@@ -87,79 +87,79 @@ public class CustomerviewDialog_AppointmentsTab extends BasePage {
     }
 
     public void clickScheduledStructuredService(String needStructureName) {
-        Utilities.clickElement("//ul[@id='structuresMenuList']//span[text()='" + needStructureName + "']",
-                ElementType.XPath);
+        Deprecated.clickElement("//ul[@id='structuresMenuList']//span[text()='" + needStructureName + "']"
+        );
     }
 
     public void clickSubScheduledStructuredService(String needStructureName, String needSubStructureName) {
-        Utilities.waitUntileElementIsVisible("//ul[@id='structuresMenuList']//span[text()='" + needStructureName + "']");
-        Utilities.clickElement("//ul[@id='structuresMenuList']//span[text()='" + needStructureName + "']",
-                ElementType.XPath);
-        Utilities.waitUntileElementIsVisible(
+        Deprecated.waitVisible("//ul[@id='structuresMenuList']//span[text()='" + needStructureName + "']");
+        Deprecated.clickElement("//ul[@id='structuresMenuList']//span[text()='" + needStructureName + "']"
+        );
+        Deprecated.waitVisible(
                 "//ul[@id='structuresMenuList']//span[text() = '" + needSubStructureName + "']");
-        Utilities.clickElement("//ul[@id='structuresMenuList']//span[text() = '" + needSubStructureName + "']",
-                ElementType.XPath);
+        Deprecated.clickElement("//ul[@id='structuresMenuList']//span[text() = '" + needSubStructureName + "']"
+        );
     }
 
     public void clickStatusButton() {
-        Utilities.clickElement(statusButton, ElementType.XPath);
+        Deprecated.clickElement(statusButton);
     }
 
     public void clickAddProductButton_InCompletingApptDialog() {
-        Utilities.waitUntileElementIsVisible(addProductButton_InCompletingApptDialog);
-        Utilities.clickElement(addProductButton_InCompletingApptDialog, ElementType.XPath);
+        Deprecated.waitVisible(addProductButton_InCompletingApptDialog);
+        Deprecated.clickElement(addProductButton_InCompletingApptDialog);
     }
 
     public void chooseProduct(String needProductName) {
-        Utilities.clickElement("//span[text()='" + needProductName + "']", ElementType.XPath);
+        Deprecated.clickElement("//span[text()='" + needProductName + "']");
     }
 
     public void chooseApplicationMethod(String needMethod) {
-        Utilities.scrollToElement(applicationMethodDropdown_InCompletingApptDialog);
-        Utilities.selectValueFromDropDownByValue(applicationMethodDropdown_InCompletingApptDialog, needMethod);
+        Deprecated.scrollToElement(applicationMethodDropdown_InCompletingApptDialog);
+        Deprecated.selectByText(applicationMethodDropdown_InCompletingApptDialog, needMethod);
     }
 
     public void chooseTargetIssue(String needOption) {
-        Utilities.selectValueFromDropDownByValue(targetIssueDropdown_InCompletingApptDialog, needOption);
+        Deprecated.selectByText(targetIssueDropdown_InCompletingApptDialog, needOption);
     }
 
     public void chooseTargetArea(String needOption) {
-        Utilities.selectValueFromDropDownByValue(targetAreaDropdown_InCompletingApptDialog, needOption);
+        Deprecated.selectByText(targetAreaDropdown_InCompletingApptDialog, needOption);
     }
 
     public void chooseInteriorServiced(String needOption) {
-        Utilities.selectValueFromDropDownByValue(interiorSeviced, needOption);
+        Deprecated.selectByText(interiorSeviced, needOption);
     }
 
     public void clickCancelButton() {
-        Utilities.clickElement(cancelButton_InCompletingApptDialog, ElementType.XPath);
+        Deprecated.clickElement(cancelButton_InCompletingApptDialog);
     }
 
     public void clickSaveButton() {
-        Utilities.clickElement(saveButton_InCompletingApptDialog, ElementType.XPath);
+        Deprecated.clickElement(saveButton_InCompletingApptDialog);
     }
 
     public void clickSaveAndCompleteButton() {
-        if (elementIsVisible(serviceNotes_Complete)) {
-            Utilities.clickElement(saveAndCompleteButton_InCompletingApptDialog, ElementType.XPath);
+        if (Deprecated.isVisible(serviceNotes_Complete)) {
+            Deprecated.clickElement(saveAndCompleteButton_InCompletingApptDialog);
         }
-        Utilities.clickElement(saveAndCompleteButton_InCompletingApptDialog, ElementType.XPath);
+        Deprecated.clickElement(saveAndCompleteButton_InCompletingApptDialog);
     }
 
     public void clickEditButton_AppointmentCard() {
-        Utilities.waitUntileElementIsVisible(editButton);
-        Utilities.clickElement(editButton, ElementType.XPath);
+        Deprecated.waitVisible(editButton);
+        Deprecated.clickElement(editButton);
     }
 
     public void clickRescheduleButton() {
-        Utilities.waitUntileElementIsVisible(reScheduleButton);
-        Utilities.clickElement(reScheduleButton, ElementType.XPath);
+        Deprecated.waitVisible(reScheduleButton);
+        Deprecated.clickElement(reScheduleButton);
     }
 
     public void clickCancelAppointmentButton() {
         delay(3000);
-        Utilities.waitUntileElementIsVisible(cancelAppointment);
-        Utilities.clickElement(cancelAppointment, ElementType.XPath);
+        Deprecated.waitVisible(cancelAppointment);
+        Deprecated.clickElement(cancelAppointment);
     }
 
     public void clickOKButton() {
@@ -167,26 +167,26 @@ public class CustomerviewDialog_AppointmentsTab extends BasePage {
     }
 
     public void cancellationNotes() {
-        Utilities.waitUntileElementIsVisible(cancelNotesAppointment);
-        FindElement.elementByAttribute(cancelNotesAppointment, FindElement.InputType.XPath).sendKeys(Utilities.generateRandomString(10));
+        Deprecated.waitVisible(cancelNotesAppointment);
+        Deprecated.locate(cancelNotesAppointment).sendKeys(GetData.generateRandomString(10));
     }
 
     public void confirmCancellation() {
-        Utilities.waitUntileElementIsVisible(confirmCancellation);
-        Utilities.clickElement(confirmCancellation, ElementType.XPath);
+        Deprecated.waitVisible(confirmCancellation);
+        Deprecated.clickElement(confirmCancellation);
     }
 
     public void clickUnitName() {
-        Utilities.waitUntileElementIsVisible(unitName);
-        Utilities.clickElement(unitName, ElementType.XPath);
+        Deprecated.waitVisible(unitName);
+        Deprecated.clickElement(unitName);
     }
 
     @When("I close scheduling notice button")
     public void clickCloseSchedulingNoticeButton() {
         try {
-            WebElement schedulingAppointment = FindElement.elementByAttribute(closeSchedulingNotice, FindElement.InputType.XPath);
+            WebElement schedulingAppointment = Deprecated.locate(closeSchedulingNotice);
             if (schedulingAppointment.isEnabled()) {
-                Utilities.jsClickElement(closeSchedulingNotice, ElementType.XPath);
+                Deprecated.jsClickElement(closeSchedulingNotice);
             }
         } catch (Exception e) {
             System.out.println("Scheduling notice button not available");
@@ -198,85 +198,85 @@ public class CustomerviewDialog_AppointmentsTab extends BasePage {
      */
 
     public String getUnitChemicalName() {
-        Utilities.waitUntileElementIsVisible(unitNameObject);
-        return Utilities.getElementTextValue(unitNameObject, ElementType.XPath);
+        Deprecated.waitVisible(unitNameObject);
+        return Deprecated.getElementTextValue(unitNameObject);
     }
 
     public String getChemicalName() {
-        Utilities.waitUntileElementIsVisible(productNameObject);
-        return Utilities.getElementTextValue(productNameObject, ElementType.XPath);
+        Deprecated.waitVisible(productNameObject);
+        return Deprecated.getElementTextValue(productNameObject);
     }
 
     public String getTreatedArea() {
-        Utilities.waitUntileElementIsVisible(areaTreated);
-        return Utilities.getElementTextValue(areaTreated, ElementType.XPath);
+        Deprecated.waitVisible(areaTreated);
+        return Deprecated.getElementTextValue(areaTreated);
     }
 
     public String getTreatedPests() {
-        Utilities.waitUntileElementIsVisible(pestsTreated);
-        return Utilities.getElementTextValue(pestsTreated, ElementType.XPath);
+        Deprecated.waitVisible(pestsTreated);
+        return Deprecated.getElementTextValue(pestsTreated);
     }
 
     /*
      * Getter Methods Below methods get text value of an Unit Product object
      */
     public String getUnitName() {
-        Utilities.waitUntileElementIsVisible(unitName);
-        return Utilities.getElementTextValue(unitName, ElementType.XPath);
+        Deprecated.waitVisible(unitName);
+        return Deprecated.getElementTextValue(unitName);
     }
 
     public String getUnitAreaTreated() {
-        Utilities.waitUntileElementIsVisible(areaUnitTreated);
-        return Utilities.getElementTextValue(areaUnitTreated, ElementType.XPath);
+        Deprecated.waitVisible(areaUnitTreated);
+        return Deprecated.getElementTextValue(areaUnitTreated);
     }
 
     public String getUnitPestsTreated() {
-        Utilities.waitUntileElementIsVisible(pestsUnitTreated);
-        return Utilities.getElementTextValue(pestsUnitTreated, ElementType.XPath);
+        Deprecated.waitVisible(pestsUnitTreated);
+        return Deprecated.getElementTextValue(pestsUnitTreated);
     }
 
     // Structure Methods(Structure Products Object
     public String getStructureChemicalName() {
-        Utilities.waitUntileElementIsVisible(structureNameObject);
-        return Utilities.getElementTextValue(structureNameObject, ElementType.XPath);
+        Deprecated.waitVisible(structureNameObject);
+        return Deprecated.getElementTextValue(structureNameObject);
     }
 
     public void clickStructureName() {
-        Utilities.waitUntileElementIsVisible(structureName);
-        Utilities.clickElement(structureName, ElementType.XPath);
+        Deprecated.waitVisible(structureName);
+        Deprecated.clickElement(structureName);
     }
 
     public String getStructureAreaTreated() {
-        Utilities.waitUntileElementIsVisible(areaStructureTreated);
-        return Utilities.getElementTextValue(areaStructureTreated, ElementType.XPath);
+        Deprecated.waitVisible(areaStructureTreated);
+        return Deprecated.getElementTextValue(areaStructureTreated);
     }
 
     public String getStructureIssuesTreated() {
-        Utilities.waitUntileElementIsVisible(issuesStructureTreated);
-        return Utilities.getElementTextValue(issuesStructureTreated, ElementType.XPath);
+        Deprecated.waitVisible(issuesStructureTreated);
+        return Deprecated.getElementTextValue(issuesStructureTreated);
     }
 
     //Appointment Info details getter methods
     public String getScheduledBy_User() {
-        Utilities.waitUntileElementIsVisible(scheduledBy);
-        String schedulerName = Utilities.getElementTextValue(scheduledBy, ElementType.XPath);
+        Deprecated.waitVisible(scheduledBy);
+        String schedulerName = Deprecated.getElementTextValue(scheduledBy);
         int index = schedulerName.indexOf(" on");
         schedulerName = schedulerName.substring(0, index);
         return schedulerName;
     }
 
     public String getCompletedBy_User() {
-        Utilities.waitUntileElementIsVisible(completedBy);
-        String completedByName = Utilities.getElementTextValue(completedBy, ElementType.XPath);
+        Deprecated.waitVisible(completedBy);
+        String completedByName = Deprecated.getElementTextValue(completedBy);
         int index = completedByName.indexOf(" on");
         completedByName = completedByName.substring(0, index);
         return completedByName;
     }
 
     public String getTechnicianOnAppointment() {
-        Utilities.waitUntileElementIsVisible(technicianOnAppointment);
-        System.out.println("technicianName : " + Utilities.getElementTextValue(technicianOnAppointment, ElementType.XPath));
-        return Utilities.getElementTextValue(technicianOnAppointment, ElementType.XPath);
+        Deprecated.waitVisible(technicianOnAppointment);
+        System.out.println("technicianName : " + Deprecated.getElementTextValue(technicianOnAppointment));
+        return Deprecated.getElementTextValue(technicianOnAppointment);
     }
 
     public String getTechName () {
@@ -295,14 +295,14 @@ public class CustomerviewDialog_AppointmentsTab extends BasePage {
     }
 
     public String getAppointmentID() {
-        Utilities.waitUntileElementIsVisible("//div[@id='appointmentContainor']//h3");
-        return Utilities.getAttributeValue("//div[@id='appointmentContainor']//h3", "data-appointmentid");
+        Deprecated.waitVisible("//div[@id='appointmentContainor']//h3");
+        return Deprecated.getAttribute("//div[@id='appointmentContainor']//h3", "data-appointmentid");
     }
 
     public void changeAppointmentTech(String needTechnicianName) {
-        Utilities.waitUntileElementIsVisible("//select[@name='changeAppointmentTech']");
-        Utilities.clickElement("//select[@name='changeAppointmentTech']", ElementType.XPath);
-        Utilities.clickElement("//select[@name='changeAppointmentTech']//option[text()='"+needTechnicianName+"']", ElementType.XPath);
+        Deprecated.waitVisible("//select[@name='changeAppointmentTech']");
+        Deprecated.clickElement("//select[@name='changeAppointmentTech']");
+        Deprecated.clickElement("//select[@name='changeAppointmentTech']//option[text()='"+needTechnicianName+"']");
     }
 
     public void clickConfirmCancellationButton() {
@@ -314,7 +314,7 @@ public class CustomerviewDialog_AppointmentsTab extends BasePage {
     }
 
     public void typeServiceNotes(String serviceNotes) {
-        type(serviceNotes, serviceNotesField);
+        Deprecated.type(serviceNotes, serviceNotesField);
     }
 
     public String getServiceNotes() {

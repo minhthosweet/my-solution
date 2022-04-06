@@ -4,7 +4,7 @@ import automation.PestRoutes.PageObject.Admin.PreferencesTab.CustomerPreferences
 import automation.PestRoutes.PageObject.Admin.PreferencesTab.PreferencesPage;
 import automation.PestRoutes.PageObject.Header;
 
-import automation.PestRoutes.Utilities.Utilities;
+import automation.PestRoutes.Utilities.Data.*;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -19,7 +19,7 @@ public class CustomerCommunicationTests extends BasePage {
     CustomerCommunicationPageObjects customerCommPageObjs = new CustomerCommunicationPageObjects();
 
     //Retrieve Test Data
-    HashMap<String, String> testData = Utilities.readExcelFile(System.getProperty("user.dir") + File.separator + "src" + File.separator + "test" + File.separator + "resources" + File.separator + "testdata",
+    HashMap<String, String> testData = ExcelData.readExcelFile(System.getProperty("user.dir") + File.separator + "src" + File.separator + "test" + File.separator + "resources" + File.separator + "testdata",
             "TestData_Ticket105549.xlsx", "CustomerCommData", 1);
 
     @When("I navigate to the Customer Communication Tab")

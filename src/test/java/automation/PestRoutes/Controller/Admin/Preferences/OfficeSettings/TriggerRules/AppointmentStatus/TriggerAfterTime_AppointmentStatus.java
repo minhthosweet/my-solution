@@ -3,7 +3,7 @@ package automation.PestRoutes.Controller.Admin.Preferences.OfficeSettings.Trigge
 import automation.PestRoutes.Controller.Admin.Preferences.OfficeSettings.TriggerRules.CustomerStatus.TriggerOnSave_CustomerStatus;
 import automation.PestRoutes.PageObject.Admin.PreferencesTab.OfficeSettingsTab.TriggerTypes.TriggerRules;
 import automation.PestRoutes.PageObject.Admin.PreferencesTab.OfficeSettingsTab.TriggerTypes.SubscriptionStatusTab;
-import automation.PestRoutes.Utilities.AppData;
+import automation.PestRoutes.Utilities.Data.AppData;
 import org.testng.annotations.Test;
 
 public class TriggerAfterTime_AppointmentStatus extends AppData {

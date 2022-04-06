@@ -1,13 +1,14 @@
 package automation.PestRoutes.Controller.Admin.Preferences.CustomerPreferences;
 
-import automation.PestRoutes.Utilities.AppData;
+import automation.PestRoutes.Utilities.*;
+import automation.PestRoutes.Utilities.Data.AppData;
+import automation.PestRoutes.Utilities.Deprecated;
 import org.testng.annotations.Test;
 
 import automation.PestRoutes.PageObject.Header;
 import automation.PestRoutes.PageObject.Admin.AdminMainPage;
 import automation.PestRoutes.PageObject.Admin.PreferencesTab.CustomerPreferencesTab.FormObjects;
 import automation.PestRoutes.PageObject.Admin.PreferencesTab.PreferencesPage;
-import automation.PestRoutes.Utilities.Utilities;
 
 public class FormTemplates extends AppData {
 	AdminMainPage adminPage;
@@ -31,45 +32,10 @@ public class FormTemplates extends AppData {
 		form.setInputField(form.nameField, needFormName);
 		form.selectValueFromDropdown(form.requiredApprovalDropdown, "No");
 		form.clickButton(form.htmlButton);
-		Utilities.scrollToElement(form.htmlInputField);
-		form.setInputField(form.htmlInputField, "<div> Employee </div>");
-		Utilities.hitEnter(form.htmlInputField);
+		Deprecated.scrollToElement(form.htmlInputField);
+		form.setInputField(form.htmlInputField, "<div> Employee </div>\n");
 		form.setInputField(form.htmlInputField, getData("employeeSignHtml",generalData));
-		Utilities.scrollToElement(form.saveButton);
-		form.clickButton(form.saveButton);
-	}
-	
-	public void createCustomerSignForm(String needFormName) throws Exception {
-		form = new FormObjects();
-		form.clickButton(form.addFormButton);
-		form.setInputField(form.nameField, needFormName);
-		form.selectValueFromDropdown(form.requiredApprovalDropdown, "No");
-		form.clickButton(form.htmlButton);
-		Utilities.scrollToElement(form.htmlInputField);
-		form.setInputField(form.htmlInputField, "<div> Customer </div>");
-		Utilities.hitEnter(form.htmlInputField);
-		form.setInputField(form.htmlInputField, getData("customerSignHtml",generalData));
-		Utilities.scrollToElement(form.saveButton);
-		form.clickButton(form.saveButton);
-	}
-	
-	public void createCustomerAndEmployeeSignForm(String needFormName) throws Exception {
-		form = new FormObjects();
-		form.clickButton(form.addFormButton);
-		form.setInputField(form.nameField, needFormName);
-		form.selectValueFromDropdown(form.requiredApprovalDropdown, "No");
-		form.clickButton(form.htmlButton);
-		Utilities.scrollToElement(form.htmlInputField);
-		form.setInputField(form.htmlInputField, "<div> Customer </div>");
-		Utilities.hitEnter(form.htmlInputField);
-		form.setInputField(form.htmlInputField, getData("customerSignHtml",generalData));
-		Utilities.hitEnter(form.htmlInputField);
-		form.setInputField(form.htmlInputField, "<br>");
-		Utilities.hitEnter(form.htmlInputField);
-		form.setInputField(form.htmlInputField, "<div> Employee </div>");
-		Utilities.hitEnter(form.htmlInputField);
-		form.setInputField(form.htmlInputField, getData("employeeSignHtml",generalData));
-		Utilities.scrollToElement(form.saveButton);
+		Deprecated.scrollToElement(form.saveButton);
 		form.clickButton(form.saveButton);
 	}
 	

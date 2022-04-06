@@ -3,6 +3,8 @@ package automation.PestRoutes.PageObject.CustomerPortal;
 import automation.PestRoutes.PageObject.BasePage;
 import static automation.PestRoutes.Utilities.Utilities.*;
 
+import automation.PestRoutes.Utilities.*;
+import automation.PestRoutes.Utilities.Deprecated;
 import org.openqa.selenium.By;
 
 public class CustomerPortalBasePage extends BasePage {
@@ -20,14 +22,14 @@ public class CustomerPortalBasePage extends BasePage {
 
     public String getResponsibleBalance(){
         delay(1000);
-        scrollToElementJS(responsibleBalance);
+        Deprecated.scrollToElementJS(responsibleBalance);
         return getText(responsibleBalance);
     }
 
     public CustomerPortalHistoryTabPage goToHistoryTab(){
         click(historyTab);
         while(!isHistoryTabActive()) {
-            refreshPage();
+            GetWebDriver.refreshPage();
         }
         return new CustomerPortalHistoryTabPage();
     }
@@ -35,13 +37,13 @@ public class CustomerPortalBasePage extends BasePage {
     public CustomerPortalBillingTabPage goToBillingTab() {
         click(billingTab);
         while(!isBillingTabActive()) {
-            refreshPage();
+            GetWebDriver.refreshPage();
         }
         return new CustomerPortalBillingTabPage();
     }
 
     private boolean isTabActive(By locator){
-        if (find(activeTab).getText().equals(find(locator).getText())) {
+        if (Utilities.locate(activeTab).getText().equals(Utilities.locate(locator).getText())) {
             return true;
         }
         return false;
@@ -56,6 +58,6 @@ public class CustomerPortalBasePage extends BasePage {
     }
 
     public boolean isSummaryTabDisplayed() {
-        return elementIsVisible(summaryTab);
+        return isVisible(summaryTab);
     }
 }

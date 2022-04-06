@@ -1,9 +1,6 @@
 package automation.PestRoutes.PageObject.Structure;
 
-import automation.PestRoutes.Utilities.FindElement;
-import automation.PestRoutes.Utilities.Utilities;
-import automation.PestRoutes.Utilities.FindElement.InputType;
-import automation.PestRoutes.Utilities.Utilities.ElementType;
+import automation.PestRoutes.Utilities.Deprecated;
 
 public class StructuresTab {
 
@@ -26,69 +23,69 @@ public class StructuresTab {
 
     // Getter Methods
     public void getChemicalNameStructure(String checmicalName) {
-        Utilities.scrollToElement("//div[@id='structureDetails']//div[contains (text(),'" + checmicalName + "')]");
-        Utilities.clickElement("//div[@id='structureDetails']//div[contains (text(),'" + checmicalName + "')]",
-                ElementType.XPath);
+        Deprecated.scrollToElement("//div[@id='structureDetails']//div[contains (text(),'" + checmicalName + "')]");
+        Deprecated.clickElement("//div[@id='structureDetails']//div[contains (text(),'" + checmicalName + "')]"
+        );
     }
 
     public void setMainStructure(String mainStructuresName) {
-        Utilities.clickElement(addMainStructure, ElementType.XPath);
-        Utilities.waitUntileElementIsVisible(structureName);
-        FindElement.elementByAttribute(structureName, InputType.XPath).sendKeys(mainStructuresName);
-        Utilities.clickElement(newStructureSave, ElementType.XPath);
+        Deprecated.clickElement(addMainStructure);
+        Deprecated.waitVisible(structureName);
+        Deprecated.locate(structureName).sendKeys(mainStructuresName);
+        Deprecated.clickElement(newStructureSave);
     }
 
     public void setSubStructure(String subStructuresName) {
-        Utilities.clickElement(addSubStructure, ElementType.XPath);
-        Utilities.waitUntileElementIsVisible(structureName);
-        FindElement.elementByAttribute(structureName, InputType.XPath).sendKeys(subStructuresName);
-        Utilities.waitUntileElementIsVisible(newStructureSave);
-        Utilities.clickElement(newStructureSave, ElementType.XPath);
-        Utilities.clickElement("//ul[@id='structuresMenuList']//span[text()='" + subStructuresName + "']",
-                ElementType.XPath);
+        Deprecated.clickElement(addSubStructure);
+        Deprecated.waitVisible(structureName);
+        Deprecated.locate(structureName).sendKeys(subStructuresName);
+        Deprecated.waitVisible(newStructureSave);
+        Deprecated.clickElement(newStructureSave);
+        Deprecated.clickElement("//ul[@id='structuresMenuList']//span[text()='" + subStructuresName + "']"
+        );
     }
 
     // Details Button for Main Structure and SubStructure
     public void clickDetailsButtonMainStructure(String mainStructure) {
-        Utilities.waitUntileElementIsVisible(
+        Deprecated.waitVisible(
                 "//div[@id='apptStructuresPanel']//div[2]//h3[contains (text(),'" + mainStructure + "')]");
-        Utilities.clickElement(
-                "//div[@id='apptStructuresPanel']//div[2]//h3[contains (text(),'" + mainStructure + "')]",
-                ElementType.XPath);
+        Deprecated.clickElement(
+                "//div[@id='apptStructuresPanel']//div[2]//h3[contains (text(),'" + mainStructure + "')]"
+        );
     }
 
     public void clickDetailsButtonSubStructure(String subStructure) {
-        Utilities.waitUntileElementIsVisible(
+        Deprecated.waitVisible(
                 "//div[@id='apptStructuresPanel']//div[3]//h3[contains (text(),'" + subStructure + "')]");
-        Utilities.clickElement("//div[@id='apptStructuresPanel']//div[3]//h3[contains (text(),'" + subStructure + "')]",
-                ElementType.XPath);
+        Deprecated.clickElement("//div[@id='apptStructuresPanel']//div[3]//h3[contains (text(),'" + subStructure + "')]"
+        );
     }
 
     // Add Product click for Structures and SubStructures
     public void clickAddProductMainStructure() {
-        Utilities.waitUntileElementIsVisible(clickAddProduct_mainStructure);
-        Utilities.clickElement(clickAddProduct_mainStructure, ElementType.XPath);
+        Deprecated.waitVisible(clickAddProduct_mainStructure);
+        Deprecated.clickElement(clickAddProduct_mainStructure);
     }
 
     public void clickAddProductSubStructure() {
-        Utilities.waitUntileElementIsVisible(clickAddProduct_subStructure);
-        Utilities.clickElement(clickAddProduct_subStructure, ElementType.XPath);
+        Deprecated.waitVisible(clickAddProduct_subStructure);
+        Deprecated.clickElement(clickAddProduct_subStructure);
     }
 
     // Click Appointment card on Schedule Card
     public void clickStructuresTabApt() {
-        Utilities.clickElement(structuresTab, ElementType.XPath);
+        Deprecated.clickElement(structuresTab);
     }
 
     public void clickProductsAptTab() {
-        Utilities.clickElement(clickProducts, ElementType.XPath);
+        Deprecated.clickElement(clickProducts);
     }
 
     public void clickExistingCustomer(String custID, String firstName) {
-        Utilities.clickElement(clickExistingCustomer, ElementType.XPath);
-        FindElement.elementByAttribute(clickExistingCustomer, InputType.XPath).sendKeys(custID);
-        Utilities.waitUntileElementIsVisible("//span[contains (text(), '" + firstName + "')]");
-        Utilities.clickElement("//span[contains (text(), '" + firstName + "')]", ElementType.XPath);
+        Deprecated.clickElement(clickExistingCustomer);
+        Deprecated.locate(clickExistingCustomer).sendKeys(custID);
+        Deprecated.waitVisible("//span[contains (text(), '" + firstName + "')]");
+        Deprecated.clickElement("//span[contains (text(), '" + firstName + "')]");
     }
 
 }

@@ -1,9 +1,8 @@
 package automation.PestRoutes.PageObject.CustomerOverview.Invoicing;
 
-import automation.PestRoutes.Utilities.FindElement;
-import automation.PestRoutes.Utilities.Utilities;
+import automation.PestRoutes.Utilities.*;
+import automation.PestRoutes.Utilities.Deprecated;
 import org.openqa.selenium.By;
-import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebElement;
 
 public class CreditMemoTab {
@@ -25,56 +24,56 @@ public class CreditMemoTab {
 
     //Getters
     public String getChargesAmount_creditMemo() {
-        Utilities.waitUntileElementIsVisible(chargeValue_creditMemo);
-        return Utilities.getAttributeValue(chargeValue_creditMemo, "value");
+        Deprecated.waitVisible(chargeValue_creditMemo);
+        return Deprecated.getAttribute(chargeValue_creditMemo, "value");
     }
 
     public void clickCreateButton_creditMemoTab() {
-        Utilities.waitUntileElementIsVisible(createButton_creditMemoTab);
-        Utilities.clickElement(createButton_creditMemoTab, Utilities.ElementType.XPath);
+        Deprecated.waitVisible(createButton_creditMemoTab);
+        Deprecated.clickElement(createButton_creditMemoTab);
     }
 
     public void clickAppliedCharge_invoiceApplications() throws InterruptedException {
 //        Utilities.waitUntileElementIsVisible(date_creditMemo);
-        Utilities.waitUntileElementIsClickable(By.xpath(invoiceApplicationBox), 15);
-        Utilities.clickElement(invoiceApplicationBox, Utilities.ElementType.XPath);
-        if (!Utilities.isPresent(appointmentDate_creditMemo)){
-            Utilities.clickElement(initialInvoice, Utilities.ElementType.XPath);
+        Utilities.waitClickable(By.xpath(invoiceApplicationBox), 15);
+        Deprecated.clickElement(invoiceApplicationBox);
+        if (!Deprecated.isPresent(appointmentDate_creditMemo)){
+            Deprecated.clickElement(initialInvoice);
         }
     }
 
     public String getInvoiceApplicationDate() {
-        Utilities.waitUntileElementIsVisible(date_invoiceApplication);
-        return Utilities.getElementTextValue(date_invoiceApplication, Utilities.ElementType.XPath);
+        Deprecated.waitVisible(date_invoiceApplication);
+        return Deprecated.getElementTextValue(date_invoiceApplication);
     }
 
     public String getCreditMemoDate() {
-        Utilities.waitUntileElementIsVisible(date_creditMemo);
-        return Utilities.getElementTextValue(date_creditMemo, Utilities.ElementType.XPath);
+        Deprecated.waitVisible(date_creditMemo);
+        return Deprecated.getElementTextValue(date_creditMemo);
     }
 
     public String getBilledAccount() {
-        Utilities.waitUntileElementIsVisible(billedAccount_creditMemo);
-        return Utilities.getAttributeValue(billedAccount_creditMemo, "value");
+        Deprecated.waitVisible(billedAccount_creditMemo);
+        return Deprecated.getAttribute(billedAccount_creditMemo, "value");
     }
 
     public String getPaymentsBalance() {
-        Utilities.waitUntileElementIsVisible(billedAccount_creditMemo);
-        return Utilities.getElementTextValue(paymentsBalance, Utilities.ElementType.XPath);
+        Deprecated.waitVisible(billedAccount_creditMemo);
+        return Deprecated.getElementTextValue(paymentsBalance);
     }
 
     public void clickInitialInvoice() throws InterruptedException {
         Thread.sleep(100);
-        Utilities.waitUntileElementIsVisible(initialInvoice);
-        Utilities.clickElement(initialInvoice, Utilities.ElementType.XPath);
+        Deprecated.waitVisible(initialInvoice);
+        Deprecated.clickElement(initialInvoice);
     }
 
     //Author: Aditya
     public void validateServiceTypeName() throws Exception {
         String serviceTypeName_creditMemoInvoice = "//div[contains(text(),'Actions')]//following-sibling::div[1]//h3";
         try {
-            Utilities.waitUntileElementIsVisible(date_creditMemo);
-            WebElement elm = FindElement.elementByAttribute(serviceTypeName_creditMemoInvoice, FindElement.InputType.XPath);
+            Deprecated.waitVisible(date_creditMemo);
+            WebElement elm = Deprecated.locate(serviceTypeName_creditMemoInvoice);
             if (elm.isDisplayed()) {
             }
         } catch (Exception e) {
@@ -85,9 +84,9 @@ public class CreditMemoTab {
     //Author : Aditya
     public String getTicketID() throws InterruptedException {
         Thread.sleep(100);
-        Utilities.waitUntileElementIsVisible(clickCreditMemoInvoice);
-        int ticketID1 = Integer.parseInt(Utilities.getAttributeValue("//ul[@id='invoiceGroupListContainer']//li[1]", "ticketid"));
-        int ticketID2 = Integer.parseInt(Utilities.getAttributeValue("//ul[@id='invoiceGroupListContainer']//li[2]", "ticketid"));
+        Deprecated.waitVisible(clickCreditMemoInvoice);
+        int ticketID1 = Integer.parseInt(Deprecated.getAttribute("//ul[@id='invoiceGroupListContainer']//li[1]", "ticketid"));
+        int ticketID2 = Integer.parseInt(Deprecated.getAttribute("//ul[@id='invoiceGroupListContainer']//li[2]", "ticketid"));
         if (ticketID1 > ticketID2) {
             return "//ul[@id='invoiceGroupListContainer']//li[1]";
         } else {
@@ -97,7 +96,7 @@ public class CreditMemoTab {
 
     //Setters
     public void setServiceType_creditMemoTab(String serviceType) {
-        Utilities.waitUntileElementIsVisible(serviceType_creditMemoTab);
-        Utilities.selectValueFromDropDownByValue(serviceType_creditMemoTab, serviceType);
+        Deprecated.waitVisible(serviceType_creditMemoTab);
+        Deprecated.selectByText(serviceType_creditMemoTab, serviceType);
     }
 }

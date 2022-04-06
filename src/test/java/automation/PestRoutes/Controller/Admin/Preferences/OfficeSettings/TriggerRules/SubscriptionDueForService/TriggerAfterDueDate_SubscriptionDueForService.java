@@ -1,10 +1,9 @@
 package automation.PestRoutes.Controller.Admin.Preferences.OfficeSettings.TriggerRules.SubscriptionDueForService;
 
 import automation.PestRoutes.Controller.Admin.Preferences.OfficeSettings.TriggerRules.SubscriptionStatus.CreateTrigger_SubscriptionStatus;
-import automation.PestRoutes.Utilities.BaseClass;
 import org.testng.annotations.Test;
 
-public class TriggerAfterDueDate_SubscriptionDueForService extends BaseClass {
+public class TriggerAfterDueDate_SubscriptionDueForService {
 
     CreateTrigger_SubscriptionDueForService createTrigger_subscriptionDueForService;
     CreateTrigger_SubscriptionStatus createTrigger_subscriptionStatus = new CreateTrigger_SubscriptionStatus();

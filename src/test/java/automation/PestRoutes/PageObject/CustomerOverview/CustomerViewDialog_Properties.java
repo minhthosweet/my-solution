@@ -1,6 +1,7 @@
 package automation.PestRoutes.PageObject.CustomerOverview;
 
 import automation.PestRoutes.PageObject.BasePage;
+import automation.PestRoutes.Utilities.Deprecated;
 import automation.PestRoutes.Utilities.Utilities;
 import org.openqa.selenium.By;
 
@@ -22,17 +23,17 @@ public class CustomerViewDialog_Properties extends BasePage {
 
     //********************* Getters  *******************
     public String getPageTitle(){
-        return getText(pageTitle);
+        return Utilities.getText(pageTitle);
     }//getPageTitle()
 
     //******************* Other Method & Functions **************
     public void linkThisProperty(String strPropertyNameOrID){
-       type(strPropertyNameOrID,lnkAProperty);
-       Utilities.hoverElement(lnkAProperty,(By.xpath("//ul[contains(@id,'ui-id')] //li/a[contains(@id,'ui-id')]/span[contains(text(),'" + strPropertyNameOrID + "')]")));
+       Deprecated.type(strPropertyNameOrID,lnkAProperty);
+       Utilities.hoverClick(lnkAProperty,(By.xpath("//ul[contains(@id,'ui-id')] //li/a[contains(@id,'ui-id')]/span[contains(text(),'" + strPropertyNameOrID + "')]")));
     }//linkThisProperty()
 
     public void gotoPropertiesTab(){
-        click(customercardPropertiesLink);
+        Utilities.click(customercardPropertiesLink);
     }//gotoPropertiesTab()
 
 }

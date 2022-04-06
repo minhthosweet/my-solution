@@ -1,11 +1,8 @@
 package automation.PestRoutes.Controller.Login;
 
-import java.io.IOException;
-
 import automation.PestRoutes.PageObject.SignInPage.LoginPage;
-import automation.PestRoutes.Utilities.AppData;
-import automation.PestRoutes.Utilities.BaseClass;
-import automation.PestRoutes.Utilities.Driver.GetWebDriver;
+import automation.PestRoutes.Utilities.Data.AppData;
+import automation.PestRoutes.Utilities.GetWebDriver;
 import io.cucumber.java.en.Given;
 
 public class SignIn extends AppData{

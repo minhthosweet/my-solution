@@ -4,9 +4,8 @@ import automation.PestRoutes.Controller.Admin.Preferences.OfficeSettings.Trigger
 import automation.PestRoutes.Controller.Invoicing.InvoicingTab;
 import automation.PestRoutes.PageObject.Admin.PreferencesTab.OfficeSettingsTab.TriggerTypes.ARTab;
 import automation.PestRoutes.PageObject.Admin.PreferencesTab.OfficeSettingsTab.TriggerTypes.TriggerRules;
-import automation.PestRoutes.Utilities.AppData;
-import automation.PestRoutes.Utilities.GetDate;
-import automation.PestRoutes.Utilities.Utilities;
+import automation.PestRoutes.Utilities.Data.AppData;
+import automation.PestRoutes.Utilities.Data.GetDate;
 import io.cucumber.java.en.Then;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -47,7 +46,7 @@ public class AR_daysPastDue  extends AppData {
 
     public void createCustomerWithInvoice() throws Exception {
         invoiceTab = new InvoicingTab();
-        invoiceTab.addNewInvoice(GetDate.minusGenericDayToDate(Utilities.currentDate("MM/dd/yyyy"),31));
+        invoiceTab.addNewInvoice(GetDate.minusGenericDayToDate(GetDate.currentDate("MM/dd/yyyy"),31));
     }
 
     public void runTriggerEvent(){

@@ -1,9 +1,6 @@
 package automation.PestRoutes.PageObject.Admin.PreferencesTab.ServiceRelatedTab;
 
-import automation.PestRoutes.Utilities.FindElement;
-import automation.PestRoutes.Utilities.Utilities;
-import automation.PestRoutes.Utilities.FindElement.InputType;
-import automation.PestRoutes.Utilities.Utilities.ElementType;
+import automation.PestRoutes.Utilities.Deprecated;
 
 public class EquipmentTypes {
 	//Equipment types main objects
@@ -29,12 +26,12 @@ public class EquipmentTypes {
 	 * Below methods clicks or select an object
 	 */
 	public void clickAddEquipmentButton() {
-		Utilities.waitUntileElementIsVisible(addEquipmentTypeButton);
-		Utilities.clickElement(addEquipmentTypeButton, ElementType.XPath);
+		Deprecated.waitVisible(addEquipmentTypeButton);
+		Deprecated.clickElement(addEquipmentTypeButton);
 	}
 	public void selectOptionFromDropdown(String needObject, String needOption) {
-		Utilities.waitUntileElementIsVisible(needObject);
-		Utilities.selectValueFromDropDownByValue(needObject, needOption);
+		Deprecated.waitVisible(needObject);
+		Deprecated.selectByText(needObject, needOption);
 	}
 	
 	/*
@@ -42,16 +39,16 @@ public class EquipmentTypes {
 	 * Below methods sets values to the input fields for given object
 	 */
 	public void setID_Prefix(String needData) {
-		Utilities.waitUntileElementIsVisible(idPrefixInputField);
-		FindElement.elementByAttribute(idPrefixInputField, InputType.XPath).sendKeys(needData);
+		Deprecated.waitVisible(idPrefixInputField);
+		Deprecated.locate(idPrefixInputField).sendKeys(needData);
 	}
 	public void setDescription(String needData) {
-		Utilities.waitUntileElementIsVisible(descriptionInputField);
-		FindElement.elementByAttribute(descriptionInputField, InputType.XPath).sendKeys(needData);
+		Deprecated.waitVisible(descriptionInputField);
+		Deprecated.locate(descriptionInputField).sendKeys(needData);
 	}
 	public void setCode(String needData) {
-		Utilities.waitUntileElementIsVisible(codeInputField);
-		FindElement.elementByAttribute(codeInputField, InputType.XPath).sendKeys(needData);
+		Deprecated.waitVisible(codeInputField);
+		Deprecated.locate(codeInputField).sendKeys(needData);
 	}
 	
 	/*
@@ -59,12 +56,12 @@ public class EquipmentTypes {
 	 * Below methods get text value of an object
 	 */
 	public String getIDPrefix() {
-		Utilities.waitUntileElementIsVisible(prefix);
-		return Utilities.getElementTextValue(prefix, ElementType.XPath);
+		Deprecated.waitVisible(prefix);
+		return Deprecated.getElementTextValue(prefix);
 	}
 	public String getDescription() {
-		Utilities.waitUntileElementIsVisible(description);
-		return Utilities.getElementTextValue(description, ElementType.XPath);
+		Deprecated.waitVisible(description);
+		return Deprecated.getElementTextValue(description);
 	}
 
 }

@@ -7,11 +7,10 @@ import automation.PestRoutes.PageObject.Admin.PreferencesTab.OfficeSettingsTab.T
 import automation.PestRoutes.PageObject.Admin.PreferencesTab.OfficeSettingsTab.TriggerTypes.TriggerRules;
 import automation.PestRoutes.PageObject.Admin.PreferencesTab.PreferencesPage;
 import automation.PestRoutes.PageObject.DashboardPage;
-import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.When;
 
-import static automation.PestRoutes.Utilities.Utilities.currentDate;
+import static automation.PestRoutes.Utilities.Data.GetDate.currentDate;
 
 public class AutoPaymentTest {
 

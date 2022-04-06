@@ -4,7 +4,6 @@ import java.io.IOException;
 
 import automation.PestRoutes.Controller.Admin.Preferences.OfficeSettings.TriggerRules.AR.AR_Age;
 import automation.PestRoutes.Controller.CustomerCreation.CreateNewCustomer;
-import automation.PestRoutes.Controller.Customers.AppointmentsTab.TestScheduledAppointments;
 import automation.PestRoutes.PageObject.Admin.AdminMainPage;
 import automation.PestRoutes.PageObject.Admin.PreferencesTab.OfficeSettingsTab.TriggerTypes.SubscriptionStatusTab;
 import automation.PestRoutes.PageObject.Admin.PreferencesTab.OfficeSettingsTab.TriggerTypes.TriggerRules;
@@ -19,11 +18,10 @@ import org.testng.annotations.Test;
 import automation.PestRoutes.Controller.Admin.Preferences.OfficeSettings.TriggerRules.AppointmentStatus.TriggerOnSave_AppointmentStatus;
 import automation.PestRoutes.Controller.Admin.Preferences.OfficeSettings.TriggerRules.CustomerStatus.TriggerOnSave_CustomerStatus;
 import automation.PestRoutes.Controller.Renewal.ValidateRenewal;
-import automation.PestRoutes.Utilities.BaseClass;
 
-import static automation.PestRoutes.Utilities.Utilities.currentDate;
+import static automation.PestRoutes.Utilities.Data.GetDate.currentDate;
 
-public class TriggerOnSave_SubscriptionStatus extends BaseClass {
+public class TriggerOnSave_SubscriptionStatus {
 
     CreateTrigger_SubscriptionStatus createSubscriptionStatus = new CreateTrigger_SubscriptionStatus();
     TriggerOnSave_CustomerStatus triggerOnSave_CustomerStatus = new TriggerOnSave_CustomerStatus();

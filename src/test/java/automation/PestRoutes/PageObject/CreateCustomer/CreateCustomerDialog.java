@@ -1,14 +1,12 @@
 package automation.PestRoutes.PageObject.CreateCustomer;
 
 import automation.PestRoutes.PageObject.BasePage;
+import automation.PestRoutes.Utilities.*;
+import automation.PestRoutes.Utilities.Deprecated;
 import org.openqa.selenium.By;
 import org.openqa.selenium.ElementNotInteractableException;
 import org.openqa.selenium.Keys;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_Admin;
-import automation.PestRoutes.Utilities.FindElement;
-import automation.PestRoutes.Utilities.Utilities;
-import automation.PestRoutes.Utilities.FindElement.InputType;
-import automation.PestRoutes.Utilities.Utilities.ElementType;
 import org.openqa.selenium.WebElement;
 
 public class CreateCustomerDialog extends BasePage {
@@ -84,43 +82,43 @@ public class CreateCustomerDialog extends BasePage {
      */
     // Drop downs
     public void selectProperty(String needPropertyType) {
-        Utilities.selectValueFromDropDownByValue(propertyTypeDropDown, needPropertyType);
+        Deprecated.selectByText(propertyTypeDropDown, needPropertyType);
     }
 
     public void selectUnit(String needUnit) {
-        Utilities.selectValueFromDropDownByValue(unitTypeDropDown, needUnit);
+        Deprecated.selectByText(unitTypeDropDown, needUnit);
     }
 
     public void selectSource(String needSource) {
-        Utilities.selectValueFromDropDownByValue(selectSourceDropDown, needSource);
+        Deprecated.selectByText(selectSourceDropDown, needSource);
     }
 
     public void selectGenericFlag(String needFlag) {
-        FindElement.elementByAttribute(genericFlagsDropDown, InputType.XPath).sendKeys(needFlag);
+        Deprecated.locate(genericFlagsDropDown).sendKeys(needFlag);
     }
 
     public void selectState(String needState) {
-        Utilities.selectValueFromDropDownByValue(stateDropDown, needState);
+        Deprecated.selectByText(stateDropDown, needState);
     }
 
     public void selectCounty(String needCounty) {
-        Utilities.selectValueFromDropDownByValue(countyDropDown, needCounty);
+        Deprecated.selectByText(countyDropDown, needCounty);
     }
 
     public void selectCountry(String needCountry) {
-        Utilities.selectValueFromDropDownByValue(countryDropDown, needCountry);
+        Deprecated.selectByText(countryDropDown, needCountry);
     }
 
     public void selectDivision(String needDivision) {
-        Utilities.selectValueFromDropDownByValue(divisionDropDown, needDivision);
+        Deprecated.selectByText(divisionDropDown, needDivision);
     }
 
     // Click or Unclick Check boxes
     public void clickSmsCheckBox() {
         try {
-            WebElement elm = FindElement.elementByAttribute("//input[@name= 'smsReminders' and @checked]", InputType.XPath);
+            WebElement elm = Deprecated.locate("//input[@name= 'smsReminders' and @checked]");
             if (!elm.isDisplayed()) {
-                Utilities.clickElement(smsCheckBox, ElementType.XPath);
+                Deprecated.clickElement(smsCheckBox);
             }
         } catch (Exception e) {
         }
@@ -128,29 +126,29 @@ public class CreateCustomerDialog extends BasePage {
 
     public void clickEmailCheckBox() {
         try {
-            WebElement elm = FindElement.elementByAttribute(emailSelectedCheckBox, InputType.XPath);
+            WebElement elm = Deprecated.locate(emailSelectedCheckBox);
             if (elm.isDisplayed()) {
             }
         } catch (Exception e) {
-            Utilities.clickElement(emailCheckBox, ElementType.XPath);
+            Deprecated.clickElement(emailCheckBox);
         }
     }
 
     public void clickVoiceCheckBox() {
         try {
-            WebElement elm = FindElement.elementByAttribute(voiceSelectedCheckBox, InputType.XPath);
+            WebElement elm = Deprecated.locate(voiceSelectedCheckBox);
             if (elm.isDisplayed()) {
             }
         } catch (Exception e) {
-            Utilities.clickElement(voiceCheckBox, ElementType.XPath);
+            Deprecated.clickElement(voiceCheckBox);
         }
     }
 
     public void unClickSmsCheckBox() {
         try {
-            WebElement elm = FindElement.elementByAttribute(smsSelectedCheckBox, InputType.XPath);
+            WebElement elm = Deprecated.locate(smsSelectedCheckBox);
             if (elm.isDisplayed()) {
-                Utilities.clickElement(smsSelectedCheckBox, ElementType.XPath);
+                Deprecated.clickElement(smsSelectedCheckBox);
             }
         } catch (Exception e) {
             System.out.println("SMS checkBox unselected");
@@ -159,9 +157,9 @@ public class CreateCustomerDialog extends BasePage {
 
     public void unClickEmailCheckBox() {
         try {
-            WebElement elm = FindElement.elementByAttribute(emailSelectedCheckBox, InputType.XPath);
+            WebElement elm = Deprecated.locate(emailSelectedCheckBox);
             if (elm.isDisplayed()) {
-                Utilities.clickElement(emailSelectedCheckBox, ElementType.XPath);
+                Deprecated.clickElement(emailSelectedCheckBox);
             }
         } catch (Exception e) {
             System.out.println("Email checkBox unselected");
@@ -170,9 +168,9 @@ public class CreateCustomerDialog extends BasePage {
 
     public void unClickVoiceCheckBox() {
         try {
-            WebElement elm = FindElement.elementByAttribute(voiceSelectedCheckBox, InputType.XPath);
+            WebElement elm = Deprecated.locate(voiceSelectedCheckBox);
             if (elm.isDisplayed()) {
-                Utilities.clickElement(voiceSelectedCheckBox, ElementType.XPath);
+                Deprecated.clickElement(voiceSelectedCheckBox);
             }
         } catch (Exception e) {
             System.out.println("Voice Checkbox unselected");
@@ -180,19 +178,19 @@ public class CreateCustomerDialog extends BasePage {
     }
 
     public void clickPaidInFullCheckBox() {
-        Utilities.clickElement(paidInFullCheckBox, ElementType.XPath);
+        Deprecated.clickElement(paidInFullCheckBox);
     }
 
     public void clickSwitchOverCheckBox() {
-        Utilities.clickElement(switchOverCheckBox, ElementType.XPath);
+        Deprecated.clickElement(switchOverCheckBox);
     }
 
     public void clickSalesRepAPayCheckBox() {
-        Utilities.clickElement(salesRepAPayCheckBox, ElementType.XPath);
+        Deprecated.clickElement(salesRepAPayCheckBox);
     }
 
     public void clickPendingCancelCheckBox() {
-        Utilities.clickElement(pendingCancelCheckBox, ElementType.XPath);
+        Deprecated.clickElement(pendingCancelCheckBox);
         customerAdmin = new CustomerViewDialog_Admin();
         customerAdmin.cancellationCategory(2);
         customerAdmin.cancellationNotes();
@@ -200,180 +198,180 @@ public class CreateCustomerDialog extends BasePage {
     }
 
     public void clickPrefersPaperCheckBox() {
-        Utilities.clickElement(prefersPaperCheckBox, ElementType.XPath);
+        Deprecated.clickElement(prefersPaperCheckBox);
     }
 
     public void clickPurpleDragonCheckBox() {
-        Utilities.clickElement(purpleDragonCheckBox, ElementType.XPath);
+        Deprecated.clickElement(purpleDragonCheckBox);
     }
 
     public void clickOverrideTaxCheckBox() {
-        Utilities.clickElement(taxPercentageOverrideCheckbox, ElementType.XPath);
+        Deprecated.clickElement(taxPercentageOverrideCheckbox);
     }
 
     /*
      * Setter methods Below methods insert text in the input fields
      */
     public void setFirstName(String needFirstName) {
-        Utilities.waitUntileElementIsVisible(firstNameInputField);
-        FindElement.elementByAttribute(firstNameInputField, InputType.XPath).sendKeys(needFirstName);
+        Deprecated.waitVisible(firstNameInputField);
+        Deprecated.locate(firstNameInputField).sendKeys(needFirstName);
     }
     public void typeFirstName (String firstName) {
-        type(firstName, firstNameField);
+        Deprecated.type(firstName, firstNameField);
     }
 
     public void setLastName(String needLastName) {
-        FindElement.elementByAttribute(lastNameInputField, InputType.XPath).sendKeys(needLastName);
+        Deprecated.locate(lastNameInputField).sendKeys(needLastName);
     }
     
     public void typeLastName (String lastName) {
-        type(lastName, lastNameField);
+        Deprecated.type(lastName, lastNameField);
     }
 
     public void setCellPhone(String needCellPhoneNumber) {
-        FindElement.elementByAttribute(cellPhoneInputField, InputType.XPath).sendKeys(needCellPhoneNumber);
+        Deprecated.locate(cellPhoneInputField).sendKeys(needCellPhoneNumber);
     }
 
     public void setHomePhone(String needHomePhoneNumber) {
-        FindElement.elementByAttribute(homePhoneInputField, InputType.XPath).sendKeys(needHomePhoneNumber);
+        Deprecated.locate(homePhoneInputField).sendKeys(needHomePhoneNumber);
     }
 
     public void setEmailAddress(String needEmail) {
-        FindElement.elementByAttribute(emailAddressInputField, InputType.XPath).sendKeys(needEmail);
+        Deprecated.locate(emailAddressInputField).sendKeys(needEmail);
     }
 
     public void setCompanyName(String needCompanyName) {
-        FindElement.elementByAttribute(companyNameInputField, InputType.XPath).sendKeys(needCompanyName);
+        Deprecated.locate(companyNameInputField).sendKeys(needCompanyName);
     }
 
     public void setSpecialHandling(String needSpecialHandlingNotes) {
-        FindElement.elementByAttribute(specialHandlingInputField, InputType.XPath).sendKeys(needSpecialHandlingNotes);
+        Deprecated.locate(specialHandlingInputField).sendKeys(needSpecialHandlingNotes);
     }
 
     public void setAddress(String needAddress) {
         try {
-            FindElement.elementByAttribute(addressInputField, InputType.XPath).sendKeys(needAddress);
+            Deprecated.locate(addressInputField).sendKeys(needAddress);
         } catch (ElementNotInteractableException notInteractableException){
             System.out.println("Element is not intractable, trying again ");
-            FindElement.elementByAttribute(addressInputField, InputType.XPath).sendKeys(needAddress);
+            Deprecated.locate(addressInputField).sendKeys(needAddress);
         }
     }
 
     public void setZipCode(String needZipCode) throws InterruptedException {
-        FindElement.elementByAttribute(zipCodeInputField, InputType.XPath).sendKeys(needZipCode);
+        Deprecated.locate(zipCodeInputField).sendKeys(needZipCode);
         Thread.sleep(200);
     }
 
-    public void typeZipCode(String zipCode) { type(zipCode, zipCodeField); }
+    public void typeZipCode(String zipCode) { Deprecated.type(zipCode, zipCodeField); }
 
     public void setCity(String needCity) throws InterruptedException {
         Thread.sleep(200);
-        FindElement.elementByAttribute(cityInputField, InputType.XPath).sendKeys(Keys.CONTROL, "a");
-        FindElement.elementByAttribute(cityInputField, InputType.XPath).sendKeys(needCity);
+        Deprecated.locate(cityInputField).sendKeys(Keys.CONTROL, "a");
+        Deprecated.locate(cityInputField).sendKeys(needCity);
     }
 
     public void typeCity(String city) {
-        type(city, cityField);
+        Deprecated.type(city, cityField);
     }
 
     public void setTaxPercentage(String needTaxPercentage) {
-        FindElement.elementByAttribute(taxPercentageInputField, InputType.XPath).sendKeys(needTaxPercentage);
+        Deprecated.locate(taxPercentageInputField).sendKeys(needTaxPercentage);
     }
 
     public void setMapCode(String needMapCode) {
-        FindElement.elementByAttribute(mapCode, InputType.XPath).sendKeys(needMapCode);
+        Deprecated.locate(mapCode).sendKeys(needMapCode);
     }
 
     public void clickInfo() {
-        Utilities.waitUntileElementIsVisible(info);
-        Utilities.clickElement(info, ElementType.XPath);
+        Deprecated.waitVisible(info);
+        Deprecated.clickElement(info);
     }
 
     public void clickAddFlag() {
-        Utilities.clickElement(clickAddFlag, ElementType.XPath);
+        Deprecated.clickElement(clickAddFlag);
     }
 
     public void typePhone1(String phone) {
-        type(phone, find(By.xpath(cellPhoneInputField)));
+        Deprecated.type(phone, Utilities.locate(By.xpath(cellPhoneInputField)));
     }
 
     /*
      * Getter methods Below methods get text value from an object
      */
     public String getDialogTitle() {
-        return Utilities.getElementTextValue(dialogTitle, ElementType.XPath);
+        return Deprecated.getElementTextValue(dialogTitle);
     }
 
     public String getNewCustTitle() {
-        return Utilities.getElementTextValue(newCustTitle, ElementType.XPath);
+        return Deprecated.getElementTextValue(newCustTitle);
     }
 
     public String getTaxRate(String needTaxField) {
-        return Utilities.getAttributeValue(needTaxField, "value");
+        return Deprecated.getAttribute(needTaxField, "value");
     }
 
     public String getAddress() {
-        return Utilities.getAttributeValue(addressInputField, "value");
+        return Deprecated.getAttribute(addressInputField, "value");
     }
 
     public String getZipCode() {
-        return Utilities.getAttributeValue(zipCodeInputField, "value");
+        return Deprecated.getAttribute(zipCodeInputField, "value");
     }
 
     public String getCity() {
-        return Utilities.getAttributeValue(cityInputField, "value");
+        return Deprecated.getAttribute(cityInputField, "value");
     }
 
     public String getCustomerFullName() {
-        String customerFullName = find(firstNameField).getAttribute("value") + " " +
-                              find(lastNameField).getAttribute("value");
+        String customerFullName = Utilities.locate(firstNameField).getAttribute("value") + " " +
+                              Utilities.locate(lastNameField).getAttribute("value");
         System.out.println("Full Name: " + customerFullName);
         return customerFullName;
     }
 
     public String getCustomerFirstName() {
-        String firstName = find(firstNameField).getAttribute("value");
+        String firstName = Utilities.locate(firstNameField).getAttribute("value");
         System.out.println("First Name: " + firstName);
         return firstName;
     }
 
     public String getCustomerLastName() {
-        String lastName = find(lastNameField).getAttribute("value");
+        String lastName = Utilities.locate(lastNameField).getAttribute("value");
         System.out.println("Last Name: " + lastName);
         return lastName;
     }
 
     public void typePropertyAddress(String propertyAddress) {
-        type(propertyAddress, propertyAddressField);
+        Deprecated.type(propertyAddress, propertyAddressField);
     }
 
     public String getPropertyAddress(){
-        String propertyAddress = find(propertyAddressField).getAttribute("value");
+        String propertyAddress = Utilities.locate(propertyAddressField).getAttribute("value");
         System.out.println("Address: " + propertyAddress);
         return propertyAddress;
     }
 
     public String getCityStateZip() {
-        String city = find(cityField).getAttribute("value");
-        String state = find(stateDropdown).getAttribute("value");
-        String zipCode = find(zipCodeField).getAttribute("value");
+        String city = Utilities.locate(cityField).getAttribute("value");
+        String state = Utilities.locate(stateDropdown).getAttribute("value");
+        String zipCode = Utilities.locate(zipCodeField).getAttribute("value");
         String cityStateZip = city + ", " + state + " " + zipCode;
         System.out.println("City, State Zip: " + cityStateZip);
         return cityStateZip;
     }
 
     public void typeEmailAddress(String emailAddress) {
-        type(emailAddress, emailAddressField);
+        Deprecated.type(emailAddress, emailAddressField);
     }
 
     public String getEmailAddress() {
-        String email = find(emailAddressField).getAttribute("value");
+        String email = Utilities.locate(emailAddressField).getAttribute("value");
         System.out.println("Email: " + email);
         return email;
     }
 
     public String getPhone1() {
-        String phone1 = find(By.xpath(cellPhoneInputField)).getAttribute("value");
+        String phone1 = Utilities.locate(By.xpath(cellPhoneInputField)).getAttribute("value");
         System.out.println("Phone 1: " + phone1);
         return phone1;
     }

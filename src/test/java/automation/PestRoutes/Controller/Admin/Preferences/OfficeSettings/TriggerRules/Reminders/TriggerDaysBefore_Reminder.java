@@ -6,20 +6,17 @@ import automation.PestRoutes.PageObject.Admin.AdminMainPage;
 import automation.PestRoutes.PageObject.Admin.PreferencesTab.OfficeSettingsTab.TriggerTypes.ReminderTab;
 import automation.PestRoutes.PageObject.Admin.PreferencesTab.OfficeSettingsTab.TriggerTypes.TriggerRules;
 import automation.PestRoutes.PageObject.Admin.PreferencesTab.PreferencesPage;
-import automation.PestRoutes.PageObject.CreateCustomer.CreateCustomerDialog;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_Header;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_InfoTab;
 import automation.PestRoutes.PageObject.DashboardPage;
+import automation.PestRoutes.Utilities.Data.*;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.When;
 import org.testng.annotations.Test;
 import automation.PestRoutes.Controller.Admin.Preferences.OfficeSettings.TriggerRules.AppointmentStatus.TriggerOnSave_AppointmentStatus;
-import automation.PestRoutes.Utilities.BaseClass;
 
-import static automation.PestRoutes.Utilities.Utilities.*;
-
-public class TriggerDaysBefore_Reminder extends BaseClass {
+public class TriggerDaysBefore_Reminder {
 
 	CreateTrigger_Reminder createReminder = new CreateTrigger_Reminder();
 	TriggerOnSave_AppointmentStatus triggerOnSave_AppintmentStatus;
@@ -90,7 +87,7 @@ public class TriggerDaysBefore_Reminder extends BaseClass {
 		userOnPreferences = userOnAdminComponent.clickPreferencesSubComponent();
 		userOnTriggerRulesPage = userOnPreferences.clickTriggerRules();
 		userOnTriggerRulesPage.addActiveTrigger
-				(trigger, trigger + " Automation Trigger", currentDate("MM/dd/yy"));
+				(trigger, trigger + " Automation Trigger", GetDate.currentDate("MM/dd/yy"));
 		userSelectsRemindersTrigger.selectWhenToTrigger(whenToTrigger);
 		userSelectsRemindersTrigger.typeDaysBefore("0");
 		userSelectsRemindersTrigger.typeFlagToInclude(testTrigger.genericFlag);

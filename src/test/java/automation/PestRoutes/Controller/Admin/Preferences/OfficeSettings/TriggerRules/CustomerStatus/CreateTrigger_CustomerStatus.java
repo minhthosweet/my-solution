@@ -4,7 +4,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import automation.PestRoutes.Utilities.*;
+import automation.PestRoutes.Utilities.Data.*;
+import automation.PestRoutes.Utilities.Report.*;
 import org.testng.annotations.Test;
 import automation.PestRoutes.PageObject.Header;
 import automation.PestRoutes.PageObject.Admin.AdminMainPage;
@@ -64,8 +65,8 @@ public class CreateTrigger_CustomerStatus extends AppData {
         adminMainPage.navigateTo(adminMainPage.preferences);
         triggerAdmin.navigateToTriggerRules();
         triggerAdmin.clickAddTrigerButton();
-        triggerAdmin.setStartDate(Utilities.currentDate("MM/dd/yyyy"));
-        triggerAdmin.setEndDate(GetDate.addOneYearToDate(Utilities.currentDate("MM/dd/yyyy")));
+        triggerAdmin.setStartDate(GetDate.currentDate("MM/dd/yyyy"));
+        triggerAdmin.setEndDate(GetDate.addOneYearToDate(GetDate.currentDate("MM/dd/yyyy")));
         triggerAdmin.setDescription(descriptionName);
         triggerAdmin.selectDropdown(triggerAdmin.triggerTypeDropdown, triggerAdmin.triggerType_CustomerStatus);
         triggerAdmin.selectDropdown(triggerAdmin.globalType, triggerAdmin.global_SpecificToThisOffice);
@@ -120,7 +121,7 @@ public class CreateTrigger_CustomerStatus extends AppData {
         triggerActions.clickAddActionButton();
         triggerAdmin.selectDropdown(triggerActions.actionTypeDropDown, triggerActions.EmailMessageType_Action);
         triggerAdmin.selectDropdown(triggerActions.ignoreContactPrefsDropDown, triggerActions.ignoreContactPrefsTypes_No);
-        triggerActions.setEmailTitle(Utilities.generateRandomString(5));
+        triggerActions.setEmailTitle(GetData.generateRandomString(5));
         triggerActions.setMessageinAction_Type2(triggerActions.EmailMessageType_Action, triggerActions.getPlaceHolders());
         triggerAdmin.clickSaveButton();
     }
@@ -149,8 +150,8 @@ public class CreateTrigger_CustomerStatus extends AppData {
     public void sendEmployeeEmail_CustomerStatus() {
         triggerActions.clickAddActionButton();
         triggerAdmin.selectDropdown(triggerActions.actionTypeDropDown, triggerActions.sendEmployeeEmail_SubscriptionStatus);
-        triggerActions.setEmailTitle_SubscriptionStatus(Utilities.generateRandomString(5));
-        triggerActions.setEmailAddress_SubscriptionStatus(Utilities.generateRandomString(5) + "@gmail.com");
+        triggerActions.setEmailTitle_SubscriptionStatus(GetData.generateRandomString(5));
+        triggerActions.setEmailAddress_SubscriptionStatus(GetData.generateRandomString(5) + "@gmail.com");
         triggerActions.setMessageinAction_Type2(triggerActions.sendEmployeeEmail_SubscriptionStatus, triggerActions.getPlaceHolders());
         triggerAdmin.clickSaveButton();
     }
@@ -167,7 +168,7 @@ public class CreateTrigger_CustomerStatus extends AppData {
     public void addTask_CustomerStatus() {
         triggerActions.clickAddActionButton();
         triggerAdmin.selectDropdown(triggerActions.actionTypeDropDown, triggerActions.addTask_SubscriptionStatus);
-        triggerActions.setDaysTillDueAddTask_SubscriptionStatus(Double.toString(Utilities.generateRandomInteger(1)));
+        triggerActions.setDaysTillDueAddTask_SubscriptionStatus(Double.toString(GetData.generateRandomInteger(1)));
         triggerActions.setMessageinAction_Type1(triggerActions.addTask_SubscriptionStatus, triggerActions.getPlaceHolders());
         triggerAdmin.clickSaveButton();
     }

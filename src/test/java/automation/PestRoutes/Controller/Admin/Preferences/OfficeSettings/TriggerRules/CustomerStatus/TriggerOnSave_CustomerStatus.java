@@ -10,9 +10,9 @@ import automation.PestRoutes.PageObject.Admin.PreferencesTab.OfficeSettingsTab.T
 import automation.PestRoutes.PageObject.Admin.PreferencesTab.PreferencesPage;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_InfoTab;
 import automation.PestRoutes.PageObject.DashboardPage;
-import automation.PestRoutes.Utilities.AppData;
-import automation.PestRoutes.Utilities.AssertException;
-import automation.PestRoutes.Utilities.Reporter;
+import automation.PestRoutes.Utilities.Data.AppData;
+import automation.PestRoutes.Utilities.Report.AssertException;
+import automation.PestRoutes.Utilities.Report.Reporter;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -28,7 +28,7 @@ import automation.PestRoutes.PageObject.CreateCustomer.CreateCustomerDialog;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_Admin;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_Header;
 
-import static automation.PestRoutes.Utilities.Utilities.currentDate;
+import static automation.PestRoutes.Utilities.Data.GetDate.currentDate;
 
 public class TriggerOnSave_CustomerStatus extends AppData {
 

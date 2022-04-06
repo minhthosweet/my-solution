@@ -3,10 +3,10 @@ package automation.PestRoutes.Controller.CustomRoute;
 import automation.PestRoutes.Controller.Admin.Preferences.ServiceRelated.Service;
 import automation.PestRoutes.Controller.Renewal.ValidateRenewal;
 import automation.PestRoutes.PageObject.RoutePage.RouteTemplate;
-import automation.PestRoutes.Utilities.AssertException;
-import automation.PestRoutes.Utilities.BaseClass;
-import automation.PestRoutes.Utilities.Reporter;
-import automation.PestRoutes.Utilities.Utilities;
+import automation.PestRoutes.Utilities.Data.*;
+import automation.PestRoutes.Utilities.Report.AssertException;
+import automation.PestRoutes.Utilities.Report.Reporter;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,7 +16,7 @@ import io.cucumber.java.en.When;
 import org.openqa.selenium.WebElement;
 import org.testng.annotations.Test;
 
-public class CustomRoute extends BaseClass {
+public class CustomRoute {
 
     RouteTemplate routeTemplate = new RouteTemplate();
     Service service;
@@ -29,10 +29,10 @@ public class CustomRoute extends BaseClass {
     private String route_endHour = "18";
     private String route_endMinute = "30";
     private String route_interval = "60";
-    private String routeDescription = Utilities.generateRandomString(5);
+    private String routeDescription = GetData.generateRandomString(5);
     private String blockTimeSlotNumber = "3";
-    private String blockTimeDescription = Utilities.generateRandomString(5);
-    public String routeName = Utilities.generateRandomString(5);
+    private String blockTimeDescription = GetData.generateRandomString(5);
+    public String routeName = GetData.generateRandomString(5);
 
     @Test
     @Then("I navigate to Route Templates")

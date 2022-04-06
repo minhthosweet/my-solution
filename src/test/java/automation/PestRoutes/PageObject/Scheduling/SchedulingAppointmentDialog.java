@@ -1,11 +1,11 @@
 package automation.PestRoutes.PageObject.Scheduling;
 
 import automation.PestRoutes.PageObject.BasePage;
-import automation.PestRoutes.Utilities.FindElement;
-import automation.PestRoutes.Utilities.FindElement.InputType;
-import automation.PestRoutes.Utilities.Utilities;
-import automation.PestRoutes.Utilities.Utilities.ElementType;
+import automation.PestRoutes.Utilities.*;
+
 import static automation.PestRoutes.Utilities.Utilities.*;
+
+import automation.PestRoutes.Utilities.Deprecated;
 import org.openqa.selenium.By;
 
 import java.util.List;
@@ -43,90 +43,90 @@ public class SchedulingAppointmentDialog extends BasePage {
     //******************************Functions by objects******************************
 
     public String getTitle() {
-        return Utilities.getElementTextValue(dialogTitle, ElementType.XPath);
+        return Deprecated.getElementTextValue(dialogTitle);
     }
 
     public void selectServiceType(String needServiceType) {
-        Utilities.waitUntileElementIsVisible(serviceTypeDropdown);
-        Utilities.selectValueFromDropDownByValue(serviceTypeDropdown, needServiceType);
+        Deprecated.waitVisible(serviceTypeDropdown);
+        Deprecated.selectByText(serviceTypeDropdown, needServiceType);
     }
 
     public void selectSubscriptionType(String needSubscriptionType) {
-        Utilities.selectValueFromDropDownByValue(subscriptionTypeDropdown, needSubscriptionType);
+        Deprecated.selectByText(subscriptionTypeDropdown, needSubscriptionType);
     }
 
     public void selectDuration(String needDuration) {
-        Utilities.selectValueFromDropDownByValue(appointmentDurationDropdown, needDuration);
+        Deprecated.selectByText(appointmentDurationDropdown, needDuration);
     }
 
     public void selectFlexibility(String needFlexibility) {
-        Utilities.selectValueFromDropDownByValue(flexibilityDropdown, needFlexibility);
+        Deprecated.selectByText(flexibilityDropdown, needFlexibility);
     }
 
     public void selectCallAheadOption(String needOption) {
-        Utilities.selectValueFromDropDownByValue(callAheadDropdown, needOption);
+        Deprecated.selectByText(callAheadDropdown, needOption);
     }
 
     public void selectInteriorNeededOption(String needOption) {
-        Utilities.selectValueFromDropDownByValue(interiorNeededDropdown, needOption);
+        Deprecated.selectByText(interiorNeededDropdown, needOption);
     }
 
     public void selectTargetPestsOption(String needOption) {
-        Utilities.selectValueFromDropDownByValue(targetPestsDropdown, needOption);
+        Deprecated.selectByText(targetPestsDropdown, needOption);
     }
 
     public void selectApptFlagsOption(String needOption) {
-        Utilities.selectValueFromDropDownByValue(appointmentNotesInputField, needOption);
+        Deprecated.selectByText(appointmentNotesInputField, needOption);
     }
 
     public void insertAppointmentNotes(String needNotes) {
-        FindElement.elementByAttribute(appointmentNotesInputField, InputType.XPath).sendKeys(needNotes);
+        Deprecated.locate(appointmentNotesInputField).sendKeys(needNotes);
     }
 
     public void clickScheduleButton() {
-        Utilities.clickElement(schedulingTab, ElementType.XPath);
-        Utilities.clickElement(scheduleButton, ElementType.XPath);
+        Deprecated.clickElement(schedulingTab);
+        Deprecated.clickElement(scheduleButton);
     }
 
     public void clickRescheduleButton() {
-        Utilities.waitUntileElementIsVisible(schedulingTab);
-        Utilities.clickElement(schedulingTab, ElementType.XPath);
-        Utilities.clickElement(rescheduleButton, ElementType.XPath);
+        Deprecated.waitVisible(schedulingTab);
+        Deprecated.clickElement(schedulingTab);
+        Deprecated.clickElement(rescheduleButton);
     }
 
     public void navigateToUnitTab() {
-        Utilities.clickElement(unitsTab, ElementType.XPath);
+        Deprecated.clickElement(unitsTab);
     }
 
     public void navigateToSchedulingTab() {
-        Utilities.clickElement(schedulingTab, ElementType.XPath);
+        Deprecated.clickElement(schedulingTab);
     }
 
     public void selectUnit() {
-        Utilities.clickElement(addUnitOption_UnitsTab, ElementType.XPath);
-        Utilities.clickElement(unitOption, ElementType.XPath);
+        Deprecated.clickElement(addUnitOption_UnitsTab);
+        Deprecated.clickElement(unitOption);
     }
 
     public void clickAddProduct() {
-        Utilities.waitUntileElementIsVisible(addProductForUnitButton);
-        Utilities.clickElement(addProductForUnitButton, ElementType.XPath);
+        Deprecated.waitVisible(addProductForUnitButton);
+        Deprecated.clickElement(addProductForUnitButton);
     }
 
     public void clickDetailLink() {
-        Utilities.clickElement(unitDetailButton, ElementType.XPath);
+        Deprecated.clickElement(unitDetailButton);
     }
 
     public void selectTypeOfService (String serviceType) {
-        elementIsVisible(serviceTypeDropDown);
-        selectFromDropDown(serviceType, serviceTypeDropDown);
+        isVisible(serviceTypeDropDown);
+        Utilities.selectByText(serviceTypeDropDown, serviceType);
     }
 
     public void selectSubscription(String subscription) {
-        selectFromDropDown(subscription, subscriptionTypeDropDown);
+        Utilities.selectByText(subscriptionTypeDropDown, subscription);
     }
 
     public List<String> getSubscription() {
-        return getAllSelectedOptionsFromDropDown(subscriptionTypeDropDown);
+        return Deprecated.getAllSelectedOptionsFromDropDown(subscriptionTypeDropDown);
     }
 
     public void clickBlueScheduleButton() {

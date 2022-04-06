@@ -5,12 +5,15 @@ import automation.PestRoutes.PageObject.CustomerOverview.Invoicing.RoutePageInvo
 import automation.PestRoutes.PageObject.Header;
 import automation.PestRoutes.PageObject.Leads.LeadsPage;
 import automation.PestRoutes.PageObject.Search.SearchBox;
-import automation.PestRoutes.Utilities.Utilities;
-import automation.PestRoutes.Utilities.Utilities.ElementType;
+import automation.PestRoutes.Utilities.*;
+import automation.PestRoutes.Utilities.Data.*;
+import automation.PestRoutes.Utilities.Deprecated;
 import io.cucumber.java.en.And;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import static automation.PestRoutes.Utilities.Utilities.elementIsVisible;
+
+import static automation.PestRoutes.Utilities.GetWebDriver.*;
+import static automation.PestRoutes.Utilities.Deprecated.isVisible;
 import org.openqa.selenium.WebElement;
 import java.util.List;
 
@@ -62,23 +65,23 @@ public class CustomerViewDialog_Header extends BasePage {
     WebDriverWait wait = new WebDriverWait(driver, 55);
 
     public void clickCustomerContactsInNotesTab() {
-        Utilities.waitUntileElementIsVisible(customerContacts_Notes);
-        Utilities.clickElement(customerContacts_Notes, ElementType.XPath);
+        Deprecated.waitVisible(customerContacts_Notes);
+        Deprecated.clickElement(customerContacts_Notes);
     }
 
     public void navigateTo(String chooseTabFromConst) {
         delay(3000);
-        Utilities.waitUntileElementIsVisible("//li[@name= '" + chooseTabFromConst + "']");
-        Utilities.clickElement("//li[@name = '" + chooseTabFromConst + "']", ElementType.XPath, true, false);
+        Deprecated.waitVisible("//li[@name= '" + chooseTabFromConst + "']");
+        Deprecated.clickElement("//li[@name = '" + chooseTabFromConst + "']", true, false);
         delay(100);
     }
 
     public void ClickTranferButton() {
-        Utilities.clickElement(tranferButtonInDialog, ElementType.XPath);
+        Deprecated.clickElement(tranferButtonInDialog);
     }
 
     public void clickSaveButton() {
-        Utilities.clickElement(saveButton, ElementType.XPath);
+        Deprecated.clickElement(saveButton);
     }
 
     public void clickCustomerCardScheduleButton (){
@@ -89,13 +92,13 @@ public class CustomerViewDialog_Header extends BasePage {
         try {
             Thread.sleep(500);
         }catch(InterruptedException e){e.printStackTrace();}
-        Utilities.waitUntileElementIsVisible(closeButton);
-        Utilities.clickElement(closeButton, ElementType.XPath);
+        Deprecated.waitVisible(closeButton);
+        Deprecated.clickElement(closeButton);
         clickSaveChangesButton();
     }
 
     public void Click_X_Button() {
-        Utilities.clickElement(closeXButton, ElementType.XPath);
+        Deprecated.clickElement(closeXButton);
     }
 
     public void clickXButton() {
@@ -113,8 +116,8 @@ public class CustomerViewDialog_Header extends BasePage {
     @And("If discard changes dialog displays, I discard unsaved changes")
     public void discardChanges() {
         try{
-            if (Utilities.elementIsVisible(discardChange)) {
-                Utilities.clickElement(discardChange, ElementType.XPath);
+            if (Deprecated.isVisible(discardChange)) {
+                Deprecated.clickElement(discardChange);
                 Thread.sleep(500);
             }
         }catch (Exception e){
@@ -125,8 +128,8 @@ public class CustomerViewDialog_Header extends BasePage {
     @And("If Remove Customer dialog displays, I confirm the remove")
     public void confirmRemoveCustomer() {
         try{
-             if (Utilities.elementIsVisible("//span[text()='Remove Customer?']/ancestor::div//span[text() = 'Confirm Remove']")) {
-                Utilities.clickElement("//span[text()='Remove Customer?']/ancestor::div//span[text() = 'Confirm Remove']", ElementType.XPath);
+             if (Deprecated.isVisible("//span[text()='Remove Customer?']/ancestor::div//span[text() = 'Confirm Remove']")) {
+                Deprecated.clickElement("//span[text()='Remove Customer?']/ancestor::div//span[text() = 'Confirm Remove']");
                 Thread.sleep(1000);
             }
         }catch (Exception e){
@@ -134,28 +137,28 @@ public class CustomerViewDialog_Header extends BasePage {
     }
     @And("If confirm customer removal")
     public void confirmCustomerRemoval() {
-       List<WebElement> elementList = findElements(By.xpath("//span[text()='Remove Customer?']/ancestor::div//span[text() = 'Confirm Remove']"));
+       List<WebElement> elementList = locateAll(By.xpath("//span[text()='Remove Customer?']/ancestor::div//span[text() = 'Confirm Remove']"));
        for(WebElement elem : elementList )
            if(elem.isDisplayed())
                 elem.click();
     }//removeCustomerConfirmation()
 
     public void saveAnyways() {
-        if (Utilities.elementIsVisible(saveAnyways)) {
-            Utilities.clickElement(saveAnyways, ElementType.XPath);
+        if (Deprecated.isVisible(saveAnyways)) {
+            Deprecated.clickElement(saveAnyways);
         }
     }
 
     public void clickSaveChangesButton () {
-        if (elementIsVisible(saveChangesButton)){
+        if (Utilities.isVisible(saveChangesButton)){
             click(saveChangesButton);
             delay(500);
         }
     }
 
     public void clickDiscardChangesButton () {
-        if (elementIsVisible(discardChange)){
-            find(By.xpath(discardChange)).click();
+        if (isVisible(discardChange)){
+            Utilities.locate(By.xpath(discardChange)).click();
             delay(3000);
         }
     }
@@ -238,7 +241,7 @@ public class CustomerViewDialog_Header extends BasePage {
     public String getCustomerID() {
         delay(1000);
         String customerIDNumber = getText(customerIDStatus);
-        String customerID = removeFirstAndLastCharacter(customerIDNumber);
+        String customerID = GetData.removeFirstAndLastCharacter(customerIDNumber);
         System.out.println("Customer ID: " + customerID);
         return customerID;
     }

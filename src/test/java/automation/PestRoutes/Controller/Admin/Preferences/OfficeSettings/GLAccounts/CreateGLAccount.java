@@ -1,17 +1,17 @@
 package automation.PestRoutes.Controller.Admin.Preferences.OfficeSettings.GLAccounts;
 
+import automation.PestRoutes.Controller.*;
 import automation.PestRoutes.Controller.Admin.Preferences.ServiceRelated.Service;
 import automation.PestRoutes.PageObject.Admin.AdminMainPage;
 import automation.PestRoutes.PageObject.Admin.PreferencesTab.OfficeSettingsTab.GLAccounts.GLAccountCreation;
 import automation.PestRoutes.PageObject.Header;
-import automation.PestRoutes.Utilities.*;
+import automation.PestRoutes.Utilities.Data.*;
+import automation.PestRoutes.Utilities.Deprecated;
+import automation.PestRoutes.Utilities.Report.*;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.openqa.selenium.WebElement;
 import org.testng.annotations.Test;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class CreateGLAccount extends AppData {
 
@@ -21,7 +21,7 @@ public class CreateGLAccount extends AppData {
     Service service;
 
     public String glAccountNumber = glAccountCreation.randomGLAccountNumber;
-    public String title = Utilities.generateRandomString(5);
+    public String title = GetData.generateRandomString(5);
 
     @Test
     public void createGLAccounts() {
@@ -49,7 +49,7 @@ public class CreateGLAccount extends AppData {
     public void searchGLAccount(String description) {
         glAccountCreation.searchGLAccountByDescription(description);
         try {
-            WebElement elm = FindElement.elementByAttribute("//span[text()='" + description + "']", FindElement.InputType.XPath);
+            WebElement elm = Deprecated.locate("//span[text()='" + description + "']");
             if (elm.isDisplayed()) {
                 System.out.println("GL Account is visible");
             }
@@ -100,7 +100,7 @@ public class CreateGLAccount extends AppData {
 
     private void result(String expected, String actual, String stepName, String testName) {
         if (AssertException.result(expected, actual, stepName).size() > 0) {
-            Utilities.list.add(AssertException.result(expected, actual, stepName));
+            CucumberBaseClass.list.add(AssertException.result(expected, actual, stepName));
         }
         Reporter.status(stepName, expected, actual, testName);
     }

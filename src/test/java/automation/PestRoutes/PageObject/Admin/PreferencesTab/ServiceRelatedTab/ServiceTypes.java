@@ -1,10 +1,7 @@
 package automation.PestRoutes.PageObject.Admin.PreferencesTab.ServiceRelatedTab;
 
+import automation.PestRoutes.Utilities.Deprecated;
 import org.openqa.selenium.WebElement;
-import automation.PestRoutes.Utilities.FindElement;
-import automation.PestRoutes.Utilities.Utilities;
-import automation.PestRoutes.Utilities.FindElement.InputType;
-import automation.PestRoutes.Utilities.Utilities.ElementType;
 
 public class ServiceTypes {
 	
@@ -32,21 +29,21 @@ public class ServiceTypes {
 		public String saveButton = "//div[@id='preferenceHeader']/following-sibling::form//div[text()='save']";
 		
 		public void clickEditButton(String needDescription) {
-			Utilities.waitUntileElementIsVisible("//div[contains (text(), '"+needDescription+"')]/ancestor::form//div[text()='edit']");
-			Utilities.clickElement("//div[contains (text(), '"+needDescription+"')]/ancestor::form//div[text()='edit']", ElementType.XPath);
+			Deprecated.waitVisible("//div[contains (text(), '"+needDescription+"')]/ancestor::form//div[text()='edit']");
+			Deprecated.clickElement("//div[contains (text(), '"+needDescription+"')]/ancestor::form//div[text()='edit']");
 		}
 		public void clickAddServiceButton() {
-			Utilities.waitUntileElementIsVisible(addNewServiceButton);
-			Utilities.clickElement(addNewServiceButton, ElementType.XPath);
+			Deprecated.waitVisible(addNewServiceButton);
+			Deprecated.clickElement(addNewServiceButton);
 		}
 		public void clickSave() {
-			Utilities.clickElement(saveButton, ElementType.XPath);
+			Deprecated.clickElement(saveButton);
 		}
 		public void clickCancel() {
-			Utilities.clickElement(cancelButton, ElementType.XPath);
+			Deprecated.clickElement(cancelButton);
 		}
 		public void selectFromDropdown(String needXpath, String needValue) {
-			Utilities.selectValueFromDropDownByValue(needXpath, needValue);
+			Deprecated.selectByText(needXpath, needValue);
 		}
 		
 		/*
@@ -54,32 +51,32 @@ public class ServiceTypes {
 		 */
 		
 		public void setSearch(String needText) {
-			Utilities.waitUntileElementIsVisible(searchInputField);
-			FindElement.elementByAttribute(searchInputField, InputType.XPath).sendKeys(needText);
+			Deprecated.waitVisible(searchInputField);
+			Deprecated.locate(searchInputField).sendKeys(needText);
 		}
 		public void setDescription(String needDescription) {
-			Utilities.waitUntileElementIsVisible(services_DescriptionInputField);
-			FindElement.elementByAttribute(services_DescriptionInputField, InputType.XPath).sendKeys(needDescription);
+			Deprecated.waitVisible(services_DescriptionInputField);
+			Deprecated.locate(services_DescriptionInputField).sendKeys(needDescription);
 		}
 		public void setCategory(String needCategory) {
-			Utilities.waitUntileElementIsVisible(services_CategoryInputField);
-			FindElement.elementByAttribute(services_CategoryInputField, InputType.XPath).sendKeys(needCategory);
+			Deprecated.waitVisible(services_CategoryInputField);
+			Deprecated.locate(services_CategoryInputField).sendKeys(needCategory);
 		}
 		public void setAbbreviation(String needAbbreviation) {
-			Utilities.waitUntileElementIsVisible(services_AbbreviationInputField);
-			FindElement.elementByAttribute(services_AbbreviationInputField, InputType.XPath).sendKeys(needAbbreviation);
+			Deprecated.waitVisible(services_AbbreviationInputField);
+			Deprecated.locate(services_AbbreviationInputField).sendKeys(needAbbreviation);
 		}
 		public void setAppointLegnth(String needMinutes) {
-			FindElement.elementByAttribute(defaultAppointmentLengthInputField, InputType.XPath).sendKeys(needMinutes);
+			Deprecated.locate(defaultAppointmentLengthInputField).sendKeys(needMinutes);
 		}
 		public void setServiceCharge(String needAmount) {
-			FindElement.elementByAttribute(defaultServiceChargeInputField, InputType.XPath).sendKeys(needAmount);
+			Deprecated.locate(defaultServiceChargeInputField).sendKeys(needAmount);
 		}
 		public void setServiceCommission(String needAmount) {
-			FindElement.elementByAttribute(serviceCommissionInputField, InputType.XPath).sendKeys(needAmount);
+			Deprecated.locate(serviceCommissionInputField).sendKeys(needAmount);
 		}
 		public void setMinInitialCharge(String needAmount) {
-			FindElement.elementByAttribute(minimumInitialChargeInputField, InputType.XPath).sendKeys(needAmount);
+			Deprecated.locate(minimumInitialChargeInputField).sendKeys(needAmount);
 		}
 		
 		/*
@@ -87,7 +84,7 @@ public class ServiceTypes {
 		 */
 		
 		public WebElement getDescription(String needText) {
-			return FindElement.elementByAttribute("//div[contains (text(), '"+needText+"')]", InputType.XPath);
+			return Deprecated.locate("//div[contains (text(), '"+needText+"')]");
 		}
 
 }

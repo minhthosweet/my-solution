@@ -1,5 +1,6 @@
 package automation.PestRoutes.Controller.Reporting.Office;
 
+import automation.PestRoutes.Controller.*;
 import automation.PestRoutes.Controller.Billings.AccountReceivable;
 import automation.PestRoutes.Controller.Billings.Billing;
 import automation.PestRoutes.Controller.CustomerCreation.CreateNewCustomer;
@@ -14,7 +15,9 @@ import automation.PestRoutes.PageObject.CustomerOverview.Invoicing.InvoiceImplem
 import automation.PestRoutes.PageObject.Header;
 import automation.PestRoutes.PageObject.ReportingPage.OfficePage.BillingByServiceTypeTab;
 import automation.PestRoutes.PageObject.ReportingPage.OfficePage.PaymentsByServiceTypeTab;
-import automation.PestRoutes.Utilities.*;
+import automation.PestRoutes.Utilities.Data.*;
+import automation.PestRoutes.Utilities.Deprecated;
+import automation.PestRoutes.Utilities.Report.*;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import org.openqa.selenium.Keys;
@@ -24,7 +27,7 @@ import org.testng.annotations.Test;
 import java.io.IOException;
 import java.util.Locale;
 
-import static automation.PestRoutes.Utilities.AssertException.result;
+import static automation.PestRoutes.Utilities.Report.AssertException.result;
 
 public class PaymentsByServiceType extends AppData {
 
@@ -275,15 +278,15 @@ public class PaymentsByServiceType extends AppData {
         String[] balanceAge = {"7+ Days Old", "30+ Days Old (Past Due)", "90+ Days Old (Way, Way Past Due)"};
         int[] invoiceDaysPastDue = {7, 30, 90};
         for (int i = 0; i < balanceAge.length; i++) {
-            String fname = Utilities.generateRandomString(7).toLowerCase(Locale.ROOT);
-            String lname = Utilities.generateRandomString(6).toLowerCase(Locale.ROOT);
+            String fname = GetData.generateRandomString(7).toLowerCase(Locale.ROOT);
+            String lname = GetData.generateRandomString(6).toLowerCase(Locale.ROOT);
             customerName_PST = fname + " " + lname;
             Thread.sleep(100);
             createNewCustomer.createACustomer(fname, lname);
             createNewCustomer.validateTaxRate();
-            int currentMonth = GetDate.getMonth(Utilities.currentDate("MM/dd/yyyy"));
-            int currentYear = GetDate.getYear(Utilities.currentDate("MM/dd/yyyy"));
-            dateOfInvoice = GetDate.minusGenericDayToDate(Utilities.currentDate("MM/dd/yyyy"), invoiceDaysPastDue[i]);
+            int currentMonth = GetDate.getMonth(GetDate.currentDate("MM/dd/yyyy"));
+            int currentYear = GetDate.getYear(GetDate.currentDate("MM/dd/yyyy"));
+            dateOfInvoice = GetDate.minusGenericDayToDate(GetDate.currentDate("MM/dd/yyyy"), invoiceDaysPastDue[i]);
             int monthOfInv = GetDate.getMonth(dateOfInvoice);
             int yearOfInv = GetDate.getYear(dateOfInvoice);
             String amount = "400";
@@ -345,7 +348,7 @@ public class PaymentsByServiceType extends AppData {
                     "PST Report Validation");
         }
         dateOfInvoice = (billingByServiceTypeTab.get(paymentsByServiceTypeTab.invoiceDate_lineItem)).substring(0, 8);
-        result(Utilities.currentDate("MM/dd/YY"), dateOfInvoice, "Invoice Date Validation", "PST Report Validation");
+        result(GetDate.currentDate("MM/dd/YY"), dateOfInvoice, "Invoice Date Validation", "PST Report Validation");
         result("Credit Card", billingByServiceTypeTab.get(paymentsByServiceTypeTab.paymentMethod), "Payment Method validation in detail report", "PST Report Validation");
 //        if (CucumberBaseClass.scenarioName().equals("Credit memo validation in PST")) {
 //            result(billingByServiceTypeTab.getAttributeValue
@@ -373,7 +376,7 @@ public class PaymentsByServiceType extends AppData {
         result(billingByServiceTypeTab.get(paymentsByServiceTypeTab.appliedPaymentBeforeTax_Report), billingByServiceTypeTab.get(paymentsByServiceTypeTab.appliedPaymentBeforeTax_Customer), "Applied Payment Validation in detail report",
                 "PST Report Validation");
         dateOfInvoice = (billingByServiceTypeTab.get(paymentsByServiceTypeTab.invoiceDate_lineItem)).substring(0, 8);
-        result(Utilities.currentDate("MM/dd/YY"), dateOfInvoice, "Invoice Date Validation", "PST Report Validation");
+        result(GetDate.currentDate("MM/dd/YY"), dateOfInvoice, "Invoice Date Validation", "PST Report Validation");
         result("ACH", billingByServiceTypeTab.get(paymentsByServiceTypeTab.paymentMethod), "Payment Method validation in detail report", "PST Report Validation");
         result(billingByServiceTypeTab.getAttributeValue(invImplementation.activeInvoiceOnTheLeft, "ticketid"), billingByServiceTypeTab.get(paymentsByServiceTypeTab.invoiceID_lineItem), "Invoice ID validation in detail report", "PST Report Validation");
         result(getData("serviceDescription", generalData), billingByServiceTypeTab.get(billingByServiceTypeTab.serviceType_lineItem), "Service Type in detail report validation", "PST Report Validation");
@@ -397,7 +400,7 @@ public class PaymentsByServiceType extends AppData {
     public void searchCustomerPaymentFrequencyLineItem() throws InterruptedException {
         billingByServiceTypeTab.click("//tr//td[text()='" + customerID_PST + "']");
         billingByServiceTypeTab.searchNewCustomer(billingByServiceTypeTab.search_lineItem, customerID_PST);
-        FindElement.elementByAttribute(billingByServiceTypeTab.search_lineItem, FindElement.InputType.XPath).sendKeys(Keys.ENTER);
+        Deprecated.locate(billingByServiceTypeTab.search_lineItem).sendKeys(Keys.ENTER);
         Thread.sleep(500);
     }
 

@@ -1,7 +1,6 @@
 package automation.PestRoutes.PageObject.Billing.BillingModule;
 
-import automation.PestRoutes.Utilities.FindElement;
-import automation.PestRoutes.Utilities.Utilities;
+import automation.PestRoutes.Utilities.Deprecated;
 
 public class AccountReceivablePage {
 
@@ -67,38 +66,38 @@ public class AccountReceivablePage {
 
 
     public void click(String needButton){
-        Utilities.clickElement(needButton, Utilities.ElementType.XPath);
+        Deprecated.clickElement(needButton);
     }
 
     public void clickButtonsInTable(String needColumnNumber){
-        Utilities.clickElement("//table[@id='balancesTable']/tbody//tr[1]/td['" + needColumnNumber + "']", Utilities.ElementType.XPath);
+        Deprecated.clickElement("//table[@id='balancesTable']/tbody//tr[1]/td['" + needColumnNumber + "']");
     }
 
     public void select(String needDropDown, String needText){
-        Utilities.selectValueFromDropDownByValue(needDropDown, needText);
+        Deprecated.selectByText(needDropDown, needText);
     }
 
     public void insert(String needField, String needValue){
-        Utilities.waitUntileElementIsVisible(needField);
-        Utilities.highLight(needField);
-        Utilities.waitUntileElementIsVisible(needField);
-        FindElement.elementByAttribute(needField, FindElement.InputType.XPath).sendKeys(needValue);
+        Deprecated.waitVisible(needField);
+        Deprecated.highLight(needField);
+        Deprecated.waitVisible(needField);
+        Deprecated.locate(needField).sendKeys(needValue);
     }
 
     public void setInputSubjectText(String needField, String needText){
-        Utilities.waitUntileElementIsVisible(needField);
-        FindElement.elementByAttribute(needField, FindElement.InputType.XPath).sendKeys(needText);
+        Deprecated.waitVisible(needField);
+        Deprecated.locate(needField).sendKeys(needText);
     }
 
     public void setInputEmailText(String needField, String needText){
-        Utilities.waitUntileElementIsVisible(needField);
-        Utilities.clearField(needField);
-        Utilities.highLight(needField);
-        FindElement.elementByAttribute(needField, FindElement.InputType.XPath).sendKeys(needText);
+        Deprecated.waitVisible(needField);
+        Deprecated.clearField(needField);
+        Deprecated.highLight(needField);
+        Deprecated.locate(needField).sendKeys(needText);
     }
 
     public String getValueFromTable(String needColumnNumber){
-        String value = Utilities.getElementTextValue("//table[@id='balancesTable']/tbody/tr[1]/td[" + needColumnNumber + "]", Utilities.ElementType.XPath);
+        String value = Deprecated.getElementTextValue("//table[@id='balancesTable']/tbody/tr[1]/td[" + needColumnNumber + "]");
         return value;
     }
 

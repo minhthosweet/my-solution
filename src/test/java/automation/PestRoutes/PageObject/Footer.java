@@ -1,10 +1,8 @@
 package automation.PestRoutes.PageObject;
 
-import automation.PestRoutes.Utilities.FindElement;
-import automation.PestRoutes.Utilities.FindElement.InputType;
-import automation.PestRoutes.Utilities.Utilities;
-import automation.PestRoutes.Utilities.Utilities.ElementType;
-import static automation.PestRoutes.Utilities.Utilities.*;
+import automation.PestRoutes.Utilities.*;
+
+import automation.PestRoutes.Utilities.Deprecated;
 import io.cucumber.java.en.When;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -28,25 +26,25 @@ public class Footer extends BasePage {
 	private By listOfCustomers = By.xpath("//tbody[@id='taskItems']//td[2]/p[text()]");
 
 	public void logoutPortal() {
-		Utilities.waitUntileElementIsVisible(logout);
-		Utilities.clickElement(logout, ElementType.XPath);
+		Deprecated.waitVisible(logout);
+		Deprecated.clickElement(logout);
 
 	}
 	@When("I navigate to {string} in footer")
 	public void navigateTo(String needTab){
-		Utilities.waitUntileElementIsVisible("//p[text() = '"+needTab+"']");
-		Utilities.clickElement("//p[text() = '"+needTab+"']", ElementType.XPath);
+		Deprecated.waitVisible("//p[text() = '"+needTab+"']");
+		Deprecated.clickElement("//p[text() = '"+needTab+"']");
 	}
 
 	public void mapCodeWizard(String mapCode) {
-		Utilities.waitUntileElementIsVisible("//input[@notext='"+mapCodeWizard+"']");
-		FindElement.elementByAttribute("//input[@notext='"+mapCodeWizard+"']", InputType.XPath).sendKeys(mapCode);
+		Deprecated.waitVisible("//input[@notext='"+mapCodeWizard+"']");
+		Deprecated.locate("//input[@notext='"+mapCodeWizard+"']").sendKeys(mapCode);
 	}
 
 	public String getCustomerFromList(String customerName) {
-		List<WebElement> allCustomers = findElements(listOfCustomers);
+		List<WebElement> allCustomers = Utilities.locateAll(listOfCustomers);
 		for (WebElement customer : allCustomers) {
-			scrollToElementJS(customer);
+			Deprecated.scrollToElementJS(customer);
 			if(customer.getText().equalsIgnoreCase(customerName)) {
 				System.out.println("Customer: (" + customer.getText() + ") Is Located In The List");
 				return customer.getText();
@@ -56,11 +54,11 @@ public class Footer extends BasePage {
 	}
 
 	public void clickCustomerFromList(String customerName) {
-		List<WebElement> allCustomers = findElements(listOfCustomers);
+		List<WebElement> allCustomers = Utilities.locateAll(listOfCustomers);
 		for (WebElement customer : allCustomers) {
-			scrollToElementJS(customer);
+			Deprecated.scrollToElementJS(customer);
 			if(customer.getText().equalsIgnoreCase(customerName)) {
-				delay(1000);
+				Utilities.delay(1000);
 				customer.click();
 				break;
 			}
@@ -68,19 +66,19 @@ public class Footer extends BasePage {
 	}
 
 	public String getTaskInformation(String customer) {
-		WebElement task = find(By.xpath("//tbody[@id='taskItems']//td[2]/p[text()='"+ customer +"']//following::td[3]/p"));
+		WebElement task = Utilities.locate(By.xpath("//tbody[@id='taskItems']//td[2]/p[text()='"+ customer +"']//following::td[3]/p"));
 		System.out.println("Task: " + task.getText());
 		return task.getText();
 	}
 
 	public String getTaskCategory(String customer) {
-		WebElement category = find(By.xpath("//tbody[@id='taskItems']//td[2]/p[text()='"+ customer +"']//following::td[6]/p"));
+		WebElement category = Utilities.locate(By.xpath("//tbody[@id='taskItems']//td[2]/p[text()='"+ customer +"']//following::td[6]/p"));
 		System.out.println("Category: " + category.getText());
 		return category.getText();
 	}
 
 	public String getAlertNotification(String customer) {
-		WebElement notification = find(By.xpath("//tbody[@id='taskItems']//td[2]/p[text()='"+ customer +"']//following::td[3]"));
+		WebElement notification = Utilities.locate(By.xpath("//tbody[@id='taskItems']//td[2]/p[text()='"+ customer +"']//following::td[3]"));
 		System.out.println("Alert Notification: " + notification.getText());
 		return notification.getText();
 	}

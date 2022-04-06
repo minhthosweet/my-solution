@@ -1,8 +1,6 @@
 package automation.PestRoutes.PageObject;
 
-import automation.PestRoutes.Utilities.FindElement;
-import automation.PestRoutes.Utilities.Utilities;
-import automation.PestRoutes.Utilities.Utilities.ElementType;
+import automation.PestRoutes.Utilities.Deprecated;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.When;;
 
@@ -22,21 +20,21 @@ public class Header {
 
     @When("I navigate to {string} in header")
     public void navigateTo(String chooseTabFromConst) {
-        Utilities.waitUntileElementIsVisible("//a[text() = '" + chooseTabFromConst + "']");
-        Utilities.clickElement("//a[text() = '" + chooseTabFromConst + "']", ElementType.XPath);
+        Deprecated.waitVisible("//a[text() = '" + chooseTabFromConst + "']");
+        Deprecated.clickElement("//a[text() = '" + chooseTabFromConst + "']");
     }
 
 
     public void searchCustomer_History(String needCustomerFullName) {
-        Utilities.waitUntileElementIsVisible(ACCESS_HISTORY);
-        Utilities.jsClickElement(ACCESS_HISTORY, ElementType.XPath);
-        Utilities.clickElement("//span[text()='" + needCustomerFullName + "']", ElementType.XPath);
+        Deprecated.waitVisible(ACCESS_HISTORY);
+        Deprecated.jsClickElement(ACCESS_HISTORY);
+        Deprecated.clickElement("//span[text()='" + needCustomerFullName + "']");
     }
 
     @When("I search the number {string} customer in History tab")
     public void searchCustomerInOrder(String customerNumber) {
         clickAccessHistory();
-        Utilities.clickElement("//h3[text()='Customer Access History']/following-sibling::div//li[" + customerNumber + "]//span[" + customerNumber + "]", ElementType.XPath);
+        Deprecated.clickElement("//h3[text()='Customer Access History']/following-sibling::div//li[" + customerNumber + "]//span[" + customerNumber + "]");
     }
 
     //**Author Aarbi
@@ -44,21 +42,21 @@ public class Header {
     public void searchCustomerWithName(String needCustomerName) {
         clickAccessHistory();
         String name = convertName(needCustomerName);
-        if (!Utilities.isPresent("//span[text()='" + name + "']")){
+        if (!Deprecated.isPresent("//span[text()='" + name + "']")){
             clickAccessHistory();
         } else {
-            Utilities.clickElement("//span[text()='" + name + "']", ElementType.XPath);
+            Deprecated.clickElement("//span[text()='" + name + "']");
         }
     }
 
     public void clickAccessHistory() {
-        Utilities.waitUntileElementIsVisible(ACCESS_HISTORY);
-        Utilities.jsClickElement(ACCESS_HISTORY, ElementType.XPath);
+        Deprecated.waitVisible(ACCESS_HISTORY);
+        Deprecated.jsClickElement(ACCESS_HISTORY);
     }
 
     public void searchCustomer_SearchField(String customerDetails) {
-        Utilities.jsClickElement(SearchField, ElementType.XPath);
-        FindElement.elementByAttribute(SearchField, FindElement.InputType.XPath).sendKeys(customerDetails);
+        Deprecated.jsClickElement(SearchField);
+        Deprecated.locate(SearchField).sendKeys(customerDetails);
     }
 
     //**Author Aarbi

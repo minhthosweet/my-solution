@@ -1,9 +1,6 @@
 package automation.PestRoutes.PageObject.Admin.PreferencesTab.OfficeSettingsTab.TriggerTypes;
 
-import automation.PestRoutes.Utilities.FindElement;
-import automation.PestRoutes.Utilities.Utilities;
-import automation.PestRoutes.Utilities.FindElement.InputType;
-import automation.PestRoutes.Utilities.Utilities.ElementType;
+import automation.PestRoutes.Utilities.Deprecated;
 
 public class RenewalTab {
 	// Renewal objects
@@ -53,21 +50,21 @@ public class RenewalTab {
 	public String beforeAfter_afterRenewalDate = "After Renewal Date";
 
 	public void setDaysBefore_After(String needDays) {
-		FindElement.elementByAttribute(daysBefore_AfterInputField, InputType.XPath).sendKeys(needDays);
+		Deprecated.locate(daysBefore_AfterInputField).sendKeys(needDays);
 	}
 
 	public void setMinRenewalAmount(String needAmount) {
-		FindElement.elementByAttribute(minRenewalAmountInputField, InputType.XPath).sendKeys(needAmount);
+		Deprecated.locate(minRenewalAmountInputField).sendKeys(needAmount);
 	}
 
 	public void setMaxRenewalAmount(String needAmount) {
-		Utilities.waitUntileElementIsVisible(maxRenewalAmountInputField);
-		FindElement.elementByAttribute(maxRenewalAmountInputField, InputType.XPath).sendKeys(needAmount);
+		Deprecated.waitVisible(maxRenewalAmountInputField);
+		Deprecated.locate(maxRenewalAmountInputField).sendKeys(needAmount);
 	}
 
 	// Getters: get actual text value for action created(used for assertions)
 	public String getWebhookActionTextValue() {
-		return Utilities.getElementTextValue(WebhookAction_actual, ElementType.XPath);
+		return Deprecated.getElementTextValue(WebhookAction_actual);
 	}
 
 }

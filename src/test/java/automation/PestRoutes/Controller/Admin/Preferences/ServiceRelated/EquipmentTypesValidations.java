@@ -3,7 +3,7 @@ package automation.PestRoutes.Controller.Admin.Preferences.ServiceRelated;
 import java.util.ArrayList;
 import java.util.List;
 
-import automation.PestRoutes.Utilities.FindElement;
+import automation.PestRoutes.Utilities.Deprecated;
 import io.cucumber.java.en.Given;
 import org.openqa.selenium.WebElement;
 import org.testng.annotations.Test;
@@ -13,10 +13,9 @@ import automation.PestRoutes.PageObject.Admin.AdminMainPage;
 import automation.PestRoutes.PageObject.Admin.PreferencesTab.ServiceRelatedTab.EquipmentTypes;
 import automation.PestRoutes.PageObject.Admin.PreferencesTab.PreferencesPage;
 import automation.PestRoutes.PageObject.Admin.PreferencesTab.ServiceRelatedTab.ServiceTypes;
-import automation.PestRoutes.Utilities.AssertException;
-import automation.PestRoutes.Utilities.BaseClass;
+import automation.PestRoutes.Utilities.Report.AssertException;
 
-public class EquipmentTypesValidations extends BaseClass {
+public class EquipmentTypesValidations {
 	AdminMainPage main;
 	PreferencesPage preferences;
 	EquipmentTypes equipment;
@@ -37,7 +36,7 @@ public class EquipmentTypesValidations extends BaseClass {
 		main.navigateTo(main.preferences);
 		preferences.navigateTo(preferences.serviceRelatedNav, preferences.equipmentTypesText);
 		try {
-			WebElement elm = FindElement.elementByAttribute("//div[contains(text(), '"+prefix+"')]", FindElement.InputType.XPath);
+			WebElement elm = Deprecated.locate("//div[contains(text(), '"+prefix+"')]");
 		} catch(Exception e ) {
 			equipment.clickAddEquipmentButton();
 			equipment.setID_Prefix(prefix);

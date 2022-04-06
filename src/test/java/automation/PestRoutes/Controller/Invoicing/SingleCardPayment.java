@@ -8,11 +8,11 @@ import automation.PestRoutes.PageObject.CustomerOverview.Invoicing.CreditCard.Si
 import automation.PestRoutes.PageObject.CustomerOverview.Invoicing.InvoiceImplementation;
 import automation.PestRoutes.PageObject.CustomerOverview.Invoicing.Invoice_Header;
 import automation.PestRoutes.PageObject.CustomerOverview.Invoicing.RoutePageInvoicing;
-import automation.PestRoutes.Utilities.FindElement;
-import automation.PestRoutes.Utilities.Utilities;
+import automation.PestRoutes.Utilities.*;
+import automation.PestRoutes.Utilities.Deprecated;
 import io.cucumber.java.en.Then;
 
-import static automation.PestRoutes.Utilities.AssertException.result;
+import static automation.PestRoutes.Utilities.Report.AssertException.result;
 
 public class SingleCardPayment {
     SingleUseCardPage payment = new SingleUseCardPage();
@@ -30,17 +30,17 @@ public class SingleCardPayment {
     public void makeSingleCardPayment(String needCC, String needNmiCC) throws Exception {
         customerCard.closeCustomerCard();
         merchantInfo.navigateToMerchantInfo();
-        String gateWay = Utilities.getElementTextValue(merchant.defaultPaymentGatewayValue, Utilities.ElementType.XPath);
+        String gateWay = Deprecated.getElementTextValue(merchant.defaultPaymentGatewayValue);
         customerCard.searchCustomer();
         customerCardHeader.navigateTo(customerCardHeader.invoicesTabInDialog);
-        Utilities.waitUntileElementIsVisible(invoiceRoutesTab.addNewInvoice);
+        Deprecated.waitVisible(invoiceRoutesTab.addNewInvoice);
         invImplementation.clickInitialInvoice();
         invoiceRoutesTab.clickAddPayment();
         invoiceHeader.navigate(invoiceHeader.creditCard);
-        Utilities.waitUntileElementIsVisible(payment.paymentAmountField);
-        String confirmAmount = Utilities.getAttributeValue(payment.paymentAmountField, "value");
-        Utilities.clickElement(payment.confirmAmountField, Utilities.ElementType.XPath);
-        FindElement.elementByAttribute(payment.confirmAmountField, FindElement.InputType.XPath).sendKeys(confirmAmount);
+        Deprecated.waitVisible(payment.paymentAmountField);
+        String confirmAmount = Deprecated.getAttribute(payment.paymentAmountField, "value");
+        Deprecated.clickElement(payment.confirmAmountField);
+        Deprecated.locate(payment.confirmAmountField).sendKeys(confirmAmount);
 
         if (gateWay.contains("Braintree")){
             chargeSignleBrainTreeCc(needCC);
@@ -59,10 +59,10 @@ public class SingleCardPayment {
         invImplementation.clickInitialInvoice();
         invoiceRoutesTab.clickAddPayment();
         invoiceHeader.navigate(invoiceHeader.creditCard);
-        Utilities.waitUntileElementIsVisible(payment.paymentAmountField);
-        String confirmAmount = Utilities.getAttributeValue(payment.paymentAmountField, "value");
-        Utilities.clickElement(payment.confirmAmountField, Utilities.ElementType.XPath);
-        FindElement.elementByAttribute(payment.confirmAmountField, FindElement.InputType.XPath).sendKeys(confirmAmount);
+        Deprecated.waitVisible(payment.paymentAmountField);
+        String confirmAmount = Deprecated.getAttribute(payment.paymentAmountField, "value");
+        Deprecated.clickElement(payment.confirmAmountField);
+        Deprecated.locate(payment.confirmAmountField).sendKeys(confirmAmount);
 
         if (gateWay.contains("Braintree")){
             chargeSignleBrainTreeCc(needCC);
@@ -85,26 +85,26 @@ public class SingleCardPayment {
         {
             try
             {
-                Utilities.switchToIframeByXpath(payment.brainTreeCcIframe);
-                FindElement.elementByAttribute(payment.ccNumberField, FindElement.InputType.XPath).sendKeys(needBrainTreeCC);
-                Utilities.switchBackToDom();
+                Utilities.switchToIframe(payment.brainTreeCcIframe);
+                Deprecated.locate(payment.ccNumberField).sendKeys(needBrainTreeCC);
+                GetWebDriver.switchBackToDom();
                 break;
             }
             catch(Exception e)
             {
                 Utilities.delay(1000);
-                Utilities.switchBackToDom();
-                Utilities.clickElement(payment.payingWithCardButton, Utilities.ElementType.XPath);
+                GetWebDriver.switchBackToDom();
+                Deprecated.clickElement(payment.payingWithCardButton);
                 continue;
             }
         }
-        Utilities.switchToIframeByXpath(payment.brainTreeExpIframe);
-        FindElement.elementByAttribute(payment.ccExpField, FindElement.InputType.XPath).sendKeys("0228");
-        Utilities.switchBackToDom();
-        Utilities.clickElement(payment.chargeSingleCard, Utilities.ElementType.XPath);
-        Utilities.acceptAlert();
-        Utilities.waitUntileElementIsVisible(confirmationPage.singleCardPaymentResult);
-        String actualResult = Utilities.getElementTextValue(confirmationPage.singleCardPaymentResult, Utilities.ElementType.XPath);
+        Utilities.switchToIframe(payment.brainTreeExpIframe);
+        Deprecated.locate(payment.ccExpField).sendKeys("0228");
+        GetWebDriver.switchBackToDom();
+        Deprecated.clickElement(payment.chargeSingleCard);
+        Utilities.acceptAlert(10);
+        Deprecated.waitVisible(confirmationPage.singleCardPaymentResult);
+        String actualResult = Deprecated.getElementTextValue(confirmationPage.singleCardPaymentResult);
         String expectedConfirmation = "Successfully Charged Credit Card!";
         result(expectedConfirmation, actualResult, "Credit Card Confirmation", "Card on file payment");
     }
@@ -117,40 +117,40 @@ public class SingleCardPayment {
         {
             try
             {
-                FindElement.elementByAttribute(payment.ccNumberField, FindElement.InputType.XPath).sendKeys(needBrainTreeCC);
-                Utilities.switchBackToDom();
+                Deprecated.locate(payment.ccNumberField).sendKeys(needBrainTreeCC);
+                GetWebDriver.switchBackToDom();
                 break;
             }
             catch(Exception e)
             {
                 Utilities.delay(500);
-                Utilities.switchBackToDom();
-                Utilities.clickElement(payment.payingWithCardButton, Utilities.ElementType.XPath);
+                GetWebDriver.switchBackToDom();
+                Deprecated.clickElement(payment.payingWithCardButton);
                 continue;
             }
         }
-        Utilities.switchToIframeByXpath(payment.brainTreeExpIframe);
-        FindElement.elementByAttribute(payment.ccExpField, FindElement.InputType.XPath).sendKeys(expMonthAndYr);
-        Utilities.switchBackToDom();
-        Utilities.clickElement(payment.chargeSingleCard, Utilities.ElementType.XPath);
+        Utilities.switchToIframe(payment.brainTreeExpIframe);
+        Deprecated.locate(payment.ccExpField).sendKeys(expMonthAndYr);
+        GetWebDriver.switchBackToDom();
+        Deprecated.clickElement(payment.chargeSingleCard);
         Utilities.acceptAlert();
-        Utilities.elementIsVisible(confirmationPage.singleCardPaymentResult);
+        Deprecated.isVisible(confirmationPage.singleCardPaymentResult);
      }//chargeSignleBrainTreeCc()
 
     //***Author Aarbi
     @Then("I charge cc with element gateway {string}")
     public void chargeSingleElementCc(String needElementCC) {
-        Utilities.clickElement(payment.chargeSingleCard, Utilities.ElementType.XPath);
-        Utilities.switchToIframeByXpath(payment.elementIframe);
-        FindElement.elementByAttribute(payment.elementCcInputField, FindElement.InputType.XPath).sendKeys(needElementCC);
-        Utilities.selectValueFromDropDownByValue(payment.elementExpMonthDropdown, "02");
-        Utilities.selectValueFromDropDownByValue(payment.elementExpYearDropdown, "2028");
-        FindElement.elementByAttribute(payment.elementCvvInputField, FindElement.InputType.XPath).sendKeys("123");
-        Utilities.clickElement(payment.elementProcessTransactionButton, Utilities.ElementType.XPath);
-        Utilities.switchBackToDom();
-        Utilities.acceptAlert();
-        Utilities.waitUntileElementIsVisible(confirmationPage.singleCardPaymentResult);
-        String actualResult = Utilities.getElementTextValue(confirmationPage.singleCardPaymentResult, Utilities.ElementType.XPath);
+        Deprecated.clickElement(payment.chargeSingleCard);
+        Utilities.switchToIframe(payment.elementIframe);
+        Deprecated.locate(payment.elementCcInputField).sendKeys(needElementCC);
+        Deprecated.selectByText(payment.elementExpMonthDropdown, "02");
+        Deprecated.selectByText(payment.elementExpYearDropdown, "2028");
+        Deprecated.locate(payment.elementCvvInputField).sendKeys("123");
+        Deprecated.clickElement(payment.elementProcessTransactionButton);
+        GetWebDriver.switchBackToDom();
+        Utilities.acceptAlert(10);
+        Deprecated.waitVisible(confirmationPage.singleCardPaymentResult);
+        String actualResult = Deprecated.getElementTextValue(confirmationPage.singleCardPaymentResult);
         String expectedConfirmation = "Successfully Charged Credit Card!";
         result(expectedConfirmation, actualResult, "Credit Card Confirmation", "Card on file payment");
     }
@@ -160,35 +160,35 @@ public class SingleCardPayment {
         String month = separateMonthYear[0];
         String year = separateMonthYear[1];
 
-        Utilities.clickElement(payment.chargeSingleCard, Utilities.ElementType.XPath);
-        Utilities.switchToIframeByXpath(payment.elementIframe);
-        FindElement.elementByAttribute(payment.elementCcInputField, FindElement.InputType.XPath).sendKeys(needElementCC);
-        Utilities.selectValueFromDropDownByValue(payment.elementExpMonthDropdown, month);
-        Utilities.selectValueFromDropDownByValue(payment.elementExpYearDropdown, year);
-        FindElement.elementByAttribute(payment.elementCvvInputField, FindElement.InputType.XPath).sendKeys(cvv);
-        Utilities.clickElement(payment.elementProcessTransactionButton, Utilities.ElementType.XPath);
-        Utilities.switchBackToDom();
+        Deprecated.clickElement(payment.chargeSingleCard);
+        Utilities.switchToIframe(payment.elementIframe);
+        Deprecated.locate(payment.elementCcInputField).sendKeys(needElementCC);
+        Deprecated.selectByText(payment.elementExpMonthDropdown, month);
+        Deprecated.selectByText(payment.elementExpYearDropdown, year);
+        Deprecated.locate(payment.elementCvvInputField).sendKeys(cvv);
+        Deprecated.clickElement(payment.elementProcessTransactionButton);
+        GetWebDriver.switchBackToDom();
         Utilities.acceptAlert();
-        Utilities.elementIsVisible(confirmationPage.singleCardPaymentResult);
+        Deprecated.isVisible(confirmationPage.singleCardPaymentResult);
     }//chargeSingleElementCc()
 
     //***Author Aarbi
     @Then("I charge cc with spreedly gateway {string}")
     public void chargeSignleSpreedlyCc(String needSpreedlyCC) {
-        String spreedlyIframe = Utilities.getAttributeValue(payment.spreedlyOneTimeCcNumberIframe, "id");
-        Utilities.switchToIframeByXpath(spreedlyIframe);
-        FindElement.elementByAttribute(payment.spreedlyOneTimeCardNumberInputField, FindElement.InputType.XPath).sendKeys(needSpreedlyCC);
-        Utilities.switchBackToDom();
-        String spreedlyCvvIframe = Utilities.getAttributeValue(payment.spreedlyOneTimeCvvIframe, "id");
-        Utilities.switchToIframeByXpath(spreedlyCvvIframe);
-        FindElement.elementByAttribute(payment.spreedlyOneTimeCvvInputField, FindElement.InputType.XPath).sendKeys("123");
-        Utilities.switchBackToDom();
-        Utilities.selectValueFromDropDownByValue(payment.spreedlyOneTimeExpMonthDropdown, "February");
-        Utilities.selectValueFromDropDownByValue(payment.spreedlyOneTimeExpYearDropdown, "2028");
-        Utilities.clickElement(payment.chargeSingleCard, Utilities.ElementType.XPath);
-        Utilities.acceptAlert();
-        Utilities.waitUntileElementIsVisible(confirmationPage.singleCardPaymentResult);
-        String actualResult = Utilities.getElementTextValue(confirmationPage.singleCardPaymentResult, Utilities.ElementType.XPath);
+        String spreedlyIframe = Deprecated.getAttribute(payment.spreedlyOneTimeCcNumberIframe, "id");
+        Utilities.switchToIframe(spreedlyIframe);
+        Deprecated.locate(payment.spreedlyOneTimeCardNumberInputField).sendKeys(needSpreedlyCC);
+        GetWebDriver.switchBackToDom();
+        String spreedlyCvvIframe = Deprecated.getAttribute(payment.spreedlyOneTimeCvvIframe, "id");
+        Utilities.switchToIframe(spreedlyCvvIframe);
+        Deprecated.locate(payment.spreedlyOneTimeCvvInputField).sendKeys("123");
+        GetWebDriver.switchBackToDom();
+        Deprecated.selectByText(payment.spreedlyOneTimeExpMonthDropdown, "February");
+        Deprecated.selectByText(payment.spreedlyOneTimeExpYearDropdown, "2028");
+        Deprecated.clickElement(payment.chargeSingleCard);
+        Utilities.acceptAlert(10);
+        Deprecated.waitVisible(confirmationPage.singleCardPaymentResult);
+        String actualResult = Deprecated.getElementTextValue(confirmationPage.singleCardPaymentResult);
         String expectedConfirmation = "Successfully Charged Credit Card!";
         result(expectedConfirmation, actualResult, "Credit Card Confirmation", "Card on file payment");
     }
@@ -198,35 +198,35 @@ public class SingleCardPayment {
         String month = separateMonthYear[0];
         String year = separateMonthYear[1];
 
-        String spreedlyIframe = Utilities.getAttributeValue(payment.spreedlyOneTimeCcNumberIframe, "id");
-        Utilities.switchToIframeByXpath(spreedlyIframe);
-        FindElement.elementByAttribute(payment.spreedlyOneTimeCardNumberInputField, FindElement.InputType.XPath).sendKeys(needSpreedlyCC);
-        Utilities.switchBackToDom();
-        String spreedlyCvvIframe = Utilities.getAttributeValue(payment.spreedlyOneTimeCvvIframe, "id");
-        Utilities.switchToIframeByXpath(spreedlyCvvIframe);
-        FindElement.elementByAttribute(payment.spreedlyOneTimeCvvInputField, FindElement.InputType.XPath).sendKeys(cvv);
-        Utilities.switchBackToDom();
-        Utilities.selectValueFromDropDownByValue(payment.spreedlyOneTimeExpMonthDropdown, month);
-        Utilities.selectValueFromDropDownByValue(payment.spreedlyOneTimeExpYearDropdown, year);
-        Utilities.clickElement(payment.chargeSingleCard, Utilities.ElementType.XPath);
+        String spreedlyIframe = Deprecated.getAttribute(payment.spreedlyOneTimeCcNumberIframe, "id");
+        Utilities.switchToIframe(spreedlyIframe);
+        Deprecated.locate(payment.spreedlyOneTimeCardNumberInputField).sendKeys(needSpreedlyCC);
+        GetWebDriver.switchBackToDom();
+        String spreedlyCvvIframe = Deprecated.getAttribute(payment.spreedlyOneTimeCvvIframe, "id");
+        Utilities.switchToIframe(spreedlyCvvIframe);
+        Deprecated.locate(payment.spreedlyOneTimeCvvInputField).sendKeys(cvv);
+        GetWebDriver.switchBackToDom();
+        Deprecated.selectByText(payment.spreedlyOneTimeExpMonthDropdown, month);
+        Deprecated.selectByText(payment.spreedlyOneTimeExpYearDropdown, year);
+        Deprecated.clickElement(payment.chargeSingleCard);
         Utilities.acceptAlert();
-        Utilities.waitUntileElementIsVisible(confirmationPage.singleCardPaymentResult);
+        Deprecated.waitVisible(confirmationPage.singleCardPaymentResult);
        }// chargeSignleSpreedlyCc()
 
 
     //***Author Aarbi
     @Then("I charge cc with nmi gateway {string}")
     public void chargeSingleNmiCc(String needNmiCC) {
-        Utilities.clickElement(payment.nmiChargeSingleCardButton, Utilities.ElementType.XPath);
-        Utilities.switchToIframeByXpath(payment.nmiIframe);
-        FindElement.elementByAttribute(payment.nmiCcNumberInputField, FindElement.InputType.XPath).sendKeys(needNmiCC);
-        FindElement.elementByAttribute(payment.nmiCcExpInputField, FindElement.InputType.XPath).sendKeys("0228");
-        FindElement.elementByAttribute(payment.nmiCvvInputField, FindElement.InputType.XPath).sendKeys("123");
-        Utilities.clickElement(payment.nmiSubmitPaymentButton, Utilities.ElementType.XPath);
-        Utilities.switchBackToDom();
-        Utilities.acceptAlert();
-        Utilities.waitUntileElementIsVisible(confirmationPage.paymentResultTitle);
-        String actualResult = Utilities.getElementTextValue(confirmationPage.confirmationMessage, Utilities.ElementType.XPath);
+        Deprecated.clickElement(payment.nmiChargeSingleCardButton);
+        Utilities.switchToIframe(payment.nmiIframe);
+        Deprecated.locate(payment.nmiCcNumberInputField).sendKeys(needNmiCC);
+        Deprecated.locate(payment.nmiCcExpInputField).sendKeys("0228");
+        Deprecated.locate(payment.nmiCvvInputField).sendKeys("123");
+        Deprecated.clickElement(payment.nmiSubmitPaymentButton);
+        GetWebDriver.switchBackToDom();
+        Utilities.acceptAlert(10);
+        Deprecated.waitVisible(confirmationPage.paymentResultTitle);
+        String actualResult = Deprecated.getElementTextValue(confirmationPage.confirmationMessage);
         String expectedConfirmation = "Successfully Charged Credit Card!";
         result(expectedConfirmation, actualResult, "Credit Card Confirmation", "Card on file payment");
     }
@@ -234,36 +234,36 @@ public class SingleCardPayment {
     public void chargeSingleNmiCc(String needNmiCC, String expirationMthYr,String cvv) {
         String expMthYr = expirationMthYr.replace("/", "");
 
-        Utilities.clickElement(payment.nmiChargeSingleCardButton, Utilities.ElementType.XPath);
-        Utilities.switchToIframeByXpath(payment.nmiIframe);
-        FindElement.elementByAttribute(payment.nmiCcNumberInputField, FindElement.InputType.XPath).sendKeys(needNmiCC);
-        FindElement.elementByAttribute(payment.nmiCcExpInputField, FindElement.InputType.XPath).sendKeys(expMthYr);
-        FindElement.elementByAttribute(payment.nmiCvvInputField, FindElement.InputType.XPath).sendKeys(cvv);
-        Utilities.clickElement(payment.nmiSubmitPaymentButton, Utilities.ElementType.XPath);
-        Utilities.switchBackToDom();
+        Deprecated.clickElement(payment.nmiChargeSingleCardButton);
+        Utilities.switchToIframe(payment.nmiIframe);
+        Deprecated.locate(payment.nmiCcNumberInputField).sendKeys(needNmiCC);
+        Deprecated.locate(payment.nmiCcExpInputField).sendKeys(expMthYr);
+        Deprecated.locate(payment.nmiCvvInputField).sendKeys(cvv);
+        Deprecated.clickElement(payment.nmiSubmitPaymentButton);
+        GetWebDriver.switchBackToDom();
         Utilities.acceptAlert();
-        Utilities.waitUntileElementIsVisible(confirmationPage.paymentResultTitle);
+        Deprecated.waitVisible(confirmationPage.paymentResultTitle);
     }// chargeSingleNmiCc()
 
     //***Author Aarbi
     @Then("I charge cc with payrix gateway {string}")
     public void chargeSinglePayrixCc(String needPayrixCC) {
-        Utilities.switchToIframeByXpath(payment.singlePayrixIframe);
-        Utilities.switchToIframeByXpath(payment.payrixCcIframe);
-        FindElement.elementByAttribute(payment.payrixCcNumberInputField, FindElement.InputType.XPath).sendKeys(needPayrixCC);
-        Utilities.switchBackToDom();
-        Utilities.switchToIframeByXpath(payment.singlePayrixIframe);
-        Utilities.switchToIframeByXpath(payment.payrixExpIframe);
-        FindElement.elementByAttribute(payment.payrixExpInputField, FindElement.InputType.XPath).sendKeys("0228");
-        Utilities.switchBackToDom();
-        Utilities.switchToIframeByXpath(payment.singlePayrixIframe);
-        Utilities.switchToIframeByXpath(payment.payrixCvvIframe);
-        FindElement.elementByAttribute(payment.payrixCvvInputField, FindElement.InputType.XPath).sendKeys("123");
-        Utilities.switchBackToDom();
-        Utilities.clickElement(payment.chargeSingleCard, Utilities.ElementType.XPath);
-        Utilities.acceptAlert();
-        Utilities.waitUntileElementIsVisible(confirmationPage.singleCardPaymentResult);
-        String actualResult = Utilities.getElementTextValue(confirmationPage.singleCardPaymentResult, Utilities.ElementType.XPath);
+        Utilities.switchToIframe(payment.singlePayrixIframe);
+        Utilities.switchToIframe(payment.payrixCcIframe);
+        Deprecated.locate(payment.payrixCcNumberInputField).sendKeys(needPayrixCC);
+        GetWebDriver.switchBackToDom();
+        Utilities.switchToIframe(payment.singlePayrixIframe);
+        Utilities.switchToIframe(payment.payrixExpIframe);
+        Deprecated.locate(payment.payrixExpInputField).sendKeys("0228");
+        GetWebDriver.switchBackToDom();
+        Utilities.switchToIframe(payment.singlePayrixIframe);
+        Utilities.switchToIframe(payment.payrixCvvIframe);
+        Deprecated.locate(payment.payrixCvvInputField).sendKeys("123");
+        GetWebDriver.switchBackToDom();
+        Deprecated.clickElement(payment.chargeSingleCard);
+        Utilities.acceptAlert(10);
+        Deprecated.waitVisible(confirmationPage.singleCardPaymentResult);
+        String actualResult = Deprecated.getElementTextValue(confirmationPage.singleCardPaymentResult);
         String expectedConfirmation = "Successfully Charged Credit Card!";
         result(expectedConfirmation, actualResult, "Credit Card Confirmation", "Card on file payment");
     }
@@ -271,19 +271,19 @@ public class SingleCardPayment {
     public void chargeSinglePayrixCc(String needPayrixCC, String expriationMthYr, String cvv) {
        String expMthYr = expriationMthYr.replace("/", "");
 
-        Utilities.switchToIframeByXpath(payment.singlePayrixIframe);
-        Utilities.switchToIframeByXpath(payment.payrixCcIframe);
-        FindElement.elementByAttribute(payment.payrixCcNumberInputField, FindElement.InputType.XPath).sendKeys(needPayrixCC);
-        Utilities.switchBackToDom();
-        Utilities.switchToIframeByXpath(payment.singlePayrixIframe);
-        Utilities.switchToIframeByXpath(payment.payrixExpIframe);
-        FindElement.elementByAttribute(payment.payrixExpInputField, FindElement.InputType.XPath).sendKeys(expMthYr);
-        Utilities.switchBackToDom();
-        Utilities.switchToIframeByXpath(payment.singlePayrixIframe);
-        Utilities.switchToIframeByXpath(payment.payrixCvvIframe);
-        FindElement.elementByAttribute(payment.payrixCvvInputField, FindElement.InputType.XPath).sendKeys(cvv);
-        Utilities.switchBackToDom();
-        Utilities.clickElement(payment.chargeSingleCard, Utilities.ElementType.XPath);
+        Utilities.switchToIframe(payment.singlePayrixIframe);
+        Utilities.switchToIframe(payment.payrixCcIframe);
+        Deprecated.locate(payment.payrixCcNumberInputField).sendKeys(needPayrixCC);
+        GetWebDriver.switchBackToDom();
+        Utilities.switchToIframe(payment.singlePayrixIframe);
+        Utilities.switchToIframe(payment.payrixExpIframe);
+        Deprecated.locate(payment.payrixExpInputField).sendKeys(expMthYr);
+        GetWebDriver.switchBackToDom();
+        Utilities.switchToIframe(payment.singlePayrixIframe);
+        Utilities.switchToIframe(payment.payrixCvvIframe);
+        Deprecated.locate(payment.payrixCvvInputField).sendKeys(cvv);
+        GetWebDriver.switchBackToDom();
+        Deprecated.clickElement(payment.chargeSingleCard);
         Utilities.acceptAlert();
     }//chargeSinglePayrixCc()
 

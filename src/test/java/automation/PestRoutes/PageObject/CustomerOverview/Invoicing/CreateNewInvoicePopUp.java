@@ -1,8 +1,8 @@
 package automation.PestRoutes.PageObject.CustomerOverview.Invoicing;
 
 import automation.PestRoutes.PageObject.BasePage;
-import automation.PestRoutes.Utilities.FindElement;
-import automation.PestRoutes.Utilities.Utilities;
+import automation.PestRoutes.Utilities.*;
+import automation.PestRoutes.Utilities.Deprecated;
 import org.apache.commons.lang3.SystemUtils;
 import org.openqa.selenium.By;
 
@@ -20,42 +20,42 @@ public class CreateNewInvoicePopUp extends BasePage {
     private By createInvoiceButton = By.xpath("//form[@id='newInvoiceParams']/ancestor::div//span[text()='Create']");
 
     public void set(String needInputField, String needValue){
-        Utilities.waitUntileElementIsVisible(needInputField);
-        Utilities.highLight(needInputField);
+        Deprecated.waitVisible(needInputField);
+        Deprecated.highLight(needInputField);
         if (SystemUtils.IS_OS_MAC_OSX){
-            FindElement.elementByAttribute(needInputField, FindElement.InputType.XPath).clear();
-            Utilities.clickElement(needInputField, Utilities.ElementType.XPath);
+            Deprecated.locate(needInputField).clear();
+            Deprecated.clickElement(needInputField);
         }
-        FindElement.elementByAttribute(needInputField, FindElement.InputType.XPath).sendKeys(needValue);
+        Deprecated.locate(needInputField).sendKeys(needValue);
     }
 
     public void select(String needDropDown, String needValue){
-        Utilities.waitUntileElementIsVisible(needDropDown);
-        Utilities.selectValueFromDropDownByValue(needDropDown, needValue);
+        Deprecated.waitVisible(needDropDown);
+        Deprecated.selectByText(needDropDown, needValue);
     }
 
     public void click(String needButton){
-        Utilities.waitUntileElementIsVisible(needButton);
-        Utilities.clickElement(needButton, Utilities.ElementType.XPath);
+        Deprecated.waitVisible(needButton);
+        Deprecated.clickElement(needButton);
     }
 
     public void typeSubTotal(String subTotal) {
-        type(subTotal, invoiceSubTotal);
+        Deprecated.type(subTotal, invoiceSubTotal);
     }
 
     public String getSubTotal() {
-        return find(invoiceSubTotal).getAttribute("value");
+        return Utilities.locate(invoiceSubTotal).getAttribute("value");
     }
 
     public void selectServiceType(String serviceType)  {
-        selectFromDropDown(serviceType, serviceTypeDropDown);
+        Utilities.selectByText(serviceTypeDropDown, serviceType);
     }
 
     public void clickCreateButton() {
-        click(createInvoiceButton);
+        Utilities.click(createInvoiceButton);
     }
 
     public void typeInvoiceDate(String invoiceDate) {
-        type(invoiceDate, invoiceDateField, "ENTER");
+        Deprecated.type(invoiceDate, invoiceDateField, "ENTER");
     }//typeInvoiceDate()
 }

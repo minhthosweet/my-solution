@@ -2,16 +2,10 @@ package automation.PestRoutes.Controller.Equipment;
 
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_Equipment;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_Header;
-import automation.PestRoutes.PageObject.Header;
-import automation.PestRoutes.Utilities.AssertException;
-import automation.PestRoutes.Utilities.Reporter;
 import automation.PestRoutes.Utilities.Utilities;
 import io.cucumber.java.en.And;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import static automation.PestRoutes.Utilities.AssertException.result;
+import static automation.PestRoutes.Utilities.Report.AssertException.result;
 
 public class AddEquipment {
 

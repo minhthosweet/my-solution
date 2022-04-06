@@ -1,9 +1,6 @@
 package automation.PestRoutes.PageObject.Admin.PreferencesTab.ServiceRelatedTab;
 
-import automation.PestRoutes.Utilities.FindElement;
-import automation.PestRoutes.Utilities.Utilities;
-import automation.PestRoutes.Utilities.FindElement.InputType;
-import automation.PestRoutes.Utilities.Utilities.ElementType;
+import automation.PestRoutes.Utilities.Deprecated;
 
 public class ProductTypes {
 	// add Product
@@ -85,127 +82,127 @@ public class ProductTypes {
 
 	// Edit Product
 	public void clickEdit(String productName) {
-		Utilities.waitUntileElementIsVisible(
+		Deprecated.waitVisible(
 				"//input[@value='" + productName + "']/following-sibling::div[text()='edit']");
-		Utilities.clickElement("//input[@value='" + productName + "']/following-sibling::div[text()='edit']",
-				ElementType.XPath);
+		Deprecated.clickElement("//input[@value='" + productName + "']/following-sibling::div[text()='edit']"
+		);
 	}
 
 	public void clickAddProductButton() {
-		Utilities.waitUntileElementIsVisible(addProduct);
-		Utilities.clickElement(addProduct, ElementType.XPath);
+		Deprecated.waitVisible(addProduct);
+		Deprecated.clickElement(addProduct);
 	}
 
 	// Product Details
 	public void enterProductName(String productsName) {
-		Utilities.waitUntileElementIsVisible(productName);
-		FindElement.elementByAttribute(productName, InputType.XPath).sendKeys(productsName);
+		Deprecated.waitVisible(productName);
+		Deprecated.locate(productName).sendKeys(productsName);
 	}
 
 	public void enterProductLabel(String productsLabel) {
-		Utilities.waitUntileElementIsVisible(productLabel);
-		FindElement.elementByAttribute(productLabel, InputType.XPath).sendKeys(productsLabel);
+		Deprecated.waitVisible(productLabel);
+		Deprecated.locate(productLabel).sendKeys(productsLabel);
 	}
 
 	// Setter methods for Unit
 	// Product Values
 	public void setUnit(String placeHolderName, String units) {
-		Utilities.clickElement(concentratedUnit, ElementType.XPath);
-		Utilities.clickElement("//select[@placeholder='" + placeHolderName + "']//option[text()='" + units + "']",
-				ElementType.XPath);
+		Deprecated.clickElement(concentratedUnit);
+		Deprecated.clickElement("//select[@placeholder='" + placeHolderName + "']//option[text()='" + units + "']"
+		);
 	}
 
 	public void setDefaultDilution(String defaultDilutionsQuantity) {
-		FindElement.elementByAttribute(defaultDilution, InputType.XPath).clear();
-		FindElement.elementByAttribute(defaultDilution, InputType.XPath).sendKeys(defaultDilutionsQuantity);
+		Deprecated.locate(defaultDilution).clear();
+		Deprecated.locate(defaultDilution).sendKeys(defaultDilutionsQuantity);
 
 	}
 
 	public void setMeasurementType(String unit) {
-		Utilities.clickElement(measurementType, ElementType.XPath);
-		Utilities.clickElement("//select[@placeholder='measurement type']/option[text()='" + unit + "']",
-				ElementType.XPath);
+		Deprecated.clickElement(measurementType);
+		Deprecated.clickElement("//select[@placeholder='measurement type']/option[text()='" + unit + "']"
+		);
 	}
 
 	public void setManufacturer(String manufacturers) {
-		FindElement.elementByAttribute(manufacturer, InputType.XPath).clear();
-		FindElement.elementByAttribute(manufacturer, InputType.XPath).sendKeys(manufacturers);
+		Deprecated.locate(manufacturer).clear();
+		Deprecated.locate(manufacturer).sendKeys(manufacturers);
 
 	}
 
 	public void setSentriconBait(String yesORno) {
-		Utilities.clickElement(measurementType, ElementType.XPath);
-		Utilities.clickElement("//select[@placeholder='is sentricon bait']/option[text()='" + yesORno + "']",
-				ElementType.XPath);
+		Deprecated.clickElement(measurementType);
+		Deprecated.clickElement("//select[@placeholder='is sentricon bait']/option[text()='" + yesORno + "']"
+		);
 	}
 
 	public void setNumerator(String numeratorRatio, String unit) {
-		FindElement.elementByAttribute(mixRatioNumerator, InputType.XPath).clear();
-		FindElement.elementByAttribute(mixRatioNumerator, InputType.XPath).sendKeys(numeratorRatio);
-		Utilities.clickElement(mixRatioNumeratorUnit, ElementType.XPath);
-		Utilities.clickElement("//select[@placeholder='Numerator Unit']//option[text()='" + unit + "']",
-				ElementType.XPath);
+		Deprecated.locate(mixRatioNumerator).clear();
+		Deprecated.locate(mixRatioNumerator).sendKeys(numeratorRatio);
+		Deprecated.clickElement(mixRatioNumeratorUnit);
+		Deprecated.clickElement("//select[@placeholder='Numerator Unit']//option[text()='" + unit + "']"
+		);
 	}
 
 	public void setDenominator(String denominatorRatio, String unit) {
-		FindElement.elementByAttribute(mixRatioDenominator, InputType.XPath).clear();
-		FindElement.elementByAttribute(mixRatioDenominator, InputType.XPath).sendKeys(denominatorRatio);
-		Utilities.clickElement(mixRatioDenominatorUnit, ElementType.XPath);
-		Utilities.clickElement("//select[@placeholder='Denominator Unit']//option[text()='" + unit + "']",
-				ElementType.XPath);
+		Deprecated.locate(mixRatioDenominator).clear();
+		Deprecated.locate(mixRatioDenominator).sendKeys(denominatorRatio);
+		Deprecated.clickElement(mixRatioDenominatorUnit);
+		Deprecated.clickElement("//select[@placeholder='Denominator Unit']//option[text()='" + unit + "']"
+		);
 	}
 
 	public void setApplicationMethod(String appMethod) {
-		Utilities.clickElement(applicationMethod, ElementType.XPath);
-		Utilities.clickElement("//select[@placeholder='application method']/option[text()='" + appMethod + "']",
-				ElementType.XPath);
+		Deprecated.clickElement(applicationMethod);
+		Deprecated.clickElement("//select[@placeholder='application method']/option[text()='" + appMethod + "']"
+		);
 	}
 
 	public void chemicalType(String chemicalOption) {
-		Utilities.clickElement(isChemicalType, ElementType.XPath);
-		Utilities.clickElement("//select[@placeholder='type']/option[text()='" + chemicalOption + "']",
-				ElementType.XPath);
+		Deprecated.clickElement(isChemicalType);
+		Deprecated.clickElement("//select[@placeholder='type']/option[text()='" + chemicalOption + "']"
+		);
 	}
 
 	public void setTargetArea() {
-		Utilities.clickElement(targetAreas, ElementType.XPath);
-		Utilities.clickElement(addTargetArea, ElementType.XPath);
+		Deprecated.clickElement(targetAreas);
+		Deprecated.clickElement(addTargetArea);
 	}
 
 	public void setTargetIssues() {
-		Utilities.clickElement(targetIssue, ElementType.XPath);
-		Utilities.clickElement(addTargetIssue, ElementType.XPath);
+		Deprecated.clickElement(targetIssue);
+		Deprecated.clickElement(addTargetIssue);
 	}
 
 	public String getProductName(String setProductName) {
-		Utilities.waitUntileElementIsVisible(
+		Deprecated.waitVisible(
 				"//div[@id='newPreferenceBody']//div[contains(text(),'" + setProductName + "')]");
-		return Utilities
-				.getElementTextValue("//div[@id='newPreferenceBody']//div[contains(text(),'" + setProductName + "')]",
-						ElementType.XPath)
+		return Deprecated
+				.getElementTextValue("//div[@id='newPreferenceBody']//div[contains(text(),'" + setProductName + "')]"
+                )
 				.substring(0, 4);
 	}
 
 	public String getProductLabel(String setProductLabel) {
-		Utilities.waitUntileElementIsVisible(
+		Deprecated.waitVisible(
 				"//div[@id='newPreferenceBody']//div[contains(text(),'" + setProductLabel + "')]");
-		return Utilities
-				.getElementTextValue("//div[@id='newPreferenceBody']//div[contains(text(),'" + setProductLabel + "')]",
-						ElementType.XPath)
+		return Deprecated
+				.getElementTextValue("//div[@id='newPreferenceBody']//div[contains(text(),'" + setProductLabel + "')]"
+                )
 				.substring(0, 4);
 	}
 
 	public String getUnitData(String placeHolderName) {
-		return Utilities.getElementTextValue(
-				"//select[@placeholder='" + placeHolderName + "']//option[@selected='selected']", ElementType.XPath);
+		return Deprecated.getElementTextValue(
+				"//select[@placeholder='" + placeHolderName + "']//option[@selected='selected']");
 	}
 
 	public String getNumeratorValue() {
-		return Utilities.getAttributeValue(mixRatioNumerator, "value");
+		return Deprecated.getAttribute(mixRatioNumerator, "value");
 	}
 
 	public String getDenominatorValue() {
-		return Utilities.getAttributeValue(mixRatioDenominator, "value");
+		return Deprecated.getAttribute(mixRatioDenominator, "value");
 	}
 
 }

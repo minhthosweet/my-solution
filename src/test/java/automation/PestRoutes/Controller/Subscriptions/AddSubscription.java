@@ -3,11 +3,11 @@ package automation.PestRoutes.Controller.Subscriptions;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_Header;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_SubscriptionTab;
 import automation.PestRoutes.PageObject.Header;
-import automation.PestRoutes.Utilities.AppData;
-import automation.PestRoutes.Utilities.FindElement;
-import automation.PestRoutes.Utilities.Reporter;
-import automation.PestRoutes.Utilities.Utilities;
-import static automation.PestRoutes.Utilities.Utilities.*;
+import automation.PestRoutes.Utilities.*;
+import automation.PestRoutes.Utilities.Data.*;
+import automation.PestRoutes.Utilities.Deprecated;
+import automation.PestRoutes.Utilities.Report.Reporter;
+
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -16,7 +16,7 @@ import org.testng.annotations.Test;
 
 import java.util.List;
 
-import static automation.PestRoutes.Utilities.AssertException.result;
+import static automation.PestRoutes.Utilities.Report.AssertException.result;
 
 public class AddSubscription extends AppData {
 
@@ -28,7 +28,7 @@ public class AddSubscription extends AppData {
 	public String initialQuote = "120.00";
 	public Double recurringQuote = 240.00;
 	public String initialDiscount = "20.00";
-	private String customDateInCustomSchedule = Utilities.getCurrentDate();
+	private String customDateInCustomSchedule = GetDate.getCurrentDate();
 	public static String newContractValue = null;
 	public String initialInvoiceValue;
 	public static List<String> serviceType;
@@ -260,7 +260,7 @@ public class AddSubscription extends AppData {
 	@And("I run the billing queue script")
 	public void runBillingQueueScript() throws Exception{
 		Thread.sleep(700);
-		Utilities.navigateToUrl("https://adityam.pestroutes.com/resources/scripts/billingQueue.php?debug=1");
+		GetWebDriver.navigateToUrl("https://adityam.pestroutes.com/resources/scripts/billingQueue.php?debug=1");
 	}
 
 	@And("I add a custom frequency recurring service")
@@ -296,17 +296,17 @@ public class AddSubscription extends AppData {
 		customerDialogHeader.navigateTo(customerDialogHeader.subscriptionTabInDialog);
 		subscription.setAutoPayProfileDropdown();
 		customerDialogHeader.clickSaveButton();
-		Utilities.clickElement(subscription.billingAccountField, Utilities.ElementType.XPath);
+		Deprecated.clickElement(subscription.billingAccountField);
 		try {
-			WebElement elm = FindElement.elementByAttribute(subscription.proceedAndTransferButton, FindElement.InputType.XPath);
+			WebElement elm = Deprecated.locate(subscription.proceedAndTransferButton);
 			if (elm.isDisplayed()){
-				Utilities.clickElement(subscription.proceedAndTransferButton, Utilities.ElementType.XPath);
+				Deprecated.clickElement(subscription.proceedAndTransferButton);
 			}
 		} catch(Exception e) {
 			System.out.println("Transfer Funds dialog not displayed");
 		}
 		subscription.setMergeBillingAccountField(needMergeCustomerName);
-		Utilities.clickElement(subscription.mergeBillingAccountSelectButton, Utilities.ElementType.XPath);
+		Deprecated.clickElement(subscription.mergeBillingAccountSelectButton);
 		customerDialogHeader.clickSaveButton();
 	}
 
@@ -319,7 +319,7 @@ public class AddSubscription extends AppData {
 		userOnSubscriptionTab.clickNewSubscription();
 		userOnSubscriptionTab.selectRecurringServiceType("Automation Renewal");
 		serviceType = userOnSubscriptionTab.getRecurringServiceType();
-		userOnSubscriptionTab.selectCustomDate(currentDate("MM/DD/YYYY"));
+		userOnSubscriptionTab.selectCustomDate(GetDate.currentDate("MM/DD/YYYY"));
 		userOnSubscriptionTab.selectInitialInvoice("After Initial Completion");
 		userOnSubscriptionTab.selectAdditionalItem_ToInitialInvoice("Best Product");
 		sameUser.clickSaveButton();

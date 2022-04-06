@@ -1,9 +1,6 @@
 package automation.PestRoutes.PageObject.Admin.PreferencesTab.OfficeSettingsTab.TriggerTypes;
 
-import automation.PestRoutes.Utilities.FindElement;
-import automation.PestRoutes.Utilities.Utilities;
-import automation.PestRoutes.Utilities.FindElement.InputType;
-import automation.PestRoutes.Utilities.Utilities.ElementType;
+import automation.PestRoutes.Utilities.Deprecated;
 
 public class Trigger_Actions {
     // Add Actions
@@ -140,111 +137,111 @@ public class Trigger_Actions {
 
     // Actions
     public void clickAddActionButton() {
-        Utilities.waitUntileElementIsVisible(addActionButton);
-        Utilities.clickElement(addActionButton, ElementType.XPath);
+        Deprecated.waitVisible(addActionButton);
+        Deprecated.clickElement(addActionButton);
     }
 
     public void setValue_Action(String valueOfAction) {
-        Utilities.waitUntileElementIsVisible(value_Action);
-        FindElement.elementByAttribute(value_Action, InputType.XPath).sendKeys(valueOfAction);
+        Deprecated.waitVisible(value_Action);
+        Deprecated.locate(value_Action).sendKeys(valueOfAction);
     }
 
     public void setCollectionsStage() {
-        Utilities.clickElement(collectionsStage_Stage, ElementType.XPath);
+        Deprecated.clickElement(collectionsStage_Stage);
     }
 
     // Write Messages type 1
     public void setMessageinAction_Type1(String messageType, String placeholderMessage) {
-        FindElement
-                .elementByAttribute("//option[@selected and text()='" + messageType
-                        + "']/ancestor::div[@class='row']/following-sibling::div//textarea", InputType.XPath)
+        Deprecated
+                .locate("//option[@selected and text()='" + messageType
+                        + "']/ancestor::div[@class='row']/following-sibling::div//textarea")
                 .sendKeys(placeholderMessage);
     }
 
     // Write Messages type 2
     public void setMessageinAction_Type2(String messageType, String placeholderMessage) {
-        FindElement
-                .elementByAttribute("//option[@selected and text()='" + messageType
-                        + "']/parent::select/parent::div/parent::div/parent::div/following-sibling::div//ul/following-sibling::div[@role]",
-                InputType.XPath).sendKeys(placeholderMessage);
+        Deprecated
+                .locate("//option[@selected and text()='" + messageType
+                        + "']/parent::select/parent::div/parent::div/parent::div/following-sibling::div//ul/following-sibling::div[@role]"
+                ).sendKeys(placeholderMessage);
     }
 
     // Write Messages type 3
     public void setMessageinAction_Type3(String messageType, String placeholderMessage) {
-        FindElement
-                .elementByAttribute("//option[text()='" + messageType
-                                + "']/parent::select/parent::div/parent::div/parent::div/following-sibling::div//ul/following-sibling::div[@role]",
-                        InputType.XPath).sendKeys(placeholderMessage);
+        Deprecated
+                .locate("//option[text()='" + messageType
+                                + "']/parent::select/parent::div/parent::div/parent::div/following-sibling::div//ul/following-sibling::div[@role]"
+                ).sendKeys(placeholderMessage);
     }
 
     // Set email title
     public void setEmailTitle(String emailTitle) {
-        FindElement.elementByAttribute(email_Title, InputType.XPath).sendKeys(emailTitle);
+        Deprecated.locate(email_Title).sendKeys(emailTitle);
     }
 
     // To get placeholders
     public String getPlaceHolders() {
-        Utilities.waitUntileElementIsVisible(facebookImage);
-        Utilities.scrollToElement(facebookImage);
-        Utilities.waitUntileElementIsVisible(showPlaceHolders);
-        Utilities.clickElement(showPlaceHolders, ElementType.XPath);
-        Utilities.waitUntileElementIsVisible(placeHolderItem1);
-        placeHolderItemText = Utilities.getElementTextValue(placeHolderItem1, ElementType.XPath) + " "
-                + Utilities.getElementTextValue(placeHolderItem2, ElementType.XPath) + " "
-                + Utilities.getElementTextValue(placeHolderItem3, ElementType.XPath);
-        Utilities.waitUntileElementIsVisible(hidePlaceHolders);
-        Utilities.clickElement(hidePlaceHolders, ElementType.XPath);
+        Deprecated.waitVisible(facebookImage);
+        Deprecated.scrollToElement(facebookImage);
+        Deprecated.waitVisible(showPlaceHolders);
+        Deprecated.clickElement(showPlaceHolders);
+        Deprecated.waitVisible(placeHolderItem1);
+        placeHolderItemText = Deprecated.getElementTextValue(placeHolderItem1) + " "
+                + Deprecated.getElementTextValue(placeHolderItem2) + " "
+                + Deprecated.getElementTextValue(placeHolderItem3);
+        Deprecated.waitVisible(hidePlaceHolders);
+        Deprecated.clickElement(hidePlaceHolders);
         return placeHolderItemText;
     }
 
     // Set email title in send employee email for Subscription Status trigger rule
     public void setEmailTitle_SubscriptionStatus(String emailTitle) {
-        FindElement.elementByAttribute(emailTitlesendEmployeeEmail_SubscriptionStatus, InputType.XPath)
+        Deprecated.locate(emailTitlesendEmployeeEmail_SubscriptionStatus)
                 .sendKeys(emailTitle);
     }
 
     // Set email address in send employee email for Subscription Status trigger rule
     public void setEmailAddress_SubscriptionStatus(String emailAddress) {
-        FindElement.elementByAttribute(emailsSendEmployeeEmail_SubscriptionStatus, InputType.XPath)
+        Deprecated.locate(emailsSendEmployeeEmail_SubscriptionStatus)
                 .sendKeys(emailAddress);
     }
 
     // Set phone number in Send Employee SMS/Voice
     public void setEmployeePhoneNumber_SubscriptionStatus(String actionType, String phoneNumber) {
-        FindElement.elementByAttribute(
+        Deprecated.locate(
                 "//option[@selected and text()='" + actionType
-                        + "']//ancestor::div/following-sibling::div//input[@data-ruleitemtype='sendToPhones']",
-                InputType.XPath).sendKeys(phoneNumber);
+                        + "']//ancestor::div/following-sibling::div//input[@data-ruleitemtype='sendToPhones']"
+        ).sendKeys(phoneNumber);
     }
 
     // Set days till due in add task for Subscription Status trigger rule
     public void setDaysTillDueAddTask_SubscriptionStatus(String days) {
-        FindElement.elementByAttribute(daysTillDue_addTask, InputType.XPath).sendKeys(days);
+        Deprecated.locate(daysTillDue_addTask).sendKeys(days);
     }
 
     // Enter Subject
     public void enterSubjectText(String actionSubjectText) {
-        FindElement.elementByAttribute(subjectText, InputType.XPath).sendKeys(actionSubjectText);
+        Deprecated.locate(subjectText).sendKeys(actionSubjectText);
     }
 
     // Message for Webhook
     public void messageInWebhook(String webHookMessageType, String placeHolderMessage) {
-        FindElement.elementByAttribute("//label[text()='" + webHookMessageType + "']/following-sibling::div/textarea",
-                InputType.XPath).sendKeys(placeHolderMessage);
+        Deprecated.locate("//label[text()='" + webHookMessageType + "']/following-sibling::div/textarea"
+        ).sendKeys(placeHolderMessage);
     }
 
     // Payment Type in Remove Payment Profile
     public void paymentType_removePaymentProfile(String paymentOption) {
-        Utilities.clickElement(paymentType, ElementType.XPath);
-        Utilities.waitUntileElementIsVisible("//select[@data-observeritemtype='paymentType']//option[text()='" + paymentOption + "']");
-        Utilities.clickElement("//select[@data-observeritemtype='paymentType']//option[text()='" + paymentOption + "']", ElementType.XPath);
+        Deprecated.clickElement(paymentType);
+        Deprecated.waitVisible("//select[@data-observeritemtype='paymentType']//option[text()='" + paymentOption + "']");
+        Deprecated.clickElement("//select[@data-observeritemtype='paymentType']//option[text()='" + paymentOption + "']");
     }
 
     // Remove trigger
     public void removeAction(String ActionType) {
-        Utilities.clickElement(
+        Deprecated.clickElement(
                 "//option[@selected and text()='" + ActionType
-                        + "']/parent::select/parent::div/parent::div/following-sibling::div[text()='Remove']",
-                ElementType.XPath);
+                        + "']/parent::select/parent::div/parent::div/following-sibling::div[text()='Remove']"
+        );
     }
 }

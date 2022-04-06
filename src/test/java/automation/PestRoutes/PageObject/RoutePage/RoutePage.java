@@ -6,11 +6,12 @@ import automation.PestRoutes.Controller.Schedules.ScheduleAppt;
 import automation.PestRoutes.PageObject.BasePage;
 import automation.PestRoutes.PageObject.Header;
 import automation.PestRoutes.PageObject.Scheduling.SchedulingTab;
-import automation.PestRoutes.Utilities.FindElement;
-import automation.PestRoutes.Utilities.Utilities;
-import automation.PestRoutes.Utilities.FindElement.InputType;
-import automation.PestRoutes.Utilities.Utilities.ElementType;
+import automation.PestRoutes.Utilities.*;
+
+import static automation.PestRoutes.Utilities.GetWebDriver.*;
 import static automation.PestRoutes.Utilities.Utilities.*;
+
+import automation.PestRoutes.Utilities.Deprecated;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import org.openqa.selenium.By;
@@ -47,9 +48,9 @@ public class RoutePage extends BasePage {
     ValidateRenewal validateRenewal;
 
     public void clickButton(String chooseButton) {
-        Utilities.waitUntileElementIsVisible(chooseButton);
-        Utilities.scrollToElement(chooseButton);
-        Utilities.clickElement(chooseButton, ElementType.XPath);
+        Deprecated.waitVisible(chooseButton);
+        Deprecated.scrollToElement(chooseButton);
+        Deprecated.clickElement(chooseButton);
     }
 
     public void addRoutesByQuantity(String insertQuantity) {
@@ -68,30 +69,30 @@ public class RoutePage extends BasePage {
 //        } catch (Exception e) {
 //            System.out.println("Exception is " + e);
 //        }
-        scrollToElementJS(route.addRoutesButton);
+        Deprecated.scrollToElementJS(route.addRoutesButton);
         route.clickButton(route.addRoutesButton);
         delay(3000);
-        Utilities.waitUntileElementIsVisible("//p[text()= 'Add " + insertQuantity + " Route']");
-        Utilities.scrollToElementJS("//p[text()= 'Add " + insertQuantity + " Route']");
-        Utilities.clickElement("//p[text()= 'Add " + insertQuantity + " Route']", ElementType.XPath);
+        Deprecated.waitVisible("//p[text()= 'Add " + insertQuantity + " Route']");
+        Deprecated.scrollToElementJS("//p[text()= 'Add " + insertQuantity + " Route']");
+        Deprecated.clickElement("//p[text()= 'Add " + insertQuantity + " Route']");
     }
 
     public void scheduleAppointment(String needRouteSlotNumber, String needTime) {
-        Utilities.waitUntileElementIsVisible("//*[@id='schedulingNotice']");
-        Utilities.scrollToElement(
+        Deprecated.waitVisible("//*[@id='schedulingNotice']");
+        Deprecated.scrollToElement(
                 "//div[@class='routes']/div[" + needRouteSlotNumber + "]"
                         + "//div[text()='" + needTime + "']/following-sibling::div");
-        Utilities.waitUntileElementIsVisible("//div[@class='routes']/div[" + needRouteSlotNumber + "]"
+        Deprecated.waitVisible("//div[@class='routes']/div[" + needRouteSlotNumber + "]"
                 + "//div[text()='" + needTime + "']/following-sibling::div");
-        Utilities.jsClickElement("//div[@class='routes']/div[" + needRouteSlotNumber + "]" + "//div[text()='" + needTime
-                + "']/following-sibling::div", ElementType.XPath);
+        Deprecated.jsClickElement("//div[@class='routes']/div[" + needRouteSlotNumber + "]" + "//div[text()='" + needTime
+                + "']/following-sibling::div");
     }
 
     @And ("I add a route group if not already existing")
     public void addGroupIfNotExisting() {
         route = new RoutePage();
         try {
-            WebElement elm = FindElement.elementByAttribute("//h3[text() = 'TestRoutes']", InputType.XPath);
+            WebElement elm = Deprecated.locate("//h3[text() = 'TestRoutes']");
             if (elm.isDisplayed()) {
                 deleteGroup();
                 addGroup();
@@ -104,7 +105,7 @@ public class RoutePage extends BasePage {
         }
 
     public boolean isRouteGroupPresent(String routeGroupName) {
-       return Utilities.isPresent("//h3[text() ='" + routeGroupName + "']");
+       return Deprecated.isPresent("//h3[text() ='" + routeGroupName + "']");
     }
 
     @And("I add a route group")
@@ -113,13 +114,13 @@ public class RoutePage extends BasePage {
     }
 
     public void addGroup(String routeGroupName){
-        if (!find(By.xpath(addGroup)).isDisplayed()) {
-            Utilities.scrollToElementJS(addGroup);
-            Utilities.clickElement(addGroup, ElementType.XPath);
-            FindElement.elementByAttribute(groupTitle, InputType.XPath).sendKeys(routeGroupName);
-            Utilities.waitUntileElementIsVisible(groupTemplate);
-            Utilities.waitUntileElementIsVisible(saveButton);
-            Utilities.clickElement(saveButton, ElementType.XPath);
+        if (!Utilities.locate(By.xpath(addGroup)).isDisplayed()) {
+            Deprecated.scrollToElementJS(addGroup);
+            Deprecated.clickElement(addGroup);
+            Deprecated.locate(groupTitle).sendKeys(routeGroupName);
+            Deprecated.waitVisible(groupTemplate);
+            Deprecated.waitVisible(saveButton);
+            Deprecated.clickElement(saveButton);
         }
     }//addGroup()
 
@@ -139,16 +140,16 @@ public class RoutePage extends BasePage {
 
             WebElement elm = getDescription(routeGroupName);
             if (elm.isDisplayed()) {
-                int elementCount = Utilities.getElementCount("//h3[text() = '" + routeGroupName + "']");
+                int elementCount = Deprecated.countElements("//h3[text() = '" + routeGroupName + "']");
                 for (int i = elementCount; i>0; i--) {
-                    Utilities.waitUntileElementIsVisible("//h3[text() = '" + routeGroupName + "']");
-                    Utilities.clickElement("//h3[text() = '" + routeGroupName + "']", ElementType.XPath);
-                    Utilities.waitUntileElementIsVisible("//h3[text() = '" + routeGroupName + "']/following-sibling::div[@class = 'clickToEdit']");
-                    Utilities.clickElement("//h3[text() = '" + routeGroupName +"']/following-sibling::div[@class = 'clickToEdit']", ElementType.XPath);
-                    Utilities.waitUntileElementIsVisible("//div[@id = 'editGroupDialog']/following-sibling::div[1]//span[text()='Delete']");
-                    Utilities.clickElement("//div[@id = 'editGroupDialog']/following-sibling::div[1]//span[text()='Delete']", ElementType.XPath);
-                    Utilities.waitUntileElementIsVisible("//span[text()='Delete Group?']/ancestor::div//span[text()='Delete Group']");
-                    Utilities.clickElement("//span[text()='Delete Group?']/ancestor::div//span[text()='Delete Group']", ElementType.XPath, false, true);
+                    Deprecated.waitVisible("//h3[text() = '" + routeGroupName + "']");
+                    Deprecated.clickElement("//h3[text() = '" + routeGroupName + "']");
+                    Deprecated.waitVisible("//h3[text() = '" + routeGroupName + "']/following-sibling::div[@class = 'clickToEdit']");
+                    Deprecated.clickElement("//h3[text() = '" + routeGroupName +"']/following-sibling::div[@class = 'clickToEdit']");
+                    Deprecated.waitVisible("//div[@id = 'editGroupDialog']/following-sibling::div[1]//span[text()='Delete']");
+                    Deprecated.clickElement("//div[@id = 'editGroupDialog']/following-sibling::div[1]//span[text()='Delete']");
+                    Deprecated.waitVisible("//span[text()='Delete Group?']/ancestor::div//span[text()='Delete Group']");
+                    Deprecated.clickElement("//span[text()='Delete Group?']/ancestor::div//span[text()='Delete Group']", false, true);
                     header.navigateTo(header.schedulingTab);
                     scheduleDay.addScheduleDateToProperties();
                     scheduleDay.clickScheduleDay();
@@ -160,51 +161,51 @@ public class RoutePage extends BasePage {
 
 
     public void deleteFirstRoute()  {
-        Utilities.waitUntileElementIsVisible("//div[@class='routes']//div[@groupid][1]//div[text()='Route Actions']");
-        Utilities.clickElement("//div[@class='routes']//div[@groupid][1]//div[text()='Route Actions']", ElementType.XPath);
-        Utilities.waitUntileElementIsVisible("//div[@class='routes']//div[@groupid][1]//div[text()='Route Actions']//following-sibling::div//p[text()='Delete Route']");
-        Utilities.clickElement("//div[@class='routes']//div[@groupid][1]//div[text()='Route Actions']//following-sibling::div//p[text()='Delete Route']", ElementType.XPath);
-        Utilities.waitUntileElementIsVisible("//div[@class='ui-widget-overlay ui-front']//following-sibling::div//span[text()='Delete Route']");
-        Utilities.clickElement("//div[@class='ui-widget-overlay ui-front']//following-sibling::div//span[text()='Delete Route']", ElementType.XPath);
+        Deprecated.waitVisible("//div[@class='routes']//div[@groupid][1]//div[text()='Route Actions']");
+        Deprecated.clickElement("//div[@class='routes']//div[@groupid][1]//div[text()='Route Actions']");
+        Deprecated.waitVisible("//div[@class='routes']//div[@groupid][1]//div[text()='Route Actions']//following-sibling::div//p[text()='Delete Route']");
+        Deprecated.clickElement("//div[@class='routes']//div[@groupid][1]//div[text()='Route Actions']//following-sibling::div//p[text()='Delete Route']");
+        Deprecated.waitVisible("//div[@class='ui-widget-overlay ui-front']//following-sibling::div//span[text()='Delete Route']");
+        Deprecated.clickElement("//div[@class='ui-widget-overlay ui-front']//following-sibling::div//span[text()='Delete Route']");
     }
 
     public WebElement getDescription(String needText) {
-        return FindElement.elementByAttribute("//h3[contains (text(), '"+needText+"')]", InputType.XPath);
+        return Deprecated.locate("//h3[contains (text(), '"+needText+"')]");
     }
 
     public void selectAvailableAppointment() {
         List<WebElement> fixedAppointments = driver.findElements(allFixedAppointments);
-        if (elementIsVisible(routeActions)) {
+        if (isVisible(routeActions)) {
             for(WebElement availableAppointment : fixedAppointments) {
                 if (!availableAppointment.isSelected()) {
-                    scrollToElementJS(availableAppointment);
+                    Deprecated.scrollToElementJS(availableAppointment);
                     availableAppointment.click();
                     break;
                 }
                 else {
                     addRoutesByQuantity("1");
-                    find(allFixedAppointments).click();
+                    Utilities.locate(allFixedAppointments).click();
                 }
             }
         } else {
             addRoutesByQuantity("1");
-            find(allFixedAppointments).click();
+            Utilities.locate(allFixedAppointments).click();
         }
         delay(2000);
-        if(!elementIsVisible(existingCustomerField)) {
+        if(!isVisible(existingCustomerField)) {
             delay(2000);
-            if (!elementIsVisible(serviceTypeDropDown)) {
+            if (!isVisible(serviceTypeDropDown)) {
                 addRoutesByQuantity("1");
-                find(allFixedAppointments).click();
+                Utilities.locate(allFixedAppointments).click();
             }
         }
     }
 
     public void selectExistingCustomer(String customer) {
-        if (elementIsVisible(existingCustomerField)) {
+        if (isVisible(existingCustomerField)) {
             delay(1000);
-            type(customer, existingCustomerField);
-            WebElement existingCustomer = find(By.xpath("//div[@aria-describedby='chooseCustomerDialog']//span[@class='left searchName' and contains(text(), '"+ customer +"')]"));
+            Deprecated.type(customer, existingCustomerField);
+            WebElement existingCustomer = Utilities.locate(By.xpath("//div[@aria-describedby='chooseCustomerDialog']//span[@class='left searchName' and contains(text(), '"+ customer +"')]"));
             existingCustomer.click();
         }
     }

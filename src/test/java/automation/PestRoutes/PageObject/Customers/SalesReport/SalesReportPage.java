@@ -1,11 +1,8 @@
 package automation.PestRoutes.PageObject.Customers.SalesReport;
 
-import automation.PestRoutes.Utilities.BaseClass;
-import automation.PestRoutes.Utilities.FindElement;
-import automation.PestRoutes.Utilities.Utilities;
-import automation.PestRoutes.Utilities.Utilities.ElementType;
+import automation.PestRoutes.Utilities.Deprecated;
 
-public class SalesReportPage extends BaseClass{
+public class SalesReportPage{
 	
 	public String selectToday = "//div[@class='daterangepicker dropdown-menu ltr openscenter show-calendar']//li[text()='Today'] ";
 	public String subscriptionFlagColumn = "//th[text()='Subscription Flags'] ";
@@ -37,57 +34,57 @@ public class SalesReportPage extends BaseClass{
 	String salesReportTotalContractValue = "//div[contains(text(),'Total Contract Value')]/preceding-sibling::h3";
 
 	public void selectTodaysDate(String needDate) {
-		Utilities.waitUntileElementIsVisible(selectDateField);
-		Utilities.clickElement(selectDateField, ElementType.XPath);
-		Utilities.waitUntileElementIsVisible(selectToday);
-		Utilities.clickElement(needDate, ElementType.XPath);
+		Deprecated.waitVisible(selectDateField);
+		Deprecated.clickElement(selectDateField);
+		Deprecated.waitVisible(selectToday);
+		Deprecated.clickElement(needDate);
 	}
 	
 	public void selectAdditionalColumns(String needColumnName) {
-		Utilities.selectValueFromDropDownByValue(additionColumns, needColumnName);
+		Deprecated.selectByText(additionColumns, needColumnName);
 	}
 
 	public void selectIncludeOffices(String needOffice) {
-		Utilities.selectValueFromDropDownByValue(includeOffices, needOffice);
+		Deprecated.selectByText(includeOffices, needOffice);
 	}
 
 	
 	public void selectSalesmanFilter(String filterBySalesman, String needSalesman) {
-		Utilities.selectValueFromDropDownByValue(filterBySalesman, needSalesman);
+		Deprecated.selectByText(filterBySalesman, needSalesman);
 	}
 
 	public void selectFilter(String needFilterType, String needValue) {
-		Utilities.selectValueFromDropDownByValue(needFilterType, needValue);
+		Deprecated.selectByText(needFilterType, needValue);
 	}
 
 	public void clickFilter(String needFilterType, String needValue) {
-		Utilities.selectValueFromDropDownByValue(needFilterType, needValue);
+		Deprecated.selectByText(needFilterType, needValue);
 	}
 	
 	public void ClickRefreshButton() {
-		Utilities.waitUntileElementIsVisible(refreshButton);
-		Utilities.clickElement(refreshButton, ElementType.XPath);
+		Deprecated.waitVisible(refreshButton);
+		Deprecated.clickElement(refreshButton);
 	}
 
 	
 	public void subscriptionFlagColumnPresent() {
-		Utilities.waitUntileElementIsVisible(subscriptionFlagColumn);
+		Deprecated.waitVisible(subscriptionFlagColumn);
 	}
 	
 	public String getCurrentSubscriptionFlagName(String chooseNameFromConst) {
-		String elm = Utilities.getElementTextValue("//td[contains(text(),'"+chooseNameFromConst+"')]/following-sibling::td[12]", ElementType.XPath);
+		String elm = Deprecated.getElementTextValue("//td[contains(text(),'"+chooseNameFromConst+"')]/following-sibling::td[12]");
 		return elm;
 	}
 
 	public double getSalesReportTotalSingleContractValue(String chooseNameFromConst) {
-		String elm = Utilities.getElementTextValue("//td[contains(text(),'"+chooseNameFromConst+"')]/following-sibling::td[11]", ElementType.XPath);
+		String elm = Deprecated.getElementTextValue("//td[contains(text(),'"+chooseNameFromConst+"')]/following-sibling::td[11]");
 		String newElm = elm.replaceAll("[^\\\\.0123456789]", "");
 		double attributeValue = Double.parseDouble(newElm);
 		return attributeValue;		
 	}
 	
 	public double getSalesReportTotalContractValue() {
-		String elm = Utilities.getElementTextValue(salesReportTotalContractValue, ElementType.XPath);
+		String elm = Deprecated.getElementTextValue(salesReportTotalContractValue);
 		String newElm = elm.replaceAll("[^\\\\.0123456789]", "");
 		double attributeValue = Double.parseDouble(newElm);
 		return attributeValue;

@@ -1,6 +1,6 @@
 package automation.PestRoutes.Controller.Admin.Preferences.ServiceRelated;
 
-import automation.PestRoutes.Utilities.AppData;
+import automation.PestRoutes.Utilities.Data.AppData;
 import io.cucumber.java.en.And;
 import org.openqa.selenium.WebElement;
 import automation.PestRoutes.PageObject.Header;

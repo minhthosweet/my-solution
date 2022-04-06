@@ -1,8 +1,6 @@
 package automation.PestRoutes.PageObject.SignInPage;
 
-import automation.PestRoutes.Utilities.*;
-import automation.PestRoutes.Utilities.FindElement.InputType;
-import automation.PestRoutes.Utilities.Utilities.ElementType;
+import automation.PestRoutes.Utilities.Deprecated;
 
 public class LoginPage {
 	
@@ -16,16 +14,16 @@ public class LoginPage {
 	
 	// Action method
 	public void clickLoginButton() {
-		Utilities.clickElement(LoginButton, ElementType.XPath);
+		Deprecated.clickElement(LoginButton);
 	}
 	
 	// Setter methods
 	public void setUserName(String needUserName) {
-		FindElement.elementByAttribute(UserName, InputType.XPath).sendKeys(needUserName);
+		Deprecated.locate(UserName).sendKeys(needUserName);
 	}
 	
 	public void setPassword(String needPassword) {
-		FindElement.elementByAttribute(Password, InputType.XPath).sendKeys(needPassword);
+		Deprecated.locate(Password).sendKeys(needPassword);
 	}
 
 }

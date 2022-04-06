@@ -1,7 +1,8 @@
 package automation.PestRoutes.PageObject.Admin.PreferencesTab.MerchantInfoTab;
 
 import automation.PestRoutes.PageObject.BasePage;
-import automation.PestRoutes.Utilities.Utilities;
+import automation.PestRoutes.Utilities.*;
+import automation.PestRoutes.Utilities.Deprecated;
 import org.openqa.selenium.By;
 
 import java.util.Locale;
@@ -28,27 +29,27 @@ public class MarchantInfoPage extends BasePage {
     public final String HDR_DEFAULT_VAULT_SETTINGS = "Default Vault Settings";
 
     public void select(String needDropdown, String needText){
-        Utilities.selectValueFromDropDownByValue(needDropdown, needText);
+        Deprecated.selectByText(needDropdown, needText);
     }
 
     public void click(String needElement){
-        Utilities.clickElement(needElement, Utilities.ElementType.XPath);
+        Deprecated.clickElement(needElement);
     }
 
     public void clickEditForDefaultSettings(){
-        click(editDefaultSettings);
+        Utilities.click(editDefaultSettings);
     }
 
     public void selectCreditCardGateway(String creditCardGateway){
-        selectFromDropDown(creditCardGateway, creditCardGatewayDropDown);
+        Utilities.selectByText(creditCardGatewayDropDown, creditCardGateway);
     }
 
     public void clickSaveForDefaultSettings(){
-        click(saveDefaultSettings);
+        Utilities.click(saveDefaultSettings);
     }
 
     public String getDefaultCreditCardGateway(){
-        String  merchantGateway = find(dropdwnCreditCardGateWay).getAttribute("value").toUpperCase(Locale.ROOT);
+        String  merchantGateway = Utilities.locate(dropdwnCreditCardGateWay).getAttribute("value").toUpperCase(Locale.ROOT);
         String  defaultConfiguredGateway;
 
         switch (merchantGateway){

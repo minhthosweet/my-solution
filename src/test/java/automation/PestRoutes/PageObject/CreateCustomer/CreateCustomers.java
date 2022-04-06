@@ -2,30 +2,29 @@ package automation.PestRoutes.PageObject.CreateCustomer;
 
 import java.util.concurrent.TimeUnit;
 
+import automation.PestRoutes.Utilities.Data.*;
 import org.openqa.selenium.WebDriver;
 
 import automation.PestRoutes.Controller.Login.SignIn;
 import automation.PestRoutes.PageObject.Header;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_Header;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_OverviewTab;
-import automation.PestRoutes.Utilities.AppData;
-import automation.PestRoutes.Utilities.Utilities;
-import automation.PestRoutes.Utilities.Driver.GetWebDriver;
+import automation.PestRoutes.Utilities.GetWebDriver;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
-public class CreateCustomers extends AppData {
+import static automation.PestRoutes.Utilities.GetWebDriver.*;
 
-	WebDriver driver = GetWebDriver.getInstance();
+public class CreateCustomers extends AppData {
 	SignIn signInPage;
 	CreateCustomerDialog customer;
 	CustomerViewDialog_Header dialog;
 	CustomerViewDialog_OverviewTab overview;
 	Header header;
-	String fName = Utilities.generateRandomString(7);
-	String lName = Utilities.generateRandomString(6);
+	String fName = GetData.generateRandomString(7);
+	String lName = GetData.generateRandomString(6);
 
 	@Given("I want to login to the application using URL : {string}")
 	public void i_want_to_login_to_the_application_using_URL(String url) {

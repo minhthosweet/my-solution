@@ -2,11 +2,8 @@ package automation.PestRoutes.PageObject.Admin;
 
 import automation.PestRoutes.PageObject.Admin.PreferencesTab.PreferencesPage;
 import automation.PestRoutes.PageObject.BasePage;
-import automation.PestRoutes.Utilities.FindElement;
-import automation.PestRoutes.Utilities.Utilities;
-import automation.PestRoutes.Utilities.FindElement.InputType;
-import automation.PestRoutes.Utilities.Utilities.ElementType;
-import com.fasterxml.jackson.databind.ser.Serializers;
+import automation.PestRoutes.Utilities.*;
+import automation.PestRoutes.Utilities.Deprecated;
 import org.openqa.selenium.By;
 
 
@@ -26,24 +23,24 @@ public class AdminMainPage extends BasePage {
 
 	//Action methods
 	public void navigateTo(String needTab) {
-		Utilities.waitUntileElementIsVisible("//p[text() = '"+needTab+"']");
-		Utilities.clickElement("//p[text() = '"+needTab+"']", ElementType.XPath);
-		delay(500);
+		Deprecated.waitVisible("//p[text() = '"+needTab+"']");
+		Deprecated.clickElement("//p[text() = '"+needTab+"']");
+		Utilities.delay(500);
 	}
 
 	//Setters
 	public void setInputValue(String needInputField, String keysToSend) {
-		FindElement.elementByAttribute(needInputField, InputType.XPath).sendKeys(keysToSend);
+		Deprecated.locate(needInputField).sendKeys(keysToSend);
 	}
 
 	//Getters
 	public String getFieldValue(String needFieldName) {
-		Utilities.waitUntileElementIsVisible(needFieldName);
-		return Utilities.getElementTextValue(needFieldName, ElementType.XPath);
+		Deprecated.waitVisible(needFieldName);
+		return Deprecated.getElementTextValue(needFieldName);
 	}
 
 	public PreferencesPage clickPreferencesSubComponent(){
-		click(preferencesSubComponent);
+		Utilities.click(preferencesSubComponent);
 		return new PreferencesPage();
 	}
 }

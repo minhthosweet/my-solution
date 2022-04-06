@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import automation.PestRoutes.Utilities.*;
+import automation.PestRoutes.Utilities.Data.*;
+import automation.PestRoutes.Utilities.Report.*;
 import io.cucumber.java.en.When;
 import org.testng.annotations.Test;
 import automation.PestRoutes.Controller.CustomerCreation.CreateNewCustomer;
@@ -80,8 +82,8 @@ public class CreateTrigger_Reminder extends AppData {
 		adminMainPage.navigateTo(adminMainPage.preferences);
 		triggerAdmin.navigateToTriggerRules();
 		triggerAdmin.clickAddTrigerButton();
-		triggerAdmin.setStartDate(GetDate.minusOneWeekToDate(Utilities.currentDate("MM/dd/yyyy")));
-		triggerAdmin.setEndDate(GetDate.addOneYearToDate(Utilities.currentDate("MM/dd/yyyy")));
+		triggerAdmin.setStartDate(GetDate.minusOneWeekToDate(GetDate.currentDate("MM/dd/yyyy")));
+		triggerAdmin.setEndDate(GetDate.addOneYearToDate(GetDate.currentDate("MM/dd/yyyy")));
 		triggerAdmin.setDescription(descriptionName);
 		triggerAdmin.selectDropdown(triggerAdmin.triggerTypeDropdown, triggerAdmin.triggerType_Reminders);
 		triggerAdmin.selectDropdown(triggerAdmin.globalType, triggerAdmin.global_SpecificToThisOffice);
@@ -168,7 +170,7 @@ public class CreateTrigger_Reminder extends AppData {
 	public void editTrigger_Reminder_DaysBefore() throws Exception {
 		reminder = new ReminderTab();
 		subscriptionStatus = new SubscriptionStatusTab();
-		triggerAdmin.setEndDate(GetDate.addOneYearToDate(Utilities.currentDate("MM/dd/yyyy")));
+		triggerAdmin.setEndDate(GetDate.addOneYearToDate(GetDate.currentDate("MM/dd/yyyy")));
 		reminder.setdaysBefore_Reminder(daysBefore_Trigger);
 		triggerAdmin.clickSaveButton();
 	}
@@ -205,7 +207,7 @@ public class CreateTrigger_Reminder extends AppData {
 	// trigger Queue query
 	@When("I execute the trigger Reminder script")
 	public void hitTriggerReminderQuery_daysBefore() {
-		Utilities.navigateToUrl("https://adityam.pestroutes.com/resources/scripts/triggerReminders.php");
+		GetWebDriver.navigateToUrl("https://adityam.pestroutes.com/resources/scripts/triggerReminders.php");
 	}
 
 	public void assertLog() throws IOException, Exception {

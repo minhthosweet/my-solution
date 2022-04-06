@@ -1,9 +1,6 @@
 package automation.PestRoutes.PageObject.Admin.PreferencesTab.CustomerPreferencesTab;
 
-import automation.PestRoutes.Utilities.FindElement;
-import automation.PestRoutes.Utilities.FindElement.InputType;
-import automation.PestRoutes.Utilities.Utilities;
-import automation.PestRoutes.Utilities.Utilities.ElementType;
+import automation.PestRoutes.Utilities.Deprecated;
 
 public class FormObjects {
 	
@@ -25,20 +22,20 @@ public class FormObjects {
 	public String existingFlag = "//div[contains(text(),'Fire')]";
 
 	public void clickButton(String needAttribute) {
-		Utilities.waitUntileElementIsVisible(needAttribute);
-		Utilities.clickElement(needAttribute, ElementType.XPath);
+		Deprecated.waitVisible(needAttribute);
+		Deprecated.clickElement(needAttribute);
 	}
 	public void clickEditButton(String needFormName) {
-		Utilities.waitUntileElementIsVisible("//input[@value = '"+needFormName+"']/following-sibling::div[text() = 'edit']");
-		Utilities.clickElement("//input[@value = '"+needFormName+"']/following-sibling::div[text() = 'edit']", ElementType.XPath);
+		Deprecated.waitVisible("//input[@value = '"+needFormName+"']/following-sibling::div[text() = 'edit']");
+		Deprecated.clickElement("//input[@value = '"+needFormName+"']/following-sibling::div[text() = 'edit']");
 	}
 	public void selectValueFromDropdown(String needType, String needValue) {
-		Utilities.selectValueFromDropDownByValue(needType, needValue);
+		Deprecated.selectByText(needType, needValue);
 	}
 
 	public void setInputField(String needInputField, String needValue) {
-		Utilities.waitUntileElementIsVisible(needInputField);
-		FindElement.elementByAttribute(needInputField, InputType.XPath).sendKeys(needValue);
+		Deprecated.waitVisible(needInputField);
+		Deprecated.locate(needInputField).sendKeys(needValue);
 	}
 
 

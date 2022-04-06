@@ -5,15 +5,12 @@ import automation.PestRoutes.PageObject.Admin.AdminMainPage;
 import automation.PestRoutes.PageObject.Admin.PreferencesTab.CustomerPreferencesTab.FormObjects;
 import automation.PestRoutes.PageObject.Admin.PreferencesTab.PreferencesPage;
 import automation.PestRoutes.PageObject.Header;
-import automation.PestRoutes.Utilities.AppData;
-import automation.PestRoutes.Utilities.FindElement;
-import automation.PestRoutes.Utilities.Utilities;
+import automation.PestRoutes.Utilities.Data.AppData;
+import automation.PestRoutes.Utilities.Deprecated;
 import io.cucumber.java.en.Given;
 import org.openqa.selenium.WebElement;
 
 import java.io.IOException;
-
-import static automation.PestRoutes.Utilities.AppData.getData;
 
 public class RouteRegion extends AppData {
 
@@ -38,11 +35,11 @@ public class RouteRegion extends AppData {
             service.searchService(routeRegion);
 
             try {
-                WebElement elm = FindElement.elementByAttribute("//div[contains(text(),'"+routeRegion+"')]", FindElement.InputType.XPath);
+                WebElement elm = Deprecated.locate("//div[contains(text(),'"+routeRegion+"')]");
             } catch(Exception e ) {
-                Utilities.clickElement(formObjects.addRegionButton, Utilities.ElementType.XPath);
+                Deprecated.clickElement(formObjects.addRegionButton);
                 formObjects.setInputField(formObjects.nameField, routeRegion);
-                Utilities.clickElement(formObjects.saveButton, Utilities.ElementType.XPath);
+                Deprecated.clickElement(formObjects.saveButton);
             }
 
         }

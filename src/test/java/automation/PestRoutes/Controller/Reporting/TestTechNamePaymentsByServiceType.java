@@ -8,7 +8,7 @@ import automation.PestRoutes.PageObject.ReportingPage.ReportingMainPage;
 import io.cucumber.java.en.Then;
 import org.testng.asserts.SoftAssert;
 
-import static automation.PestRoutes.Utilities.Utilities.transformName;
+import static automation.PestRoutes.Utilities.Data.GetData.transformName;
 
 public class TestTechNamePaymentsByServiceType {
     SoftAssert softAssert = new SoftAssert();

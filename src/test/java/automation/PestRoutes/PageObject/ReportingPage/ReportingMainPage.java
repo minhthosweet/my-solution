@@ -2,8 +2,8 @@ package automation.PestRoutes.PageObject.ReportingPage;
 
 import automation.PestRoutes.PageObject.BasePage;
 import automation.PestRoutes.PageObject.ReportingPage.OfficePage.PaymentsByServiceTypeTab;
-import automation.PestRoutes.Utilities.Utilities;
-import automation.PestRoutes.Utilities.Utilities.ElementType;
+import automation.PestRoutes.Utilities.*;
+import automation.PestRoutes.Utilities.Deprecated;
 import org.openqa.selenium.By;
 
 public class ReportingMainPage extends BasePage {
@@ -12,12 +12,12 @@ public class ReportingMainPage extends BasePage {
 	private By paymentsByServiceType = By.xpath("//ul[@id='oReportsMenu']/li[text()='Payments by Service Type']");
 
 	public void navigateTo(String needTab) {
-		Utilities.clickElement("//p[text() = '"+needTab+"']", ElementType.XPath);
+		Deprecated.clickElement("//p[text() = '"+needTab+"']");
 	}
 
 	public PaymentsByServiceTypeTab clickPaymentsByServiceType () {
-		Utilities.scrollToElementJS(find(paymentsByServiceType));
-		click(paymentsByServiceType);
+		Deprecated.scrollToElementJS(Utilities.locate(paymentsByServiceType));
+		Utilities.click(paymentsByServiceType);
 		return new PaymentsByServiceTypeTab();
 	}
 }

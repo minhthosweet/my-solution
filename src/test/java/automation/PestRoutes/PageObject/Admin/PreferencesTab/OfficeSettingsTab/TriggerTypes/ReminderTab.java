@@ -1,16 +1,15 @@
 package automation.PestRoutes.PageObject.Admin.PreferencesTab.OfficeSettingsTab.TriggerTypes;
 
 import automation.PestRoutes.PageObject.Admin.PreferencesTab.PreferencesPage;
-import automation.PestRoutes.Utilities.FindElement;
-import automation.PestRoutes.Utilities.Utilities;
+import automation.PestRoutes.Utilities.*;
+
 import static automation.PestRoutes.Utilities.Utilities.*;
-import automation.PestRoutes.Utilities.FindElement.InputType;
+
+import automation.PestRoutes.Utilities.Deprecated;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import java.util.List;
-
-import static automation.PestRoutes.Utilities.Utilities.elementIsVisible;
 
 public class ReminderTab extends PreferencesPage {
 
@@ -76,158 +75,158 @@ public class ReminderTab extends PreferencesPage {
 	private final String CUSTOM_VOICE_MESSAGE = "Hi {{fname}}! We will be servicing your home this {{serviceDate}}. \n Voice - Reminder Trigger Rules Test";
 
 	public void setdaysBefore_Reminder(String numberOfDays) {
-		Utilities.waitUntileElementIsVisible(daysBefore_Reminder);
-		FindElement.elementByAttribute(daysBefore_Reminder, InputType.XPath).clear();
-		FindElement.elementByAttribute(daysBefore_Reminder, InputType.XPath).sendKeys(numberOfDays);
+		Deprecated.waitVisible(daysBefore_Reminder);
+		Deprecated.locate(daysBefore_Reminder).clear();
+		Deprecated.locate(daysBefore_Reminder).sendKeys(numberOfDays);
 	}
 
 	// Getters: get actual text value for action created(used for assertions)
 	public String getEmailActionTextValue() {
-		return Utilities.getElementTextValue(emailAction_actual, ElementType.XPath);
+		return Deprecated.getElementTextValue(emailAction_actual);
 	}
 
 	public String getSMSActionTextValue() {
-		return Utilities.getElementTextValue(SMSAction_actual, ElementType.XPath);
+		return Deprecated.getElementTextValue(SMSAction_actual);
 	}
 
 	public String getVoiceActionTextValue() {
-		return Utilities.getElementTextValue(voiceAction_actual, ElementType.XPath);
+		return Deprecated.getElementTextValue(voiceAction_actual);
 	}
 
 	public String getAlertText_Notes() {
-		Utilities.waitUntileElementIsVisible(editNotes_Alert);
-		Utilities.clickElement(editNotes_Alert, ElementType.XPath);
+		Deprecated.waitVisible(editNotes_Alert);
+		Deprecated.clickElement(editNotes_Alert);
 		String editNote_AlertText = Utilities.getAlertText();
 		Utilities.acceptAlert();
 		return editNote_AlertText;
 	}
 
 	public String ConfirmationNote(String affirmation) {
-		return Utilities.getElementTextValue("//div[contains(text(),'" + affirmation + "')]", ElementType.XPath);
+		return Deprecated.getElementTextValue("//div[contains(text(),'" + affirmation + "')]");
 
 	}
 
 	public String getEmailValue() {
-		return Utilities.getElementTextValue(emailValue, ElementType.XPath);
+		return Deprecated.getElementTextValue(emailValue);
 	}
 
 	public String getVoiceText() {
-		return Utilities.getElementTextValue(voiceValue, ElementType.XPath);
+		return Deprecated.getElementTextValue(voiceValue);
 	}
 
 	public String getSnailMailValue() {
-		return Utilities.getElementTextValue(snailMailValue, ElementType.XPath);
+		return Deprecated.getElementTextValue(snailMailValue);
 	}
 
 	public String getEmployeeEMailValue(String employeeEmail) {
-		return Utilities.getElementTextValue("//div[@sentto='" + employeeEmail + "']", ElementType.XPath);
+		return Deprecated.getElementTextValue("//div[@sentto='" + employeeEmail + "']");
 	}
 
 	public String getAlertValue() {
-		return Utilities.getElementTextValue(alertLogValue, ElementType.XPath);
+		return Deprecated.getElementTextValue(alertLogValue);
 	}
 
 	public String getTaskValue() {
-		return Utilities.getElementTextValue(taskLogValue, ElementType.XPath);
+		return Deprecated.getElementTextValue(taskLogValue);
 	}
 
 	public String customerNameinTask(String customerNameTask) {
-		Utilities.scrollToElement("//td[@customerid]//p[text()='" + customerNameTask + "']");
-		return Utilities.getElementTextValue("//td[@customerid]//p[text()='" + customerNameTask + "']",
-				ElementType.XPath);
+		Deprecated.scrollToElement("//td[@customerid]//p[text()='" + customerNameTask + "']");
+		return Deprecated.getElementTextValue("//td[@customerid]//p[text()='" + customerNameTask + "']"
+        );
 	}
 
 	public String getEmployeeVoiceValue() {
-		return Utilities.getElementTextValue(employeeVoiceValue, ElementType.XPath).substring(0, 41);
+		return Deprecated.getElementTextValue(employeeVoiceValue).substring(0, 41);
 	}
 
 	public String getRemovedPaymentValue() {
-		return Utilities.getElementTextValue(removePaymentValue, ElementType.XPath).substring(0, 41);
+		return Deprecated.getElementTextValue(removePaymentValue).substring(0, 41);
 	}
 
 	public String getCCInfoBilling() {
-		return Utilities.getElementTextValue(CCInfo, ElementType.XPath);
+		return Deprecated.getElementTextValue(CCInfo);
 	}
 
 	public void selectWhenToTrigger(String whenToTrigger) {
-		selectFromDropDown(whenToTrigger, whenToTriggerDropDown);
+		Utilities.selectByText(whenToTriggerDropDown, whenToTrigger);
 	}
 
 	public void typeDaysBefore(String numberOfDays) {
-		scrollToElementJS(daysBeforeField);
-		type(numberOfDays, daysBeforeField);
+		Deprecated.scrollToElementJS(daysBeforeField);
+		Deprecated.type(numberOfDays, daysBeforeField);
 	}
 
 	public boolean typeFlagToInclude(String flagCode) {
-		List<WebElement> allFlags = findElements(By.xpath("//div[@id='s2id_filterItem19']/ul/li/div"));
-		WebElement includeCustomerFlagsMultiField = find(includeCustomerFlagsMultiDropDown);
+		List<WebElement> allFlags = locateAll(By.xpath("//div[@id='s2id_filterItem19']/ul/li/div"));
+		WebElement includeCustomerFlagsMultiField = Utilities.locate(includeCustomerFlagsMultiDropDown);
 		for (WebElement flag : allFlags) {
 			if (flag.getText().contains(flagCode)) {
 				System.out.println("Customer Flag: " + flag.getText());
 				return true;
 			}
 		}
-		scrollToElementJS(includeCustomerFlagsMultiField);
-		type(flagCode, includeCustomerFlagsMultiField);
+		Deprecated.scrollToElementJS(includeCustomerFlagsMultiField);
+		Deprecated.type(flagCode, includeCustomerFlagsMultiField);
 		System.out.println("Customer Flag: " + flagCode);
 		return false;
 	}
 
 	public void clickAddActionButton() {
-		elementIsVisible(greenActionButton);
-		scrollToElementJS(greenActionButton);
+		Utilities.isVisible(greenActionButton);
+		Deprecated.scrollToElementJS(greenActionButton);
 		click(greenActionButton);
 	}
 
 	public void completeSendEmailAction(String emailType) {
 		if (emailType.equalsIgnoreCase("Standard Reminder Email")) {
-			elementIsVisible(emailTypeDropDown);
+			Utilities.isVisible(emailTypeDropDown);
 			delay(1000);
-			selectFromDropDown(emailType, emailTypeDropDown);
+			Utilities.selectByText(emailTypeDropDown, emailType);
 		} else if (emailType.equalsIgnoreCase("Custom Reminder Email")){
-			elementIsVisible(emailTypeDropDown);
+			Utilities.isVisible(emailTypeDropDown);
 			delay(1000);
-			selectFromDropDown(emailType, emailTypeDropDown);
-			type(CUSTOM_EMAIL_MESSAGE, emailTextAreaMessage);
+			Utilities.selectByText(emailTypeDropDown, emailType);
+			Deprecated.type(CUSTOM_EMAIL_MESSAGE, emailTextAreaMessage);
 		}
 	}
 
 	public void completeSendSMSAction(String smsType) {
 		if (smsType.equalsIgnoreCase("Standard Reminder Text Message")) {
-			elementIsVisible(smsTypeDropDown);
+			Utilities.isVisible(smsTypeDropDown);
 			delay(1000);
-			selectFromDropDown(smsType, smsTypeDropDown);
+			Utilities.selectByText(smsTypeDropDown, smsType);
 		} else if (smsType.equalsIgnoreCase("Custom Text Message")){
-			elementIsVisible(smsTypeDropDown);
+			Utilities.isVisible(smsTypeDropDown);
 			delay(1000);
-			selectFromDropDown(smsType, smsTypeDropDown);
-			type(CUSTOM_SMS_MESSAGE, textAreaMessageVoiceSMS);
+			Utilities.selectByText(smsTypeDropDown, smsType);
+			Deprecated.type(CUSTOM_SMS_MESSAGE, textAreaMessageVoiceSMS);
 		}
 	}
 
 	public void completeSendVoiceAction(String voiceType) {
 		String voiceMessage = "//select[@name='observerItemValue' and @data-observeritemtype='recordedMessages']";
 		if (voiceType.equalsIgnoreCase("Standard Reminder Voice Message")) {
-			elementIsVisible(voiceTypeDropDown);
+			Utilities.isVisible(voiceTypeDropDown);
 			delay(1000);
-			selectFromDropDown(voiceType, voiceTypeDropDown);
+			Utilities.selectByText(voiceTypeDropDown, voiceType);
 		} else if (voiceType.equalsIgnoreCase("Custom Voice Message")){
-			elementIsVisible(voiceTypeDropDown);
+			Utilities.isVisible(voiceTypeDropDown);
 			delay(1000);
-			selectFromDropDown(voiceType, voiceTypeDropDown);
-			type(CUSTOM_VOICE_MESSAGE, textAreaMessageVoiceSMS);
+			Utilities.selectByText(voiceTypeDropDown, voiceType);
+			Deprecated.type(CUSTOM_VOICE_MESSAGE, textAreaMessageVoiceSMS);
 		} else if (voiceType.equalsIgnoreCase("Pre-recorded Message")) {
-			elementIsVisible(voiceTypeDropDown);
+			Utilities.isVisible(voiceTypeDropDown);
 			delay(1000);
-			selectFromDropDown(voiceType, voiceTypeDropDown);
-			selectValueFromDropDownByIndex(voiceMessage, 0);
+			Utilities.selectByText(voiceTypeDropDown, voiceType);
+			Deprecated.selectByIndex(voiceMessage, 0);
 		}
 	}
 
 	public void completeReminderAction(String action, String type) {
-		elementIsVisible(actionDropDown);
+		Utilities.isVisible(actionDropDown);
 		delay(1000);
-		selectFromDropDown(action, actionDropDown);
+		Utilities.selectByText(actionDropDown, action);
 		switch (action) {
 			case "Send Email Reminder":
 				completeSendEmailAction(type);
@@ -242,7 +241,7 @@ public class ReminderTab extends PreferencesPage {
 	}
 
 	public void clickSaveButton() {
-		scrollToElementJS(saveTriggerButton);
+		Deprecated.scrollToElementJS(saveTriggerButton);
 		click(saveTriggerButton);
 	}
 }

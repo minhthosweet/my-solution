@@ -5,8 +5,8 @@ import automation.PestRoutes.PageObject.Admin.AdminMainPage;
 import automation.PestRoutes.PageObject.Admin.PreferencesTab.CustomerPreferencesTab.CustomerSourcesObjects;
 import automation.PestRoutes.PageObject.Admin.PreferencesTab.PreferencesPage;
 import automation.PestRoutes.PageObject.Header;
-import automation.PestRoutes.Utilities.AppData;
-import automation.PestRoutes.Utilities.FindElement;
+import automation.PestRoutes.Utilities.Data.AppData;
+import automation.PestRoutes.Utilities.Deprecated;
 import io.cucumber.java.en.Given;
 import org.openqa.selenium.WebElement;
 
@@ -35,7 +35,7 @@ public class CustomerSources extends AppData {
         service.searchService(customerSourceName);
 
         try {
-            WebElement elm = FindElement.elementByAttribute("//div[contains(text(),'" + customerSourceName + "')]", FindElement.InputType.XPath);
+            WebElement elm = Deprecated.locate("//div[contains(text(),'" + customerSourceName + "')]");
         } catch (Exception e) {
             customerSources.createCustomerSource(customerSourceName);
         }

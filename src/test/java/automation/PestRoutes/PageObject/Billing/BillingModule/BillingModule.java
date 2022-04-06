@@ -1,8 +1,11 @@
 package automation.PestRoutes.PageObject.Billing.BillingModule;
 
 import automation.PestRoutes.PageObject.BasePage;
-import automation.PestRoutes.Utilities.Utilities;
-import static automation.PestRoutes.Utilities.Utilities.waitUntileElementIsVisible;
+import automation.PestRoutes.Utilities.*;
+
+import static automation.PestRoutes.Utilities.Deprecated.waitVisible;
+
+import automation.PestRoutes.Utilities.Deprecated;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import java.util.List;
@@ -32,59 +35,59 @@ public class BillingModule extends BasePage {
     private By btnRefresh = By.xpath("//*[@id='consolidateInvoicesFilterWrapper']//div[contains(text(),'Refresh')]");
 
     public void navigate(String needPath){
-        Utilities.clickElement(needPath, Utilities.ElementType.XPath);
+        Deprecated.clickElement(needPath);
     }
 
     public CollectionsPage clickCollections() {
-        waitUntileElementIsVisible(collectionsSubComponent);
-        click(collectionsSubComponent);
+        Utilities.waitVisible(collectionsSubComponent);
+        Utilities.click(collectionsSubComponent);
         return new CollectionsPage();
     }
 
     public void navigateTo(String needTab) {
-        Utilities.waitUntileElementIsVisible("//p[text() = '"+needTab+"']");
-        Utilities.clickElement("//p[text() = '"+needTab+"']", Utilities.ElementType.XPath);
-        delay(500);
+        Deprecated.waitVisible("//p[text() = '"+needTab+"']");
+        Deprecated.clickElement("//p[text() = '"+needTab+"']");
+        Utilities.delay(500);
     }
 
     public void selectAllICustomerInvoicesForConsolidation(String customerName)
     {
-        Utilities.scrollToElement(By.xpath("//*[@id='consolidateInvoicesTable']//span[contains(text(),'" + customerName +"')]"));
-        Utilities.jsClickElement("//*[@id='consolidateInvoicesTable']//span[contains(text(),'" + customerName +"')]", Utilities.ElementType.XPath);
+        Deprecated.scrollToElement(By.xpath("//*[@id='consolidateInvoicesTable']//span[contains(text(),'" + customerName +"')]"));
+        Deprecated.jsClickElement("//*[@id='consolidateInvoicesTable']//span[contains(text(),'" + customerName +"')]");
         Utilities.delay(1000);
-        List<WebElement> consolidateInvoiceList = findElements(By.xpath("//*[@id='consolidateInvoicesTable']//span[contains(text(),'" + customerName +
+        List<WebElement> consolidateInvoiceList = Utilities.locateAll(By.xpath("//*[@id='consolidateInvoicesTable']//span[contains(text(),'" + customerName +
                        "')]/../following-sibling::div//div[@class = 'col-1']/input"));
         for(WebElement invoice:consolidateInvoiceList)
         {
-            delay(500);
+            Utilities.delay(500);
             invoice.click();
         }
     }//selectInvoiceForConsolidation()
 
     public void clickConsolidateInvoices(){
-        click(lnkConsolidateInvoices);
-        delay(500);
+        Utilities.click(lnkConsolidateInvoices);
+        Utilities.delay(500);
     }//clickConsolidateInvoices();
 
     public void clickActions(){
-        click(dropdwnActions);
-        delay(500);
+        Utilities.click(dropdwnActions);
+        Utilities.delay(500);
     }//clickActions();
 
     public void clickConsolidateInvoicesAction(){
-        click(actionConsolidateInvoices);
-        delay(500);
+        Utilities.click(actionConsolidateInvoices);
+        Utilities.delay(500);
     }//clickConsolidateInvoicesAction();
 
     public void clickRefresh(){
-        click(btnRefresh);
-        delay(500);
+        Utilities.click(btnRefresh);
+        Utilities.delay(500);
     }//clickRefresh();
 
     public void setDateRange(String dateRangeValue) {
-        Utilities.waitUntileElementIsVisible(dateRange,5);
-        click(dateRange);
-        Utilities.waitUntileElementIsVisible("//div[contains(@style,'block')]//li[text()='" + dateRangeValue + "']",5);
-        click(By.xpath("//div[contains(@style,'block')]//li[text()='" + dateRangeValue + "']"));
+        Utilities.waitVisible(dateRange,5);
+        Utilities.click(dateRange);
+        Deprecated.waitVisible("//div[contains(@style,'block')]//li[text()='" + dateRangeValue + "']",5);
+        Utilities.click(By.xpath("//div[contains(@style,'block')]//li[text()='" + dateRangeValue + "']"));
     }
 }

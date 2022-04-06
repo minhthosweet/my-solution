@@ -1,5 +1,6 @@
 package automation.PestRoutes.Controller.Customers.CustomerReports;
 
+import automation.PestRoutes.Controller.*;
 import automation.PestRoutes.Controller.CustomerCreation.CreateNewCustomer;
 import automation.PestRoutes.Controller.Leads.CreateLeads;
 import automation.PestRoutes.Controller.Reporting.Office.BillingByServiceType;
@@ -10,18 +11,18 @@ import automation.PestRoutes.PageObject.Customers.CustomerReportsTab.CustomerRep
 import automation.PestRoutes.PageObject.Customers.CustomersMainPage;
 import automation.PestRoutes.PageObject.Header;
 import automation.PestRoutes.Utilities.*;
+import automation.PestRoutes.Utilities.Data.*;
+import automation.PestRoutes.Utilities.Deprecated;
+import automation.PestRoutes.Utilities.Report.*;
 import io.cucumber.java.en.And;
-import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
 import java.util.Locale;
 
-import static automation.PestRoutes.Utilities.AssertException.result;
+import static automation.PestRoutes.Utilities.Report.AssertException.result;
 
 public class CustomerReports extends AppData {
     Header header;
@@ -58,7 +59,7 @@ public class CustomerReports extends AppData {
     private String completedBy;
     private String appointmentID;
     private String reportName;
-    private String textMessage = Utilities.generateRandomString(5);
+    private String textMessage = GetData.generateRandomString(5);
     private String recurringPriceChange;
     private String recurringInvoiceValue;
     private String bulkFreezeCategory;
@@ -114,7 +115,7 @@ public class CustomerReports extends AppData {
                 customerReportsPage.filterTypes_CR("firstName_CR")
         };
 
-        Utilities.scrollToElementJS(customerReportsPage.filterTypes_CR("purpleDragon_CR"));
+        Deprecated.scrollToElementJS(customerReportsPage.filterTypes_CR("purpleDragon_CR"));
         String[] fields_two = {
                 customerReportsPage.filterTypes_CR("accountType_CR"),
                 customerReportsPage.filterTypes_CR("unitType_CR"),
@@ -131,7 +132,7 @@ public class CustomerReports extends AppData {
                 customerReportsPage.filterTypes_CR("purpleDragon_CR")
         };
 
-        Utilities.scrollToElementJS(customerReportsPage.filterTypes_CR("hasZipTaxAssigned_CR"));
+        Deprecated.scrollToElementJS(customerReportsPage.filterTypes_CR("hasZipTaxAssigned_CR"));
         String[] fields_three = {customerReportsPage.filterTypes_CR("switchOver_CR"),
                 customerReportsPage.filterTypes_CR("signedElectronicAgreement_CR"),
                 customerReportsPage.filterTypes_CR("salesTaxPercentFrom_CR"),
@@ -187,7 +188,7 @@ public class CustomerReports extends AppData {
                 customerReportsPage.filterTypes_CR("serviceDueTo_CR")
         };
 
-        Utilities.scrollToElementJS(customerReportsPage.filterTypes_CR("dateAgreementSentTo_CR"));
+        Deprecated.scrollToElementJS(customerReportsPage.filterTypes_CR("dateAgreementSentTo_CR"));
         String[] fields_two = {
                 customerReportsPage.filterTypes_CR("customDateFrom_CR"),
                 customerReportsPage.filterTypes_CR("customDateTo_CR"),
@@ -212,7 +213,7 @@ public class CustomerReports extends AppData {
                 customerReportsPage.filterTypes_CR("dateAgreementSentTo_CR"),
         };
 
-        Utilities.scrollToElementJS(customerReportsPage.filterTypes_CR("includeFlagsServiceSubscription_CR"));
+        Deprecated.scrollToElementJS(customerReportsPage.filterTypes_CR("includeFlagsServiceSubscription_CR"));
         String[] fields_three = {
                 customerReportsPage.filterTypes_CR("dateSignedFrom_CR"),
                 customerReportsPage.filterTypes_CR("dateSignedTo_CR"),
@@ -230,7 +231,7 @@ public class CustomerReports extends AppData {
 
         };
 
-        Utilities.scrollToElementJS(customerReportsPage.filterTypes_CR("unitOfMeasure_CR"));
+        Deprecated.scrollToElementJS(customerReportsPage.filterTypes_CR("unitOfMeasure_CR"));
         String[] fields_four = {
                 customerReportsPage.filterTypes_CR("excludeFlagsServiceSubscription_CR"),
                 customerReportsPage.filterTypes_CR("subscriptionLastCompletedDateFrom_CR"),
@@ -289,7 +290,7 @@ public class CustomerReports extends AppData {
                 customerReportsPage.filterTypes_CR("paymentPastDueDaysAssignment_CR"),
                 customerReportsPage.filterTypes_CR("paymentPastDueDays_CR")
         };
-        Utilities.scrollToElementJS(customerReportsPage.filterTypes_CR("collectionsStage_CR"));
+        Deprecated.scrollToElementJS(customerReportsPage.filterTypes_CR("collectionsStage_CR"));
         String[] fields_two = {
                 customerReportsPage.filterTypes_CR("yearInFull_CR"),
                 customerReportsPage.filterTypes_CR("customerHasCC_CR"),
@@ -340,7 +341,7 @@ public class CustomerReports extends AppData {
                 customerReportsPage.filterTypes_CR("categoryServiceAppointment_CR")
         };
 
-        Utilities.scrollToElementJS(customerReportsPage.filterTypes_CR("imagesUploaded_CR"));
+        Deprecated.scrollToElementJS(customerReportsPage.filterTypes_CR("imagesUploaded_CR"));
         String[] fields_two = {
                 customerReportsPage.filterTypes_CR("statusServiceAppointment_CR"),
                 customerReportsPage.filterTypes_CR("appointmentReminders_CR"),
@@ -406,8 +407,8 @@ public class CustomerReports extends AppData {
         customerReportsPage.click(customerReportsPage.filterTypes_CR("companySource_CR"));
         customerReportsPage.setProperty(customerReportsPage.filterTypes_CR("companySourceTextBox_CR"), getData("customerSource", generalData));
         customerReportsPage.setProperty(customerReportsPage.filterTypes_CR("companyDivisionsTextBox_CR"), getData("division", generalData));
-        customerReportsPage.setType(customerReportsPage.filterTypes_CR("customerDateAddedFrom_CR"), Utilities.currentDate("MM/dd/yyyy"));
-        customerReportsPage.setType(customerReportsPage.filterTypes_CR("customerDateAddedTo_CR"), Utilities.currentDate("MM/dd/yyyy"));
+        customerReportsPage.setType(customerReportsPage.filterTypes_CR("customerDateAddedFrom_CR"), GetDate.currentDate("MM/dd/yyyy"));
+        customerReportsPage.setType(customerReportsPage.filterTypes_CR("customerDateAddedTo_CR"), GetDate.currentDate("MM/dd/yyyy"));
         customerReportsPage.setProperty(customerReportsPage.filterTypes_CR("includeFlagsCustomerAccount_CR"), getData("flag", generalData));
         customerReportsPage.setValueFromDropdown(customerReportsPage.filterTypes_CR("purpleDragon_CR"), "Yes");
         customerReportsPage.setValueFromDropdown(customerReportsPage.filterTypes_CR("signedElectronicAgreement_CR"), "No");
@@ -475,7 +476,7 @@ public class CustomerReports extends AppData {
         customerReportsPage.setProperty(customerReportsPage.filterTypes_CR("includeServiceTypes_CR"), getData("serviceDescription", generalData));
         customerReportsPage.setValueFromDropdown(customerReportsPage.filterTypes_CR("frequency_CR"), "Custom Schedule");
         customerReportsPage.setProperty(customerReportsPage.filterTypes_CR("includeFlagsServiceSubscription_CR"), getData("subscriptionFlagName", generalData));
-        customerReportsPage.setType(customerReportsPage.filterTypes_CR("soldDateFrom_CR"), Utilities.currentDate("MM/dd/yyyy"));
+        customerReportsPage.setType(customerReportsPage.filterTypes_CR("soldDateFrom_CR"), GetDate.currentDate("MM/dd/yyyy"));
         customerReportsPage.click(customerReportsPage.serviceSubscription);
         customerReportsPage.click(customerReportsPage.refreshButton);
     }
@@ -502,7 +503,7 @@ public class CustomerReports extends AppData {
 //        } catch (Exception e){
 //            System.out.println("Failed at service subscription");
 //        }
-        if (!Utilities.isPresent(customerReportsPage.filterTypes_CR("recurringPrice_CR"))) {
+        if (!Deprecated.isPresent(customerReportsPage.filterTypes_CR("recurringPrice_CR"))) {
             customerReportsPage.click(customerReportsPage.serviceSubscription);
         }
         customerReportsPage.setType(customerReportsPage.filterTypes_CR("recurringPrice_CR"), recurringPrice);
@@ -593,17 +594,17 @@ public class CustomerReports extends AppData {
         customerReportsPage.setType(customerReportsPage.filterTypes_CR("lastName_CR"), lName_CR);
         customerReportsPage.setType(customerReportsPage.filterTypes_CR("firstName_CR"), fName_CR);
         customerReportsPage.click(customerReportsPage.serviceAppointment);
-        customerReportsPage.setType(customerReportsPage.filterTypes_CR("scheduledForFrom_CR"), Utilities.currentDate("MM/dd/yyyy"));
-        customerReportsPage.setType(customerReportsPage.filterTypes_CR("scheduledForTo_CR"), Utilities.currentDate("MM/dd/yyyy"));
-        customerReportsPage.setType(customerReportsPage.filterTypes_CR("scheduledOnFrom_CR"), Utilities.currentDate("MM/dd/yyyy"));
-        customerReportsPage.setType(customerReportsPage.filterTypes_CR("scheduledOnTo_CR"), Utilities.currentDate("MM/dd/yyyy"));
-        customerReportsPage.setType(customerReportsPage.filterTypes_CR("dateServiceWasDueFrom_CR"), Utilities.currentDate("MM/dd/yyyy"));
-        customerReportsPage.setType(customerReportsPage.filterTypes_CR("dateServiceWasDueTo_CR"), Utilities.currentDate("MM/dd/yyyy"));
+        customerReportsPage.setType(customerReportsPage.filterTypes_CR("scheduledForFrom_CR"), GetDate.currentDate("MM/dd/yyyy"));
+        customerReportsPage.setType(customerReportsPage.filterTypes_CR("scheduledForTo_CR"), GetDate.currentDate("MM/dd/yyyy"));
+        customerReportsPage.setType(customerReportsPage.filterTypes_CR("scheduledOnFrom_CR"), GetDate.currentDate("MM/dd/yyyy"));
+        customerReportsPage.setType(customerReportsPage.filterTypes_CR("scheduledOnTo_CR"), GetDate.currentDate("MM/dd/yyyy"));
+        customerReportsPage.setType(customerReportsPage.filterTypes_CR("dateServiceWasDueFrom_CR"), GetDate.currentDate("MM/dd/yyyy"));
+        customerReportsPage.setType(customerReportsPage.filterTypes_CR("dateServiceWasDueTo_CR"), GetDate.currentDate("MM/dd/yyyy"));
         customerReportsPage.setProperty(customerReportsPage.filterTypes_CR("scheduledBy_CR"), scheduledBy);
         customerReportsPage.setProperty(customerReportsPage.filterTypes_CR("completedBy_CR"), completedBy);
         customerReportsPage.setValueFromDropdown(customerReportsPage.filterTypes_CR("autoScheduled_CR"), "Exclude Auto Scheduled");
-        customerReportsPage.setType(customerReportsPage.filterTypes_CR("paidBetweenFrom_CR"), Utilities.currentDate("MM/dd/yyyy"));
-        customerReportsPage.setType(customerReportsPage.filterTypes_CR("paidBetweenTo_CR"), Utilities.currentDate("MM/dd/yyyy"));
+        customerReportsPage.setType(customerReportsPage.filterTypes_CR("paidBetweenFrom_CR"), GetDate.currentDate("MM/dd/yyyy"));
+        customerReportsPage.setType(customerReportsPage.filterTypes_CR("paidBetweenTo_CR"), GetDate.currentDate("MM/dd/yyyy"));
         customerReportsPage.setType(customerReportsPage.filterTypes_CR("serviceBalance_CR"), "0");
         customerReportsPage.setProperty(customerReportsPage.filterTypes_CR("servicedType_CR"), getData("serviceDescription", generalData));
         customerReportsPage.setValueFromDropdown(customerReportsPage.filterTypes_CR("initialService_CR"), "Only Initials");
@@ -624,8 +625,8 @@ public class CustomerReports extends AppData {
         customerReportsPage.click(customerReportsPage.textBox_selectColumnsToDisplay);
         customerReportsPage.click(customerReportsPage.addAll_selectColumnsToDisplay);
         customerReportsPage.click(customerReportsPage.serviceAppointment);
-        customerReportsPage.setType(customerReportsPage.filterTypes_CR("scheduledForFrom_CR"), Utilities.currentDate("MM/dd/yyyy"));
-        customerReportsPage.setType(customerReportsPage.filterTypes_CR("scheduledForTo_CR"), Utilities.currentDate("MM/dd/yyyy"));
+        customerReportsPage.setType(customerReportsPage.filterTypes_CR("scheduledForFrom_CR"), GetDate.currentDate("MM/dd/yyyy"));
+        customerReportsPage.setType(customerReportsPage.filterTypes_CR("scheduledForTo_CR"), GetDate.currentDate("MM/dd/yyyy"));
         customerReportsPage.click(customerReportsPage.refreshButton);
     }
 
@@ -634,7 +635,7 @@ public class CustomerReports extends AppData {
     public void
     addFilters_savedFilters() throws InterruptedException {
         customerReportsPage.click(customerReportsPage.savedReports);
-        reportName = Utilities.generateRandomString(5);
+        reportName = GetData.generateRandomString(5);
         customerReportsPage.setType(customerReportsPage.filterTypes_CR("newReport_CR"), reportName);
         customerReportsPage.click(customerReportsPage.filterTypes_CR("saveAsNewButton_CR"));
     }
@@ -671,7 +672,7 @@ public class CustomerReports extends AppData {
         result("Multi Unit", customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[5]"), "Unit type validation", " Customer Reports Validation");
         result(email_CR, customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[6]"), "Email validation", " Customer Reports Validation");
         result(getData("division", generalData), customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[7]"), "Customer Division validation", " Customer Reports Validation");
-        result(Utilities.currentDate("MM/dd/yy"), (customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[8]")).substring(0, 8), "Customer Date validation", " Customer Reports Validation");
+        result(GetDate.currentDate("MM/dd/yy"), (customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[8]")).substring(0, 8), "Customer Date validation", " Customer Reports Validation");
         result(getData("customerSource", generalData), customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[9]"), "Customer Source validation", " Customer Reports Validation");
         result(getData("flag", generalData), customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[10]"), "Customer Flag validation", " Customer Reports Validation");
         result(taxRate_CR, customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[11]"), "Customer Source validation", " Customer Tax Validation");
@@ -699,7 +700,7 @@ public class CustomerReports extends AppData {
         result(fName_CR.toLowerCase(Locale.ROOT), (customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[3]")).toLowerCase(Locale.ROOT), "Customer first name validation", " Customer Reports Validation");
         result("Active", customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[4]"), "Subscription Status validation", " Customer Reports Validation");
         result("Custom Schedule", customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[5]"), "Frequency Type validation", " Customer Reports Validation");
-        result(Utilities.currentDate("MM/dd/yy"), customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[6]"), "Initial Service Date validation", " Customer Reports Validation");
+        result(GetDate.currentDate("MM/dd/yy"), customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[6]"), "Initial Service Date validation", " Customer Reports Validation");
         result(getData("serviceDescription", generalData), customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[7]"), "Subscription Type validation", " Customer Reports Validation");
         String soldBy = customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[9]");
         result(soldBy, customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[12]"), "Sold By 2 validation", " Customer Reports Validation");
@@ -792,30 +793,30 @@ public class CustomerReports extends AppData {
         result(customerID_CR, customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[1]"), "Customer ID validation", " Customer Reports Validation");
         result(lName_CR.toLowerCase(Locale.ROOT), (customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[2]")).toLowerCase(Locale.ROOT), "Customer last name validation", " Customer Reports Validation");
         result(fName_CR.toLowerCase(Locale.ROOT), (customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[3]")).toLowerCase(Locale.ROOT), "Customer first name validation", " Customer Reports Validation");
-        result(Utilities.currentDate("MM/dd/yy"), (customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[4]")), "Scheduled For validation", " Customer Reports Validation");
+        result(GetDate.currentDate("MM/dd/yy"), (customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[4]")), "Scheduled For validation", " Customer Reports Validation");
         result(getData("serviceDescription", generalData), (customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[7]")), "Service Type validation", " Customer Reports Validation");
         customerReportsPage.clickCustomerReport();
         customerCardHeader.navigateTo(customerCardHeader.invoicesTabInDialog);
         invoiceImplementation.clickInvoice(getData("serviceDescription", generalData));
         String subTotalValue = invoiceImplementation.getSubTotalValue();
         String balance = invoiceImplementation.getBalanceInPayments();
-        String invoiceID = Utilities.getAttributeValue(invoiceImplementation.activeInvoiceOnTheLeft, "ticketid");
+        String invoiceID = Deprecated.getAttribute(invoiceImplementation.activeInvoiceOnTheLeft, "ticketid");
         createNewCustomer.closeCustomerCard();
         result(subTotalValue, "$" + (customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[8]")), "Revenue Value validation", " Customer Reports Validation");
         result(subTotalValue, "$" + (customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[9]")), "Production Value validation", " Customer Reports Validation");
         result("Yes", (customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[10]")), "Initial validation", " Customer Reports Validation");
-        result(Utilities.currentDate("MM/dd/yy"), (customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[11]")).substring(0, 8), "Appointment Date validation", " Customer Reports Validation");
-        result(Utilities.currentDate("MM/dd/yy"), (customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[12]")), "Date the appointment was due validation", " Customer Reports Validation");
+        result(GetDate.currentDate("MM/dd/yy"), (customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[11]")).substring(0, 8), "Appointment Date validation", " Customer Reports Validation");
+        result(GetDate.currentDate("MM/dd/yy"), (customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[12]")), "Date the appointment was due validation", " Customer Reports Validation");
         result(appointmentID, (customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[13]")), "Date the appointment was due validation", " Customer Reports Validation");
         result(scheduledBy, (customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[14]")), "Date the appointment was due validation", " Customer Reports Validation");
         result(completedBy, (customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[15]")), "Date the appointment was due validation", " Customer Reports Validation");
-        result(Utilities.currentDate("MM/dd/yy"), (customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[16]")).substring(0, 8), "Date completed validation", " Customer Reports Validation");
+        result(GetDate.currentDate("MM/dd/yy"), (customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[16]")).substring(0, 8), "Date completed validation", " Customer Reports Validation");
         result(subTotalValue, "$" + (customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[17]")), "Paid Revenue Value validation", " Customer Reports Validation");
         result(balance, "$" + (customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[18]")), "Service Balance validation", " Customer Reports Validation");
-        result(Utilities.currentDate("MM/dd/yy"), (customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[19]")), "Date completed validation", " Customer Reports Validation");
+        result(GetDate.currentDate("MM/dd/yy"), (customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[19]")), "Date completed validation", " Customer Reports Validation");
         result(invoiceID, (customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[20]")), "Invoice Number validation", " Customer Reports Validation");
         result(scheduledBy, (customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[21]")), "Recorded By validation", "Customer Reports Validation");
-        result((Utilities.currentDate("MM/dd/yy")), (customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[22]")), "Service Date validation", " Customer Reports Validation");
+        result((GetDate.currentDate("MM/dd/yy")), (customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[22]")), "Service Date validation", " Customer Reports Validation");
         result("Completed", (customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[23]")), "Service Balance validation", "Appointment Status Validation");
     }
 
@@ -853,8 +854,8 @@ public class CustomerReports extends AppData {
         customerViewDialog_infoTab = new CustomerViewDialog_InfoTab();
         customerViewDialog_notes = new CustomerViewDialog_Notes();
         customerCardHeader.navigateTo(customerCardHeader.notesTabInDialog);
-        result("Sent to: " + getData("phoneNumber", generalData), Utilities.getElementTextValue(customerViewDialog_notes.sentToText, Utilities.ElementType.XPath), "Sent To validation", " Customer Reports Validation");
-        result(textMessage, Utilities.getElementTextValue(customerViewDialog_notes.messageSent, Utilities.ElementType.XPath), "Sent Text Message validation", " Customer Reports Validation");
+        result("Sent to: " + getData("phoneNumber", generalData), Deprecated.getElementTextValue(customerViewDialog_notes.sentToText), "Sent To validation", " Customer Reports Validation");
+        result(textMessage, Deprecated.getElementTextValue(customerViewDialog_notes.messageSent), "Sent Text Message validation", " Customer Reports Validation");
     }
 
     //Author : Aditya
@@ -874,7 +875,7 @@ public class CustomerReports extends AppData {
     @When("I update subscription price through actions in customer report")
     public void updateSubscriptionPrice_customerReport() throws IOException, InterruptedException {
         customerReportsPage.clickActionType_action(customerReportsPage.updateSubscriptionPrice);
-        recurringPriceChange = String.valueOf(Utilities.generateRandomInteger(2));
+        recurringPriceChange = String.valueOf(GetData.generateRandomInteger(2));
         customerReportsPage.updateSubscriptionPrice_action(recurringPriceChange);
     }
 
@@ -902,7 +903,7 @@ public class CustomerReports extends AppData {
         customerReportsPage.clickActionType_action(customerReportsPage.bulkFreeze);
         customerReportsPage.setBulkFreezeNote(textMessage);
         bulkFreezeCategory = customerReportsPage.getTextValue(customerReportsPage.cancellationCategory_bulkFreeze);
-        Utilities.selectValueFromDropDownByValue(customerReportsPage.customerCancellationReason, "No Contact");
+        Deprecated.selectByText(customerReportsPage.customerCancellationReason, "No Contact");
         System.out.println(bulkFreezeCategory);
         customerReportsPage.click(customerReportsPage.bulkFreezeApplyButton);
         Utilities.acceptAlert();
@@ -976,7 +977,7 @@ public class CustomerReports extends AppData {
     //Author: FWhite
     @And("I add column {string} to be displayed")
     public void addReportColumn(String columnName ) throws InterruptedException {
-        Utilities.scrollToElementJS(customerReportsPage.selectColumnsToDisplay);
+        Deprecated.scrollToElementJS(customerReportsPage.selectColumnsToDisplay);
         customerReportsPage.clickSelectColumnsToDisplayLink();
         customerReportsPage.displayColumnOnReport(columnName);
     }
