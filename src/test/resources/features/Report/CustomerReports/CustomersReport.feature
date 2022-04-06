@@ -273,3 +273,15 @@ Feature: Customer reports end to end validation
     #And I remove the customer
     #And I validate if there are errors exist in the list"""
 
+# Ticket 123282: Results Disappear When Sorting Customers Report Column Subscription Last Completed
+# https://fieldroutes.freshdesk.com/a/tickets/123282
+  @RegressionREX
+  @RegressionREX_CR
+  @RegressionREX_Reports
+  @VerifyResultsDoNotDisappearWhenSortingCRColumnSubscriptionLastCompleted
+  Scenario: Verify Results Do Not Disappear When Sorting CR Column Subscription Last Completed
+    Given I Create A Customer With A Subscription
+    When  I Complete An Appointment
+    And   I Run The Customer Report After Adding The "Subscription Last Completed" Column
+    And   I Sort The Subscription Last Completed Column 2 Times
+    Then  I Verify The Customer Report Results Are Available By Finding The Customer

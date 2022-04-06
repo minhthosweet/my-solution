@@ -1,14 +1,17 @@
 package automation.PestRoutes.PageObject.Customers.CustomerReportsTab;
 
 import automation.PestRoutes.PageObject.BasePage;
-import automation.PestRoutes.Utilities.*;
+import automation.PestRoutes.Utilities.Utilities;
+import static automation.PestRoutes.Utilities.Utilities.*;
 import automation.PestRoutes.Utilities.Data.AppData;
 import automation.PestRoutes.Utilities.Deprecated;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebElement;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class CustomerReportsPage extends BasePage {
@@ -60,6 +63,10 @@ public class CustomerReportsPage extends BasePage {
     public String searchInBulkFreezeRollBack = "//div[@id='bulkFreezeProcessDetailTable_filter']//input";
     public String rollBackButton = "//button[text()='Rollback ']";
     public String yesButtonRollBack = "//div[@id='bulkFreezeRollback']/following-sibling::div//span[text()='Yes']";
+
+    // Table Column Headers & Row Values
+    private By tableHeaderSubscriptionLastCompleted = By.xpath("//div[@id='customerReportTable_wrapper']//th[text()='Subscription Last Completed']");
+    private By tableCustomerIDs = By.xpath("//table[@id='customerReportTable']/tbody//td[1]");
 
     public Map<String, String> filterTypes_CR = new HashMap<>();
 
@@ -374,4 +381,40 @@ public class CustomerReportsPage extends BasePage {
         return getTextValue(tdTextNoData).toString();
     }//getNoDataResults()
 
+    public void clickSavedReports() {
+        Deprecated.scrollToElementJS(savedReports);
+        Utilities.click(By.xpath(savedReports));
+        delay(1000);
+    }
+
+    public void clickRunReport() {
+        Deprecated.scrollToElementJS(refreshButton);
+        Utilities.click(By.xpath(refreshButton));
+    }
+
+    public void clickHeaderSubscriptionLastCompleted() {
+        Utilities.click(tableHeaderSubscriptionLastCompleted);
+        delay(3000);
+    }
+
+    public boolean isCustomerIDAvailable(String ID) {
+        List<WebElement> allCustomerIDs = locateAll(tableCustomerIDs);
+        for (WebElement customerID : allCustomerIDs) {
+            if (customerID.getText().equals(ID)) {
+                System.out.println("The Customer Is Available In The Customer Report");
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void clickCustomerID(String ID) {
+        List<WebElement> allCustomerIDs = locateAll(tableCustomerIDs);
+        for (WebElement customerID : allCustomerIDs) {
+            if (customerID.getText().equals(ID)) {
+                customerID.click();
+                break;
+            }
+        }
+    }
 }

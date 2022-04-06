@@ -3,6 +3,7 @@ package automation.PestRoutes.PageObject;
 import automation.PestRoutes.PageObject.Admin.AdminMainPage;
 import automation.PestRoutes.PageObject.Billing.BillingModule.BillingModule;
 import automation.PestRoutes.PageObject.CreateCustomer.CreateCustomerDialog;
+import automation.PestRoutes.PageObject.Customers.CustomersMainPage;
 import automation.PestRoutes.PageObject.ReportingPage.ReportingMainPage;
 import automation.PestRoutes.PageObject.Scheduling.SchedulingTab;
 
@@ -13,6 +14,7 @@ import org.openqa.selenium.By;
 public class BasePage {
     private By newCustomerComponent = By.xpath("//div[@id='guestNav']//a[text()='New Customer']");
     private By schedulingComponent = By.xpath("//div[@id='routeLink']/a[text()='Scheduling']");
+    private By customersComponent = By.xpath("//div[@id='customerLink']/a[text()='Customers']");
     private By billingComponent = By.xpath("//div[@id='billingLink']/a[text()='Billing']");
     private By reportingComponent = By.xpath("//div[@id='reportLink']/a[text()='Reporting']");
     private By adminComponent = By.xpath("//div[@id='settingsLink']/a[text()='Admin']");
@@ -40,6 +42,13 @@ public class BasePage {
         Utilities.click(schedulingComponent);
         Utilities.delay(1000);
         return new SchedulingTab();
+    }
+
+    public CustomersMainPage goToCustomersComponent() {
+        scrollToElementJS(customersComponent);
+        click(customersComponent);
+        delay(1000);
+        return new CustomersMainPage();
     }
 
     public BillingModule goToBillingComponent(){

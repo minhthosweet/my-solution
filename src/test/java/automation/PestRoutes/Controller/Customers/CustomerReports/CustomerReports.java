@@ -9,6 +9,7 @@ import automation.PestRoutes.PageObject.CustomerOverview.Invoicing.CreditMemoTab
 import automation.PestRoutes.PageObject.CustomerOverview.Invoicing.InvoiceImplementation;
 import automation.PestRoutes.PageObject.Customers.CustomerReportsTab.CustomerReportsPage;
 import automation.PestRoutes.PageObject.Customers.CustomersMainPage;
+import automation.PestRoutes.PageObject.DashboardPage;
 import automation.PestRoutes.PageObject.Header;
 import automation.PestRoutes.Utilities.*;
 import automation.PestRoutes.Utilities.Data.*;
@@ -18,6 +19,7 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 
 import java.io.IOException;
 import java.util.Locale;
@@ -25,6 +27,7 @@ import java.util.Locale;
 import static automation.PestRoutes.Utilities.Report.AssertException.result;
 
 public class CustomerReports extends AppData {
+    SoftAssert softAssert = new SoftAssert();
     Header header;
     CustomersMainPage customersMainPage;
     CustomerReportsPage customerReportsPage = new CustomerReportsPage();
@@ -42,6 +45,10 @@ public class CustomerReports extends AppData {
     CustomerViewDialog_Notes customerViewDialog_notes;
     CustomerViewDialog_SubscriptionTab subscriptionTab;
     CustomerViewDialog_Admin customerViewDialog_admin;
+    DashboardPage dashboardPage = new DashboardPage();
+    CustomerViewDialog_Admin userOnAdminTab = new CustomerViewDialog_Admin();
+    CustomerViewDialog_Header sameUser = new CustomerViewDialog_Header();
+    CreateNewCustomer testCustomer = new CreateNewCustomer();
 
     private String customerName_CR;
     private String customerID_CR;
@@ -1005,4 +1012,32 @@ public class CustomerReports extends AppData {
         result(autoPayOption.toLowerCase(Locale.ROOT), (customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[4]")).toLowerCase(Locale.ROOT), "Customer Auto Pay ENABLED Validation", " Customer Reports Validation");
     }//validateCustomerInReport()
 
+    @And("I Run The Customer Report After Adding The {string} Column")
+    public void automateRunningCustomerReportAfterAddingSubscriptionLastCompletedColumn(String columnName) {
+        customersMainPage = dashboardPage.goToCustomersComponent();
+        customerReportsPage = customersMainPage.goToCustomerReports();
+        customerReportsPage.clickSavedReports();
+        customerReportsPage.clickSelectColumnsToDisplayLink();
+        customerReportsPage.displayColumnOnReport(columnName);
+        customerReportsPage.clickRunReport();
+    }
+
+    @And("I Sort The Subscription Last Completed Column 2 Times")
+    public void automateSortingSubscriptionLastCompletedColumnTwice() {
+        customerReportsPage.clickHeaderSubscriptionLastCompleted();
+        customerReportsPage.clickHeaderSubscriptionLastCompleted();
+    }
+
+    @Then("I Verify The Customer Report Results Are Available By Finding The Customer")
+    public void testResultsAreAvailableByClickingCustomerID() {
+        String customerID = testCustomer.customerAccountID;
+        boolean isCustomerIDAvailable = customerReportsPage.isCustomerIDAvailable(customerID);
+        softAssert.assertTrue(isCustomerIDAvailable,
+                        "The Customer Is Not Available In Customer Reports");
+        customerReportsPage.clickCustomerID(customerID);
+        sameUser.goToAdminTab();
+        userOnAdminTab.clickRemoveButton();
+        userOnAdminTab.clickConfirmRemoveButton();
+        softAssert.assertAll();
+    }
 }
