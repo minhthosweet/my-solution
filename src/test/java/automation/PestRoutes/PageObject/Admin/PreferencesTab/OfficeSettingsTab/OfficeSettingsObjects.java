@@ -1,6 +1,7 @@
 package automation.PestRoutes.PageObject.Admin.PreferencesTab.OfficeSettingsTab;
 
 import automation.PestRoutes.PageObject.BasePage;
+import automation.PestRoutes.Utilities.Deprecated;
 import automation.PestRoutes.Utilities.Utilities;
 import org.openqa.selenium.By;
 
@@ -22,7 +23,22 @@ public class OfficeSettingsObjects extends BasePage {
     public String vendors = "//li[text() = 'Vendors']";
     public String taskCategories = "//li[text() = 'Task Categories']";
 
+    public String authorizedContactsTitle = "//*[@id='AuthorizedContacts']//h2[contains(text(),'Authorized Contacts')]";
+    public String invoiceAddressTitle = "//*[@id='officeLocation']//h2[contains(text(),'Invoice Address')]";
+
     public By lblDefaultVaultSettings = By.xpath("//*[@id='merchantInfo']//h2[contains(text(),'Default Vault Settings')]");
+    public By lblPageTitle = By.xpath("//*[@id='newPreferenceBody']//h2[contains(text(),'Office Settings')]");
+
+    public By lnkAddressEdit = By.xpath("//*[@id='officeLocation']//div[text()='edit']");
+    public By lnkAddressCancel = By.xpath("//*[@id='officeLocation']//div[text()='cancel']");
+    public By lnkAddressSave = By.xpath("//*[@id='officeLocation']//div[text()='save']");
+
+    public By physicalStreetAddr = By.xpath("//*[@id='officeLocation']//input[@name ='address']");
+    public By physicalCity = By.xpath("//*[@id='officeLocation']//input[@name ='city']");
+    public By physicalState = By.xpath("//*[@id='officeLocation']//select[@name='state']");
+    public By physicalZipCode = By.xpath("//*[@id='officeLocation']//input[@name ='zip']");
+    public By physicalCountry = By.xpath("//*[@id='officeLocation']//select[@name='country']");
+
 
     public void navigateTo(By subComponent)
     {
@@ -30,4 +46,52 @@ public class OfficeSettingsObjects extends BasePage {
         Utilities.click(subComponent);
         Utilities.delay(500);
     }
+
+    public void clickOfficeInfo(){
+        Utilities.click(By.xpath(officeInfo));
+    }//clickOfficeInfo()
+
+    public void clickAddressEdit(){
+        Utilities.click(lnkAddressEdit);
+    }//clickAddressEdit()
+
+    public void clickAddressSave(){
+        Utilities.click(lnkAddressSave);
+    }//clickAddressSave()
+
+    public void clickAddressCancel(){
+        Utilities.click(lnkAddressCancel);
+    }//clickAddressCancel()
+
+    /*************************** Setters ***************************/
+    public void setPhysicalStreetAddr(String streetAddress){
+        Deprecated.type(streetAddress,physicalStreetAddr);
+    }//setPhysicalStreetAddr()
+
+    public void setPhysicalCity(String cityName){
+        Deprecated.type(cityName,physicalCity);
+    }//setPhysicalCity()
+
+    public void setPhysicalState(String stateName){
+        Utilities.selectByText(physicalState, stateName);
+    }//setPhysicalState()
+
+    public void setPhysicalZipCode(String zipCode){
+        Deprecated.type(zipCode,physicalZipCode);
+    }//setPhysicalZip()
+
+    public void setPhysicalCountry(String optionCountry){
+        Utilities.selectByText(physicalCountry, optionCountry);
+    }//setPhysicalCountry()
+
+    /*************************** Getters ***************************/
+    public String getPhysicalZipCode(){
+    // Utilities.scrollToBottomElementJS(invoiceAddressTitle);
+        //click(By.xpath(invoiceAddressTitle));
+        Deprecated.scrollToElementJS(authorizedContactsTitle);
+        Utilities.click(lnkAddressEdit);
+        Deprecated.scrollToElementJS(physicalZipCode);
+        return Utilities.getText(physicalZipCode);
+    }//getPhysicalZipCode
+
 }

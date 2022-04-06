@@ -709,6 +709,7 @@ public class CreateNewCustomer extends AppData {
         customer.setCellPhone(primaryPhoneNumber);
         customer.setEmailAddress(email);
         customer.setAddress(streetAddress);
+        customer.setCity(city);
         customer.setZipCode(customerZipCode);
         zipcode = customerZipCode;
         customer.clickSmsCheckBox();

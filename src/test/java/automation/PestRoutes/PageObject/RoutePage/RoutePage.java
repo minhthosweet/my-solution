@@ -77,6 +77,20 @@ public class RoutePage extends BasePage {
         Deprecated.clickElement("//p[text()= 'Add " + insertQuantity + " Route']");
     }
 
+    public String addRoutesByQuantity(String routeGroupName, String insertQuantity) {
+        appt = new ScheduleAppt();
+        validateRenewal = new ValidateRenewal();
+        route = new RoutePage();
+
+        Deprecated.scrollToElementJS(route.addRoutesButton);
+        route.clickButton(route.addRoutesButton);
+        delay(3000);
+        Deprecated.waitVisible("//p[text()= 'Add " + insertQuantity + " Route']");
+        Deprecated.scrollToElementJS("//p[text()= 'Add " + insertQuantity + " Route']");
+        Deprecated.clickElement("//p[text()= 'Add " + insertQuantity + " Route']");
+        return getRouteID(routeGroupName);
+    }//addRoutesByQuantity()
+
     public void scheduleAppointment(String needRouteSlotNumber, String needTime) {
         Deprecated.waitVisible("//*[@id='schedulingNotice']");
         Deprecated.scrollToElement(
@@ -109,19 +123,20 @@ public class RoutePage extends BasePage {
     }
 
     @And("I add a route group")
-    public void addGroup() {
-        addGroup( "TestRoutes");
+    public String addGroup() {
+        return addGroup( "TestRoutes", "TestRoutes");
     }
 
-    public void addGroup(String routeGroupName){
-        if (!Utilities.locate(By.xpath(addGroup)).isDisplayed()) {
-            Deprecated.scrollToElementJS(addGroup);
-            Deprecated.clickElement(addGroup);
-            Deprecated.locate(groupTitle).sendKeys(routeGroupName);
-            Deprecated.waitVisible(groupTemplate);
-            Deprecated.waitVisible(saveButton);
-            Deprecated.clickElement(saveButton);
-        }
+    public String addGroup(String routeGroupName, String grpTemplateName){
+        Deprecated.scrollToElementJS(addGroup);
+        Deprecated.clickElement(addGroup);
+        Deprecated.locate(groupTitle).sendKeys(routeGroupName);
+        Deprecated.waitVisible(groupTemplate);
+        Utilities.selectByText(By.xpath(groupTemplate), grpTemplateName);
+        Deprecated.waitVisible(saveButton);
+        Deprecated.clickElement(saveButton);
+        String groupID  = getGroupID(routeGroupName);
+        return groupID;
     }//addGroup()
 
     @Then("I delete a routing group")
@@ -142,13 +157,13 @@ public class RoutePage extends BasePage {
             if (elm.isDisplayed()) {
                 int elementCount = Deprecated.countElements("//h3[text() = '" + routeGroupName + "']");
                 for (int i = elementCount; i>0; i--) {
-                    Deprecated.waitVisible("//h3[text() = '" + routeGroupName + "']");
+                    Deprecated.waitVisible("//h3[text() = '" + routeGroupName + "']",2);
                     Deprecated.clickElement("//h3[text() = '" + routeGroupName + "']");
-                    Deprecated.waitVisible("//h3[text() = '" + routeGroupName + "']/following-sibling::div[@class = 'clickToEdit']");
+                    Deprecated.waitVisible("//h3[text() = '" + routeGroupName + "']/following-sibling::div[@class = 'clickToEdit']",2);
                     Deprecated.clickElement("//h3[text() = '" + routeGroupName +"']/following-sibling::div[@class = 'clickToEdit']");
-                    Deprecated.waitVisible("//div[@id = 'editGroupDialog']/following-sibling::div[1]//span[text()='Delete']");
+                    Deprecated.waitVisible("//div[@id = 'editGroupDialog']/following-sibling::div[1]//span[text()='Delete']",2);
                     Deprecated.clickElement("//div[@id = 'editGroupDialog']/following-sibling::div[1]//span[text()='Delete']");
-                    Deprecated.waitVisible("//span[text()='Delete Group?']/ancestor::div//span[text()='Delete Group']");
+                    Deprecated.waitVisible("//span[text()='Delete Group?']/ancestor::div//span[text()='Delete Group']",2);
                     Deprecated.clickElement("//span[text()='Delete Group?']/ancestor::div//span[text()='Delete Group']", false, true);
                     header.navigateTo(header.schedulingTab);
                     scheduleDay.addScheduleDateToProperties();
@@ -209,4 +224,17 @@ public class RoutePage extends BasePage {
             existingCustomer.click();
         }
     }
+
+    public String getGroupID(String routeGroupName){
+        String groupID = Utilities.getAttribute(By.xpath("//div[ @title='" + routeGroupName + "']"),"groupid");
+        return groupID;
+    }//getGroupID()
+
+    public String getRouteID(String routeGroupName){
+        String groupID = getGroupID(routeGroupName);
+        String routeID = Utilities.getAttribute(By.xpath("//*[@id='routesView']//div[@class='routes']/div[@groupid='" + groupID + "']"),"routeid");
+        return routeID;
+    }//getRouteID()
+
+
 }

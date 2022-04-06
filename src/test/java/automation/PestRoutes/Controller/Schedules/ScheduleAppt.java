@@ -112,14 +112,9 @@ public class ScheduleAppt extends AppData {
     }
 
     public void scheduleAppointmentOnRoute(String serviceType) {
-            scheduleDay = new SchedulingTab();
-            route = new RoutePage();
-            scheduleDay.clickScheduleButton();
-
-        //If Route Group Doesn't Exist Create Group
-        if(!route.isRouteGroupPresent("TestRoutes")) {
-            route.addGroup("TestRoutes");
-        }
+        scheduleDay = new SchedulingTab();
+        route = new RoutePage();
+        scheduleDay.clickScheduleButton();
 
        //Select the first available appointment slot on existing route,
        //If, no route exist or all available appointments are taken create
