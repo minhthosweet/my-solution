@@ -245,4 +245,16 @@ public class CustomerViewDialog_Header extends BasePage {
         System.out.println("Customer ID: " + customerID);
         return customerID;
     }
+
+    public boolean isCustomerLoaded(String customerName) {
+        try{
+        if (Utilities.locate(By.xpath("//span[contains(@id,'id') and contains(text(),'" + customerName + "')]")).isDisplayed())
+            return true;
+        else
+            return false;
+        }catch(Exception e)
+        {
+            return false;
+        }
+    }//isCustomerLoaded()
 }

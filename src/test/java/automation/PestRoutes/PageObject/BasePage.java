@@ -45,9 +45,9 @@ public class BasePage {
     }
 
     public CustomersMainPage goToCustomersComponent() {
-        scrollToElementJS(customersComponent);
-        click(customersComponent);
-        delay(1000);
+        Deprecated.scrollToElementJS(customersComponent);
+        Utilities.click(customersComponent);
+        Utilities.delay(1000);
         return new CustomersMainPage();
     }
 
