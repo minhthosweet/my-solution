@@ -12,14 +12,13 @@ import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_Info
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_Notes;
 import automation.PestRoutes.PageObject.DashboardPage;
 import automation.PestRoutes.PageObject.Header;
-import automation.PestRoutes.Utilities.Data.*;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.testng.annotations.Test;
 import automation.PestRoutes.Controller.Admin.Preferences.OfficeSettings.TriggerRules.AppointmentStatus.TriggerOnSave_AppointmentStatus;
-import org.testng.asserts.SoftAssert
+import org.testng.asserts.SoftAssert;
 
 import static automation.PestRoutes.Utilities.Data.GetDate.*;
 

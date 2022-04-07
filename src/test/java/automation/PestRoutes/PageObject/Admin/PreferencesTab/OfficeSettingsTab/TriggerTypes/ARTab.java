@@ -108,13 +108,8 @@ public class ARTab extends PreferencesPage {
 	}
 
 	public boolean typeFlagToInclude(String flagCode) {
-<<<<<<< HEAD
-		List<WebElement> allFlags = findElements(By.xpath("//div[contains(@id,'s2id_filterItem')]/ul/li/div"));
-		WebElement includeCustomerFlagsMultiField = find(includeCustomerFlagsMultiDropDown);
-=======
 		List<WebElement> allFlags = locateAll(By.xpath("//div[contains(@id,'s2id_filterItem')]/ul/li/div"));
 		WebElement includeCustomerFlagsMultiField = locate(includeCustomerFlagsMultiDropDown);
->>>>>>> master
 		for (WebElement flag : allFlags) {
 			if (flag.getText().contains(flagCode)) {
 				return true;
@@ -145,13 +140,8 @@ public class ARTab extends PreferencesPage {
 	}
 
 	public void clickAddActionButton() {
-<<<<<<< HEAD
-		elementIsVisible(greenActionButton);
-		scrollToElementJS(greenActionButton);
-=======
 		isVisible(greenActionButton);
 		jsScrollTo(greenActionButton);
->>>>>>> master
 		click(greenActionButton);
 	}
 
@@ -214,26 +204,6 @@ public class ARTab extends PreferencesPage {
 	}
 
 	public void completeTwoActions(String action1, String details1, String action2, String details2) {
-<<<<<<< HEAD
-		elementIsVisible(actionDropDown);
-		delay(1000);
-		selectFromDropDown(action1, actionDropDown);
-		switch (action1) {
-			case "Add Flags":
-				elementIsVisible(flagsField);
-				type(details1, find(flagsField));
-				completeSecondAction(action2, details2);
-				break;
-			case "Create Invoices":
-				selectFromDropDown("Fixed", createInvoicesValueTypeDropDown);
-				type("38.34", createInvoicesValueField);
-				selectFromDropDown(details1, createInvoicesServiceTypeDropDown);
-				completeSecondAction(action2, details2);
-				break;
-			case "Freeze Customers":
-				selectFromDropDown(details1, freezeCustomersCancellationReasonDropDown);
-				type("Freeze Customers - AR Trigger Rules Test", textArea_Email_FreezeCustomer_Message);
-=======
 		isVisible(actionDropDown);
 		delay(1000);
 		selectByText(actionDropDown, action1);
@@ -252,7 +222,6 @@ public class ARTab extends PreferencesPage {
 			case "Freeze Customers":
 				selectByText(freezeCustomersCancellationReasonDropDown, details1);
 				Deprecated.type("Freeze Customers - AR Trigger Rules Test", textArea_Email_FreezeCustomer_Message);
->>>>>>> master
 				completeSecondAction(action2, details2);
 				break;
 			case "Send Email":
@@ -273,23 +242,6 @@ public class ARTab extends PreferencesPage {
 	public void completeSecondAction(String action2, String details2) {
 		By secondActionDropDown = By.xpath("//form[@id='triggerRuleForm']//div[2]/div/label//following::select[@name='eventObserverID']");
 		clickAddActionButton();
-<<<<<<< HEAD
-		elementIsVisible(secondActionDropDown);
-		selectFromDropDown(action2, secondActionDropDown);
-		switch (action2) {
-			case "Add Flags":
-				elementIsVisible(flagsField);
-				type(details2, find(flagsField));
-				break;
-			case "Create Invoices":
-				selectFromDropDown("Fixed", createInvoicesValueTypeDropDown);
-				type("38.34", createInvoicesValueField);
-				selectFromDropDown(details2, createInvoicesServiceTypeDropDown);
-				break;
-			case "Freeze Customers":
-				selectFromDropDown(details2, freezeCustomersCancellationReasonDropDown);
-				type("Freeze Customers - AR Trigger Rules Test", textArea_Email_FreezeCustomer_Message);
-=======
 		isVisible(secondActionDropDown);
 		selectByText(secondActionDropDown, action2);
 		switch (action2) {
@@ -305,7 +257,6 @@ public class ARTab extends PreferencesPage {
 			case "Freeze Customers":
 				selectByText(freezeCustomersCancellationReasonDropDown, details2);
 				type(textArea_Email_FreezeCustomer_Message, "Freeze Customers - AR Trigger Rules Test");
->>>>>>> master
 				break;
 			case "Send Email":
 				completeActionSendEmail(details2);

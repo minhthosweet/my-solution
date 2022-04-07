@@ -51,10 +51,6 @@ public class MarchantInfoPage extends BasePage {
         selectByText(achGatewayDropDown, achGateway);
     }
 
-    public void selectACHGateway(String achGateway){
-        selectFromDropDown(achGateway, achGatewayDropDown);
-    }
-
     public void clickSaveForDefaultSettings(){
         Utilities.click(saveDefaultSettings);
     }

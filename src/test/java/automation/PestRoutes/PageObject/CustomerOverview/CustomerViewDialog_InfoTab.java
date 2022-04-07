@@ -5,6 +5,8 @@ import automation.PestRoutes.Utilities.*;
 import automation.PestRoutes.Utilities.Deprecated;
 import org.openqa.selenium.By;
 
+import static automation.PestRoutes.Utilities.Utilities.*;
+
 public class CustomerViewDialog_InfoTab extends BasePage {
     public String taxRate = "//input[@name='taxRate']";
     public String firstName = "//input[@name='fname']";
@@ -83,10 +85,10 @@ public class CustomerViewDialog_InfoTab extends BasePage {
     }
 
     public void selectCustomerGenericFlag(String flagCode) {
-        Utilities.selectByText(genericFlagsDropDown, flagCode);
+        selectByText(genericFlagsDropDown, flagCode);
     }
 
     public void selectDivision(String division) {
-        selectFromDropDown(division, divisionDropDown);
+        selectByText(divisionDropDown, division);
     }
 }

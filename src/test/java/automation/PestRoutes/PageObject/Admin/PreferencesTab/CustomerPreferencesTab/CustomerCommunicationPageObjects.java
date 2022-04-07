@@ -1001,11 +1001,11 @@ public class CustomerCommunicationPageObjects extends BasePage {
     }//savedBlockedWindowCheck()
 
     public void typeSMS_StartWindowTime(String smsStartTime) {
-        type(smsStartTime, smsStartWindowField);
+        Deprecated.type(smsStartTime, smsStartWindowField);
     }
 
     public void typeSMS_EndWindowTime(String smsEndTime) {
-        type(smsEndTime, smsEndWindowField);
+        Deprecated.type(smsEndTime, smsEndWindowField);
     }
 
     public void clickDeliverySettingsEditButton() {

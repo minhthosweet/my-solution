@@ -199,7 +199,7 @@ public class ReminderTab extends PreferencesPage {
 			Utilities.selectByText(smsTypeDropDown, smsType);
 		} else if (smsType.equalsIgnoreCase("Custom Text Message")){
 			Utilities.isVisible(smsTypeDropDown);
-			delay(1000)
+			delay(1000);
 			Utilities.selectByText(smsTypeDropDown, smsType);;
 			jsScrollTo(textAreaMessageVoiceSMS);
 			Deprecated.type(CUSTOM_SMS_MESSAGE, textAreaMessageVoiceSMS);

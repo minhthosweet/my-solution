@@ -51,7 +51,7 @@ public class TestCustomerPortalBillingTab {
                 "Welcome Message Does Not Contain The Correct First Name" + "\n" +
                         "First Name " + expectedFirstName + " Is Not Located In " + actualMessage);
         GetWebDriver.closeTab();
-//        GetWebDriver.switchToOldWindowOpened();
+        GetWebDriver.switchToOldWindowOpened();
         testCustomer.removeCustomer();
         softAssert.assertAll();
     }
