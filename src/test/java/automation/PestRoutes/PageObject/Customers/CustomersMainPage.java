@@ -2,7 +2,7 @@ package automation.PestRoutes.PageObject.Customers;
 
 import automation.PestRoutes.PageObject.BasePage;
 import automation.PestRoutes.PageObject.Customers.CustomerReportsTab.CustomerReportsPage;
-import automation.PestRoutes.Utilities.*;
+
 import automation.PestRoutes.Utilities.Deprecated;
 import org.openqa.selenium.By;
 

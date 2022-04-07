@@ -1,6 +1,6 @@
 # Author: Rex Jones II
 # Customer Status Trigger Rule
-#@RegressionREX
+@RegressionREX
 @TriggerRule
 @TriggerRules
 @CustomerStatus_TriggerRule

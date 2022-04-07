@@ -1,6 +1,6 @@
 # Author: Rex Jones II
 # AR Trigger Rule
-#@RegressionREX
+@RegressionREX
 @TriggerRule
 @TriggerRules
 @AR_TriggerRule

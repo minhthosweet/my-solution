@@ -1,6 +1,7 @@
 package automation.PestRoutes.PageObject.Customers.CustomerReportsTab;
 
 import automation.PestRoutes.PageObject.BasePage;
+import automation.PestRoutes.Utilities.Element.WebSelect;
 import automation.PestRoutes.Utilities.Utilities;
 import static automation.PestRoutes.Utilities.Utilities.*;
 import automation.PestRoutes.Utilities.Data.AppData;
@@ -66,7 +67,19 @@ public class CustomerReportsPage extends BasePage {
 
     // Table Column Headers & Row Values
     private By tableHeaderSubscriptionLastCompleted = By.xpath("//div[@id='customerReportTable_wrapper']//th[text()='Subscription Last Completed']");
+    private By tableHeaderCustomerID = By.xpath("//div[@id='customerReportTable_wrapper']//th[text()='Customer ID']");
     private By tableCustomerIDs = By.xpath("//table[@id='customerReportTable']/tbody//td[1]");
+    private By showingNumberOfEntries = By.id("customerReportTable_info");
+
+    // Service Appointment Fields
+    private By serviceAppointmentFromScheduledForDateField = By.xpath("//div[@key='scheduledFor']/input[1]");
+    private By serviceAppointmentToScheduledForDateField = By.xpath("//div[@key='scheduledFor']/input[2]");
+    private By serviceAppointmentCategoryMultiField = By.xpath("//input[@id='s2id_autogen46']");
+    private By serviceAppointmentShowTechNotesDropDown = By.xpath("//div[@key='showTechNotes']/select");
+
+    // Billing Account Fields
+    private By billingAccountPaymentDaysPastDueOperatorSign = By.xpath("//div[@key='invoicePastDueDays']/select");
+    private By billingAccountPaymentDaysPastDueField = By.xpath("//div[@key='invoicePastDueDays']/input");
 
     public Map<String, String> filterTypes_CR = new HashMap<>();
 
@@ -382,6 +395,7 @@ public class CustomerReportsPage extends BasePage {
     }//getNoDataResults()
 
     public void clickSavedReports() {
+        Utilities.delay(1000);
         Deprecated.scrollToElementJS(savedReports);
         Utilities.click(By.xpath(savedReports));
         delay(1000);
@@ -393,6 +407,7 @@ public class CustomerReportsPage extends BasePage {
     }
 
     public void clickHeaderSubscriptionLastCompleted() {
+        Utilities.jsScrollTo(tableHeaderSubscriptionLastCompleted);
         Utilities.click(tableHeaderSubscriptionLastCompleted);
         delay(3000);
     }
@@ -416,5 +431,63 @@ public class CustomerReportsPage extends BasePage {
                 break;
             }
         }
+    }
+
+    public void clickCustomerReportsSection(String section) {
+        By filterSection = By.xpath("//div[text()='" + section + "']");
+        Deprecated.scrollToElementJS(filterSection);
+        Utilities.click(filterSection);
+        delay(1000);
+    }
+
+    public void typeToScheduledForDate_ServiceAppointment(String date) {
+        Deprecated.scrollToElementJS(serviceAppointmentToScheduledForDateField);
+        Deprecated.type(date, serviceAppointmentToScheduledForDateField);
+    }
+
+    public void typeFromScheduledForDate_ServiceAppointment(String date) {
+        Deprecated.scrollToElementJS(serviceAppointmentFromScheduledForDateField);
+        Deprecated.type(date, serviceAppointmentFromScheduledForDateField);
+    }
+
+    public void serviceAppointment_TypeCategory(String category) {
+        Deprecated.scrollToElement(serviceAppointmentCategoryMultiField);
+        Deprecated.type(category, locate(serviceAppointmentCategoryMultiField));
+    }
+
+    public void selectFromShowTechNotes(String showTechNotes) {
+        Deprecated.scrollToElement(serviceAppointmentCategoryMultiField);
+        WebSelect.selectByText(serviceAppointmentShowTechNotesDropDown, showTechNotes);
+    }
+
+    public int getNumberOfEntriesFromTableResults() {
+        List<WebElement> allCustomerIDs = locateAll(tableCustomerIDs);
+        int numberOfTableEntries = allCustomerIDs.size();
+        System.out.println("# of Table Entries: " + numberOfTableEntries);
+        return numberOfTableEntries;
+    }
+
+    public String getShowingEntriesBelowTable() {
+        System.out.println(getText(showingNumberOfEntries));
+        return getText(showingNumberOfEntries);
+    }
+
+    public void clickHeaderCustomerID() {
+        Deprecated.scrollToElement(tableHeaderCustomerID);
+        Utilities.click(tableHeaderCustomerID);
+        delay(3000);
+    }
+
+    public void billingAccount_TypePaymentDaysPastDue(String operatorSign, String days) {
+        Deprecated.type(operatorSign, billingAccountPaymentDaysPastDueOperatorSign);
+        Deprecated.type(days, billingAccountPaymentDaysPastDueField);
+    }
+
+    public String getValueAfterAddingOneColumn(String customerID) {
+        By addedColumnHeaderName = By.xpath("//div[@id='customerReportTable_wrapper']//th[4]");
+        By columnValue = By.xpath("//table[@id='customerReportTable']/tbody//td[text()='"+customerID+"']/following::td[3]");
+        String value = getText(columnValue);
+        System.out.println(getText(addedColumnHeaderName) + ": " + value);
+        return value;
     }
 }

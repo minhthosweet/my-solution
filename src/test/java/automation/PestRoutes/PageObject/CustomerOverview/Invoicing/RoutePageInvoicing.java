@@ -4,13 +4,10 @@ import automation.PestRoutes.PageObject.BasePage;
 import automation.PestRoutes.Utilities.*;
 import automation.PestRoutes.Utilities.Deprecated;
 import org.openqa.selenium.By;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 import static automation.PestRoutes.Utilities.GetWebDriver.*;
 
 public class RoutePageInvoicing extends BasePage {
-
-	WebDriverWait wait = new WebDriverWait(driver, 5);
 
 	public String addPayment = "//div[text()='+ Add Payment']";
 	private By addInvoicePayment = By.xpath("//div[text()='+ Add Payment']");
@@ -24,6 +21,8 @@ public class RoutePageInvoicing extends BasePage {
 	private String addAvailableTicket = "//div[@id='availableItems']//li[1]";
 	private By backToAccountSummaryButton = By.xpath("//div[@id='billingPanel']//div[text()='Back to Account Summary']");
 	private By fullyPaidPaymentStatus = By.xpath("//ul[@id='invoiceGroupListContainer']//div[contains(text(),'FULLY PAID')]");
+	private By unpaidPaymentStatus = By.xpath("//ul[@id='invoiceGroupListContainer']//div[contains(text(),'UNPAID')]");
+	private By daysToPayField = By.xpath("//div[@id='invoiceDetails']//div[text()='Days to Pay']/following::div");
 	private By serviceChargeField = By.xpath("//div[@id='invoiceDetails']//input[@name='serviceCharge']");
 	private By initialDiscountField = By.xpath("//div[@id='invoiceDetails']//div[text()='Initial Discount']/following-sibling::input[@name='amount']");
 	private By paymentBalanceField = By.xpath("//div[@id='invoiceDetails']//div[text()='Balance']/following-sibling::div");
@@ -96,6 +95,29 @@ public class RoutePageInvoicing extends BasePage {
 	public void clickFullyPaidPaymentStatus() {
 		Utilities.delay(3000);
 		Utilities.click(fullyPaidPaymentStatus);
+	}
+
+	public void clickUnpaidPaymentStatus() {
+		Utilities.delay(3000);
+		Utilities.click(unpaidPaymentStatus);
+	}
+
+	public String getDaysToPay() {
+		String invoiceDaysToPay = Utilities.getText(daysToPayField);
+		System.out.println("Days To Pay:   " + invoiceDaysToPay);
+		return invoiceDaysToPay;
+	}
+
+	public String inverseDaysToPay(String days) {
+		// Check To See If The Invoice Days To Pay Value Is Correct
+		// Days To Pay via Invoice Should Be Inverse Of Days Past Due via Customer Report (CR)
+		// For Example, If Days Past Due Is 34 Then Days To Pay Is -34
+
+		if (days.contains("-")) {
+			return days.replace("-", "");
+		} else {
+			return "-" + days;
+		}
 	}
 
 	public void typeServiceChargeAmount(String serviceCharge){

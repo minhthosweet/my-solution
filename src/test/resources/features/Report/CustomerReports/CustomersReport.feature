@@ -282,6 +282,56 @@ Feature: Customer reports end to end validation
   Scenario: Verify Results Do Not Disappear When Sorting CR Column Subscription Last Completed
     Given I Create A Customer With A Subscription
     When  I Complete An Appointment
-    And   I Run The Customer Report After Adding The "Subscription Last Completed" Column
-    And   I Sort The Subscription Last Completed Column 2 Times
+    And   I Add The "Subscription Last Completed" Column To Customer Reports
+    And   I Run & Sort The Subscription Last Completed Column 2 Times
     Then  I Verify The Customer Report Results Are Available By Finding The Customer
+
+# Ticket 121308: Incorrect Results for Saved Customer Report DispatchAfterReport - Pending
+# https://fieldroutes.freshdesk.com/a/tickets/121308
+  @RegressionREX
+  @RegressionREX_CR
+  @RegressionREX_Reports
+  @VerifyResultsAreCorrectForShowTechNotes
+  Scenario: Verify Correct Results For Customer Report With No Show Tech Notes
+    Given I Navigate To The "Service Appointment" Section After Accessing Customer Reports
+    When  I Set Scheduled For Date Range From One Year Ago To Today
+    And   I Set Category To "Bi Monthly", "Dynamic", "CLEAN", & "General Pest"
+    Then  I Verify The Customer Report # of Results After Setting Show Tech Notes To "No"
+
+# Ticket 121308: Incorrect Results for Saved Customer Report DispatchAfterReport - Pending
+# https://fieldroutes.freshdesk.com/a/tickets/121308
+  @RegressionREX
+  @RegressionREX_CR
+  @RegressionREX_Reports
+  @VerifyResultsAreCorrectForShowTechNotes
+  Scenario: Verify Correct Results For Customer Report With Yes Show Tech Notes
+    Given I Navigate To The "Service Appointment" Section After Accessing Customer Reports
+    When  I Set Scheduled For Date Range From One Year Ago To Today
+    And   I Set Category To "Bi Monthly", "Dynamic", "CLEAN", & "General Pest"
+    Then  I Verify The Customer Report # of Results After Setting Show Tech Notes To "Yes"
+
+# Ticket 127632: Negative and Incorrect Value for Days Past Due Column of Customers Report
+# https://fieldroutes.freshdesk.com/a/tickets/127632
+  @RegressionREX
+  @RegressionREX_CR
+  @RegressionREX_Reports
+  @VerifyNegativeDaysPastDueOnCustomerReportsInverseToPositiveDaysToPayOnInvoicesTab
+  Scenario: Verify Negative Days Past Due On Customer Reports Inverse To Positive Days To Pay On Invoices Tab
+    Given I Create A Customer With A Subscription
+    When  I Generate A Stand Alone Invoice
+    And   I Add The "Days Past Due" Column To Customer Reports
+    And   I Navigate To The "Billing Account" Section To Update Payment Days Past Due Filters "<" "0" Days
+    Then  I Verify Days To Pay via Invoice Tab Inverses Days Past Due via Customer Reports
+
+# Ticket 127632: Negative and Incorrect Value for Days Past Due Column of Customers Report
+# https://fieldroutes.freshdesk.com/a/tickets/127632
+  @RegressionREX
+  @RegressionREX_CR
+  @RegressionREX_Reports
+  @VerifyPositiveDaysPastDueOnCustomerReportsInverseToNegativeDaysToPayOnInvoicesTab
+  Scenario: Verify Positive Days Past Due On Customer Reports Inverse To Negative Days To Pay On Invoices Tab
+    Given I Create A Customer With A Subscription
+    When  I Generate A Stand Alone Invoice Using A Past Date
+    And   I Add The "Days Past Due" Column To Customer Reports
+    And   I Navigate To The "Billing Account" Section To Update Payment Days Past Due Filters ">" "0" Days
+    Then  I Verify Days To Pay via Invoice Tab Inverses Days Past Due via Customer Reports

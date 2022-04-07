@@ -1,6 +1,6 @@
 # Author: Rex Jones II
 # Reminders Trigger Rule
-#@RegressionREX
+@RegressionREX
 @TriggerRule
 @TriggerRules
 @Reminders_TriggerRule

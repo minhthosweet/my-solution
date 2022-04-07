@@ -7,6 +7,7 @@ import automation.PestRoutes.Controller.Reporting.Office.BillingByServiceType;
 import automation.PestRoutes.PageObject.CustomerOverview.*;
 import automation.PestRoutes.PageObject.CustomerOverview.Invoicing.CreditMemoTab;
 import automation.PestRoutes.PageObject.CustomerOverview.Invoicing.InvoiceImplementation;
+import automation.PestRoutes.PageObject.CustomerOverview.Invoicing.RoutePageInvoicing;
 import automation.PestRoutes.PageObject.Customers.CustomerReportsTab.CustomerReportsPage;
 import automation.PestRoutes.PageObject.Customers.CustomersMainPage;
 import automation.PestRoutes.PageObject.DashboardPage;
@@ -16,6 +17,7 @@ import automation.PestRoutes.Utilities.Data.*;
 import automation.PestRoutes.Utilities.Deprecated;
 import automation.PestRoutes.Utilities.Report.*;
 import io.cucumber.java.en.And;
+import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.testng.annotations.Test;
@@ -49,6 +51,7 @@ public class CustomerReports extends AppData {
     CustomerViewDialog_Admin userOnAdminTab = new CustomerViewDialog_Admin();
     CustomerViewDialog_Header sameUser = new CustomerViewDialog_Header();
     CreateNewCustomer testCustomer = new CreateNewCustomer();
+    RoutePageInvoicing userOnInvoicesTab = new RoutePageInvoicing();
 
     private String customerName_CR;
     private String customerID_CR;
@@ -1012,18 +1015,18 @@ public class CustomerReports extends AppData {
         result(autoPayOption.toLowerCase(Locale.ROOT), (customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[4]")).toLowerCase(Locale.ROOT), "Customer Auto Pay ENABLED Validation", " Customer Reports Validation");
     }//validateCustomerInReport()
 
-    @And("I Run The Customer Report After Adding The {string} Column")
-    public void automateRunningCustomerReportAfterAddingSubscriptionLastCompletedColumn(String columnName) {
+    @And("I Add The {string} Column To Customer Reports")
+    public void automateAddingColumnToCustomerReports(String columnName) {
         customersMainPage = dashboardPage.goToCustomersComponent();
         customerReportsPage = customersMainPage.goToCustomerReports();
         customerReportsPage.clickSavedReports();
         customerReportsPage.clickSelectColumnsToDisplayLink();
         customerReportsPage.displayColumnOnReport(columnName);
-        customerReportsPage.clickRunReport();
     }
 
-    @And("I Sort The Subscription Last Completed Column 2 Times")
+    @And("I Run & Sort The Subscription Last Completed Column 2 Times")
     public void automateSortingSubscriptionLastCompletedColumnTwice() {
+        customerReportsPage.clickRunReport();
         customerReportsPage.clickHeaderSubscriptionLastCompleted();
         customerReportsPage.clickHeaderSubscriptionLastCompleted();
     }
@@ -1035,6 +1038,72 @@ public class CustomerReports extends AppData {
         softAssert.assertTrue(isCustomerIDAvailable,
                         "The Customer Is Not Available In Customer Reports");
         customerReportsPage.clickCustomerID(customerID);
+        sameUser.goToAdminTab();
+        userOnAdminTab.clickRemoveButton();
+        userOnAdminTab.clickConfirmRemoveButton();
+        softAssert.assertAll();
+    }
+
+    @Given("I Navigate To The {string} Section After Accessing Customer Reports")
+    public void automateNavigatingToFilterSectionAfterAccessingCustomerReports(String filterSection) {
+        customersMainPage = dashboardPage.goToCustomersComponent();
+        customerReportsPage = customersMainPage.goToCustomerReports();
+        customerReportsPage.clickSavedReports();
+        customerReportsPage.clickCustomerReportsSection(filterSection);
+    }
+
+    @When("I Set Scheduled For Date Range From One Year Ago To Today")
+    public void automateSettingScheduledForDateRange() {
+        String currentDate = GetDate.currentDate("M/dd/yyyy");
+        String oneYearAgo = GetDate.minusOneYearToDate(currentDate);
+
+        customerReportsPage.typeFromScheduledForDate_ServiceAppointment(oneYearAgo);
+        customerReportsPage.typeToScheduledForDate_ServiceAppointment(currentDate);
+    }
+
+    @And("I Set Category To {string}, {string}, {string}, & {string}")
+    public void automateSettingCategoryToMultipleValues(String category1, String category2, String category3, String category4) {
+        customerReportsPage.serviceAppointment_TypeCategory(category1);
+        customerReportsPage.serviceAppointment_TypeCategory(category2);
+        customerReportsPage.serviceAppointment_TypeCategory(category3);
+        customerReportsPage.serviceAppointment_TypeCategory(category4);
+    }
+
+    @Then("I Verify The Customer Report # of Results After Setting Show Tech Notes To {string}")
+    public void testNumberOfResultsAfterSelectingShowTechNotes(String showTechNotes) {
+        customerReportsPage.selectFromShowTechNotes(showTechNotes);
+        customerReportsPage.clickRunReport();
+        String numOfTableEntries = String.valueOf(customerReportsPage.getNumberOfEntriesFromTableResults());
+        String showingNumberOfEntries = customerReportsPage.getShowingEntriesBelowTable();
+        softAssert.assertTrue(
+                showingNumberOfEntries.contains(numOfTableEntries),
+                "\n There Is A Mismatch Between # of Table Entries" +
+                        "\n and # of Showing Entries \n");
+        softAssert.assertAll();
+    }
+
+    @And("I Navigate To The {string} Section To Update Payment Days Past Due Filters {string} {string} Days")
+    public void automateNavigatingToSectionAndUpdatingFilter(String section, String operator, String days) {
+        customerReportsPage.clickSavedReports();
+        customerReportsPage.clickCustomerReportsSection(section);
+        customerReportsPage.billingAccount_TypePaymentDaysPastDue(operator, days);
+    }
+
+    @Then("I Verify Days To Pay via Invoice Tab Inverses Days Past Due via Customer Reports")
+    public void testDaysToPayOnInvoicesTabInversesDaysPastDueInCR() {
+        String customerID = testCustomer.customerAccountID;
+        customerReportsPage.clickRunReport();
+        customerReportsPage.clickHeaderCustomerID();
+        String daysPastDue = customerReportsPage.getValueAfterAddingOneColumn(customerID);
+        customerReportsPage.clickCustomerID(customerID);
+        sameUser.goToInvoicesTab();
+        userOnInvoicesTab.clickUnpaidPaymentStatus();
+        String actualDaysToPay = userOnInvoicesTab.getDaysToPay();
+        String expectedDaysToPay = userOnInvoicesTab.inverseDaysToPay(daysPastDue);
+        softAssert.assertEquals(actualDaysToPay, expectedDaysToPay,
+                "\n Invoices Tab Does Not Display Correct # of Days To Pay" +
+                        "\n Actual Days:   " + actualDaysToPay +
+                        "\n Expected Days: " + expectedDaysToPay + "\n");
         sameUser.goToAdminTab();
         userOnAdminTab.clickRemoveButton();
         userOnAdminTab.clickConfirmRemoveButton();

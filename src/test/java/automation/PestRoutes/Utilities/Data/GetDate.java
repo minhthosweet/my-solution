@@ -83,7 +83,7 @@ public class GetDate {
 		}
 	}
 
-	public static String minusOneYearToDate(String needDate) throws Exception {
+	public static String minusOneYearToDate(String needDate) {
 		String input = needDate;
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/dd/uuuu");
 		LocalDate localDate = LocalDate.parse(input, formatter);
@@ -93,7 +93,7 @@ public class GetDate {
 
 	}
 
-	public static String minusOneWeekToDate(String needDate) throws Exception {
+	public static String minusOneWeekToDate(String needDate) {
 		String input = needDate;
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/dd/uuuu");
 		LocalDate localDate = LocalDate.parse(input, formatter);
@@ -103,7 +103,7 @@ public class GetDate {
 
 	}
 
-	public static String addOneDayToDate(String needDate) throws Exception {
+	public static String addOneDayToDate(String needDate) {
 		String input = needDate;
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/dd/uuuu");
 		LocalDate localDate = LocalDate.parse(input, formatter);
@@ -113,7 +113,7 @@ public class GetDate {
 
 	}
 	
-	public static String minusOneDayToDate(String needDate) throws Exception {
+	public static String minusOneDayToDate(String needDate) {
 		String input = needDate;
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/dd/uuuu");
 		LocalDate localDate = LocalDate.parse(input, formatter);
@@ -123,7 +123,7 @@ public class GetDate {
 
 	}
 
-	public static String minusGenericDayToDate(String needDate, int days) throws Exception {
+	public static String minusGenericDayToDate(String needDate, int days) {
 		String input = needDate;
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/dd/uuuu");
 		LocalDate localDate = LocalDate.parse(input, formatter);
@@ -134,7 +134,7 @@ public class GetDate {
 
 	}
 
-	public static int getMonth(String needDate) throws ParseException {
+	public static int getMonth(String needDate) {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/dd/yyyy");
 		String date = needDate;
 		LocalDate localDate = LocalDate.parse(date, formatter);

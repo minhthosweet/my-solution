@@ -1,6 +1,6 @@
 # Author: Rex Jones II
 # Appointment Status Trigger Rule
-#@RegressionREX
+@RegressionREX
 @TriggerRule
 @TriggerRules
 @AppointmentStatus_TriggerRule
