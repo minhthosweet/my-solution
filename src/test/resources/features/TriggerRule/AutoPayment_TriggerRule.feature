@@ -1,6 +1,10 @@
 # Author: Rex Jones II
 # Auto Payment Trigger Rule
+<<<<<<< HEAD
+#@RegressionREX
+=======
 @RegressionREX
+>>>>>>> master
 @TriggerRule
 @TriggerRules
 @AutoPayment_TriggerRule

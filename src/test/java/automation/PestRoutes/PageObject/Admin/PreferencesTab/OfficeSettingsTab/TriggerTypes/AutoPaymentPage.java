@@ -1,7 +1,9 @@
 package automation.PestRoutes.PageObject.Admin.PreferencesTab.OfficeSettingsTab.TriggerTypes;
 
 import automation.PestRoutes.PageObject.Admin.PreferencesTab.PreferencesPage;
+
 import automation.PestRoutes.Utilities.Deprecated;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 

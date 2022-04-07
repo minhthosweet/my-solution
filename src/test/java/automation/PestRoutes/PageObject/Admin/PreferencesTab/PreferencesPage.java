@@ -105,8 +105,10 @@ public class PreferencesPage extends AdminMainPage {
 	}
 
 	public GenericFlagsPage clickGenericFlags() {
+
 		isVisible(genericFlagsListItem);
 		jsScrollTo(emailTemplates);
+
 		click(genericFlagsListItem);
 		return new GenericFlagsPage();
 	}
