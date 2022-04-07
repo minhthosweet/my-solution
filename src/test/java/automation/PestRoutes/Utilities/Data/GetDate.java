@@ -173,7 +173,7 @@ public class GetDate {
 
 	public static String convert_2DigitMonth_2DigitDay_4DigitYear(String date) {
 		// Incoming Date Is Formatted As MM/dd/YYYY
-		// Return Date Is Formatted As M/D/YYYY
+		// Return Date Is Formatted As M/DD/YYYY
 
 		String[] separateYearMonthDay = date.split("/");
 		String month = separateYearMonthDay[0].replaceFirst("^0*", "");
