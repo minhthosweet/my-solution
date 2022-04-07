@@ -2,6 +2,7 @@ package automation.PestRoutes.Utilities.Element;
 
 import org.openqa.selenium.*;
 
+import static automation.PestRoutes.Utilities.Element.WebCheck.*;
 import static automation.PestRoutes.Utilities.Element.WebLocator.*;
 import static automation.PestRoutes.Utilities.GetWebDriver.*;
 
@@ -17,7 +18,7 @@ public class WebExecutor {
     }
 
     public static void jsScrollTo(By locator) {
-        executor.executeScript("arguments[0].scrollIntoView(false);", locate(locator));
+        executor.executeScript("arguments[0].scrollIntoView({behavior:'auto',block:'center'});", locate(locator));
     }
 
     public static void jsScrollToBottom() {

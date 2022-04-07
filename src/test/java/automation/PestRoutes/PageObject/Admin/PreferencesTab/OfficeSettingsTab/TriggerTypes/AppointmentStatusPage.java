@@ -187,7 +187,7 @@ public class AppointmentStatusPage extends PreferencesPage {
     }
 
     public void completeTwoAppointmentStatusActions(String action1, String action2, String details) {
-        waitVisible(actionDropDown);
+        isVisible(actionDropDown);
         selectByText(actionDropDown, action1);
         switch (action1) {
             case "Add Alert":
@@ -239,7 +239,7 @@ public class AppointmentStatusPage extends PreferencesPage {
     }
 
     public void typeIncrement(String increment) {
-        Deprecated.type(increment, incrementField);
+        type(incrementField, increment);
     }
 
     public void selectIsInitialService(String isInitialService) {
