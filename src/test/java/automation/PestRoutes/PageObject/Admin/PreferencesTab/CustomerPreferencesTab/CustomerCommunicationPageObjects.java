@@ -1002,15 +1002,15 @@ public class CustomerCommunicationPageObjects extends BasePage {
     }//savedBlockedWindowCheck()
 
     public void typeSMS_StartWindowTime(String smsStartTime) {
-        Deprecated.type(smsStartTime, smsStartWindowField);
+        Utilities.type(smsStartWindowField, smsStartTime);
     }
 
     public void typeSMS_EndWindowTime(String smsEndTime) {
-        Deprecated.type(smsEndTime, smsEndWindowField);
+        Utilities.type(smsEndWindowField, smsEndTime);
     }
 
     public void clickDeliverySettingsEditButton() {
-        //delay(2000); // Needed for StagingDemo but not my subdomain. StagingDemo Did Not scrollToElementJS
+        delay(2000); // Needed for StagingDemo but not my subdomain. StagingDemo Did Not scrollToElementJS
         jsScrollTo(lnkEdit_DeliverySettings);
         click(lnkEdit_DeliverySettings);
     }

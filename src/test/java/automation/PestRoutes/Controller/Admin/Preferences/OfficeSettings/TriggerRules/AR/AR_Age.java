@@ -135,6 +135,7 @@ public class AR_Age extends AppData {
     @And("I Reset The Most Recent Date Trigger Before Executing A Trigger Called {string}")
     public void automateExecutingTriggerWithEndPoint(String triggerName) {
         String resetTrigger = userOnTriggerRulesPage.resetMostRecentDateTrigger();
+        WebDriver driver = new ChromeDriver();
         driver.get(resetTrigger);
 
         String triggerURL = userOnTriggerRulesPage.getTriggerURL(triggerName);
@@ -145,7 +146,6 @@ public class AR_Age extends AppData {
     @And("I Reset The Most Recent Date Trigger Before Executing 2 Triggers Called {string} & {string}")
     public void automateExecutingTriggerWithMultipleEndPoints(String triggerName1, String triggerName2) {
         String resetTrigger = userOnTriggerRulesPage.resetMostRecentDateTrigger();
-        WebDriver driver = new ChromeDriver();
         driver.get(resetTrigger);
         String triggerURL1 = userOnTriggerRulesPage.getTriggerURL(triggerName1);
         driver.get(triggerURL1);

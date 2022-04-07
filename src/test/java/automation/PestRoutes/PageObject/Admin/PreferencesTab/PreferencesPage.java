@@ -100,15 +100,13 @@ public class PreferencesPage extends AdminMainPage {
 
 	public void clickCustomerPreferences() {
 		delay(2000);
-		Deprecated.scrollToElementJS(Utilities.locate(customerPreferences));
+		jsScrollTo(customerPreferences);
 		click(customerPreferences);
 	}
 
 	public GenericFlagsPage clickGenericFlags() {
-
 		isVisible(genericFlagsListItem);
-		jsScrollTo(emailTemplates);
-
+		jsScrollTo(genericFlagsListItem);
 		click(genericFlagsListItem);
 		return new GenericFlagsPage();
 	}

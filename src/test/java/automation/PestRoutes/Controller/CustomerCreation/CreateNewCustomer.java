@@ -15,9 +15,7 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import org.openqa.selenium.Alert;
-import org.openqa.selenium.NoAlertPresentException;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
@@ -743,26 +741,15 @@ public class CreateNewCustomer extends AppData {
         userCreateNewCustomer.typeEmailAddress(email);
         emailAddress = userCreateNewCustomer.getEmailAddress();
         sameUser.clickSaveButton();
-        if(!Objects.equals(getData("userName", environment), "mind")) {
-            int i = 0;
-            while (i++ < 3) {
-                try {
-                    Alert alert = Utilities.getAlert(200);
-                    String actionAlert = getAlertText();
-                    String expected = "Action Required!";
-                    if (actionAlert.contains(expected)) {
-                        alert.accept();
-                        Deprecated.clickElement("//div[text()='Save Anyways']");
-                        break;
-                    }
-                    if (actionAlert.contains("This customer is closer to")) {
-                        alert.dismiss();
-                    }
-                } catch (NoAlertPresentException e) {
-                    delay(500);
-                    continue;
-                }
-            }
+        if(getAlertText(2).contains("This customer is closer to")) {
+            dismissAlert();
+        }
+        if(getAlertText(2).contains("Action Required!")) {
+            acceptAlert();
+        }
+        By saveAnyWay = By.xpath("//div[text()='Save Anyways']");
+        if(isPresent(saveAnyWay)) {
+            click(saveAnyWay);
         }
     }
 

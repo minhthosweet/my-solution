@@ -210,18 +210,18 @@ public class ARTab extends PreferencesPage {
 		switch (action1) {
 			case "Add Flags":
 				isVisible(flagsField);
-				Deprecated.type(details1, flagsField);
+				Deprecated.type(details1, locate(flagsField));
 				completeSecondAction(action2, details2);
 				break;
 			case "Create Invoices":
 				selectByText(createInvoicesValueTypeDropDown, "Fixed");
-				Deprecated.type("38.34", createInvoicesValueField);
+				type(createInvoicesValueField, "38.34");
 				selectByText(createInvoicesServiceTypeDropDown, details1);
 				completeSecondAction(action2, details2);
 				break;
 			case "Freeze Customers":
 				selectByText(freezeCustomersCancellationReasonDropDown, details1);
-				Deprecated.type("Freeze Customers - AR Trigger Rules Test", textArea_Email_FreezeCustomer_Message);
+				type(textArea_Email_FreezeCustomer_Message, "Freeze Customers - AR Trigger Rules Test");
 				completeSecondAction(action2, details2);
 				break;
 			case "Send Email":
