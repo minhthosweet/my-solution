@@ -434,11 +434,6 @@ public class CustomerReportsPage extends BasePage {
         }
     }
 
-    public void clickServiceAppointment() {
-        Deprecated.scrollToElementJS(serviceAppointment);
-        Utilities.click(By.xpath(serviceAppointment));
-    }
-
     public void clickCustomerReportsSection(String section) {
         By filterSection = By.xpath("//div[text()='" + section + "']");
         Deprecated.scrollToElementJS(filterSection);
@@ -454,11 +449,6 @@ public class CustomerReportsPage extends BasePage {
     public void typeFromScheduledForDate_ServiceAppointment(String date) {
         Deprecated.scrollToElementJS(serviceAppointmentFromScheduledForDateField);
         Deprecated.type(date, serviceAppointmentFromScheduledForDateField);
-    }
-
-    public void typeCategory_ServiceAppointment(String category) {
-        Deprecated.scrollToElement(serviceAppointmentCategoryMultiField);
-        Deprecated.type(category, Utilities.locate(serviceAppointmentCategoryMultiField));
     }
 
     public void serviceAppointment_TypeCategory(String category) {

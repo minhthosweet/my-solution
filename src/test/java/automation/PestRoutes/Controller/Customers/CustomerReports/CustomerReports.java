@@ -1019,18 +1019,18 @@ public class CustomerReports extends AppData {
         result(autoPayOption.toLowerCase(Locale.ROOT), (customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[4]")).toLowerCase(Locale.ROOT), "Customer Auto Pay ENABLED Validation", " Customer Reports Validation");
     }//validateCustomerInReport()
 
-    @And("I Run The Customer Report After Adding The {string} Column")
-    public void automateRunningCustomerReportAfterAddingSubscriptionLastCompletedColumn(String columnName) {
+    @And("I Add The {string} Column To Customer Reports")
+    public void automateAddingColumnToCustomerReports(String columnName) {
         customersMainPage = dashboardPage.goToCustomersComponent();
         customerReportsPage = customersMainPage.goToCustomerReports();
         customerReportsPage.clickSavedReports();
         customerReportsPage.clickSelectColumnsToDisplayLink();
         customerReportsPage.displayColumnOnReport(columnName);
-        customerReportsPage.clickRunReport();
     }
 
-    @And("I Sort The Subscription Last Completed Column 2 Times")
+    @And("I Run & Sort The Subscription Last Completed Column 2 Times")
     public void automateSortingSubscriptionLastCompletedColumnTwice() {
+        customerReportsPage.clickRunReport();
         customerReportsPage.clickHeaderSubscriptionLastCompleted();
         customerReportsPage.clickHeaderSubscriptionLastCompleted();
     }
@@ -1048,12 +1048,12 @@ public class CustomerReports extends AppData {
         softAssert.assertAll();
     }
 
-    @Given("I Navigate To The Service Appointment Section via Customer Reports")
-    public void automateNavigatingToServiceAppointmentSection() {
+    @Given("I Navigate To The {string} Section After Accessing Customer Reports")
+    public void automateNavigatingToFilterSectionAfterAccessingCustomerReports(String filterSection) {
         customersMainPage = dashboardPage.goToCustomersComponent();
         customerReportsPage = customersMainPage.goToCustomerReports();
         customerReportsPage.clickSavedReports();
-        customerReportsPage.clickServiceAppointment();
+        customerReportsPage.clickCustomerReportsSection(filterSection);
     }
 
     @When("I Set Scheduled For Date Range From One Year Ago To Today")
@@ -1067,10 +1067,10 @@ public class CustomerReports extends AppData {
 
     @And("I Set Category To {string}, {string}, {string}, & {string}")
     public void automateSettingCategoryToMultipleValues(String category1, String category2, String category3, String category4) {
-        customerReportsPage.typeCategory_ServiceAppointment(category1);
-        customerReportsPage.typeCategory_ServiceAppointment(category2);
-        customerReportsPage.typeCategory_ServiceAppointment(category3);
-        customerReportsPage.typeCategory_ServiceAppointment(category4);
+        customerReportsPage.serviceAppointment_TypeCategory(category1);
+        customerReportsPage.serviceAppointment_TypeCategory(category2);
+        customerReportsPage.serviceAppointment_TypeCategory(category3);
+        customerReportsPage.serviceAppointment_TypeCategory(category4);
     }
 
     @Then("I Verify The Customer Report # of Results After Setting Show Tech Notes To {string}")
