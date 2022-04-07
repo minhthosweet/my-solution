@@ -282,8 +282,8 @@ Feature: Customer reports end to end validation
   Scenario: Verify Results Do Not Disappear When Sorting CR Column Subscription Last Completed
     Given I Create A Customer With A Subscription
     When  I Complete An Appointment
-    And   I Add The "Subscription Last Completed" Column To Customer Reports
-    And   I Run & Sort The Subscription Last Completed Column 2 Times
+    And   I Run The Customer Report After Adding The "Subscription Last Completed" Column
+    And   I Sort The Subscription Last Completed Column 2 Times
     Then  I Verify The Customer Report Results Are Available By Finding The Customer
 
 # Ticket 121308: Incorrect Results for Saved Customer Report DispatchAfterReport - Pending
@@ -293,7 +293,7 @@ Feature: Customer reports end to end validation
   @RegressionREX_Reports
   @VerifyResultsAreCorrectForShowTechNotes
   Scenario: Verify Correct Results For Customer Report With No Show Tech Notes
-    Given I Navigate To The "Service Appointment" Section After Accessing Customer Reports
+    Given I Navigate To The Service Appointment Section via Customer Reports
     When  I Set Scheduled For Date Range From One Year Ago To Today
     And   I Set Category To "Bi Monthly", "Dynamic", "CLEAN", & "General Pest"
     Then  I Verify The Customer Report # of Results After Setting Show Tech Notes To "No"
@@ -305,7 +305,7 @@ Feature: Customer reports end to end validation
   @RegressionREX_Reports
   @VerifyResultsAreCorrectForShowTechNotes
   Scenario: Verify Correct Results For Customer Report With Yes Show Tech Notes
-    Given I Navigate To The "Service Appointment" Section After Accessing Customer Reports
+    Given I Navigate To The Service Appointment Section via Customer Reports
     When  I Set Scheduled For Date Range From One Year Ago To Today
     And   I Set Category To "Bi Monthly", "Dynamic", "CLEAN", & "General Pest"
     Then  I Verify The Customer Report # of Results After Setting Show Tech Notes To "Yes"

@@ -142,6 +142,8 @@ public class CustomerviewDialog_AppointmentsTab extends BasePage {
     public void clickSaveAndCompleteButton() {
         if (Deprecated.isVisible(serviceNotes_Complete)) {
             Deprecated.clickElement(saveAndCompleteButton_InCompletingApptDialog);
+        }else {
+            Deprecated.clickElement(saveAndCompleteButton_InCompletingApptDialog);
         }
     }
 
