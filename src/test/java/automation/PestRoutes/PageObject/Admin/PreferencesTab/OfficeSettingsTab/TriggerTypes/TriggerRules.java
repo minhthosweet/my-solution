@@ -195,7 +195,7 @@ public class TriggerRules extends PreferencesPage {
                 Deprecated.scrollToElementJS(editButton);
                 Utilities.locate(editButton).click();
                 typeStartDate(date);
-                Utilities.selectByText(activeDropDown, "Active");
+                selectByText(activeDropDown, "Active");
                 removeAllMultiDropDownSelections();
                 clickToRemoveAction();
                 return true;
@@ -222,7 +222,7 @@ public class TriggerRules extends PreferencesPage {
 
     public String getTriggerURL(String triggerName) {
         delay(3000);
-        String officeID = Utilities.locate(selectedOffice).getAttribute("value");
+        String officeID = getAttribute(selectedOffice, "value");
         return getData("url", environment) + "resources/scripts/" + triggerName +
                 ".php?debug=1&office=" + officeID + "&testing=1";
 

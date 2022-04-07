@@ -21,7 +21,7 @@ Feature: Auto Payment Trigger Rule
     When  I Complete The "Process Auto Payment" Action
     And   I Add "Auto Payment Automation Trigger Rule" Flag To The Customer With A New Invoice
     And   I Select Credit Card "CC - Visa - 1111" For Auto Pay Using "Braintree", "4111 1111 1111 1111", "12/25", "234"
-    And   I Execute Trigger "triggerAutoPay"
+    And   I Reset The Most Recent Date Trigger Before Executing A Trigger Called "triggerAutoPay"
     Then  I Verify The Customer Has A Fully Paid Balance After Being Charged via Auto Pay
 
 # Ticket 114795: AutoPay Trigger Rule Not Charging Certain Customers
@@ -34,5 +34,5 @@ Feature: Auto Payment Trigger Rule
     When  I Complete The "Process Auto Payment" Action
     And   I Add "Auto Payment Automation Trigger Rule" Flag To The Customer With A New Invoice
     And   I Select Bank Account For Auto Pay
-    And   I Execute Trigger "triggerAutoPay"
+    And   I Reset The Most Recent Date Trigger Before Executing A Trigger Called "triggerAutoPay"
     Then  I Verify The Customer Has A Fully Paid Balance After Being Charged via Auto Pay

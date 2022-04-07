@@ -10,7 +10,6 @@ import automation.PestRoutes.PageObject.DashboardPage;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.When;
 
-
 import static automation.PestRoutes.Utilities.Data.GetDate.currentDate;
 
 public class AutoPaymentTest {
