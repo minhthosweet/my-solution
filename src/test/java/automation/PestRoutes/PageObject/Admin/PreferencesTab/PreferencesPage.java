@@ -92,6 +92,7 @@ public class PreferencesPage extends AdminMainPage {
 	public void clickMerchantinfolink(){
 		click(merchantInfo);
 	}
+
 	public MarchantInfoPage clickMerchantInfo(){
 		click(merchantInfo);
 		return new MarchantInfoPage();
@@ -133,4 +134,9 @@ public class PreferencesPage extends AdminMainPage {
 	public void selectUseConsolidatedInvoicing(String option){
 		Utilities.selectByText(useConsolidatedInvoicing, option);
 	}//clickSave_BillingPreferences()
+
+	public void clickCustomerCommunication() {
+		Deprecated.scrollToElementJS(customerCommunication);
+		click(By.xpath(customerCommunication));
+	}
 }

@@ -27,6 +27,12 @@ public class AppointmentStatusPage extends PreferencesPage {
     private By addTaskEmployeeDropDown = By.xpath("//select[@id='observerItem' and @data-observeritemtype='employeeID']");
     private By addTaskDaysTillDueField = By.xpath("//input[@id='observerItem' and @data-observeritemtype='daysDue']");
     private By addTaskCategoryDropDown = By.xpath("//select[@id='observerItem' and @data-observeritemtype='category']");
+    private By includeServiceTypesMultiDropDown = By.xpath("//label[text()='Include Service Types']/parent::div[@class='col-6']//following-sibling::div/div//ul//input");
+    private By includeDivisionsMultiDropDown = By.xpath("//label[text()='Include Divisions']/parent::div[@class='col-6']//following-sibling::div/div//ul//input");
+    private By excludeSubscriptionFlagsDropDown = By.xpath("//label[text()='Exclude Subscription Flags']/parent::div[@class='col-6']//following-sibling::div/div//ul//input");
+    private By notificationBufferDropDown = By.xpath("//select[@data-ruleitemtype='rescheduleTriggerWhen']");
+    private By incrementField = By.xpath("//input[@data-ruleitemtype='rescheduleTriggerWhenValue']");
+    private By isInitialServiceDropDown = By.xpath("//label[text()='Is Initial Service']//following::div//select[@name='filterItemValue']");
 
     public void selectStatusChangedTo(String changeStatus) {
         Deprecated.scrollToElementJS(statusChangedToDropDown);
@@ -50,6 +56,48 @@ public class AppointmentStatusPage extends PreferencesPage {
         Deprecated.scrollToElementJS(includeCustomerFlagsMultiField);
         Deprecated.type(flagCode, includeCustomerFlagsMultiField);
         System.out.println("Customer Flag: " + flagCode);
+        return false;
+    }
+
+    public boolean typeIncludeServiceType(String serviceType) {
+        List<WebElement> allServiceTypes = locateAll(By.xpath("//label[text()='Include Service Types']/parent::div[@class='col-6']//following-sibling::div/div//ul//div"));
+        WebElement includeServiceTypesMultiField = locate(includeServiceTypesMultiDropDown);
+        for (WebElement service : allServiceTypes) {
+            if (service.getText().contains(serviceType)) {
+                return true;
+            }
+        }
+        Deprecated.scrollToElementJS(includeServiceTypesMultiField);
+        Deprecated.type(serviceType, includeServiceTypesMultiField);
+        System.out.println("Service Type: " + serviceType);
+        return false;
+    }
+
+    public boolean typeIncludeDivisions(String division) {
+        List<WebElement> allDivisions = locateAll(By.xpath("//label[text()='Include Divisions']/parent::div[@class='col-6']//following-sibling::div/div//ul//div"));
+        WebElement includeDivisionsMultiField = locate(includeDivisionsMultiDropDown);
+        for (WebElement tempDivision : allDivisions) {
+            if (tempDivision.getText().contains(division)) {
+                return true;
+            }
+        }
+        Deprecated.scrollToElementJS(includeDivisionsMultiField);
+        Deprecated.type(division, includeDivisionsMultiField);
+        System.out.println("Division: " + division);
+        return false;
+    }
+
+    public boolean typeExcludeSubscriptionFlag(String subscriptionFlag) {
+        List<WebElement> allExcludedSubscriptionFlags = locateAll(By.xpath("//label[text()='Exclude Subscription Flags']/parent::div[@class='col-6']//following-sibling::div/div//ul//div"));
+        WebElement excludeSubscriptionFlagsMultiField = locate(excludeSubscriptionFlagsDropDown);
+        for (WebElement excludeFlag : allExcludedSubscriptionFlags) {
+            if (excludeFlag.getText().contains(subscriptionFlag)) {
+                return true;
+            }
+        }
+        Deprecated.scrollToElementJS(excludeSubscriptionFlagsMultiField);
+        Deprecated.type(subscriptionFlag, excludeSubscriptionFlagsMultiField);
+        System.out.println("Subscription Flag: " + subscriptionFlag);
         return false;
     }
 
@@ -184,5 +232,17 @@ public class AppointmentStatusPage extends PreferencesPage {
             return getFirstSelected(addTaskCategoryDropDown);
         }
         return null;
+    }
+
+    public void selectNotificationBuffer(String notificationBuffer) {
+        selectByText(notificationBufferDropDown, notificationBuffer);
+    }
+
+    public void typeIncrement(String increment) {
+        Deprecated.type(increment, incrementField);
+    }
+
+    public void selectIsInitialService(String isInitialService) {
+        selectByText(isInitialServiceDropDown, isInitialService);
     }
 }

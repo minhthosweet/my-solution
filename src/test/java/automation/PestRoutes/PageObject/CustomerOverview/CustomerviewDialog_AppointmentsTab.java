@@ -327,4 +327,13 @@ public class CustomerviewDialog_AppointmentsTab extends BasePage {
     public String getAppointmentTabID(){
         return getText(appointmentID).trim();
     }
+
+    public void clickEditButton() {
+        click(By.xpath(editButton));
+    }
+
+    public void clickReschedule() {
+        click(By.xpath(reScheduleButton));
+        delay(3000);
+    }
 }

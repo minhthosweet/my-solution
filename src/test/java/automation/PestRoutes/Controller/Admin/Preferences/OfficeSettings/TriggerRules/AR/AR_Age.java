@@ -132,13 +132,27 @@ public class AR_Age extends AppData {
         testUserOnInvoicesTab.automateGeneratingStandAloneInvoice();
     }
 
-    @And("I Execute Trigger {string}")
+    @And("I Reset The Most Recent Date Trigger Before Executing A Trigger Called {string}")
     public void automateExecutingTriggerWithEndPoint(String triggerName) {
         String resetTrigger = userOnTriggerRulesPage.resetMostRecentDateTrigger();
         driver.get(resetTrigger);
 
         String triggerURL = userOnTriggerRulesPage.getTriggerURL(triggerName);
         driver.get(triggerURL);
+        driver.close();
+    }
+
+    @And("I Reset The Most Recent Date Trigger Before Executing 2 Triggers Called {string} & {string}")
+    public void automateExecutingTriggerWithMultipleEndPoints(String triggerName1, String triggerName2) {
+        String resetTrigger = userOnTriggerRulesPage.resetMostRecentDateTrigger();
+        WebDriver driver = new ChromeDriver();
+        driver.get(resetTrigger);
+        String triggerURL1 = userOnTriggerRulesPage.getTriggerURL(triggerName1);
+        driver.get(triggerURL1);
+
+        driver.get(resetTrigger);
+        String triggerURL2 = userOnTriggerRulesPage.getTriggerURL(triggerName2);
+        driver.get(triggerURL2);
         driver.close();
     }
 

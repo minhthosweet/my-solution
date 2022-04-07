@@ -17,7 +17,7 @@ Feature: Customer Status Trigger Rule
     Given I Set Up A Trigger Type For "Customer Status" That "Trigger on Save" When Status Changed To "Active"
     And   I Complete "Send Email" Action With "Important" Details
     When  I Add "Customer Status Automation Trigger Rule" Flag To The Customer Before Updating The Customer Status
-    And   I Execute Trigger "triggerQueue"
+    And   I Reset The Most Recent Date Trigger Before Executing A Trigger Called "triggerQueue"
     Then  I Verify The Customer Received "Email" Note After Executing The Trigger
 
   @VerifyStatusChangedForTriggerRuleCustomerStatus
@@ -26,7 +26,7 @@ Feature: Customer Status Trigger Rule
     Given I Set Up A Trigger Type For "Customer Status" That "Trigger on Save" When Status Changed To "Active"
     And   I Complete "Send SMS" Action With "Important" Details
     When  I Add "Customer Status Automation Trigger Rule" Flag To The Customer Before Updating The Customer Status
-    And   I Execute Trigger "triggerQueue"
+    And   I Reset The Most Recent Date Trigger Before Executing A Trigger Called "triggerQueue"
     Then  I Verify The Customer Received "SMS" Note After Executing The Trigger
 
   @VerifyAddTaskForTriggerRuleCustomerStatus
@@ -35,7 +35,7 @@ Feature: Customer Status Trigger Rule
     Given I Set Up A Trigger Type For "Customer Status" That "Trigger on Save" When Status Changed To "Any"
     And   I Complete "Add Task" Action With "Specific Employee" Details
     When  I Add "Customer Status Automation Trigger Rule" Flag To The Customer Before Updating The Customer Status
-    And   I Execute Trigger "triggerQueue"
+    And   I Reset The Most Recent Date Trigger Before Executing A Trigger Called "triggerQueue"
     Then  I Verify Tasks Are Added After Executing The Trigger
 
   @VerifyAddAlertForTriggerRuleCustomerStatus
@@ -44,7 +44,7 @@ Feature: Customer Status Trigger Rule
     Given I Set Up A Trigger Type For "Customer Status" That "Trigger on Save" When Status Changed To "Active"
     And   I Complete "Add Alert" Action With "Important" Details
     When  I Add "Customer Status Automation Trigger Rule" Flag To The Customer Before Updating The Customer Status
-    And   I Execute Trigger "triggerQueue"
+    And   I Reset The Most Recent Date Trigger Before Executing A Trigger Called "triggerQueue"
     Then  I Verify The Alert Has Been Added After Executing The Trigger
 
   @VerifyTriggerSendVoiceNotificationForTriggerRuleCustomerStatus
@@ -53,5 +53,5 @@ Feature: Customer Status Trigger Rule
     Given I Set Up A Trigger Type For "Customer Status" That "Trigger on Save" When Status Changed To "Any"
     And   I Complete "Send Voice" Action With "New Message" Details
     When  I Add "Customer Status Automation Trigger Rule" Flag To The Customer Before Updating The Customer Status
-    And   I Execute Trigger "triggerQueue"
+    And   I Reset The Most Recent Date Trigger Before Executing A Trigger Called "triggerQueue"
     Then  I Verify The Customer Received "Voice" Note After Executing The Trigger

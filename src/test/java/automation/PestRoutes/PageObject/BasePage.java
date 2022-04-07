@@ -33,7 +33,7 @@ public class BasePage {
     public CreateCustomerDialog goToNewCustomerComponent () {
         Deprecated.scrollToElementJS(newCustomerComponent);
         Utilities.click(newCustomerComponent);
-        Utilities.delay(1000);
+        Utilities.delay(3000);
         return new CreateCustomerDialog ();
     }
 

@@ -187,6 +187,7 @@ public class ReminderTab extends PreferencesPage {
 			Utilities.isVisible(emailTypeDropDown);
 			delay(1000);
 			Utilities.selectByText(emailTypeDropDown, emailType);
+			jsScrollTo(emailTextAreaMessage);
 			Deprecated.type(CUSTOM_EMAIL_MESSAGE, emailTextAreaMessage);
 		}
 	}
@@ -198,8 +199,9 @@ public class ReminderTab extends PreferencesPage {
 			Utilities.selectByText(smsTypeDropDown, smsType);
 		} else if (smsType.equalsIgnoreCase("Custom Text Message")){
 			Utilities.isVisible(smsTypeDropDown);
-			delay(1000);
-			Utilities.selectByText(smsTypeDropDown, smsType);
+			delay(1000)
+			Utilities.selectByText(smsTypeDropDown, smsType);;
+			jsScrollTo(textAreaMessageVoiceSMS);
 			Deprecated.type(CUSTOM_SMS_MESSAGE, textAreaMessageVoiceSMS);
 		}
 	}

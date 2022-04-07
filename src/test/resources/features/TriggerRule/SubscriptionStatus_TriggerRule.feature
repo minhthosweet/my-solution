@@ -17,7 +17,7 @@ Feature: Subscription Status Trigger Rule
     Given I Set Up Trigger Type "Subscription Status" That "Trigger on Save" When Status Changed To "Frozen"
     And   I Complete "Send Email" Action With "Important" Details
     When  I Add "Subscription Status Automation Trigger Rule" Flag To The Customer Before Changing The Subscription Status
-    And   I Execute Trigger "triggerQueue"
+    And   I Reset The Most Recent Date Trigger Before Executing A Trigger Called "triggerQueue"
     Then  I Verify The Customer Received "Email" Note After Executing The Trigger
 
   @VerifyStatusChangedForTriggerRuleSubscriptionStatus
@@ -26,7 +26,7 @@ Feature: Subscription Status Trigger Rule
     Given I Set Up Trigger Type "Subscription Status" That "Trigger on Save" When Status Changed To "Frozen"
     And   I Complete "Send SMS" Action With "Important" Details
     When  I Add "Subscription Status Automation Trigger Rule" Flag To The Customer Before Changing The Subscription Status
-    And   I Execute Trigger "triggerQueue"
+    And   I Reset The Most Recent Date Trigger Before Executing A Trigger Called "triggerQueue"
     Then  I Verify The Customer Received "SMS" Note After Executing The Trigger
 
   @VerifyAddTaskForTriggerRuleSubscriptionStatus
@@ -35,7 +35,7 @@ Feature: Subscription Status Trigger Rule
     Given I Set Up Trigger Type "Subscription Status" That "Trigger on Save" When Status Changed To "Frozen"
     And   I Complete "Add Task" Action With "Specific Employee" Details
     When  I Add "Subscription Status Automation Trigger Rule" Flag To The Customer Before Changing The Subscription Status
-    And   I Execute Trigger "triggerQueue"
+    And   I Reset The Most Recent Date Trigger Before Executing A Trigger Called "triggerQueue"
     Then  I Verify Tasks Are Added After Executing The Trigger
 
   @VerifyAddAlertForTriggerRuleSubscriptionStatus
@@ -44,7 +44,7 @@ Feature: Subscription Status Trigger Rule
     Given I Set Up Trigger Type "Subscription Status" That "Trigger on Save" When Status Changed To "Frozen"
     And   I Complete "Add Alert" Action With "Important" Details
     When  I Add "Subscription Status Automation Trigger Rule" Flag To The Customer Before Changing The Subscription Status
-    And   I Execute Trigger "triggerQueue"
+    And   I Reset The Most Recent Date Trigger Before Executing A Trigger Called "triggerQueue"
     Then  I Verify The Alert Has Been Added After Executing The Trigger
 
   @VerifyTriggerSendVoiceNotificationForTriggerRuleSubscriptionStatus
@@ -53,5 +53,5 @@ Feature: Subscription Status Trigger Rule
     Given I Set Up Trigger Type "Subscription Status" That "Trigger on Save" When Status Changed To "Frozen"
     And   I Complete "Send Voice" Action With "New Message" Details
     When  I Add "Subscription Status Automation Trigger Rule" Flag To The Customer Before Changing The Subscription Status
-    And   I Execute Trigger "triggerQueue"
+    And   I Reset The Most Recent Date Trigger Before Executing A Trigger Called "triggerQueue"
     Then  I Verify The Customer Received "Voice" Note After Executing The Trigger

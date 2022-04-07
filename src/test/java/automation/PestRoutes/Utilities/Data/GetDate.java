@@ -5,6 +5,7 @@ import org.apache.commons.lang3.time.*;
 import java.text.*;
 import java.time.Instant;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
@@ -107,10 +108,8 @@ public class GetDate {
 		String input = needDate;
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/dd/uuuu");
 		LocalDate localDate = LocalDate.parse(input, formatter);
-		LocalDate yearLater = localDate.plusDays(1);
-		String formattedDate = yearLater.format(DateTimeFormatter.ofPattern("M/dd/yyyy"));
-		return formattedDate;
-
+		LocalDate dayLater = localDate.plusDays(1);
+		return dayLater.format(DateTimeFormatter.ofPattern("M/dd/yyyy"));
 	}
 	
 	public static String minusOneDayToDate(String needDate) {
@@ -174,7 +173,7 @@ public class GetDate {
 
 	public static String convert_2DigitMonth_2DigitDay_4DigitYear(String date) {
 		// Incoming Date Is Formatted As MM/dd/YYYY
-		// Return Date Is Formatted As M/DD/YYYY
+		// Return Date Is Formatted As M/D/YYYY
 
 		String[] separateYearMonthDay = date.split("/");
 		String month = separateYearMonthDay[0].replaceFirst("^0*", "");
@@ -194,5 +193,16 @@ public class GetDate {
 		Calendar calendar = Calendar.getInstance();
 		String month_day = month_date.format(calendar.getTime());
 		return dayOfWeek + ", " + month_day;
+	}
+
+	public static boolean isTargetTimeBetweenTimeRange(String targetTime, String startTime, String endTime) {
+		LocalTime start = LocalTime.parse("0" + startTime);
+		LocalTime end = LocalTime.parse("0" + endTime);
+		LocalTime actualTime = LocalTime.parse("0" + targetTime);
+
+		if ((! actualTime.isBefore(start) && ! actualTime.isAfter(end))) {
+			return true;
+		}
+		return false;
 	}
 }

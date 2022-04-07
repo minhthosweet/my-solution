@@ -366,7 +366,9 @@ public class AccountReceivable {
             accountReceivable.click(accountReceivable.lastMonth);
         } else if (monthPastDue == 0 && yearsPastDue == 0) {
             accountReceivable.click(accountReceivable.paymentDueDropdown);
+            // Clicking lastWeek Failed In Months That Have 31 Days. For example, 03/31/2022 Needs To Select thisMonth
             accountReceivable.click(accountReceivable.lastWeek);
+            //accountReceivable.click(accountReceivable.thisMonth);
         }
     }
 

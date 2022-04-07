@@ -133,4 +133,9 @@ public class SchedulingAppointmentDialog extends BasePage {
         click(buttonSchedule);
         delay(3000);
     }
+
+    public void clickReschedule() {
+        click(By.xpath(rescheduleButton));
+        delay(3000);
+    }
 }

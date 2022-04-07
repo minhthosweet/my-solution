@@ -6,11 +6,14 @@ import java.util.List;
 
 import automation.PestRoutes.Controller.Admin.Preferences.OfficeSettings.TriggerRules.AR.AR_Age;
 import automation.PestRoutes.Controller.CustomerCreation.CreateNewCustomer;
+import automation.PestRoutes.Controller.Customers.AppointmentsTab.TestScheduledAppointments;
 import automation.PestRoutes.Controller.Subscriptions.AddSubscription;
 import automation.PestRoutes.PageObject.Admin.AdminMainPage;
 import automation.PestRoutes.PageObject.Admin.PreferencesTab.OfficeSettingsTab.TriggerTypes.AppointmentStatusPage;
 import automation.PestRoutes.PageObject.Admin.PreferencesTab.PreferencesPage;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_Header;
+import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_InfoTab;
+import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_SubscriptionTab;
 import automation.PestRoutes.PageObject.DashboardPage;
 import automation.PestRoutes.PageObject.Footer;
 import automation.PestRoutes.Utilities.*;
@@ -18,6 +21,7 @@ import automation.PestRoutes.Utilities.Data.AppData;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 import org.testng.annotations.Test;
 import automation.PestRoutes.Controller.Admin.Preferences.OfficeSettings.TriggerRules.SubscriptionDueForService.CreateTrigger_SubscriptionDueForService;
 import automation.PestRoutes.Controller.Admin.Preferences.OfficeSettings.TriggerRules.CustomerStatus.TriggerOnSave_CustomerStatus;
@@ -46,6 +50,9 @@ public class TriggerOnSave_AppointmentStatus extends AppData {
     CustomerViewDialog_Header sameUser = new CustomerViewDialog_Header();
     Footer footer = new Footer();
     CreateNewCustomer testCustomer = new CreateNewCustomer();
+    CustomerViewDialog_InfoTab userOnInfoTab = new CustomerViewDialog_InfoTab();
+    CustomerViewDialog_SubscriptionTab userOnSubscriptionTab = new CustomerViewDialog_SubscriptionTab();
+    TestScheduledAppointments testAppointment = new TestScheduledAppointments();
 
     private String description_TriggerOnSave = "TriggerOnSave_AppointmentStatus";
     public List list = new ArrayList<String>();
@@ -175,5 +182,87 @@ public class TriggerOnSave_AppointmentStatus extends AppData {
         footer.clickCustomerFromList(testCustomer.customerName);
         testCustomer.removeCustomer();
         softAssert.assertAll();
+    }
+
+    @Given("I Set Up {string} Trigger That {string} When Status Changed To {string} For {string} & {string}")
+    public void automateSettingUpTriggerTypeAppointmentStatusWithMultipleFilters(String trigger, String whenToTrigger, String changeStatus, String serviceType, String division) {
+        userOnAdminComponent = userOnDashboard.goToAdminComponent();
+        userOnPreferences = userOnAdminComponent.clickPreferencesSubComponent();
+        userOnTriggerRulesPage = userOnPreferences.clickTriggerRules();
+        userOnTriggerRulesPage.addActiveTrigger
+                (trigger, trigger + " Automation Trigger", currentDate("MM/dd/yy"));
+        userSelectsAppointmentStatusTrigger.selectStatusChangedTo(changeStatus);
+        userSelectsAppointmentStatusTrigger.selectWhenToTrigger(whenToTrigger);
+        userSelectsAppointmentStatusTrigger.typeIncludeServiceType(serviceType);
+        userSelectsAppointmentStatusTrigger.typeIncludeDivisions(division);
+        userSelectsAppointmentStatusTrigger.selectAppointmentType("Include Stand-Alone and Reservice Appointments");
+        userSelectsAppointmentStatusTrigger.typeIncludeCustomerFlag(testTrigger.genericFlag);
+    }
+
+    @When("I Add {string} Flag, {string}, {string} To The Customer Before Scheduling An Appointment")
+    public void automateSettingUpCustomerWithFlagDivisionServiceTypeAndScheduleAppointment(String flagCode, String division, String serviceType) {
+        testCustomer.createCustomerWithBasicInfo();
+        userOnInfoTab = sameUser.goToInfoTab();
+        userOnInfoTab.selectCustomerGenericFlag(flagCode);
+        userOnInfoTab.selectDivision(division);
+        sameUser.goToSubscriptionTab();
+        userOnSubscriptionTab.clickNewSubscription();
+        userOnSubscriptionTab.selectRecurringServiceType(serviceType);
+        sameUser.clickSaveButton();
+        testAppointment.automateSchedulingAppointment();
+    }
+
+    @Given("I Set Up {string} Trigger That {string} When Status Changed To {string} With Excluded {string}")
+    public void automateSettingUpAppointmentStatusTriggerWithExcludeSubscriptionFlag(String trigger, String whenToTrigger, String changeStatus, String excludeSubscriptionFlag) {
+        userOnAdminComponent = userOnDashboard.goToAdminComponent();
+        userOnPreferences = userOnAdminComponent.clickPreferencesSubComponent();
+        userOnTriggerRulesPage = userOnPreferences.clickTriggerRules();
+        userOnTriggerRulesPage.addActiveTrigger
+                (trigger, trigger + " Automation Trigger", currentDate("MM/dd/yy"));
+        userSelectsAppointmentStatusTrigger.selectStatusChangedTo(changeStatus);
+        userSelectsAppointmentStatusTrigger.selectWhenToTrigger(whenToTrigger);
+        userSelectsAppointmentStatusTrigger.selectAppointmentType("Include Stand-Alone and Reservice Appointments");
+        userSelectsAppointmentStatusTrigger.typeIncludeCustomerFlag(testTrigger.genericFlag);
+        userSelectsAppointmentStatusTrigger.typeExcludeSubscriptionFlag(excludeSubscriptionFlag);
+    }
+
+    @Given("I Set Up {string} Trigger That Changes To A {string} Status With {string} Notification Buffer For {string} Increment")
+    public void automateRescheduledAppointmentStatusWithNotificationBuffer(String trigger, String changeStatus, String notificationBuffer, String increment) {
+        userOnAdminComponent = userOnDashboard.goToAdminComponent();
+        userOnPreferences = userOnAdminComponent.clickPreferencesSubComponent();
+        userOnTriggerRulesPage = userOnPreferences.clickTriggerRules();
+        userOnTriggerRulesPage.addActiveTrigger
+                (trigger, trigger + " Automation Trigger", currentDate("MM/dd/yy"));
+        userSelectsAppointmentStatusTrigger.selectStatusChangedTo(changeStatus);
+        userSelectsAppointmentStatusTrigger.selectNotificationBuffer(notificationBuffer);
+        userSelectsAppointmentStatusTrigger.typeIncrement(increment);
+        userSelectsAppointmentStatusTrigger.typeIncludeCustomerFlag(testTrigger.genericFlag);
+    }
+
+    @Given("I Set Up {string} Trigger That {string} When {string} Status Changed For {string} & {string}")
+    public void automateSettingUpTriggerTypeAppointmentStatusForServiceTypeAndIsInitialService(String trigger, String whenToTrigger, String changeStatus, String isInitialService, String serviceType) {
+        userOnAdminComponent = userOnDashboard.goToAdminComponent();
+        userOnPreferences = userOnAdminComponent.clickPreferencesSubComponent();
+        userOnTriggerRulesPage = userOnPreferences.clickTriggerRules();
+        userOnTriggerRulesPage.addActiveTrigger
+                (trigger, trigger + " Automation Trigger", currentDate("MM/dd/yy"));
+        userSelectsAppointmentStatusTrigger.selectStatusChangedTo(changeStatus);
+        userSelectsAppointmentStatusTrigger.selectWhenToTrigger(whenToTrigger);
+        userSelectsAppointmentStatusTrigger.selectIsInitialService(isInitialService);
+        userSelectsAppointmentStatusTrigger.typeIncludeServiceType(serviceType);
+        userSelectsAppointmentStatusTrigger.typeIncludeCustomerFlag(testTrigger.genericFlag);
+        userSelectsAppointmentStatusTrigger.selectAppointmentType("Exclude Stand-Alone and Reservice Appointments");
+    }
+
+    @When("I Add {string} Flag & {string} To The Customer Before Scheduling An Appointment")
+    public void automateSettingUpCustomerWithFlagServiceTypeAndScheduleAppointment(String flagCode, String serviceType) {
+        testCustomer.createCustomerWithBasicInfo();
+        userOnInfoTab = sameUser.goToInfoTab();
+        userOnInfoTab.selectCustomerGenericFlag(flagCode);
+        sameUser.goToSubscriptionTab();
+        userOnSubscriptionTab.clickNewSubscription();
+        userOnSubscriptionTab.selectRecurringServiceType(serviceType);
+        sameUser.clickSaveButton();
+        testAppointment.automateSchedulingAppointmentWithServiceTypeSubscription();
     }
 }

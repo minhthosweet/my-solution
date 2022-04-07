@@ -10,6 +10,7 @@ public class CustomerViewDialog_Notes extends BasePage {
     private By logInfoMessage = By.xpath("//div[@id='contactsPanelWrapper']//p");
     private By logInfoContactType = By.xpath("//div[@id='contactsPanelWrapper']//div[@name='contactTypeName']");
     private By logInfoDateAdded = By.xpath("//div[@id='contactsPanelWrapper']//div[@name='contactTypeName']/following-sibling::div");
+    private By statusInfoProcessing = By.xpath("//div[@id='contactsPanelWrapper']//div[@status='processing']");
 
     public String getNotesLogMessage() {
         String message = Utilities.getText(logInfoMessage);
@@ -27,5 +28,19 @@ public class CustomerViewDialog_Notes extends BasePage {
         String dateAdded = Utilities.getText(logInfoDateAdded);
         System.out.println("Contact Date Time: " + dateAdded);
         return dateAdded;
+    }
+
+    public String getStatusInfo() {
+        String status = getText(statusInfoProcessing);
+        System.out.println(status);
+        return status;
+    }
+
+    public String getTimeFromStatus(String date, String AM_PM) {
+        String status = getText(statusInfoProcessing);
+
+        return status.substring(
+                status.indexOf(date) + 9,
+                status.indexOf(" " + AM_PM));
     }
 }

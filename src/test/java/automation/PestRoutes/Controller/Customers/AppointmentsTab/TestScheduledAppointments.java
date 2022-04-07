@@ -132,4 +132,33 @@ public class TestScheduledAppointments {
         userOnSubscriptionTab.clickActivateDeactivateButton();
         userOnSubscriptionTab.clickFreezeSubscriptionButtonOnCancelSubscriptionDialog();
     }
+
+    @When("I Reschedule An Appointment")
+    public void automateReschedulingAnAppointment() {
+        userOnCustomerHeader.searchCustomerWithName(testCustomer.customerName);
+        sameUser.goToAppointmentsTab();
+        userOnAppointmentsTab.clickPendingAppointment("Automation Renewal");
+        userOnAppointmentsTab.clickEditButton();
+        userOnAppointmentsTab.clickReschedule();
+        userOnSchedulingComponent = userOnDashboard.goToSchedulingComponent();
+        userOnSchedulingComponent.clickScheduleDaysAfter("1");
+        userOnRoutePage.selectAvailableAppointment();
+        userOnRoutePage.selectExistingCustomer(testCustomer.customerName);
+        userOnSchedulingDialog.selectTypeOfService("Automation Renewal");
+        userOnSchedulingDialog.selectSubscription("Stand-Alone Service or Reservice");
+        schedulingSubscription = userOnSchedulingDialog.getSubscription();
+        userOnSchedulingDialog.clickReschedule();
+    }
+
+    @When("I Schedule An Appointment From The Routes Page With Service Type Subscription")
+    public void automateSchedulingAppointmentWithServiceTypeSubscription() {
+        userOnSchedulingComponent = userOnDashboard.goToSchedulingComponent();
+        userOnSchedulingComponent.addScheduleDateToProperties();
+        userOnSchedulingComponent.clickScheduleDay();
+        userOnRoutePage.selectAvailableAppointment();
+        userOnRoutePage.selectExistingCustomer(testCustomer.customerName);
+        userOnSchedulingDialog.selectTypeOfService("Automation Renewal");
+        schedulingSubscription = userOnSchedulingDialog.getSubscription();
+        userOnSchedulingDialog.clickBlueScheduleButton();
+    }
 }

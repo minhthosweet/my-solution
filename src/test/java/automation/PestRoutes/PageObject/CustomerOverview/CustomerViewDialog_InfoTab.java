@@ -19,6 +19,7 @@ public class CustomerViewDialog_InfoTab extends BasePage {
     public String email = "//input[@name='email']";
     public String flagOnCustomerCard = "//div[@id='s2id_customerGenericFlags']//ul//div";
     private By genericFlagsDropDown = By.xpath("//select[@id= 'customerGenericFlags']");
+    private By divisionDropDown = By.xpath("//select[@name= 'divisionID']");
 
     public String getTaxRate() {
         String taxRatePercentage = Deprecated.getAttribute(taxRate, "value");
@@ -85,4 +86,7 @@ public class CustomerViewDialog_InfoTab extends BasePage {
         Utilities.selectByText(genericFlagsDropDown, flagCode);
     }
 
+    public void selectDivision(String division) {
+        selectFromDropDown(division, divisionDropDown);
+    }
 }

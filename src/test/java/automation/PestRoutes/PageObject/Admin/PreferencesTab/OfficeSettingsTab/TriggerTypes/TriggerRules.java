@@ -66,6 +66,7 @@ public class TriggerRules extends PreferencesPage {
     private By descriptionField = By.xpath("//form[@id='triggerRuleForm']//input[@name='description']");
     private By startDateField = By.xpath("//form[@id='triggerRuleForm']//input[@name='startDate']");
     private By activeDropDown = By.xpath("//form[@id='triggerRuleForm']//select[@name='active']");
+    private By allMultiDropDownSelections = By.xpath("//form[@id='triggerRuleForm']/div[2]//a");
 
     public void clickSaveButton() {
         Deprecated.scrollToElement(addTriggerButton);
@@ -195,6 +196,7 @@ public class TriggerRules extends PreferencesPage {
                 Utilities.locate(editButton).click();
                 typeStartDate(date);
                 Utilities.selectByText(activeDropDown, "Active");
+                removeAllMultiDropDownSelections();
                 clickToRemoveAction();
                 return true;
             }
@@ -214,10 +216,12 @@ public class TriggerRules extends PreferencesPage {
     }
 
     public String resetMostRecentDateTrigger() {
+        delay(3000);
         return getData("url", environment) + "resources/scripts/internal/resetMostRecentDateTriggered.php";
     }
 
     public String getTriggerURL(String triggerName) {
+        delay(3000);
         String officeID = Utilities.locate(selectedOffice).getAttribute("value");
         return getData("url", environment) + "resources/scripts/" + triggerName +
                 ".php?debug=1&office=" + officeID + "&testing=1";
@@ -243,6 +247,16 @@ public class TriggerRules extends PreferencesPage {
                 Deprecated.scrollToElementJS(editButton);
                 Utilities.locate(editButton).click();
                 break;
+            }
+        }
+    }
+
+    public void removeAllMultiDropDownSelections() {
+        List<WebElement> allMultiSelections = locateAll(allMultiDropDownSelections);
+        for (WebElement selection : allMultiSelections) {
+            if (selection.isDisplayed()) {
+                Deprecated.scrollToElementJS(selection);
+                selection.click();
             }
         }
     }

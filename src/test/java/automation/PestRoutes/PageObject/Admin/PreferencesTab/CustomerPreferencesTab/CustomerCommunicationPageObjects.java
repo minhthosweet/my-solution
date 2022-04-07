@@ -1,7 +1,8 @@
 package automation.PestRoutes.PageObject.Admin.PreferencesTab.CustomerPreferencesTab;
 
 import automation.PestRoutes.PageObject.BasePage;
-import automation.PestRoutes.Utilities.*;
+import automation.PestRoutes.Utilities.Utilities;
+import static automation.PestRoutes.Utilities.Utilities.*;
 import automation.PestRoutes.Utilities.Deprecated;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -114,6 +115,8 @@ public class CustomerCommunicationPageObjects extends BasePage {
     //SMS Window
     private By lblSMSWindow = By.xpath("//*[@id='newPreferenceBody']//span[contains(text(),'SMS Window')]");
     private By inputSMSWindow_StartAndEndTimes = By.xpath("//*[@id='newPreferenceBody']//span[contains(text(),'SMS Window')]//following-sibling::div//input[1]");
+    private By smsStartWindowField = By.xpath("//span[text()='SMS Window:']//following::input");
+    private By smsEndWindowField = By.xpath("//span[text()='SMS Window:']//following::input//following::input[@name='communicationPreferenceContent[]']");
 
     //Voice Window
     private By lblVoiceWindow = By.xpath("//*[@id='newPreferenceBody']//span[contains(text(),'Voice Window')]");
@@ -996,5 +999,24 @@ public class CustomerCommunicationPageObjects extends BasePage {
             Assert.assertEquals(Utilities.isChecked(dayCheckbox),true,"(" + windowSection + "): The checked day WAS NOT save successfully (" + day + ") ...");
          }
     }//savedBlockedWindowCheck()
+
+    public void typeSMS_StartWindowTime(String smsStartTime) {
+        type(smsStartTime, smsStartWindowField);
+    }
+
+    public void typeSMS_EndWindowTime(String smsEndTime) {
+        type(smsEndTime, smsEndWindowField);
+    }
+
+    public void clickDeliverySettingsEditButton() {
+        //delay(2000); // Needed for StagingDemo but not my subdomain. StagingDemo Did Not scrollToElementJS
+        jsScrollTo(lnkEdit_DeliverySettings);
+        click(lnkEdit_DeliverySettings);
+    }
+
+    public void clickDeliverySettingsSaveButton() {
+        jsScrollTo(lnkSave_DeliverySettings);
+        click(lnkSave_DeliverySettings);
+    }
 
 } //CustomerCommunicationPageObjects()

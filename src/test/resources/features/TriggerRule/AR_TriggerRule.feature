@@ -19,7 +19,7 @@ Feature: AR Trigger Rule
     Given I Set Up "AR" Trigger Type That Has "Age" Filter With "No Extra" Filter
     And   I Complete An Action To "Send Email" With "Email Statement" Details
     When  I Add "AR Automation Trigger Rule" Flag To The Customer With A New Invoice
-    And   I Execute Trigger "triggerEvents"
+    And   I Reset The Most Recent Date Trigger Before Executing A Trigger Called "triggerEvents"
     Then  I Verify The Customer Received "Email" Note After Executing The Trigger
 
   @VerifyDaysPastDueSendSMSForTriggerRuleAR
@@ -28,7 +28,7 @@ Feature: AR Trigger Rule
     Given I Set Up "AR" Trigger Type That Has "Days Past Due" Filter With "No Extra" Filter
     And   I Complete An Action To "Send SMS" With "No" Details
     When  I Add "AR Automation Trigger Rule" Flag To The Customer With A New Invoice
-    And   I Execute Trigger "triggerEvents"
+    And   I Reset The Most Recent Date Trigger Before Executing A Trigger Called "triggerEvents"
     Then  I Verify The Customer Received "SMS" Note After Executing The Trigger
 
   @VerifyAgeSendVoiceForTriggerRuleAR
@@ -37,7 +37,7 @@ Feature: AR Trigger Rule
     Given I Set Up "AR" Trigger Type That Has "Age" Filter With "No Extra" Filter
     And   I Complete An Action To "Send Voice" With "New Message" Details
     When  I Add "AR Automation Trigger Rule" Flag To The Customer With A New Invoice
-    And   I Execute Trigger "triggerEvents"
+    And   I Reset The Most Recent Date Trigger Before Executing A Trigger Called "triggerEvents"
     Then  I Verify The Customer Received "Voice" Note After Executing The Trigger
 
   @VerifyDaysPastDueFreezeCustomersForTriggerRuleAR
@@ -46,7 +46,7 @@ Feature: AR Trigger Rule
     Given I Set Up "AR" Trigger Type That Has "Days Past Due" Filter With "Maximum Balance" Filter
     And   I Complete An Action To "Freeze Customers" With "No Contact" Details
     When  I Add "AR Automation Trigger Rule" Flag To The Customer With A New Invoice
-    And   I Execute Trigger "triggerEvents"
+    And   I Reset The Most Recent Date Trigger Before Executing A Trigger Called "triggerEvents"
     Then  I Verify The Customer Received "No Contact" Note After Executing The Trigger
 
   @VerifyDaysPastDueAddFlagsForTriggerRuleAR
@@ -56,7 +56,7 @@ Feature: AR Trigger Rule
     And   I Complete An Action To "Add Flags" With "Automation Flag" Details
     When  I Add "AR Automation Trigger Rule" Flag To The Customer With A New Invoice
     When  I close customer card
-    And   I Execute Trigger "triggerEvents"
+    And   I Reset The Most Recent Date Trigger Before Executing A Trigger Called "triggerEvents"
     Then  I Verify The Customer Received "Automation Flag" After Executing The Trigger
 
 # Ticket 97608: AR Trigger Not Saving Service Type
@@ -77,5 +77,5 @@ Feature: AR Trigger Rule
     And   I Complete 2 Actions To "Freeze Customers" With "No Contact" Details Also "Add Flags" With "Automation Flag" Details
     When  I Add "AR Automation Trigger Rule" Flag To The Customer With A New Invoice
     When  I close customer card
-    And   I Execute Trigger "triggerEvents"
+    And   I Reset The Most Recent Date Trigger Before Executing A Trigger Called "triggerEvents"
     Then  I Verify The Customer Received "Automation Flag" Plus "No Contact" Note After Executing The Trigger
