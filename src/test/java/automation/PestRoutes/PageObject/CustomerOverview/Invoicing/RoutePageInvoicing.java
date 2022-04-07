@@ -6,6 +6,7 @@ import automation.PestRoutes.Utilities.Deprecated;
 import org.openqa.selenium.By;
 
 import static automation.PestRoutes.Utilities.GetWebDriver.*;
+import static automation.PestRoutes.Utilities.Utilities.*;
 
 public class RoutePageInvoicing extends BasePage {
 
@@ -103,7 +104,7 @@ public class RoutePageInvoicing extends BasePage {
 	}
 
 	public String getDaysToPay() {
-		String invoiceDaysToPay = Utilities.getText(daysToPayField);
+		String invoiceDaysToPay = getText(daysToPayField);
 		System.out.println("Days To Pay:   " + invoiceDaysToPay);
 		return invoiceDaysToPay;
 	}
@@ -130,12 +131,12 @@ public class RoutePageInvoicing extends BasePage {
 
 	public String getPaymentBalance(){
 		Utilities.delay(1000);
-		return Utilities.getText(paymentBalanceField);
+		return getText(paymentBalanceField);
 	}
 
 	public String getInvoiceNumber(){
 		Utilities.delay(1000);
-		String invoiceNum = Utilities.getText(invoiceNumber);
+		String invoiceNum = getText(invoiceNumber);
 		String accountInvoiceNumber = invoiceNum.replaceAll(
 				"\\s.*", "");
 		return accountInvoiceNumber;
@@ -143,7 +144,7 @@ public class RoutePageInvoicing extends BasePage {
 
 	public String getInitialBalance(){
 		Utilities.delay(1000);
-		String initialBalanceAmount = Utilities.getText(initialBalance);
+		String initialBalanceAmount = getText(initialBalance);
 		String balanceAmount = initialBalanceAmount.replaceAll(
 				"\\s.*", "");
 		return balanceAmount;
@@ -152,15 +153,15 @@ public class RoutePageInvoicing extends BasePage {
 
 	public String getSubStatusAmount(){
 		Utilities.delay(1000);
-		return Utilities.getText(subStatusAmount);
+		return getText(subStatusAmount);
 	}
 
 	public String getRecentMemo(){
-		return Utilities.getText(recentMemo);
+		return getText(recentMemo);
 	}
 
 	public String getFullyPaidStatus() {
-		String paymentStatus = Utilities.getText(fullyPaidPaymentStatus);
+		String paymentStatus = getText(fullyPaidPaymentStatus);
 		System.out.println("Payment Status: " + paymentStatus);
 		return paymentStatus;
 	}

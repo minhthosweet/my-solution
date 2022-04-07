@@ -17,7 +17,7 @@ Feature: Customer Portal - Billing Tab Displays Accurate Information
     @RegressionREX_Payments
     @VerifyTotalAmountUsingOneTimeCardForEachGateway
     Scenario Outline: Verify Paying Total Amount Using One Time Card For Each Gateway
-      Given I Set Up The Application For "<Gateway>"
+      Given I Set Up The Merchant Info For Credit Card "<Gateway>"
       Given I Create A Customer With A Subscription
       When  I Generate A Stand Alone Invoice
       And   I Navigate To Customer Portal From Customer Card - Admin Tab
@@ -34,7 +34,7 @@ Feature: Customer Portal - Billing Tab Displays Accurate Information
     @RegressionREX_Payments
     @VerifyTotalAmountUsingCardOnFileForEachGateway
     Scenario Outline: Verify Paying Total Amount Using Card On File For Each Gateway
-      Given I Set Up The Application For "<Gateway>"
+      Given I Set Up The Merchant Info For Credit Card "<Gateway>"
       Given I Create A Customer With A Subscription
       When  I Add A Card On File Using "<Gateway>", "<Credit Card #>", "12/25", "234"
       When  I Generate A Stand Alone Invoice
@@ -100,7 +100,7 @@ Feature: Customer Portal - Billing Tab Displays Accurate Information
 
     @VerifyErrorForOneTimeCardTotalAmount
     Scenario Outline: Verify Error Message For Required Fields When Using A One Time Card To Pay Total Amount
-      Given I Set Up The Application For "<Gateway>"
+      Given I Set Up The Merchant Info For Credit Card "<Gateway>"
       Given I Create A Customer With A Subscription
       When  I Generate A Stand Alone Invoice
       And   I Navigate To Customer Portal From Customer Card - Admin Tab

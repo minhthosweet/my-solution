@@ -1,7 +1,8 @@
 package automation.PestRoutes.PageObject.Admin.PreferencesTab.CustomerPreferencesTab;
 
 import automation.PestRoutes.PageObject.BasePage;
-import automation.PestRoutes.Utilities.*;
+import automation.PestRoutes.Utilities.Utilities;
+import static automation.PestRoutes.Utilities.Utilities.*;
 import automation.PestRoutes.Utilities.Deprecated;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -18,7 +19,8 @@ public class GenericFlagsPage extends BasePage {
     private By genericFlagCodeColumnValues = By.xpath("//div[@id='newPreferenceBody']//li/form/div[1]");
 
     public void clickGenericFlagButton() {
-        Utilities.click(genericFlagButton);
+        jsScrollTo(genericFlagButton);
+        click(genericFlagButton);
     }
 
     public void typeGenericFlagCode(String genericFlagCode) {

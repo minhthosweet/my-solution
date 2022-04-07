@@ -105,7 +105,7 @@ public class PreferencesPage extends AdminMainPage {
 
 	public GenericFlagsPage clickGenericFlags() {
 		isVisible(genericFlagsListItem);
-		Deprecated.scrollToElementJS(genericFlagsListItem);
+		jsScrollTo(emailTemplates);
 		click(genericFlagsListItem);
 		return new GenericFlagsPage();
 	}

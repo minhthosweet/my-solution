@@ -10,6 +10,7 @@ import automation.PestRoutes.PageObject.DashboardPage;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.When;
 
+
 import static automation.PestRoutes.Utilities.Data.GetDate.currentDate;
 
 public class AutoPaymentTest {
@@ -29,7 +30,7 @@ public class AutoPaymentTest {
         userOnTriggerRulesPage = userOnPreferences.clickTriggerRules();
         userOnTriggerRulesPage.addActiveTrigger
                 (trigger, trigger + " Automation Trigger", currentDate("MM/dd/yy"));
-        triggerAR.typeFlagToInclude(testTrigger.genericFlag);
+        userOnAutoPaymentPage.typeFlagToInclude(testTrigger.genericFlag);
     }
 
     @When("I Complete The {string} Action")

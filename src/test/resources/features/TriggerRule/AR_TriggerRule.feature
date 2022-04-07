@@ -67,3 +67,15 @@ Feature: AR Trigger Rule
     Given I Set Up "AR" Trigger Type That Has "Days Past Due" Filter With "Minimum Balance" Filter
     And   I Complete An Action To "Create Invoices" With "Misc Service" Details
     Then  I Verify The "Misc Service" Service Type Is Not Deleted After Saving The "AR" Trigger Type
+
+# Ticket 127076: AR Trigger Rule Only Completes One Action
+# https://fieldroutes.freshdesk.com/a/tickets/127076
+  @VerifyMoreThanOneActionCompletesForTriggerRuleAR
+  Scenario: Verify More Than One Action Completes For AR Trigger
+    Given I Set Up A Customer "AR Automation Trigger Rule" Flag If The Flag Does Not Exist
+    Given I Set Up "AR" Trigger Type That Has "Days Past Due" Filter With "Minimum Balance" Filter
+    And   I Complete 2 Actions To "Freeze Customers" With "No Contact" Details Also "Add Flags" With "Automation Flag" Details
+    When  I Add "AR Automation Trigger Rule" Flag To The Customer With A New Invoice
+    When  I close customer card
+    And   I Execute Trigger "triggerEvents"
+    Then  I Verify The Customer Received "Automation Flag" Plus "No Contact" Note After Executing The Trigger

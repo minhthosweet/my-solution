@@ -108,8 +108,8 @@ public class ARTab extends PreferencesPage {
 	}
 
 	public boolean typeFlagToInclude(String flagCode) {
-		List<WebElement> allFlags = locateAll(By.xpath("//div[@id='s2id_filterItem11']/ul/li/div"));
-		WebElement includeCustomerFlagsMultiField = Utilities.locate(includeCustomerFlagsMultiDropDown);
+		List<WebElement> allFlags = locateAll(By.xpath("//div[contains(@id,'s2id_filterItem')]/ul/li/div"));
+		WebElement includeCustomerFlagsMultiField = locate(includeCustomerFlagsMultiDropDown);
 		for (WebElement flag : allFlags) {
 			if (flag.getText().contains(flagCode)) {
 				return true;
@@ -141,7 +141,7 @@ public class ARTab extends PreferencesPage {
 
 	public void clickAddActionButton() {
 		isVisible(greenActionButton);
-		Deprecated.scrollToElementJS(greenActionButton);
+		jsScrollTo(greenActionButton);
 		click(greenActionButton);
 	}
 
@@ -199,6 +199,73 @@ public class ARTab extends PreferencesPage {
 				break;
 			case "Send Voice":
 				completeActionSendVoice(details);
+				break;
+		}
+	}
+
+	public void completeTwoActions(String action1, String details1, String action2, String details2) {
+		isVisible(actionDropDown);
+		delay(1000);
+		selectByText(actionDropDown, action1);
+		switch (action1) {
+			case "Add Flags":
+				isVisible(flagsField);
+				Deprecated.type(details1, flagsField);
+				completeSecondAction(action2, details2);
+				break;
+			case "Create Invoices":
+				selectByText(createInvoicesValueTypeDropDown, "Fixed");
+				Deprecated.type("38.34", createInvoicesValueField);
+				selectByText(createInvoicesServiceTypeDropDown, details1);
+				completeSecondAction(action2, details2);
+				break;
+			case "Freeze Customers":
+				selectByText(freezeCustomersCancellationReasonDropDown, details1);
+				Deprecated.type("Freeze Customers - AR Trigger Rules Test", textArea_Email_FreezeCustomer_Message);
+				completeSecondAction(action2, details2);
+				break;
+			case "Send Email":
+				completeActionSendEmail(details1);
+				completeSecondAction(action2, details2);
+				break;
+			case "Send SMS":
+				completeActionSendSMS(details1);
+				completeSecondAction(action2, details2);
+				break;
+			case "Send Voice":
+				completeActionSendVoice(details1);
+				completeSecondAction(action2, details2);
+				break;
+		}
+	}
+
+	public void completeSecondAction(String action2, String details2) {
+		By secondActionDropDown = By.xpath("//form[@id='triggerRuleForm']//div[2]/div/label//following::select[@name='eventObserverID']");
+		clickAddActionButton();
+		isVisible(secondActionDropDown);
+		selectByText(secondActionDropDown, action2);
+		switch (action2) {
+			case "Add Flags":
+				isVisible(flagsField);
+				Deprecated.type(details2, locate(flagsField));
+				break;
+			case "Create Invoices":
+				selectByText(createInvoicesValueTypeDropDown, "Fixed");
+				type(createInvoicesValueField, "38.34");
+				selectByText(createInvoicesServiceTypeDropDown, details2);
+				break;
+			case "Freeze Customers":
+				selectByText(freezeCustomersCancellationReasonDropDown, details2);
+				type(textArea_Email_FreezeCustomer_Message, "Freeze Customers - AR Trigger Rules Test");
+				break;
+			case "Send Email":
+				completeActionSendEmail(details2);
+				break;
+			case "Send SMS":
+				completeActionSendSMS(details2);
+				break;
+			case "Send Voice":
+				completeActionSendVoice(details2);
 				break;
 		}
 	}

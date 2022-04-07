@@ -2,6 +2,7 @@ package automation.PestRoutes.PageObject.Admin.PreferencesTab.OfficeSettingsTab.
 
 import automation.PestRoutes.PageObject.Admin.PreferencesTab.OfficeSettingsTab.OfficeSettingsObjects;
 import automation.PestRoutes.PageObject.Admin.PreferencesTab.PreferencesPage;
+import automation.PestRoutes.Utilities.Utilities;
 import automation.PestRoutes.Utilities.*;
 
 import static automation.PestRoutes.Utilities.Data.AppData.*;
@@ -174,9 +175,12 @@ public class TriggerRules extends PreferencesPage {
     }
 
     public void clickToRemoveAction() {
-        if (isVisible(removeActionButton)) {
-            Deprecated.scrollToElementJS(removeActionButton);
-            click(removeActionButton);
+        List<WebElement> allRemoveActionButtons = locateAll(removeActionButton);
+        for (WebElement removeButton : allRemoveActionButtons) {
+            if (removeButton.isDisplayed()) {
+                Deprecated.scrollToElementJS(removeButton);
+                click(removeActionButton);
+            }
         }
     }
 

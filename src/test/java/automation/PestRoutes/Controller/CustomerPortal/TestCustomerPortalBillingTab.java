@@ -177,13 +177,23 @@ public class TestCustomerPortalBillingTab {
         softAssert.assertAll();
     }
 
-    @Given("I Set Up The Application For {string}")
-    public void automateSettingUpTheApplicationForEachGateway (String gateway) {
+    @Given("I Set Up The Merchant Info For Credit Card {string}")
+    public void automateSettingUpTheMerchantInfoForCreditCardGateway (String gateway) {
         userOnAdminComponent = userOnDashboard.goToAdminComponent();
         userOnAdminComponent.clickPreferencesSubComponent();
         userOnPreferences.clickMerchantInfo();
         userOnMerchantInfo.clickEditForDefaultSettings();
         userOnMerchantInfo.selectCreditCardGateway(gateway);
+        userOnMerchantInfo.clickSaveForDefaultSettings();
+    }
+
+    @Given("I Set Up The Merchant Info For ACH {string}")
+    public void automateSettingUpTheMerchantInfoForACHGateway (String gateway) {
+        userOnAdminComponent = userOnDashboard.goToAdminComponent();
+        userOnAdminComponent.clickPreferencesSubComponent();
+        userOnPreferences.clickMerchantInfo();
+        userOnMerchantInfo.clickEditForDefaultSettings();
+        userOnMerchantInfo.selectACHGateway(gateway);
         userOnMerchantInfo.clickSaveForDefaultSettings();
     }
 

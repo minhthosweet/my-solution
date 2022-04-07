@@ -122,7 +122,7 @@ public class AR_Age extends AppData {
     }
 
     @When("I Add {string} Flag To The Customer With A New Invoice")
-    public void automateSettingUpCustomerWithFlagSubscriptionAndInvoice(String flagCode) throws Exception {
+    public void automateSettingUpCustomerWithFlagSubscriptionAndInvoice(String flagCode) {
         InvoicingTab testUserOnInvoicesTab = new InvoicingTab();
         testUser.createCustomerWithBasicInfo();
         userOnInfoTab = sameUser.goToInfoTab();
@@ -198,6 +198,41 @@ public class AR_Age extends AppData {
                 "\n Customer Did Not Receive " + noteDetail + " On The Correct Date" +
                         "\n Expected Date: " + expectedDateAdded +
                         "\n Actual Date:   " + userOnNotesTab.getNotesDateAdded() + "\n");
+        sameUser.goToAdminTab();
+        userOnAdminTab.clickRemoveButton();
+        userOnAdminTab.clickConfirmRemoveButton();
+        softAssert.assertAll();
+    }
+
+    @And("I Complete 2 Actions To {string} With {string} Details Also {string} With {string} Details")
+    public void automateCompletingTwoActions(String action1, String details1, String action2, String details2) {
+        triggerAR.clickAddActionButton();
+        triggerAR.completeTwoActions(action1, details1, action2, details2);
+        triggerAR.clickSaveButton();
+    }
+
+    @Then("I Verify The Customer Received {string} Plus {string} Note After Executing The Trigger")
+    public void testCustomerReceivedAddedFlagPlusNote(String additionalFlag, String noteDetail) {
+        userOnHeader.searchCustomerWithName(testCustomer.customerName);
+        boolean isGenericFlagDisplayedOnOverviewTab = userOnOverviewTab.getAlert(genericFlag);
+        boolean isAdditionalFlagDisplayedOnOverviewTab = userOnOverviewTab.getAlert(additionalFlag);
+        softAssert.assertTrue(isGenericFlagDisplayedOnOverviewTab,
+                "\n" + genericFlag + " Is Not Displayed On The Overview Tab After Executing Trigger" );
+        softAssert.assertTrue(isAdditionalFlagDisplayedOnOverviewTab,
+                additionalFlag + " Is Not Displayed On The Overview Tab After Executing Trigger \n" );
+
+        sameUser.goToInfoTab();
+        boolean isGenericFlagDisplayedOnInfoTab = userOnInfoTab.getGenericFlag(genericFlag);
+        boolean isAdditionalFlagDisplayedOnInfoTab = userOnInfoTab.getGenericFlag(additionalFlag);
+        softAssert.assertTrue(isGenericFlagDisplayedOnInfoTab,
+                "\n" + genericFlag + " Is Not Displayed On The Info Tab After Executing Trigger" );
+        softAssert.assertTrue(isAdditionalFlagDisplayedOnInfoTab,
+                additionalFlag + " Is Not Displayed On The Info Tab After Executing Trigger \n" );
+
+        sameUser.goToNotesTab();
+        boolean isNoteSent = userOnNotesTab.getNotesContactType().contains(noteDetail);
+        softAssert.assertTrue(isNoteSent,
+                "Customer Did Not Receive " + noteDetail + " After Executing Trigger");
         sameUser.goToAdminTab();
         userOnAdminTab.clickRemoveButton();
         userOnAdminTab.clickConfirmRemoveButton();

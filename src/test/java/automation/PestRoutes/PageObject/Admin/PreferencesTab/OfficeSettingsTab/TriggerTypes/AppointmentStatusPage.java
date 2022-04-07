@@ -60,7 +60,7 @@ public class AppointmentStatusPage extends PreferencesPage {
 
     public void clickAddActionButton() {
         isVisible(greenActionButton);
-        Deprecated.scrollToElementJS(greenActionButton);
+        jsScrollTo(greenActionButton);
         click(greenActionButton);
     }
 
@@ -121,7 +121,7 @@ public class AppointmentStatusPage extends PreferencesPage {
     }
 
     public void completeSecondAction(String action2, String details) {
-        By secondActionDropDown = By.xpath("//select[@id='observerItem' and @data-observeritemtype='ignoreContactPrefs']//preceding::select[2]");
+        By secondActionDropDown = By.xpath("//form[@id='triggerRuleForm']//div[2]/div/label//following::select[@name='eventObserverID']");
         clickAddActionButton();
         waitVisible(secondActionDropDown);
         Utilities.selectByText(secondActionDropDown, action2);
@@ -140,7 +140,7 @@ public class AppointmentStatusPage extends PreferencesPage {
 
     public void completeTwoAppointmentStatusActions(String action1, String action2, String details) {
         waitVisible(actionDropDown);
-        Utilities.selectByText(actionDropDown, action1);
+        selectByText(actionDropDown, action1);
         switch (action1) {
             case "Add Alert":
                 Deprecated.type("Status - Alert Test For Trigger Rules", textAreaMessageNotes);

@@ -7,6 +7,8 @@ import org.openqa.selenium.By;
 
 import java.util.Locale;
 
+import static automation.PestRoutes.Utilities.Utilities.*;
+
 public class MarchantInfoPage extends BasePage {
 
     //**Default vault settings
@@ -19,6 +21,7 @@ public class MarchantInfoPage extends BasePage {
     private By editDefaultSettings = By.xpath("//form[@name='defaultSettings']/div[text()='edit']");
     private By saveDefaultSettings = By.xpath("//form[@name='defaultSettings']/div[text()='save']");
     private By creditCardGatewayDropDown = By.xpath("//div[@id='merchantInfo']//select[@name='paymentGateway']");
+    private By achGatewayDropDown = By.xpath("//div[@id='merchantInfo']//select[@name='achGateway']");
 
     public final String GATEWAY_BRAINTREE = "Braintree";
     public final String GATEWAY_ELEMENT = "Element";
@@ -41,7 +44,11 @@ public class MarchantInfoPage extends BasePage {
     }
 
     public void selectCreditCardGateway(String creditCardGateway){
-        Utilities.selectByText(creditCardGatewayDropDown, creditCardGateway);
+        selectByText(creditCardGatewayDropDown, creditCardGateway);
+    }
+
+    public void selectACHGateway(String achGateway){
+        selectByText(achGatewayDropDown, achGateway);
     }
 
     public void clickSaveForDefaultSettings(){

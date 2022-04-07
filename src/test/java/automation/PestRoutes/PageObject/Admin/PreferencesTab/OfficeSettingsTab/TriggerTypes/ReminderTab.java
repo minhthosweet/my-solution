@@ -158,8 +158,8 @@ public class ReminderTab extends PreferencesPage {
 	}
 
 	public boolean typeFlagToInclude(String flagCode) {
-		List<WebElement> allFlags = locateAll(By.xpath("//div[@id='s2id_filterItem19']/ul/li/div"));
-		WebElement includeCustomerFlagsMultiField = Utilities.locate(includeCustomerFlagsMultiDropDown);
+		List<WebElement> allFlags = locateAll(By.xpath("//div[contains(@id,'s2id_filterItem')]/ul/li/div"));
+		WebElement includeCustomerFlagsMultiField = locate(includeCustomerFlagsMultiDropDown);
 		for (WebElement flag : allFlags) {
 			if (flag.getText().contains(flagCode)) {
 				System.out.println("Customer Flag: " + flag.getText());
@@ -173,8 +173,8 @@ public class ReminderTab extends PreferencesPage {
 	}
 
 	public void clickAddActionButton() {
-		Utilities.isVisible(greenActionButton);
-		Deprecated.scrollToElementJS(greenActionButton);
+		isVisible(greenActionButton);
+		jsScrollTo(greenActionButton);
 		click(greenActionButton);
 	}
 

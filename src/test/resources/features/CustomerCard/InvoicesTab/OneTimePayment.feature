@@ -17,7 +17,7 @@ Feature: One Time Payments Perform All Renewal Tasks
     @RegressionREX_Payments
     @VerifyApplicationPerformsRenewalTaskAfterSingleUseCC
     Scenario Outline: Defect_Verify Application Performs Renewal Task After Single Use Credit Card Payment
-      Given I Set Up The Application For "<Gateway>"
+      Given I Set Up The Merchant Info For Credit Card "<Gateway>"
       Given I Create A Customer With A Subscription
       When  I Complete An Appointment
       And   I Process A One Time Single Use Card Payment On A Renewal Subscription Using "<Gateway>", "<Credit Card #>", "12/25", "234"

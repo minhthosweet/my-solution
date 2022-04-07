@@ -12,6 +12,7 @@ import org.openqa.selenium.support.ui.Select;
 import java.util.Locale;
 import java.util.Random;
 
+import static automation.PestRoutes.Utilities.Element.WebSelect.*;
 import static automation.PestRoutes.Utilities.GetWebDriver.*;
 import static automation.PestRoutes.Utilities.Utilities.*;
 
@@ -456,13 +457,11 @@ public class BillingPage extends BasePage {
 	}
 
 	public void typeRoutingNumber() {
-		//String[] routingNumber = {"111000614", "051000017", "122101706"};
 		int selectRouting = random.nextInt(routingNumber.length);
 		Deprecated.type(routingNumber[selectRouting], By.xpath(bankAccountRoutingNumberInputField));
 	}
 
 	public void typeAccountNumber() {
-		//String[] accountNumber = {"111222333", "222333444", "333444555"};
 		int selectAccount = random.nextInt(accountNumber.length);
 		Deprecated.type(accountNumber[selectAccount], By.xpath(bankAccountAccountNumberInputField));
 	}
@@ -472,6 +471,6 @@ public class BillingPage extends BasePage {
 	}
 
 	public void selectAutoPay() {
-		Deprecated.selectByIndex(autoPayDropdown, 1);
+		selectByIndex(By.xpath(autoPayDropdown), 1);
 	}
 }

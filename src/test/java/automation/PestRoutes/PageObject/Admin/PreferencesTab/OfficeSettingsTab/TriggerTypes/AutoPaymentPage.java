@@ -9,6 +9,7 @@ import org.openqa.selenium.WebElement;
 import java.util.List;
 
 import static automation.PestRoutes.Utilities.Deprecated.scrollToElementJS;
+import static automation.PestRoutes.Utilities.Utilities.*;
 
 public class AutoPaymentPage extends PreferencesPage {
 
@@ -18,33 +19,33 @@ public class AutoPaymentPage extends PreferencesPage {
     private By actionDropDown = By.xpath("//div[@id='observer']//select[@name='eventObserverID']");
 
     public boolean typeFlagToInclude(String flagCode) {
-        List<WebElement> allFlags = Utilities.locateAll(By.xpath("//div[@id='s2id_filterItem9']/ul/li/div"));
-        WebElement includeCustomerFlagsMultiField = Utilities.locate(includeCustomerFlagsMultiDropDown);
+        List<WebElement> allFlags = locateAll(By.xpath("//div[contains(@id,'s2id_filterItem')]/ul/li/div"));
+        WebElement includeCustomerFlagsMultiField = locate(includeCustomerFlagsMultiDropDown);
         for (WebElement flag : allFlags) {
             if (flag.getText().contains(flagCode)) {
                 return true;
             }
         }
-        Deprecated.scrollToElementJS(includeCustomerFlagsMultiField);
+        scrollToElementJS(includeCustomerFlagsMultiField);
         Deprecated.type(flagCode, includeCustomerFlagsMultiField);
         System.out.println("Customer Flag: " + flagCode);
         return false;
     }
 
     public void clickAddActionButton() {
-        Utilities.isVisible(greenActionButton);
-        Deprecated.scrollToElementJS(greenActionButton);
-        Utilities.click(greenActionButton);
+        isVisible(greenActionButton);
+        scrollToElementJS(greenActionButton);
+        click(greenActionButton);
     }
 
     public void clickSaveButton() {
-        Deprecated.scrollToElementJS(saveTriggerButton);
-        Utilities.click(saveTriggerButton);
+        scrollToElementJS(saveTriggerButton);
+        click(saveTriggerButton);
     }
 
     public void completeProcessAutoPaymentAction(String action) {
-        Utilities.isVisible(actionDropDown);
-        Utilities.delay(1000);
-        Utilities.selectByText(actionDropDown, action);
+        isVisible(actionDropDown);
+        delay(1000);
+        selectByText(actionDropDown, action);
     }
 }
