@@ -1,7 +1,6 @@
 package automation.PestRoutes.PageObject.Admin.PreferencesTab.CustomerPreferencesTab;
 
 import automation.PestRoutes.PageObject.BasePage;
-import automation.PestRoutes.Utilities.Utilities;
 import static automation.PestRoutes.Utilities.Utilities.*;
 import automation.PestRoutes.Utilities.Deprecated;
 import org.openqa.selenium.By;
@@ -31,7 +30,7 @@ public class GenericFlagsPage extends BasePage {
     }
 
     public void clickSave() {
-        Utilities.click(saveButton);
+        click(saveButton);
     }
 
     public void createCustomerGenericFlag(String flagCode, String flagDescription) {
@@ -46,7 +45,7 @@ public class GenericFlagsPage extends BasePage {
     }
 
     public boolean isGenericFlagDisplayed(String flagCode) {
-        List<WebElement> allGenericFlags = Utilities.locateAll(genericFlagCodeColumnValues);
+        List<WebElement> allGenericFlags = locateAll(genericFlagCodeColumnValues);
 
         for (WebElement genericFlag : allGenericFlags) {
             String convertedFlagCode = genericFlag.getText().replaceAll(".+\n", "");
