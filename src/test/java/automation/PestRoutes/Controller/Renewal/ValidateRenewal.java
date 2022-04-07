@@ -261,7 +261,8 @@ public class ValidateRenewal extends AppData {
         overviewHeader = new CustomerViewDialog_Header();
         overviewHeader.navigateTo(overviewHeader.subscriptionTabInDialog);
         String currentDate = GetDate.currentDate("MM/dd/yyyy");
-        String expectedRenewalDate = GetDate.addOneYearToDate(currentDate);
+        String expectedDate = GetDate.addOneYearToDate(currentDate);
+        String expectedRenewalDate =  GetDate.convert_2DigitMonth_2DigitDay_4DigitYear(expectedDate);
         String renewalDate = subscription.getRenewalDate();
         result(expectedRenewalDate, renewalDate, "if renewal date is posted", "Subscription Renewal");
     }
@@ -340,7 +341,8 @@ public class ValidateRenewal extends AppData {
         header = new Header();
         overviewHeader = new CustomerViewDialog_Header();
         customer = new CreateNewCustomer();
-        String expectedRenewalDate = GetDate.addOneYearToDate(currentDate);
+        String expectedDate = GetDate.addOneYearToDate(currentDate);
+        String expectedRenewalDate =  GetDate.convert_2DigitMonth_2DigitDay_4DigitYear(expectedDate);
         //header.Search_A_Customer(getData("customerName", generalData));
         overviewHeader.navigateTo(overviewHeader.subscriptionTabInDialog);
         String renewalDate = subscription.getRenewalDate();

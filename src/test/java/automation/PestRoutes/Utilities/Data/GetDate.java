@@ -172,6 +172,17 @@ public class GetDate {
 		return month + "/" + day + "/" + year;
 	}
 
+	public static String convert_2DigitMonth_2DigitDay_4DigitYear(String date) {
+		// Incoming Date Is Formatted As MM/dd/YYYY
+		// Return Date Is Formatted As M/DD/YYYY
+
+		String[] separateYearMonthDay = date.split("/");
+		String month = separateYearMonthDay[0].replaceFirst("^0*", "");
+		String day = separateYearMonthDay[1].replaceFirst("^0*", "");
+		String year = separateYearMonthDay[2];
+		return month + "/" + day + "/" + year;
+	}
+
 	public static String display_DayOfWeek_Date(String date, String dateFormat) throws ParseException {
 		// Pass In The Date & Format
 		// Return Day of Week & Date (i.e., Sunday, May 8)

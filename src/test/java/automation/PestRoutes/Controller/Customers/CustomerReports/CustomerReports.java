@@ -13,6 +13,7 @@ import automation.PestRoutes.PageObject.Customers.CustomersMainPage;
 import automation.PestRoutes.PageObject.DashboardPage;
 import automation.PestRoutes.PageObject.Header;
 import automation.PestRoutes.Utilities.*;
+import static automation.PestRoutes.Utilities.Utilities.*;
 import automation.PestRoutes.Utilities.Data.*;
 import automation.PestRoutes.Utilities.Deprecated;
 import automation.PestRoutes.Utilities.Report.*;
@@ -516,6 +517,7 @@ public class CustomerReports extends AppData {
         if (!Deprecated.isPresent(customerReportsPage.filterTypes_CR("recurringPrice_CR"))) {
             customerReportsPage.click(customerReportsPage.serviceSubscription);
         }
+        Utilities.delay(1000);
         customerReportsPage.setType(customerReportsPage.filterTypes_CR("recurringPrice_CR"), recurringPrice);
         customerReportsPage.click(customerReportsPage.refreshButton);
     }
@@ -644,7 +646,7 @@ public class CustomerReports extends AppData {
     @When("I create saved filter in Customer Reports")
     public void
     addFilters_savedFilters() throws InterruptedException {
-        customerReportsPage.click(customerReportsPage.savedReports);
+        customerReportsPage.clickCustomerReportsSection("Saved Reports");
         reportName = GetData.generateRandomString(5);
         customerReportsPage.setType(customerReportsPage.filterTypes_CR("newReport_CR"), reportName);
         customerReportsPage.click(customerReportsPage.filterTypes_CR("saveAsNewButton_CR"));

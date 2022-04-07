@@ -293,6 +293,7 @@ public class CustomerReportsPage extends BasePage {
     }
 
     public String getTextValue(By locator) {
+        delay(3000);
         Utilities.waitVisible(locator);
         Deprecated.scrollToElementJS(locator);
         return Utilities.getText(locator);
