@@ -38,6 +38,7 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 import static automation.PestRoutes.Utilities.Report.AssertException.result;
+import static automation.PestRoutes.Utilities.Utilities.*;
 import static java.lang.Double.parseDouble;
 
 public class InvoicingTab extends AppData {
@@ -759,6 +760,21 @@ public class InvoicingTab extends AppData {
         invoicePaymentBalance = userOnInvoicesTab.getPaymentBalance();
     }
 
+    @When("I Generate A Stand Alone Invoice For Specific {string} Amount")
+    public void automateGeneratingStandAloneInvoiceForSpecificAmount(String amount) {
+        RoutePageInvoicing userOnInvoicesTab = new RoutePageInvoicing();
+        CustomerViewDialog_Header sameUser = new CustomerViewDialog_Header();
+        CreateNewInvoicePopUp userOnNewInvoicePopUp = new CreateNewInvoicePopUp();
+        addSubscription = new AddSubscription();
+
+        sameUser.goToInvoicesTab();
+        userOnInvoicesTab.clickNewInvoice();
+        userOnNewInvoicePopUp.typeSubTotal(amount);
+        invoiceSubTotal = userOnNewInvoicePopUp.getSubTotal();
+        userOnNewInvoicePopUp.clickCreateButton();
+        invoicePaymentBalance = userOnInvoicesTab.getPaymentBalance();
+    }
+
     @When("I Generate A Stand Alone Invoice Using A Past Date")
     public void automateGeneratingStandAloneInvoiceUsingPastDate() {
         RoutePageInvoicing userOnInvoicesTab = new RoutePageInvoicing();
@@ -995,7 +1011,7 @@ public class InvoicingTab extends AppData {
         //Schedule and complete 3 appointments
         for(int i=1; i <=3; i++) {
             scheduleAndCompleteServiceAppointment(serviceType);
-            Utilities.delay(4000);
+            delay(4000);
        }
     }//scheduleAndCompleteMultipleAppointmentsForASubscription()
 
@@ -1004,7 +1020,7 @@ public class InvoicingTab extends AppData {
         customerCardHeader = new CustomerViewDialog_Header();
         customerCardHeader.navigateTo(customerCardHeader.invoicesTabInDialog);
 
-        Utilities.delay(2000);
+        delay(2000);
          addonInvoiceNum = invImplementation.getInvoiceNumByIndex(1);
 
         //Add a ticket item add-ons to the invoice
@@ -1032,7 +1048,7 @@ public class InvoicingTab extends AppData {
         billingComponent.selectAllICustomerInvoicesForConsolidation(customerName);
         billingComponent.clickActions();
         billingComponent.clickConsolidateInvoicesAction();
-        Utilities.delay(1000);
+        delay(1000);
 
         createCustomer.searchCustomer();
     }//consolidateAllInvoices()
@@ -1135,7 +1151,7 @@ public class InvoicingTab extends AppData {
 
         //Remove Customers
         createCustomer.removeCustomer(customer2FullName);
-        Utilities.delay(500);
+        delay(500);
         createCustomer.removeCustomer(customer1FullName);
     }//removeLinkedProperties()
 
@@ -1381,4 +1397,31 @@ public class InvoicingTab extends AppData {
        softAssert.assertAll();
        softAssert.assertAll();
    }
+
+    @Then("I Verify The Customer Has An UNPAID Balance After Card Is Declined via Auto Pay")
+    public void testCustomerHasUnPaidBalanceAfterAutoPay() {
+        userOnHeader.searchCustomerWithName(CreateNewCustomer.customerName);
+        sameUser.goToInvoicesTab();
+        String paymentStatus = invoiceRoutesTab.getUnpaidStatus();
+        softAssert.assertTrue(paymentStatus.contains("UNPAID"),
+                "\n The Payment Is Paid" +
+                        "\n Actual Status Is " + paymentStatus);
+    }
+
+    @Then("I Verify Only 1 Transaction Declined Message Shows Up In The Invoices Tab")
+    public void testCustomerHasOneFailedTransactionMessage() {
+        userOnHeader.searchCustomerWithName(CreateNewCustomer.customerName);
+        sameUser.goToInvoicesTab();
+        int actualNumberOfDeclinedTransactions = invoiceRoutesTab.getNumberOfDeclinedTransactions();
+        int expectedNumberOfDeclinedTransactions = 1;
+        softAssert.assertEquals(actualNumberOfDeclinedTransactions, expectedNumberOfDeclinedTransactions,
+                "\n The Actual & Expected Number Of Transactions Do Not Match" +
+                        "\n Actual # Of Transactions:   " + actualNumberOfDeclinedTransactions +
+                        "\n Expected # Of Transactions: " + expectedNumberOfDeclinedTransactions + "\n");
+        sameUser.goToAdminTab();
+        userOnAdminTab.clickRemoveButton();
+        userOnAdminTab.clickConfirmRemoveButton();
+        softAssert.assertAll();
+        softAssert.assertAll();
+    }
 }

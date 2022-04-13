@@ -45,6 +45,19 @@ public class BillingTabTests {
         billingPage.selectAutoPayOption(creditCard);
     }
 
+    @And("I Select Credit Card {string} For Auto Pay Using {string}, {string}, {string}, {string}, With {string} Max Amount")
+    public void automateAddingCreditCardAutoPayWithMaxMonthlyAmount(String creditCard, String gateway, String creditCardNumber, String expirationDate, String cvv, String maxAmount) {
+        billingPage = sameUser.goToBillingTab();
+        billingPage.clickAddPaymentMethod();
+        billingPage.clickCreditCardButton();
+        billingPage.enterNewCardInformation(gateway, creditCardNumber, expirationDate, cvv);
+        billingPage.clickBillingInfo();
+        billingPage.selectAutoPayOption(creditCard);
+        billingPage.typeMaxMonthlyAmount(maxAmount);
+        sameUser.goToInfoTab();
+        sameUser.clickSaveButton();
+    }
+
     @And("I Select Bank Account For Auto Pay")
     public void automateAddingBankAccountAutoPay() {
         billingPage = sameUser.goToBillingTab();

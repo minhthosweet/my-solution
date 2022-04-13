@@ -1,6 +1,6 @@
 # Author: Rex Jones II
 # Auto Payment Trigger Rule
-@RegressionREX
+# @RegressionREX
 @TriggerRule
 @TriggerRules
 @AutoPayment_TriggerRule
@@ -36,3 +36,18 @@ Feature: Auto Payment Trigger Rule
     And   I Select Bank Account For Auto Pay
     And   I Reset The Most Recent Date Trigger Before Executing A Trigger Called "triggerAutoPay"
     Then  I Verify The Customer Has A Fully Paid Balance After Being Charged via Auto Pay
+
+# Card Declines - Payrix
+# https://fieldroutes.atlassian.net/browse/PEST2-1837
+  @VerifyPayrixCardDeclinesAttemptOnlyOneCharge
+  Scenario: Verify Payrix Card Declines Attempt Only One Charge
+    Given I Set Up The Merchant Info For Credit Card "PestRoutes Payments"
+    Given I Set Up A Customer "Auto Payment Automation Trigger Rule" Flag If The Flag Does Not Exist
+    When  I Set Up "Auto Payment" Trigger Type
+    When  I Complete The "Process Auto Payment" Action
+    And   I Add "Auto Payment Automation Trigger Rule" Flag To The Customer With A New Invoice "500.01" Amount
+    And   I Select Credit Card "CC - Visa - 1111" For Auto Pay Using "PestRoutes Payments", "4111 1111 1111 1111", "12/25", "234", With "500.01" Max Amount
+    And   I Reset The Most Recent Date Trigger Before Executing A Trigger Called "triggerAutoPay"
+    Then  I Verify The Customer Has An UNPAID Balance After Card Is Declined via Auto Pay
+    And   I Reset The Most Recent Date Trigger Before Executing A Trigger Called "triggerAutoPay"
+    Then  I Verify Only 1 Transaction Declined Message Shows Up In The Invoices Tab

@@ -133,6 +133,17 @@ public class AR_Age extends AppData {
         testUserOnInvoicesTab.automateGeneratingStandAloneInvoice();
     }
 
+    @When("I Add {string} Flag To The Customer With A New Invoice {string} Amount")
+    public void automateSettingUpCustomerWithFlagSubscriptionAndInvoiceSpecificAmount(String flagCode, String amount) {
+        InvoicingTab testUserOnInvoicesTab = new InvoicingTab();
+        testUser.createCustomerWithBasicInfo();
+        userOnInfoTab = sameUser.goToInfoTab();
+        userOnInfoTab.selectCustomerGenericFlag(flagCode);
+        sameUser.clickSaveButton();
+        testSubscription.createNewSubscriptionWithOnlyServiceType();
+        testUserOnInvoicesTab.automateGeneratingStandAloneInvoiceForSpecificAmount(amount);
+    }
+
     @And("I Reset The Most Recent Date Trigger Before Executing A Trigger Called {string}")
     public void automateExecutingTriggerWithEndPoint(String triggerName) {
         String resetTrigger = userOnTriggerRulesPage.resetMostRecentDateTrigger();

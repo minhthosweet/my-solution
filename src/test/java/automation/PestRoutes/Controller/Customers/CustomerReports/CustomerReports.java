@@ -516,9 +516,11 @@ public class CustomerReports extends AppData {
 //        } catch (Exception e){
 //            System.out.println("Failed at service subscription");
 //        }
-        if (!Deprecated.isPresent(customerReportsPage.filterTypes_CR("recurringPrice_CR"))) {
-            customerReportsPage.click(customerReportsPage.serviceSubscription);
-        }
+//        if (!Deprecated.isPresent(customerReportsPage.filterTypes_CR("recurringPrice_CR"))) {
+//            customerReportsPage.click(customerReportsPage.serviceSubscription);
+//        }
+        customerReportsPage.clickCustomerReportsSection("Saved Reports");
+        customerReportsPage.clickCustomerReportsSection("Service Subscription");
         Utilities.delay(1000);
         customerReportsPage.setType(customerReportsPage.filterTypes_CR("recurringPrice_CR"), recurringPrice);
         customerReportsPage.click(customerReportsPage.refreshButton);

@@ -94,7 +94,7 @@ public class ScheduleAppt extends AppData {
         route = new RoutePage();
         // customRoute.createRouteTemplate();
         route.addGroup();
-        route.addRoutesByQuantity("1");
+        //route.addRoutesByQuantity("1");
     }
 
     @And("I add an appointment")

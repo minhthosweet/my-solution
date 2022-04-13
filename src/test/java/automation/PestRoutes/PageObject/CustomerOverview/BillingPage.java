@@ -3,6 +3,7 @@ package automation.PestRoutes.PageObject.CustomerOverview;
 import automation.PestRoutes.PageObject.BasePage;
 import automation.PestRoutes.Utilities.*;
 import automation.PestRoutes.Utilities.Deprecated;
+import static automation.PestRoutes.Utilities.Deprecated.*;
 import org.apache.commons.lang3.SystemUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
@@ -65,7 +66,7 @@ public class BillingPage extends BasePage {
 	private By billingEmailInputField = By.xpath("//input[@placeholder='Billing Email']");
 	private By billingCompanyNameInputField = By.xpath("//input[@placeholder='Billing Company Name']");
 	private By paymentHoldDateInputField = By.xpath("//input[@name='paymentHoldDate']");
-	public String maxMonthlyChargeInputField = "//input[@name='maxMonthlyCharge']";
+	public String maxMonthlyChargeInputField = "//div[@id='billingSwitches']//input[@name='maxMonthlyCharge']";
 
 	//***Drop downs***
 	public String autoPayDropdown = "//div[@id='billingSwitches']//select[@name='autoPayPaymentProfileID']";
@@ -286,23 +287,22 @@ public class BillingPage extends BasePage {
         click( enterCreditCardButton);
     }//clickEnterCreditCardButton()
 
-
 	public void enterBraintreeNewCardInformation(String cardNumber, String expirationDate, String cvv){
 		driver.switchTo().defaultContent();
 		switchToIframe(brainCcIframe);
-		Deprecated.type(cardNumber, braintreeCardNumberField);
+		type(cardNumber, braintreeCardNumberField);
 		driver.switchTo().defaultContent();
 		String[] separateMonthYear = expirationDate.split("/");
 		String month = separateMonthYear[0];
 		String year = separateMonthYear[1];
 		switchToIframe(brainExpMonthIframe);
-		Deprecated.type(month, braintreeExpirationMonth);
+		type(month, braintreeExpirationMonth);
 		driver.switchTo().defaultContent();
 		switchToIframe(brainExpYearIframe);
-		Deprecated.type(year, braintreeExpirationYear);
+		type(year, braintreeExpirationYear);
 		driver.switchTo().defaultContent();
 		switchToIframe(brainCvvIframe);
-		Deprecated.type(cvv, braintreeCVVField);
+		type(cvv, braintreeCVVField);
 		driver.switchTo().defaultContent();
 		clickSavePaymentMethodButton();
 	}
@@ -310,7 +310,7 @@ public class BillingPage extends BasePage {
 	public void enterElementNewCardInformation(String cardNumber, String expirationDate){
 		click(enterCreditCardButton);
 		switchToIframe(elementIframe);
-		Deprecated.type(cardNumber, elementCardNumberField);
+		type(cardNumber, elementCardNumberField);
 		String[] separateMonthYear = expirationDate.split("/");
 		String month = separateMonthYear[0];
 		String year = separateMonthYear[1];
@@ -322,17 +322,17 @@ public class BillingPage extends BasePage {
 
 	public void enterNMINewCardInformation(String cardNumber, String expirationDate, String cvv) {
 		switchToIframe(nmiCcNumberIframe);
-		Deprecated.type(cardNumber, nmiCardNumberField);
+		type(cardNumber, nmiCardNumberField);
 		driver.switchTo().defaultContent();
 		switchToIframe(nmiExpIframe);
 		String[] separateMonthYear = expirationDate.split("/");
 		String month = separateMonthYear[0];
 		String year = separateMonthYear[1];
 		String expirationMonthYear = month + "/20" + year;
-		Deprecated.type(expirationMonthYear, nmiExpirationDateField);
+		type(expirationMonthYear, nmiExpirationDateField);
 		driver.switchTo().defaultContent();
 		switchToIframe(nmiCvvIframe);
-		Deprecated.type(cvv, nmiCVVField);
+		type(cvv, nmiCVVField);
 		driver.switchTo().defaultContent();
 		clickSavePaymentMethodButton();
 	}
@@ -340,7 +340,7 @@ public class BillingPage extends BasePage {
 	public void enterSpreedlyNewCardInformation(String cardNumber, String expirationDate, String cvv){
 		WebElement iFrameCardNumber = Utilities.locate(By.xpath("//iframe[contains(@id,'spreedly-number-frame')]"));
 		driver.switchTo().frame(iFrameCardNumber);
-		Deprecated.type(cardNumber, spreedlyCardNumber);
+		type(cardNumber, spreedlyCardNumber);
 		driver.switchTo().defaultContent();
 		String[] separateMonthYear = expirationDate.split("/");
 		String month = separateMonthYear[0];
@@ -350,7 +350,7 @@ public class BillingPage extends BasePage {
 		Utilities.selectByText(spreedlyExpirationYear, "20"+ year);
 		WebElement iFrameCVV = Utilities.locate(By.xpath("//iframe[contains(@id,'spreedly-cvv-frame')]"));
 		driver.switchTo().frame(iFrameCVV);
-		Deprecated.type(cvv, spreedlyCVVField);
+		type(cvv, spreedlyCVVField);
 		driver.switchTo().defaultContent();
 		clickSavePaymentMethodButton();
 	}
@@ -358,15 +358,15 @@ public class BillingPage extends BasePage {
 	public void  enterPestRoutesPaymentsNewCardInformation(String cardNumber, String expirationDate, String cvv) {
 		switchToIframe(payrixIframe);
 		switchToIframe(pestRoutesIframeCc);
-		Deprecated.type(cardNumber, pestRoutesPaymentsCardNumber);
+		type(cardNumber, pestRoutesPaymentsCardNumber);
 		driver.switchTo().defaultContent();
 		switchToIframe(payrixIframe);
 		switchToIframe(pestRoutesIframeExp);
-		Deprecated.type(expirationDate, pestRoutesPaymentsExpirationDate);
+		type(expirationDate, pestRoutesPaymentsExpirationDate);
 		driver.switchTo().defaultContent();
 		switchToIframe(payrixIframe);
 		switchToIframe(pestRoutesIframeCvv);
-		Deprecated.type(cvv, pestRoutesPaymentsCVVField);
+		type(cvv, pestRoutesPaymentsCVVField);
 		driver.switchTo().defaultContent();
 		switchToIframe(payrixIframe);
 		clickSavePaymentMethodButton();
@@ -453,17 +453,17 @@ public class BillingPage extends BasePage {
 	}
 
 	public void typeBankName(String bankName) {
-		Deprecated.type(bankName, By.xpath(bankAccountBankNameInputField));
+		type(bankName, By.xpath(bankAccountBankNameInputField));
 	}
 
 	public void typeRoutingNumber() {
 		int selectRouting = random.nextInt(routingNumber.length);
-		Deprecated.type(routingNumber[selectRouting], By.xpath(bankAccountRoutingNumberInputField));
+		type(routingNumber[selectRouting], By.xpath(bankAccountRoutingNumberInputField));
 	}
 
 	public void typeAccountNumber() {
 		int selectAccount = random.nextInt(accountNumber.length);
-		Deprecated.type(accountNumber[selectAccount], By.xpath(bankAccountAccountNumberInputField));
+		type(accountNumber[selectAccount], By.xpath(bankAccountAccountNumberInputField));
 	}
 
 	public void clickSaveBankAccountButton() {
@@ -472,5 +472,9 @@ public class BillingPage extends BasePage {
 
 	public void selectAutoPay() {
 		selectByIndex(By.xpath(autoPayDropdown), 1);
+	}
+
+	public void typeMaxMonthlyAmount(String maxAmount) {
+		type(By.xpath(maxMonthlyChargeInputField), maxAmount);
 	}
 }

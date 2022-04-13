@@ -72,7 +72,7 @@ public class RoutePage extends BasePage {
         Deprecated.scrollToElementJS(route.addRoutesButton);
         route.clickButton(route.addRoutesButton);
         delay(3000);
-        Deprecated.waitVisible("//p[text()= 'Add " + insertQuantity + " Route']");
+        //Deprecated.waitVisible("//p[text()= 'Add " + insertQuantity + " Route']");
         Deprecated.scrollToElementJS("//p[text()= 'Add " + insertQuantity + " Route']");
         Deprecated.clickElement("//p[text()= 'Add " + insertQuantity + " Route']");
     }
@@ -124,7 +124,11 @@ public class RoutePage extends BasePage {
 
     @And("I add a route group")
     public String addGroup() {
-        return addGroup( "TestRoutes", "TestRoutes");
+        if (!locate(By.xpath(addGroup)).isDisplayed()) {
+            return addGroup( "TestRoutes", "TestRoutes");
+        }
+        return null;
+        //return addGroup( "TestRoutes", "TestRoutes");
     }
 
     public String addGroup(String routeGroupName, String grpTemplateName){
@@ -136,6 +140,7 @@ public class RoutePage extends BasePage {
         Deprecated.waitVisible(saveButton);
         Deprecated.clickElement(saveButton);
         String groupID  = getGroupID(routeGroupName);
+        addRoutesByQuantity("1");
         return groupID;
     }//addGroup()
 
