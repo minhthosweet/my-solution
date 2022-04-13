@@ -80,3 +80,20 @@ Feature: Customer Portal - Summary Tab Displays Accurate Information
       When  I Complete An Appointment
       And   I Navigate To Customer Portal From Customer Card - Admin Tab
       Then  I Verify The Technical Review Area And Star Rating Are Displayed via Most Recent Service Section
+
+# (1) Ticket 139235: BETA - Cust portal Link taking customers to Old domain
+# https://fieldroutes.freshdesk.com/a/tickets/139235
+# (2) Ticket 140741: portal links directing to old portal URL
+# https://fieldroutes.freshdesk.com/a/tickets/140741
+  @VerifyCustomerPortalLinkIsDirectedToCorrectURL
+  Scenario: Verify Customer Portal Link Is Directed To The Correct URL
+    Given I Create A Customer With Basic Information
+    And   I Navigate To Customer Portal From Customer Card - Admin Tab
+    Then  I Verify The URL Contains The Correct SubDomain
+
+
+
+
+
+
+

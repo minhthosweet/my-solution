@@ -4,6 +4,8 @@ import automation.PestRoutes.PageObject.SignInPage.LoginPage;
 import automation.PestRoutes.Utilities.Data.AppData;
 import automation.PestRoutes.Utilities.GetWebDriver;
 import io.cucumber.java.en.Given;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 
 public class SignIn extends AppData{
 	LoginPage login;
@@ -31,6 +33,14 @@ public class SignIn extends AppData{
 	@Given ("I clear cache and reload the browser")
 	public void browserReload() throws Exception{
 		GetWebDriver.reloadBrowser();
+	}
+
+	@Given("I Log Into The Application via URL {string}, Username {string}, Password {string}")
+	public void logIntoApplication(String url, String username, String password) {
+		WebDriver driver;
+		driver = new ChromeDriver();
+		driver.get(url);
+		login.logInToApplication(username, password);
 	}
 
 }

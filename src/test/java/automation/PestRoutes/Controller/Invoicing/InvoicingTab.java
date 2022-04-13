@@ -1422,6 +1422,5 @@ public class InvoicingTab extends AppData {
         userOnAdminTab.clickRemoveButton();
         userOnAdminTab.clickConfirmRemoveButton();
         softAssert.assertAll();
-        softAssert.assertAll();
     }
 }

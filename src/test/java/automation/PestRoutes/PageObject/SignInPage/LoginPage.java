@@ -1,6 +1,10 @@
 package automation.PestRoutes.PageObject.SignInPage;
 
+import automation.PestRoutes.PageObject.DashboardPage;
 import automation.PestRoutes.Utilities.Deprecated;
+import org.openqa.selenium.By;
+
+import static automation.PestRoutes.Utilities.Utilities.*;
 
 public class LoginPage {
 	
@@ -26,4 +30,10 @@ public class LoginPage {
 		Deprecated.locate(Password).sendKeys(needPassword);
 	}
 
+	public DashboardPage logInToApplication(String username, String password) {
+		type(By.xpath(UserName), username);
+		type(By.xpath(Password), password);
+		click(By.xpath(LoginButton));
+		return new DashboardPage();
+	}
 }
