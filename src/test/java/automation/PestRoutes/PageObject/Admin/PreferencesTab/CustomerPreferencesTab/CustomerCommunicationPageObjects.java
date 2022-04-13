@@ -513,7 +513,7 @@ public class CustomerCommunicationPageObjects extends BasePage {
         Legacy.scrollToElementJS(lnkEdit_RequireElectronicConsentAgreement); //(Note: Navigated to the previous field to make sure the desired field is displayed)
         Utilities.click(lnkEdit_RequireElectronicConsentAgreement);
         Utilities.checkBox(chkboxRequireElectronicConsentAgreement);
-        Legacy.type(String.valueOf(testData.get(keyElectronicConsentContent).toString()),rtextareaElectronicConsentContent);
+        type(rtextareaElectronicConsentContent, String.valueOf(testData.get(keyElectronicConsentContent).toString()));
         saveField(lnkSave_RequireElectronicConsentAgreement);
         //updateField(String.valueOf(testData.get(keyElectronicConsentContent).toString()),rtextareaElectronicConsentContent,RTEXTAREA,lnkEdit_InvoiceFooterText);
 
@@ -751,7 +751,7 @@ public class CustomerCommunicationPageObjects extends BasePage {
                 case TEXTAREA:
                 case RTEXTAREA:
                     //System.out.println("*******Input Data: " + value);
-                    Legacy.type(value,webElmField);
+                    type(webElmField, value);
                     boolUpdateFlag = true;
                 break;
 

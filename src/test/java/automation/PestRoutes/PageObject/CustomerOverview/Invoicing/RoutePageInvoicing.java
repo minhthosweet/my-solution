@@ -125,11 +125,11 @@ public class RoutePageInvoicing extends BasePage {
 	}
 
 	public void typeServiceChargeAmount(String serviceCharge){
-		Legacy.type(serviceCharge, serviceChargeField);
+		type(serviceChargeField, serviceCharge);
 	}
 
 	public void typeInitialDiscount(String initialDiscount){
-		Legacy.type(initialDiscount, initialDiscountField);
+		type(initialDiscountField, initialDiscount);
 	}
 
 	public String getPaymentBalance(){

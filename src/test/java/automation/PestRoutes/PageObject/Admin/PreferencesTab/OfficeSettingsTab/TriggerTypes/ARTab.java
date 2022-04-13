@@ -104,7 +104,7 @@ public class ARTab extends PreferencesPage {
 	}
 
 	public void typeAgePastDueDays(String agePastDueDays) {
-		Legacy.type(agePastDueDays, agePastDueDaysField);
+		type(agePastDueDaysField, agePastDueDays);
 	}
 
 	public boolean typeFlagToInclude(String flagCode) {
@@ -148,25 +148,25 @@ public class ARTab extends PreferencesPage {
 	public void completeActionSendEmail(String emailType) {
 		if (emailType.equalsIgnoreCase("Email Statement")) {
 			Utilities.selectByText(emailTypeDropDown, emailType);
-			Legacy.type("Automation Trigger Rule Test", emailTitleField);
+			type(emailTitleField, "Automation Trigger Rule Test");
 		} else if (emailType.equalsIgnoreCase("New Email Message")){
 			Utilities.selectByText(emailTypeDropDown, emailType);
-			Legacy.type("Automation Trigger Rule Test", emailTitleField);
-			Legacy.type("Email - AR Trigger Rules Test", textArea_Email_FreezeCustomer_Message);
+			type(emailTitleField, "Automation Trigger Rule Test");
+			type(textArea_Email_FreezeCustomer_Message, "Email - AR Trigger Rules Test");
 		}
 	}
 
 	public void completeActionSendSMS(String ignoreContactPrefs) {
 		waitVisible(smsIgnoreContactPrefsDropDown);
 		Utilities.selectByText(smsIgnoreContactPrefsDropDown, ignoreContactPrefs);
-		Legacy.type("SMS - AR Trigger Rules Test", textArea_SMS_Voice_Message);
+		type(textArea_SMS_Voice_Message, "SMS - AR Trigger Rules Test");
 	}
 
 	public void completeActionSendVoice(String voiceType) {
 		String voiceMessage = "//select[@name='observerItemValue' and @data-observeritemtype='recordedMessages']";
 		if (voiceType.equalsIgnoreCase("New Message")) {
 			Utilities.selectByText(voiceTypeDropDown, voiceType);
-			Legacy.type("Voice - AR Trigger Rules Test", textArea_SMS_Voice_Message);
+			type(textArea_SMS_Voice_Message, "Voice - AR Trigger Rules Test");
 		} else if (voiceType.equalsIgnoreCase("Pre-recorded Message")) {
 			Utilities.selectByText(voiceTypeDropDown, voiceType);
 			Legacy.selectByIndex(voiceMessage, 0);
@@ -184,12 +184,12 @@ public class ARTab extends PreferencesPage {
 				break;
 			case "Create Invoices":
 				Utilities.selectByText(createInvoicesValueTypeDropDown, "Fixed");
-				Legacy.type("38.34", createInvoicesValueField);
+				type(createInvoicesValueField, "38.34");
 				Utilities.selectByText(createInvoicesServiceTypeDropDown, details);
 				break;
 			case "Freeze Customers":
 				Utilities.selectByText(freezeCustomersCancellationReasonDropDown, details);
-				Legacy.type("Freeze Customers - AR Trigger Rules Test", textArea_Email_FreezeCustomer_Message);
+				type(textArea_Email_FreezeCustomer_Message, "Freeze Customers - AR Trigger Rules Test");
 				break;
 			case "Send Email":
 				completeActionSendEmail(details);

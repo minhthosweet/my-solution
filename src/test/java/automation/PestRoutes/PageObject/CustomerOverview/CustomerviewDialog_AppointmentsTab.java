@@ -315,7 +315,7 @@ public class CustomerviewDialog_AppointmentsTab extends BasePage {
     }
 
     public void typeServiceNotes(String serviceNotes) {
-        Legacy.type(serviceNotes, serviceNotesField);
+        type(serviceNotesField, serviceNotes);
     }
 
     public String getServiceNotes() {

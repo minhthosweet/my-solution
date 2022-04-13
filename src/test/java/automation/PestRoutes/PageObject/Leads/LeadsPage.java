@@ -136,7 +136,7 @@ public class LeadsPage extends BasePage {
 
 	public void typeRecurringServiceTypeAmount(String serviceTypeAmount) {
 		Utilities.delay(1000);
-		Legacy.type(serviceTypeAmount, recurringServiceTypeAmountField);
+		Utilities.type(recurringServiceTypeAmountField, serviceTypeAmount);
 	}
 
 	public String getRecurringServiceTypeAmount() {

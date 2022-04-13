@@ -1,7 +1,6 @@
 package automation.PestRoutes.PageObject.CustomerOverview;
 
 import automation.PestRoutes.PageObject.BasePage;
-import automation.PestRoutes.Utilities.Legacy;
 import automation.PestRoutes.Utilities.Utilities;
 import org.openqa.selenium.By;
 
@@ -28,7 +27,7 @@ public class CustomerViewDialog_Properties extends BasePage {
 
     //******************* Other Method & Functions **************
     public void linkThisProperty(String strPropertyNameOrID){
-       Legacy.type(strPropertyNameOrID,lnkAProperty);
+       Utilities.type(lnkAProperty, strPropertyNameOrID);
        Utilities.hoverClick(lnkAProperty,(By.xpath("//ul[contains(@id,'ui-id')] //li/a[contains(@id,'ui-id')]/span[contains(text(),'" + strPropertyNameOrID + "')]")));
     }//linkThisProperty()
 

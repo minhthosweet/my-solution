@@ -5,7 +5,6 @@ import automation.PestRoutes.Utilities.*;
 import automation.PestRoutes.Utilities.Legacy;
 import org.openqa.selenium.*;
 
-import javax.rmi.CORBA.*;
 import java.util.List;
 
 import static automation.PestRoutes.Utilities.Utilities.*;
@@ -120,9 +119,9 @@ public class AppointmentStatusPage extends PreferencesPage {
         if(assignTo.equalsIgnoreCase("Specific Employee")) {
             Legacy.selectByIndex(addTaskEmployee, 0);
         }
-        Legacy.type("1", addTaskDaysTillDueField);
+        type(addTaskDaysTillDueField, "1");
         Legacy.scrollToElementJS(textAreaMessageNotes);
-        Legacy.type("Status - Task Test For Trigger Rules", textAreaMessageNotes);
+        type(textAreaMessageNotes, "Status - Task Test For Trigger Rules");
         Utilities.selectByText(addTaskCategoryDropDown, "Appt Status");
     }
 
@@ -132,7 +131,7 @@ public class AppointmentStatusPage extends PreferencesPage {
             Utilities.selectByText(voiceTypeDropDown, voiceType);
             isVisible(textAreaMessageNotes);
             Legacy.scrollToElementJS(textAreaMessageNotes);
-            Legacy.type("Status - Voice Test For Trigger Rules", textAreaMessageNotes);
+            type(textAreaMessageNotes, "Status - Voice Test For Trigger Rules");
         } else if (voiceType.equalsIgnoreCase("Pre-recorded Message")) {
             Utilities.selectByText(voiceTypeDropDown, voiceType);
             Legacy.selectByIndex(voiceMessage, 0);
@@ -140,9 +139,9 @@ public class AppointmentStatusPage extends PreferencesPage {
     }
 
     public void completeSendEmailAction() {
-        Legacy.type("Automation Trigger Rule Test", emailTitleField);
+        type(emailTitleField, "Automation Trigger Rule Test");
         Legacy.scrollToElementJS(emailTitleField);
-        Legacy.type("Status - Email Test For Trigger Rules", textArea_EmailMessage);
+        type(textArea_EmailMessage, "Status - Email Test For Trigger Rules");
     }
 
      public void completeStatusAction(String action, String details) {
@@ -151,7 +150,7 @@ public class AppointmentStatusPage extends PreferencesPage {
         switch(action) {
             case "Add Alert":
                 delay(2000);
-                Legacy.type("Status - Alert Test For Trigger Rules", textAreaMessageNotes);
+                type(textAreaMessageNotes, "Status - Alert Test For Trigger Rules");
                 break;
             case "Add Task":
                 completeAddTaskAction(details);
@@ -160,7 +159,7 @@ public class AppointmentStatusPage extends PreferencesPage {
                 completeSendEmailAction();
                 break;
             case "Send SMS":
-                Legacy.type("Status - SMS Test For Trigger Rules", textAreaMessageNotes);
+                type(textAreaMessageNotes, "Status - SMS Test For Trigger Rules");
                 break;
             case "Send Voice":
                 completeSendVoiceAction(details);
@@ -174,13 +173,13 @@ public class AppointmentStatusPage extends PreferencesPage {
         waitVisible(secondActionDropDown);
         Utilities.selectByText(secondActionDropDown, action2);
         if (action2.equalsIgnoreCase("Add Alert")) {
-            Legacy.type("Status - Alert Test For Trigger Rules", textAreaMessageNotes);
+            type(textAreaMessageNotes, "Status - Alert Test For Trigger Rules");
         } else if (action2.equalsIgnoreCase("Add Task")) {
             completeAddTaskAction(details);
         } else if (action2.equalsIgnoreCase("Send Email")) {
             completeSendEmailAction();
         } else if (action2.equalsIgnoreCase("Send SMS")) {
-            Legacy.type("Status - SMS Test For Trigger Rules", textAreaMessageNotes);
+            type(textAreaMessageNotes, "Status - SMS Test For Trigger Rules");
         } else if (action2.equalsIgnoreCase("Send Voice")) {
             completeSendVoiceAction(details);
         }
@@ -191,7 +190,7 @@ public class AppointmentStatusPage extends PreferencesPage {
         selectByText(actionDropDown, action1);
         switch (action1) {
             case "Add Alert":
-                Legacy.type("Status - Alert Test For Trigger Rules", textAreaMessageNotes);
+                type(textAreaMessageNotes, "Status - Alert Test For Trigger Rules");
                 completeSecondAction(action2, details);
                 break;
             case "Add Task":
@@ -203,7 +202,7 @@ public class AppointmentStatusPage extends PreferencesPage {
                 completeSecondAction(action2, details);
                 break;
             case "Send SMS":
-                Legacy.type("Status - SMS Test For Trigger Rules", textAreaMessageNotes);
+                type(textAreaMessageNotes, "Status - SMS Test For Trigger Rules");
                 completeSecondAction(action2, details);
                 break;
             case "Send Voice":

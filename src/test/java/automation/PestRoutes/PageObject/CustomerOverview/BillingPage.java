@@ -12,7 +12,6 @@ import org.openqa.selenium.support.ui.Select;
 import java.util.Locale;
 import java.util.Random;
 
-import static automation.PestRoutes.Utilities.Element.WebSelect.*;
 import static automation.PestRoutes.Utilities.GetWebDriver.*;
 import static automation.PestRoutes.Utilities.Utilities.*;
 
@@ -289,19 +288,19 @@ public class BillingPage extends BasePage {
 	public void enterBraintreeNewCardInformation(String cardNumber, String expirationDate, String cvv){
 		driver.switchTo().defaultContent();
 		switchToIframe(brainCcIframe);
-		Legacy.type(cardNumber, braintreeCardNumberField);
+		type(braintreeCardNumberField, cardNumber);
 		driver.switchTo().defaultContent();
 		String[] separateMonthYear = expirationDate.split("/");
 		String month = separateMonthYear[0];
 		String year = separateMonthYear[1];
 		switchToIframe(brainExpMonthIframe);
-		Legacy.type(month, braintreeExpirationMonth);
+		type(braintreeExpirationMonth, month);
 		driver.switchTo().defaultContent();
 		switchToIframe(brainExpYearIframe);
-		Legacy.type(year, braintreeExpirationYear);
+		type(braintreeExpirationYear, year);
 		driver.switchTo().defaultContent();
 		switchToIframe(brainCvvIframe);
-		Legacy.type(cvv, braintreeCVVField);
+		type(braintreeCVVField, cvv);
 		driver.switchTo().defaultContent();
 		clickSavePaymentMethodButton();
 	}
@@ -309,7 +308,7 @@ public class BillingPage extends BasePage {
 	public void enterElementNewCardInformation(String cardNumber, String expirationDate){
 		click(enterCreditCardButton);
 		switchToIframe(elementIframe);
-		Legacy.type(cardNumber, elementCardNumberField);
+		type(elementCardNumberField, cardNumber);
 		String[] separateMonthYear = expirationDate.split("/");
 		String month = separateMonthYear[0];
 		String year = separateMonthYear[1];
@@ -321,17 +320,17 @@ public class BillingPage extends BasePage {
 
 	public void enterNMINewCardInformation(String cardNumber, String expirationDate, String cvv) {
 		switchToIframe(nmiCcNumberIframe);
-		Legacy.type(cardNumber, nmiCardNumberField);
+		type(nmiCardNumberField, cardNumber);
 		driver.switchTo().defaultContent();
 		switchToIframe(nmiExpIframe);
 		String[] separateMonthYear = expirationDate.split("/");
 		String month = separateMonthYear[0];
 		String year = separateMonthYear[1];
 		String expirationMonthYear = month + "/20" + year;
-		Legacy.type(expirationMonthYear, nmiExpirationDateField);
+		type(nmiExpirationDateField, expirationMonthYear);
 		driver.switchTo().defaultContent();
 		switchToIframe(nmiCvvIframe);
-		Legacy.type(cvv, nmiCVVField);
+		type(nmiCVVField, cvv);
 		driver.switchTo().defaultContent();
 		clickSavePaymentMethodButton();
 	}
@@ -339,7 +338,7 @@ public class BillingPage extends BasePage {
 	public void enterSpreedlyNewCardInformation(String cardNumber, String expirationDate, String cvv){
 		WebElement iFrameCardNumber = Utilities.locate(By.xpath("//iframe[contains(@id,'spreedly-number-frame')]"));
 		driver.switchTo().frame(iFrameCardNumber);
-		Legacy.type(cardNumber, spreedlyCardNumber);
+		type(spreedlyCardNumber, cardNumber);
 		driver.switchTo().defaultContent();
 		String[] separateMonthYear = expirationDate.split("/");
 		String month = separateMonthYear[0];
@@ -349,7 +348,7 @@ public class BillingPage extends BasePage {
 		Utilities.selectByText(spreedlyExpirationYear, "20"+ year);
 		WebElement iFrameCVV = Utilities.locate(By.xpath("//iframe[contains(@id,'spreedly-cvv-frame')]"));
 		driver.switchTo().frame(iFrameCVV);
-		Legacy.type(cvv, spreedlyCVVField);
+		type(spreedlyCVVField, cvv);
 		driver.switchTo().defaultContent();
 		clickSavePaymentMethodButton();
 	}
@@ -357,15 +356,15 @@ public class BillingPage extends BasePage {
 	public void  enterPestRoutesPaymentsNewCardInformation(String cardNumber, String expirationDate, String cvv) {
 		switchToIframe(payrixIframe);
 		switchToIframe(pestRoutesIframeCc);
-		Legacy.type(cardNumber, pestRoutesPaymentsCardNumber);
+		type(pestRoutesPaymentsCardNumber, cardNumber);
 		driver.switchTo().defaultContent();
 		switchToIframe(payrixIframe);
 		switchToIframe(pestRoutesIframeExp);
-		Legacy.type(expirationDate, pestRoutesPaymentsExpirationDate);
+		type(pestRoutesPaymentsExpirationDate, expirationDate);
 		driver.switchTo().defaultContent();
 		switchToIframe(payrixIframe);
 		switchToIframe(pestRoutesIframeCvv);
-		Legacy.type(cvv, pestRoutesPaymentsCVVField);
+		type(pestRoutesPaymentsCVVField, cvv);
 		driver.switchTo().defaultContent();
 		switchToIframe(payrixIframe);
 		clickSavePaymentMethodButton();
@@ -452,17 +451,17 @@ public class BillingPage extends BasePage {
 	}
 
 	public void typeBankName(String bankName) {
-		Legacy.type(bankName, By.xpath(bankAccountBankNameInputField));
+		type(By.xpath(bankAccountBankNameInputField), bankName);
 	}
 
 	public void typeRoutingNumber() {
 		int selectRouting = random.nextInt(routingNumber.length);
-		Legacy.type(routingNumber[selectRouting], By.xpath(bankAccountRoutingNumberInputField));
+		type(By.xpath(bankAccountRoutingNumberInputField), routingNumber[selectRouting]);
 	}
 
 	public void typeAccountNumber() {
 		int selectAccount = random.nextInt(accountNumber.length);
-		Legacy.type(accountNumber[selectAccount], By.xpath(bankAccountAccountNumberInputField));
+		type(By.xpath(bankAccountAccountNumberInputField), accountNumber[selectAccount]);
 	}
 
 	public void clickSaveBankAccountButton() {

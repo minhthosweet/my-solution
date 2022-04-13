@@ -387,7 +387,7 @@ public class CustomerReportsPage extends BasePage {
     }//clickSelectColumnsToDisplayLink()
 
     public void displayColumnOnReport(String colName){
-        Legacy.type(colName,inputSelectColumnsToDisplay);
+        type(inputSelectColumnsToDisplay, colName);
         Utilities.locate(inputSelectColumnsToDisplay).sendKeys(Keys.ENTER);
     }//clickSelectColumnsToDisplayLink()
 
@@ -443,12 +443,12 @@ public class CustomerReportsPage extends BasePage {
 
     public void typeToScheduledForDate_ServiceAppointment(String date) {
         Legacy.scrollToElementJS(serviceAppointmentToScheduledForDateField);
-        Legacy.type(date, serviceAppointmentToScheduledForDateField);
+        type(serviceAppointmentToScheduledForDateField, date);
     }
 
     public void typeFromScheduledForDate_ServiceAppointment(String date) {
         Legacy.scrollToElementJS(serviceAppointmentFromScheduledForDateField);
-        Legacy.type(date, serviceAppointmentFromScheduledForDateField);
+        type(serviceAppointmentFromScheduledForDateField, date);
     }
 
     public void serviceAppointment_TypeCategory(String category) {
@@ -480,8 +480,8 @@ public class CustomerReportsPage extends BasePage {
     }
 
     public void billingAccount_TypePaymentDaysPastDue(String operatorSign, String days) {
-        Legacy.type(operatorSign, billingAccountPaymentDaysPastDueOperatorSign);
-        Legacy.type(days, billingAccountPaymentDaysPastDueField);
+        type(billingAccountPaymentDaysPastDueOperatorSign, operatorSign);
+        type(billingAccountPaymentDaysPastDueField, days);
     }
 
     public String getValueAfterAddingOneColumn(String customerID) {

@@ -304,10 +304,10 @@ public class CustomerPortalBillingTabPage extends CustomerPortalBasePage {
         driver.switchTo().defaultContent();
         switchToIframe("braintree-hosted-field-number");
         Legacy.scrollToElementJS(Utilities.locate(braintreeCardNumberField));
-        Legacy.type(cardNumber, braintreeCardNumberField);
+        type(braintreeCardNumberField, cardNumber);
         driver.switchTo().defaultContent();
         switchToIframe("braintree-hosted-field-expirationDate");
-        Legacy.type(expirationDate, braintreeExpirationDateField);
+        type(braintreeExpirationDateField, expirationDate);
         driver.switchTo().defaultContent();
     }
 
@@ -316,13 +316,13 @@ public class CustomerPortalBillingTabPage extends CustomerPortalBasePage {
             click(enterCreditCardButton);
         }
         switchToIframe("elementSingleFrame");
-        Legacy.type(cardNumber, elementCardNumberField);
+        type(elementCardNumberField, cardNumber);
         String[] separateMonthYear = expirationDate.split("/");
         String month = separateMonthYear[0];
         String year = separateMonthYear[1];
         Utilities.selectByText(elementExpirationMonth, month);
         Utilities.selectByText(elementExpirationYear, "20"+ year);
-        Legacy.type(cvv, elementCVVField);
+        type(elementCVVField, cvv);
         click(elementProcessTransactionButton);
         acceptAlert(10);
         driver.switchTo().defaultContent();
@@ -335,17 +335,17 @@ public class CustomerPortalBillingTabPage extends CustomerPortalBasePage {
         clickUseOneTimeCard();
         switchToIframe("CollectJSInlineccnumber");
         Legacy.scrollToElementJS(Utilities.locate(nmiCardNumberField));
-        Legacy.type(cardNumber, nmiCardNumberField);
+        type(nmiCardNumberField, cardNumber);
         driver.switchTo().defaultContent();
         switchToIframe("CollectJSInlineccexp");
         String[] separateMonthYear = expirationDate.split("/");
         String month = separateMonthYear[0];
         String year = separateMonthYear[1];
         String expirationMonthYear = month + "/20" + year;
-        Legacy.type(expirationMonthYear, nmiExpirationDateField);
+        type(nmiExpirationDateField, expirationMonthYear);
         driver.switchTo().defaultContent();
         switchToIframe("CollectJSInlinecvv");
-        Legacy.type(cvv, nmiCVVField);
+        type(nmiCVVField, cvv);
         driver.switchTo().defaultContent();
     }
 
@@ -353,7 +353,7 @@ public class CustomerPortalBillingTabPage extends CustomerPortalBasePage {
         WebElement iFrameCardNumber = Utilities.locate(By.xpath("//iframe[contains(@id,'spreedly-number-frame')]"));
         driver.switchTo().frame(iFrameCardNumber);
         Legacy.scrollToElementJS(Utilities.locate(spreedlyCardNumber));
-        Legacy.type(cardNumber, spreedlyCardNumber);
+        type(spreedlyCardNumber, cardNumber);
         driver.switchTo().defaultContent();
         String[] separateMonthYear = expirationDate.split("/");
         String month = separateMonthYear[0];
@@ -363,7 +363,7 @@ public class CustomerPortalBillingTabPage extends CustomerPortalBasePage {
         Utilities.selectByText(spreedlyExpirationYear, "20"+ year);
         WebElement iFrameCVV = Utilities.locate(By.xpath("//iframe[contains(@id,'spreedly-cvv-frame')]"));
         driver.switchTo().frame(iFrameCVV);
-        Legacy.type(cvv, spreedlyCVVField);
+        type(spreedlyCVVField, cvv);
         driver.switchTo().defaultContent();
     }
 
@@ -374,13 +374,13 @@ public class CustomerPortalBillingTabPage extends CustomerPortalBasePage {
         clickUseOneTimeCard();
         switchToIframe("payFields-iframe-number");
         Legacy.scrollToElementJS(Utilities.locate(pestRoutesPaymentsCardNumber));
-        Legacy.type(cardNumber, pestRoutesPaymentsCardNumber);
+        type(pestRoutesPaymentsCardNumber, cardNumber);
         driver.switchTo().defaultContent();
         switchToIframe("payFields-iframe-expiration");
-        Legacy.type(expirationDate, pestRoutesPaymentsExpirationDate);
+        type(pestRoutesPaymentsExpirationDate, expirationDate);
         driver.switchTo().defaultContent();
         switchToIframe("payFields-iframe-cvv");
-        Legacy.type(cvv, pestRoutesPaymentsCVVField);
+        type(pestRoutesPaymentsCVVField, cvv);
         driver.switchTo().defaultContent();
     }
 

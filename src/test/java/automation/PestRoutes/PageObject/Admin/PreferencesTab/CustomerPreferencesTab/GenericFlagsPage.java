@@ -2,7 +2,7 @@ package automation.PestRoutes.PageObject.Admin.PreferencesTab.CustomerPreference
 
 import automation.PestRoutes.PageObject.BasePage;
 import static automation.PestRoutes.Utilities.Utilities.*;
-import automation.PestRoutes.Utilities.Legacy;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
@@ -22,11 +22,11 @@ public class GenericFlagsPage extends BasePage {
     }
 
     public void typeGenericFlagCode(String genericFlagCode) {
-        Legacy.type(genericFlagCode, genericFlagCodeField);
+        type(genericFlagCodeField, genericFlagCode);
     }
 
     public void typeGenericFlagDescription(String description) {
-        Legacy.type(description, descriptionField);
+        type(descriptionField, description);
     }
 
     public void clickSave() {

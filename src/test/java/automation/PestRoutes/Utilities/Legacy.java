@@ -186,12 +186,6 @@ public class Legacy {
     }
     // WebSelect.getSelect(locator).getOptions().stream().map(e->e.getText()).collect(Collectors.toList());
 
-    public static void type (String text, By locator) {
-        Utilities.click(locator);
-        Utilities.locate(locator).sendKeys(Keys.CONTROL, "a");
-        Utilities.locate(locator).sendKeys(text);
-    }
-
     public static void type (String text, WebElement elem) {
         elem.sendKeys(Keys.CONTROL, "a");
         elem.sendKeys(text);

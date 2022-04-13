@@ -75,7 +75,7 @@ public class BasePage {
     public void goToCustomerSearchComponent(String customerIDorName) {
         Legacy.scrollToElementJS(customerSearchField);
         Utilities.click(customerSearchField);
-        Legacy.type(customerIDorName, customerSearchField);
+        Utilities.type(customerSearchField, customerIDorName);
         Utilities.click(customer);
         Utilities.delay(1000);
     }

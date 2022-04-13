@@ -217,7 +217,7 @@ public class CreateCustomerDialog extends BasePage {
         Legacy.locate(firstNameInputField).sendKeys(needFirstName);
     }
     public void typeFirstName (String firstName) {
-        Legacy.type(firstName, firstNameField);
+        Utilities.type(firstNameField, firstName);
     }
 
     public void setLastName(String needLastName) {
@@ -225,7 +225,7 @@ public class CreateCustomerDialog extends BasePage {
     }
     
     public void typeLastName (String lastName) {
-        Legacy.type(lastName, lastNameField);
+        Utilities.type(lastNameField, lastName);
     }
 
     public void setCellPhone(String needCellPhoneNumber) {
@@ -262,7 +262,7 @@ public class CreateCustomerDialog extends BasePage {
         Thread.sleep(200);
     }
 
-    public void typeZipCode(String zipCode) { Legacy.type(zipCode, zipCodeField); }
+    public void typeZipCode(String zipCode) { Utilities.type(zipCodeField, zipCode); }
 
     public void setCity(String needCity) throws InterruptedException {
         Thread.sleep(200);
@@ -271,7 +271,7 @@ public class CreateCustomerDialog extends BasePage {
     }
 
     public void typeCity(String city) {
-        Legacy.type(city, cityField);
+        Utilities.type(cityField, city);
     }
 
     public void setTaxPercentage(String needTaxPercentage) {
@@ -342,7 +342,7 @@ public class CreateCustomerDialog extends BasePage {
     }
 
     public void typePropertyAddress(String propertyAddress) {
-        Legacy.type(propertyAddress, propertyAddressField);
+        Utilities.type(propertyAddressField, propertyAddress);
     }
 
     public String getPropertyAddress(){
@@ -361,7 +361,7 @@ public class CreateCustomerDialog extends BasePage {
     }
 
     public void typeEmailAddress(String emailAddress) {
-        Legacy.type(emailAddress, emailAddressField);
+        Utilities.type(emailAddressField, emailAddress);
     }
 
     public String getEmailAddress() {

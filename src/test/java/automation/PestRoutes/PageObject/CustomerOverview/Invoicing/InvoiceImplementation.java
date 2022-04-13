@@ -293,11 +293,11 @@ public class InvoiceImplementation extends BasePage {
     }
 
     public void typePaymentAmount(String paymentAmount) {
-        Legacy.type(paymentAmount, paymentAmtField);
+        type(paymentAmtField, paymentAmount);
     }
 
     public void typeConfirmationAmount(String confirmationAmount)  {
-        Legacy.type(confirmationAmount, confirmAmountField);
+        type(confirmAmountField, confirmationAmount);
     }
 
     public void clickRecordPayment() {
@@ -721,7 +721,7 @@ public class InvoiceImplementation extends BasePage {
     public void clickNMIChargeSingleCardButton() {
         click(nmiChargeSingleCardButton);
     }
-    public void typeAddress(String address) { Legacy.type(address, addressField); }
+    public void typeAddress(String address) { type(addressField, address); }
 
    public void clickProcessTransactionButton(){ click(processTransactionButton); }
 
@@ -737,7 +737,7 @@ public class InvoiceImplementation extends BasePage {
 
     public void typeExpirationDate(String expirationDate) {
         click(expirationDateCheckBox);
-        Legacy.type(expirationDate, expirationDateField);
+        type(expirationDateField, expirationDate);
         Utilities.locate(expirationDateField).sendKeys(Keys.ENTER);
     }
 
@@ -760,7 +760,7 @@ public class InvoiceImplementation extends BasePage {
     }
 
     public void setPaymentTransactionAmount(String transAmt){
-        Legacy.type(transAmt, inputPaymentTransactionAmount);
+        type(inputPaymentTransactionAmount, transAmt);
     }//setPaymentTransactionAmount()
 
     public void setPaymentTransactionDate(String transDate){
@@ -768,16 +768,16 @@ public class InvoiceImplementation extends BasePage {
     }//setPaymentTransactionDate()
 
     public void setPaymentNotes(String paymentNotes){
-        Legacy.type(paymentNotes, textareaPaymentNotes);
+        type(textareaPaymentNotes, paymentNotes);
     }//setPaymentNotes()
 
     public void enterBraintreeNewCardInformation(String cardNumber, String expirationDate) {
         click(payWithCard);
         switchToIframe("braintree-hosted-field-number");
-        Legacy.type(cardNumber, braintreeCardNumberField);
+        type(braintreeCardNumberField, cardNumber);
         driver.switchTo().defaultContent();
         switchToIframe("braintree-hosted-field-expirationDate");
-        Legacy.type(expirationDate, braintreeExpirationDateField);
+        type(braintreeExpirationDateField, expirationDate);
         driver.switchTo().defaultContent();
         delay(1000);
         clickChargeSingleCardButton();
@@ -789,13 +789,13 @@ public class InvoiceImplementation extends BasePage {
     public void enterElementNewCardInformation(String cardNumber, String expirationDate, String cvv){
         clickChargeSingleCardButton();
         switchToIframe( "elementSingleFrame");
-        Legacy.type(cardNumber, elementCardNumberField);
+        type(elementCardNumberField, cardNumber);
         String[] separateMonthYear = expirationDate.split("/");
         String month = separateMonthYear[0];
         String year = separateMonthYear[1];
         Utilities.selectByText(elementExpirationMonth, month);
         Utilities.selectByText(elementExpirationYear, "20"+ year);
-        Legacy.type(cvv, elementCVVField);
+        type(elementCVVField, cvv);
         click(elementProcessTransactionButton);
         acceptAlert();
         driver.switchTo().defaultContent();
@@ -806,13 +806,13 @@ public class InvoiceImplementation extends BasePage {
     public void enterNMINewCardInformation(String cardNumber, String expirationDate, String cvv) {
         clickNMIChargeSingleCardButton();
         switchToIframe("CollectJSIframe");
-        Legacy.type(cardNumber, nmiCardNumberField);
+        type(nmiCardNumberField, cardNumber);
         String[] separateMonthYear = expirationDate.split("/");
         String month = separateMonthYear[0];
         String year = separateMonthYear[1];
         String expirationMonthYear = month + "/20" + year;
-        Legacy.type(expirationMonthYear, nmiExpirationDateField);
-        Legacy.type(cvv, nmiCVVField);
+        type(nmiExpirationDateField, expirationMonthYear);
+        type(nmiCVVField, cvv);
         click(submitPaymentButton);
         driver.switchTo().defaultContent();
 
@@ -823,7 +823,7 @@ public class InvoiceImplementation extends BasePage {
         WebElement iFrameCardNumber = Utilities.locate(By.xpath("//iframe[contains(@id,'spreedly-number-frame')]"));
         driver.switchTo().frame(iFrameCardNumber);
         Legacy.scrollToElementJS(Utilities.locate(spreedlyCardNumber));
-        Legacy.type(cardNumber, spreedlyCardNumber);
+        type(spreedlyCardNumber, cardNumber);
         driver.switchTo().defaultContent();
         String[] separateMonthYear = expirationDate.split("/");
         String month = separateMonthYear[0];
@@ -833,7 +833,7 @@ public class InvoiceImplementation extends BasePage {
         Utilities.selectByText(spreedlyExpirationYear, "20"+ year);
         WebElement iFrameCVV = Utilities.locate(By.xpath("//iframe[contains(@id,'spreedly-cvv-frame')]"));
         driver.switchTo().frame(iFrameCVV);
-        Legacy.type(cvv, spreedlyCVVField);
+        type(spreedlyCVVField, cvv);
         driver.switchTo().defaultContent();
         clickChargeSingleCardButton();
 
@@ -844,15 +844,15 @@ public class InvoiceImplementation extends BasePage {
     public void enterPestRoutesPaymentsNewCardInformation(String cardNumber, String expirationDate, String cvv) {
         switchToIframe("payrixSingleChargeIFrame");
         switchToIframe("payFields-iframe-number");
-        Legacy.type(cardNumber, pestRoutesPaymentsCardNumber);
+        type(pestRoutesPaymentsCardNumber, cardNumber);
         driver.switchTo().defaultContent();
         switchToIframe("payrixSingleChargeIFrame");
         switchToIframe("payFields-iframe-expiration");
-        Legacy.type(expirationDate, pestRoutesPaymentsExpirationDate);
+        type(pestRoutesPaymentsExpirationDate, expirationDate);
         driver.switchTo().defaultContent();
         switchToIframe("payrixSingleChargeIFrame");
         switchToIframe("payFields-iframe-cvv");
-        Legacy.type(cvv, pestRoutesPaymentsCVVField);
+        type(pestRoutesPaymentsCVVField, cvv);
         driver.switchTo().defaultContent();
         clickChargeSingleCardButton();
 
@@ -884,7 +884,7 @@ public class InvoiceImplementation extends BasePage {
 
     public void setRefundAmount(String refundAmt)
     {
-      Legacy.type(refundAmt, inputRefund);
+      type(inputRefund, refundAmt);
     }//setRefundAmount()
 
     public String getSelectedApplyToFirstOption() {
@@ -1117,6 +1117,6 @@ public class InvoiceImplementation extends BasePage {
     public void addCustomerPaymentNote(String comments)
     {
         click(By.xpath(custPaymentNotes));
-        Legacy.type(comments, By.xpath(custPaymentNotes)) ;
+        type(By.xpath(custPaymentNotes), comments) ;
     }//addCustomerPaymentNote()
 }

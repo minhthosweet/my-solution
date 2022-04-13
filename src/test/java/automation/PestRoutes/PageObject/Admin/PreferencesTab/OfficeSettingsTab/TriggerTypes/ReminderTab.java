@@ -154,7 +154,7 @@ public class ReminderTab extends PreferencesPage {
 
 	public void typeDaysBefore(String numberOfDays) {
 		Legacy.scrollToElementJS(daysBeforeField);
-		Legacy.type(numberOfDays, daysBeforeField);
+		type(daysBeforeField, numberOfDays);
 	}
 
 	public boolean typeFlagToInclude(String flagCode) {
@@ -188,7 +188,7 @@ public class ReminderTab extends PreferencesPage {
 			delay(1000);
 			Utilities.selectByText(emailTypeDropDown, emailType);
 			jsScrollTo(emailTextAreaMessage);
-			Legacy.type(CUSTOM_EMAIL_MESSAGE, emailTextAreaMessage);
+			type(emailTextAreaMessage, CUSTOM_EMAIL_MESSAGE);
 		}
 	}
 
@@ -202,7 +202,7 @@ public class ReminderTab extends PreferencesPage {
 			delay(1000);
 			selectByText(smsTypeDropDown, smsType);
 			jsScrollTo(textAreaMessageVoiceSMS);
-			Legacy.type(CUSTOM_SMS_MESSAGE, textAreaMessageVoiceSMS);
+			type(textAreaMessageVoiceSMS, CUSTOM_SMS_MESSAGE);
 		}
 	}
 
@@ -216,7 +216,7 @@ public class ReminderTab extends PreferencesPage {
 			Utilities.isVisible(voiceTypeDropDown);
 			delay(1000);
 			Utilities.selectByText(voiceTypeDropDown, voiceType);
-			Legacy.type(CUSTOM_VOICE_MESSAGE, textAreaMessageVoiceSMS);
+			type(textAreaMessageVoiceSMS, CUSTOM_VOICE_MESSAGE);
 		} else if (voiceType.equalsIgnoreCase("Pre-recorded Message")) {
 			Utilities.isVisible(voiceTypeDropDown);
 			delay(1000);

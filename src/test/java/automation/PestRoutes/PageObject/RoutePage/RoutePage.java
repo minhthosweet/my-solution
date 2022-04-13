@@ -224,7 +224,7 @@ public class RoutePage extends BasePage {
     public void selectExistingCustomer(String customer) {
         if (isVisible(existingCustomerField)) {
             delay(1000);
-            Legacy.type(customer, existingCustomerField);
+            type(existingCustomerField, customer);
             WebElement existingCustomer = Utilities.locate(By.xpath("//div[@aria-describedby='chooseCustomerDialog']//span[@class='left searchName' and contains(text(), '"+ customer +"')]"));
             existingCustomer.click();
         }

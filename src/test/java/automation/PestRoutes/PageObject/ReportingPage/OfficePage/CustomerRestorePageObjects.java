@@ -37,7 +37,7 @@ public class CustomerRestorePageObjects extends BasePage {
     public void enterSearchValue(String searchValue){
 
         Utilities.click(inputSearch);
-        Legacy.type(searchValue,inputSearch);
+        Utilities.type(inputSearch, searchValue);
         Utilities.locate(inputSearch).sendKeys(Keys.ENTER);
     }//enterSearchValue()
 

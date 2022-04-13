@@ -40,7 +40,7 @@ public class CreateNewInvoicePopUp extends BasePage {
     }
 
     public void typeSubTotal(String subTotal) {
-        Legacy.type(subTotal, invoiceSubTotal);
+        Utilities.type(invoiceSubTotal, subTotal);
     }
 
     public String getSubTotal() {

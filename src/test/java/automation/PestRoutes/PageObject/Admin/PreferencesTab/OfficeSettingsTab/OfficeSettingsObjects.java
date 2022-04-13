@@ -65,11 +65,11 @@ public class OfficeSettingsObjects extends BasePage {
 
     /*************************** Setters ***************************/
     public void setPhysicalStreetAddr(String streetAddress){
-        Legacy.type(streetAddress,physicalStreetAddr);
+        Utilities.type(physicalStreetAddr, streetAddress);
     }//setPhysicalStreetAddr()
 
     public void setPhysicalCity(String cityName){
-        Legacy.type(cityName,physicalCity);
+        Utilities.type(physicalCity, cityName);
     }//setPhysicalCity()
 
     public void setPhysicalState(String stateName){
@@ -77,7 +77,7 @@ public class OfficeSettingsObjects extends BasePage {
     }//setPhysicalState()
 
     public void setPhysicalZipCode(String zipCode){
-        Legacy.type(zipCode,physicalZipCode);
+        Utilities.type(physicalZipCode, zipCode);
     }//setPhysicalZip()
 
     public void setPhysicalCountry(String optionCountry){

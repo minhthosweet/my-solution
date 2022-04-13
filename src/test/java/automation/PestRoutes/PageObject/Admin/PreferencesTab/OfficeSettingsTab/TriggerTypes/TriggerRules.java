@@ -154,7 +154,7 @@ public class TriggerRules extends PreferencesPage {
 
     public void typeTriggerDescription(String description) {
         delay(500);
-        Legacy.type(description, descriptionField);
+        type(descriptionField, description);
     }
 
     public void typeStartDate(String date) {

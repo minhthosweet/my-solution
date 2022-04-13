@@ -426,7 +426,7 @@ public class CustomerViewDialog_SubscriptionTab extends BasePage {
 	}
 
 	public void selectCustomDate(String customDate) {
-		Legacy.type(customDate, customDateField);
+		type(customDateField, customDate);
 		Utilities.locate(customDateField).sendKeys(Keys.ENTER);
 	}
 
