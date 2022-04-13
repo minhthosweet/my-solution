@@ -13,22 +13,19 @@ import automation.PestRoutes.PageObject.Customers.CustomersMainPage;
 import automation.PestRoutes.PageObject.DashboardPage;
 import automation.PestRoutes.PageObject.Header;
 import automation.PestRoutes.Utilities.*;
-import static automation.PestRoutes.Utilities.Utilities.*;
 import automation.PestRoutes.Utilities.Data.*;
-import automation.PestRoutes.Utilities.Deprecated;
+import automation.PestRoutes.Utilities.Legacy;
 import automation.PestRoutes.Utilities.Report.*;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import org.apache.tools.ant.taskdefs.Get;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
 import java.io.IOException;
 import java.util.Locale;
 
-import static automation.PestRoutes.Utilities.Data.GetDate.minusOneYearToDate;
 import static automation.PestRoutes.Utilities.Report.AssertException.result;
 
 public class CustomerReports extends AppData {
@@ -128,7 +125,7 @@ public class CustomerReports extends AppData {
                 customerReportsPage.filterTypes_CR("firstName_CR")
         };
 
-        Deprecated.scrollToElementJS(customerReportsPage.filterTypes_CR("purpleDragon_CR"));
+        Legacy.scrollToElementJS(customerReportsPage.filterTypes_CR("purpleDragon_CR"));
         String[] fields_two = {
                 customerReportsPage.filterTypes_CR("accountType_CR"),
                 customerReportsPage.filterTypes_CR("unitType_CR"),
@@ -145,7 +142,7 @@ public class CustomerReports extends AppData {
                 customerReportsPage.filterTypes_CR("purpleDragon_CR")
         };
 
-        Deprecated.scrollToElementJS(customerReportsPage.filterTypes_CR("hasZipTaxAssigned_CR"));
+        Legacy.scrollToElementJS(customerReportsPage.filterTypes_CR("hasZipTaxAssigned_CR"));
         String[] fields_three = {customerReportsPage.filterTypes_CR("switchOver_CR"),
                 customerReportsPage.filterTypes_CR("signedElectronicAgreement_CR"),
                 customerReportsPage.filterTypes_CR("salesTaxPercentFrom_CR"),
@@ -201,7 +198,7 @@ public class CustomerReports extends AppData {
                 customerReportsPage.filterTypes_CR("serviceDueTo_CR")
         };
 
-        Deprecated.scrollToElementJS(customerReportsPage.filterTypes_CR("dateAgreementSentTo_CR"));
+        Legacy.scrollToElementJS(customerReportsPage.filterTypes_CR("dateAgreementSentTo_CR"));
         String[] fields_two = {
                 customerReportsPage.filterTypes_CR("customDateFrom_CR"),
                 customerReportsPage.filterTypes_CR("customDateTo_CR"),
@@ -226,7 +223,7 @@ public class CustomerReports extends AppData {
                 customerReportsPage.filterTypes_CR("dateAgreementSentTo_CR"),
         };
 
-        Deprecated.scrollToElementJS(customerReportsPage.filterTypes_CR("includeFlagsServiceSubscription_CR"));
+        Legacy.scrollToElementJS(customerReportsPage.filterTypes_CR("includeFlagsServiceSubscription_CR"));
         String[] fields_three = {
                 customerReportsPage.filterTypes_CR("dateSignedFrom_CR"),
                 customerReportsPage.filterTypes_CR("dateSignedTo_CR"),
@@ -244,7 +241,7 @@ public class CustomerReports extends AppData {
 
         };
 
-        Deprecated.scrollToElementJS(customerReportsPage.filterTypes_CR("unitOfMeasure_CR"));
+        Legacy.scrollToElementJS(customerReportsPage.filterTypes_CR("unitOfMeasure_CR"));
         String[] fields_four = {
                 customerReportsPage.filterTypes_CR("excludeFlagsServiceSubscription_CR"),
                 customerReportsPage.filterTypes_CR("subscriptionLastCompletedDateFrom_CR"),
@@ -303,7 +300,7 @@ public class CustomerReports extends AppData {
                 customerReportsPage.filterTypes_CR("paymentPastDueDaysAssignment_CR"),
                 customerReportsPage.filterTypes_CR("paymentPastDueDays_CR")
         };
-        Deprecated.scrollToElementJS(customerReportsPage.filterTypes_CR("collectionsStage_CR"));
+        Legacy.scrollToElementJS(customerReportsPage.filterTypes_CR("collectionsStage_CR"));
         String[] fields_two = {
                 customerReportsPage.filterTypes_CR("yearInFull_CR"),
                 customerReportsPage.filterTypes_CR("customerHasCC_CR"),
@@ -354,7 +351,7 @@ public class CustomerReports extends AppData {
                 customerReportsPage.filterTypes_CR("categoryServiceAppointment_CR")
         };
 
-        Deprecated.scrollToElementJS(customerReportsPage.filterTypes_CR("imagesUploaded_CR"));
+        Legacy.scrollToElementJS(customerReportsPage.filterTypes_CR("imagesUploaded_CR"));
         String[] fields_two = {
                 customerReportsPage.filterTypes_CR("statusServiceAppointment_CR"),
                 customerReportsPage.filterTypes_CR("appointmentReminders_CR"),
@@ -516,7 +513,7 @@ public class CustomerReports extends AppData {
 //        } catch (Exception e){
 //            System.out.println("Failed at service subscription");
 //        }
-        if (!Deprecated.isPresent(customerReportsPage.filterTypes_CR("recurringPrice_CR"))) {
+        if (!Legacy.isPresent(customerReportsPage.filterTypes_CR("recurringPrice_CR"))) {
             customerReportsPage.click(customerReportsPage.serviceSubscription);
         }
         Utilities.delay(1000);
@@ -814,7 +811,7 @@ public class CustomerReports extends AppData {
         invoiceImplementation.clickInvoice(getData("serviceDescription", generalData));
         String subTotalValue = invoiceImplementation.getSubTotalValue();
         String balance = invoiceImplementation.getBalanceInPayments();
-        String invoiceID = Deprecated.getAttribute(invoiceImplementation.activeInvoiceOnTheLeft, "ticketid");
+        String invoiceID = Legacy.getAttribute(invoiceImplementation.activeInvoiceOnTheLeft, "ticketid");
         createNewCustomer.closeCustomerCard();
         result(subTotalValue, "$" + (customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[8]")), "Revenue Value validation", " Customer Reports Validation");
         result(subTotalValue, "$" + (customerReportsPage.getTextValue("//table[@id='customerReportTable']//td[9]")), "Production Value validation", " Customer Reports Validation");
@@ -868,8 +865,8 @@ public class CustomerReports extends AppData {
         customerViewDialog_infoTab = new CustomerViewDialog_InfoTab();
         customerViewDialog_notes = new CustomerViewDialog_Notes();
         customerCardHeader.navigateTo(customerCardHeader.notesTabInDialog);
-        result("Sent to: " + getData("phoneNumber", generalData), Deprecated.getElementTextValue(customerViewDialog_notes.sentToText), "Sent To validation", " Customer Reports Validation");
-        result(textMessage, Deprecated.getElementTextValue(customerViewDialog_notes.messageSent), "Sent Text Message validation", " Customer Reports Validation");
+        result("Sent to: " + getData("phoneNumber", generalData), Legacy.getElementTextValue(customerViewDialog_notes.sentToText), "Sent To validation", " Customer Reports Validation");
+        result(textMessage, Legacy.getElementTextValue(customerViewDialog_notes.messageSent), "Sent Text Message validation", " Customer Reports Validation");
     }
 
     //Author : Aditya
@@ -917,7 +914,7 @@ public class CustomerReports extends AppData {
         customerReportsPage.clickActionType_action(customerReportsPage.bulkFreeze);
         customerReportsPage.setBulkFreezeNote(textMessage);
         bulkFreezeCategory = customerReportsPage.getTextValue(customerReportsPage.cancellationCategory_bulkFreeze);
-        Deprecated.selectByText(customerReportsPage.customerCancellationReason, "No Contact");
+        Legacy.selectByText(customerReportsPage.customerCancellationReason, "No Contact");
         System.out.println(bulkFreezeCategory);
         customerReportsPage.click(customerReportsPage.bulkFreezeApplyButton);
         Utilities.acceptAlert();
@@ -991,7 +988,7 @@ public class CustomerReports extends AppData {
     //Author: FWhite
     @And("I add column {string} to be displayed")
     public void addReportColumn(String columnName ) throws InterruptedException {
-        Deprecated.scrollToElementJS(customerReportsPage.selectColumnsToDisplay);
+        Legacy.scrollToElementJS(customerReportsPage.selectColumnsToDisplay);
         customerReportsPage.clickSelectColumnsToDisplayLink();
         customerReportsPage.displayColumnOnReport(columnName);
     }

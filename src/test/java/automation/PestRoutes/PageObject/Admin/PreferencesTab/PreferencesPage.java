@@ -6,7 +6,7 @@ import automation.PestRoutes.PageObject.Admin.PreferencesTab.CustomerPreferences
 import automation.PestRoutes.PageObject.Admin.PreferencesTab.MerchantInfoTab.MarchantInfoPage;
 import automation.PestRoutes.PageObject.Admin.PreferencesTab.OfficeSettingsTab.TriggerTypes.TriggerRules;
 import automation.PestRoutes.Utilities.*;
-import automation.PestRoutes.Utilities.Deprecated;
+import automation.PestRoutes.Utilities.Legacy;
 import org.openqa.selenium.By;
 
 import static automation.PestRoutes.Utilities.Utilities.*;
@@ -71,15 +71,15 @@ public class PreferencesPage extends AdminMainPage {
 	 * Below methods perform actions such as selecting from drop drown or click an object
 	 */
 	public void navigateTo(String needMenuArea, String needPage) throws InterruptedException {
-		Deprecated.clickElement("//h2[@id='office']");
+		Legacy.clickElement("//h2[@id='office']");
 		Thread.sleep(300);
 		//Utilities.scrollToElement("//li[text()='WDO Findings']");
-		Deprecated.waitVisible(needMenuArea);
-		Deprecated.clickElement(needMenuArea);
+		Legacy.waitVisible(needMenuArea);
+		Legacy.clickElement(needMenuArea);
 		Thread.sleep(300);
-		Deprecated.scrollToElementJS(needPage);
-		Deprecated.waitVisible(needPage);
-		Deprecated.clickElement(needPage);
+		Legacy.scrollToElementJS(needPage);
+		Legacy.waitVisible(needPage);
+		Legacy.clickElement(needPage);
 	}
 
 	//*************** Setters **************
@@ -113,13 +113,13 @@ public class PreferencesPage extends AdminMainPage {
 
 	public TriggerRules clickTriggerRules() {
 		delay(2000);
-		Deprecated.scrollToElementJS(Utilities.locate(triggerRules));
+		Legacy.scrollToElementJS(Utilities.locate(triggerRules));
 		click(triggerRules);
 		return new TriggerRules();
 	}
 
 	public void clickEdit_BillingPreferences(){
-		Deprecated.scrollToElementJS(Utilities.locate(lnkEdit_BillingPreferences));
+		Legacy.scrollToElementJS(Utilities.locate(lnkEdit_BillingPreferences));
 		click(lnkEdit_BillingPreferences);
 	}//clickEdit_BillingPreferences()
 
@@ -136,7 +136,7 @@ public class PreferencesPage extends AdminMainPage {
 	}//clickSave_BillingPreferences()
 
 	public void clickCustomerCommunication() {
-		Deprecated.scrollToElementJS(customerCommunication);
+		Legacy.scrollToElementJS(customerCommunication);
 		click(By.xpath(customerCommunication));
 	}
 }

@@ -1,6 +1,6 @@
 package automation.PestRoutes.Utilities.Data;
 
-import automation.PestRoutes.Utilities.Deprecated;
+import automation.PestRoutes.Utilities.Legacy;
 import org.apache.commons.lang3.*;
 
 import java.util.*;
@@ -11,7 +11,7 @@ public class GetData {
     }
 
     public static int removeSpecialChars(String needAttribute) {
-        String cases = Deprecated.getElementTextValue(needAttribute);
+        String cases = Legacy.getElementTextValue(needAttribute);
 
         int result = Integer.parseInt(cases.replaceAll("[@ $,.]", ""));
 

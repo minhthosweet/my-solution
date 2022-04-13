@@ -2,7 +2,7 @@ package automation.PestRoutes.PageObject.CustomerOverview.Invoicing;
 
 import automation.PestRoutes.PageObject.BasePage;
 import automation.PestRoutes.Utilities.*;
-import automation.PestRoutes.Utilities.Deprecated;
+import automation.PestRoutes.Utilities.Legacy;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
@@ -21,13 +21,13 @@ public class Invoice_Header extends BasePage {
 
 	public void navigate(String needTab) {
 		try {
-		WebElement elm = Deprecated.locate(needTab);
+		WebElement elm = Legacy.locate(needTab);
 			if (elm.isDisplayed()){
-				Deprecated.clickElement(needTab);
-				Deprecated.clickElement("//div[contains(@class,'paymentMethod bluGradientBG') and contains(text(),'"+needTab+"')]", true, false);
+				Legacy.clickElement(needTab);
+				Legacy.clickElement("//div[contains(@class,'paymentMethod bluGradientBG') and contains(text(),'"+needTab+"')]", true, false);
 			}
 		} catch(Exception e) {
-			Deprecated.clickElement("//div[contains(@class,'paymentMethod bluGradientBG') and contains(text(),'"+needTab+"')]", true, false);
+			Legacy.clickElement("//div[contains(@class,'paymentMethod bluGradientBG') and contains(text(),'"+needTab+"')]", true, false);
 		}
 	}
 
@@ -35,10 +35,10 @@ public class Invoice_Header extends BasePage {
 		try {
 			String strPaymentMethodTab = "//div[contains(@class,'paymentMethod bluGradientBG') and contains(text(),'"+ paymentMethodTab+"')]";
 
-			WebElement elm = Deprecated.locate(strPaymentMethodTab);
+			WebElement elm = Legacy.locate(strPaymentMethodTab);
 			if (elm.isDisplayed()){
-				Deprecated.clickElement(strPaymentMethodTab);
-				Deprecated.clickElement(strPaymentMethodTab, true, false);
+				Legacy.clickElement(strPaymentMethodTab);
+				Legacy.clickElement(strPaymentMethodTab, true, false);
 
 				//Wait to the Invoice Payment  Screen to load
 				Thread.sleep(1000);

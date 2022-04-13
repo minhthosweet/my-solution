@@ -4,7 +4,7 @@ import automation.PestRoutes.PageObject.CustomerOverview.BillingPage;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_Header;
 import automation.PestRoutes.Utilities.*;
 import automation.PestRoutes.Utilities.Data.AppData;
-import automation.PestRoutes.Utilities.Deprecated;
+import automation.PestRoutes.Utilities.Legacy;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.When;
 
@@ -51,7 +51,7 @@ public class Billing extends AppData {
 		if (paymentMethod.equals("Add Payment Method")){
 			billing.clickElement(billing.addCreditCardButton);
 		}
-		String gatewayType = Deprecated.jsGetText(billing.paymentGatewayType);
+		String gatewayType = Legacy.jsGetText(billing.paymentGatewayType);
 		if (gatewayType.equals("Vault: brain")){
 			String[] iFrame = {billing.brainCcIframe, billing.brainExpMonthIframe, billing.brainExpYearIframe, billing.brainCvvIframe};
 			String[] fields = {billing.brainCcNumberInputField, billing.brainExpMonthInputField, billing.brainExpYearInputField, billing.brainCvvInputField};
@@ -62,13 +62,13 @@ public class Billing extends AppData {
 				GetWebDriver.switchBackToDom();
 			}
 			billing.clickElement(billing.savePaymentMethodButton);
-			Deprecated.waitVisible(billing.nmiSavedCc);
+			Legacy.waitVisible(billing.nmiSavedCc);
 		}else if (gatewayType.equals("Vault: PestRoutes Payments")){
 			String[] iFrame = {billing.pestRoutesIframeCc, billing.pestRoutesIframeExp, billing.pestRoutesIframeCvv};
 			String[] fields = {billing.pestRoutesCcNumberInputField, billing.pestRoutesCcExpirationInputField, billing.pestRoutesCcCvvInputField};
 			String[] input = {needRegularCC, "0228", "123"};
 			for (int i = 0; i < iFrame.length; i++){
-				Deprecated.isPresent("//iframe[@id='payrixAddIFrame']");
+				Legacy.isPresent("//iframe[@id='payrixAddIFrame']");
 				Utilities.switchToIframe(billing.payrixIframe);
 				Utilities.switchToIframe(iFrame[i]);
 				billing.setInputField(fields[i], input[i]);
@@ -77,7 +77,7 @@ public class Billing extends AppData {
 			Utilities.switchToIframe(billing.payrixIframe);
 			billing.clickElement(billing.savePaymentMethodButton);
 			GetWebDriver.switchBackToDom();
-			Deprecated.waitVisible(billing.nmiSavedCc);
+			Legacy.waitVisible(billing.nmiSavedCc);
 		}else if (gatewayType.equals("Vault: element")){
 			billing.clickElement(billing.elementEnterCcButton);
 			Utilities.switchToIframe(billing.elementIframe);
@@ -86,7 +86,7 @@ public class Billing extends AppData {
 			billing.selectDropdown(billing.elementExpYearDropdown, "2028");
 			billing.clickElement(billing.elementSaveCcButton);
 			GetWebDriver.switchBackToDom();
-			Deprecated.waitVisible(billing.nmiSavedCc);
+			Legacy.waitVisible(billing.nmiSavedCc);
 		} else if (gatewayType.equals("Vault: spreedly")){
 			String ccIframe = billing.getAttributeValue(billing.spreedlyCcNumberIframe, "id");
 			String cvvIframe = billing.getAttributeValue(billing.spreedlyCvvIframe, "id");
@@ -99,7 +99,7 @@ public class Billing extends AppData {
 			billing.setInputField(billing.spreedlyCvvInputField, "123");
 			GetWebDriver.switchBackToDom();
 			billing.clickElement(billing.savePaymentMethodButton);
-			Deprecated.waitVisible(billing.nmiSavedCc);
+			Legacy.waitVisible(billing.nmiSavedCc);
 		} else if (gatewayType.equals("Vault: nmi")){
 			String[] iFrame = {billing.nmiCcNumberIframe, billing.nmiExpIframe, billing.nmiCvvIframe};
 			String[] fields = {billing.nmiCcNumberInputField, billing.nmiExpInputField, billing.nmiCvvInputField};
@@ -110,7 +110,7 @@ public class Billing extends AppData {
 				GetWebDriver.switchBackToDom();
 			}
 			billing.clickElement(billing.savePaymentMethodButton);
-			Deprecated.waitVisible(billing.nmiSavedCc);
+			Legacy.waitVisible(billing.nmiSavedCc);
 
 		}
 	}
@@ -134,14 +134,14 @@ public class Billing extends AppData {
 		billing.selectDropdown(billing.bankAcountAccountTypeDropdown, "Checking Account");
 		billing.selectDropdown(billing.bankAccountCheckTypeDropdown, "Personal Account");
 		billing.clickElement(billing.saveBankAccountButton);
-		Deprecated.waitVisible(billing.savedBankName);
+		Legacy.waitVisible(billing.savedBankName);
 	}
 	//Author:Aarbi
 	@When("I add an customer in auto pay with credit card")
 	public void addCustomerOnAutoPay() throws InterruptedException {
 		customerCardBillingTab = new BillingPage();
 		customerCardBillingTab.clickElement(customerCardBillingTab.billingInfoButton);
-		Deprecated.selectByIndex(customerCardBillingTab.autoPayDropdown, 1);
+		Legacy.selectByIndex(customerCardBillingTab.autoPayDropdown, 1);
 		customerCardBillingTab.clickElement(customerCardBillingTab.saveBillingInfoButton);
 	}
 	//Author Aarbi
@@ -150,8 +150,8 @@ public class Billing extends AppData {
 	public void addCustomerOnAutoPayCCWithMaxLimit(String needAutoPayType, String needMaxLimit) throws InterruptedException {
 		customerCardBillingTab = new BillingPage();
 		customerCardBillingTab.clickElement(customerCardBillingTab.billingInfoButton);
-		Deprecated.clickElement(customerCardBillingTab.autoPayDropdown);
-		Deprecated.clickElement("//div[@id='billingSwitches']//select[@name='autoPayPaymentProfileID']//option[contains(text(),'"+needAutoPayType+"')]");
+		Legacy.clickElement(customerCardBillingTab.autoPayDropdown);
+		Legacy.clickElement("//div[@id='billingSwitches']//select[@name='autoPayPaymentProfileID']//option[contains(text(),'"+needAutoPayType+"')]");
         customerCardBillingTab.setInputField(customerCardBillingTab.maxMonthlyChargeInputField,needMaxLimit);
 		customerCardBillingTab.clickElement(customerCardBillingTab.saveBillingInfoButton);
 	}

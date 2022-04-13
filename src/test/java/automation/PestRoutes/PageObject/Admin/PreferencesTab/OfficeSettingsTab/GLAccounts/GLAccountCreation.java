@@ -6,7 +6,7 @@ import automation.PestRoutes.PageObject.Admin.PreferencesTab.ServiceRelatedTab.S
 import automation.PestRoutes.PageObject.BasePage;
 import automation.PestRoutes.Utilities.*;
 import automation.PestRoutes.Utilities.Data.*;
-import automation.PestRoutes.Utilities.Deprecated;
+import automation.PestRoutes.Utilities.Legacy;
 import org.openqa.selenium.By;
 
 public class GLAccountCreation extends BasePage {
@@ -31,28 +31,28 @@ public class GLAccountCreation extends BasePage {
     public void navigateToGLAccount() {
         triggerAdmin = new TriggerRules();
         officeSettingsObjects = new OfficeSettingsObjects();
-        Deprecated.waitVisible(triggerAdmin.officeSettingsText);
-        Deprecated.clickElement(officeSettingsObjects.gLAccounts);
+        Legacy.waitVisible(triggerAdmin.officeSettingsText);
+        Legacy.clickElement(officeSettingsObjects.gLAccounts);
     }
 
     public void clickCreateGLAccount() {
-        Deprecated.waitVisible(plusGLAccount);
-        Deprecated.clickElement(plusGLAccount);
+        Legacy.waitVisible(plusGLAccount);
+        Legacy.clickElement(plusGLAccount);
     }
 
     public void setGLAccountNumber(String glAccountNumber) {
-        Deprecated.waitVisible(glAccountNumberTextBox);
-        Deprecated.locate(glAccountNumberTextBox).sendKeys(glAccountNumber);
+        Legacy.waitVisible(glAccountNumberTextBox);
+        Legacy.locate(glAccountNumberTextBox).sendKeys(glAccountNumber);
     }
 
     public void setGLAccountTitle(String glTitle) {
-        Deprecated.waitVisible(glTitleTextBox);
-        Deprecated.locate(glTitleTextBox).sendKeys(glTitle);
+        Legacy.waitVisible(glTitleTextBox);
+        Legacy.locate(glTitleTextBox).sendKeys(glTitle);
     }
 
     public void setGLAccountDescription(String glDescription) {
-        Deprecated.waitVisible(glDescriptionTextBox);
-        Deprecated.locate(glDescriptionTextBox).sendKeys(glDescription);
+        Legacy.waitVisible(glDescriptionTextBox);
+        Legacy.locate(glDescriptionTextBox).sendKeys(glDescription);
         getCorrectedGLAccountNumber();
     }
 
@@ -62,17 +62,17 @@ public class GLAccountCreation extends BasePage {
     }
 
     public void clickSaveButton() {
-        Deprecated.waitVisible(saveButton);
-        Deprecated.clickElement(saveButton);
+        Legacy.waitVisible(saveButton);
+        Legacy.clickElement(saveButton);
     }
 
     public void searchGLAccountByDescription(String descriptionText) {
-        Deprecated.waitVisible(searchBox);
-        Deprecated.locate(searchBox).sendKeys(descriptionText);
+        Legacy.waitVisible(searchBox);
+        Legacy.locate(searchBox).sendKeys(descriptionText);
     }
 
     public String getGLAccountNumber() {
-        return Deprecated.getElementTextValue(glAccountNumberFieldValue).trim();
+        return Legacy.getElementTextValue(glAccountNumberFieldValue).trim();
     }
 
     public String getGLAccountNumberInServiceType() {
@@ -80,7 +80,7 @@ public class GLAccountCreation extends BasePage {
         // try - catch Statement Is Flexible To Select From Either Place
         try {
             if(Utilities.isVisible(glAccountHeader)) {
-                return Deprecated.getElementTextValue(glAccountNumberInServiceType).trim();
+                return Legacy.getElementTextValue(glAccountNumberInServiceType).trim();
             }
         } catch(Exception exc) {
             exc.printStackTrace();
@@ -90,11 +90,11 @@ public class GLAccountCreation extends BasePage {
     }
 
     public String getGLTitle() {
-        return Deprecated.getElementTextValue(titleFieldValue);
+        return Legacy.getElementTextValue(titleFieldValue);
     }
 
     public String getGLDescription() {
-        return Deprecated.getElementTextValue(descriptionFieldValue);
+        return Legacy.getElementTextValue(descriptionFieldValue);
     }
 
     public void editService(String needDescription) {
@@ -103,13 +103,13 @@ public class GLAccountCreation extends BasePage {
     }
 
     public void clickGLAccountOnServiceType(String needServiceType) {
-        Deprecated.waitVisible("//input[@value='" + needServiceType + "']/following-sibling::select[@placeholder='GL Account']");
-        Deprecated.clickElement("//input[@value='" + needServiceType + "']/following-sibling::select[@placeholder='GL Account']");
+        Legacy.waitVisible("//input[@value='" + needServiceType + "']/following-sibling::select[@placeholder='GL Account']");
+        Legacy.clickElement("//input[@value='" + needServiceType + "']/following-sibling::select[@placeholder='GL Account']");
     }
 
     public void selectGLAccountFromDropDown(String needServiceType, String needGLNumber) {
-        Deprecated.waitVisible("//input[@value='" + needServiceType + "']/following-sibling::select[@placeholder='GL Account']/option[text()='" + needGLNumber + "']");
-        Deprecated.clickElement("//input[@value='" + needServiceType + "']/following-sibling::select[@placeholder='GL Account']/option[text()='" + needGLNumber + "']");
+        Legacy.waitVisible("//input[@value='" + needServiceType + "']/following-sibling::select[@placeholder='GL Account']/option[text()='" + needGLNumber + "']");
+        Legacy.clickElement("//input[@value='" + needServiceType + "']/following-sibling::select[@placeholder='GL Account']/option[text()='" + needGLNumber + "']");
     }
 
     public void saveService() {

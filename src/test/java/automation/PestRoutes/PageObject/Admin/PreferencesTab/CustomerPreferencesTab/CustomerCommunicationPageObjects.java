@@ -4,7 +4,7 @@ import automation.PestRoutes.PageObject.BasePage;
 import static automation.PestRoutes.Utilities.Utilities.*;
 
 import automation.PestRoutes.Utilities.*;
-import automation.PestRoutes.Utilities.Deprecated;
+import automation.PestRoutes.Utilities.Legacy;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
@@ -443,7 +443,7 @@ public class CustomerCommunicationPageObjects extends BasePage {
         Utilities.click(lnkPreferences);
 
         //Verify Page is loaded and navigate to the "Customer Communication" Screen
-        if( Deprecated.isTextPresent(PREFERENCES_PAGE_TITLE)) {
+        if( Legacy.isTextPresent(PREFERENCES_PAGE_TITLE)) {
             //Close the Default Displayed Menu Section (Office Settings) on initial load
             By lnkOfficeSettings = By.xpath("//h2[@id='office']");
             Utilities.click(lnkOfficeSettings);
@@ -510,10 +510,10 @@ public class CustomerCommunicationPageObjects extends BasePage {
         saveField(lnkSave_EmailAppointmentReminderTemplate);
 
         //Require Electronic Consent Agreement -  Electronic Consent Content
-        Deprecated.scrollToElementJS(lnkEdit_RequireElectronicConsentAgreement); //(Note: Navigated to the previous field to make sure the desired field is displayed)
+        Legacy.scrollToElementJS(lnkEdit_RequireElectronicConsentAgreement); //(Note: Navigated to the previous field to make sure the desired field is displayed)
         Utilities.click(lnkEdit_RequireElectronicConsentAgreement);
         Utilities.checkBox(chkboxRequireElectronicConsentAgreement);
-        Deprecated.type(String.valueOf(testData.get(keyElectronicConsentContent).toString()),rtextareaElectronicConsentContent);
+        Legacy.type(String.valueOf(testData.get(keyElectronicConsentContent).toString()),rtextareaElectronicConsentContent);
         saveField(lnkSave_RequireElectronicConsentAgreement);
         //updateField(String.valueOf(testData.get(keyElectronicConsentContent).toString()),rtextareaElectronicConsentContent,RTEXTAREA,lnkEdit_InvoiceFooterText);
 
@@ -596,13 +596,13 @@ public class CustomerCommunicationPageObjects extends BasePage {
         List<WebElement> windowTimes= Utilities.locateAll(timeRange);
         try {
             //Scroll to and click Edit
-            Deprecated.scrollToElementJS(editBtn);
+            Legacy.scrollToElementJS(editBtn);
             Utilities.click(editBtn);
 
             //Enter Start Time
-            Deprecated.type(startTime, windowTimes.get(0));
+            Legacy.type(startTime, windowTimes.get(0));
             //Enter Start Time
-            Deprecated.type(endTime, windowTimes.get(1));
+            Legacy.type(endTime, windowTimes.get(1));
         }catch (Exception exp){}
 
     }//updateTimeWindow()
@@ -688,7 +688,7 @@ public class CustomerCommunicationPageObjects extends BasePage {
 
     public void updateDeliverySettingsSection(HashMap<String, String> testData) throws Exception {
         //Scroll to the "Delivery Settings (SMS, Voice and Email)" Section
-        Deprecated.scrollToElementJS(lblDeliverySettingsSection);
+        Legacy.scrollToElementJS(lblDeliverySettingsSection);
 
         //SMS Window
         updateTimeWindow(inputSMSWindow_StartAndEndTimes,String.valueOf(testData.get(keySMSWindow_sTime).toString()),
@@ -734,7 +734,7 @@ public class CustomerCommunicationPageObjects extends BasePage {
 
         //Scroll to and click Edit Button]
         if (editBtn != null) {
-            Deprecated.scrollToElementJS(editBtn);
+            Legacy.scrollToElementJS(editBtn);
             Utilities.click(editBtn);
         }
 
@@ -751,7 +751,7 @@ public class CustomerCommunicationPageObjects extends BasePage {
                 case TEXTAREA:
                 case RTEXTAREA:
                     //System.out.println("*******Input Data: " + value);
-                    Deprecated.type(value,webElmField);
+                    Legacy.type(value,webElmField);
                     boolUpdateFlag = true;
                 break;
 
@@ -772,7 +772,7 @@ public class CustomerCommunicationPageObjects extends BasePage {
         String  xpathDayStr = "";
 
         //Scroll to and click Edit Button
-        Deprecated.scrollToElementJS(lblDeliverySettingsSection);
+        Legacy.scrollToElementJS(lblDeliverySettingsSection);
         Utilities.click(editBtn);
 
         //Check blocked day...
@@ -791,8 +791,8 @@ public class CustomerCommunicationPageObjects extends BasePage {
                             xpathDayStr = "//*[@id='newPreferenceBody']//input[@name='" + strDay.toLowerCase() + "PhoneBlocked']";
                         break;
                     }
-                    if(!Deprecated.isChecked(xpathDayStr))
-                        Deprecated.clickElement(xpathDayStr);
+                    if(!Legacy.isChecked(xpathDayStr))
+                        Legacy.clickElement(xpathDayStr);
                     break;
                 }
              }
@@ -801,7 +801,7 @@ public class CustomerCommunicationPageObjects extends BasePage {
 
     public boolean saveField(By saveBtn) {
         try {
-            Deprecated.scrollToElementJS(saveBtn);
+            Legacy.scrollToElementJS(saveBtn);
             Utilities.click(saveBtn);
 
             //Wait to Save Process Completes
@@ -823,7 +823,7 @@ public class CustomerCommunicationPageObjects extends BasePage {
         String genericErrorMsg = " The Saved value did not match the entered value...";
 
         try {
-            Deprecated.scrollToElementJS(lblCustomerPreferencesSection);
+            Legacy.scrollToElementJS(lblCustomerPreferencesSection);
 
             //******************** Customer Preferences *******************
             //Open the Customer Preferences Section
@@ -981,7 +981,7 @@ public class CustomerCommunicationPageObjects extends BasePage {
     }//verifySaveProcess()
 
     protected void navigateToAndClickBtn(By scrollToElem, By btn) throws InterruptedException {
-        Deprecated.scrollToElementJS(scrollToElem);
+        Legacy.scrollToElementJS(scrollToElem);
         Utilities.click(btn);
     }//navigateToAndClickBtn()
 

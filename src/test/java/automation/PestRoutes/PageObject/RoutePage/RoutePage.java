@@ -11,7 +11,7 @@ import automation.PestRoutes.Utilities.*;
 import static automation.PestRoutes.Utilities.GetWebDriver.*;
 import static automation.PestRoutes.Utilities.Utilities.*;
 
-import automation.PestRoutes.Utilities.Deprecated;
+import automation.PestRoutes.Utilities.Legacy;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import org.openqa.selenium.By;
@@ -48,9 +48,9 @@ public class RoutePage extends BasePage {
     ValidateRenewal validateRenewal;
 
     public void clickButton(String chooseButton) {
-        Deprecated.waitVisible(chooseButton);
-        Deprecated.scrollToElement(chooseButton);
-        Deprecated.clickElement(chooseButton);
+        Legacy.waitVisible(chooseButton);
+        Legacy.scrollToElement(chooseButton);
+        Legacy.clickElement(chooseButton);
     }
 
     public void addRoutesByQuantity(String insertQuantity) {
@@ -69,12 +69,12 @@ public class RoutePage extends BasePage {
 //        } catch (Exception e) {
 //            System.out.println("Exception is " + e);
 //        }
-        Deprecated.scrollToElementJS(route.addRoutesButton);
+        Legacy.scrollToElementJS(route.addRoutesButton);
         route.clickButton(route.addRoutesButton);
         delay(3000);
-        Deprecated.waitVisible("//p[text()= 'Add " + insertQuantity + " Route']");
-        Deprecated.scrollToElementJS("//p[text()= 'Add " + insertQuantity + " Route']");
-        Deprecated.clickElement("//p[text()= 'Add " + insertQuantity + " Route']");
+        Legacy.waitVisible("//p[text()= 'Add " + insertQuantity + " Route']");
+        Legacy.scrollToElementJS("//p[text()= 'Add " + insertQuantity + " Route']");
+        Legacy.clickElement("//p[text()= 'Add " + insertQuantity + " Route']");
     }
 
     public String addRoutesByQuantity(String routeGroupName, String insertQuantity) {
@@ -82,23 +82,23 @@ public class RoutePage extends BasePage {
         validateRenewal = new ValidateRenewal();
         route = new RoutePage();
 
-        Deprecated.scrollToElementJS(route.addRoutesButton);
+        Legacy.scrollToElementJS(route.addRoutesButton);
         route.clickButton(route.addRoutesButton);
         delay(3000);
-        Deprecated.waitVisible("//p[text()= 'Add " + insertQuantity + " Route']");
-        Deprecated.scrollToElementJS("//p[text()= 'Add " + insertQuantity + " Route']");
-        Deprecated.clickElement("//p[text()= 'Add " + insertQuantity + " Route']");
+        Legacy.waitVisible("//p[text()= 'Add " + insertQuantity + " Route']");
+        Legacy.scrollToElementJS("//p[text()= 'Add " + insertQuantity + " Route']");
+        Legacy.clickElement("//p[text()= 'Add " + insertQuantity + " Route']");
         return getRouteID(routeGroupName);
     }//addRoutesByQuantity()
 
     public void scheduleAppointment(String needRouteSlotNumber, String needTime) {
-        Deprecated.waitVisible("//*[@id='schedulingNotice']");
-        Deprecated.scrollToElement(
+        Legacy.waitVisible("//*[@id='schedulingNotice']");
+        Legacy.scrollToElement(
                 "//div[@class='routes']/div[" + needRouteSlotNumber + "]"
                         + "//div[text()='" + needTime + "']/following-sibling::div");
-        Deprecated.waitVisible("//div[@class='routes']/div[" + needRouteSlotNumber + "]"
+        Legacy.waitVisible("//div[@class='routes']/div[" + needRouteSlotNumber + "]"
                 + "//div[text()='" + needTime + "']/following-sibling::div");
-        Deprecated.jsClickElement("//div[@class='routes']/div[" + needRouteSlotNumber + "]" + "//div[text()='" + needTime
+        Legacy.jsClickElement("//div[@class='routes']/div[" + needRouteSlotNumber + "]" + "//div[text()='" + needTime
                 + "']/following-sibling::div");
     }
 
@@ -106,7 +106,7 @@ public class RoutePage extends BasePage {
     public void addGroupIfNotExisting() {
         route = new RoutePage();
         try {
-            WebElement elm = Deprecated.locate("//h3[text() = 'TestRoutes']");
+            WebElement elm = Legacy.locate("//h3[text() = 'TestRoutes']");
             if (elm.isDisplayed()) {
                 deleteGroup();
                 addGroup();
@@ -119,7 +119,7 @@ public class RoutePage extends BasePage {
         }
 
     public boolean isRouteGroupPresent(String routeGroupName) {
-       return Deprecated.isPresent("//h3[text() ='" + routeGroupName + "']");
+       return Legacy.isPresent("//h3[text() ='" + routeGroupName + "']");
     }
 
     @And("I add a route group")
@@ -128,13 +128,13 @@ public class RoutePage extends BasePage {
     }
 
     public String addGroup(String routeGroupName, String grpTemplateName){
-        Deprecated.scrollToElementJS(addGroup);
-        Deprecated.clickElement(addGroup);
-        Deprecated.locate(groupTitle).sendKeys(routeGroupName);
-        Deprecated.waitVisible(groupTemplate);
+        Legacy.scrollToElementJS(addGroup);
+        Legacy.clickElement(addGroup);
+        Legacy.locate(groupTitle).sendKeys(routeGroupName);
+        Legacy.waitVisible(groupTemplate);
         Utilities.selectByText(By.xpath(groupTemplate), grpTemplateName);
-        Deprecated.waitVisible(saveButton);
-        Deprecated.clickElement(saveButton);
+        Legacy.waitVisible(saveButton);
+        Legacy.clickElement(saveButton);
         String groupID  = getGroupID(routeGroupName);
         return groupID;
     }//addGroup()
@@ -155,16 +155,16 @@ public class RoutePage extends BasePage {
 
             WebElement elm = getDescription(routeGroupName);
             if (elm.isDisplayed()) {
-                int elementCount = Deprecated.countElements("//h3[text() = '" + routeGroupName + "']");
+                int elementCount = Legacy.countElements("//h3[text() = '" + routeGroupName + "']");
                 for (int i = elementCount; i>0; i--) {
-                    Deprecated.waitVisible("//h3[text() = '" + routeGroupName + "']",2);
-                    Deprecated.clickElement("//h3[text() = '" + routeGroupName + "']");
-                    Deprecated.waitVisible("//h3[text() = '" + routeGroupName + "']/following-sibling::div[@class = 'clickToEdit']",2);
-                    Deprecated.clickElement("//h3[text() = '" + routeGroupName +"']/following-sibling::div[@class = 'clickToEdit']");
-                    Deprecated.waitVisible("//div[@id = 'editGroupDialog']/following-sibling::div[1]//span[text()='Delete']",2);
-                    Deprecated.clickElement("//div[@id = 'editGroupDialog']/following-sibling::div[1]//span[text()='Delete']");
-                    Deprecated.waitVisible("//span[text()='Delete Group?']/ancestor::div//span[text()='Delete Group']",2);
-                    Deprecated.clickElement("//span[text()='Delete Group?']/ancestor::div//span[text()='Delete Group']", false, true);
+                    Legacy.waitVisible("//h3[text() = '" + routeGroupName + "']",2);
+                    Legacy.clickElement("//h3[text() = '" + routeGroupName + "']");
+                    Legacy.waitVisible("//h3[text() = '" + routeGroupName + "']/following-sibling::div[@class = 'clickToEdit']",2);
+                    Legacy.clickElement("//h3[text() = '" + routeGroupName +"']/following-sibling::div[@class = 'clickToEdit']");
+                    Legacy.waitVisible("//div[@id = 'editGroupDialog']/following-sibling::div[1]//span[text()='Delete']",2);
+                    Legacy.clickElement("//div[@id = 'editGroupDialog']/following-sibling::div[1]//span[text()='Delete']");
+                    Legacy.waitVisible("//span[text()='Delete Group?']/ancestor::div//span[text()='Delete Group']",2);
+                    Legacy.clickElement("//span[text()='Delete Group?']/ancestor::div//span[text()='Delete Group']", false, true);
                     header.navigateTo(header.schedulingTab);
                     scheduleDay.addScheduleDateToProperties();
                     scheduleDay.clickScheduleDay();
@@ -176,16 +176,16 @@ public class RoutePage extends BasePage {
 
 
     public void deleteFirstRoute()  {
-        Deprecated.waitVisible("//div[@class='routes']//div[@groupid][1]//div[text()='Route Actions']");
-        Deprecated.clickElement("//div[@class='routes']//div[@groupid][1]//div[text()='Route Actions']");
-        Deprecated.waitVisible("//div[@class='routes']//div[@groupid][1]//div[text()='Route Actions']//following-sibling::div//p[text()='Delete Route']");
-        Deprecated.clickElement("//div[@class='routes']//div[@groupid][1]//div[text()='Route Actions']//following-sibling::div//p[text()='Delete Route']");
-        Deprecated.waitVisible("//div[@class='ui-widget-overlay ui-front']//following-sibling::div//span[text()='Delete Route']");
-        Deprecated.clickElement("//div[@class='ui-widget-overlay ui-front']//following-sibling::div//span[text()='Delete Route']");
+        Legacy.waitVisible("//div[@class='routes']//div[@groupid][1]//div[text()='Route Actions']");
+        Legacy.clickElement("//div[@class='routes']//div[@groupid][1]//div[text()='Route Actions']");
+        Legacy.waitVisible("//div[@class='routes']//div[@groupid][1]//div[text()='Route Actions']//following-sibling::div//p[text()='Delete Route']");
+        Legacy.clickElement("//div[@class='routes']//div[@groupid][1]//div[text()='Route Actions']//following-sibling::div//p[text()='Delete Route']");
+        Legacy.waitVisible("//div[@class='ui-widget-overlay ui-front']//following-sibling::div//span[text()='Delete Route']");
+        Legacy.clickElement("//div[@class='ui-widget-overlay ui-front']//following-sibling::div//span[text()='Delete Route']");
     }
 
     public WebElement getDescription(String needText) {
-        return Deprecated.locate("//h3[contains (text(), '"+needText+"')]");
+        return Legacy.locate("//h3[contains (text(), '"+needText+"')]");
     }
 
     public void selectAvailableAppointment() {
@@ -193,7 +193,7 @@ public class RoutePage extends BasePage {
         if (isVisible(routeActions)) {
             for(WebElement availableAppointment : fixedAppointments) {
                 if (!availableAppointment.isSelected()) {
-                    Deprecated.scrollToElementJS(availableAppointment);
+                    Legacy.scrollToElementJS(availableAppointment);
                     availableAppointment.click();
                     break;
                 }
@@ -219,7 +219,7 @@ public class RoutePage extends BasePage {
     public void selectExistingCustomer(String customer) {
         if (isVisible(existingCustomerField)) {
             delay(1000);
-            Deprecated.type(customer, existingCustomerField);
+            Legacy.type(customer, existingCustomerField);
             WebElement existingCustomer = Utilities.locate(By.xpath("//div[@aria-describedby='chooseCustomerDialog']//span[@class='left searchName' and contains(text(), '"+ customer +"')]"));
             existingCustomer.click();
         }

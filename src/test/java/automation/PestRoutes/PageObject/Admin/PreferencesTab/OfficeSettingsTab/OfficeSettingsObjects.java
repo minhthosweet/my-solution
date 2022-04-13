@@ -1,7 +1,7 @@
 package automation.PestRoutes.PageObject.Admin.PreferencesTab.OfficeSettingsTab;
 
 import automation.PestRoutes.PageObject.BasePage;
-import automation.PestRoutes.Utilities.Deprecated;
+import automation.PestRoutes.Utilities.Legacy;
 import automation.PestRoutes.Utilities.Utilities;
 import org.openqa.selenium.By;
 
@@ -65,11 +65,11 @@ public class OfficeSettingsObjects extends BasePage {
 
     /*************************** Setters ***************************/
     public void setPhysicalStreetAddr(String streetAddress){
-        Deprecated.type(streetAddress,physicalStreetAddr);
+        Legacy.type(streetAddress,physicalStreetAddr);
     }//setPhysicalStreetAddr()
 
     public void setPhysicalCity(String cityName){
-        Deprecated.type(cityName,physicalCity);
+        Legacy.type(cityName,physicalCity);
     }//setPhysicalCity()
 
     public void setPhysicalState(String stateName){
@@ -77,7 +77,7 @@ public class OfficeSettingsObjects extends BasePage {
     }//setPhysicalState()
 
     public void setPhysicalZipCode(String zipCode){
-        Deprecated.type(zipCode,physicalZipCode);
+        Legacy.type(zipCode,physicalZipCode);
     }//setPhysicalZip()
 
     public void setPhysicalCountry(String optionCountry){
@@ -88,9 +88,9 @@ public class OfficeSettingsObjects extends BasePage {
     public String getPhysicalZipCode(){
     // Utilities.scrollToBottomElementJS(invoiceAddressTitle);
         //click(By.xpath(invoiceAddressTitle));
-        Deprecated.scrollToElementJS(authorizedContactsTitle);
+        Legacy.scrollToElementJS(authorizedContactsTitle);
         Utilities.click(lnkAddressEdit);
-        Deprecated.scrollToElementJS(physicalZipCode);
+        Legacy.scrollToElementJS(physicalZipCode);
         return Utilities.getText(physicalZipCode);
     }//getPhysicalZipCode
 

@@ -1,6 +1,6 @@
 package automation.PestRoutes.PageObject.NotesTab;
 
-import automation.PestRoutes.Utilities.Deprecated;
+import automation.PestRoutes.Utilities.Legacy;
 
 public class NotesPage {
 	//Main objects
@@ -57,27 +57,27 @@ public class NotesPage {
 	//Methods
 	
 	public void clickButton(String needButton) {
-		Deprecated.waitVisible(needButton);
-		Deprecated.clickElement(needButton);
+		Legacy.waitVisible(needButton);
+		Legacy.clickElement(needButton);
 	}
 	
 	public void setInputField(String needInputField, String needValue) {
-		Deprecated.waitVisible(needInputField);
-		Deprecated.locate(needInputField).sendKeys(needValue);
+		Legacy.waitVisible(needInputField);
+		Legacy.locate(needInputField).sendKeys(needValue);
 	}
 	
 	public void selectTextFromDropdown(String needDropdown, String needText) {
-		Deprecated.waitVisible(needDropdown);
-		Deprecated.selectByText(needDropdown, needText);
+		Legacy.waitVisible(needDropdown);
+		Legacy.selectByText(needDropdown, needText);
 	}
 	
 	public String getText(String needAttribute) {
-		Deprecated.waitVisible(needAttribute);
-		return Deprecated.getElementTextValue(needAttribute);
+		Legacy.waitVisible(needAttribute);
+		return Legacy.getElementTextValue(needAttribute);
 	}
 	
 	public void navigateToNoteType(String needNoteType) {
-		Deprecated.clickElement("//li[text()='"+needNoteType+"']");
+		Legacy.clickElement("//li[text()='"+needNoteType+"']");
 	}
 
 }

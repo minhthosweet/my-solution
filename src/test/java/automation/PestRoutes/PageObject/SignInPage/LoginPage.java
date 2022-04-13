@@ -1,6 +1,6 @@
 package automation.PestRoutes.PageObject.SignInPage;
 
-import automation.PestRoutes.Utilities.Deprecated;
+import automation.PestRoutes.Utilities.Legacy;
 
 public class LoginPage {
 	
@@ -14,16 +14,16 @@ public class LoginPage {
 	
 	// Action method
 	public void clickLoginButton() {
-		Deprecated.clickElement(LoginButton);
+		Legacy.clickElement(LoginButton);
 	}
 	
 	// Setter methods
 	public void setUserName(String needUserName) {
-		Deprecated.locate(UserName).sendKeys(needUserName);
+		Legacy.locate(UserName).sendKeys(needUserName);
 	}
 	
 	public void setPassword(String needPassword) {
-		Deprecated.locate(Password).sendKeys(needPassword);
+		Legacy.locate(Password).sendKeys(needPassword);
 	}
 
 }

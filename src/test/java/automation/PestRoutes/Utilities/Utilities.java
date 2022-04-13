@@ -97,9 +97,18 @@ public class Utilities {
     }
 
     // WebInput
-    public static void type(By locator, String text) {
-        WebInput.type(locator, text, true);
+    public static void type(By locator, String text, boolean clear) {
+        WebInput.type(locator, text, clear);
     }
+
+    public static void type(By locator, String text) {
+        type(locator, text, true);
+    }
+
+    public static void type(By locator, Keys key) {
+        WebInput.type(locator, key);
+    }
+
 
     public static void checkBox(By locator) {
         WebInput.checkBox(locator);

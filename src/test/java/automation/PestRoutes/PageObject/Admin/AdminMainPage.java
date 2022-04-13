@@ -3,7 +3,7 @@ package automation.PestRoutes.PageObject.Admin;
 import automation.PestRoutes.PageObject.Admin.PreferencesTab.PreferencesPage;
 import automation.PestRoutes.PageObject.BasePage;
 import automation.PestRoutes.Utilities.*;
-import automation.PestRoutes.Utilities.Deprecated;
+import automation.PestRoutes.Utilities.Legacy;
 import org.openqa.selenium.By;
 
 
@@ -23,20 +23,20 @@ public class AdminMainPage extends BasePage {
 
 	//Action methods
 	public void navigateTo(String needTab) {
-		Deprecated.waitVisible("//p[text() = '"+needTab+"']");
-		Deprecated.clickElement("//p[text() = '"+needTab+"']");
+		Legacy.waitVisible("//p[text() = '"+needTab+"']");
+		Legacy.clickElement("//p[text() = '"+needTab+"']");
 		Utilities.delay(500);
 	}
 
 	//Setters
 	public void setInputValue(String needInputField, String keysToSend) {
-		Deprecated.locate(needInputField).sendKeys(keysToSend);
+		Legacy.locate(needInputField).sendKeys(keysToSend);
 	}
 
 	//Getters
 	public String getFieldValue(String needFieldName) {
-		Deprecated.waitVisible(needFieldName);
-		return Deprecated.getElementTextValue(needFieldName);
+		Legacy.waitVisible(needFieldName);
+		return Legacy.getElementTextValue(needFieldName);
 	}
 
 	public PreferencesPage clickPreferencesSubComponent(){

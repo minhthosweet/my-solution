@@ -1,6 +1,6 @@
 package automation.PestRoutes.PageObject.Scheduling;
 
-import automation.PestRoutes.Utilities.Deprecated;
+import automation.PestRoutes.Utilities.Legacy;
 
 public class UnitsTab {
 
@@ -21,26 +21,26 @@ public class UnitsTab {
 	private String customMask = "//div[@id=\"select2-custom-mask\"]";
 
 	public void selectUnit(String needUnit) {
-		Deprecated.clickElement(unitType);
-		Deprecated.clickElement("//option[text()='" + needUnit + "']");
+		Legacy.clickElement(unitType);
+		Legacy.clickElement("//option[text()='" + needUnit + "']");
 	}
 
 	public void newUnitClick() {
-		Deprecated.waitVisible(newUnitClick);
-		Deprecated.clickElement(newUnitClick);
+		Legacy.waitVisible(newUnitClick);
+		Legacy.clickElement(newUnitClick);
 	}
 
 	public void setupUnit(String building, String unit, String barcode) {
 		try {
-			if (Deprecated.countElements(availableUnit) == 0) {
-				Deprecated.waitVisible(buildingDetails);
-				Deprecated.locate(buildingDetails).sendKeys(building);
-				Deprecated.waitVisible(unitDetails);
-				Deprecated.locate(unitDetails).sendKeys(unit);
-				Deprecated.waitVisible(barcodeDetails);
-				Deprecated.locate(barcodeDetails).sendKeys(barcode);
-				Deprecated.waitVisible(saveTopRight);
-				Deprecated.clickElement(saveTopRight);
+			if (Legacy.countElements(availableUnit) == 0) {
+				Legacy.waitVisible(buildingDetails);
+				Legacy.locate(buildingDetails).sendKeys(building);
+				Legacy.waitVisible(unitDetails);
+				Legacy.locate(unitDetails).sendKeys(unit);
+				Legacy.waitVisible(barcodeDetails);
+				Legacy.locate(barcodeDetails).sendKeys(barcode);
+				Legacy.waitVisible(saveTopRight);
+				Legacy.clickElement(saveTopRight);
 			}
 		} catch (Exception e) {
 			System.out.println("Exception is == " + e.getMessage());
@@ -49,25 +49,25 @@ public class UnitsTab {
 	}
 
 	public void clickUnitsScheduleApt() {
-		Deprecated.clickElement(unitsSchedule);
+		Legacy.clickElement(unitsSchedule);
 	}
 
 	public void AddUnitsSchApt() {
-		Deprecated.waitVisible(unitsScheduleApt);
-		Deprecated.clickElement(unitsScheduleApt);
-		Deprecated.waitVisible(addUnitsSchApt);
-		Deprecated.clickElement(addUnitsSchApt);
+		Legacy.waitVisible(unitsScheduleApt);
+		Legacy.clickElement(unitsScheduleApt);
+		Legacy.waitVisible(addUnitsSchApt);
+		Legacy.clickElement(addUnitsSchApt);
 	}
 
 	public void clickDetails() {
 
-		if (Deprecated.countElements(clickXSchedulingButton) > 0) {
+		if (Legacy.countElements(clickXSchedulingButton) > 0) {
 
-			Deprecated.clickElement(clickXSchedulingButton);
-			Deprecated.clickElement(customMask);
+			Legacy.clickElement(clickXSchedulingButton);
+			Legacy.clickElement(customMask);
 		}
-		Deprecated.waitVisible(details);
-		Deprecated.clickElement(details);
+		Legacy.waitVisible(details);
+		Legacy.clickElement(details);
 	}
 
 }

@@ -5,7 +5,7 @@ import java.text.DecimalFormat;
 import automation.PestRoutes.Controller.*;
 import automation.PestRoutes.Controller.CustomerCreation.CreateNewCustomer;
 import automation.PestRoutes.Utilities.Data.*;
-import automation.PestRoutes.Utilities.Deprecated;
+import automation.PestRoutes.Utilities.Legacy;
 import automation.PestRoutes.Utilities.Report.*;
 import io.cucumber.java.en.Then;
 import org.openqa.selenium.WebElement;
@@ -72,17 +72,17 @@ public class ValidateRenewal extends AppData {
         customerDialogHeader.navigateTo(customerDialogHeader.subscriptionTabInDialog);
         subscription.clickNewSubscriptionButton();
         subscription.selectServiceType(serviceType);
-        WebElement renewalDateField = Deprecated.locate(subscription.renewalDateField);
+        WebElement renewalDateField = Legacy.locate(subscription.renewalDateField);
         if (AssertException.conditionResult(renewalDateField).size() > 0) {
             CucumberBaseClass.list.add(AssertException.conditionResult(renewalDateField));
         }
         Reporter.conditionStatus(renewalDateField, "renewal date field", "Renewal in subscription");
-        WebElement setRenewalDate = Deprecated.locate(subscription.setRenewalDateDropdown);
+        WebElement setRenewalDate = Legacy.locate(subscription.setRenewalDateDropdown);
         if (AssertException.conditionResult(setRenewalDate).size() > 0) {
             CucumberBaseClass.list.add(AssertException.conditionResult(setRenewalDate));
         }
         Reporter.conditionStatus(setRenewalDate, "Set renewal date field", "Renewal in subscription");
-        WebElement renewalFrequencyField = Deprecated.locate(subscription.renewalFrequencyDropdown);
+        WebElement renewalFrequencyField = Legacy.locate(subscription.renewalFrequencyDropdown);
         if (AssertException.conditionResult(renewalFrequencyField).size() > 0) {
             CucumberBaseClass.list.add(AssertException.conditionResult(renewalFrequencyField));
         }
@@ -138,7 +138,7 @@ public class ValidateRenewal extends AppData {
         scheduleDay.clickOnlyScheduleButton();
         validateRecommendedRoutesFilters();
         scheduleDay.closeRemmendedRoutesDialog();
-        int totalCount = Deprecated.countElements(appt.routes);
+        int totalCount = Legacy.countElements(appt.routes);
         String routesCount = Integer.toString(totalCount);
         route.scheduleAppointment(routesCount, getData("timeSlot", generalData));
         confirmAppt.selectServiceType(serviceType);
@@ -154,7 +154,7 @@ public class ValidateRenewal extends AppData {
         confirmAppt = new SchedulingAppointmentDialog();
         scheduleDay = new SchedulingTab();
         scheduleDay.clickScheduleButton();
-        int totalCount = Deprecated.countElements(appt.routes);
+        int totalCount = Legacy.countElements(appt.routes);
         String routesCount = Integer.toString(totalCount);
         //route.scheduleAppointment(routesCount, getData("timeSlot", generalData));
         route.selectAvailableAppointment();
@@ -171,7 +171,7 @@ public class ValidateRenewal extends AppData {
         confirmAppt = new SchedulingAppointmentDialog();
         scheduleDay = new SchedulingTab();
         scheduleDay.clickScheduleButton();
-        int totalCount = Deprecated.countElements(appt.routes);
+        int totalCount = Legacy.countElements(appt.routes);
         String routesCount = Integer.toString(totalCount);
         route.scheduleAppointment(routesCount, getData("timeSlot", generalData));
         scheduleDay.selectServiceType(getData("quarterly", quarterlyPreferredDayData));
@@ -194,7 +194,7 @@ public class ValidateRenewal extends AppData {
         route.addRoutesByQuantity("1");
 
         scheduleDay.clickScheduleButton();
-        int totalCount = Deprecated.countElements(appt.routes);
+        int totalCount = Legacy.countElements(appt.routes);
         String routesCount = Integer.toString(totalCount);
         System.out.println(routesCount);
         route.scheduleAppointment(routesCount, needTimeSlot);
@@ -248,7 +248,7 @@ public class ValidateRenewal extends AppData {
         appointmentTab.clickEditButton_AppointmentCard();
         appointmentTab.clickRescheduleButton();
         overviewHeader.clickCloseButton();
-        int totalCount = Deprecated.countElements(appt.routes);
+        int totalCount = Legacy.countElements(appt.routes);
         String routesCount = Integer.toString(totalCount);
         System.out.println(routesCount);
         route.scheduleAppointment(routesCount, getData("timeSlot", generalData));
@@ -325,13 +325,13 @@ public class ValidateRenewal extends AppData {
         }
 
         paymentPage.setLimitedToSubscription(getData("serviceDescription", generalData));
-        Deprecated.clickElement(paymentPage.confirmPymtAmtField);
+        Legacy.clickElement(paymentPage.confirmPymtAmtField);
         String paymentWarning = paymentPage.getPaymentWarning();
         result(expectedWarning, paymentWarning, "payment warning to renew subscription", "Subscription Renewal");
         paymentPage.insertPaymentAmount(total, total);
         paymentPage.doubleClickRenewalDateCheckBox();
         String expectedRenewalDateAttributeValue = "display: block;";
-        String renewalDateAttributeValue = Deprecated.getAttribute(paymentPage.renewalDateField, "style");
+        String renewalDateAttributeValue = Legacy.getAttribute(paymentPage.renewalDateField, "style");
         result(expectedRenewalDateAttributeValue, renewalDateAttributeValue, "if renewal date is checked", "Subscription Renewal");
         paymentPage.clickRecordPayment();
     }

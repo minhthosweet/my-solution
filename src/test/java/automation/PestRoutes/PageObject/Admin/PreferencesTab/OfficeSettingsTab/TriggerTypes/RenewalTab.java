@@ -1,6 +1,6 @@
 package automation.PestRoutes.PageObject.Admin.PreferencesTab.OfficeSettingsTab.TriggerTypes;
 
-import automation.PestRoutes.Utilities.Deprecated;
+import automation.PestRoutes.Utilities.Legacy;
 
 public class RenewalTab {
 	// Renewal objects
@@ -50,21 +50,21 @@ public class RenewalTab {
 	public String beforeAfter_afterRenewalDate = "After Renewal Date";
 
 	public void setDaysBefore_After(String needDays) {
-		Deprecated.locate(daysBefore_AfterInputField).sendKeys(needDays);
+		Legacy.locate(daysBefore_AfterInputField).sendKeys(needDays);
 	}
 
 	public void setMinRenewalAmount(String needAmount) {
-		Deprecated.locate(minRenewalAmountInputField).sendKeys(needAmount);
+		Legacy.locate(minRenewalAmountInputField).sendKeys(needAmount);
 	}
 
 	public void setMaxRenewalAmount(String needAmount) {
-		Deprecated.waitVisible(maxRenewalAmountInputField);
-		Deprecated.locate(maxRenewalAmountInputField).sendKeys(needAmount);
+		Legacy.waitVisible(maxRenewalAmountInputField);
+		Legacy.locate(maxRenewalAmountInputField).sendKeys(needAmount);
 	}
 
 	// Getters: get actual text value for action created(used for assertions)
 	public String getWebhookActionTextValue() {
-		return Deprecated.getElementTextValue(WebhookAction_actual);
+		return Legacy.getElementTextValue(WebhookAction_actual);
 	}
 
 }

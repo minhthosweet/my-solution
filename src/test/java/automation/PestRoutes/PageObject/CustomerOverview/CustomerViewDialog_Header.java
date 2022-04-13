@@ -7,13 +7,13 @@ import automation.PestRoutes.PageObject.Leads.LeadsPage;
 import automation.PestRoutes.PageObject.Search.SearchBox;
 import automation.PestRoutes.Utilities.*;
 import automation.PestRoutes.Utilities.Data.*;
-import automation.PestRoutes.Utilities.Deprecated;
+import automation.PestRoutes.Utilities.Legacy;
 import io.cucumber.java.en.And;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import static automation.PestRoutes.Utilities.GetWebDriver.*;
-import static automation.PestRoutes.Utilities.Deprecated.isVisible;
+import static automation.PestRoutes.Utilities.Legacy.isVisible;
 import org.openqa.selenium.WebElement;
 import java.util.List;
 
@@ -65,23 +65,23 @@ public class CustomerViewDialog_Header extends BasePage {
     WebDriverWait wait = new WebDriverWait(driver, 55);
 
     public void clickCustomerContactsInNotesTab() {
-        Deprecated.waitVisible(customerContacts_Notes);
-        Deprecated.clickElement(customerContacts_Notes);
+        Legacy.waitVisible(customerContacts_Notes);
+        Legacy.clickElement(customerContacts_Notes);
     }
 
     public void navigateTo(String chooseTabFromConst) {
         delay(3000);
-        Deprecated.waitVisible("//li[@name= '" + chooseTabFromConst + "']");
-        Deprecated.clickElement("//li[@name = '" + chooseTabFromConst + "']", true, false);
+        Legacy.waitVisible("//li[@name= '" + chooseTabFromConst + "']");
+        Legacy.clickElement("//li[@name = '" + chooseTabFromConst + "']", true, false);
         delay(100);
     }
 
     public void ClickTranferButton() {
-        Deprecated.clickElement(tranferButtonInDialog);
+        Legacy.clickElement(tranferButtonInDialog);
     }
 
     public void clickSaveButton() {
-        Deprecated.clickElement(saveButton);
+        Legacy.clickElement(saveButton);
     }
 
     public void clickCustomerCardScheduleButton (){
@@ -92,13 +92,13 @@ public class CustomerViewDialog_Header extends BasePage {
         try {
             Thread.sleep(500);
         }catch(InterruptedException e){e.printStackTrace();}
-        Deprecated.waitVisible(closeButton);
-        Deprecated.clickElement(closeButton);
+        Legacy.waitVisible(closeButton);
+        Legacy.clickElement(closeButton);
         clickSaveChangesButton();
     }
 
     public void Click_X_Button() {
-        Deprecated.clickElement(closeXButton);
+        Legacy.clickElement(closeXButton);
     }
 
     public void clickXButton() {
@@ -116,8 +116,8 @@ public class CustomerViewDialog_Header extends BasePage {
     @And("If discard changes dialog displays, I discard unsaved changes")
     public void discardChanges() {
         try{
-            if (Deprecated.isVisible(discardChange)) {
-                Deprecated.clickElement(discardChange);
+            if (Legacy.isVisible(discardChange)) {
+                Legacy.clickElement(discardChange);
                 Thread.sleep(500);
             }
         }catch (Exception e){
@@ -128,8 +128,8 @@ public class CustomerViewDialog_Header extends BasePage {
     @And("If Remove Customer dialog displays, I confirm the remove")
     public void confirmRemoveCustomer() {
         try{
-             if (Deprecated.isVisible("//span[text()='Remove Customer?']/ancestor::div//span[text() = 'Confirm Remove']")) {
-                Deprecated.clickElement("//span[text()='Remove Customer?']/ancestor::div//span[text() = 'Confirm Remove']");
+             if (Legacy.isVisible("//span[text()='Remove Customer?']/ancestor::div//span[text() = 'Confirm Remove']")) {
+                Legacy.clickElement("//span[text()='Remove Customer?']/ancestor::div//span[text() = 'Confirm Remove']");
                 Thread.sleep(1000);
             }
         }catch (Exception e){
@@ -144,8 +144,8 @@ public class CustomerViewDialog_Header extends BasePage {
     }//removeCustomerConfirmation()
 
     public void saveAnyways() {
-        if (Deprecated.isVisible(saveAnyways)) {
-            Deprecated.clickElement(saveAnyways);
+        if (Legacy.isVisible(saveAnyways)) {
+            Legacy.clickElement(saveAnyways);
         }
     }
 

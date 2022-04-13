@@ -1,6 +1,6 @@
 package automation.PestRoutes.PageObject.Admin.PreferencesTab.CustomerPreferencesTab;
 
-import automation.PestRoutes.Utilities.Deprecated;
+import automation.PestRoutes.Utilities.Legacy;
 
 public class FormObjects {
 	
@@ -22,20 +22,20 @@ public class FormObjects {
 	public String existingFlag = "//div[contains(text(),'Fire')]";
 
 	public void clickButton(String needAttribute) {
-		Deprecated.waitVisible(needAttribute);
-		Deprecated.clickElement(needAttribute);
+		Legacy.waitVisible(needAttribute);
+		Legacy.clickElement(needAttribute);
 	}
 	public void clickEditButton(String needFormName) {
-		Deprecated.waitVisible("//input[@value = '"+needFormName+"']/following-sibling::div[text() = 'edit']");
-		Deprecated.clickElement("//input[@value = '"+needFormName+"']/following-sibling::div[text() = 'edit']");
+		Legacy.waitVisible("//input[@value = '"+needFormName+"']/following-sibling::div[text() = 'edit']");
+		Legacy.clickElement("//input[@value = '"+needFormName+"']/following-sibling::div[text() = 'edit']");
 	}
 	public void selectValueFromDropdown(String needType, String needValue) {
-		Deprecated.selectByText(needType, needValue);
+		Legacy.selectByText(needType, needValue);
 	}
 
 	public void setInputField(String needInputField, String needValue) {
-		Deprecated.waitVisible(needInputField);
-		Deprecated.locate(needInputField).sendKeys(needValue);
+		Legacy.waitVisible(needInputField);
+		Legacy.locate(needInputField).sendKeys(needValue);
 	}
 
 

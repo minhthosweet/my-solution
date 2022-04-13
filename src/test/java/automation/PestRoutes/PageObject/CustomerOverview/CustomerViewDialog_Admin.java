@@ -5,7 +5,7 @@ import automation.PestRoutes.PageObject.CustomerPortal.CustomerPortalBasePage;
 import automation.PestRoutes.PageObject.CustomerPortal.CustomerPortalSummaryTabPage;
 import automation.PestRoutes.Utilities.*;
 import automation.PestRoutes.Utilities.Data.*;
-import automation.PestRoutes.Utilities.Deprecated;
+import automation.PestRoutes.Utilities.Legacy;
 import io.cucumber.java.en.And;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -56,9 +56,9 @@ public class CustomerViewDialog_Admin extends BasePage {
 
     public void changeAccountStatus_Frozen(String cancelCustomerOption) {
 
-        Deprecated.waitVisible(accountStatusChange);
-        Deprecated.clickElement(accountStatusChange);
-        Deprecated.clickElement(clickCancelCatogory);
+        Legacy.waitVisible(accountStatusChange);
+        Legacy.clickElement(accountStatusChange);
+        Legacy.clickElement(clickCancelCatogory);
         clickCancellationCategory();
         cancellationCategory(2);
         selectCancelCustomerOptions(cancelCustomerOption);
@@ -70,12 +70,12 @@ public class CustomerViewDialog_Admin extends BasePage {
     public void changeAccountStatus_Active() throws InterruptedException {
         customerCardHeader = new CustomerViewDialog_Header();
         customerCardHeader.navigateTo(customerCardHeader.adminTabInDialog);
-        Deprecated.waitVisible(accountStatusChange);
-        Deprecated.clickElement(accountStatusChange);
+        Legacy.waitVisible(accountStatusChange);
+        Legacy.clickElement(accountStatusChange);
     }
 
     public String getAccountStatus() {
-        Deprecated.scrollToElement("//span[text() = '" + GetDate.currentDate("M/dd/yy h:mm aa").toLowerCase()
+        Legacy.scrollToElement("//span[text() = '" + GetDate.currentDate("M/dd/yy h:mm aa").toLowerCase()
                 + " CDT']/parent::div/parent::li//h4/parent::div[1]");
         String text = driver
                 .findElement(By.xpath("//span[text() = '" + GetDate.currentDate("M/dd/yy h:mm aa").toLowerCase()
@@ -85,7 +85,7 @@ public class CustomerViewDialog_Admin extends BasePage {
     }
 
     public void clickCancellationCategory() {
-        Deprecated.clickElement(clickCancelCatogory);
+        Legacy.clickElement(clickCancelCatogory);
     }
 
     public void cancellationCategory(int indexOfCancellationType) {
@@ -98,23 +98,23 @@ public class CustomerViewDialog_Admin extends BasePage {
     }
 
     public void selectCancelCustomerOptions(String cancelCustomerOption) {
-        Deprecated.waitVisible(
+        Legacy.waitVisible(
                 "//select[@id='cancelCustomerOptions']/option[text() = '" + cancelCustomerOption + "']");
-        Deprecated.clickElement("//select[@id='cancelCustomerOptions']/option[text() = '" + cancelCustomerOption + "']"
+        Legacy.clickElement("//select[@id='cancelCustomerOptions']/option[text() = '" + cancelCustomerOption + "']"
         );
     }
 
     public void cancellationNotes() {
-        Deprecated.clickElement(cancelNotes);
-        Deprecated.locate(cancelNotes).sendKeys("Cancelling the customer");
+        Legacy.clickElement(cancelNotes);
+        Legacy.locate(cancelNotes).sendKeys("Cancelling the customer");
     }
 
     public void clickFreezeAccount() {
-        Deprecated.clickElement(clickFreeze);
+        Legacy.clickElement(clickFreeze);
     }
 
     public String getCustomerStatus() {
-        return Deprecated.getElementTextValue(customerStatus);
+        return Legacy.getElementTextValue(customerStatus);
     }
 
     public CustomerPortalSummaryTabPage clickPortalLogin() {
@@ -139,7 +139,7 @@ public class CustomerViewDialog_Admin extends BasePage {
     }
 
     public void clickConfirmRemoveButton() {
-        Deprecated.isVisible(confirmRemoveButton);
+        Legacy.isVisible(confirmRemoveButton);
        Utilities.locate(By.xpath(confirmRemoveButton)).click();
     }
 }

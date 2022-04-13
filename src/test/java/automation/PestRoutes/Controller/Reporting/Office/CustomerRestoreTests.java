@@ -6,10 +6,9 @@ import automation.PestRoutes.PageObject.DashboardPage;
 import automation.PestRoutes.PageObject.Header;
 import automation.PestRoutes.PageObject.ReportingPage.OfficePage.CustomerRestorePageObjects;
 import automation.PestRoutes.PageObject.ReportingPage.ReportingMainPage;
-import automation.PestRoutes.Utilities.Deprecated;
+import automation.PestRoutes.Utilities.Legacy;
 import automation.PestRoutes.Utilities.Utilities;
 import io.cucumber.java.en.And;
-import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 
 import static automation.PestRoutes.Utilities.Report.AssertException.result;
@@ -36,7 +35,7 @@ public class CustomerRestoreTests {
         reportingMainPage = dashboardPage.goToReportingComponent();
         customerRestorePgObjs = reportingMainPage.clickCustomerRestore();
 
-        if(Deprecated.isVisible(customerRestorePgObjs.btnRefreshStr))
+        if(Legacy.isVisible(customerRestorePgObjs.btnRefreshStr))
         {
             //Utilities.waitUntileElementIsVisible(customerRestorePgObjs.colCustomerNameStr,10);
             Utilities.delay(5);
@@ -53,7 +52,7 @@ public class CustomerRestoreTests {
 
         header.searchCustomerWithName(customer_fullName);
 
-        if (Deprecated.isVisible(customerCardHeader.overviewPageTitle)) {
+        if (Legacy.isVisible(customerCardHeader.overviewPageTitle)) {
             if (customerCardHeader.isCustomerLoaded(customer_fullName))
                 loadedCustomerName = customer_fullName;
         }

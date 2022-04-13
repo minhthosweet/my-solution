@@ -2,7 +2,7 @@ package automation.PestRoutes.PageObject.CreateCustomer;
 
 import automation.PestRoutes.PageObject.BasePage;
 import automation.PestRoutes.Utilities.*;
-import automation.PestRoutes.Utilities.Deprecated;
+import automation.PestRoutes.Utilities.Legacy;
 import org.openqa.selenium.By;
 import org.openqa.selenium.ElementNotInteractableException;
 import org.openqa.selenium.Keys;
@@ -82,43 +82,43 @@ public class CreateCustomerDialog extends BasePage {
      */
     // Drop downs
     public void selectProperty(String needPropertyType) {
-        Deprecated.selectByText(propertyTypeDropDown, needPropertyType);
+        Legacy.selectByText(propertyTypeDropDown, needPropertyType);
     }
 
     public void selectUnit(String needUnit) {
-        Deprecated.selectByText(unitTypeDropDown, needUnit);
+        Legacy.selectByText(unitTypeDropDown, needUnit);
     }
 
     public void selectSource(String needSource) {
-        Deprecated.selectByText(selectSourceDropDown, needSource);
+        Legacy.selectByText(selectSourceDropDown, needSource);
     }
 
     public void selectGenericFlag(String needFlag) {
-        Deprecated.locate(genericFlagsDropDown).sendKeys(needFlag);
+        Legacy.locate(genericFlagsDropDown).sendKeys(needFlag);
     }
 
     public void selectState(String needState) {
-        Deprecated.selectByText(stateDropDown, needState);
+        Legacy.selectByText(stateDropDown, needState);
     }
 
     public void selectCounty(String needCounty) {
-        Deprecated.selectByText(countyDropDown, needCounty);
+        Legacy.selectByText(countyDropDown, needCounty);
     }
 
     public void selectCountry(String needCountry) {
-        Deprecated.selectByText(countryDropDown, needCountry);
+        Legacy.selectByText(countryDropDown, needCountry);
     }
 
     public void selectDivision(String needDivision) {
-        Deprecated.selectByText(divisionDropDown, needDivision);
+        Legacy.selectByText(divisionDropDown, needDivision);
     }
 
     // Click or Unclick Check boxes
     public void clickSmsCheckBox() {
         try {
-            WebElement elm = Deprecated.locate("//input[@name= 'smsReminders' and @checked]");
+            WebElement elm = Legacy.locate("//input[@name= 'smsReminders' and @checked]");
             if (!elm.isDisplayed()) {
-                Deprecated.clickElement(smsCheckBox);
+                Legacy.clickElement(smsCheckBox);
             }
         } catch (Exception e) {
         }
@@ -126,29 +126,29 @@ public class CreateCustomerDialog extends BasePage {
 
     public void clickEmailCheckBox() {
         try {
-            WebElement elm = Deprecated.locate(emailSelectedCheckBox);
+            WebElement elm = Legacy.locate(emailSelectedCheckBox);
             if (elm.isDisplayed()) {
             }
         } catch (Exception e) {
-            Deprecated.clickElement(emailCheckBox);
+            Legacy.clickElement(emailCheckBox);
         }
     }
 
     public void clickVoiceCheckBox() {
         try {
-            WebElement elm = Deprecated.locate(voiceSelectedCheckBox);
+            WebElement elm = Legacy.locate(voiceSelectedCheckBox);
             if (elm.isDisplayed()) {
             }
         } catch (Exception e) {
-            Deprecated.clickElement(voiceCheckBox);
+            Legacy.clickElement(voiceCheckBox);
         }
     }
 
     public void unClickSmsCheckBox() {
         try {
-            WebElement elm = Deprecated.locate(smsSelectedCheckBox);
+            WebElement elm = Legacy.locate(smsSelectedCheckBox);
             if (elm.isDisplayed()) {
-                Deprecated.clickElement(smsSelectedCheckBox);
+                Legacy.clickElement(smsSelectedCheckBox);
             }
         } catch (Exception e) {
             System.out.println("SMS checkBox unselected");
@@ -157,9 +157,9 @@ public class CreateCustomerDialog extends BasePage {
 
     public void unClickEmailCheckBox() {
         try {
-            WebElement elm = Deprecated.locate(emailSelectedCheckBox);
+            WebElement elm = Legacy.locate(emailSelectedCheckBox);
             if (elm.isDisplayed()) {
-                Deprecated.clickElement(emailSelectedCheckBox);
+                Legacy.clickElement(emailSelectedCheckBox);
             }
         } catch (Exception e) {
             System.out.println("Email checkBox unselected");
@@ -168,9 +168,9 @@ public class CreateCustomerDialog extends BasePage {
 
     public void unClickVoiceCheckBox() {
         try {
-            WebElement elm = Deprecated.locate(voiceSelectedCheckBox);
+            WebElement elm = Legacy.locate(voiceSelectedCheckBox);
             if (elm.isDisplayed()) {
-                Deprecated.clickElement(voiceSelectedCheckBox);
+                Legacy.clickElement(voiceSelectedCheckBox);
             }
         } catch (Exception e) {
             System.out.println("Voice Checkbox unselected");
@@ -178,19 +178,19 @@ public class CreateCustomerDialog extends BasePage {
     }
 
     public void clickPaidInFullCheckBox() {
-        Deprecated.clickElement(paidInFullCheckBox);
+        Legacy.clickElement(paidInFullCheckBox);
     }
 
     public void clickSwitchOverCheckBox() {
-        Deprecated.clickElement(switchOverCheckBox);
+        Legacy.clickElement(switchOverCheckBox);
     }
 
     public void clickSalesRepAPayCheckBox() {
-        Deprecated.clickElement(salesRepAPayCheckBox);
+        Legacy.clickElement(salesRepAPayCheckBox);
     }
 
     public void clickPendingCancelCheckBox() {
-        Deprecated.clickElement(pendingCancelCheckBox);
+        Legacy.clickElement(pendingCancelCheckBox);
         customerAdmin = new CustomerViewDialog_Admin();
         customerAdmin.cancellationCategory(2);
         customerAdmin.cancellationNotes();
@@ -198,128 +198,128 @@ public class CreateCustomerDialog extends BasePage {
     }
 
     public void clickPrefersPaperCheckBox() {
-        Deprecated.clickElement(prefersPaperCheckBox);
+        Legacy.clickElement(prefersPaperCheckBox);
     }
 
     public void clickPurpleDragonCheckBox() {
-        Deprecated.clickElement(purpleDragonCheckBox);
+        Legacy.clickElement(purpleDragonCheckBox);
     }
 
     public void clickOverrideTaxCheckBox() {
-        Deprecated.clickElement(taxPercentageOverrideCheckbox);
+        Legacy.clickElement(taxPercentageOverrideCheckbox);
     }
 
     /*
      * Setter methods Below methods insert text in the input fields
      */
     public void setFirstName(String needFirstName) {
-        Deprecated.waitVisible(firstNameInputField);
-        Deprecated.locate(firstNameInputField).sendKeys(needFirstName);
+        Legacy.waitVisible(firstNameInputField);
+        Legacy.locate(firstNameInputField).sendKeys(needFirstName);
     }
     public void typeFirstName (String firstName) {
-        Deprecated.type(firstName, firstNameField);
+        Legacy.type(firstName, firstNameField);
     }
 
     public void setLastName(String needLastName) {
-        Deprecated.locate(lastNameInputField).sendKeys(needLastName);
+        Legacy.locate(lastNameInputField).sendKeys(needLastName);
     }
     
     public void typeLastName (String lastName) {
-        Deprecated.type(lastName, lastNameField);
+        Legacy.type(lastName, lastNameField);
     }
 
     public void setCellPhone(String needCellPhoneNumber) {
-        Deprecated.locate(cellPhoneInputField).sendKeys(needCellPhoneNumber);
+        Legacy.locate(cellPhoneInputField).sendKeys(needCellPhoneNumber);
     }
 
     public void setHomePhone(String needHomePhoneNumber) {
-        Deprecated.locate(homePhoneInputField).sendKeys(needHomePhoneNumber);
+        Legacy.locate(homePhoneInputField).sendKeys(needHomePhoneNumber);
     }
 
     public void setEmailAddress(String needEmail) {
-        Deprecated.locate(emailAddressInputField).sendKeys(needEmail);
+        Legacy.locate(emailAddressInputField).sendKeys(needEmail);
     }
 
     public void setCompanyName(String needCompanyName) {
-        Deprecated.locate(companyNameInputField).sendKeys(needCompanyName);
+        Legacy.locate(companyNameInputField).sendKeys(needCompanyName);
     }
 
     public void setSpecialHandling(String needSpecialHandlingNotes) {
-        Deprecated.locate(specialHandlingInputField).sendKeys(needSpecialHandlingNotes);
+        Legacy.locate(specialHandlingInputField).sendKeys(needSpecialHandlingNotes);
     }
 
     public void setAddress(String needAddress) {
         try {
-            Deprecated.locate(addressInputField).sendKeys(needAddress);
+            Legacy.locate(addressInputField).sendKeys(needAddress);
         } catch (ElementNotInteractableException notInteractableException){
             System.out.println("Element is not intractable, trying again ");
-            Deprecated.locate(addressInputField).sendKeys(needAddress);
+            Legacy.locate(addressInputField).sendKeys(needAddress);
         }
     }
 
     public void setZipCode(String needZipCode) throws InterruptedException {
-        Deprecated.locate(zipCodeInputField).sendKeys(needZipCode);
+        Legacy.locate(zipCodeInputField).sendKeys(needZipCode);
         Thread.sleep(200);
     }
 
-    public void typeZipCode(String zipCode) { Deprecated.type(zipCode, zipCodeField); }
+    public void typeZipCode(String zipCode) { Legacy.type(zipCode, zipCodeField); }
 
     public void setCity(String needCity) throws InterruptedException {
         Thread.sleep(200);
-        Deprecated.locate(cityInputField).sendKeys(Keys.CONTROL, "a");
-        Deprecated.locate(cityInputField).sendKeys(needCity);
+        Legacy.locate(cityInputField).sendKeys(Keys.CONTROL, "a");
+        Legacy.locate(cityInputField).sendKeys(needCity);
     }
 
     public void typeCity(String city) {
-        Deprecated.type(city, cityField);
+        Legacy.type(city, cityField);
     }
 
     public void setTaxPercentage(String needTaxPercentage) {
-        Deprecated.locate(taxPercentageInputField).sendKeys(needTaxPercentage);
+        Legacy.locate(taxPercentageInputField).sendKeys(needTaxPercentage);
     }
 
     public void setMapCode(String needMapCode) {
-        Deprecated.locate(mapCode).sendKeys(needMapCode);
+        Legacy.locate(mapCode).sendKeys(needMapCode);
     }
 
     public void clickInfo() {
-        Deprecated.waitVisible(info);
-        Deprecated.clickElement(info);
+        Legacy.waitVisible(info);
+        Legacy.clickElement(info);
     }
 
     public void clickAddFlag() {
-        Deprecated.clickElement(clickAddFlag);
+        Legacy.clickElement(clickAddFlag);
     }
 
     public void typePhone1(String phone) {
-        Deprecated.type(phone, Utilities.locate(By.xpath(cellPhoneInputField)));
+        Legacy.type(phone, Utilities.locate(By.xpath(cellPhoneInputField)));
     }
 
     /*
      * Getter methods Below methods get text value from an object
      */
     public String getDialogTitle() {
-        return Deprecated.getElementTextValue(dialogTitle);
+        return Legacy.getElementTextValue(dialogTitle);
     }
 
     public String getNewCustTitle() {
-        return Deprecated.getElementTextValue(newCustTitle);
+        return Legacy.getElementTextValue(newCustTitle);
     }
 
     public String getTaxRate(String needTaxField) {
-        return Deprecated.getAttribute(needTaxField, "value");
+        return Legacy.getAttribute(needTaxField, "value");
     }
 
     public String getAddress() {
-        return Deprecated.getAttribute(addressInputField, "value");
+        return Legacy.getAttribute(addressInputField, "value");
     }
 
     public String getZipCode() {
-        return Deprecated.getAttribute(zipCodeInputField, "value");
+        return Legacy.getAttribute(zipCodeInputField, "value");
     }
 
     public String getCity() {
-        return Deprecated.getAttribute(cityInputField, "value");
+        return Legacy.getAttribute(cityInputField, "value");
     }
 
     public String getCustomerFullName() {
@@ -342,7 +342,7 @@ public class CreateCustomerDialog extends BasePage {
     }
 
     public void typePropertyAddress(String propertyAddress) {
-        Deprecated.type(propertyAddress, propertyAddressField);
+        Legacy.type(propertyAddress, propertyAddressField);
     }
 
     public String getPropertyAddress(){
@@ -361,7 +361,7 @@ public class CreateCustomerDialog extends BasePage {
     }
 
     public void typeEmailAddress(String emailAddress) {
-        Deprecated.type(emailAddress, emailAddressField);
+        Legacy.type(emailAddress, emailAddressField);
     }
 
     public String getEmailAddress() {

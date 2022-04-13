@@ -5,7 +5,7 @@ import automation.PestRoutes.Utilities.*;
 
 import static automation.PestRoutes.Utilities.Utilities.*;
 
-import automation.PestRoutes.Utilities.Deprecated;
+import automation.PestRoutes.Utilities.Legacy;
 import org.openqa.selenium.By;
 
 import java.util.List;
@@ -43,77 +43,77 @@ public class SchedulingAppointmentDialog extends BasePage {
     //******************************Functions by objects******************************
 
     public String getTitle() {
-        return Deprecated.getElementTextValue(dialogTitle);
+        return Legacy.getElementTextValue(dialogTitle);
     }
 
     public void selectServiceType(String needServiceType) {
-        Deprecated.waitVisible(serviceTypeDropdown);
-        Deprecated.selectByText(serviceTypeDropdown, needServiceType);
+        Legacy.waitVisible(serviceTypeDropdown);
+        Legacy.selectByText(serviceTypeDropdown, needServiceType);
     }
 
     public void selectSubscriptionType(String needSubscriptionType) {
-        Deprecated.selectByText(subscriptionTypeDropdown, needSubscriptionType);
+        Legacy.selectByText(subscriptionTypeDropdown, needSubscriptionType);
     }
 
     public void selectDuration(String needDuration) {
-        Deprecated.selectByText(appointmentDurationDropdown, needDuration);
+        Legacy.selectByText(appointmentDurationDropdown, needDuration);
     }
 
     public void selectFlexibility(String needFlexibility) {
-        Deprecated.selectByText(flexibilityDropdown, needFlexibility);
+        Legacy.selectByText(flexibilityDropdown, needFlexibility);
     }
 
     public void selectCallAheadOption(String needOption) {
-        Deprecated.selectByText(callAheadDropdown, needOption);
+        Legacy.selectByText(callAheadDropdown, needOption);
     }
 
     public void selectInteriorNeededOption(String needOption) {
-        Deprecated.selectByText(interiorNeededDropdown, needOption);
+        Legacy.selectByText(interiorNeededDropdown, needOption);
     }
 
     public void selectTargetPestsOption(String needOption) {
-        Deprecated.selectByText(targetPestsDropdown, needOption);
+        Legacy.selectByText(targetPestsDropdown, needOption);
     }
 
     public void selectApptFlagsOption(String needOption) {
-        Deprecated.selectByText(appointmentNotesInputField, needOption);
+        Legacy.selectByText(appointmentNotesInputField, needOption);
     }
 
     public void insertAppointmentNotes(String needNotes) {
-        Deprecated.locate(appointmentNotesInputField).sendKeys(needNotes);
+        Legacy.locate(appointmentNotesInputField).sendKeys(needNotes);
     }
 
     public void clickScheduleButton() {
-        Deprecated.clickElement(schedulingTab);
-        Deprecated.clickElement(scheduleButton);
+        Legacy.clickElement(schedulingTab);
+        Legacy.clickElement(scheduleButton);
     }
 
     public void clickRescheduleButton() {
-        Deprecated.waitVisible(schedulingTab);
-        Deprecated.clickElement(schedulingTab);
-        Deprecated.clickElement(rescheduleButton);
+        Legacy.waitVisible(schedulingTab);
+        Legacy.clickElement(schedulingTab);
+        Legacy.clickElement(rescheduleButton);
     }
 
     public void navigateToUnitTab() {
-        Deprecated.clickElement(unitsTab);
+        Legacy.clickElement(unitsTab);
     }
 
     public void navigateToSchedulingTab() {
-        Deprecated.clickElement(schedulingTab);
+        Legacy.clickElement(schedulingTab);
     }
 
     public void selectUnit() {
-        Deprecated.clickElement(addUnitOption_UnitsTab);
-        Deprecated.clickElement(unitOption);
+        Legacy.clickElement(addUnitOption_UnitsTab);
+        Legacy.clickElement(unitOption);
     }
 
     public void clickAddProduct() {
-        Deprecated.waitVisible(addProductForUnitButton);
-        Deprecated.clickElement(addProductForUnitButton);
+        Legacy.waitVisible(addProductForUnitButton);
+        Legacy.clickElement(addProductForUnitButton);
     }
 
     public void clickDetailLink() {
-        Deprecated.clickElement(unitDetailButton);
+        Legacy.clickElement(unitDetailButton);
     }
 
     public void selectTypeOfService (String serviceType) {
@@ -126,7 +126,7 @@ public class SchedulingAppointmentDialog extends BasePage {
     }
 
     public List<String> getSubscription() {
-        return Deprecated.getAllSelectedOptionsFromDropDown(subscriptionTypeDropDown);
+        return Legacy.getAllSelectedOptionsFromDropDown(subscriptionTypeDropDown);
     }
 
     public void clickBlueScheduleButton() {

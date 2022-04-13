@@ -2,7 +2,7 @@ package automation.PestRoutes.PageObject.Scheduling;
 
 import automation.PestRoutes.PageObject.BasePage;
 import automation.PestRoutes.Utilities.*;
-import automation.PestRoutes.Utilities.Deprecated;
+import automation.PestRoutes.Utilities.Legacy;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
@@ -48,14 +48,14 @@ public class SingleRoutePageObjects extends BasePage {
     }//clickRouteActions()
 
     public void clickActions_DeleteRoute(){
-        Deprecated.scrollToElementJS(routeActions);
+        Legacy.scrollToElementJS(routeActions);
         Utilities.click(routeActions);
         Utilities.click(actionDeleteRoute);
     }//clickActions_DeleteRoute()
 
     public void clickActions_OptimizeRoute(){
         Utilities.delay(20000);
-        Deprecated.scrollToElementJS(routeActions);
+        Legacy.scrollToElementJS(routeActions);
         Utilities.click(routeActions);
         Utilities.isVisible(actionOptimizeRoute);
         Utilities.click(actionOptimizeRoute);

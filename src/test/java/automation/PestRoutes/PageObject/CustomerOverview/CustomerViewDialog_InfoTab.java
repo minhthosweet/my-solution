@@ -2,7 +2,7 @@ package automation.PestRoutes.PageObject.CustomerOverview;
 
 import automation.PestRoutes.PageObject.BasePage;
 import automation.PestRoutes.Utilities.*;
-import automation.PestRoutes.Utilities.Deprecated;
+import automation.PestRoutes.Utilities.Legacy;
 import org.openqa.selenium.By;
 
 import static automation.PestRoutes.Utilities.Utilities.*;
@@ -24,55 +24,55 @@ public class CustomerViewDialog_InfoTab extends BasePage {
     private By divisionDropDown = By.xpath("//select[@name= 'divisionID']");
 
     public String getTaxRate() {
-        String taxRatePercentage = Deprecated.getAttribute(taxRate, "value");
+        String taxRatePercentage = Legacy.getAttribute(taxRate, "value");
         return String.valueOf(taxRatePercentage.replaceAll("[%]", ""));
     }
 
     public String getFirstName() {
-        Deprecated.waitVisible(firstName);
-        return Deprecated.getAttribute(firstName, "value");
+        Legacy.waitVisible(firstName);
+        return Legacy.getAttribute(firstName, "value");
     }
 
     public String getLastName() {
-        Deprecated.waitVisible(lastName);
-        return Deprecated.getAttribute(lastName, "value");
+        Legacy.waitVisible(lastName);
+        return Legacy.getAttribute(lastName, "value");
     }
 
     public String getStreetAddress(){
-        return Deprecated.getAttribute(address,"value");
+        return Legacy.getAttribute(address,"value");
     }
 
     public String getCity(){
-        return Deprecated.getAttribute(city,"value");
+        return Legacy.getAttribute(city,"value");
     }
 
     public String getZip(){
-        return Deprecated.getAttribute(zip,"value");
+        return Legacy.getAttribute(zip,"value");
     }
 
     public String getState(){
-        return Deprecated.getElementTextValue(state);
+        return Legacy.getElementTextValue(state);
     }
 
     public String getCountry(){
-        return Deprecated.getElementTextValue(country);
+        return Legacy.getElementTextValue(country);
     }
 
     public String getCounty(){
-        return Deprecated.getElementTextValue(county);
+        return Legacy.getElementTextValue(county);
     }
 
     public String getPrimaryPhoneNumber(){
-        return Deprecated.getAttribute(primaryPhoneNumber,"value");
+        return Legacy.getAttribute(primaryPhoneNumber,"value");
     }
 
     public String getEmail(){
-        return Deprecated.getAttribute(email, "value");
+        return Legacy.getAttribute(email, "value");
     }
 
     public String getFlagOnCustomerCard() {
-        Deprecated.waitVisible(flagOnCustomerCard);
-        return Deprecated.getElementTextValue(flagOnCustomerCard);
+        Legacy.waitVisible(flagOnCustomerCard);
+        return Legacy.getElementTextValue(flagOnCustomerCard);
     }
 
     public boolean getGenericFlag(String flag) {

@@ -1,6 +1,6 @@
 package automation.PestRoutes.PageObject.Admin.UsersPage;
 
-import automation.PestRoutes.Utilities.Deprecated;
+import automation.PestRoutes.Utilities.Legacy;
 
 public class AddUserDialog {
 	
@@ -19,25 +19,25 @@ public class AddUserDialog {
 	
 	//Action methods
 	public void selectValueFromDropDown(String needDropDown, String needValue) {
-		Deprecated.waitVisible(needDropDown);
-		Deprecated.selectByText(needDropDown, needValue);
+		Legacy.waitVisible(needDropDown);
+		Legacy.selectByText(needDropDown, needValue);
 		
 	}
 	
 	public void clickButton(String needButton) {
-		Deprecated.waitVisible(needButton);
-		Deprecated.clickElement(needButton);
+		Legacy.waitVisible(needButton);
+		Legacy.clickElement(needButton);
 	}
 	
 	
 	//Setters
 	public void setInputValue(String needInputField, String keysToSend) {
-		Deprecated.locate(needInputField).sendKeys(keysToSend);
+		Legacy.locate(needInputField).sendKeys(keysToSend);
 	}
 	
 	//Getters
 	public String getFieldValue(String needFieldName) {
-		Deprecated.waitVisible(needFieldName);
-		return Deprecated.getElementTextValue(needFieldName);
+		Legacy.waitVisible(needFieldName);
+		return Legacy.getElementTextValue(needFieldName);
 	}
 }

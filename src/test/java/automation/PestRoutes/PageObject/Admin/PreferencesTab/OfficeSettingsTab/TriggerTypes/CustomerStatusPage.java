@@ -2,13 +2,13 @@ package automation.PestRoutes.PageObject.Admin.PreferencesTab.OfficeSettingsTab.
 
 import automation.PestRoutes.PageObject.Admin.PreferencesTab.PreferencesPage;
 import automation.PestRoutes.Utilities.*;
-import automation.PestRoutes.Utilities.Deprecated;
+import automation.PestRoutes.Utilities.Legacy;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import java.util.List;
 
-import static automation.PestRoutes.Utilities.Deprecated.scrollToElementJS;
+import static automation.PestRoutes.Utilities.Legacy.scrollToElementJS;
 
 public class CustomerStatusPage extends PreferencesPage {
 
@@ -17,13 +17,13 @@ public class CustomerStatusPage extends PreferencesPage {
     private By includeCustomerFlagsMultiDropDown = By.xpath("//label[text()='Include Customer Flags']/parent::div[@class='col-6']//following-sibling::div/div//ul//input");
 
     public void selectStatusChangedTo(String changeStatus) {
-        Deprecated.scrollToElementJS(statusChangedToDropDown);
+        Legacy.scrollToElementJS(statusChangedToDropDown);
         Utilities.selectByText(statusChangedToDropDown, changeStatus);
         System.out.println("Customer Status Changed To " + changeStatus);
     }
 
     public void selectWhenToTrigger(String whenToTrigger) {
-        Deprecated.scrollToElementJS(whenToTriggerDropDown);
+        Legacy.scrollToElementJS(whenToTriggerDropDown);
         Utilities.selectByText(whenToTriggerDropDown, whenToTrigger);
     }
 
@@ -35,8 +35,8 @@ public class CustomerStatusPage extends PreferencesPage {
                 return true;
             }
         }
-        Deprecated.scrollToElementJS(includeCustomerFlagsMultiField);
-        Deprecated.type(flagCode, includeCustomerFlagsMultiField);
+        Legacy.scrollToElementJS(includeCustomerFlagsMultiField);
+        Legacy.type(flagCode, includeCustomerFlagsMultiField);
         System.out.println("Customer Flag: " + flagCode);
         return false;
     }

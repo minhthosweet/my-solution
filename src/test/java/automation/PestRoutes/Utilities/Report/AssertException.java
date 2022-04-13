@@ -6,7 +6,7 @@ import static org.testng.Assert.assertTrue;
 import java.util.ArrayList;
 import java.util.List;
 
-import automation.PestRoutes.Utilities.Deprecated;
+import automation.PestRoutes.Utilities.Legacy;
 import com.aventstack.extentreports.Status;
 import io.cucumber.java.en.And;
 import org.openqa.selenium.WebElement;
@@ -66,7 +66,7 @@ public class AssertException {
 
 	public static void validateFieldEnabled(String[] needArray) {
 		for (int i = 0; i < needArray.length; i++) {
-			WebElement field = Deprecated.locate(needArray[i]);
+			WebElement field = Legacy.locate(needArray[i]);
 			if (field.isEnabled() || field.isDisplayed()) {
 				Assert.assertTrue(true);
 				Reporter.getInstance("Validate fields in account receivable").log(Status.PASS, needArray[i] + " displayed");

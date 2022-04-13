@@ -2,7 +2,7 @@ package automation.PestRoutes.Controller.Customers.BillingTab;
 
 import automation.PestRoutes.PageObject.CustomerOverview.*;
 import automation.PestRoutes.PageObject.CustomerOverview.BillingPage;
-import automation.PestRoutes.Utilities.Deprecated;
+import automation.PestRoutes.Utilities.Legacy;
 import io.cucumber.java.en.And;
 
 public class BillingTabTests {
@@ -13,7 +13,7 @@ public class BillingTabTests {
     @And("I set Autopay option to {string} for customer,{string} {string}")
     public void setAutopayOption(String strAutopayOption, String firstName, String lastName) throws Exception {
        try {
-            if(Deprecated.isTextPresent(firstName + " " + lastName )) {
+            if(Legacy.isTextPresent(firstName + " " + lastName )) {
                 //Navigate to the Billing Tab
                customerCardHeader = new CustomerViewDialog_Header();
                billingPage = customerCardHeader.goToBillingTab();

@@ -8,7 +8,7 @@ import automation.PestRoutes.PageObject.ReportingPage.ReportingMainPage;
 import automation.PestRoutes.PageObject.Scheduling.SchedulingTab;
 
 import automation.PestRoutes.Utilities.*;
-import automation.PestRoutes.Utilities.Deprecated;
+import automation.PestRoutes.Utilities.Legacy;
 import org.openqa.selenium.By;
 
 public class BasePage {
@@ -31,51 +31,51 @@ public class BasePage {
      */
 
     public CreateCustomerDialog goToNewCustomerComponent () {
-        Deprecated.scrollToElementJS(newCustomerComponent);
+        Legacy.scrollToElementJS(newCustomerComponent);
         Utilities.click(newCustomerComponent);
         Utilities.delay(3000);
         return new CreateCustomerDialog ();
     }
 
     public SchedulingTab goToSchedulingComponent () {
-        Deprecated.scrollToElementJS(schedulingComponent);
+        Legacy.scrollToElementJS(schedulingComponent);
         Utilities.click(schedulingComponent);
         Utilities.delay(1000);
         return new SchedulingTab();
     }
 
     public CustomersMainPage goToCustomersComponent() {
-        Deprecated.scrollToElementJS(customersComponent);
+        Legacy.scrollToElementJS(customersComponent);
         Utilities.click(customersComponent);
         Utilities.delay(1000);
         return new CustomersMainPage();
     }
 
     public BillingModule goToBillingComponent(){
-        Deprecated.scrollToElementJS(billingComponent);
+        Legacy.scrollToElementJS(billingComponent);
         Utilities.click(billingComponent);
         Utilities.delay(1000);
         return new BillingModule();
     }
 
     public ReportingMainPage goToReportingComponent () {
-        Deprecated.scrollToElementJS(reportingComponent);
+        Legacy.scrollToElementJS(reportingComponent);
         Utilities.click(reportingComponent);
         Utilities.delay(1000);
         return new ReportingMainPage();
     }
 
     public AdminMainPage goToAdminComponent(){
-        Deprecated.scrollToElementJS(adminComponent);
+        Legacy.scrollToElementJS(adminComponent);
         Utilities.click(adminComponent);
         Utilities.delay(1000);
         return new AdminMainPage();
     }
 
     public void goToCustomerSearchComponent(String customerIDorName) {
-        Deprecated.scrollToElementJS(customerSearchField);
+        Legacy.scrollToElementJS(customerSearchField);
         Utilities.click(customerSearchField);
-        Deprecated.type(customerIDorName, customerSearchField);
+        Legacy.type(customerIDorName, customerSearchField);
         Utilities.click(customer);
         Utilities.delay(1000);
     }
@@ -89,7 +89,7 @@ public class BasePage {
     }
 
     public void selectOffice(String office) {
-        Deprecated.jsClickElement(officeDropDown);
+        Legacy.jsClickElement(officeDropDown);
         Utilities.locate(By.xpath("//option[text()='" + office + "']")).click();
     }
 }

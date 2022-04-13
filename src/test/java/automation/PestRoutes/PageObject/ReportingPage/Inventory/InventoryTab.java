@@ -1,7 +1,7 @@
 package automation.PestRoutes.PageObject.ReportingPage.Inventory;
 
 import automation.PestRoutes.Utilities.*;
-import automation.PestRoutes.Utilities.Deprecated;
+import automation.PestRoutes.Utilities.Legacy;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 
@@ -34,67 +34,67 @@ public class InventoryTab {
 	public String inventoryChangeUpdate = "Update";
 
 	public void selectInventory(String inventoryType) {
-		Deprecated.waitVisible(inInventory);
-		Deprecated.clickElement(inInventory);
-		Deprecated.waitVisible(
+		Legacy.waitVisible(inInventory);
+		Legacy.clickElement(inInventory);
+		Legacy.waitVisible(
 				"//select[@name = 'chemicalInventoryFilter']/option[text() = '" + inventoryType + "']");
-		Deprecated.clickElement("//select[@name = 'chemicalInventoryFilter']/option[text() = '" + inventoryType + "']"
+		Legacy.clickElement("//select[@name = 'chemicalInventoryFilter']/option[text() = '" + inventoryType + "']"
 		);
 	}
 
 	public void selectVisibility(String visibilityType) {
-		Deprecated.waitVisible(visibility);
-		Deprecated.clickElement(visibility);
-		Deprecated.waitVisible(clickUpdateInventory);
-		Deprecated.clickElement("//select[@name = 'chemicalVisibilityFilter']/option[text() = '" + visibilityType + "']"
+		Legacy.waitVisible(visibility);
+		Legacy.clickElement(visibility);
+		Legacy.waitVisible(clickUpdateInventory);
+		Legacy.clickElement("//select[@name = 'chemicalVisibilityFilter']/option[text() = '" + visibilityType + "']"
 		);
 	}
 
 	public void enterProductname(String productName) {
-		Deprecated.waitVisible(productsName);
-		Deprecated.clickElement(productsName);
-		Deprecated.locate(productsName).sendKeys(productName);
-		Deprecated.waitVisible(
+		Legacy.waitVisible(productsName);
+		Legacy.clickElement(productsName);
+		Legacy.locate(productsName).sendKeys(productName);
+		Legacy.waitVisible(
 				"//span[@role='status']/following-sibling::div//span[text()='" + productName + "']");
-		Deprecated.clickElement("//span[@role='status']/following-sibling::div//span[text()='" + productName + "']"
+		Legacy.clickElement("//span[@role='status']/following-sibling::div//span[text()='" + productName + "']"
 		);
 	}
 
 	public void updateInventory() {
-		WebElement elm = Deprecated.locate(clickUpdateInventory);
+		WebElement elm = Legacy.locate(clickUpdateInventory);
 		Actions actions = new Actions(driver);
 		actions.moveToElement(elm).click().click().perform();
-		Deprecated.waitVisible(clickUpdateInventory);
+		Legacy.waitVisible(clickUpdateInventory);
 	}
 
 	public void inventoryChange(String amount) {
-		Deprecated.waitVisible(inventoryChange);
-		Deprecated.clickElement(inventoryChange);
-		Deprecated.locate(inventoryChange).sendKeys(amount);
+		Legacy.waitVisible(inventoryChange);
+		Legacy.clickElement(inventoryChange);
+		Legacy.locate(inventoryChange).sendKeys(amount);
 	}
 
 	public void inventoryChange_Inventory(String amount, String productName) {
-		Deprecated.waitVisible(
+		Legacy.waitVisible(
 				"//td[text()='" + productName + "']/parent::tr//input[@class = 'inventoryAmount']");
-		Deprecated.clickElement("//td[text()='" + productName + "']/parent::tr//input[@class = 'inventoryAmount']"
+		Legacy.clickElement("//td[text()='" + productName + "']/parent::tr//input[@class = 'inventoryAmount']"
 		);
-		Deprecated
+		Legacy
 				.locate("//td[text()='" + productName + "']/parent::tr//input[@class = 'inventoryAmount']"
                 )
 				.sendKeys(amount);
 	}
 
 	public void inventoryChangeOption(String option, String productName) {
-		Deprecated.waitVisible(
+		Legacy.waitVisible(
 				"//td[text()='" + productName + "']/parent::tr//option[text()='" + option + "']");
-		Deprecated.clickElement("//td[text()='" + productName + "']/parent::tr//option[text()='" + option + "']"
+		Legacy.clickElement("//td[text()='" + productName + "']/parent::tr//option[text()='" + option + "']"
 		);
 	}
 
 	public String getInStockValue(String productName) {
-		Deprecated.waitVisible(
+		Legacy.waitVisible(
 				"//td[text()='" + productName + "']/parent::tr//span[@class = 'currentAmount']");
-		return Deprecated.getElementTextValue(
+		return Legacy.getElementTextValue(
 				"//td[text()='" + productName + "']/parent::tr//span[@class = 'currentAmount']");
 	}
 
@@ -112,7 +112,7 @@ public class InventoryTab {
 	public boolean locationOfProduct(String productName) {
 		selectInventory(productsWithoutInventory);
 		updateInventory();
-		if (Deprecated
+		if (Legacy
 				.countElements("//table[@id='inventoryTable']//td[contains(text(),'" + productName + "')]") == 1) {
 			System.out.println("Product available in Products without Inventory");
 		}
@@ -120,7 +120,7 @@ public class InventoryTab {
 		else {
 			selectInventory(productsWithInventory);
 			updateInventory();
-			if (Deprecated.countElements(
+			if (Legacy.countElements(
 					"//table[@id='inventoryTable']//td[contains(text(),'" + productName + "')]") == 1) {
 				System.out.println("Products available in Products with Inventory");
 			}else {

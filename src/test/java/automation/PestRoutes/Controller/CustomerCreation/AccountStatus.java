@@ -6,7 +6,7 @@ import java.util.List;
 
 import automation.PestRoutes.Utilities.*;
 import automation.PestRoutes.Utilities.Data.*;
-import automation.PestRoutes.Utilities.Deprecated;
+import automation.PestRoutes.Utilities.Legacy;
 import automation.PestRoutes.Utilities.Report.*;
 import org.testng.annotations.Test;
 import com.aventstack.extentreports.ExtentTest;
@@ -49,7 +49,7 @@ public class AccountStatus extends AppData {
 		Utilities.acceptAlert();
 		customer.setLastName(lName);
 		dialog.clickSaveButton();
-		Deprecated.waitVisible(overview.overviewTab_Address);
+		Legacy.waitVisible(overview.overviewTab_Address);
 		String customerNameInHeader = overview.getCustomerNameFromHeader();
 		System.out.println("Customer Name found is " + customerNameInHeader);
 		list.add(AssertException.result(fName, customerNameInHeader, "Validate Customer Creation"));

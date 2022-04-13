@@ -5,7 +5,7 @@ import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_Subs
 import automation.PestRoutes.PageObject.Header;
 import automation.PestRoutes.Utilities.*;
 import automation.PestRoutes.Utilities.Data.*;
-import automation.PestRoutes.Utilities.Deprecated;
+import automation.PestRoutes.Utilities.Legacy;
 import automation.PestRoutes.Utilities.Report.Reporter;
 
 import io.cucumber.java.en.And;
@@ -296,17 +296,17 @@ public class AddSubscription extends AppData {
 		customerDialogHeader.navigateTo(customerDialogHeader.subscriptionTabInDialog);
 		subscription.setAutoPayProfileDropdown();
 		customerDialogHeader.clickSaveButton();
-		Deprecated.clickElement(subscription.billingAccountField);
+		Legacy.clickElement(subscription.billingAccountField);
 		try {
-			WebElement elm = Deprecated.locate(subscription.proceedAndTransferButton);
+			WebElement elm = Legacy.locate(subscription.proceedAndTransferButton);
 			if (elm.isDisplayed()){
-				Deprecated.clickElement(subscription.proceedAndTransferButton);
+				Legacy.clickElement(subscription.proceedAndTransferButton);
 			}
 		} catch(Exception e) {
 			System.out.println("Transfer Funds dialog not displayed");
 		}
 		subscription.setMergeBillingAccountField(needMergeCustomerName);
-		Deprecated.clickElement(subscription.mergeBillingAccountSelectButton);
+		Legacy.clickElement(subscription.mergeBillingAccountSelectButton);
 		customerDialogHeader.clickSaveButton();
 	}
 

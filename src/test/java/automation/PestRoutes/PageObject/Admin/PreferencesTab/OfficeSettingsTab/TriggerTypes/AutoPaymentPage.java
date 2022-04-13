@@ -2,14 +2,14 @@ package automation.PestRoutes.PageObject.Admin.PreferencesTab.OfficeSettingsTab.
 
 import automation.PestRoutes.PageObject.Admin.PreferencesTab.PreferencesPage;
 
-import automation.PestRoutes.Utilities.Deprecated;
+import automation.PestRoutes.Utilities.Legacy;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import java.util.List;
 
-import static automation.PestRoutes.Utilities.Deprecated.scrollToElementJS;
+import static automation.PestRoutes.Utilities.Legacy.scrollToElementJS;
 import static automation.PestRoutes.Utilities.Utilities.*;
 
 public class AutoPaymentPage extends PreferencesPage {
@@ -28,7 +28,7 @@ public class AutoPaymentPage extends PreferencesPage {
             }
         }
         scrollToElementJS(includeCustomerFlagsMultiField);
-        Deprecated.type(flagCode, includeCustomerFlagsMultiField);
+        Legacy.type(flagCode, includeCustomerFlagsMultiField);
         System.out.println("Customer Flag: " + flagCode);
         return false;
     }

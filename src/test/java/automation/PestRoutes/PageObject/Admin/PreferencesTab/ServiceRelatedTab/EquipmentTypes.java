@@ -1,6 +1,6 @@
 package automation.PestRoutes.PageObject.Admin.PreferencesTab.ServiceRelatedTab;
 
-import automation.PestRoutes.Utilities.Deprecated;
+import automation.PestRoutes.Utilities.Legacy;
 
 public class EquipmentTypes {
 	//Equipment types main objects
@@ -26,12 +26,12 @@ public class EquipmentTypes {
 	 * Below methods clicks or select an object
 	 */
 	public void clickAddEquipmentButton() {
-		Deprecated.waitVisible(addEquipmentTypeButton);
-		Deprecated.clickElement(addEquipmentTypeButton);
+		Legacy.waitVisible(addEquipmentTypeButton);
+		Legacy.clickElement(addEquipmentTypeButton);
 	}
 	public void selectOptionFromDropdown(String needObject, String needOption) {
-		Deprecated.waitVisible(needObject);
-		Deprecated.selectByText(needObject, needOption);
+		Legacy.waitVisible(needObject);
+		Legacy.selectByText(needObject, needOption);
 	}
 	
 	/*
@@ -39,16 +39,16 @@ public class EquipmentTypes {
 	 * Below methods sets values to the input fields for given object
 	 */
 	public void setID_Prefix(String needData) {
-		Deprecated.waitVisible(idPrefixInputField);
-		Deprecated.locate(idPrefixInputField).sendKeys(needData);
+		Legacy.waitVisible(idPrefixInputField);
+		Legacy.locate(idPrefixInputField).sendKeys(needData);
 	}
 	public void setDescription(String needData) {
-		Deprecated.waitVisible(descriptionInputField);
-		Deprecated.locate(descriptionInputField).sendKeys(needData);
+		Legacy.waitVisible(descriptionInputField);
+		Legacy.locate(descriptionInputField).sendKeys(needData);
 	}
 	public void setCode(String needData) {
-		Deprecated.waitVisible(codeInputField);
-		Deprecated.locate(codeInputField).sendKeys(needData);
+		Legacy.waitVisible(codeInputField);
+		Legacy.locate(codeInputField).sendKeys(needData);
 	}
 	
 	/*
@@ -56,12 +56,12 @@ public class EquipmentTypes {
 	 * Below methods get text value of an object
 	 */
 	public String getIDPrefix() {
-		Deprecated.waitVisible(prefix);
-		return Deprecated.getElementTextValue(prefix);
+		Legacy.waitVisible(prefix);
+		return Legacy.getElementTextValue(prefix);
 	}
 	public String getDescription() {
-		Deprecated.waitVisible(description);
-		return Deprecated.getElementTextValue(description);
+		Legacy.waitVisible(description);
+		return Legacy.getElementTextValue(description);
 	}
 
 }

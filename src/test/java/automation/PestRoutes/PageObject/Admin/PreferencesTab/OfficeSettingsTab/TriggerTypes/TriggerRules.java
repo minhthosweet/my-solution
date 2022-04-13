@@ -8,7 +8,7 @@ import automation.PestRoutes.Utilities.*;
 import static automation.PestRoutes.Utilities.Data.AppData.*;
 import static automation.PestRoutes.Utilities.Utilities.*;
 
-import automation.PestRoutes.Utilities.Deprecated;
+import automation.PestRoutes.Utilities.Legacy;
 import io.cucumber.java.en.When;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -69,66 +69,66 @@ public class TriggerRules extends PreferencesPage {
     private By allMultiDropDownSelections = By.xpath("//form[@id='triggerRuleForm']/div[2]//a");
 
     public void clickSaveButton() {
-        Deprecated.scrollToElement(addTriggerButton);
-        Deprecated.waitVisible(saveButton);
-        Deprecated.clickElement(saveButton);
+        Legacy.scrollToElement(addTriggerButton);
+        Legacy.waitVisible(saveButton);
+        Legacy.clickElement(saveButton);
     }
 
     // Trigger Filter Actions
     public void navigateToTriggerRules() {
         officeSettingsObjects= new OfficeSettingsObjects();
-        Deprecated.waitVisible(officeSettingsText);
-        Deprecated.clickElement(officeSettingsObjects.triggerRules);
+        Legacy.waitVisible(officeSettingsText);
+        Legacy.clickElement(officeSettingsObjects.triggerRules);
     }
 
     public void clickAddTrigerButton() {
-        Deprecated.clickElement(addTriggerButton);
+        Legacy.clickElement(addTriggerButton);
     }
 
     public void clickEditTrigger(String descriptionName) {
-        Deprecated.clickElement("//div[text() = '" + descriptionName + "']//parent::div//span[text()='edit']"
+        Legacy.clickElement("//div[text() = '" + descriptionName + "']//parent::div//span[text()='edit']"
         );
     }
 
     public void searchTrigger(String description) {
-        Deprecated.waitVisible(searchTrigger);
-        Deprecated.locate(searchTrigger).sendKeys(description);
+        Legacy.waitVisible(searchTrigger);
+        Legacy.locate(searchTrigger).sendKeys(description);
     }
 
     public void selectDropdown(String needObject, String needTextValue) {
-        Deprecated.waitVisible(needObject);
-        Deprecated.selectByText(needObject, needTextValue);
+        Legacy.waitVisible(needObject);
+        Legacy.selectByText(needObject, needTextValue);
     }
 
     // Get Description text value from Landing page
     public String getDescriptionText(String descriptionSet) {
-        return Deprecated.getElementTextValue(
+        return Legacy.getElementTextValue(
                 "//div[@id= 'triggerRulesHeader']/following-sibling::div//div[text()='" + descriptionSet + "']"
         );
     }
 
     // Setter methods
     public void setDescription(String needDescription) {
-        Deprecated.locate(descriptionInputField).sendKeys(needDescription);
+        Legacy.locate(descriptionInputField).sendKeys(needDescription);
     }
 
     public void setStartDate(String needStartDate) {
-        Deprecated.waitVisible(startDateInputField);
-        Deprecated.clickElement(startDateInputField);
-        Deprecated.locate(startDateInputField).clear();
-        Deprecated.locate(startDateInputField).sendKeys(needStartDate);
+        Legacy.waitVisible(startDateInputField);
+        Legacy.clickElement(startDateInputField);
+        Legacy.locate(startDateInputField).clear();
+        Legacy.locate(startDateInputField).sendKeys(needStartDate);
     }
 
     public void setEndDate(String needEndDate) throws InterruptedException {
-        Deprecated.waitVisible(endDateInputField);
-        Deprecated.clickElement(endDateInputField);
-        Deprecated.locate(endDateInputField).clear();
-        Deprecated.locate(endDateInputField).sendKeys(needEndDate);
+        Legacy.waitVisible(endDateInputField);
+        Legacy.clickElement(endDateInputField);
+        Legacy.locate(endDateInputField).clear();
+        Legacy.locate(endDateInputField).sendKeys(needEndDate);
     }
 
     public void setDaysAfterChange(String days) {
-        Deprecated.waitVisible(daysAfterChange);
-        Deprecated.locate(daysAfterChange).sendKeys(days);
+        Legacy.waitVisible(daysAfterChange);
+        Legacy.locate(daysAfterChange).sendKeys(days);
     }
 
     // trigger Queue query
@@ -139,11 +139,11 @@ public class TriggerRules extends PreferencesPage {
 
     //getter method
     public WebElement getDescription(String needText) {
-        return Deprecated.locate("//div[text()='" + needText + "']");
+        return Legacy.locate("//div[text()='" + needText + "']");
     }
 
     public void clickAddTriggerButton() {
-        Deprecated.scrollToElementJS(Utilities.locate(greenAddTriggerButton));
+        Legacy.scrollToElementJS(Utilities.locate(greenAddTriggerButton));
         click(greenAddTriggerButton);
     }
 
@@ -154,12 +154,12 @@ public class TriggerRules extends PreferencesPage {
 
     public void typeTriggerDescription(String description) {
         delay(500);
-        Deprecated.type(description, descriptionField);
+        Legacy.type(description, descriptionField);
     }
 
     public void typeStartDate(String date) {
         isVisible(startDateField);
-        Deprecated.type(date, Utilities.locate(startDateField));
+        Legacy.type(date, Utilities.locate(startDateField));
     }
 
     public void setAllTriggersToNotActive(String active, String notActive){
@@ -179,7 +179,7 @@ public class TriggerRules extends PreferencesPage {
         List<WebElement> allRemoveActionButtons = locateAll(removeActionButton);
         for (WebElement removeButton : allRemoveActionButtons) {
             if (removeButton.isDisplayed()) {
-                Deprecated.scrollToElementJS(removeButton);
+                Legacy.scrollToElementJS(removeButton);
                 click(removeActionButton);
             }
         }
@@ -189,10 +189,10 @@ public class TriggerRules extends PreferencesPage {
         List<WebElement> listOfDescriptionValues = locateAll(descriptionColumnValues);
         By editButton = By.xpath("//div[@id='triggerRulesTable']/div[2]//div[text()='"+ description +"']//following::span");
         for(WebElement descriptionValue : listOfDescriptionValues) {
-            Deprecated.scrollToElementJS(descriptionValue);
+            Legacy.scrollToElementJS(descriptionValue);
             if (descriptionValue.getText().equals(description)) {
                 delay(1000);
-                Deprecated.scrollToElementJS(editButton);
+                Legacy.scrollToElementJS(editButton);
                 Utilities.locate(editButton).click();
                 typeStartDate(date);
                 selectByText(activeDropDown, "Active");
@@ -241,10 +241,10 @@ public class TriggerRules extends PreferencesPage {
         List<WebElement> listOfDescriptionValues = locateAll(descriptionColumnValues);
         By editButton = By.xpath("//div[@id='triggerRulesTable']/div[2]//div[text()='"+ description +"']//following::span");
         for(WebElement descriptionValue : listOfDescriptionValues) {
-            Deprecated.scrollToElementJS(descriptionValue);
+            Legacy.scrollToElementJS(descriptionValue);
             if (descriptionValue.getText().equals(description)) {
                 delay(1000);
-                Deprecated.scrollToElementJS(editButton);
+                Legacy.scrollToElementJS(editButton);
                 Utilities.locate(editButton).click();
                 break;
             }
@@ -255,7 +255,7 @@ public class TriggerRules extends PreferencesPage {
         List<WebElement> allMultiSelections = locateAll(allMultiDropDownSelections);
         for (WebElement selection : allMultiSelections) {
             if (selection.isDisplayed()) {
-                Deprecated.scrollToElementJS(selection);
+                Legacy.scrollToElementJS(selection);
                 selection.click();
             }
         }

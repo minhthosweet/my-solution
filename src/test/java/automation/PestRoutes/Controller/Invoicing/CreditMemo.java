@@ -10,7 +10,7 @@ import automation.PestRoutes.PageObject.CustomerOverview.Invoicing.Invoice_Heade
 import automation.PestRoutes.PageObject.CustomerOverview.Invoicing.RoutePageInvoicing;
 import automation.PestRoutes.PageObject.Header;
 import automation.PestRoutes.Utilities.Data.*;
-import automation.PestRoutes.Utilities.Deprecated;
+import automation.PestRoutes.Utilities.Legacy;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import org.testng.asserts.SoftAssert;
@@ -70,8 +70,8 @@ public class CreditMemo extends AppData {
         String chargesBalance = invImplementation.getChargesBalance();
         String paymentBalance = invImplementation.getBalanceInPayments();
         String ticketID = creditMemoTab.getTicketID();
-        Deprecated.waitVisible(ticketID);
-        Deprecated.clickElement(ticketID);
+        Legacy.waitVisible(ticketID);
+        Legacy.clickElement(ticketID);
         creditMemoTab.validateServiceTypeName();
         result("-" + totalInvoiceValue, creditMemoTab.getChargesAmount_creditMemo(), "Charges validation in Credit Memo", "Invoice Validation");
         result(customerName + "(SELF)", creditMemoTab.getBilledAccount(), "Billed To validation in Credit Memo", "Invoice Validation");

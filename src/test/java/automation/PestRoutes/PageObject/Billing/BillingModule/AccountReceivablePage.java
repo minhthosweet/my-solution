@@ -1,6 +1,6 @@
 package automation.PestRoutes.PageObject.Billing.BillingModule;
 
-import automation.PestRoutes.Utilities.Deprecated;
+import automation.PestRoutes.Utilities.Legacy;
 
 public class AccountReceivablePage {
 
@@ -66,38 +66,38 @@ public class AccountReceivablePage {
 
 
     public void click(String needButton){
-        Deprecated.clickElement(needButton);
+        Legacy.clickElement(needButton);
     }
 
     public void clickButtonsInTable(String needColumnNumber){
-        Deprecated.clickElement("//table[@id='balancesTable']/tbody//tr[1]/td['" + needColumnNumber + "']");
+        Legacy.clickElement("//table[@id='balancesTable']/tbody//tr[1]/td['" + needColumnNumber + "']");
     }
 
     public void select(String needDropDown, String needText){
-        Deprecated.selectByText(needDropDown, needText);
+        Legacy.selectByText(needDropDown, needText);
     }
 
     public void insert(String needField, String needValue){
-        Deprecated.waitVisible(needField);
-        Deprecated.highLight(needField);
-        Deprecated.waitVisible(needField);
-        Deprecated.locate(needField).sendKeys(needValue);
+        Legacy.waitVisible(needField);
+        Legacy.highLight(needField);
+        Legacy.waitVisible(needField);
+        Legacy.locate(needField).sendKeys(needValue);
     }
 
     public void setInputSubjectText(String needField, String needText){
-        Deprecated.waitVisible(needField);
-        Deprecated.locate(needField).sendKeys(needText);
+        Legacy.waitVisible(needField);
+        Legacy.locate(needField).sendKeys(needText);
     }
 
     public void setInputEmailText(String needField, String needText){
-        Deprecated.waitVisible(needField);
-        Deprecated.clearField(needField);
-        Deprecated.highLight(needField);
-        Deprecated.locate(needField).sendKeys(needText);
+        Legacy.waitVisible(needField);
+        Legacy.clearField(needField);
+        Legacy.highLight(needField);
+        Legacy.locate(needField).sendKeys(needText);
     }
 
     public String getValueFromTable(String needColumnNumber){
-        String value = Deprecated.getElementTextValue("//table[@id='balancesTable']/tbody/tr[1]/td[" + needColumnNumber + "]");
+        String value = Legacy.getElementTextValue("//table[@id='balancesTable']/tbody/tr[1]/td[" + needColumnNumber + "]");
         return value;
     }
 

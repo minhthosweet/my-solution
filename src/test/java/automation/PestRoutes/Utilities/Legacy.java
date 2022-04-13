@@ -11,7 +11,7 @@ import java.util.stream.*;
 
 import static automation.PestRoutes.Utilities.GetWebDriver.*;
 
-public class Deprecated {
+public class Legacy {
     // convoluted or dispensable
     public static boolean isTextPresent(String text) {
         try {

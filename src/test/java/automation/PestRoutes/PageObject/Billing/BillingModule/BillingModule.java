@@ -3,9 +3,9 @@ package automation.PestRoutes.PageObject.Billing.BillingModule;
 import automation.PestRoutes.PageObject.BasePage;
 import automation.PestRoutes.Utilities.*;
 
-import static automation.PestRoutes.Utilities.Deprecated.waitVisible;
+import static automation.PestRoutes.Utilities.Legacy.waitVisible;
 
-import automation.PestRoutes.Utilities.Deprecated;
+import automation.PestRoutes.Utilities.Legacy;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import java.util.List;
@@ -35,7 +35,7 @@ public class BillingModule extends BasePage {
     private By btnRefresh = By.xpath("//*[@id='consolidateInvoicesFilterWrapper']//div[contains(text(),'Refresh')]");
 
     public void navigate(String needPath){
-        Deprecated.clickElement(needPath);
+        Legacy.clickElement(needPath);
     }
 
     public CollectionsPage clickCollections() {
@@ -45,15 +45,15 @@ public class BillingModule extends BasePage {
     }
 
     public void navigateTo(String needTab) {
-        Deprecated.waitVisible("//p[text() = '"+needTab+"']");
-        Deprecated.clickElement("//p[text() = '"+needTab+"']");
+        Legacy.waitVisible("//p[text() = '"+needTab+"']");
+        Legacy.clickElement("//p[text() = '"+needTab+"']");
         Utilities.delay(500);
     }
 
     public void selectAllICustomerInvoicesForConsolidation(String customerName)
     {
-        Deprecated.scrollToElement(By.xpath("//*[@id='consolidateInvoicesTable']//span[contains(text(),'" + customerName +"')]"));
-        Deprecated.jsClickElement("//*[@id='consolidateInvoicesTable']//span[contains(text(),'" + customerName +"')]");
+        Legacy.scrollToElement(By.xpath("//*[@id='consolidateInvoicesTable']//span[contains(text(),'" + customerName +"')]"));
+        Legacy.jsClickElement("//*[@id='consolidateInvoicesTable']//span[contains(text(),'" + customerName +"')]");
         Utilities.delay(1000);
         List<WebElement> consolidateInvoiceList = Utilities.locateAll(By.xpath("//*[@id='consolidateInvoicesTable']//span[contains(text(),'" + customerName +
                        "')]/../following-sibling::div//div[@class = 'col-1']/input"));
@@ -87,7 +87,7 @@ public class BillingModule extends BasePage {
     public void setDateRange(String dateRangeValue) {
         Utilities.waitVisible(dateRange,5);
         Utilities.click(dateRange);
-        Deprecated.waitVisible("//div[contains(@style,'block')]//li[text()='" + dateRangeValue + "']",5);
+        Legacy.waitVisible("//div[contains(@style,'block')]//li[text()='" + dateRangeValue + "']",5);
         Utilities.click(By.xpath("//div[contains(@style,'block')]//li[text()='" + dateRangeValue + "']"));
     }
 }

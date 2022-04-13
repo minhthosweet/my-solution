@@ -2,7 +2,7 @@ package automation.PestRoutes.PageObject.Leads;
 
 import automation.PestRoutes.PageObject.BasePage;
 import automation.PestRoutes.Utilities.*;
-import automation.PestRoutes.Utilities.Deprecated;
+import automation.PestRoutes.Utilities.Legacy;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -79,19 +79,19 @@ public class LeadsPage extends BasePage {
 	 * Below methods clicks an element/select value from dropdown
 	 */
 	public void clickButton(String needButton) {
-		Deprecated.waitVisible(needButton);
-		Deprecated.clickElement(needButton);
+		Legacy.waitVisible(needButton);
+		Legacy.clickElement(needButton);
 	}
 	public void selectValueFromDropdown(String needDropDown, String needValue) {
-		Deprecated.waitVisible(needDropDown);
-		Deprecated.selectByText(needDropDown, needValue);
+		Legacy.waitVisible(needDropDown);
+		Legacy.selectByText(needDropDown, needValue);
 	}
 	
 	public void selectAdditionalItem(String needButton, String needItem) {
-		Deprecated.waitVisible(needButton);
-		Deprecated.clickElement(needButton);
-		Deprecated.waitVisible("//span[text()=  '"+needItem+"']");
-		Deprecated.clickElement("//span[text()=  '"+needItem+"']");
+		Legacy.waitVisible(needButton);
+		Legacy.clickElement(needButton);
+		Legacy.waitVisible("//span[text()=  '"+needItem+"']");
+		Legacy.clickElement("//span[text()=  '"+needItem+"']");
 	}
 	
 	/*
@@ -99,10 +99,10 @@ public class LeadsPage extends BasePage {
 	 * Below method sets value to given input field
 	 */
 	public void setInputField(String needInputField, String needValue) {
-		Deprecated.waitVisible(needInputField);
-		Deprecated.clearField(needInputField);
-		Deprecated.highLight(needInputField);
-		Deprecated.locate(needInputField).sendKeys(needValue);
+		Legacy.waitVisible(needInputField);
+		Legacy.clearField(needInputField);
+		Legacy.highLight(needInputField);
+		Legacy.locate(needInputField).sendKeys(needValue);
 	}
 	
 	/*
@@ -110,12 +110,12 @@ public class LeadsPage extends BasePage {
 	 * Below method gets the text value of an element
 	 */
 	public String getValueOfAnElement(String needElement) {
-		Deprecated.waitVisible(needElement);
-		return Deprecated.getElementTextValue(needElement);
+		Legacy.waitVisible(needElement);
+		return Legacy.getElementTextValue(needElement);
 	}
 	public String getValueOfAnElementByAttribute(String needElement) {
-		Deprecated.waitVisible(needElement);
-		return Deprecated.getAttribute(needElement, "value");
+		Legacy.waitVisible(needElement);
+		return Legacy.getAttribute(needElement, "value");
 	}
 
 	public void clickNewQuote() {
@@ -136,7 +136,7 @@ public class LeadsPage extends BasePage {
 
 	public void typeRecurringServiceTypeAmount(String serviceTypeAmount) {
 		Utilities.delay(1000);
-		Deprecated.type(serviceTypeAmount, recurringServiceTypeAmountField);
+		Legacy.type(serviceTypeAmount, recurringServiceTypeAmountField);
 	}
 
 	public String getRecurringServiceTypeAmount() {

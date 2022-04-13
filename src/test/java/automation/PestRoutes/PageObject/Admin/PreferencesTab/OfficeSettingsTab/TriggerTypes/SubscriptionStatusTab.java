@@ -2,7 +2,7 @@ package automation.PestRoutes.PageObject.Admin.PreferencesTab.OfficeSettingsTab.
 
 import automation.PestRoutes.PageObject.Admin.PreferencesTab.PreferencesPage;
 import automation.PestRoutes.Utilities.*;
-import automation.PestRoutes.Utilities.Deprecated;
+import automation.PestRoutes.Utilities.Legacy;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
@@ -38,32 +38,32 @@ public class SubscriptionStatusTab extends PreferencesPage {
 
 	// Getters: get actual text value for action created(used for assertions)
 	public String getSendEmployeeEmailActionTextValue() {
-		return Deprecated.getElementTextValue(sendEmployeeEmail_actual);
+		return Legacy.getElementTextValue(sendEmployeeEmail_actual);
 	}
 
 	public String getAddAlertActionTextValue() {
-		return Deprecated.getElementTextValue(addAlert_actual);
+		return Legacy.getElementTextValue(addAlert_actual);
 	}
 
 	public String getAddTaskActionTextValue() {
-		return Deprecated.getElementTextValue(addTask_actual);
+		return Legacy.getElementTextValue(addTask_actual);
 	}
 
 	public String getSendEmploeeSMSActionTextValue() {
-		return Deprecated.getElementTextValue(sendEmployeeSMS_actual);
+		return Legacy.getElementTextValue(sendEmployeeSMS_actual);
 	}
 
 	public String getSendEmployeeVoiceActionTextValue() {
-		return Deprecated.getElementTextValue(sendEmployeeVoice_actual);
+		return Legacy.getElementTextValue(sendEmployeeVoice_actual);
 	}
 
 	public void selectWhenToTrigger(String whenToTriggerValue) {
-		Deprecated.scrollToElementJS(By.xpath(whenToTrigger));
+		Legacy.scrollToElementJS(By.xpath(whenToTrigger));
 		Utilities.selectByText(By.xpath(whenToTrigger), whenToTriggerValue);
 	}
 
 	public void selectStatusChangedTo(String changeStatus) {
-		Deprecated.scrollToElementJS(By.xpath(statusChangedTo));
+		Legacy.scrollToElementJS(By.xpath(statusChangedTo));
 		Utilities.selectByText(By.xpath(statusChangedTo), changeStatus);
 		System.out.println("Subscription Status Changed To " + changeStatus);
 	}
@@ -76,8 +76,8 @@ public class SubscriptionStatusTab extends PreferencesPage {
                 return true;
             }
         }
-        Deprecated.scrollToElementJS(includeCustomerFlagsMultiField);
-        Deprecated.type(flagCode, includeCustomerFlagsMultiField);
+        Legacy.scrollToElementJS(includeCustomerFlagsMultiField);
+        Legacy.type(flagCode, includeCustomerFlagsMultiField);
         System.out.println("Customer Flag: " + flagCode);
         return false;
     }

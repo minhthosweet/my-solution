@@ -2,7 +2,7 @@ package automation.PestRoutes.Controller.Leads;
 
 import automation.PestRoutes.Controller.*;
 import automation.PestRoutes.Utilities.Data.*;
-import automation.PestRoutes.Utilities.Deprecated;
+import automation.PestRoutes.Utilities.Legacy;
 import automation.PestRoutes.Utilities.Report.*;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
@@ -72,7 +72,7 @@ public class CreateLeads extends AppData {
 		leads.selectAdditionalItem(leads.addInitialInvoiceTicketItemButton, additialItem);
 		leads.selectAdditionalItem(leads.addRecurringInvoiceTicketItemButton, additialItem);
 		header.clickSaveButton();
-		Deprecated.waitVisible(leads.newButton);
+		Legacy.waitVisible(leads.newButton);
 		leads.clickButton(leads.addLeadsNotesButton);
 		leads.setInputField(leads.notesInputField, getData("source", generalData));
 		leads.clickButton(leads.saveNotesButton);
@@ -110,11 +110,11 @@ public class CreateLeads extends AppData {
 		header = new CustomerViewDialog_Header();
 		CustomerViewDialog_Header customerCart = new CustomerViewDialog_Header();
 		String subscriptionTitle= "//li[@subscriptionid]//div[text()='"+ serviceType +"']";
-		Deprecated.waitVisible(leads.newButton);
+		Legacy.waitVisible(leads.newButton);
 		leads.clickButton(leads.convertToLeadButton);
 		customerCart.navigateTo(customerCart.subscriptionTabInDialog);
-		Deprecated.waitVisible(subscriptionTitle);
-		String actualServiceTypeConverted = Deprecated.getElementTextValue(subscriptionTitle);
+		Legacy.waitVisible(subscriptionTitle);
+		String actualServiceTypeConverted = Legacy.getElementTextValue(subscriptionTitle);
 		result(serviceType, actualServiceTypeConverted, "serviceType Validation", "");
 	}
 	

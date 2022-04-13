@@ -2,10 +2,10 @@ package automation.PestRoutes.PageObject.Admin.PreferencesTab.OfficeSettingsTab.
 
 import automation.PestRoutes.PageObject.Admin.PreferencesTab.PreferencesPage;
 import automation.PestRoutes.Utilities.*;
-import automation.PestRoutes.Utilities.Deprecated;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
+import automation.PestRoutes.Utilities.Legacy;
+import org.openqa.selenium.*;
 
+import javax.rmi.CORBA.*;
 import java.util.List;
 
 import static automation.PestRoutes.Utilities.Utilities.*;
@@ -35,13 +35,13 @@ public class AppointmentStatusPage extends PreferencesPage {
     private By isInitialServiceDropDown = By.xpath("//label[text()='Is Initial Service']//following::div//select[@name='filterItemValue']");
 
     public void selectStatusChangedTo(String changeStatus) {
-        Deprecated.scrollToElementJS(statusChangedToDropDown);
+        Legacy.scrollToElementJS(statusChangedToDropDown);
         Utilities.selectByText(statusChangedToDropDown, changeStatus);
         System.out.println("Appointment Status Changed To " + changeStatus);
     }
 
     public void selectWhenToTrigger(String whenToTrigger) {
-        Deprecated.scrollToElementJS(whenToTriggerDropDown);
+        Legacy.scrollToElementJS(whenToTriggerDropDown);
         Utilities.selectByText(whenToTriggerDropDown, whenToTrigger);
     }
 
@@ -53,8 +53,8 @@ public class AppointmentStatusPage extends PreferencesPage {
                 return true;
             }
         }
-        Deprecated.scrollToElementJS(includeCustomerFlagsMultiField);
-        Deprecated.type(flagCode, includeCustomerFlagsMultiField);
+        Legacy.scrollToElementJS(includeCustomerFlagsMultiField);
+        Legacy.type(flagCode, includeCustomerFlagsMultiField);
         System.out.println("Customer Flag: " + flagCode);
         return false;
     }
@@ -67,8 +67,8 @@ public class AppointmentStatusPage extends PreferencesPage {
                 return true;
             }
         }
-        Deprecated.scrollToElementJS(includeServiceTypesMultiField);
-        Deprecated.type(serviceType, includeServiceTypesMultiField);
+        Legacy.scrollToElementJS(includeServiceTypesMultiField);
+        Legacy.type(serviceType, includeServiceTypesMultiField);
         System.out.println("Service Type: " + serviceType);
         return false;
     }
@@ -81,8 +81,8 @@ public class AppointmentStatusPage extends PreferencesPage {
                 return true;
             }
         }
-        Deprecated.scrollToElementJS(includeDivisionsMultiField);
-        Deprecated.type(division, includeDivisionsMultiField);
+        Legacy.scrollToElementJS(includeDivisionsMultiField);
+        Legacy.type(division, includeDivisionsMultiField);
         System.out.println("Division: " + division);
         return false;
     }
@@ -95,14 +95,14 @@ public class AppointmentStatusPage extends PreferencesPage {
                 return true;
             }
         }
-        Deprecated.scrollToElementJS(excludeSubscriptionFlagsMultiField);
-        Deprecated.type(subscriptionFlag, excludeSubscriptionFlagsMultiField);
+        Legacy.scrollToElementJS(excludeSubscriptionFlagsMultiField);
+        Legacy.type(subscriptionFlag, excludeSubscriptionFlagsMultiField);
         System.out.println("Subscription Flag: " + subscriptionFlag);
         return false;
     }
 
     public void selectAppointmentType(String appointmentType) {
-        Deprecated.scrollToElementJS(appointmentTypeDropDown);
+        Legacy.scrollToElementJS(appointmentTypeDropDown);
         Utilities.selectByText(appointmentTypeDropDown, appointmentType);
     }
 
@@ -118,11 +118,11 @@ public class AppointmentStatusPage extends PreferencesPage {
         waitVisible(addTaskAssignToDropDown);
         Utilities.selectByText(addTaskAssignToDropDown, assignTo);
         if(assignTo.equalsIgnoreCase("Specific Employee")) {
-            Deprecated.selectByIndex(addTaskEmployee, 0);
+            Legacy.selectByIndex(addTaskEmployee, 0);
         }
-        Deprecated.type("1", addTaskDaysTillDueField);
-        Deprecated.scrollToElementJS(textAreaMessageNotes);
-        Deprecated.type("Status - Task Test For Trigger Rules", textAreaMessageNotes);
+        Legacy.type("1", addTaskDaysTillDueField);
+        Legacy.scrollToElementJS(textAreaMessageNotes);
+        Legacy.type("Status - Task Test For Trigger Rules", textAreaMessageNotes);
         Utilities.selectByText(addTaskCategoryDropDown, "Appt Status");
     }
 
@@ -131,18 +131,18 @@ public class AppointmentStatusPage extends PreferencesPage {
         if (voiceType.equalsIgnoreCase("New Message")) {
             Utilities.selectByText(voiceTypeDropDown, voiceType);
             isVisible(textAreaMessageNotes);
-            Deprecated.scrollToElementJS(textAreaMessageNotes);
-            Deprecated.type("Status - Voice Test For Trigger Rules", textAreaMessageNotes);
+            Legacy.scrollToElementJS(textAreaMessageNotes);
+            Legacy.type("Status - Voice Test For Trigger Rules", textAreaMessageNotes);
         } else if (voiceType.equalsIgnoreCase("Pre-recorded Message")) {
             Utilities.selectByText(voiceTypeDropDown, voiceType);
-            Deprecated.selectByIndex(voiceMessage, 0);
+            Legacy.selectByIndex(voiceMessage, 0);
         }
     }
 
     public void completeSendEmailAction() {
-        Deprecated.type("Automation Trigger Rule Test", emailTitleField);
-        Deprecated.scrollToElementJS(emailTitleField);
-        Deprecated.type("Status - Email Test For Trigger Rules", textArea_EmailMessage);
+        Legacy.type("Automation Trigger Rule Test", emailTitleField);
+        Legacy.scrollToElementJS(emailTitleField);
+        Legacy.type("Status - Email Test For Trigger Rules", textArea_EmailMessage);
     }
 
      public void completeStatusAction(String action, String details) {
@@ -151,7 +151,7 @@ public class AppointmentStatusPage extends PreferencesPage {
         switch(action) {
             case "Add Alert":
                 delay(2000);
-                Deprecated.type("Status - Alert Test For Trigger Rules", textAreaMessageNotes);
+                Legacy.type("Status - Alert Test For Trigger Rules", textAreaMessageNotes);
                 break;
             case "Add Task":
                 completeAddTaskAction(details);
@@ -160,7 +160,7 @@ public class AppointmentStatusPage extends PreferencesPage {
                 completeSendEmailAction();
                 break;
             case "Send SMS":
-                Deprecated.type("Status - SMS Test For Trigger Rules", textAreaMessageNotes);
+                Legacy.type("Status - SMS Test For Trigger Rules", textAreaMessageNotes);
                 break;
             case "Send Voice":
                 completeSendVoiceAction(details);
@@ -174,13 +174,13 @@ public class AppointmentStatusPage extends PreferencesPage {
         waitVisible(secondActionDropDown);
         Utilities.selectByText(secondActionDropDown, action2);
         if (action2.equalsIgnoreCase("Add Alert")) {
-            Deprecated.type("Status - Alert Test For Trigger Rules", textAreaMessageNotes);
+            Legacy.type("Status - Alert Test For Trigger Rules", textAreaMessageNotes);
         } else if (action2.equalsIgnoreCase("Add Task")) {
             completeAddTaskAction(details);
         } else if (action2.equalsIgnoreCase("Send Email")) {
             completeSendEmailAction();
         } else if (action2.equalsIgnoreCase("Send SMS")) {
-            Deprecated.type("Status - SMS Test For Trigger Rules", textAreaMessageNotes);
+            Legacy.type("Status - SMS Test For Trigger Rules", textAreaMessageNotes);
         } else if (action2.equalsIgnoreCase("Send Voice")) {
             completeSendVoiceAction(details);
         }
@@ -191,7 +191,7 @@ public class AppointmentStatusPage extends PreferencesPage {
         selectByText(actionDropDown, action1);
         switch (action1) {
             case "Add Alert":
-                Deprecated.type("Status - Alert Test For Trigger Rules", textAreaMessageNotes);
+                Legacy.type("Status - Alert Test For Trigger Rules", textAreaMessageNotes);
                 completeSecondAction(action2, details);
                 break;
             case "Add Task":
@@ -203,7 +203,7 @@ public class AppointmentStatusPage extends PreferencesPage {
                 completeSecondAction(action2, details);
                 break;
             case "Send SMS":
-                Deprecated.type("Status - SMS Test For Trigger Rules", textAreaMessageNotes);
+                Legacy.type("Status - SMS Test For Trigger Rules", textAreaMessageNotes);
                 completeSecondAction(action2, details);
                 break;
             case "Send Voice":
@@ -214,7 +214,7 @@ public class AppointmentStatusPage extends PreferencesPage {
     }
 
     public void clickSaveButton() {
-        Deprecated.scrollToElementJS(saveTriggerButton);
+        Legacy.scrollToElementJS(saveTriggerButton);
         click(saveTriggerButton);
     }
 

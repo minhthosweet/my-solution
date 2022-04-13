@@ -6,7 +6,7 @@ import automation.PestRoutes.PageObject.Admin.PreferencesTab.CustomerPreferences
 import automation.PestRoutes.PageObject.Admin.PreferencesTab.PreferencesPage;
 import automation.PestRoutes.PageObject.Header;
 import automation.PestRoutes.Utilities.Data.AppData;
-import automation.PestRoutes.Utilities.Deprecated;
+import automation.PestRoutes.Utilities.Legacy;
 import io.cucumber.java.en.Given;
 import org.openqa.selenium.WebElement;
 
@@ -36,7 +36,7 @@ public class Divisions extends AppData {
         service.searchService(divisionName);
 
         try {
-            WebElement elm = Deprecated.locate("//div[contains(text(),'" + divisionName + "')]");
+            WebElement elm = Legacy.locate("//div[contains(text(),'" + divisionName + "')]");
         } catch (Exception e) {
             divisions.createNewDivisions(divisionName, divisionName);
         }

@@ -1,6 +1,6 @@
 package automation.PestRoutes.PageObject.CustomerOverview.Invoicing;
 
-import automation.PestRoutes.Utilities.Deprecated;
+import automation.PestRoutes.Utilities.Legacy;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -15,8 +15,8 @@ public class CouponOrCreditTab {
     public String successAppliedAmount = "//form[@id='singlePaymentForm']//p";
 
     public void click(String needIdentifier) {
-        Deprecated.waitVisible(needIdentifier);
-        Deprecated.clickElement(needIdentifier);
+        Legacy.waitVisible(needIdentifier);
+        Legacy.clickElement(needIdentifier);
     }
 
     public Map<String, String> filter_Types = new HashMap<String, String>();
@@ -51,25 +51,25 @@ public class CouponOrCreditTab {
     }
 
     public void doubleClickBoxes(String needIdentifier) {
-        Deprecated.waitVisible(needIdentifier);
-        Deprecated.doubleClick(needIdentifier);
+        Legacy.waitVisible(needIdentifier);
+        Legacy.doubleClick(needIdentifier);
     }
 
     //getters
 
     public String getPaymentAmount(String needXPath) {
-        Deprecated.waitVisible(needXPath);
-        return Deprecated.getAttribute(needXPath, "value");
+        Legacy.waitVisible(needXPath);
+        return Legacy.getAttribute(needXPath, "value");
     }
 
     public String getTextValue(String needXPath) {
-        Deprecated.waitVisible(needXPath);
-        return Deprecated.getElementTextValue(needXPath);
+        Legacy.waitVisible(needXPath);
+        return Legacy.getElementTextValue(needXPath);
     }
 
     //setters
     public void set(String needIdentifier, String needValue) {
-        Deprecated.waitVisible(needIdentifier);
-        Deprecated.locate(needIdentifier).sendKeys(needValue);
+        Legacy.waitVisible(needIdentifier);
+        Legacy.locate(needIdentifier).sendKeys(needValue);
     }
 }

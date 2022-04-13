@@ -3,7 +3,7 @@ package automation.PestRoutes.Controller.Admin.Users;
 import java.io.IOException;
 
 import automation.PestRoutes.Utilities.Data.AppData;
-import automation.PestRoutes.Utilities.Deprecated;
+import automation.PestRoutes.Utilities.Legacy;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 
@@ -33,10 +33,10 @@ public class AddUser extends AppData {
 		adminPage.navigateTo(adminPage.users);
 
 		// Click on the User button
-		if (Deprecated.isPresent(adminPage.existingUser)) {
+		if (Legacy.isPresent(adminPage.existingUser)) {
 			deactivateUser();
 		}
-		Deprecated.clickElement(adminPage.userButton);
+		Legacy.clickElement(adminPage.userButton);
 		addUserDialog.setInputValue(addUserDialog.firstNameInputField, userFirstName);
 		addUserDialog.setInputValue(addUserDialog.lastNameInputField, userLastName);
 		addUserDialog.selectValueFromDropDown(addUserDialog.accountTypeDropDown, needAccountType);
@@ -52,12 +52,12 @@ public class AddUser extends AppData {
 		header.navigateTo(header.adminTab);
 		adminPage.navigateTo(adminPage.users);
 		try {
-			Deprecated.scrollToElementJS(adminPage.preExistingUser);
-			Deprecated.clickElement(adminPage.existingUser);
+			Legacy.scrollToElementJS(adminPage.preExistingUser);
+			Legacy.clickElement(adminPage.existingUser);
 			addUserDialog.clickButton(addUserDialog.deactivateLink);
 			addUserDialog.clickButton(addUserDialog.deactivateSaveButton);
 			Thread.sleep(3000);
-			Deprecated.scrollToElementJS(addUserDialog.closeButton);
+			Legacy.scrollToElementJS(addUserDialog.closeButton);
 			addUserDialog.clickButton(addUserDialog.closeButton);
 		} catch (Exception e) {
 			System.out.println("Unable to find existing automation user or click on the cancel button");

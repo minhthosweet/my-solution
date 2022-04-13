@@ -1,7 +1,7 @@
 package automation.PestRoutes.PageObject.Billing.BillingModule;
 
 import automation.PestRoutes.Utilities.*;
-import automation.PestRoutes.Utilities.Deprecated;
+import automation.PestRoutes.Utilities.Legacy;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
@@ -20,7 +20,7 @@ public class CollectionsPage extends BillingModule {
     }
 
     public void typeFlagToInclude(String flag) {
-        Deprecated.type(flag, includeFlagsField);
+        Legacy.type(flag, includeFlagsField);
     }
 
     public void clickRefreshButton() {

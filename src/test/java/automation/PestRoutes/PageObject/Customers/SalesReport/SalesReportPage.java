@@ -1,6 +1,6 @@
 package automation.PestRoutes.PageObject.Customers.SalesReport;
 
-import automation.PestRoutes.Utilities.Deprecated;
+import automation.PestRoutes.Utilities.Legacy;
 
 public class SalesReportPage{
 	
@@ -34,57 +34,57 @@ public class SalesReportPage{
 	String salesReportTotalContractValue = "//div[contains(text(),'Total Contract Value')]/preceding-sibling::h3";
 
 	public void selectTodaysDate(String needDate) {
-		Deprecated.waitVisible(selectDateField);
-		Deprecated.clickElement(selectDateField);
-		Deprecated.waitVisible(selectToday);
-		Deprecated.clickElement(needDate);
+		Legacy.waitVisible(selectDateField);
+		Legacy.clickElement(selectDateField);
+		Legacy.waitVisible(selectToday);
+		Legacy.clickElement(needDate);
 	}
 	
 	public void selectAdditionalColumns(String needColumnName) {
-		Deprecated.selectByText(additionColumns, needColumnName);
+		Legacy.selectByText(additionColumns, needColumnName);
 	}
 
 	public void selectIncludeOffices(String needOffice) {
-		Deprecated.selectByText(includeOffices, needOffice);
+		Legacy.selectByText(includeOffices, needOffice);
 	}
 
 	
 	public void selectSalesmanFilter(String filterBySalesman, String needSalesman) {
-		Deprecated.selectByText(filterBySalesman, needSalesman);
+		Legacy.selectByText(filterBySalesman, needSalesman);
 	}
 
 	public void selectFilter(String needFilterType, String needValue) {
-		Deprecated.selectByText(needFilterType, needValue);
+		Legacy.selectByText(needFilterType, needValue);
 	}
 
 	public void clickFilter(String needFilterType, String needValue) {
-		Deprecated.selectByText(needFilterType, needValue);
+		Legacy.selectByText(needFilterType, needValue);
 	}
 	
 	public void ClickRefreshButton() {
-		Deprecated.waitVisible(refreshButton);
-		Deprecated.clickElement(refreshButton);
+		Legacy.waitVisible(refreshButton);
+		Legacy.clickElement(refreshButton);
 	}
 
 	
 	public void subscriptionFlagColumnPresent() {
-		Deprecated.waitVisible(subscriptionFlagColumn);
+		Legacy.waitVisible(subscriptionFlagColumn);
 	}
 	
 	public String getCurrentSubscriptionFlagName(String chooseNameFromConst) {
-		String elm = Deprecated.getElementTextValue("//td[contains(text(),'"+chooseNameFromConst+"')]/following-sibling::td[12]");
+		String elm = Legacy.getElementTextValue("//td[contains(text(),'"+chooseNameFromConst+"')]/following-sibling::td[12]");
 		return elm;
 	}
 
 	public double getSalesReportTotalSingleContractValue(String chooseNameFromConst) {
-		String elm = Deprecated.getElementTextValue("//td[contains(text(),'"+chooseNameFromConst+"')]/following-sibling::td[11]");
+		String elm = Legacy.getElementTextValue("//td[contains(text(),'"+chooseNameFromConst+"')]/following-sibling::td[11]");
 		String newElm = elm.replaceAll("[^\\\\.0123456789]", "");
 		double attributeValue = Double.parseDouble(newElm);
 		return attributeValue;		
 	}
 	
 	public double getSalesReportTotalContractValue() {
-		String elm = Deprecated.getElementTextValue(salesReportTotalContractValue);
+		String elm = Legacy.getElementTextValue(salesReportTotalContractValue);
 		String newElm = elm.replaceAll("[^\\\\.0123456789]", "");
 		double attributeValue = Double.parseDouble(newElm);
 		return attributeValue;
