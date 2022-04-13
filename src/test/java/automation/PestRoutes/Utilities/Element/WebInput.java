@@ -1,6 +1,5 @@
 package automation.PestRoutes.Utilities.Element;
 
-import automation.PestRoutes.Utilities.*;
 import org.apache.commons.lang3.*;
 import org.openqa.selenium.*;
 

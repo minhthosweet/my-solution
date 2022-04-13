@@ -2,7 +2,6 @@ package automation.PestRoutes.Utilities.Element;
 
 import org.openqa.selenium.*;
 
-import static automation.PestRoutes.Utilities.Element.WebCheck.*;
 import static automation.PestRoutes.Utilities.Element.WebLocator.*;
 import static automation.PestRoutes.Utilities.GetWebDriver.*;
 

@@ -324,7 +324,7 @@ public class CustomerPortalBillingTabPage extends CustomerPortalBasePage {
         Utilities.selectByText(elementExpirationYear, "20"+ year);
         Deprecated.type(cvv, elementCVVField);
         click(elementProcessTransactionButton);
-        acceptAlert();
+        acceptAlert(10);
         driver.switchTo().defaultContent();
     }
 
