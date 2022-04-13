@@ -21,6 +21,7 @@ import org.testng.asserts.SoftAssert;
 import java.math.BigDecimal;
 import java.util.List;
 
+import static automation.PestRoutes.Utilities.Data.AppData.*;
 import static automation.PestRoutes.Utilities.GetWebDriver.closeTab;
 import static automation.PestRoutes.Utilities.GetWebDriver.switchToOldWindowOpened;
 
@@ -206,6 +207,25 @@ public class TestCustomerPortalSummaryTab {
                 "The Technical Review Text Area Is Not Displayed via Most Recent Service Section");
         softAssert.assertEquals(userOnCustomerPortalSummaryTab.isStarRatingsDisplayed(), true,
                 "The Star Ratings Are Not Displayed via Most Recent Service Section");
+        closeTab();
+        switchToOldWindowOpened();
+        testCustomer.removeCustomer();
+        softAssert.assertAll();
+    }
+
+    @Then("I Verify The URL Contains The Correct SubDomain")
+    public void testCorrectSubdomainInURL() {
+        String actualCustomerPortalURL = userOnCustomerPortalSummaryTab.getURL();
+        String actualSubDomain = actualCustomerPortalURL.substring(actualCustomerPortalURL.indexOf("/") + 2, actualCustomerPortalURL.indexOf("."));
+        String actualPestRoutesURL = getData("url",environment);
+        String expectedCustomerPortalURL = actualPestRoutesURL.replace("pestroutes", "pestportals");
+        String expectedSubDomain = expectedCustomerPortalURL.substring(expectedCustomerPortalURL.indexOf("/") + 2, expectedCustomerPortalURL.indexOf("."));
+        softAssert.assertEquals(actualSubDomain, expectedSubDomain,
+                "\n The Actual & Expected Sub Domains Do Not Match" +
+                "\n Actual Sub Domain: " + actualSubDomain +
+                "\n Expected Sub Domain: " + expectedSubDomain + "\n");
+        System.out.println("Actual Sub Domain:   " + actualSubDomain);
+        System.out.println("Expected Sub Domain: " + expectedSubDomain);
         closeTab();
         switchToOldWindowOpened();
         testCustomer.removeCustomer();

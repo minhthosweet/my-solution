@@ -26,4 +26,10 @@ public class LoginPage {
 		Legacy.locate(Password).sendKeys(needPassword);
 	}
 
+	public DashboardPage logInToApplication(String username, String password) {
+		type(By.xpath(UserName), username);
+		type(By.xpath(Password), password);
+		click(By.xpath(LoginButton));
+		return new DashboardPage();
+	}
 }

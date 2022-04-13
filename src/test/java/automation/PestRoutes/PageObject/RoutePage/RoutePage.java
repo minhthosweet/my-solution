@@ -124,7 +124,11 @@ public class RoutePage extends BasePage {
 
     @And("I add a route group")
     public String addGroup() {
-        return addGroup( "TestRoutes", "TestRoutes");
+        if (!locate(By.xpath(addGroup)).isDisplayed()) {
+            return addGroup( "TestRoutes", "TestRoutes");
+        }
+        return null;
+        //return addGroup( "TestRoutes", "TestRoutes");
     }
 
     public String addGroup(String routeGroupName, String grpTemplateName){
@@ -136,6 +140,7 @@ public class RoutePage extends BasePage {
         Legacy.waitVisible(saveButton);
         Legacy.clickElement(saveButton);
         String groupID  = getGroupID(routeGroupName);
+        addRoutesByQuantity("1");
         return groupID;
     }//addGroup()
 

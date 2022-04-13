@@ -797,12 +797,8 @@ public class InvoiceImplementation extends BasePage {
         Utilities.selectByText(elementExpirationYear, "20"+ year);
         Legacy.type(cvv, elementCVVField);
         click(elementProcessTransactionButton);
-
-        delay(3000);
         acceptAlert();
-
         driver.switchTo().defaultContent();
-
         delay(1000);
         acceptAlert(); //Accept successful payment alert
     }

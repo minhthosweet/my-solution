@@ -65,7 +65,7 @@ public class BillingPage extends BasePage {
 	private By billingEmailInputField = By.xpath("//input[@placeholder='Billing Email']");
 	private By billingCompanyNameInputField = By.xpath("//input[@placeholder='Billing Company Name']");
 	private By paymentHoldDateInputField = By.xpath("//input[@name='paymentHoldDate']");
-	public String maxMonthlyChargeInputField = "//input[@name='maxMonthlyCharge']";
+	public String maxMonthlyChargeInputField = "//div[@id='billingSwitches']//input[@name='maxMonthlyCharge']";
 
 	//***Drop downs***
 	public String autoPayDropdown = "//div[@id='billingSwitches']//select[@name='autoPayPaymentProfileID']";
@@ -286,7 +286,6 @@ public class BillingPage extends BasePage {
         click( enterCreditCardButton);
     }//clickEnterCreditCardButton()
 
-
 	public void enterBraintreeNewCardInformation(String cardNumber, String expirationDate, String cvv){
 		driver.switchTo().defaultContent();
 		switchToIframe(brainCcIframe);
@@ -472,5 +471,9 @@ public class BillingPage extends BasePage {
 
 	public void selectAutoPay() {
 		selectByIndex(By.xpath(autoPayDropdown), 1);
+	}
+
+	public void typeMaxMonthlyAmount(String maxAmount) {
+		type(By.xpath(maxMonthlyChargeInputField), maxAmount);
 	}
 }

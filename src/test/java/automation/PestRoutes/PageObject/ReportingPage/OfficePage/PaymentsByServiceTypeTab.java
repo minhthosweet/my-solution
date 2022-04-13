@@ -11,7 +11,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static automation.PestRoutes.Utilities.GetWebDriver.*;
+import static automation.PestRoutes.Utilities.Utilities.*;
 
 public class PaymentsByServiceTypeTab extends BasePage {
 
@@ -93,22 +93,24 @@ public class PaymentsByServiceTypeTab extends BasePage {
     }
 
     public void selectDateFor (String value) {
-        Utilities.click(dateField);
-        Utilities.locate(By.xpath("//body[@id='reportsPage']/div[18]//li[text()='" + value + "']")).click();
+        delay(2000);
+        click(dateField);
+        locate(By.xpath("//body[@id='reportsPage']/div[18]//li[text()='" + value + "']")).click();
     }
 
     public void selectGroupBy (String value) {
-        WebElement groupBy = Utilities.locate(groupByField);
+        delay(2000);
+        WebElement groupBy = locate(groupByField);
         Select selectGroupBy = new Select(groupBy);
         selectGroupBy.selectByVisibleText(value);
     }
 
     public void clickRefreshButton(){
-        Utilities.click(refreshButton);
+        click(refreshButton);
     }
 
     public void clickDescription(String value) {
-        List<WebElement> descriptionList = driver.findElements(descriptionValues);
+        List<WebElement> descriptionList = locateAll(descriptionValues);
         for(WebElement description : descriptionList) {
             if (description.getText().equals(value)) {
                 description.click();
@@ -117,7 +119,7 @@ public class PaymentsByServiceTypeTab extends BasePage {
     }
 
     public boolean getCustomerName(String value) {
-        List<WebElement> customerList = driver.findElements(customerNames);
+        List<WebElement> customerList = locateAll(customerNames);
         for(WebElement customer : customerList) {
             if (customer.getText().equals(value)) {
                 return true;

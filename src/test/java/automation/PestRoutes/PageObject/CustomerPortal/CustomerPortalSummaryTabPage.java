@@ -91,4 +91,10 @@ public class CustomerPortalSummaryTabPage extends CustomerPortalBasePage {
         }
         return false;
     }
+
+    public String getURL() {
+        String url = driver.getCurrentUrl();
+        System.out.println("Portal URL: " + url);
+        return url;
+    }
 }

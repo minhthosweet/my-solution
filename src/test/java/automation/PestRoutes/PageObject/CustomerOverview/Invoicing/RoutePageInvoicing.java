@@ -4,6 +4,9 @@ import automation.PestRoutes.PageObject.BasePage;
 import automation.PestRoutes.Utilities.*;
 import automation.PestRoutes.Utilities.Legacy;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+
+import java.util.List;
 
 import static automation.PestRoutes.Utilities.GetWebDriver.*;
 import static automation.PestRoutes.Utilities.Utilities.*;
@@ -164,5 +167,18 @@ public class RoutePageInvoicing extends BasePage {
 		String paymentStatus = getText(fullyPaidPaymentStatus);
 		System.out.println("Payment Status: " + paymentStatus);
 		return paymentStatus;
+	}
+
+	public String getUnpaidStatus() {
+		String paymentStatus = getText(unpaidPaymentStatus);
+		System.out.println("Payment Status: " + paymentStatus);
+		return paymentStatus;
+	}
+
+	public int getNumberOfDeclinedTransactions() {
+		List<WebElement> declinedTransactions = locateAll(By.xpath("//div[@id='billingPanel']//div[contains(text(),'declined')]"));
+		int numberOfDeclinedTransactions = declinedTransactions.size();
+		System.out.println("# of Declined Transactions: " + numberOfDeclinedTransactions);
+		return numberOfDeclinedTransactions;
 	}
 }
