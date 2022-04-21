@@ -11,7 +11,7 @@ import automation.PestRoutes.PageObject.Header;
 import automation.PestRoutes.PageObject.RoutePage.RoutePage;
 import automation.PestRoutes.PageObject.Scheduling.SchedulingTab;
 import automation.PestRoutes.PageObject.Scheduling.SingleRoutePageObjects;
-import automation.PestRoutes.Utilities.Deprecated;
+import automation.PestRoutes.Utilities.Legacy;
 import automation.PestRoutes.Utilities.Utilities;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
@@ -140,8 +140,8 @@ public class SingleRoutesTests{
 
     @And("I execute the Single Route Optimization Process")
     public void executeSingleRouteOptimizationProcess(){
-        Deprecated.scrollToElementJS(singleRoutesPageObjs.lnkRouteActions);
-        if(Deprecated.isTextPresent("Route Actions")) {
+        Legacy.scrollToElementJS(singleRoutesPageObjs.lnkRouteActions);
+        if(Legacy.isTextPresent("Route Actions")) {
             singleRoutesPageObjs.clickActions_OptimizeRoute();
             Utilities.acceptAlert();
             singleRoutesPageObjs.executeOptimizeQueueScript();
@@ -149,7 +149,7 @@ public class SingleRoutesTests{
             Utilities.delay(2000);
             if (singleRoutesPageObjs.isRouteOptimizationProcessComplete()) {
                  singleRoutesPageObjs.clickSeeOptimizedResultsMsg();
-                if(Deprecated.isVisible(singleRoutesPageObjs.btnRefresh))
+                if(Legacy.isVisible(singleRoutesPageObjs.btnRefresh))
                     singleRoutesPageObjs.clickRefreshBtn();
                 singleRoutesPageObjs.closeIncognitoBrowse();
             }
@@ -187,7 +187,7 @@ public class SingleRoutesTests{
 
         //Load Customer and Schedule The Appointment
         header.searchCustomerWithName(customerName);
-        Deprecated.waitVisible(customerCardHeader.overviewPageTitle,10);
+        Legacy.waitVisible(customerCardHeader.overviewPageTitle,10);
 
         subscriptionTab = customerCardHeader.goToSubscriptionTab();
         Utilities.delay(1000);
@@ -197,7 +197,7 @@ public class SingleRoutesTests{
     public void addCustomerSubscription(String customerName, String strServiceType) {
         customerCardHeader = new CustomerViewDialog_Header();
         header.searchCustomerWithName(customerName);
-        Deprecated.waitVisible(customerCardHeader.overviewPageTitle,10);
+        Legacy.waitVisible(customerCardHeader.overviewPageTitle,10);
 
         //Add Service Subscription
         subscriptionTab = customerCardHeader.goToSubscriptionTab();

@@ -3,7 +3,7 @@ package automation.PestRoutes.Controller.Admin.Preferences.ServiceRelated;
 import java.util.ArrayList;
 import java.util.List;
 
-import automation.PestRoutes.Utilities.Deprecated;
+import automation.PestRoutes.Utilities.Legacy;
 import io.cucumber.java.en.Given;
 import org.openqa.selenium.WebElement;
 import org.testng.annotations.Test;
@@ -36,7 +36,7 @@ public class EquipmentTypesValidations {
 		main.navigateTo(main.preferences);
 		preferences.navigateTo(preferences.serviceRelatedNav, preferences.equipmentTypesText);
 		try {
-			WebElement elm = Deprecated.locate("//div[contains(text(), '"+prefix+"')]");
+			WebElement elm = Legacy.locate("//div[contains(text(), '"+prefix+"')]");
 		} catch(Exception e ) {
 			equipment.clickAddEquipmentButton();
 			equipment.setID_Prefix(prefix);

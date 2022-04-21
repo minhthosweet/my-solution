@@ -1,7 +1,8 @@
 package automation.PestRoutes.PageObject.ReportingPage.OfficePage;
 
 import automation.PestRoutes.PageObject.BasePage;
-import automation.PestRoutes.Utilities.Deprecated;
+import automation.PestRoutes.Utilities.*;
+import automation.PestRoutes.Utilities.Legacy;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
@@ -80,15 +81,15 @@ public class PaymentsByServiceTypeTab extends BasePage {
     }
 
     public String getAppliedPaymentsBeforeTax_MultiGroupReport(String needCustomerID) {
-        return Deprecated.getElementTextValue("//td[text()='" + needCustomerID + "']/following-sibling::td[1]");
+        return Legacy.getElementTextValue("//td[text()='" + needCustomerID + "']/following-sibling::td[1]");
     }
 
     public String getPaymentServices_MultiGroupReport(String needCustomerID) {
-        return Deprecated.getElementTextValue("//td[text()='" + needCustomerID + "']/parent::tr[@detailvalues]//td[10]");
+        return Legacy.getElementTextValue("//td[text()='" + needCustomerID + "']/parent::tr[@detailvalues]//td[10]");
     }
 
     public String getTaxRate_MultiGroupReport(String needCustomerID) {
-        return Deprecated.getElementTextValue("//td[text()='" + needCustomerID + "']/parent::tr[@detailvalues]//td[3]");
+        return Legacy.getElementTextValue("//td[text()='" + needCustomerID + "']/parent::tr[@detailvalues]//td[3]");
     }
 
     public void selectDateFor (String value) {

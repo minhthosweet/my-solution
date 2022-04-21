@@ -16,7 +16,7 @@ import automation.PestRoutes.PageObject.Header;
 import automation.PestRoutes.PageObject.ReportingPage.OfficePage.BillingByServiceTypeTab;
 import automation.PestRoutes.PageObject.ReportingPage.OfficePage.PaymentsByServiceTypeTab;
 import automation.PestRoutes.Utilities.Data.*;
-import automation.PestRoutes.Utilities.Deprecated;
+import automation.PestRoutes.Utilities.Legacy;
 import automation.PestRoutes.Utilities.Report.*;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
@@ -400,7 +400,7 @@ public class PaymentsByServiceType extends AppData {
     public void searchCustomerPaymentFrequencyLineItem() throws InterruptedException {
         billingByServiceTypeTab.click("//tr//td[text()='" + customerID_PST + "']");
         billingByServiceTypeTab.searchNewCustomer(billingByServiceTypeTab.search_lineItem, customerID_PST);
-        Deprecated.locate(billingByServiceTypeTab.search_lineItem).sendKeys(Keys.ENTER);
+        Legacy.locate(billingByServiceTypeTab.search_lineItem).sendKeys(Keys.ENTER);
         Thread.sleep(500);
     }
 

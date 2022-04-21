@@ -11,7 +11,7 @@ import automation.PestRoutes.PageObject.CustomerOverview.Invoicing.CreateNewInvo
 import automation.PestRoutes.Utilities.*;
 import automation.PestRoutes.PageObject.Header;
 import automation.PestRoutes.Utilities.Data.*;
-import automation.PestRoutes.Utilities.Deprecated;
+import automation.PestRoutes.Utilities.Legacy;
 import automation.PestRoutes.Utilities.Report.*;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
@@ -247,7 +247,7 @@ public class AccountReceivable {
         accountReceivable.select(accountReceivable.hasEmailDropdown, "Yes");
         accountReceivable.click(accountReceivable.refreshButton);
         searchAndValidateCustomer_AccountReceivable(customerName, " Customer with email");
-        Deprecated.hoverElement(accountReceivable.actionsButton, accountReceivable.emailStatementsButton_UnderActions);
+        Legacy.hoverElement(accountReceivable.actionsButton, accountReceivable.emailStatementsButton_UnderActions);
         Utilities.acceptAlert();
         Utilities.acceptAlert();
         customer.removeCustomer();
@@ -271,10 +271,10 @@ public class AccountReceivable {
         accountReceivable.select(accountReceivable.maxMonthlyDropdown, "Yes");
         accountReceivable.click(accountReceivable.refreshButton);
         searchAndValidateCustomer_AccountReceivable(customerName, " Customer with autopay and max monthly limit");
-        Deprecated.hoverElement(accountReceivable.actionsButton, accountReceivable.exportToExcelButton_UnderActions);
-        Deprecated.hoverElement(accountReceivable.actionsButton, accountReceivable.printStatementsButton_UnderActions);
+        Legacy.hoverElement(accountReceivable.actionsButton, accountReceivable.exportToExcelButton_UnderActions);
+        Legacy.hoverElement(accountReceivable.actionsButton, accountReceivable.printStatementsButton_UnderActions);
         GetWebDriver.switchToOldWindowOpened();
-        Deprecated.hoverElement(accountReceivable.actionsButton, accountReceivable.snailMailButton_UnderActions);
+        Legacy.hoverElement(accountReceivable.actionsButton, accountReceivable.snailMailButton_UnderActions);
         Utilities.acceptAlert();
         customer.removeCustomer();
     }
@@ -385,8 +385,8 @@ public class AccountReceivable {
     @Then("I send {string} message under actions with subject {string} and text {string}")
     public void sendMessageUnderActions(String needMessageType, String needSubject, String needText) throws InterruptedException {
         customer = new CreateNewCustomer();
-        Deprecated.hoverElement(accountReceivable.actionsButton, accountReceivable.sendMessageButton_UnderActions);
-        Deprecated.waitVisible(accountReceivable.sendMessagesButton);
+        Legacy.hoverElement(accountReceivable.actionsButton, accountReceivable.sendMessageButton_UnderActions);
+        Legacy.waitVisible(accountReceivable.sendMessagesButton);
         accountReceivable.click(accountReceivable.ignoreContactPreferencesCheckBox);
         accountReceivable.click(accountReceivable.getIgnoreMaxPerMinuteCheckBox);
         if (needMessageType.equals("Email")) {

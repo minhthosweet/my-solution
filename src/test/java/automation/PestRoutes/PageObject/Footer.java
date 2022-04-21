@@ -2,7 +2,7 @@ package automation.PestRoutes.PageObject;
 
 import automation.PestRoutes.Utilities.*;
 
-import automation.PestRoutes.Utilities.Deprecated;
+import automation.PestRoutes.Utilities.Legacy;
 import io.cucumber.java.en.When;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -26,25 +26,25 @@ public class Footer extends BasePage {
 	private By listOfCustomers = By.xpath("//tbody[@id='taskItems']//td[2]/p[text()]");
 
 	public void logoutPortal() {
-		Deprecated.waitVisible(logout);
-		Deprecated.clickElement(logout);
+		Legacy.waitVisible(logout);
+		Legacy.clickElement(logout);
 
 	}
 	@When("I navigate to {string} in footer")
 	public void navigateTo(String needTab){
-		Deprecated.waitVisible("//p[text() = '"+needTab+"']");
-		Deprecated.clickElement("//p[text() = '"+needTab+"']");
+		Legacy.waitVisible("//p[text() = '"+needTab+"']");
+		Legacy.clickElement("//p[text() = '"+needTab+"']");
 	}
 
 	public void mapCodeWizard(String mapCode) {
-		Deprecated.waitVisible("//input[@notext='"+mapCodeWizard+"']");
-		Deprecated.locate("//input[@notext='"+mapCodeWizard+"']").sendKeys(mapCode);
+		Legacy.waitVisible("//input[@notext='"+mapCodeWizard+"']");
+		Legacy.locate("//input[@notext='"+mapCodeWizard+"']").sendKeys(mapCode);
 	}
 
 	public String getCustomerFromList(String customerName) {
 		List<WebElement> allCustomers = Utilities.locateAll(listOfCustomers);
 		for (WebElement customer : allCustomers) {
-			Deprecated.scrollToElementJS(customer);
+			Legacy.scrollToElementJS(customer);
 			if(customer.getText().equalsIgnoreCase(customerName)) {
 				System.out.println("Customer: (" + customer.getText() + ") Is Located In The List");
 				return customer.getText();
@@ -56,7 +56,7 @@ public class Footer extends BasePage {
 	public void clickCustomerFromList(String customerName) {
 		List<WebElement> allCustomers = Utilities.locateAll(listOfCustomers);
 		for (WebElement customer : allCustomers) {
-			Deprecated.scrollToElementJS(customer);
+			Legacy.scrollToElementJS(customer);
 			if(customer.getText().equalsIgnoreCase(customerName)) {
 				Utilities.delay(1000);
 				customer.click();

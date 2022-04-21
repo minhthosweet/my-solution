@@ -8,17 +8,14 @@ import static automation.PestRoutes.Utilities.Element.WebLocator.*;
 
 public class WebInput {
     public static void type(By locator, String text, boolean clear) {
-        if(clear) {
-            Keys key;
-            if (SystemUtils.IS_OS_MAC_OSX) {
-                key = Keys.COMMAND;
-            } else {
-                key = Keys.CONTROL;
-            }
-            locate(locator).sendKeys(key, "a");
+        if (clear) {
+            locate(locator).sendKeys(SystemUtils.IS_OS_MAC_OSX ? Keys.COMMAND : Keys.CONTROL, "a");
         }
         locate(locator).sendKeys(text);
-        locate(locator).sendKeys(Keys.ENTER);
+    }
+
+    public static void type(By locator, Keys key) {
+        locate(locator).sendKeys(key);
     }
 
     public static void checkBox(By locator) {

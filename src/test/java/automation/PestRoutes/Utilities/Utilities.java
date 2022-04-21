@@ -17,10 +17,6 @@ public class Utilities {
         return WebAlert.getAlert(1);
     }
 
-    public static Alert getAlert(int timeout) {
-        return WebAlert.getAlert(timeout);
-    }
-
     public static String getAlertText(int timeout) {
         return WebAlert.getAlertText(timeout);
     }
@@ -97,8 +93,16 @@ public class Utilities {
     }
 
     // WebInput
+    public static void type(By locator, String text, boolean clear) {
+        WebInput.type(locator, text, clear);
+    }
+
     public static void type(By locator, String text) {
-        WebInput.type(locator, text, true);
+        type(locator, text, true);
+    }
+
+    public static void type(By locator, Keys key) {
+        WebInput.type(locator, key);
     }
 
     public static void checkBox(By locator) {
@@ -125,6 +129,10 @@ public class Utilities {
 
     public static void selectByText(By locator, String text) {
         WebSelect.selectByText(locator, text);
+    }
+
+    public static void selectByIndex(By locator, int index) {
+        WebSelect.selectByIndex(locator, index);
     }
 
     public static String getFirstSelected(By locator) {

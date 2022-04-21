@@ -1,7 +1,7 @@
 package automation.PestRoutes.PageObject.CustomerOverview.Invoicing;
 
 import automation.PestRoutes.Utilities.*;
-import automation.PestRoutes.Utilities.Deprecated;
+import automation.PestRoutes.Utilities.Legacy;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
@@ -24,56 +24,56 @@ public class CreditMemoTab {
 
     //Getters
     public String getChargesAmount_creditMemo() {
-        Deprecated.waitVisible(chargeValue_creditMemo);
-        return Deprecated.getAttribute(chargeValue_creditMemo, "value");
+        Legacy.waitVisible(chargeValue_creditMemo);
+        return Legacy.getAttribute(chargeValue_creditMemo, "value");
     }
 
     public void clickCreateButton_creditMemoTab() {
-        Deprecated.waitVisible(createButton_creditMemoTab);
-        Deprecated.clickElement(createButton_creditMemoTab);
+        Legacy.waitVisible(createButton_creditMemoTab);
+        Legacy.clickElement(createButton_creditMemoTab);
     }
 
     public void clickAppliedCharge_invoiceApplications() throws InterruptedException {
 //        Utilities.waitUntileElementIsVisible(date_creditMemo);
         Utilities.waitClickable(By.xpath(invoiceApplicationBox), 15);
-        Deprecated.clickElement(invoiceApplicationBox);
-        if (!Deprecated.isPresent(appointmentDate_creditMemo)){
-            Deprecated.clickElement(initialInvoice);
+        Legacy.clickElement(invoiceApplicationBox);
+        if (!Legacy.isPresent(appointmentDate_creditMemo)){
+            Legacy.clickElement(initialInvoice);
         }
     }
 
     public String getInvoiceApplicationDate() {
-        Deprecated.waitVisible(date_invoiceApplication);
-        return Deprecated.getElementTextValue(date_invoiceApplication);
+        Legacy.waitVisible(date_invoiceApplication);
+        return Legacy.getElementTextValue(date_invoiceApplication);
     }
 
     public String getCreditMemoDate() {
-        Deprecated.waitVisible(date_creditMemo);
-        return Deprecated.getElementTextValue(date_creditMemo);
+        Legacy.waitVisible(date_creditMemo);
+        return Legacy.getElementTextValue(date_creditMemo);
     }
 
     public String getBilledAccount() {
-        Deprecated.waitVisible(billedAccount_creditMemo);
-        return Deprecated.getAttribute(billedAccount_creditMemo, "value");
+        Legacy.waitVisible(billedAccount_creditMemo);
+        return Legacy.getAttribute(billedAccount_creditMemo, "value");
     }
 
     public String getPaymentsBalance() {
-        Deprecated.waitVisible(billedAccount_creditMemo);
-        return Deprecated.getElementTextValue(paymentsBalance);
+        Legacy.waitVisible(billedAccount_creditMemo);
+        return Legacy.getElementTextValue(paymentsBalance);
     }
 
     public void clickInitialInvoice() throws InterruptedException {
         Thread.sleep(100);
-        Deprecated.waitVisible(initialInvoice);
-        Deprecated.clickElement(initialInvoice);
+        Legacy.waitVisible(initialInvoice);
+        Legacy.clickElement(initialInvoice);
     }
 
     //Author: Aditya
     public void validateServiceTypeName() throws Exception {
         String serviceTypeName_creditMemoInvoice = "//div[contains(text(),'Actions')]//following-sibling::div[1]//h3";
         try {
-            Deprecated.waitVisible(date_creditMemo);
-            WebElement elm = Deprecated.locate(serviceTypeName_creditMemoInvoice);
+            Legacy.waitVisible(date_creditMemo);
+            WebElement elm = Legacy.locate(serviceTypeName_creditMemoInvoice);
             if (elm.isDisplayed()) {
             }
         } catch (Exception e) {
@@ -84,9 +84,9 @@ public class CreditMemoTab {
     //Author : Aditya
     public String getTicketID() throws InterruptedException {
         Thread.sleep(100);
-        Deprecated.waitVisible(clickCreditMemoInvoice);
-        int ticketID1 = Integer.parseInt(Deprecated.getAttribute("//ul[@id='invoiceGroupListContainer']//li[1]", "ticketid"));
-        int ticketID2 = Integer.parseInt(Deprecated.getAttribute("//ul[@id='invoiceGroupListContainer']//li[2]", "ticketid"));
+        Legacy.waitVisible(clickCreditMemoInvoice);
+        int ticketID1 = Integer.parseInt(Legacy.getAttribute("//ul[@id='invoiceGroupListContainer']//li[1]", "ticketid"));
+        int ticketID2 = Integer.parseInt(Legacy.getAttribute("//ul[@id='invoiceGroupListContainer']//li[2]", "ticketid"));
         if (ticketID1 > ticketID2) {
             return "//ul[@id='invoiceGroupListContainer']//li[1]";
         } else {
@@ -96,7 +96,7 @@ public class CreditMemoTab {
 
     //Setters
     public void setServiceType_creditMemoTab(String serviceType) {
-        Deprecated.waitVisible(serviceType_creditMemoTab);
-        Deprecated.selectByText(serviceType_creditMemoTab, serviceType);
+        Legacy.waitVisible(serviceType_creditMemoTab);
+        Legacy.selectByText(serviceType_creditMemoTab, serviceType);
     }
 }

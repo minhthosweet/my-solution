@@ -1,6 +1,6 @@
 package automation.PestRoutes.PageObject.Admin.PreferencesTab.OfficeSettingsTab.TriggerTypes;
 
-import automation.PestRoutes.Utilities.Deprecated;
+import automation.PestRoutes.Utilities.Legacy;
 
 public class Trigger_Actions {
     // Add Actions
@@ -137,22 +137,22 @@ public class Trigger_Actions {
 
     // Actions
     public void clickAddActionButton() {
-        Deprecated.waitVisible(addActionButton);
-        Deprecated.clickElement(addActionButton);
+        Legacy.waitVisible(addActionButton);
+        Legacy.clickElement(addActionButton);
     }
 
     public void setValue_Action(String valueOfAction) {
-        Deprecated.waitVisible(value_Action);
-        Deprecated.locate(value_Action).sendKeys(valueOfAction);
+        Legacy.waitVisible(value_Action);
+        Legacy.locate(value_Action).sendKeys(valueOfAction);
     }
 
     public void setCollectionsStage() {
-        Deprecated.clickElement(collectionsStage_Stage);
+        Legacy.clickElement(collectionsStage_Stage);
     }
 
     // Write Messages type 1
     public void setMessageinAction_Type1(String messageType, String placeholderMessage) {
-        Deprecated
+        Legacy
                 .locate("//option[@selected and text()='" + messageType
                         + "']/ancestor::div[@class='row']/following-sibling::div//textarea")
                 .sendKeys(placeholderMessage);
@@ -160,7 +160,7 @@ public class Trigger_Actions {
 
     // Write Messages type 2
     public void setMessageinAction_Type2(String messageType, String placeholderMessage) {
-        Deprecated
+        Legacy
                 .locate("//option[@selected and text()='" + messageType
                         + "']/parent::select/parent::div/parent::div/parent::div/following-sibling::div//ul/following-sibling::div[@role]"
                 ).sendKeys(placeholderMessage);
@@ -168,7 +168,7 @@ public class Trigger_Actions {
 
     // Write Messages type 3
     public void setMessageinAction_Type3(String messageType, String placeholderMessage) {
-        Deprecated
+        Legacy
                 .locate("//option[text()='" + messageType
                                 + "']/parent::select/parent::div/parent::div/parent::div/following-sibling::div//ul/following-sibling::div[@role]"
                 ).sendKeys(placeholderMessage);
@@ -176,39 +176,39 @@ public class Trigger_Actions {
 
     // Set email title
     public void setEmailTitle(String emailTitle) {
-        Deprecated.locate(email_Title).sendKeys(emailTitle);
+        Legacy.locate(email_Title).sendKeys(emailTitle);
     }
 
     // To get placeholders
     public String getPlaceHolders() {
-        Deprecated.waitVisible(facebookImage);
-        Deprecated.scrollToElement(facebookImage);
-        Deprecated.waitVisible(showPlaceHolders);
-        Deprecated.clickElement(showPlaceHolders);
-        Deprecated.waitVisible(placeHolderItem1);
-        placeHolderItemText = Deprecated.getElementTextValue(placeHolderItem1) + " "
-                + Deprecated.getElementTextValue(placeHolderItem2) + " "
-                + Deprecated.getElementTextValue(placeHolderItem3);
-        Deprecated.waitVisible(hidePlaceHolders);
-        Deprecated.clickElement(hidePlaceHolders);
+        Legacy.waitVisible(facebookImage);
+        Legacy.scrollToElement(facebookImage);
+        Legacy.waitVisible(showPlaceHolders);
+        Legacy.clickElement(showPlaceHolders);
+        Legacy.waitVisible(placeHolderItem1);
+        placeHolderItemText = Legacy.getElementTextValue(placeHolderItem1) + " "
+                + Legacy.getElementTextValue(placeHolderItem2) + " "
+                + Legacy.getElementTextValue(placeHolderItem3);
+        Legacy.waitVisible(hidePlaceHolders);
+        Legacy.clickElement(hidePlaceHolders);
         return placeHolderItemText;
     }
 
     // Set email title in send employee email for Subscription Status trigger rule
     public void setEmailTitle_SubscriptionStatus(String emailTitle) {
-        Deprecated.locate(emailTitlesendEmployeeEmail_SubscriptionStatus)
+        Legacy.locate(emailTitlesendEmployeeEmail_SubscriptionStatus)
                 .sendKeys(emailTitle);
     }
 
     // Set email address in send employee email for Subscription Status trigger rule
     public void setEmailAddress_SubscriptionStatus(String emailAddress) {
-        Deprecated.locate(emailsSendEmployeeEmail_SubscriptionStatus)
+        Legacy.locate(emailsSendEmployeeEmail_SubscriptionStatus)
                 .sendKeys(emailAddress);
     }
 
     // Set phone number in Send Employee SMS/Voice
     public void setEmployeePhoneNumber_SubscriptionStatus(String actionType, String phoneNumber) {
-        Deprecated.locate(
+        Legacy.locate(
                 "//option[@selected and text()='" + actionType
                         + "']//ancestor::div/following-sibling::div//input[@data-ruleitemtype='sendToPhones']"
         ).sendKeys(phoneNumber);
@@ -216,30 +216,30 @@ public class Trigger_Actions {
 
     // Set days till due in add task for Subscription Status trigger rule
     public void setDaysTillDueAddTask_SubscriptionStatus(String days) {
-        Deprecated.locate(daysTillDue_addTask).sendKeys(days);
+        Legacy.locate(daysTillDue_addTask).sendKeys(days);
     }
 
     // Enter Subject
     public void enterSubjectText(String actionSubjectText) {
-        Deprecated.locate(subjectText).sendKeys(actionSubjectText);
+        Legacy.locate(subjectText).sendKeys(actionSubjectText);
     }
 
     // Message for Webhook
     public void messageInWebhook(String webHookMessageType, String placeHolderMessage) {
-        Deprecated.locate("//label[text()='" + webHookMessageType + "']/following-sibling::div/textarea"
+        Legacy.locate("//label[text()='" + webHookMessageType + "']/following-sibling::div/textarea"
         ).sendKeys(placeHolderMessage);
     }
 
     // Payment Type in Remove Payment Profile
     public void paymentType_removePaymentProfile(String paymentOption) {
-        Deprecated.clickElement(paymentType);
-        Deprecated.waitVisible("//select[@data-observeritemtype='paymentType']//option[text()='" + paymentOption + "']");
-        Deprecated.clickElement("//select[@data-observeritemtype='paymentType']//option[text()='" + paymentOption + "']");
+        Legacy.clickElement(paymentType);
+        Legacy.waitVisible("//select[@data-observeritemtype='paymentType']//option[text()='" + paymentOption + "']");
+        Legacy.clickElement("//select[@data-observeritemtype='paymentType']//option[text()='" + paymentOption + "']");
     }
 
     // Remove trigger
     public void removeAction(String ActionType) {
-        Deprecated.clickElement(
+        Legacy.clickElement(
                 "//option[@selected and text()='" + ActionType
                         + "']/parent::select/parent::div/parent::div/following-sibling::div[text()='Remove']"
         );

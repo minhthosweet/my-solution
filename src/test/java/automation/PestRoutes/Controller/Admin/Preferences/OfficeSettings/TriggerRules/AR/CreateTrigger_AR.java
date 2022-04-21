@@ -5,7 +5,7 @@ import java.util.List;
 
 import automation.PestRoutes.Utilities.*;
 import automation.PestRoutes.Utilities.Data.*;
-import automation.PestRoutes.Utilities.Deprecated;
+import automation.PestRoutes.Utilities.Legacy;
 import automation.PestRoutes.Utilities.Report.*;
 import org.testng.annotations.Test;
 import automation.PestRoutes.PageObject.Header;
@@ -157,7 +157,7 @@ public class CreateTrigger_AR extends AppData {
         triggerActions.clickAddActionButton();
         triggerAdmin.selectDropdown(triggerActions.actionTypeDropDown, triggerActions.setCollectionsStageMessageType_Action);
         triggerActions.setCollectionsStage();
-        Deprecated.clickElement(triggerActions.collectionsStage_Stage);
+        Legacy.clickElement(triggerActions.collectionsStage_Stage);
         triggerAdmin.selectDropdown(triggerActions.collectionsStage_Stage, triggerActions.stage_Sent);
         triggerAdmin.clickSaveButton();
     }

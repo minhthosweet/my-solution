@@ -1,6 +1,6 @@
 package automation.PestRoutes.PageObject.Admin.PreferencesTab.ServiceRelatedTab;
 
-import automation.PestRoutes.Utilities.Deprecated;
+import automation.PestRoutes.Utilities.Legacy;
 import org.openqa.selenium.WebElement;
 
 public class ServiceTypes {
@@ -29,21 +29,21 @@ public class ServiceTypes {
 		public String saveButton = "//div[@id='preferenceHeader']/following-sibling::form//div[text()='save']";
 		
 		public void clickEditButton(String needDescription) {
-			Deprecated.waitVisible("//div[contains (text(), '"+needDescription+"')]/ancestor::form//div[text()='edit']");
-			Deprecated.clickElement("//div[contains (text(), '"+needDescription+"')]/ancestor::form//div[text()='edit']");
+			Legacy.waitVisible("//div[contains (text(), '"+needDescription+"')]/ancestor::form//div[text()='edit']");
+			Legacy.clickElement("//div[contains (text(), '"+needDescription+"')]/ancestor::form//div[text()='edit']");
 		}
 		public void clickAddServiceButton() {
-			Deprecated.waitVisible(addNewServiceButton);
-			Deprecated.clickElement(addNewServiceButton);
+			Legacy.waitVisible(addNewServiceButton);
+			Legacy.clickElement(addNewServiceButton);
 		}
 		public void clickSave() {
-			Deprecated.clickElement(saveButton);
+			Legacy.clickElement(saveButton);
 		}
 		public void clickCancel() {
-			Deprecated.clickElement(cancelButton);
+			Legacy.clickElement(cancelButton);
 		}
 		public void selectFromDropdown(String needXpath, String needValue) {
-			Deprecated.selectByText(needXpath, needValue);
+			Legacy.selectByText(needXpath, needValue);
 		}
 		
 		/*
@@ -51,32 +51,32 @@ public class ServiceTypes {
 		 */
 		
 		public void setSearch(String needText) {
-			Deprecated.waitVisible(searchInputField);
-			Deprecated.locate(searchInputField).sendKeys(needText);
+			Legacy.waitVisible(searchInputField);
+			Legacy.locate(searchInputField).sendKeys(needText);
 		}
 		public void setDescription(String needDescription) {
-			Deprecated.waitVisible(services_DescriptionInputField);
-			Deprecated.locate(services_DescriptionInputField).sendKeys(needDescription);
+			Legacy.waitVisible(services_DescriptionInputField);
+			Legacy.locate(services_DescriptionInputField).sendKeys(needDescription);
 		}
 		public void setCategory(String needCategory) {
-			Deprecated.waitVisible(services_CategoryInputField);
-			Deprecated.locate(services_CategoryInputField).sendKeys(needCategory);
+			Legacy.waitVisible(services_CategoryInputField);
+			Legacy.locate(services_CategoryInputField).sendKeys(needCategory);
 		}
 		public void setAbbreviation(String needAbbreviation) {
-			Deprecated.waitVisible(services_AbbreviationInputField);
-			Deprecated.locate(services_AbbreviationInputField).sendKeys(needAbbreviation);
+			Legacy.waitVisible(services_AbbreviationInputField);
+			Legacy.locate(services_AbbreviationInputField).sendKeys(needAbbreviation);
 		}
 		public void setAppointLegnth(String needMinutes) {
-			Deprecated.locate(defaultAppointmentLengthInputField).sendKeys(needMinutes);
+			Legacy.locate(defaultAppointmentLengthInputField).sendKeys(needMinutes);
 		}
 		public void setServiceCharge(String needAmount) {
-			Deprecated.locate(defaultServiceChargeInputField).sendKeys(needAmount);
+			Legacy.locate(defaultServiceChargeInputField).sendKeys(needAmount);
 		}
 		public void setServiceCommission(String needAmount) {
-			Deprecated.locate(serviceCommissionInputField).sendKeys(needAmount);
+			Legacy.locate(serviceCommissionInputField).sendKeys(needAmount);
 		}
 		public void setMinInitialCharge(String needAmount) {
-			Deprecated.locate(minimumInitialChargeInputField).sendKeys(needAmount);
+			Legacy.locate(minimumInitialChargeInputField).sendKeys(needAmount);
 		}
 		
 		/*
@@ -84,7 +84,7 @@ public class ServiceTypes {
 		 */
 		
 		public WebElement getDescription(String needText) {
-			return Deprecated.locate("//div[contains (text(), '"+needText+"')]");
+			return Legacy.locate("//div[contains (text(), '"+needText+"')]");
 		}
 
 }

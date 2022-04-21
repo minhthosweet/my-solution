@@ -1,6 +1,6 @@
 package automation.PestRoutes.PageObject.Admin.PreferencesTab.CustomerPreferencesTab;
 
-import automation.PestRoutes.Utilities.Deprecated;
+import automation.PestRoutes.Utilities.Legacy;
 
 public class DivisionsObjects {
 
@@ -17,17 +17,17 @@ public class DivisionsObjects {
     }
 
     public void clickNewDivision() {
-        Deprecated.waitVisible(clickNewDivision);
-        Deprecated.clickElement(clickNewDivision);
+        Legacy.waitVisible(clickNewDivision);
+        Legacy.clickElement(clickNewDivision);
     }
 
     public void setDivisionCode(String needDivisionCode) {
-        Deprecated.waitVisible(divisionCode);
-        Deprecated.locate(divisionCode).sendKeys(needDivisionCode);
+        Legacy.waitVisible(divisionCode);
+        Legacy.locate(divisionCode).sendKeys(needDivisionCode);
     }
 
     public void setDivisionDescription(String needDivisionDescription) {
-        Deprecated.waitVisible(divisionDescription);
-        Deprecated.locate(divisionDescription).sendKeys(needDivisionDescription);
+        Legacy.waitVisible(divisionDescription);
+        Legacy.locate(divisionDescription).sendKeys(needDivisionDescription);
     }
 }

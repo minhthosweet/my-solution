@@ -5,7 +5,7 @@ import automation.PestRoutes.PageObject.BasePage;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_Header;
 import automation.PestRoutes.Utilities.*;
 import automation.PestRoutes.Utilities.Data.*;
-import automation.PestRoutes.Utilities.Deprecated;
+import automation.PestRoutes.Utilities.Legacy;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
@@ -256,36 +256,36 @@ public class InvoiceImplementation extends BasePage {
     // Methods
     //------------------------------------------------------
     public String checkPaymentStatus() {
-        Deprecated.waitVisible(initialPaymentStatus);
-        return Deprecated.getElementTextValue(initialPaymentStatus);
+        Legacy.waitVisible(initialPaymentStatus);
+        return Legacy.getElementTextValue(initialPaymentStatus);
     }
 
     public void newInvoiceDetails(String amount, String date) {
-        Deprecated.waitVisible(createNewInvoice_date);
-        Deprecated.locate(createNewInvoice_date).clear();
-        Deprecated.locate(createNewInvoice_date).sendKeys(date);
-        Deprecated.clickElement(newInvoice);
-        Deprecated.locate(newInvoice).clear();
-        Deprecated.locate(newInvoice).sendKeys(amount);
-        Deprecated.waitVisible(serviceSelect);
-        Deprecated.clickElement(serviceSelect);
-        Deprecated.waitVisible(service);
-        Deprecated.clickElement(service);
-        Deprecated.waitVisible(create);
-        Deprecated.clickElement(create);
+        Legacy.waitVisible(createNewInvoice_date);
+        Legacy.locate(createNewInvoice_date).clear();
+        Legacy.locate(createNewInvoice_date).sendKeys(date);
+        Legacy.clickElement(newInvoice);
+        Legacy.locate(newInvoice).clear();
+        Legacy.locate(newInvoice).sendKeys(amount);
+        Legacy.waitVisible(serviceSelect);
+        Legacy.clickElement(serviceSelect);
+        Legacy.waitVisible(service);
+        Legacy.clickElement(service);
+        Legacy.waitVisible(create);
+        Legacy.clickElement(create);
     }
 
     public void insertPaymentAmount(String pAmount, String cAmount) {
-        Deprecated.waitVisible(paymentAmountField);
-        Deprecated.locate(paymentAmountField).clear();
-        Deprecated.clickElement(paymentAmountField);
-        Deprecated.locate(paymentAmountField).sendKeys(pAmount);
-        Deprecated.waitVisible(confirmPymtAmtField);
-        Deprecated.clickElement(confirmPymtAmtField);
-        Deprecated.locate(confirmPymtAmtField).sendKeys(cAmount);
-        Deprecated.waitVisible(custPaymentNotes);
-        Deprecated.clickElement(custPaymentNotes);
-        Deprecated.locate(custPaymentNotes).sendKeys("This is just a test");
+        Legacy.waitVisible(paymentAmountField);
+        Legacy.locate(paymentAmountField).clear();
+        Legacy.clickElement(paymentAmountField);
+        Legacy.locate(paymentAmountField).sendKeys(pAmount);
+        Legacy.waitVisible(confirmPymtAmtField);
+        Legacy.clickElement(confirmPymtAmtField);
+        Legacy.locate(confirmPymtAmtField).sendKeys(cAmount);
+        Legacy.waitVisible(custPaymentNotes);
+        Legacy.clickElement(custPaymentNotes);
+        Legacy.locate(custPaymentNotes).sendKeys("This is just a test");
     }
 
     public String getPaymentAmount() {
@@ -293,16 +293,16 @@ public class InvoiceImplementation extends BasePage {
     }
 
     public void typePaymentAmount(String paymentAmount) {
-        Deprecated.type(paymentAmount, paymentAmtField);
+        type(paymentAmtField, paymentAmount);
     }
 
     public void typeConfirmationAmount(String confirmationAmount)  {
-        Deprecated.type(confirmationAmount, confirmAmountField);
+        type(confirmAmountField, confirmationAmount);
     }
 
     public void clickRecordPayment() {
-        Deprecated.waitVisible(recordPayment);
-        Deprecated.clickElement(recordPayment);
+        Legacy.waitVisible(recordPayment);
+        Legacy.clickElement(recordPayment);
     }
 
     public void clickRecordPaymentButton() {
@@ -310,77 +310,77 @@ public class InvoiceImplementation extends BasePage {
     }
 
     public void invoiceAccountSummaryClick() {
-        Deprecated.waitVisible(invoiceAccountSummaryClick);
-        Deprecated.clickElement(invoiceAccountSummaryClick);
+        Legacy.waitVisible(invoiceAccountSummaryClick);
+        Legacy.clickElement(invoiceAccountSummaryClick);
     }
 
     public void clickInvoice(String needServiceName) {
         delay(3000);
-        Deprecated.waitVisible("//ul[@id='invoiceGroupListContainer']//div[contains(text(),'" + needServiceName + "')]");
-        Deprecated.clickElement("//ul[@id='invoiceGroupListContainer']//div[contains(text(),'" + needServiceName + "')]");
+        Legacy.waitVisible("//ul[@id='invoiceGroupListContainer']//div[contains(text(),'" + needServiceName + "')]");
+        Legacy.clickElement("//ul[@id='invoiceGroupListContainer']//div[contains(text(),'" + needServiceName + "')]");
     }
 
     public void clickInitialInvoice() {
         delay(3000);
-        Deprecated.waitVisible(initialInvoice);
-        Deprecated.clickElement(initialInvoice);
+        Legacy.waitVisible(initialInvoice);
+        Legacy.clickElement(initialInvoice);
     }
 
     public void doubleClickRenewalDateCheckBox() {
-        Deprecated.clickElement(renewalDateCheckbox);
+        Legacy.clickElement(renewalDateCheckbox);
     }
 
     public void clickRecurringInvoice(String recurringInvoiceTotal){
-        Deprecated.waitVisible("//ul[@id='invoiceGroupListContainer']//span[text()='Remaining Balance']/parent::div[contains(text(),'"+recurringInvoiceTotal+"')]");
-        Deprecated.clickElement("//ul[@id='invoiceGroupListContainer']//span[text()='Remaining Balance']/parent::div[contains(text(),'"+recurringInvoiceTotal+"')]");
+        Legacy.waitVisible("//ul[@id='invoiceGroupListContainer']//span[text()='Remaining Balance']/parent::div[contains(text(),'"+recurringInvoiceTotal+"')]");
+        Legacy.clickElement("//ul[@id='invoiceGroupListContainer']//span[text()='Remaining Balance']/parent::div[contains(text(),'"+recurringInvoiceTotal+"')]");
     }
 
     public void clickAccountStatementReport(){
-        Deprecated.waitVisible(accountStatementReport);
-        Deprecated.clickElement(accountStatementReport);
+        Legacy.waitVisible(accountStatementReport);
+        Legacy.clickElement(accountStatementReport);
     }
 
     public void clickAccountSummary(){
-        Deprecated.waitVisible(accountSummaryButton);
-        Deprecated.clickElement(accountSummaryButton);
+        Legacy.waitVisible(accountSummaryButton);
+        Legacy.clickElement(accountSummaryButton);
     }
 
     public void selectDateRange(String day){
-        Deprecated.waitVisible(dateRange);
-        Deprecated.clickElement(dateRange);
-        Deprecated.waitVisible( "//div[contains(@style,'block')]//li[text()='"+day+"']");
-        Deprecated.clickElement( "//div[contains(@style,'block')]//li[text()='"+day+"']");
+        Legacy.waitVisible(dateRange);
+        Legacy.clickElement(dateRange);
+        Legacy.waitVisible( "//div[contains(@style,'block')]//li[text()='"+day+"']");
+        Legacy.clickElement( "//div[contains(@style,'block')]//li[text()='"+day+"']");
     }
 
     public void selectReportType(String needReportType){
-        Deprecated.waitVisible(reportType);
-        Deprecated.selectByText(reportType, needReportType);
+        Legacy.waitVisible(reportType);
+        Legacy.selectByText(reportType, needReportType);
     }
 
     public void scrollRight(){
-        Deprecated.waitVisible(scrollRightButton);
-        Deprecated.clickElement(scrollRightButton);
+        Legacy.waitVisible(scrollRightButton);
+        Legacy.clickElement(scrollRightButton);
     }
 
     public void refreshAccountStatementReport(){
-        Deprecated.waitVisible(refreshButton);
-        Deprecated.clickElement(refreshButton);
+        Legacy.waitVisible(refreshButton);
+        Legacy.clickElement(refreshButton);
     }
 
     public void printInvoice(){
-        Deprecated.waitVisible(invoiceActionButton);
-        Deprecated.hoverElement(invoiceActionButton, invoicePrintButton);
+        Legacy.waitVisible(invoiceActionButton);
+        Legacy.hoverElement(invoiceActionButton, invoicePrintButton);
     }
 
     public void printAccountStatement(){
-        Deprecated.waitVisible(accountStatementReport);
-        Deprecated.clickElement(accountStatementReport);
-        Deprecated.hoverElement(statementActionButton, statementPrintButton);
+        Legacy.waitVisible(accountStatementReport);
+        Legacy.clickElement(accountStatementReport);
+        Legacy.hoverElement(statementActionButton, statementPrintButton);
     }
 
     public void markLetterAsSent(){
-        Deprecated.waitVisible(markLetterSentButton);
-        Deprecated.clickElement(markLetterSentButton);
+        Legacy.waitVisible(markLetterSentButton);
+        Legacy.clickElement(markLetterSentButton);
     }
 
      public void clickMostRecentPayment(){
@@ -430,48 +430,48 @@ public class InvoiceImplementation extends BasePage {
     // Getters
     //--------------------------------------------------------
     public int getInvoiceCost() {
-        Deprecated.waitVisible(invoiceCost);
+        Legacy.waitVisible(invoiceCost);
         return GetData.removeSpecialChars(invoiceCost);
     }
 
     public Integer getTotalValueCharges() {
-        Deprecated.waitVisible(totalValueCharges);
+        Legacy.waitVisible(totalValueCharges);
         return GetData.removeSpecialChars(totalValueCharges);
     }
 
     public Integer getTotalValuePayments() {
-        Deprecated.waitVisible(chargesTotalValue);
+        Legacy.waitVisible(chargesTotalValue);
         return GetData.removeSpecialChars(chargesTotalValue);
     }
 
     public String getInvoiceDate_accountStatementReport(String needServiceType){
-        Deprecated.waitVisible("//td[contains(text(),'"+needServiceType+"')]/following-sibling::td[text()][2]");
-        return Deprecated.getElementTextValue("//td[contains(text(),'"+needServiceType+"')]/following-sibling::td[text()][2]");
+        Legacy.waitVisible("//td[contains(text(),'"+needServiceType+"')]/following-sibling::td[text()][2]");
+        return Legacy.getElementTextValue("//td[contains(text(),'"+needServiceType+"')]/following-sibling::td[text()][2]");
     }
 
     public String getInvoiceAmount_accountStatementReport(String needServiceType){
-        Deprecated.waitVisible("//div[@id='accountStatementReportTableWrapper']//div[5]//div[4]");
-        return Deprecated.getElementTextValue("//div[@id='accountStatementReportTableWrapper']//div[5]//div[4]");
+        Legacy.waitVisible("//div[@id='accountStatementReportTableWrapper']//div[5]//div[4]");
+        return Legacy.getElementTextValue("//div[@id='accountStatementReportTableWrapper']//div[5]//div[4]");
     }
 
     public String getInvoiceBalance_accountStatementReport(String needServiceType){
-        Deprecated.waitVisible("//div[@id='accountStatementReportTableWrapper']//div[5]//div[4]");
-        return Deprecated.getElementTextValue("//div[@id='accountStatementReportTableWrapper']//div[5]//div[4]");
+        Legacy.waitVisible("//div[@id='accountStatementReportTableWrapper']//div[5]//div[4]");
+        return Legacy.getElementTextValue("//div[@id='accountStatementReportTableWrapper']//div[5]//div[4]");
     }
 
     public String getBalance(String balanceType){
-        Deprecated.waitVisible("//span[contains(text(),'"+balanceType+"')]/parent::div/parent::div/following-sibling::div//div[@class='half left accountBalanceSummaryBalanceNumbers ']//span");
-        return Deprecated.getElementTextValue("//span[contains(text(),'"+balanceType+"')]/parent::div/parent::div/following-sibling::div//div[@class='half left accountBalanceSummaryBalanceNumbers ']//span");
+        Legacy.waitVisible("//span[contains(text(),'"+balanceType+"')]/parent::div/parent::div/following-sibling::div//div[@class='half left accountBalanceSummaryBalanceNumbers ']//span");
+        return Legacy.getElementTextValue("//span[contains(text(),'"+balanceType+"')]/parent::div/parent::div/following-sibling::div//div[@class='half left accountBalanceSummaryBalanceNumbers ']//span");
     }
 
     public String getResponsibleBalance(String balanceType){
-        Deprecated.waitVisible("//span[contains(text(),'"+balanceType+"')]/parent::div/parent::div/following-sibling::div//div[@class='half right accountBalanceSummaryBalanceNumbers ']//span");
-        return Deprecated.getElementTextValue("//span[contains(text(),'"+balanceType+"')]/parent::div/parent::div/following-sibling::div//div[@class='half right accountBalanceSummaryBalanceNumbers ']//span");
+        Legacy.waitVisible("//span[contains(text(),'"+balanceType+"')]/parent::div/parent::div/following-sibling::div//div[@class='half right accountBalanceSummaryBalanceNumbers ']//span");
+        return Legacy.getElementTextValue("//span[contains(text(),'"+balanceType+"')]/parent::div/parent::div/following-sibling::div//div[@class='half right accountBalanceSummaryBalanceNumbers ']//span");
     }
 
     public String getSuccessfulChargeAmount() {
-        String successfulChargeText = Deprecated.getElementTextValue(successfulCharge)
-                + Deprecated.getElementTextValue(successfulChargeAmount);
+        String successfulChargeText = Legacy.getElementTextValue(successfulCharge)
+                + Legacy.getElementTextValue(successfulChargeAmount);
         System.out.println("Charge is successful " + successfulChargeText);
         return successfulChargeText;
     }
@@ -481,117 +481,117 @@ public class InvoiceImplementation extends BasePage {
     }
 
     public String getPaymentWarning() {
-        return Deprecated.getElementTextValue(paymentWarning);
+        return Legacy.getElementTextValue(paymentWarning);
     }
 
     public String getAccountBalance(){
         try {
-            Deprecated.waitVisible(accountBalance);
-            return Deprecated.getElementTextValue(accountBalance);
+            Legacy.waitVisible(accountBalance);
+            return Legacy.getElementTextValue(accountBalance);
         } catch (Exception e) {
-            Deprecated.waitVisible(accountBalance1);
-            return Deprecated.getElementTextValue(accountBalance1);
+            Legacy.waitVisible(accountBalance1);
+            return Legacy.getElementTextValue(accountBalance1);
         }
     }
 
     public String getAccountTotalAmountDue(){
         try {
-            Deprecated.waitVisible(printInvoiceAmountDue);
-            return Deprecated.getElementTextValue(printInvoiceAmountDue);
+            Legacy.waitVisible(printInvoiceAmountDue);
+            return Legacy.getElementTextValue(printInvoiceAmountDue);
         } catch (Exception e) {
-            Deprecated.waitVisible(printInvoiceAmountDue1);
-            return Deprecated.getElementTextValue(printInvoiceAmountDue1);
+            Legacy.waitVisible(printInvoiceAmountDue1);
+            return Legacy.getElementTextValue(printInvoiceAmountDue1);
         }
     }
 
     public String getChargesBalance(){
-        Deprecated.waitVisible(invoiceDate);
-        return Deprecated.getElementTextValue(chargesTotalValue);
+        Legacy.waitVisible(invoiceDate);
+        return Legacy.getElementTextValue(chargesTotalValue);
     }
 
     public String getPrintInvoiceMainAmountDue() {
         try {
-            Deprecated.waitVisible(printInvoiceDate);
-            return Deprecated.getElementTextValue(printInvoiceMainAmounDue);
+            Legacy.waitVisible(printInvoiceDate);
+            return Legacy.getElementTextValue(printInvoiceMainAmounDue);
         } catch(Exception e){
-            Deprecated.waitVisible(printInvoiceMainAmounDue1);
-            return Deprecated.getElementTextValue(printInvoiceMainAmounDue1);
+            Legacy.waitVisible(printInvoiceMainAmounDue1);
+            return Legacy.getElementTextValue(printInvoiceMainAmounDue1);
         }
     }
 
     public String getChargesBalance_customSchedule(String initialAmountWithoutTax){
-        Deprecated.waitVisible(invoiceDate);
-        return Deprecated.getElementTextValue("//div[text()='Sub Total']/following-sibling::div[contains(text(),'"+initialAmountWithoutTax+"')]/following-sibling::div[4]");
+        Legacy.waitVisible(invoiceDate);
+        return Legacy.getElementTextValue("//div[text()='Sub Total']/following-sibling::div[contains(text(),'"+initialAmountWithoutTax+"')]/following-sibling::div[4]");
     }
 
     public String getBalanceInPayments(){
         delay(1000);
-        Deprecated.waitVisible(invoiceDate);
-        return Deprecated.getElementTextValue(balanceInPayments);
+        Legacy.waitVisible(invoiceDate);
+        return Legacy.getElementTextValue(balanceInPayments);
     }
 
     public String getPrintInvoicePaymentBalance() {
         try {
-            Deprecated.waitVisible(printInvoicePaymentBalance);
-            return Deprecated.getElementTextValue(printInvoicePaymentBalance);
+            Legacy.waitVisible(printInvoicePaymentBalance);
+            return Legacy.getElementTextValue(printInvoicePaymentBalance);
         } catch (Exception e) {
-            Deprecated.waitVisible(printInvoicePaymentBalance1);
-            return Deprecated.getElementTextValue(printInvoicePaymentBalance1);
+            Legacy.waitVisible(printInvoicePaymentBalance1);
+            return Legacy.getElementTextValue(printInvoicePaymentBalance1);
         }
     }
 
     public String getServiceCostBeforeTax(){
         delay(1000);
-        Deprecated.waitVisible(invoiceDate);
-        return Deprecated.getAttribute(serviceCostBeforeTax,"value");
+        Legacy.waitVisible(invoiceDate);
+        return Legacy.getAttribute(serviceCostBeforeTax,"value");
     }
 
     public String getAddOnValue(String addOn){
         delay(1000);
-        Deprecated.waitVisible(invoiceDate);
-        return Deprecated.getAttribute("//div[not(@ticketid='0')and@subscriptionid='0']//div[text()='"+addOn+"']/following-sibling::input","value");
+        Legacy.waitVisible(invoiceDate);
+        return Legacy.getAttribute("//div[not(@ticketid='0')and@subscriptionid='0']//div[text()='"+addOn+"']/following-sibling::input","value");
     }
 
     public String getSubTotalValue(){
         delay(3000);
-        Deprecated.waitVisible(subTotalValue);
-        return Deprecated.getElementTextValue(subTotalValue);
+        Legacy.waitVisible(subTotalValue);
+        return Legacy.getElementTextValue(subTotalValue);
     }
 
     public String getTaxValue(){
         delay(1000);
-        Deprecated.waitVisible(invoiceDate);
-        return Deprecated.getElementTextValue(taxValue);
+        Legacy.waitVisible(invoiceDate);
+        return Legacy.getElementTextValue(taxValue);
     }
 
     public String getInitialDiscountValue(){
         delay(1000);
-        Deprecated.waitVisible(invoiceDate);
-        return Deprecated.getAttribute(initialDiscountValue,"value");
+        Legacy.waitVisible(invoiceDate);
+        return Legacy.getAttribute(initialDiscountValue,"value");
     }
 
     public String getInvoiceDate(){
         delay(1000);
-        Deprecated.waitVisible(invoiceDate);
-        return Deprecated.getElementTextValue(invoiceDate);
+        Legacy.waitVisible(invoiceDate);
+        return Legacy.getElementTextValue(invoiceDate);
     }
 
     public String getDueDate(){
         delay(1000);
-        Deprecated.waitVisible(invoiceDate);
-        return Deprecated.getElementTextValue(dueDate);
+        Legacy.waitVisible(invoiceDate);
+        return Legacy.getElementTextValue(dueDate);
     }
 
     public String getAppointmentDate(){
         delay(1000);
-        Deprecated.waitVisible(invoiceDate);
-        return Deprecated.getElementTextValue(appointmentDate);
+        Legacy.waitVisible(invoiceDate);
+        return Legacy.getElementTextValue(appointmentDate);
     }
 
     public String getRemainingBalanceAmount(){
         delay(1000);
-        Deprecated.waitVisible(remainingBalanceAmount);
-        return (Deprecated.getElementTextValue(remainingBalanceAmount)).replaceAll("[^0-9.]","");
+        Legacy.waitVisible(remainingBalanceAmount);
+        return (Legacy.getElementTextValue(remainingBalanceAmount)).replaceAll("[^0-9.]","");
     }
 
     public String getSingleUseCardPaymentConfirmMsg(){
@@ -658,8 +658,8 @@ public class InvoiceImplementation extends BasePage {
     }//getAcctBalancesSummaryEndingBal()
 
     public void clickCreditMemoButton(){
-        Deprecated.waitVisible(invoiceActionButton);
-        Deprecated.hoverElement(invoiceActionButton, creditMemoButton);
+        Legacy.waitVisible(invoiceActionButton);
+        Legacy.hoverElement(invoiceActionButton, creditMemoButton);
     }
 
     public void clickPaymentActionsRefundButton(){
@@ -698,20 +698,20 @@ public class InvoiceImplementation extends BasePage {
     //--------------------------------------------------------------
     public void setAdditionalNotes(String needNotes){
         try {
-            WebElement elm = Deprecated.locate(additionalNotes);
-            Deprecated.scrollToElementJS(additionalNotes);
-            Deprecated.waitVisible(additionalNotes);
-            Deprecated.clickElement(additionalNotes);
-            Deprecated.locate(additionalNotes).sendKeys(needNotes);
+            WebElement elm = Legacy.locate(additionalNotes);
+            Legacy.scrollToElementJS(additionalNotes);
+            Legacy.waitVisible(additionalNotes);
+            Legacy.clickElement(additionalNotes);
+            Legacy.locate(additionalNotes).sendKeys(needNotes);
         } catch (Exception e) {
-            Deprecated.scrollToElementJS(printInvoicePaymentBalance1);
+            Legacy.scrollToElementJS(printInvoicePaymentBalance1);
             System.out.println("Unable to find additional notes section");
         }
     }
 
     public void setLimitedToSubscription(String needServiceName) {
-        Deprecated.clickElement(limitedToSubscription);
-        Deprecated.clickElement("//label[contains (text(), '" + needServiceName + " Subscription Invoices')]");
+        Legacy.clickElement(limitedToSubscription);
+        Legacy.clickElement("//label[contains (text(), '" + needServiceName + " Subscription Invoices')]");
     }
 
     public void clickChargeSingleCardButton() {
@@ -721,7 +721,7 @@ public class InvoiceImplementation extends BasePage {
     public void clickNMIChargeSingleCardButton() {
         click(nmiChargeSingleCardButton);
     }
-    public void typeAddress(String address) { Deprecated.type(address, addressField); }
+    public void typeAddress(String address) { type(addressField, address); }
 
    public void clickProcessTransactionButton(){ click(processTransactionButton); }
 
@@ -737,7 +737,7 @@ public class InvoiceImplementation extends BasePage {
 
     public void typeExpirationDate(String expirationDate) {
         click(expirationDateCheckBox);
-        Deprecated.type(expirationDate, expirationDateField);
+        type(expirationDateField, expirationDate);
         Utilities.locate(expirationDateField).sendKeys(Keys.ENTER);
     }
 
@@ -760,24 +760,24 @@ public class InvoiceImplementation extends BasePage {
     }
 
     public void setPaymentTransactionAmount(String transAmt){
-        Deprecated.type(transAmt, inputPaymentTransactionAmount);
+        type(inputPaymentTransactionAmount, transAmt);
     }//setPaymentTransactionAmount()
 
     public void setPaymentTransactionDate(String transDate){
-       Deprecated.type(transDate, inputPaymentTransactionDate, "ENTER");
+       Legacy.type(transDate, inputPaymentTransactionDate, "ENTER");
     }//setPaymentTransactionDate()
 
     public void setPaymentNotes(String paymentNotes){
-        Deprecated.type(paymentNotes, textareaPaymentNotes);
+        type(textareaPaymentNotes, paymentNotes);
     }//setPaymentNotes()
 
     public void enterBraintreeNewCardInformation(String cardNumber, String expirationDate) {
         click(payWithCard);
         switchToIframe("braintree-hosted-field-number");
-        Deprecated.type(cardNumber, braintreeCardNumberField);
+        type(braintreeCardNumberField, cardNumber);
         driver.switchTo().defaultContent();
         switchToIframe("braintree-hosted-field-expirationDate");
-        Deprecated.type(expirationDate, braintreeExpirationDateField);
+        type(braintreeExpirationDateField, expirationDate);
         driver.switchTo().defaultContent();
         delay(1000);
         clickChargeSingleCardButton();
@@ -789,13 +789,13 @@ public class InvoiceImplementation extends BasePage {
     public void enterElementNewCardInformation(String cardNumber, String expirationDate, String cvv){
         clickChargeSingleCardButton();
         switchToIframe( "elementSingleFrame");
-        Deprecated.type(cardNumber, elementCardNumberField);
+        type(elementCardNumberField, cardNumber);
         String[] separateMonthYear = expirationDate.split("/");
         String month = separateMonthYear[0];
         String year = separateMonthYear[1];
         Utilities.selectByText(elementExpirationMonth, month);
         Utilities.selectByText(elementExpirationYear, "20"+ year);
-        Deprecated.type(cvv, elementCVVField);
+        type(elementCVVField, cvv);
         click(elementProcessTransactionButton);
         acceptAlert();
         driver.switchTo().defaultContent();
@@ -806,13 +806,13 @@ public class InvoiceImplementation extends BasePage {
     public void enterNMINewCardInformation(String cardNumber, String expirationDate, String cvv) {
         clickNMIChargeSingleCardButton();
         switchToIframe("CollectJSIframe");
-        Deprecated.type(cardNumber, nmiCardNumberField);
+        type(nmiCardNumberField, cardNumber);
         String[] separateMonthYear = expirationDate.split("/");
         String month = separateMonthYear[0];
         String year = separateMonthYear[1];
         String expirationMonthYear = month + "/20" + year;
-        Deprecated.type(expirationMonthYear, nmiExpirationDateField);
-        Deprecated.type(cvv, nmiCVVField);
+        type(nmiExpirationDateField, expirationMonthYear);
+        type(nmiCVVField, cvv);
         click(submitPaymentButton);
         driver.switchTo().defaultContent();
 
@@ -822,8 +822,8 @@ public class InvoiceImplementation extends BasePage {
     public void enterSpreedlyNewCardInformation(String cardNumber, String expirationDate, String cvv) {
         WebElement iFrameCardNumber = Utilities.locate(By.xpath("//iframe[contains(@id,'spreedly-number-frame')]"));
         driver.switchTo().frame(iFrameCardNumber);
-        Deprecated.scrollToElementJS(Utilities.locate(spreedlyCardNumber));
-        Deprecated.type(cardNumber, spreedlyCardNumber);
+        Legacy.scrollToElementJS(Utilities.locate(spreedlyCardNumber));
+        type(spreedlyCardNumber, cardNumber);
         driver.switchTo().defaultContent();
         String[] separateMonthYear = expirationDate.split("/");
         String month = separateMonthYear[0];
@@ -833,7 +833,7 @@ public class InvoiceImplementation extends BasePage {
         Utilities.selectByText(spreedlyExpirationYear, "20"+ year);
         WebElement iFrameCVV = Utilities.locate(By.xpath("//iframe[contains(@id,'spreedly-cvv-frame')]"));
         driver.switchTo().frame(iFrameCVV);
-        Deprecated.type(cvv, spreedlyCVVField);
+        type(spreedlyCVVField, cvv);
         driver.switchTo().defaultContent();
         clickChargeSingleCardButton();
 
@@ -844,15 +844,15 @@ public class InvoiceImplementation extends BasePage {
     public void enterPestRoutesPaymentsNewCardInformation(String cardNumber, String expirationDate, String cvv) {
         switchToIframe("payrixSingleChargeIFrame");
         switchToIframe("payFields-iframe-number");
-        Deprecated.type(cardNumber, pestRoutesPaymentsCardNumber);
+        type(pestRoutesPaymentsCardNumber, cardNumber);
         driver.switchTo().defaultContent();
         switchToIframe("payrixSingleChargeIFrame");
         switchToIframe("payFields-iframe-expiration");
-        Deprecated.type(expirationDate, pestRoutesPaymentsExpirationDate);
+        type(pestRoutesPaymentsExpirationDate, expirationDate);
         driver.switchTo().defaultContent();
         switchToIframe("payrixSingleChargeIFrame");
         switchToIframe("payFields-iframe-cvv");
-        Deprecated.type(cvv, pestRoutesPaymentsCVVField);
+        type(pestRoutesPaymentsCVVField, cvv);
         driver.switchTo().defaultContent();
         clickChargeSingleCardButton();
 
@@ -884,7 +884,7 @@ public class InvoiceImplementation extends BasePage {
 
     public void setRefundAmount(String refundAmt)
     {
-      Deprecated.type(refundAmt, inputRefund);
+      type(inputRefund, refundAmt);
     }//setRefundAmount()
 
     public String getSelectedApplyToFirstOption() {
@@ -966,7 +966,7 @@ public class InvoiceImplementation extends BasePage {
 
     public String getInvoicePaymentBalanceStatus(String invoiceNum){
         Utilities.delay(3000);
-        Deprecated.scrollToElement(By.xpath("//*[@id='invoiceGroupListContainer']/ul/li[@ticketid='" + invoiceNum +
+        Legacy.scrollToElement(By.xpath("//*[@id='invoiceGroupListContainer']/ul/li[@ticketid='" + invoiceNum +
                 "']//div[contains(@class, 'payment-status')]"));
         String invoiceBalStatus= getText(By.xpath("//*[@id='invoiceGroupListContainer']/ul/li[@ticketid='" + invoiceNum +
                                                   "']//div[contains(@class, 'payment-status')]"));
@@ -1077,7 +1077,7 @@ public class InvoiceImplementation extends BasePage {
         String refundStatusMessage = "";
 
         customerCardHeader.navigateTo(customerCardHeader.invoicesTabInDialog);
-        Deprecated.isVisible(invoiceRoutesTab.addNewInvoice);
+        Legacy.isVisible(invoiceRoutesTab.addNewInvoice);
         clickAccountSummary();
 
         if(screenName.equalsIgnoreCase("Account Summary")) {
@@ -1117,6 +1117,6 @@ public class InvoiceImplementation extends BasePage {
     public void addCustomerPaymentNote(String comments)
     {
         click(By.xpath(custPaymentNotes));
-        Deprecated.type(comments, By.xpath(custPaymentNotes)) ;
+        type(By.xpath(custPaymentNotes), comments) ;
     }//addCustomerPaymentNote()
 }

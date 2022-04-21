@@ -5,7 +5,7 @@ import automation.PestRoutes.PageObject.Admin.AdminMainPage;
 import automation.PestRoutes.PageObject.Admin.PreferencesTab.CustomerPreferencesTab.FormObjects;
 import automation.PestRoutes.PageObject.Admin.PreferencesTab.PreferencesPage;
 import automation.PestRoutes.PageObject.Header;
-import automation.PestRoutes.Utilities.Deprecated;
+import automation.PestRoutes.Utilities.Legacy;
 import io.cucumber.java.en.Given;
 import org.openqa.selenium.WebElement;
 
@@ -30,13 +30,13 @@ public class GenericFlags {
         service.searchService(needGenericFlagCode);
 
         try {
-            WebElement elm = Deprecated.locate("//div[contains(text(),'"+needGenericFlagCode+"')]");
+            WebElement elm = Legacy.locate("//div[contains(text(),'"+needGenericFlagCode+"')]");
         } catch(Exception e ) {
-            Deprecated.clickElement(formObjects.addFlagButton);
+            Legacy.clickElement(formObjects.addFlagButton);
             formObjects.setInputField(formObjects.flagCodeField, needGenericFlagCode);
             formObjects.setInputField(formObjects.nameField, needFlagDescription);
             formObjects.selectValueFromDropdown(formObjects.flagType, needFlagType);
-            Deprecated.clickElement(formObjects.saveButton);
+            Legacy.clickElement(formObjects.saveButton);
         }
 
     }

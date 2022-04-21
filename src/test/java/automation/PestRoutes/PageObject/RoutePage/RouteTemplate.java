@@ -3,7 +3,7 @@ package automation.PestRoutes.PageObject.RoutePage;
 import automation.PestRoutes.PageObject.Admin.AdminMainPage;
 import automation.PestRoutes.PageObject.Header;
 import automation.PestRoutes.Utilities.*;
-import automation.PestRoutes.Utilities.Deprecated;
+import automation.PestRoutes.Utilities.Legacy;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.WebElement;
@@ -37,109 +37,109 @@ public class RouteTemplate {
     }
 
     public void createNewRouteTemplate(String routeName) throws InterruptedException {
-        Deprecated.waitVisible(selectAllBlock);
-        Deprecated.scrollToElementJS(termOfService);
+        Legacy.waitVisible(selectAllBlock);
+        Legacy.scrollToElementJS(termOfService);
         Utilities.jsScrollToBottom();
-        Deprecated.scrollToElementJS(newRouteTemplate_button);
-        Deprecated.waitVisible(newRouteTemplate_button);
-        Deprecated.clickElement(newRouteTemplate_button);
-        Deprecated.waitVisible(newRouteTemplate_name);
-        Deprecated.locate(newRouteTemplate_name).sendKeys(routeName);
-        Deprecated.waitVisible(newRouteTemplate_save);
-        Deprecated.clickElement(newRouteTemplate_save);
+        Legacy.scrollToElementJS(newRouteTemplate_button);
+        Legacy.waitVisible(newRouteTemplate_button);
+        Legacy.clickElement(newRouteTemplate_button);
+        Legacy.waitVisible(newRouteTemplate_name);
+        Legacy.locate(newRouteTemplate_name).sendKeys(routeName);
+        Legacy.waitVisible(newRouteTemplate_save);
+        Legacy.clickElement(newRouteTemplate_save);
     }
 
     public void blockSpecificTimeSlot(String slotNumber) throws InterruptedException {
-        Deprecated.waitVisible("//div[text()='Time Description']/parent::div/following-sibling::div[" + slotNumber + "]//input[@class='markBlocked']");
-        Deprecated.clickElement("//div[text()='Time Description']/parent::div/following-sibling::div[" + slotNumber + "]//input[@class='markBlocked']");
+        Legacy.waitVisible("//div[text()='Time Description']/parent::div/following-sibling::div[" + slotNumber + "]//input[@class='markBlocked']");
+        Legacy.clickElement("//div[text()='Time Description']/parent::div/following-sibling::div[" + slotNumber + "]//input[@class='markBlocked']");
     }
 
     public void clickRouteTempalate(String routeName) {
-        Deprecated.waitVisible("//li[text()='" + routeName + "']");
-        Deprecated.jsClickElement("//li[text()='" + routeName + "']");
+        Legacy.waitVisible("//li[text()='" + routeName + "']");
+        Legacy.jsClickElement("//li[text()='" + routeName + "']");
     }
 
     public void deleteRoute() {
-        Deprecated.waitVisible(selectAllBlock);
-        Deprecated.scrollToElementJS(deleteCustomRoute);
-        Deprecated.clickElement(deleteCustomRoute);
+        Legacy.waitVisible(selectAllBlock);
+        Legacy.scrollToElementJS(deleteCustomRoute);
+        Legacy.clickElement(deleteCustomRoute);
     }
 
     public String getRouteTemplateTextValue(String actualRouteTemplatename) {
-        return Deprecated.getElementTextValue("//li[text()='" + actualRouteTemplatename + "']");
+        return Legacy.getElementTextValue("//li[text()='" + actualRouteTemplatename + "']");
     }
 
     public String getTemplateNameTextValue() {
-        return Deprecated.getAttribute("//label[text()='Template Name: ']/following-sibling::input", "value");
+        return Legacy.getAttribute("//label[text()='Template Name: ']/following-sibling::input", "value");
     }
 
     public String getDescriptionTextValue() {
-        return Deprecated.getAttribute("//div[@id='templateSpots']//div[text()='End']/parent::div/following-sibling::div[1]/div[text()='to']/following-sibling::input[2]", "value");
+        return Legacy.getAttribute("//div[@id='templateSpots']//div[text()='End']/parent::div/following-sibling::div[1]/div[text()='to']/following-sibling::input[2]", "value");
     }
 
     public void setStartTime(String hour, String minute) throws Exception {
-        Deprecated.waitVisible(clickStartHour);
-        Deprecated.clickElement(clickStartHour);
-        Deprecated.waitVisible("//td[@data-hour='" + hour + "']//a[text()='" + hour + "']");
-        Deprecated.clickElement("//td[@data-hour='" + hour + "']//a[text()='" + hour + "']");
-        Deprecated.waitVisible("//td[@data-minute='" + minute + "']//a[text()='" + minute + "']");
-        Deprecated.clickElement("//td[@data-minute='" + minute + "']//a[text()='" + minute + "']");
+        Legacy.waitVisible(clickStartHour);
+        Legacy.clickElement(clickStartHour);
+        Legacy.waitVisible("//td[@data-hour='" + hour + "']//a[text()='" + hour + "']");
+        Legacy.clickElement("//td[@data-hour='" + hour + "']//a[text()='" + hour + "']");
+        Legacy.waitVisible("//td[@data-minute='" + minute + "']//a[text()='" + minute + "']");
+        Legacy.clickElement("//td[@data-minute='" + minute + "']//a[text()='" + minute + "']");
     }
 
     public void setEndTime(String hour, String minute) {
-        Deprecated.waitVisible(clickEndTime);
-        Deprecated.clickElement(clickEndTime);
-        Deprecated.waitVisible("//td[@data-hour='" + hour + "']//a[text()='" + hour + "']");
-        Deprecated.clickElement("//td[@data-hour='" + hour + "']//a[text()='" + hour + "']");
-        Deprecated.waitVisible("//td[@data-minute='" + minute + "']//a[text()='" + minute + "']");
-        Deprecated.clickElement("//td[@data-minute='" + minute + "']//a[text()='" + minute + "']");
+        Legacy.waitVisible(clickEndTime);
+        Legacy.clickElement(clickEndTime);
+        Legacy.waitVisible("//td[@data-hour='" + hour + "']//a[text()='" + hour + "']");
+        Legacy.clickElement("//td[@data-hour='" + hour + "']//a[text()='" + hour + "']");
+        Legacy.waitVisible("//td[@data-minute='" + minute + "']//a[text()='" + minute + "']");
+        Legacy.clickElement("//td[@data-minute='" + minute + "']//a[text()='" + minute + "']");
     }
 
     public void setInterval(String minutes) {
-        Deprecated.waitVisible(clickInterval);
-        Deprecated.clickElement(clickInterval);
-        Deprecated.waitVisible("//select[@id='generate_interval']//option[text()='" + minutes + " minutes']");
-        Deprecated.clickElement("//select[@id='generate_interval']//option[text()='" + minutes + " minutes']");
+        Legacy.waitVisible(clickInterval);
+        Legacy.clickElement(clickInterval);
+        Legacy.waitVisible("//select[@id='generate_interval']//option[text()='" + minutes + " minutes']");
+        Legacy.clickElement("//select[@id='generate_interval']//option[text()='" + minutes + " minutes']");
     }
 
     public void setDescription(String description) {
-        Deprecated.waitVisible(fillDescription);
-        Deprecated.locate(fillDescription).sendKeys(description);
+        Legacy.waitVisible(fillDescription);
+        Legacy.locate(fillDescription).sendKeys(description);
     }
 
     public void clearDescription() {
-        Deprecated.waitVisible(fillDescription);
-        Deprecated.locate(fillDescription).clear();
+        Legacy.waitVisible(fillDescription);
+        Legacy.locate(fillDescription).clear();
     }
 
     public void clickGenerate() {
-        Deprecated.waitVisible(clickGenerate);
-        Deprecated.clickElement(clickGenerate);
+        Legacy.waitVisible(clickGenerate);
+        Legacy.clickElement(clickGenerate);
     }
 
     public void clickClear() {
-        Deprecated.waitVisible(clickClear);
-        Deprecated.clickElement(clickClear);
+        Legacy.waitVisible(clickClear);
+        Legacy.clickElement(clickClear);
     }
 
     public void clickFillDescription() {
-        Deprecated.waitVisible(clickFillDescription);
-        Deprecated.clickElement(clickFillDescription);
+        Legacy.waitVisible(clickFillDescription);
+        Legacy.clickElement(clickFillDescription);
     }
 
     public void saveRoute() {
-        Deprecated.waitVisible(saveTemplate);
-        Deprecated.scrollToElementJS(saveTemplate);
-        Deprecated.clickElement(saveTemplate);
+        Legacy.waitVisible(saveTemplate);
+        Legacy.scrollToElementJS(saveTemplate);
+        Legacy.clickElement(saveTemplate);
     }
 
     public WebElement getDescription(String needText) {
-        return Deprecated.locate("//li[(text()= '" + needText + "')]");
+        return Legacy.locate("//li[(text()= '" + needText + "')]");
     }
 
     public void setBlockDescription(String blockText) {
-        Deprecated.waitVisible(blockDescriptionTextBox);
-        Deprecated.locate(blockDescriptionTextBox).sendKeys(blockText);
+        Legacy.waitVisible(blockDescriptionTextBox);
+        Legacy.locate(blockDescriptionTextBox).sendKeys(blockText);
     }
 
     public void routeDelete_alertCondition() throws Exception {

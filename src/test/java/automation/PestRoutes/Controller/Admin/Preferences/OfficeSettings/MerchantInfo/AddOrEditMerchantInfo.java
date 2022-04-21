@@ -3,7 +3,7 @@ import automation.PestRoutes.PageObject.Admin.PreferencesTab.MerchantInfoTab.Mar
 import automation.PestRoutes.PageObject.Header;
 import automation.PestRoutes.PageObject.Admin.AdminMainPage;
 import automation.PestRoutes.PageObject.Admin.PreferencesTab.OfficeSettingsTab.OfficeSettingsObjects;
-import automation.PestRoutes.Utilities.Deprecated;
+import automation.PestRoutes.Utilities.Legacy;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
@@ -18,13 +18,13 @@ public class AddOrEditMerchantInfo {
         OfficeSettingsObjects officeSettings = new OfficeSettingsObjects();
         header.navigateTo(header.adminTab);
         admin.navigateTo(admin.preferences);
-        Deprecated.clickElement(officeSettings.merchantInfo);
+        Legacy.clickElement(officeSettings.merchantInfo);
     }
 
     //***Author Aarbi
     @Then("I set cc gateway {string}")
     public void editCreditCardGateway_DefaultSettings(String needGatewayType){
-        Deprecated.waitVisible(merchant.defaultSettingsEditButton);
+        Legacy.waitVisible(merchant.defaultSettingsEditButton);
         merchant.click(merchant.defaultSettingsEditButton);
         merchant.select(merchant.ccGatewaysDropdown, needGatewayType);
         merchant.click(merchant.defaultSettingsSaveButton);
@@ -32,7 +32,7 @@ public class AddOrEditMerchantInfo {
     //***Author Aarbi
     @Then("I set ACH gateway {string}")
     public void editACHGateway_DefaultSettings(String needGatewayType){
-        Deprecated.waitVisible(merchant.defaultSettingsEditButton);
+        Legacy.waitVisible(merchant.defaultSettingsEditButton);
         merchant.click(merchant.defaultSettingsEditButton);
         merchant.select(merchant.achGatewaysDropdown, needGatewayType);
         merchant.click(merchant.defaultSettingsSaveButton);

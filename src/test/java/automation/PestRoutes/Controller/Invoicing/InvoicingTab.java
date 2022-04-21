@@ -16,7 +16,7 @@ import automation.PestRoutes.PageObject.RoutePage.RoutePage;
 import automation.PestRoutes.PageObject.Scheduling.SchedulingTab;
 import automation.PestRoutes.Utilities.*;
 import automation.PestRoutes.Utilities.Data.*;
-import automation.PestRoutes.Utilities.Deprecated;
+import automation.PestRoutes.Utilities.Legacy;
 import automation.PestRoutes.Utilities.Report.*;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
@@ -278,7 +278,7 @@ public class InvoicingTab extends AppData {
                 "Account Statement Report Validation");
         result(invImplementation.getBalance("Ending Balance"), "$0.00", "Balance Validation",
                 "Account Statement Report Validation");
-        Deprecated.clickElement(invImplementation.responsibleFor);
+        Legacy.clickElement(invImplementation.responsibleFor);
         result(invImplementation.getBalance("Beginning Balance"), "$0.00", "Responsible Balance Validation",
                 "Account Statement Report Validation");
         result(invImplementation.getBalance("Ending Balance"), "$0.00", "Responsible Balance Validation",
@@ -290,7 +290,7 @@ public class InvoicingTab extends AppData {
         generateAccountStatementReport(reportType, day);
         result(invImplementation.getBalance("Beginning Balance"), "$0.00", "Balance Validation",
                 "Account Statement Report Validation");
-        Deprecated.clickElement(invImplementation.responsibleFor);
+        Legacy.clickElement(invImplementation.responsibleFor);
         result(invImplementation.getBalance("Beginning Balance"), "$0.00", "Responsible Balance Validation",
                 "Account Statement Report Validation");
     }
@@ -314,7 +314,7 @@ public class InvoicingTab extends AppData {
         generateAccountStatementReport(reportType, day);
         result(invImplementation.getResponsibleBalance("Ending Balance"), invoiceValue, "Balance Validation",
                 "Account Statement Report Validation");
-        Deprecated.clickElement(invImplementation.responsibleFor);
+        Legacy.clickElement(invImplementation.responsibleFor);
         result(invImplementation.getResponsibleBalance("Ending Balance"), invoiceValue, "Responsible Balance Validation",
                 "Account Statement Report Validation");
     }
@@ -400,18 +400,18 @@ public class InvoicingTab extends AppData {
         CreditCardConfirmationPage confirmationPage = new CreditCardConfirmationPage();
         customerCardHeader = new CustomerViewDialog_Header();
         customerCardHeader.navigateTo(customerCardHeader.invoicesTabInDialog);
-        Deprecated.waitVisible(invoiceRoutesTab.addNewInvoice);
+        Legacy.waitVisible(invoiceRoutesTab.addNewInvoice);
         invImplementation.clickInitialInvoice();
         invoiceRoutesTab.clickAddPayment();
         invoiceHeader.navigate(invoiceHeader.creditCard);
-        Deprecated.waitVisible(cardOnFile.chargeCardButton);
-        String confirmAmount = Deprecated.getAttribute(cardOnFile.paymentAmountInputField, "value");
-        Deprecated.clickElement(cardOnFile.confirmAmountInputField);
-        Deprecated.locate(cardOnFile.confirmAmountInputField).sendKeys(confirmAmount);
-        Deprecated.locate(cardOnFile.cvvCodeInputField).sendKeys("123");
-        Deprecated.clickElement(cardOnFile.chargeCardButton);
-        Deprecated.waitVisible(confirmationPage.paymentResultTitle);
-        String paymentConfirmation = Deprecated.getElementTextValue(confirmationPage.confirmationMessage);
+        Legacy.waitVisible(cardOnFile.chargeCardButton);
+        String confirmAmount = Legacy.getAttribute(cardOnFile.paymentAmountInputField, "value");
+        Legacy.clickElement(cardOnFile.confirmAmountInputField);
+        Legacy.locate(cardOnFile.confirmAmountInputField).sendKeys(confirmAmount);
+        Legacy.locate(cardOnFile.cvvCodeInputField).sendKeys("123");
+        Legacy.clickElement(cardOnFile.chargeCardButton);
+        Legacy.waitVisible(confirmationPage.paymentResultTitle);
+        String paymentConfirmation = Legacy.getElementTextValue(confirmationPage.confirmationMessage);
         String expectedConfirmation = needMessage;
         result(expectedConfirmation, paymentConfirmation, "Credit Card Confirmation", "Card on file payment");
     }
@@ -424,21 +424,21 @@ public class InvoicingTab extends AppData {
         CreditCardConfirmationPage confirmationPage = new CreditCardConfirmationPage();
         customerCardHeader = new CustomerViewDialog_Header();
         customerCardHeader.navigateTo(customerCardHeader.invoicesTabInDialog);
-        Deprecated.waitVisible(invoiceRoutesTab.addNewInvoice);
+        Legacy.waitVisible(invoiceRoutesTab.addNewInvoice);
         invImplementation.clickInitialInvoice();
         invoiceRoutesTab.clickAddPayment();
         invoiceHeader.navigate(invoiceHeader.creditCard);
-        Deprecated.waitVisible(cardOnFile.chargeCardButton);
-        String paymentAmount = String.format("%.2f", ((parseDouble(Deprecated.getAttribute(cardOnFile.paymentAmountInputField, "value"))) / 10));
-        Deprecated.locate(cardOnFile.paymentAmountInputField).clear();
-        Deprecated.locate(cardOnFile.paymentAmountInputField).sendKeys(Keys.DELETE);
-        Deprecated.locate(cardOnFile.paymentAmountInputField).sendKeys(paymentAmount);
-        Deprecated.highLight(cardOnFile.confirmAmountInputField);
-        Deprecated.locate(cardOnFile.confirmAmountInputField).sendKeys(paymentAmount);
-        Deprecated.locate(cardOnFile.cvvCodeInputField).sendKeys("123");
-        Deprecated.clickElement(cardOnFile.chargeCardButton);
-        Deprecated.waitVisible(confirmationPage.paymentResultTitle);
-        String paymentConfirmation = Deprecated.getElementTextValue(confirmationPage.confirmationMessage);
+        Legacy.waitVisible(cardOnFile.chargeCardButton);
+        String paymentAmount = String.format("%.2f", ((parseDouble(Legacy.getAttribute(cardOnFile.paymentAmountInputField, "value"))) / 10));
+        Legacy.locate(cardOnFile.paymentAmountInputField).clear();
+        Legacy.locate(cardOnFile.paymentAmountInputField).sendKeys(Keys.DELETE);
+        Legacy.locate(cardOnFile.paymentAmountInputField).sendKeys(paymentAmount);
+        Legacy.highLight(cardOnFile.confirmAmountInputField);
+        Legacy.locate(cardOnFile.confirmAmountInputField).sendKeys(paymentAmount);
+        Legacy.locate(cardOnFile.cvvCodeInputField).sendKeys("123");
+        Legacy.clickElement(cardOnFile.chargeCardButton);
+        Legacy.waitVisible(confirmationPage.paymentResultTitle);
+        String paymentConfirmation = Legacy.getElementTextValue(confirmationPage.confirmationMessage);
         String expectedConfirmation = "Successfully Charged Credit Card!";
         result(expectedConfirmation, paymentConfirmation, "Credit Card Confirmation", "Card on file payment");
     }
@@ -452,16 +452,16 @@ public class InvoicingTab extends AppData {
         CreditCardConfirmationPage confirmationPage = new CreditCardConfirmationPage();
         customerCardHeader = new CustomerViewDialog_Header();
         customerCardHeader.navigateTo(customerCardHeader.invoicesTabInDialog);
-        Deprecated.waitVisible(invoiceRoutesTab.addNewInvoice);
+        Legacy.waitVisible(invoiceRoutesTab.addNewInvoice);
         invImplementation.clickInitialInvoice();
         invoiceRoutesTab.clickAddPayment();
         invoiceHeader.navigate(invoiceHeader.achDraft);
-        String confirmAmount = Deprecated.getAttribute(cardOnFile.paymentAmountInputField, "value");
-        Deprecated.clickElement(cardOnFile.confirmAmountInputField);
-        Deprecated.locate(cardOnFile.confirmAmountInputField).sendKeys(confirmAmount);
-        Deprecated.clickElement(achOnFile.draftACHButton);
-        Deprecated.waitVisible(confirmationPage.paymentResultTitle);
-        String paymentConfirmation = Deprecated.getElementTextValue(confirmationPage.confirmationMessage);
+        String confirmAmount = Legacy.getAttribute(cardOnFile.paymentAmountInputField, "value");
+        Legacy.clickElement(cardOnFile.confirmAmountInputField);
+        Legacy.locate(cardOnFile.confirmAmountInputField).sendKeys(confirmAmount);
+        Legacy.clickElement(achOnFile.draftACHButton);
+        Legacy.waitVisible(confirmationPage.paymentResultTitle);
+        String paymentConfirmation = Legacy.getElementTextValue(confirmationPage.confirmationMessage);
         String expectedConfirmation = "Successfully Charged ACH Account!";
         result(expectedConfirmation, paymentConfirmation, "ACH Confirmation", "ACH on file payment");
     }
@@ -475,17 +475,17 @@ public class InvoicingTab extends AppData {
         CreditCardConfirmationPage confirmationPage = new CreditCardConfirmationPage();
         customerCardHeader = new CustomerViewDialog_Header();
         customerCardHeader.navigateTo(customerCardHeader.invoicesTabInDialog);
-        Deprecated.waitVisible(invoiceRoutesTab.addNewInvoice);
+        Legacy.waitVisible(invoiceRoutesTab.addNewInvoice);
         invImplementation.clickInitialInvoice();
         Thread.sleep(2000);
         invoiceRoutesTab.clickAddPayment();
         invoiceHeader.navigate(invoiceHeader.achDraft);
-        String confirmAmount = Deprecated.getAttribute(cardOnFile.paymentAmountInputField, "value");
-        Deprecated.clickElement(cardOnFile.confirmAmountInputField);
-        Deprecated.locate(cardOnFile.confirmAmountInputField).sendKeys(confirmAmount);
-        Deprecated.clickElement(achOnFile.recordExistingButton);
-        Deprecated.waitVisible(confirmationPage.paymentResultTitle);
-        String paymentConfirmation = Deprecated.getElementTextValue(confirmationPage.confirmationMessage);
+        String confirmAmount = Legacy.getAttribute(cardOnFile.paymentAmountInputField, "value");
+        Legacy.clickElement(cardOnFile.confirmAmountInputField);
+        Legacy.locate(cardOnFile.confirmAmountInputField).sendKeys(confirmAmount);
+        Legacy.clickElement(achOnFile.recordExistingButton);
+        Legacy.waitVisible(confirmationPage.paymentResultTitle);
+        String paymentConfirmation = Legacy.getElementTextValue(confirmationPage.confirmationMessage);
         String expectedConfirmation = "Successfully Charged ACH Account!";
         result(expectedConfirmation, paymentConfirmation, "ACH Confirmation", "ACH on file payment");
     }
@@ -496,7 +496,7 @@ public class InvoicingTab extends AppData {
         invoiceHeader = new Invoice_Header();
         customerCardHeader = new CustomerViewDialog_Header();
         customerCardHeader.navigateTo(customerCardHeader.invoicesTabInDialog);
-        Deprecated.waitVisible(invoiceRoutesTab.addNewInvoice);
+        Legacy.waitVisible(invoiceRoutesTab.addNewInvoice);
         invImplementation.clickInitialInvoice();
         invoiceRoutesTab.clickAddPayment();
 
@@ -536,7 +536,7 @@ public class InvoicingTab extends AppData {
     public void updatePaymentFields(String paymentNotes, String transactionAmt, String transactionDate) throws InterruptedException {
         customerCardHeader = new CustomerViewDialog_Header();
         customerCardHeader.navigateTo(customerCardHeader.invoicesTabInDialog);
-        Deprecated.waitVisible(invoiceRoutesTab.addNewInvoice,5);
+        Legacy.waitVisible(invoiceRoutesTab.addNewInvoice,5);
         invImplementation.clickInitialInvoice();
         invImplementation.clickMostRecentPayment();
         invImplementation.loadPaymentDetails();
@@ -564,7 +564,7 @@ public class InvoicingTab extends AppData {
     public void validateInvoiceNumber() throws InterruptedException {
         customerCardHeader = new CustomerViewDialog_Header();
         customerCardHeader.navigateTo(customerCardHeader.invoicesTabInDialog);
-        Deprecated.waitVisible(invoiceRoutesTab.addNewInvoice,5);
+        Legacy.waitVisible(invoiceRoutesTab.addNewInvoice,5);
 
         //Load the most recently added invoice
         invImplementation.clickMostRecentInvoice();
@@ -578,7 +578,7 @@ public class InvoicingTab extends AppData {
         double zeroTaxAmt = 0.0;
         customerCardHeader = new CustomerViewDialog_Header();
         customerCardHeader.navigateTo(customerCardHeader.invoicesTabInDialog);
-        Deprecated.waitVisible(invoiceRoutesTab.addNewInvoice,5);
+        Legacy.waitVisible(invoiceRoutesTab.addNewInvoice,5);
 
         //Load the most recently added invoice
         invImplementation.clickMostRecentInvoice();
@@ -673,7 +673,7 @@ public class InvoicingTab extends AppData {
         cardPayment = new SingleCardPayment();
         String expirationDate = "09/29";
         customerCardHeader.navigateTo(customerCardHeader.invoicesTabInDialog);
-        Deprecated.waitVisible(invoiceRoutesTab.addNewInvoice);
+        Legacy.waitVisible(invoiceRoutesTab.addNewInvoice);
 
         invImplementation.clickInitialInvoice();
         invoiceRoutesTab.clickAddPayment();
@@ -708,7 +708,7 @@ public class InvoicingTab extends AppData {
 
         header.searchCustomer_History(header.convertName(createCustomer.customerName));
         customerCardHeader.goToSubscriptionTab();
-        Deprecated.isVisible( subscriptionTab.newSubscriptionButton);
+        Legacy.isVisible( subscriptionTab.newSubscriptionButton);
 
         result(nextExpirationDate,subscriptionTab.getSubscriptionExpirationDate(),"Subscription Expiration Date Advancement Validation!!!", "Subscription Expiration Date Validation");
         customerCardHeader.clickCloseButton();
@@ -722,7 +722,7 @@ public class InvoicingTab extends AppData {
 
         header.searchCustomer_History(header.convertName(createCustomer.customerName));
         customerCardHeader.goToSubscriptionTab();
-        Deprecated.isVisible( subscriptionTab.newSubscriptionButton);
+        Legacy.isVisible( subscriptionTab.newSubscriptionButton);
 
         String currentStatus = subscriptionTab.getSubscriptionStatus();
         result(currentStatus.toUpperCase(Locale.ROOT),expectedStatus.toUpperCase(Locale.ROOT),"Subscription Status Validation","Subscription Status Validation");
@@ -735,7 +735,7 @@ public class InvoicingTab extends AppData {
         admin.navigateTo(admin.preferences);
         merchantPage = new MarchantInfoPage();
         OfficeSettingsObjects officeSettings = new OfficeSettingsObjects();
-        Deprecated.clickElement(officeSettings.merchantInfo);
+        Legacy.clickElement(officeSettings.merchantInfo);
         Utilities.waitVisible(officeSettings.lblDefaultVaultSettings,2);
 
         String configuredGateWay = merchantPage.getDefaultCreditCardGateway();
@@ -832,7 +832,7 @@ public class InvoicingTab extends AppData {
         customerCardHeader = new CustomerViewDialog_Header();
         cardPayment = new SingleCardPayment();
         customerCardHeader.navigateTo(customerCardHeader.invoicesTabInDialog);
-        Deprecated.waitVisible(invoiceRoutesTab.addNewInvoice);
+        Legacy.waitVisible(invoiceRoutesTab.addNewInvoice);
 
         //Pay full invoice amount
         invImplementation.clickInitialInvoice();
@@ -865,7 +865,7 @@ public class InvoicingTab extends AppData {
         customerCardHeader = new CustomerViewDialog_Header();
         cardPayment = new SingleCardPayment();
          customerCardHeader.navigateTo(customerCardHeader.invoicesTabInDialog);
-        Deprecated.waitVisible(invoiceRoutesTab.addNewInvoice);
+        Legacy.waitVisible(invoiceRoutesTab.addNewInvoice);
 
         //Click the initial Invoice and on a payment line-item
         invImplementation.clickInitialInvoice();
@@ -907,13 +907,13 @@ public class InvoicingTab extends AppData {
     public void createMultipleStandaloneInvoices() {
         customerCardHeader = new CustomerViewDialog_Header();
         customerCardHeader.navigateTo(customerCardHeader.invoicesTabInDialog);
-        Deprecated.isVisible(invoiceRoutesTab.addNewInvoice);
+        Legacy.isVisible(invoiceRoutesTab.addNewInvoice);
 
         //Add 3 StandAlone Invoices
         for (int i = 1; i <=3; i++)
         {
             invImplementation.createStandAloneServiceInvoice(GetDate.currentDate("MM/dd/yyyy"), "125.00", "One-Time Automation");
-            Deprecated.isPresent(invImplementation.accountSummaryButton);
+            Legacy.isPresent(invImplementation.accountSummaryButton);
         }
         invImplementation.clickAccountSummary();
     }//createMultipleStandaloneInvoices()
@@ -923,7 +923,7 @@ public class InvoicingTab extends AppData {
         customerCardHeader = new CustomerViewDialog_Header();
         invoiceHeader = new Invoice_Header();
         customerCardHeader.navigateTo(customerCardHeader.invoicesTabInDialog);
-        Deprecated.waitVisible(invoiceRoutesTab.addNewInvoice,2);
+        Legacy.waitVisible(invoiceRoutesTab.addNewInvoice,2);
 
         String  cardNum = creditCardNumber;
         if(activeGateway.equalsIgnoreCase(merchantPage.GATEWAY_NMI))
@@ -934,7 +934,7 @@ public class InvoicingTab extends AppData {
         invImplementation.clickAddPaymentAccountSummary();
         invoiceHeader.navigateTo(invoiceHeader.creditCard );
         Utilities.acceptAlert();
-        Deprecated.isTextPresent("Card Payment");
+        Legacy.isTextPresent("Card Payment");
 
         //Limit Payment to a single invoice
         applyToFirstInvoiceNum = invImplementation.getInvoiceNumByIndex(1);
@@ -958,7 +958,7 @@ public class InvoicingTab extends AppData {
 
         header.searchCustomer_History(header.convertName(createCustomer.customerName));
         customerCardHeader.navigateTo(customerCardHeader.invoicesTabInDialog);
-        Deprecated.isVisible(invoiceRoutesTab.addNewInvoice);
+        Legacy.isVisible(invoiceRoutesTab.addNewInvoice);
 
         result("FULLY PAID", invImplementation.getInvoicePaymentBalanceStatus( applyToFirstInvoiceNum.trim() ), "Apply To First Invoice Validation","Apply To First Invoice Validation");
     }
@@ -968,7 +968,7 @@ public class InvoicingTab extends AppData {
         customerCardHeader = new CustomerViewDialog_Header();
         invoiceHeader = new Invoice_Header();
         customerCardHeader.navigateTo(customerCardHeader.invoicesTabInDialog);
-        Deprecated.waitVisible(invoiceRoutesTab.addNewInvoice,2);
+        Legacy.waitVisible(invoiceRoutesTab.addNewInvoice,2);
 
         //Create multiple invoices with added ticket item and marked  "Eligible for Consolidation"
         createStandAloneServiceInvoiceWithAddonAndMarkConsolidate(GetDate.currentDate("MM/dd/yyyy"),"100.00", "Misc Service", "Animal Removal");
@@ -986,7 +986,7 @@ public class InvoicingTab extends AppData {
         officeSettings.navigateTo(officeSettings.preferences);
 
         preferencesPage  = new PreferencesPage();
-        Deprecated.scrollToElementJS(preferencesPage.billingPreferencesSectionTitle);
+        Legacy.scrollToElementJS(preferencesPage.billingPreferencesSectionTitle);
         preferencesPage.clickEdit_BillingPreferences();
         preferencesPage.selectUseConsolidatedInvoicing("Yes");
         preferencesPage.clickSave_BillingPreferences();
@@ -1025,8 +1025,8 @@ public class InvoicingTab extends AppData {
 
         //Add a ticket item add-ons to the invoice
 
-        Deprecated.waitVisible("//*[@id='invoiceGroupListContainer']/ul/li[@ticketid='" + addonInvoiceNum + "']");
-        Deprecated.clickElement("//*[@id='invoiceGroupListContainer']/ul/li[@ticketid='" + addonInvoiceNum + "']");
+        Legacy.waitVisible("//*[@id='invoiceGroupListContainer']/ul/li[@ticketid='" + addonInvoiceNum + "']");
+        Legacy.clickElement("//*[@id='invoiceGroupListContainer']/ul/li[@ticketid='" + addonInvoiceNum + "']");
         invoiceRoutesTab.clickAddTicketItem();
         invoiceRoutesTab.selectAvailableItems(addonItem);
     }//addTicketItemAddonToInvoice()
@@ -1085,7 +1085,7 @@ public class InvoicingTab extends AppData {
         String customer2Name = customer2.createCustomerWithNameEmailAddrStreetAddrPhNumZipCode(cust2FirstAndLastName[0], cust2FirstAndLastName[1],"tester@test.com", "214-111-2222", "20002 Loop Ln.,Dallas,TX", "75115");
 
         header.searchCustomer_History(header.convertName(customer1Name));
-        Deprecated.isVisible(customerCardHeader.adminPageTitle);
+        Legacy.isVisible(customerCardHeader.adminPageTitle);
         propertiesTab.gotoPropertiesTab();
         propertiesTab.linkThisProperty(customer2Name);
     }//createLinkedCustomers()
@@ -1097,7 +1097,7 @@ public class InvoicingTab extends AppData {
 
         //Add a credit card to customer1
         header.searchCustomer_History(header.convertName(linkedCustomer1FullName ));
-        Deprecated.isVisible(customerCardHeader.adminPageTitle);
+        Legacy.isVisible(customerCardHeader.adminPageTitle);
         customerCardHeader.navigateTo(customerCardHeader.billingTabInDialog);
         billingTab.clickAddPaymentMethod();
         billingTab.clickCreditCardButton();
@@ -1114,7 +1114,7 @@ public class InvoicingTab extends AppData {
 
         //Share customer1's credit card with customer2
         header.searchCustomer_History(header.convertName(linkedCustomer2FullName));
-        Deprecated.isVisible(customerCardHeader.adminPageTitle);
+        Legacy.isVisible(customerCardHeader.adminPageTitle);
         customerCardHeader.navigateTo(customerCardHeader.billingTabInDialog);
         billingTab.clickAddPaymentMethod();
         String ccToken2= billingTab.shareCustomerCreditCardInfo(linkedCustomer1FullName);
@@ -1127,7 +1127,7 @@ public class InvoicingTab extends AppData {
 
          //Verify shared credit card cannot be edited by customer1
         header.searchCustomer_History(header.convertName(linkedCustomer1FullName));
-        Deprecated.isTextPresent("Account Overview");
+        Legacy.isTextPresent("Account Overview");
         customerCardHeader.navigateTo(customerCardHeader.billingTabInDialog);
         billingTab.clickSharedCardOnFile();
         billingTab.clickEditCardDetails();
@@ -1166,7 +1166,7 @@ public class InvoicingTab extends AppData {
          linkedCustomer2FullName = customer2.createCustomerWithNameEmailAddrStreetAddrPhNumZipCode("75115");
 
         header.searchCustomer_History(header.convertName(linkedCustomer1FullName));
-        Deprecated.isVisible(customerCardHeader.overviewPageTitle);
+        Legacy.isVisible(customerCardHeader.overviewPageTitle);
         propertiesTab.gotoPropertiesTab();
         propertiesTab.linkThisProperty(linkedCustomer2FullName);
     }//createTwoLinkedCustomers()
@@ -1191,7 +1191,7 @@ public class InvoicingTab extends AppData {
 
         //Add a credit card to customer1
         header.searchCustomer_History(header.convertName(customerFullName));
-        Deprecated.isVisible(customerCardHeader.overviewPageTitle);
+        Legacy.isVisible(customerCardHeader.overviewPageTitle);
         customerCardHeader.navigateTo(customerCardHeader.billingTabInDialog);
         billingTab.clickAddPaymentMethod();
         billingTab.clickCreditCardButton();
@@ -1214,7 +1214,7 @@ public class InvoicingTab extends AppData {
 
         //Verify credit card can be updated successfully
         header.searchCustomer_History(header.convertName(customerFullName));
-        Deprecated.isVisible(customerCardHeader.overviewPageTitle);
+        Legacy.isVisible(customerCardHeader.overviewPageTitle);
         customerCardHeader.navigateTo(customerCardHeader.billingTabInDialog);
         billingTab.clickSharedCardOnFile();
         billingTab.clickEditCardDetails();
@@ -1257,13 +1257,13 @@ public class InvoicingTab extends AppData {
             creditCardNumber = "5412 7501 0905 6250";
 
         header.searchCustomer_History(header.convertName(linkedCustomer2FullName));
-        Deprecated.isVisible(customerCardHeader.overviewPageTitle);
+        Legacy.isVisible(customerCardHeader.overviewPageTitle);
         customerCardHeader.navigateTo(customerCardHeader.billingTabInDialog);
         billingTab.clickSharedCardOnFile();
         billingTab.removeCCPaymentMethod();
 
         //Add a non-shared credit card
-        Deprecated.isVisible(billingTab.addPaymentMethodButton);
+        Legacy.isVisible(billingTab.addPaymentMethodButton);
         addCreditCardToCustomerAccount(activeGateway,creditCardNumber,linkedCustomer2FullName);
 
     }//removeSharedCreditCardAndAddANonSharedCreditCard
@@ -1273,7 +1273,7 @@ public class InvoicingTab extends AppData {
         customerCardHeader = new CustomerViewDialog_Header();
 
         header.searchCustomer_History(header.convertName(linkedCustomer2FullName));
-        Deprecated.isVisible(customerCardHeader.overviewPageTitle);
+        Legacy.isVisible(customerCardHeader.overviewPageTitle);
         customerCardHeader.navigateTo(customerCardHeader.invoicesTabInDialog);
         createStandAloneServiceInvoice("150.00", "One-Time Automation");
     }//addStandaloneInvoiceLinkedCustomer()
@@ -1287,7 +1287,7 @@ public class InvoicingTab extends AppData {
     public void givePartialRefund(String partialRefundAmt, String screenName) {
         customerCardHeader = new CustomerViewDialog_Header();
         customerCardHeader.navigateTo(customerCardHeader.invoicesTabInDialog);
-        Deprecated.isVisible(invoiceRoutesTab.addNewInvoice);
+        Legacy.isVisible(invoiceRoutesTab.addNewInvoice);
 
         invImplementation.processRefundPayment("Partial",partialRefundAmt,screenName,activeGateway);
     }//givePartialRefund()
@@ -1304,7 +1304,7 @@ public class InvoicingTab extends AppData {
         merchantPage.clickEditForDefaultSettings();
         merchantPage.selectCreditCardGateway(gateway);
         merchantPage.clickSaveForDefaultSettings();
-        Deprecated.isTextPresent(merchantPage.HDR_DEFAULT_VAULT_SETTINGS);
+        Legacy.isTextPresent(merchantPage.HDR_DEFAULT_VAULT_SETTINGS);
     }//configureCCGateway()
 
     @Then("I validate refund order")
@@ -1313,7 +1313,7 @@ public class InvoicingTab extends AppData {
 
         header.searchCustomer_History(header.convertName(createCustomer.customerName));
         customerCardHeader.navigateTo(customerCardHeader.invoicesTabInDialog);
-        Deprecated.isVisible(invoiceRoutesTab.addNewInvoice);
+        Legacy.isVisible(invoiceRoutesTab.addNewInvoice);
 
         generatedInvoiceIDsList = invImplementation.getGeneratedInvoicesNumbers();
         System.out.println("Generated Invoice ID's: " + generatedInvoiceIDsList);
@@ -1334,7 +1334,7 @@ public class InvoicingTab extends AppData {
         customerCardHeader = new CustomerViewDialog_Header();
         invoiceHeader = new Invoice_Header();
         customerCardHeader.navigateTo(customerCardHeader.invoicesTabInDialog);
-        Deprecated.isVisible(invoiceRoutesTab.addNewInvoice);
+        Legacy.isVisible(invoiceRoutesTab.addNewInvoice);
 
         if(paymentScreen.equalsIgnoreCase("Account Summary")) {
             invImplementation.clickAccountSummary();
@@ -1373,7 +1373,7 @@ public class InvoicingTab extends AppData {
 
         header.searchCustomer_History(header.convertName(createCustomer.customerName));
         customerCardHeader.navigateTo(customerCardHeader.invoicesTabInDialog);
-        Deprecated.isVisible(invoiceRoutesTab.addNewInvoice);
+        Legacy.isVisible(invoiceRoutesTab.addNewInvoice);
 
         generatedInvoiceIDsList = invImplementation.getGeneratedInvoicesNumbers();
         System.out.println("Generated Invoice ID's: " + generatedInvoiceIDsList);

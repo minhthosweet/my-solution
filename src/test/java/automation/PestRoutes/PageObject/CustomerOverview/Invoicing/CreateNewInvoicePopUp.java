@@ -2,7 +2,7 @@ package automation.PestRoutes.PageObject.CustomerOverview.Invoicing;
 
 import automation.PestRoutes.PageObject.BasePage;
 import automation.PestRoutes.Utilities.*;
-import automation.PestRoutes.Utilities.Deprecated;
+import automation.PestRoutes.Utilities.Legacy;
 import org.apache.commons.lang3.SystemUtils;
 import org.openqa.selenium.By;
 
@@ -20,27 +20,27 @@ public class CreateNewInvoicePopUp extends BasePage {
     private By createInvoiceButton = By.xpath("//form[@id='newInvoiceParams']/ancestor::div//span[text()='Create']");
 
     public void set(String needInputField, String needValue){
-        Deprecated.waitVisible(needInputField);
-        Deprecated.highLight(needInputField);
+        Legacy.waitVisible(needInputField);
+        Legacy.highLight(needInputField);
         if (SystemUtils.IS_OS_MAC_OSX){
-            Deprecated.locate(needInputField).clear();
-            Deprecated.clickElement(needInputField);
+            Legacy.locate(needInputField).clear();
+            Legacy.clickElement(needInputField);
         }
-        Deprecated.locate(needInputField).sendKeys(needValue);
+        Legacy.locate(needInputField).sendKeys(needValue);
     }
 
     public void select(String needDropDown, String needValue){
-        Deprecated.waitVisible(needDropDown);
-        Deprecated.selectByText(needDropDown, needValue);
+        Legacy.waitVisible(needDropDown);
+        Legacy.selectByText(needDropDown, needValue);
     }
 
     public void click(String needButton){
-        Deprecated.waitVisible(needButton);
-        Deprecated.clickElement(needButton);
+        Legacy.waitVisible(needButton);
+        Legacy.clickElement(needButton);
     }
 
     public void typeSubTotal(String subTotal) {
-        Deprecated.type(subTotal, invoiceSubTotal);
+        Utilities.type(invoiceSubTotal, subTotal);
     }
 
     public String getSubTotal() {
@@ -56,6 +56,6 @@ public class CreateNewInvoicePopUp extends BasePage {
     }
 
     public void typeInvoiceDate(String invoiceDate) {
-        Deprecated.type(invoiceDate, invoiceDateField, "ENTER");
+        Legacy.type(invoiceDate, invoiceDateField, "ENTER");
     }//typeInvoiceDate()
 }

@@ -1,7 +1,7 @@
 package automation.PestRoutes.PageObject.DocumentsTab;
 
 import automation.PestRoutes.Utilities.*;
-import automation.PestRoutes.Utilities.Deprecated;
+import automation.PestRoutes.Utilities.Legacy;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
@@ -45,18 +45,18 @@ public class DocumentsPage {
 
 	public void clickButton(String needAttribute) {
 		Utilities.waitClickable(By.xpath(needAttribute), 10);
-		Deprecated.clickElement(needAttribute);
+		Legacy.clickElement(needAttribute);
 	}
 	public void selectAgreement(String needFormName) {
-		Deprecated.clickElement("//div[text() = '"+needFormName+"']");
+		Legacy.clickElement("//div[text() = '"+needFormName+"']");
 	}
 	public void selectForm(String needFormName) {
-		Deprecated.clickElement("//div[text() = '"+needFormName+"']");
+		Legacy.clickElement("//div[text() = '"+needFormName+"']");
 	}
 	public void sign(String needAttribute) {
 		delay(1000);
-		Deprecated.waitVisible(needAttribute);
-		WebElement elem = Deprecated.locate(needAttribute);
+		Legacy.waitVisible(needAttribute);
+		WebElement elem = Legacy.locate(needAttribute);
 		Actions builder = new Actions(driver);
 		Action drawAction = builder
 				.click(elem)
@@ -72,7 +72,7 @@ public class DocumentsPage {
 	}
 	
 	public String getMessage(String needAttribute) {
-		return Deprecated.getElementTextValue(needAttribute);
+		return Legacy.getElementTextValue(needAttribute);
 	}
 
 }

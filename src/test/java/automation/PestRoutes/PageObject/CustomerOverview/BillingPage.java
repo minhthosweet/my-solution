@@ -2,8 +2,7 @@ package automation.PestRoutes.PageObject.CustomerOverview;
 
 import automation.PestRoutes.PageObject.BasePage;
 import automation.PestRoutes.Utilities.*;
-import automation.PestRoutes.Utilities.Deprecated;
-import static automation.PestRoutes.Utilities.Deprecated.*;
+import automation.PestRoutes.Utilities.Legacy;
 import org.apache.commons.lang3.SystemUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
@@ -13,7 +12,6 @@ import org.openqa.selenium.support.ui.Select;
 import java.util.Locale;
 import java.util.Random;
 
-import static automation.PestRoutes.Utilities.Element.WebSelect.*;
 import static automation.PestRoutes.Utilities.GetWebDriver.*;
 import static automation.PestRoutes.Utilities.Utilities.*;
 
@@ -191,14 +189,14 @@ public class BillingPage extends BasePage {
 	 */
 
 	public void clickElement(String needElement) throws InterruptedException {
-		Deprecated.clickElement(needElement);
+		Legacy.clickElement(needElement);
 		Thread.sleep(100);
 	}
 
 	public void selectDropdown(String needDropdown, String needValue) throws InterruptedException {
 		Thread.sleep(100);
-		Deprecated.waitVisible(needDropdown);
-		Deprecated.selectByText(needDropdown, needValue);
+		Legacy.waitVisible(needDropdown);
+		Legacy.selectByText(needDropdown, needValue);
 	}
 
 	/*
@@ -206,14 +204,14 @@ public class BillingPage extends BasePage {
 	 */
 
 	public void setInputField(String needInputField, String needValue) {
-		Deprecated.waitVisible(needInputField);
-		Deprecated.clickElement(needInputField);
+		Legacy.waitVisible(needInputField);
+		Legacy.clickElement(needInputField);
 		if (SystemUtils.IS_OS_MAC_OSX){
-			Deprecated.doubleClick(needInputField);
+			Legacy.doubleClick(needInputField);
 		}else {
-			Deprecated.locate(needInputField).sendKeys(Keys.CONTROL, "a");
+			Legacy.locate(needInputField).sendKeys(Keys.CONTROL, "a");
 		}
-		Deprecated.locate(needInputField).sendKeys(needValue);
+		Legacy.locate(needInputField).sendKeys(needValue);
 	}
 	/* **************** End of Setters() ******************************/
 
@@ -222,23 +220,23 @@ public class BillingPage extends BasePage {
 	 */
 
 	public String getTextValue(String needElement) {
-		return Deprecated.getElementTextValue(needElement);
+		return Legacy.getElementTextValue(needElement);
 	}
 
 	public String getAttributeValue(String needElement, String needAttribute) {
-		return Deprecated.getAttribute(needElement, needAttribute);
+		return Legacy.getAttribute(needElement, needAttribute);
 	}
 
 	public String getAutoPayValue(){
-		return Deprecated.getElementTextValue(autoPaySetValue);
+		return Legacy.getElementTextValue(autoPaySetValue);
 	}
 
 	//Author : Aditya
 	public String getTokenValue(String paymentOption, String tokenNumber) {
-		Deprecated.waitVisible(paymentOption);
-		Deprecated.clickElement(paymentOption);
-		Deprecated.waitVisible(tokenNumber);
-		String entireToken = Deprecated.getElementTextValue(tokenNumber);
+		Legacy.waitVisible(paymentOption);
+		Legacy.clickElement(paymentOption);
+		Legacy.waitVisible(tokenNumber);
+		String entireToken = Legacy.getElementTextValue(tokenNumber);
 		int startingIndexOfToken = entireToken.indexOf("/", entireToken.indexOf("/") + 1);
 		return entireToken.substring(startingIndexOfToken + 1, entireToken.length());
 	}
@@ -290,19 +288,19 @@ public class BillingPage extends BasePage {
 	public void enterBraintreeNewCardInformation(String cardNumber, String expirationDate, String cvv){
 		driver.switchTo().defaultContent();
 		switchToIframe(brainCcIframe);
-		type(cardNumber, braintreeCardNumberField);
+		type(braintreeCardNumberField, cardNumber);
 		driver.switchTo().defaultContent();
 		String[] separateMonthYear = expirationDate.split("/");
 		String month = separateMonthYear[0];
 		String year = separateMonthYear[1];
 		switchToIframe(brainExpMonthIframe);
-		type(month, braintreeExpirationMonth);
+		type(braintreeExpirationMonth, month);
 		driver.switchTo().defaultContent();
 		switchToIframe(brainExpYearIframe);
-		type(year, braintreeExpirationYear);
+		type(braintreeExpirationYear, year);
 		driver.switchTo().defaultContent();
 		switchToIframe(brainCvvIframe);
-		type(cvv, braintreeCVVField);
+		type(braintreeCVVField, cvv);
 		driver.switchTo().defaultContent();
 		clickSavePaymentMethodButton();
 	}
@@ -310,7 +308,7 @@ public class BillingPage extends BasePage {
 	public void enterElementNewCardInformation(String cardNumber, String expirationDate){
 		click(enterCreditCardButton);
 		switchToIframe(elementIframe);
-		type(cardNumber, elementCardNumberField);
+		type(elementCardNumberField, cardNumber);
 		String[] separateMonthYear = expirationDate.split("/");
 		String month = separateMonthYear[0];
 		String year = separateMonthYear[1];
@@ -322,17 +320,17 @@ public class BillingPage extends BasePage {
 
 	public void enterNMINewCardInformation(String cardNumber, String expirationDate, String cvv) {
 		switchToIframe(nmiCcNumberIframe);
-		type(cardNumber, nmiCardNumberField);
+		type(nmiCardNumberField, cardNumber);
 		driver.switchTo().defaultContent();
 		switchToIframe(nmiExpIframe);
 		String[] separateMonthYear = expirationDate.split("/");
 		String month = separateMonthYear[0];
 		String year = separateMonthYear[1];
 		String expirationMonthYear = month + "/20" + year;
-		type(expirationMonthYear, nmiExpirationDateField);
+		type(nmiExpirationDateField, expirationMonthYear);
 		driver.switchTo().defaultContent();
 		switchToIframe(nmiCvvIframe);
-		type(cvv, nmiCVVField);
+		type(nmiCVVField, cvv);
 		driver.switchTo().defaultContent();
 		clickSavePaymentMethodButton();
 	}
@@ -340,7 +338,7 @@ public class BillingPage extends BasePage {
 	public void enterSpreedlyNewCardInformation(String cardNumber, String expirationDate, String cvv){
 		WebElement iFrameCardNumber = Utilities.locate(By.xpath("//iframe[contains(@id,'spreedly-number-frame')]"));
 		driver.switchTo().frame(iFrameCardNumber);
-		type(cardNumber, spreedlyCardNumber);
+		type(spreedlyCardNumber, cardNumber);
 		driver.switchTo().defaultContent();
 		String[] separateMonthYear = expirationDate.split("/");
 		String month = separateMonthYear[0];
@@ -350,7 +348,7 @@ public class BillingPage extends BasePage {
 		Utilities.selectByText(spreedlyExpirationYear, "20"+ year);
 		WebElement iFrameCVV = Utilities.locate(By.xpath("//iframe[contains(@id,'spreedly-cvv-frame')]"));
 		driver.switchTo().frame(iFrameCVV);
-		type(cvv, spreedlyCVVField);
+		type(spreedlyCVVField, cvv);
 		driver.switchTo().defaultContent();
 		clickSavePaymentMethodButton();
 	}
@@ -358,15 +356,15 @@ public class BillingPage extends BasePage {
 	public void  enterPestRoutesPaymentsNewCardInformation(String cardNumber, String expirationDate, String cvv) {
 		switchToIframe(payrixIframe);
 		switchToIframe(pestRoutesIframeCc);
-		type(cardNumber, pestRoutesPaymentsCardNumber);
+		type(pestRoutesPaymentsCardNumber, cardNumber);
 		driver.switchTo().defaultContent();
 		switchToIframe(payrixIframe);
 		switchToIframe(pestRoutesIframeExp);
-		type(expirationDate, pestRoutesPaymentsExpirationDate);
+		type(pestRoutesPaymentsExpirationDate, expirationDate);
 		driver.switchTo().defaultContent();
 		switchToIframe(payrixIframe);
 		switchToIframe(pestRoutesIframeCvv);
-		type(cvv, pestRoutesPaymentsCVVField);
+		type(pestRoutesPaymentsCVVField, cvv);
 		driver.switchTo().defaultContent();
 		switchToIframe(payrixIframe);
 		clickSavePaymentMethodButton();
@@ -453,17 +451,17 @@ public class BillingPage extends BasePage {
 	}
 
 	public void typeBankName(String bankName) {
-		type(bankName, By.xpath(bankAccountBankNameInputField));
+		type(By.xpath(bankAccountBankNameInputField), bankName);
 	}
 
 	public void typeRoutingNumber() {
 		int selectRouting = random.nextInt(routingNumber.length);
-		type(routingNumber[selectRouting], By.xpath(bankAccountRoutingNumberInputField));
+		type(By.xpath(bankAccountRoutingNumberInputField), routingNumber[selectRouting]);
 	}
 
 	public void typeAccountNumber() {
 		int selectAccount = random.nextInt(accountNumber.length);
-		type(accountNumber[selectAccount], By.xpath(bankAccountAccountNumberInputField));
+		type(By.xpath(bankAccountAccountNumberInputField), accountNumber[selectAccount]);
 	}
 
 	public void clickSaveBankAccountButton() {

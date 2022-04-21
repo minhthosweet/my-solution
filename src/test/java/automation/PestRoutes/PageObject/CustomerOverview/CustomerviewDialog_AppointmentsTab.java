@@ -2,7 +2,7 @@ package automation.PestRoutes.PageObject.CustomerOverview;
 
 import automation.PestRoutes.PageObject.BasePage;
 import automation.PestRoutes.Utilities.Data.*;
-import automation.PestRoutes.Utilities.Deprecated;
+import automation.PestRoutes.Utilities.Legacy;
 import io.cucumber.java.en.When;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -77,7 +77,7 @@ public class CustomerviewDialog_AppointmentsTab extends BasePage {
         //Utilities.waitUntileElementIsVisible(
           //      "//span[text()='Pending']/parent::div/preceding-sibling::div[contains (text(), '" + needServiceName
             //            + "')]");
-        Deprecated.clickElement("//span[text()='Pending']/parent::div/preceding-sibling::div[contains (text(), '"
+        Legacy.clickElement("//span[text()='Pending']/parent::div/preceding-sibling::div[contains (text(), '"
                 + needServiceName + "')]");
     }
 
@@ -87,80 +87,80 @@ public class CustomerviewDialog_AppointmentsTab extends BasePage {
     }
 
     public void clickScheduledStructuredService(String needStructureName) {
-        Deprecated.clickElement("//ul[@id='structuresMenuList']//span[text()='" + needStructureName + "']"
+        Legacy.clickElement("//ul[@id='structuresMenuList']//span[text()='" + needStructureName + "']"
         );
     }
 
     public void clickSubScheduledStructuredService(String needStructureName, String needSubStructureName) {
-        Deprecated.waitVisible("//ul[@id='structuresMenuList']//span[text()='" + needStructureName + "']");
-        Deprecated.clickElement("//ul[@id='structuresMenuList']//span[text()='" + needStructureName + "']"
+        Legacy.waitVisible("//ul[@id='structuresMenuList']//span[text()='" + needStructureName + "']");
+        Legacy.clickElement("//ul[@id='structuresMenuList']//span[text()='" + needStructureName + "']"
         );
-        Deprecated.waitVisible(
+        Legacy.waitVisible(
                 "//ul[@id='structuresMenuList']//span[text() = '" + needSubStructureName + "']");
-        Deprecated.clickElement("//ul[@id='structuresMenuList']//span[text() = '" + needSubStructureName + "']"
+        Legacy.clickElement("//ul[@id='structuresMenuList']//span[text() = '" + needSubStructureName + "']"
         );
     }
 
     public void clickStatusButton() {
-        Deprecated.clickElement(statusButton);
+        Legacy.clickElement(statusButton);
     }
 
     public void clickAddProductButton_InCompletingApptDialog() {
-        Deprecated.waitVisible(addProductButton_InCompletingApptDialog);
-        Deprecated.clickElement(addProductButton_InCompletingApptDialog);
+        Legacy.waitVisible(addProductButton_InCompletingApptDialog);
+        Legacy.clickElement(addProductButton_InCompletingApptDialog);
     }
 
     public void chooseProduct(String needProductName) {
-        Deprecated.clickElement("//span[text()='" + needProductName + "']");
+        Legacy.clickElement("//span[text()='" + needProductName + "']");
     }
 
     public void chooseApplicationMethod(String needMethod) {
-        Deprecated.scrollToElement(applicationMethodDropdown_InCompletingApptDialog);
-        Deprecated.selectByText(applicationMethodDropdown_InCompletingApptDialog, needMethod);
+        Legacy.scrollToElement(applicationMethodDropdown_InCompletingApptDialog);
+        Legacy.selectByText(applicationMethodDropdown_InCompletingApptDialog, needMethod);
     }
 
     public void chooseTargetIssue(String needOption) {
-        Deprecated.selectByText(targetIssueDropdown_InCompletingApptDialog, needOption);
+        Legacy.selectByText(targetIssueDropdown_InCompletingApptDialog, needOption);
     }
 
     public void chooseTargetArea(String needOption) {
-        Deprecated.selectByText(targetAreaDropdown_InCompletingApptDialog, needOption);
+        Legacy.selectByText(targetAreaDropdown_InCompletingApptDialog, needOption);
     }
 
     public void chooseInteriorServiced(String needOption) {
-        Deprecated.selectByText(interiorSeviced, needOption);
+        Legacy.selectByText(interiorSeviced, needOption);
     }
 
     public void clickCancelButton() {
-        Deprecated.clickElement(cancelButton_InCompletingApptDialog);
+        Legacy.clickElement(cancelButton_InCompletingApptDialog);
     }
 
     public void clickSaveButton() {
-        Deprecated.clickElement(saveButton_InCompletingApptDialog);
+        Legacy.clickElement(saveButton_InCompletingApptDialog);
     }
 
     public void clickSaveAndCompleteButton() {
-        if (Deprecated.isVisible(serviceNotes_Complete)) {
-            Deprecated.clickElement(saveAndCompleteButton_InCompletingApptDialog);
+        if (Legacy.isVisible(serviceNotes_Complete)) {
+            Legacy.clickElement(saveAndCompleteButton_InCompletingApptDialog);
         }else {
-            Deprecated.clickElement(saveAndCompleteButton_InCompletingApptDialog);
+            Legacy.clickElement(saveAndCompleteButton_InCompletingApptDialog);
         }
     }
 
     public void clickEditButton_AppointmentCard() {
-        Deprecated.waitVisible(editButton);
-        Deprecated.clickElement(editButton);
+        Legacy.waitVisible(editButton);
+        Legacy.clickElement(editButton);
     }
 
     public void clickRescheduleButton() {
-        Deprecated.waitVisible(reScheduleButton);
-        Deprecated.clickElement(reScheduleButton);
+        Legacy.waitVisible(reScheduleButton);
+        Legacy.clickElement(reScheduleButton);
     }
 
     public void clickCancelAppointmentButton() {
         delay(3000);
-        Deprecated.waitVisible(cancelAppointment);
-        Deprecated.clickElement(cancelAppointment);
+        Legacy.waitVisible(cancelAppointment);
+        Legacy.clickElement(cancelAppointment);
     }
 
     public void clickOKButton() {
@@ -168,26 +168,26 @@ public class CustomerviewDialog_AppointmentsTab extends BasePage {
     }
 
     public void cancellationNotes() {
-        Deprecated.waitVisible(cancelNotesAppointment);
-        Deprecated.locate(cancelNotesAppointment).sendKeys(GetData.generateRandomString(10));
+        Legacy.waitVisible(cancelNotesAppointment);
+        Legacy.locate(cancelNotesAppointment).sendKeys(GetData.generateRandomString(10));
     }
 
     public void confirmCancellation() {
-        Deprecated.waitVisible(confirmCancellation);
-        Deprecated.clickElement(confirmCancellation);
+        Legacy.waitVisible(confirmCancellation);
+        Legacy.clickElement(confirmCancellation);
     }
 
     public void clickUnitName() {
-        Deprecated.waitVisible(unitName);
-        Deprecated.clickElement(unitName);
+        Legacy.waitVisible(unitName);
+        Legacy.clickElement(unitName);
     }
 
     @When("I close scheduling notice button")
     public void clickCloseSchedulingNoticeButton() {
         try {
-            WebElement schedulingAppointment = Deprecated.locate(closeSchedulingNotice);
+            WebElement schedulingAppointment = Legacy.locate(closeSchedulingNotice);
             if (schedulingAppointment.isEnabled()) {
-                Deprecated.jsClickElement(closeSchedulingNotice);
+                Legacy.jsClickElement(closeSchedulingNotice);
             }
         } catch (Exception e) {
             System.out.println("Scheduling notice button not available");
@@ -199,85 +199,85 @@ public class CustomerviewDialog_AppointmentsTab extends BasePage {
      */
 
     public String getUnitChemicalName() {
-        Deprecated.waitVisible(unitNameObject);
-        return Deprecated.getElementTextValue(unitNameObject);
+        Legacy.waitVisible(unitNameObject);
+        return Legacy.getElementTextValue(unitNameObject);
     }
 
     public String getChemicalName() {
-        Deprecated.waitVisible(productNameObject);
-        return Deprecated.getElementTextValue(productNameObject);
+        Legacy.waitVisible(productNameObject);
+        return Legacy.getElementTextValue(productNameObject);
     }
 
     public String getTreatedArea() {
-        Deprecated.waitVisible(areaTreated);
-        return Deprecated.getElementTextValue(areaTreated);
+        Legacy.waitVisible(areaTreated);
+        return Legacy.getElementTextValue(areaTreated);
     }
 
     public String getTreatedPests() {
-        Deprecated.waitVisible(pestsTreated);
-        return Deprecated.getElementTextValue(pestsTreated);
+        Legacy.waitVisible(pestsTreated);
+        return Legacy.getElementTextValue(pestsTreated);
     }
 
     /*
      * Getter Methods Below methods get text value of an Unit Product object
      */
     public String getUnitName() {
-        Deprecated.waitVisible(unitName);
-        return Deprecated.getElementTextValue(unitName);
+        Legacy.waitVisible(unitName);
+        return Legacy.getElementTextValue(unitName);
     }
 
     public String getUnitAreaTreated() {
-        Deprecated.waitVisible(areaUnitTreated);
-        return Deprecated.getElementTextValue(areaUnitTreated);
+        Legacy.waitVisible(areaUnitTreated);
+        return Legacy.getElementTextValue(areaUnitTreated);
     }
 
     public String getUnitPestsTreated() {
-        Deprecated.waitVisible(pestsUnitTreated);
-        return Deprecated.getElementTextValue(pestsUnitTreated);
+        Legacy.waitVisible(pestsUnitTreated);
+        return Legacy.getElementTextValue(pestsUnitTreated);
     }
 
     // Structure Methods(Structure Products Object
     public String getStructureChemicalName() {
-        Deprecated.waitVisible(structureNameObject);
-        return Deprecated.getElementTextValue(structureNameObject);
+        Legacy.waitVisible(structureNameObject);
+        return Legacy.getElementTextValue(structureNameObject);
     }
 
     public void clickStructureName() {
-        Deprecated.waitVisible(structureName);
-        Deprecated.clickElement(structureName);
+        Legacy.waitVisible(structureName);
+        Legacy.clickElement(structureName);
     }
 
     public String getStructureAreaTreated() {
-        Deprecated.waitVisible(areaStructureTreated);
-        return Deprecated.getElementTextValue(areaStructureTreated);
+        Legacy.waitVisible(areaStructureTreated);
+        return Legacy.getElementTextValue(areaStructureTreated);
     }
 
     public String getStructureIssuesTreated() {
-        Deprecated.waitVisible(issuesStructureTreated);
-        return Deprecated.getElementTextValue(issuesStructureTreated);
+        Legacy.waitVisible(issuesStructureTreated);
+        return Legacy.getElementTextValue(issuesStructureTreated);
     }
 
     //Appointment Info details getter methods
     public String getScheduledBy_User() {
-        Deprecated.waitVisible(scheduledBy);
-        String schedulerName = Deprecated.getElementTextValue(scheduledBy);
+        Legacy.waitVisible(scheduledBy);
+        String schedulerName = Legacy.getElementTextValue(scheduledBy);
         int index = schedulerName.indexOf(" on");
         schedulerName = schedulerName.substring(0, index);
         return schedulerName;
     }
 
     public String getCompletedBy_User() {
-        Deprecated.waitVisible(completedBy);
-        String completedByName = Deprecated.getElementTextValue(completedBy);
+        Legacy.waitVisible(completedBy);
+        String completedByName = Legacy.getElementTextValue(completedBy);
         int index = completedByName.indexOf(" on");
         completedByName = completedByName.substring(0, index);
         return completedByName;
     }
 
     public String getTechnicianOnAppointment() {
-        Deprecated.waitVisible(technicianOnAppointment);
-        System.out.println("technicianName : " + Deprecated.getElementTextValue(technicianOnAppointment));
-        return Deprecated.getElementTextValue(technicianOnAppointment);
+        Legacy.waitVisible(technicianOnAppointment);
+        System.out.println("technicianName : " + Legacy.getElementTextValue(technicianOnAppointment));
+        return Legacy.getElementTextValue(technicianOnAppointment);
     }
 
     public String getTechName () {
@@ -296,14 +296,14 @@ public class CustomerviewDialog_AppointmentsTab extends BasePage {
     }
 
     public String getAppointmentID() {
-        Deprecated.waitVisible("//div[@id='appointmentContainor']//h3");
-        return Deprecated.getAttribute("//div[@id='appointmentContainor']//h3", "data-appointmentid");
+        Legacy.waitVisible("//div[@id='appointmentContainor']//h3");
+        return Legacy.getAttribute("//div[@id='appointmentContainor']//h3", "data-appointmentid");
     }
 
     public void changeAppointmentTech(String needTechnicianName) {
-        Deprecated.waitVisible("//select[@name='changeAppointmentTech']");
-        Deprecated.clickElement("//select[@name='changeAppointmentTech']");
-        Deprecated.clickElement("//select[@name='changeAppointmentTech']//option[text()='"+needTechnicianName+"']");
+        Legacy.waitVisible("//select[@name='changeAppointmentTech']");
+        Legacy.clickElement("//select[@name='changeAppointmentTech']");
+        Legacy.clickElement("//select[@name='changeAppointmentTech']//option[text()='"+needTechnicianName+"']");
     }
 
     public void clickConfirmCancellationButton() {
@@ -315,7 +315,7 @@ public class CustomerviewDialog_AppointmentsTab extends BasePage {
     }
 
     public void typeServiceNotes(String serviceNotes) {
-        Deprecated.type(serviceNotes, serviceNotesField);
+        type(serviceNotesField, serviceNotes);
     }
 
     public String getServiceNotes() {

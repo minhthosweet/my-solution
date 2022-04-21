@@ -7,7 +7,7 @@ import automation.PestRoutes.PageObject.CustomerOverview.CustomerviewDialog_Appo
 import automation.PestRoutes.PageObject.SignInPage.LoginPage;
 import automation.PestRoutes.Utilities.*;
 import automation.PestRoutes.Utilities.Data.*;
-import automation.PestRoutes.Utilities.Deprecated;
+import automation.PestRoutes.Utilities.Legacy;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
@@ -65,8 +65,8 @@ public class CucumberBaseClass extends AppData {
             customerviewDialog_appointmentsTab = new CustomerviewDialog_AppointmentsTab();
             createNewCustomer = new CreateNewCustomer();
             try {
-                WebElement customerCard = Deprecated.locate(customerViewDialog_header.infoTabInDialog);
-                WebElement schedulingAppointment = Deprecated.locate(customerviewDialog_appointmentsTab.closeSchedulingNotice);
+                WebElement customerCard = Legacy.locate(customerViewDialog_header.infoTabInDialog);
+                WebElement schedulingAppointment = Legacy.locate(customerviewDialog_appointmentsTab.closeSchedulingNotice);
                 if (customerCard.isDisplayed()) {
                     customerViewDialog_header.clickCloseButton();
                 } else if (schedulingAppointment.isDisplayed()) {
@@ -85,9 +85,9 @@ public class CucumberBaseClass extends AppData {
     @Before(order = 4)
     public void clickCloseSchedulingNoticeButton() {
         try {
-            WebElement schedulingAppointment = Deprecated.locate(customerviewDialog_appointmentsTab.closeSchedulingNotice);
+            WebElement schedulingAppointment = Legacy.locate(customerviewDialog_appointmentsTab.closeSchedulingNotice);
             if (schedulingAppointment.isDisplayed()) {
-                Deprecated.jsClickElement(customerviewDialog_appointmentsTab.closeSchedulingNotice);
+                Legacy.jsClickElement(customerviewDialog_appointmentsTab.closeSchedulingNotice);
                 System.out.println("Schedule button closed");
             }
         } catch (Exception e) {

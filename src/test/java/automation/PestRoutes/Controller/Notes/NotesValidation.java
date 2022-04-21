@@ -5,7 +5,7 @@ import java.util.List;
 
 import automation.PestRoutes.Utilities.*;
 import automation.PestRoutes.Utilities.Data.*;
-import automation.PestRoutes.Utilities.Deprecated;
+import automation.PestRoutes.Utilities.Legacy;
 import automation.PestRoutes.Utilities.Report.*;
 import org.openqa.selenium.Keys;
 import org.testng.annotations.Test;
@@ -65,7 +65,7 @@ public class NotesValidation extends AppData {
 	private void validateCreation
 	(String needStepName, String messageType, String needNoteType, String needDeleteButton) throws InterruptedException {
 		notes.navigateToNoteType(needNoteType);
-		Deprecated.locate(notes.searchField).sendKeys(Keys.CONTROL,"a");
+		Legacy.locate(notes.searchField).sendKeys(Keys.CONTROL,"a");
 		notes.setInputField(notes.searchField, messageType);
 		String searchResult = notes.getText(notes.savedEntry);
 		result(messageType, searchResult, needStepName, "Validate Notes Entries");

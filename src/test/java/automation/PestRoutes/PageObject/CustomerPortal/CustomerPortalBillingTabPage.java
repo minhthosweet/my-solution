@@ -1,7 +1,7 @@
 package automation.PestRoutes.PageObject.CustomerPortal;
 
 import automation.PestRoutes.Utilities.*;
-import automation.PestRoutes.Utilities.Deprecated;
+import automation.PestRoutes.Utilities.Legacy;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
@@ -61,7 +61,7 @@ public class CustomerPortalBillingTabPage extends CustomerPortalBasePage {
     private By paymentMethodErrorMessage = By.xpath("//div[text()='Please choose a method of payment.']");
 
     public List<String> getValuesFromShowNumberEntriesDropDown(){
-        return Deprecated.getOptionsFromDropDown(showNumberEntriesDropDown);
+        return Legacy.getOptionsFromDropDown(showNumberEntriesDropDown);
     }
 
     public String getNewDate(){
@@ -133,13 +133,13 @@ public class CustomerPortalBillingTabPage extends CustomerPortalBasePage {
     }
 
     public void clickPayNowButton(){
-        Deprecated.scrollToElementJS(Utilities.locate(payNowButton));
+        Legacy.scrollToElementJS(Utilities.locate(payNowButton));
         click(payNowButton);
     }
 
     public boolean isPayNowButtonDisplayed() {
         if(isVisible(payNowButton)) {
-            Deprecated.scrollToElementJS(Utilities.locate(payNowButton));
+            Legacy.scrollToElementJS(Utilities.locate(payNowButton));
             return true;
         }
         return false;
@@ -147,9 +147,9 @@ public class CustomerPortalBillingTabPage extends CustomerPortalBasePage {
 
     public void clickMakePaymentButton() {
         if (isVisible(makePaymentButton)) {
-            Deprecated.scrollToElementJS(Utilities.locate(makePaymentButton));
+            Legacy.scrollToElementJS(Utilities.locate(makePaymentButton));
             String buttonMakePayment = "//button[@id='submitPaymentOptionsButton']";
-            Deprecated.isPresent(buttonMakePayment);
+            Legacy.isPresent(buttonMakePayment);
             click(makePaymentButton);
             delay(5000);
         }
@@ -303,11 +303,11 @@ public class CustomerPortalBillingTabPage extends CustomerPortalBasePage {
     public void enterBraintreeNewCardInformation(String cardNumber, String expirationDate){
         driver.switchTo().defaultContent();
         switchToIframe("braintree-hosted-field-number");
-        Deprecated.scrollToElementJS(Utilities.locate(braintreeCardNumberField));
-        Deprecated.type(cardNumber, braintreeCardNumberField);
+        Legacy.scrollToElementJS(Utilities.locate(braintreeCardNumberField));
+        type(braintreeCardNumberField, cardNumber);
         driver.switchTo().defaultContent();
         switchToIframe("braintree-hosted-field-expirationDate");
-        Deprecated.type(expirationDate, braintreeExpirationDateField);
+        type(braintreeExpirationDateField, expirationDate);
         driver.switchTo().defaultContent();
     }
 
@@ -316,13 +316,13 @@ public class CustomerPortalBillingTabPage extends CustomerPortalBasePage {
             click(enterCreditCardButton);
         }
         switchToIframe("elementSingleFrame");
-        Deprecated.type(cardNumber, elementCardNumberField);
+        type(elementCardNumberField, cardNumber);
         String[] separateMonthYear = expirationDate.split("/");
         String month = separateMonthYear[0];
         String year = separateMonthYear[1];
         Utilities.selectByText(elementExpirationMonth, month);
         Utilities.selectByText(elementExpirationYear, "20"+ year);
-        Deprecated.type(cvv, elementCVVField);
+        type(elementCVVField, cvv);
         click(elementProcessTransactionButton);
         acceptAlert(10);
         driver.switchTo().defaultContent();
@@ -334,26 +334,26 @@ public class CustomerPortalBillingTabPage extends CustomerPortalBasePage {
         delay(1000);
         clickUseOneTimeCard();
         switchToIframe("CollectJSInlineccnumber");
-        Deprecated.scrollToElementJS(Utilities.locate(nmiCardNumberField));
-        Deprecated.type(cardNumber, nmiCardNumberField);
+        Legacy.scrollToElementJS(Utilities.locate(nmiCardNumberField));
+        type(nmiCardNumberField, cardNumber);
         driver.switchTo().defaultContent();
         switchToIframe("CollectJSInlineccexp");
         String[] separateMonthYear = expirationDate.split("/");
         String month = separateMonthYear[0];
         String year = separateMonthYear[1];
         String expirationMonthYear = month + "/20" + year;
-        Deprecated.type(expirationMonthYear, nmiExpirationDateField);
+        type(nmiExpirationDateField, expirationMonthYear);
         driver.switchTo().defaultContent();
         switchToIframe("CollectJSInlinecvv");
-        Deprecated.type(cvv, nmiCVVField);
+        type(nmiCVVField, cvv);
         driver.switchTo().defaultContent();
     }
 
     public void enterSpreedlyNewCardInformation(String cardNumber, String expirationDate, String cvv){
         WebElement iFrameCardNumber = Utilities.locate(By.xpath("//iframe[contains(@id,'spreedly-number-frame')]"));
         driver.switchTo().frame(iFrameCardNumber);
-        Deprecated.scrollToElementJS(Utilities.locate(spreedlyCardNumber));
-        Deprecated.type(cardNumber, spreedlyCardNumber);
+        Legacy.scrollToElementJS(Utilities.locate(spreedlyCardNumber));
+        type(spreedlyCardNumber, cardNumber);
         driver.switchTo().defaultContent();
         String[] separateMonthYear = expirationDate.split("/");
         String month = separateMonthYear[0];
@@ -363,7 +363,7 @@ public class CustomerPortalBillingTabPage extends CustomerPortalBasePage {
         Utilities.selectByText(spreedlyExpirationYear, "20"+ year);
         WebElement iFrameCVV = Utilities.locate(By.xpath("//iframe[contains(@id,'spreedly-cvv-frame')]"));
         driver.switchTo().frame(iFrameCVV);
-        Deprecated.type(cvv, spreedlyCVVField);
+        type(spreedlyCVVField, cvv);
         driver.switchTo().defaultContent();
     }
 
@@ -373,14 +373,14 @@ public class CustomerPortalBillingTabPage extends CustomerPortalBasePage {
         delay(1000);
         clickUseOneTimeCard();
         switchToIframe("payFields-iframe-number");
-        Deprecated.scrollToElementJS(Utilities.locate(pestRoutesPaymentsCardNumber));
-        Deprecated.type(cardNumber, pestRoutesPaymentsCardNumber);
+        Legacy.scrollToElementJS(Utilities.locate(pestRoutesPaymentsCardNumber));
+        type(pestRoutesPaymentsCardNumber, cardNumber);
         driver.switchTo().defaultContent();
         switchToIframe("payFields-iframe-expiration");
-        Deprecated.type(expirationDate, pestRoutesPaymentsExpirationDate);
+        type(pestRoutesPaymentsExpirationDate, expirationDate);
         driver.switchTo().defaultContent();
         switchToIframe("payFields-iframe-cvv");
-        Deprecated.type(cvv, pestRoutesPaymentsCVVField);
+        type(pestRoutesPaymentsCVVField, cvv);
         driver.switchTo().defaultContent();
     }
 

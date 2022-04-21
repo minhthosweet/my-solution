@@ -1,6 +1,6 @@
 package automation.PestRoutes.PageObject.CustomerOverview;
 
-import automation.PestRoutes.Utilities.Deprecated;
+import automation.PestRoutes.Utilities.Legacy;
 
 public class CustomerViewDialog_Equipment {
 
@@ -19,21 +19,21 @@ public class CustomerViewDialog_Equipment {
 
 
     public void clickButton(String needButton) {
-        Deprecated.waitVisible(needButton);
-        Deprecated.clickElement(needButton);
+        Legacy.waitVisible(needButton);
+        Legacy.clickElement(needButton);
     }
 
     public void setItem(String needItem, String needValue) {
-        Deprecated.locate(needItem).sendKeys(needValue);
+        Legacy.locate(needItem).sendKeys(needValue);
     }
 
     public String getItem() {
-        Deprecated.waitVisible(equipmentAdded);
-        return Deprecated.getElementTextValue(equipmentAdded);
+        Legacy.waitVisible(equipmentAdded);
+        return Legacy.getElementTextValue(equipmentAdded);
     }
 
     public void selectItemFromDropDown (String needField, String needType) {
-        Deprecated.selectByText(needField, needType);
+        Legacy.selectByText(needField, needType);
 
 
 

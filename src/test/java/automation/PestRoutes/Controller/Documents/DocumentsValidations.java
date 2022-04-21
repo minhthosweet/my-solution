@@ -6,7 +6,7 @@ import automation.PestRoutes.Controller.*;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_InfoTab;
 import automation.PestRoutes.Utilities.*;
 import automation.PestRoutes.Utilities.Data.*;
-import automation.PestRoutes.Utilities.Deprecated;
+import automation.PestRoutes.Utilities.Legacy;
 import automation.PestRoutes.Utilities.Report.*;
 import io.cucumber.java.en.And;
 import org.openqa.selenium.*;
@@ -95,7 +95,7 @@ public class DocumentsValidations extends AppData {
 		int size = driver.findElements(By.tagName("iframe")).size();
 		for (int i = 0; i <= size; i++) {
 			driver.switchTo().frame(i);
-			Deprecated.waitVisible(documents.employeeSignatureButton);
+			Legacy.waitVisible(documents.employeeSignatureButton);
 			int elem = driver.findElements(By.xpath(documents.employeeSignatureButton)).size();
 			System.out.println(elem);
 			if (elem != 0) {
@@ -123,7 +123,7 @@ public class DocumentsValidations extends AppData {
 		String expectedSuccessMessage = getData("serviceDescription", generalData)+ " Agreement";
 		customerCardHeader = new CustomerViewDialog_Header();
 		customerCardHeader.navigateTo(customerCardHeader.documentsTabInDIalog);
-		String actualSuccessMessage = Deprecated.getElementTextValue("//ul[@id='documentList']//div[text()='"+getData("serviceDescription", generalData)+" Agreement']");
+		String actualSuccessMessage = Legacy.getElementTextValue("//ul[@id='documentList']//div[text()='"+getData("serviceDescription", generalData)+" Agreement']");
 		result(expectedSuccessMessage, actualSuccessMessage, "New emailed agreement message", "Documents tab validations");
 	}
 	

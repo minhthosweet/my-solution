@@ -1,6 +1,6 @@
 package automation.PestRoutes.PageObject.Admin.PreferencesTab.CustomerPreferencesTab;
 
-import automation.PestRoutes.Utilities.Deprecated;
+import automation.PestRoutes.Utilities.Legacy;
 
 public class CustomerSourcesObjects {
 
@@ -14,17 +14,17 @@ public class CustomerSourcesObjects {
     }
 
     public void clickNewCustomerSource() {
-        Deprecated.waitVisible(clickNewCustomerSource);
-        Deprecated.clickElement(clickNewCustomerSource);
+        Legacy.waitVisible(clickNewCustomerSource);
+        Legacy.clickElement(clickNewCustomerSource);
     }
 
     public void setCustomerSourceName(String needCustomerSourceName) {
-        Deprecated.waitVisible(customerSourcesName);
-        Deprecated.locate(customerSourcesName).sendKeys(needCustomerSourceName);
+        Legacy.waitVisible(customerSourcesName);
+        Legacy.locate(customerSourcesName).sendKeys(needCustomerSourceName);
     }
 
     public static void clickSaveButton() {
-        Deprecated.waitVisible(FormObjects.saveButton);
-        Deprecated.clickElement(FormObjects.saveButton);
+        Legacy.waitVisible(FormObjects.saveButton);
+        Legacy.clickElement(FormObjects.saveButton);
     }
 }

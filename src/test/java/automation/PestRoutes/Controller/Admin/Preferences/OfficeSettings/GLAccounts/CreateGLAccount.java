@@ -6,7 +6,7 @@ import automation.PestRoutes.PageObject.Admin.AdminMainPage;
 import automation.PestRoutes.PageObject.Admin.PreferencesTab.OfficeSettingsTab.GLAccounts.GLAccountCreation;
 import automation.PestRoutes.PageObject.Header;
 import automation.PestRoutes.Utilities.Data.*;
-import automation.PestRoutes.Utilities.Deprecated;
+import automation.PestRoutes.Utilities.Legacy;
 import automation.PestRoutes.Utilities.Report.*;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -49,7 +49,7 @@ public class CreateGLAccount extends AppData {
     public void searchGLAccount(String description) {
         glAccountCreation.searchGLAccountByDescription(description);
         try {
-            WebElement elm = Deprecated.locate("//span[text()='" + description + "']");
+            WebElement elm = Legacy.locate("//span[text()='" + description + "']");
             if (elm.isDisplayed()) {
                 System.out.println("GL Account is visible");
             }

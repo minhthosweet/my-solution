@@ -18,7 +18,7 @@ import java.io.IOException;
 import java.util.Locale;
 
 import automation.PestRoutes.Utilities.Data.*;
-import automation.PestRoutes.Utilities.Deprecated;
+import automation.PestRoutes.Utilities.Legacy;
 import automation.PestRoutes.Utilities.Report.*;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
@@ -133,7 +133,7 @@ public class BillingByServiceType extends AppData {
     //Author: Aditya
     @And("I validate if the billing by service type report is linked to the customer card")
     public void validateLink_customerCard_BST() throws Exception {
-        if (!Deprecated.isPresent("//tr[@detailvalues]//td[text()='" + customerName_BST + "']")){
+        if (!Legacy.isPresent("//tr[@detailvalues]//td[text()='" + customerName_BST + "']")){
             billingByServiceTypeTab.click(billingByServiceTypeTab.refresh_bbst);
         }
         billingByServiceTypeTab.clickDescription_reportDetails(customerName_BST);
@@ -301,7 +301,7 @@ public class BillingByServiceType extends AppData {
         createNewCustomer.createCustomerWithPrefPaperAndResidentialProperty();
         customerName_BST = createNewCustomer.getCustomerFullName();
         createStandAloneInvoice();
-        invoiceID = Deprecated.getAttribute(invImplementation.invoiceAccountSummaryClick, "ticketid");
+        invoiceID = Legacy.getAttribute(invImplementation.invoiceAccountSummaryClick, "ticketid");
         customerID_BST = customerViewDialog_overviewTab.getCustomerIDFromHeader();
         createNewCustomer.closeCustomerCard();
         header.searchCustomerWithName(customerName_BST);
@@ -496,11 +496,11 @@ public class BillingByServiceType extends AppData {
     //Author: Aditya
     @And("I validate Billing or Payment by service type report generated from Billing Frequency, Customer ID and Invoice")
     public void validateAllThreeGroups() {
-        String customerID_BBSTReport = Deprecated.getElementTextValue("//tr//td[text()='" + customerID_BST + "']");
-        String billingFrequency_BBSTReport = Deprecated.getElementTextValue("//tr//td[text()='" + customerID_BST + "']/parent::tr/preceding-sibling::tr[not(contains(@detailvalues,'customerID'))]/td[1]");
-        String invoiceID_BBSTReport = Deprecated.getElementTextValue("//tr//td[text()='" + customerID_BST + "']/parent::tr/following-sibling::tr/td[1]");
+        String customerID_BBSTReport = Legacy.getElementTextValue("//tr//td[text()='" + customerID_BST + "']");
+        String billingFrequency_BBSTReport = Legacy.getElementTextValue("//tr//td[text()='" + customerID_BST + "']/parent::tr/preceding-sibling::tr[not(contains(@detailvalues,'customerID'))]/td[1]");
+        String invoiceID_BBSTReport = Legacy.getElementTextValue("//tr//td[text()='" + customerID_BST + "']/parent::tr/following-sibling::tr/td[1]");
         try {
-            WebElement elm = Deprecated.locate("//tr//td[text()='" + customerID_BST + "']");
+            WebElement elm = Legacy.locate("//tr//td[text()='" + customerID_BST + "']");
             if (elm.isDisplayed()) {
                 result(customerID_BST, customerID_BBSTReport, "Customer ID validation", "Report Validation");
                 if (CucumberBaseClass.scenarioName().equals("Multi Group By filter validation in PST")) {
@@ -520,7 +520,7 @@ public class BillingByServiceType extends AppData {
     public void searchCustomerBillingFrequencyLineItem() throws InterruptedException {
         billingByServiceTypeTab.click("//tr//td[text()='" + customerID_BST + "']");
         billingByServiceTypeTab.searchNewCustomer(billingByServiceTypeTab.search_lineItem, customerID_BST);
-        Deprecated.locate(billingByServiceTypeTab.search_lineItem).sendKeys(Keys.ENTER);
+        Legacy.locate(billingByServiceTypeTab.search_lineItem).sendKeys(Keys.ENTER);
         Thread.sleep(500);
     }
 

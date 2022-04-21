@@ -1,6 +1,6 @@
 package automation.PestRoutes.PageObject;
 
-import automation.PestRoutes.Utilities.Deprecated;
+import automation.PestRoutes.Utilities.Legacy;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.When;;
 
@@ -20,21 +20,21 @@ public class Header {
 
     @When("I navigate to {string} in header")
     public void navigateTo(String chooseTabFromConst) {
-        Deprecated.waitVisible("//a[text() = '" + chooseTabFromConst + "']");
-        Deprecated.clickElement("//a[text() = '" + chooseTabFromConst + "']");
+        Legacy.waitVisible("//a[text() = '" + chooseTabFromConst + "']");
+        Legacy.clickElement("//a[text() = '" + chooseTabFromConst + "']");
     }
 
 
     public void searchCustomer_History(String needCustomerFullName) {
-        Deprecated.waitVisible(ACCESS_HISTORY);
-        Deprecated.jsClickElement(ACCESS_HISTORY);
-        Deprecated.clickElement("//span[text()='" + needCustomerFullName + "']");
+        Legacy.waitVisible(ACCESS_HISTORY);
+        Legacy.jsClickElement(ACCESS_HISTORY);
+        Legacy.clickElement("//span[text()='" + needCustomerFullName + "']");
     }
 
     @When("I search the number {string} customer in History tab")
     public void searchCustomerInOrder(String customerNumber) {
         clickAccessHistory();
-        Deprecated.clickElement("//h3[text()='Customer Access History']/following-sibling::div//li[" + customerNumber + "]//span[" + customerNumber + "]");
+        Legacy.clickElement("//h3[text()='Customer Access History']/following-sibling::div//li[" + customerNumber + "]//span[" + customerNumber + "]");
     }
 
     //**Author Aarbi
@@ -42,21 +42,21 @@ public class Header {
     public void searchCustomerWithName(String needCustomerName) {
         clickAccessHistory();
         String name = convertName(needCustomerName);
-        if (!Deprecated.isPresent("//span[text()='" + name + "']")){
+        if (!Legacy.isPresent("//span[text()='" + name + "']")){
             clickAccessHistory();
         } else {
-            Deprecated.clickElement("//span[text()='" + name + "']");
+            Legacy.clickElement("//span[text()='" + name + "']");
         }
     }
 
     public void clickAccessHistory() {
-        Deprecated.waitVisible(ACCESS_HISTORY);
-        Deprecated.jsClickElement(ACCESS_HISTORY);
+        Legacy.waitVisible(ACCESS_HISTORY);
+        Legacy.jsClickElement(ACCESS_HISTORY);
     }
 
     public void searchCustomer_SearchField(String customerDetails) {
-        Deprecated.jsClickElement(SearchField);
-        Deprecated.locate(SearchField).sendKeys(customerDetails);
+        Legacy.jsClickElement(SearchField);
+        Legacy.locate(SearchField).sendKeys(customerDetails);
     }
 
     //**Author Aarbi

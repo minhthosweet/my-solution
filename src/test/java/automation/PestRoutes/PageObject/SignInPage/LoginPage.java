@@ -1,10 +1,9 @@
 package automation.PestRoutes.PageObject.SignInPage;
 
-import automation.PestRoutes.PageObject.DashboardPage;
-import automation.PestRoutes.Utilities.Deprecated;
-import org.openqa.selenium.By;
-
+import automation.PestRoutes.PageObject.*;
+import automation.PestRoutes.Utilities.Legacy;
 import static automation.PestRoutes.Utilities.Utilities.*;
+import org.openqa.selenium.*;
 
 public class LoginPage {
 	
@@ -18,16 +17,16 @@ public class LoginPage {
 	
 	// Action method
 	public void clickLoginButton() {
-		Deprecated.clickElement(LoginButton);
+		Legacy.clickElement(LoginButton);
 	}
 	
 	// Setter methods
 	public void setUserName(String needUserName) {
-		Deprecated.locate(UserName).sendKeys(needUserName);
+		Legacy.locate(UserName).sendKeys(needUserName);
 	}
 	
 	public void setPassword(String needPassword) {
-		Deprecated.locate(Password).sendKeys(needPassword);
+		Legacy.locate(Password).sendKeys(needPassword);
 	}
 
 	public DashboardPage logInToApplication(String username, String password) {

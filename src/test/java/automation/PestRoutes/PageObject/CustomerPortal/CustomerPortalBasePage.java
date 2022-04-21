@@ -4,7 +4,7 @@ import automation.PestRoutes.PageObject.BasePage;
 import static automation.PestRoutes.Utilities.Utilities.*;
 
 import automation.PestRoutes.Utilities.*;
-import automation.PestRoutes.Utilities.Deprecated;
+import automation.PestRoutes.Utilities.Legacy;
 import org.openqa.selenium.By;
 
 public class CustomerPortalBasePage extends BasePage {
@@ -22,7 +22,7 @@ public class CustomerPortalBasePage extends BasePage {
 
     public String getResponsibleBalance(){
         delay(1000);
-        Deprecated.scrollToElementJS(responsibleBalance);
+        Legacy.scrollToElementJS(responsibleBalance);
         return getText(responsibleBalance);
     }
 

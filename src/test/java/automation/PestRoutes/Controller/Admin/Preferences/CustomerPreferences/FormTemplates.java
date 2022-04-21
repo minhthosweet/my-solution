@@ -2,7 +2,7 @@ package automation.PestRoutes.Controller.Admin.Preferences.CustomerPreferences;
 
 import automation.PestRoutes.Utilities.*;
 import automation.PestRoutes.Utilities.Data.AppData;
-import automation.PestRoutes.Utilities.Deprecated;
+import automation.PestRoutes.Utilities.Legacy;
 import org.testng.annotations.Test;
 
 import automation.PestRoutes.PageObject.Header;
@@ -32,10 +32,10 @@ public class FormTemplates extends AppData {
 		form.setInputField(form.nameField, needFormName);
 		form.selectValueFromDropdown(form.requiredApprovalDropdown, "No");
 		form.clickButton(form.htmlButton);
-		Deprecated.scrollToElement(form.htmlInputField);
+		Legacy.scrollToElement(form.htmlInputField);
 		form.setInputField(form.htmlInputField, "<div> Employee </div>\n");
 		form.setInputField(form.htmlInputField, getData("employeeSignHtml",generalData));
-		Deprecated.scrollToElement(form.saveButton);
+		Legacy.scrollToElement(form.saveButton);
 		form.clickButton(form.saveButton);
 	}
 	

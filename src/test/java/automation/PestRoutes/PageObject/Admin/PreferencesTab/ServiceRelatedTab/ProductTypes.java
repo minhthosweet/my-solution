@@ -1,6 +1,6 @@
 package automation.PestRoutes.PageObject.Admin.PreferencesTab.ServiceRelatedTab;
 
-import automation.PestRoutes.Utilities.Deprecated;
+import automation.PestRoutes.Utilities.Legacy;
 
 public class ProductTypes {
 	// add Product
@@ -82,127 +82,127 @@ public class ProductTypes {
 
 	// Edit Product
 	public void clickEdit(String productName) {
-		Deprecated.waitVisible(
+		Legacy.waitVisible(
 				"//input[@value='" + productName + "']/following-sibling::div[text()='edit']");
-		Deprecated.clickElement("//input[@value='" + productName + "']/following-sibling::div[text()='edit']"
+		Legacy.clickElement("//input[@value='" + productName + "']/following-sibling::div[text()='edit']"
 		);
 	}
 
 	public void clickAddProductButton() {
-		Deprecated.waitVisible(addProduct);
-		Deprecated.clickElement(addProduct);
+		Legacy.waitVisible(addProduct);
+		Legacy.clickElement(addProduct);
 	}
 
 	// Product Details
 	public void enterProductName(String productsName) {
-		Deprecated.waitVisible(productName);
-		Deprecated.locate(productName).sendKeys(productsName);
+		Legacy.waitVisible(productName);
+		Legacy.locate(productName).sendKeys(productsName);
 	}
 
 	public void enterProductLabel(String productsLabel) {
-		Deprecated.waitVisible(productLabel);
-		Deprecated.locate(productLabel).sendKeys(productsLabel);
+		Legacy.waitVisible(productLabel);
+		Legacy.locate(productLabel).sendKeys(productsLabel);
 	}
 
 	// Setter methods for Unit
 	// Product Values
 	public void setUnit(String placeHolderName, String units) {
-		Deprecated.clickElement(concentratedUnit);
-		Deprecated.clickElement("//select[@placeholder='" + placeHolderName + "']//option[text()='" + units + "']"
+		Legacy.clickElement(concentratedUnit);
+		Legacy.clickElement("//select[@placeholder='" + placeHolderName + "']//option[text()='" + units + "']"
 		);
 	}
 
 	public void setDefaultDilution(String defaultDilutionsQuantity) {
-		Deprecated.locate(defaultDilution).clear();
-		Deprecated.locate(defaultDilution).sendKeys(defaultDilutionsQuantity);
+		Legacy.locate(defaultDilution).clear();
+		Legacy.locate(defaultDilution).sendKeys(defaultDilutionsQuantity);
 
 	}
 
 	public void setMeasurementType(String unit) {
-		Deprecated.clickElement(measurementType);
-		Deprecated.clickElement("//select[@placeholder='measurement type']/option[text()='" + unit + "']"
+		Legacy.clickElement(measurementType);
+		Legacy.clickElement("//select[@placeholder='measurement type']/option[text()='" + unit + "']"
 		);
 	}
 
 	public void setManufacturer(String manufacturers) {
-		Deprecated.locate(manufacturer).clear();
-		Deprecated.locate(manufacturer).sendKeys(manufacturers);
+		Legacy.locate(manufacturer).clear();
+		Legacy.locate(manufacturer).sendKeys(manufacturers);
 
 	}
 
 	public void setSentriconBait(String yesORno) {
-		Deprecated.clickElement(measurementType);
-		Deprecated.clickElement("//select[@placeholder='is sentricon bait']/option[text()='" + yesORno + "']"
+		Legacy.clickElement(measurementType);
+		Legacy.clickElement("//select[@placeholder='is sentricon bait']/option[text()='" + yesORno + "']"
 		);
 	}
 
 	public void setNumerator(String numeratorRatio, String unit) {
-		Deprecated.locate(mixRatioNumerator).clear();
-		Deprecated.locate(mixRatioNumerator).sendKeys(numeratorRatio);
-		Deprecated.clickElement(mixRatioNumeratorUnit);
-		Deprecated.clickElement("//select[@placeholder='Numerator Unit']//option[text()='" + unit + "']"
+		Legacy.locate(mixRatioNumerator).clear();
+		Legacy.locate(mixRatioNumerator).sendKeys(numeratorRatio);
+		Legacy.clickElement(mixRatioNumeratorUnit);
+		Legacy.clickElement("//select[@placeholder='Numerator Unit']//option[text()='" + unit + "']"
 		);
 	}
 
 	public void setDenominator(String denominatorRatio, String unit) {
-		Deprecated.locate(mixRatioDenominator).clear();
-		Deprecated.locate(mixRatioDenominator).sendKeys(denominatorRatio);
-		Deprecated.clickElement(mixRatioDenominatorUnit);
-		Deprecated.clickElement("//select[@placeholder='Denominator Unit']//option[text()='" + unit + "']"
+		Legacy.locate(mixRatioDenominator).clear();
+		Legacy.locate(mixRatioDenominator).sendKeys(denominatorRatio);
+		Legacy.clickElement(mixRatioDenominatorUnit);
+		Legacy.clickElement("//select[@placeholder='Denominator Unit']//option[text()='" + unit + "']"
 		);
 	}
 
 	public void setApplicationMethod(String appMethod) {
-		Deprecated.clickElement(applicationMethod);
-		Deprecated.clickElement("//select[@placeholder='application method']/option[text()='" + appMethod + "']"
+		Legacy.clickElement(applicationMethod);
+		Legacy.clickElement("//select[@placeholder='application method']/option[text()='" + appMethod + "']"
 		);
 	}
 
 	public void chemicalType(String chemicalOption) {
-		Deprecated.clickElement(isChemicalType);
-		Deprecated.clickElement("//select[@placeholder='type']/option[text()='" + chemicalOption + "']"
+		Legacy.clickElement(isChemicalType);
+		Legacy.clickElement("//select[@placeholder='type']/option[text()='" + chemicalOption + "']"
 		);
 	}
 
 	public void setTargetArea() {
-		Deprecated.clickElement(targetAreas);
-		Deprecated.clickElement(addTargetArea);
+		Legacy.clickElement(targetAreas);
+		Legacy.clickElement(addTargetArea);
 	}
 
 	public void setTargetIssues() {
-		Deprecated.clickElement(targetIssue);
-		Deprecated.clickElement(addTargetIssue);
+		Legacy.clickElement(targetIssue);
+		Legacy.clickElement(addTargetIssue);
 	}
 
 	public String getProductName(String setProductName) {
-		Deprecated.waitVisible(
+		Legacy.waitVisible(
 				"//div[@id='newPreferenceBody']//div[contains(text(),'" + setProductName + "')]");
-		return Deprecated
+		return Legacy
 				.getElementTextValue("//div[@id='newPreferenceBody']//div[contains(text(),'" + setProductName + "')]"
                 )
 				.substring(0, 4);
 	}
 
 	public String getProductLabel(String setProductLabel) {
-		Deprecated.waitVisible(
+		Legacy.waitVisible(
 				"//div[@id='newPreferenceBody']//div[contains(text(),'" + setProductLabel + "')]");
-		return Deprecated
+		return Legacy
 				.getElementTextValue("//div[@id='newPreferenceBody']//div[contains(text(),'" + setProductLabel + "')]"
                 )
 				.substring(0, 4);
 	}
 
 	public String getUnitData(String placeHolderName) {
-		return Deprecated.getElementTextValue(
+		return Legacy.getElementTextValue(
 				"//select[@placeholder='" + placeHolderName + "']//option[@selected='selected']");
 	}
 
 	public String getNumeratorValue() {
-		return Deprecated.getAttribute(mixRatioNumerator, "value");
+		return Legacy.getAttribute(mixRatioNumerator, "value");
 	}
 
 	public String getDenominatorValue() {
-		return Deprecated.getAttribute(mixRatioDenominator, "value");
+		return Legacy.getAttribute(mixRatioDenominator, "value");
 	}
 
 }

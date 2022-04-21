@@ -2,7 +2,7 @@ package automation.PestRoutes.PageObject.ReportingPage.OfficePage;
 
 import automation.PestRoutes.PageObject.BasePage;
 import automation.PestRoutes.Utilities.*;
-import automation.PestRoutes.Utilities.Deprecated;
+import automation.PestRoutes.Utilities.Legacy;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
@@ -37,12 +37,12 @@ public class CustomerRestorePageObjects extends BasePage {
     public void enterSearchValue(String searchValue){
 
         Utilities.click(inputSearch);
-        Deprecated.type(searchValue,inputSearch);
+        Utilities.type(inputSearch, searchValue);
         Utilities.locate(inputSearch).sendKeys(Keys.ENTER);
     }//enterSearchValue()
 
     public void clickCustomerRestoreLink(){
-        Deprecated.scrollToElementJS(lnkCustomerRestore);
+        Legacy.scrollToElementJS(lnkCustomerRestore);
         Utilities.click(lnkCustomerRestore);
     }//clickCustomerRestore()
 

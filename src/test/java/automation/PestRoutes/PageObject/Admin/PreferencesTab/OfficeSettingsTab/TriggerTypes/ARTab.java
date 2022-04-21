@@ -5,7 +5,7 @@ import automation.PestRoutes.Utilities.*;
 
 import static automation.PestRoutes.Utilities.Utilities.*;
 
-import automation.PestRoutes.Utilities.Deprecated;
+import automation.PestRoutes.Utilities.Legacy;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import java.util.List;
@@ -55,56 +55,56 @@ public class ARTab extends PreferencesPage {
 
 	// Getters: get actual text value for action created(used for assertions)
 	public String getEmailActionTextValue() {
-		return Deprecated.getElementTextValue(emailAction_actual);
+		return Legacy.getElementTextValue(emailAction_actual);
 	}
 
 	public String getSMSActionTextValue() {
-		return Deprecated.getElementTextValue(SMSAction_actual);
+		return Legacy.getElementTextValue(SMSAction_actual);
 	}
 
 	public String getVoiceActionTextValue() {
-		return Deprecated.getElementTextValue(voiceAction_actual);
+		return Legacy.getElementTextValue(voiceAction_actual);
 	}
 
 	public String getCreateInvoiceActionTextValue() {
-		return Deprecated.getElementTextValue(createInvoiceAction_actual);
+		return Legacy.getElementTextValue(createInvoiceAction_actual);
 	}
 
 	public String getSnailMailActionTextValue() {
-		return Deprecated.getElementTextValue(snailMailAction_actual);
+		return Legacy.getElementTextValue(snailMailAction_actual);
 	}
 
 	public String getCollectionsStageActionTextValue() {
-		return Deprecated.getElementTextValue(collectionsStageAction_actual);
+		return Legacy.getElementTextValue(collectionsStageAction_actual);
 	}
 
 	public String getARMStageActionTextValue() {
-		return Deprecated.getElementTextValue(ARMAction_actual);
+		return Legacy.getElementTextValue(ARMAction_actual);
 	}
 
 	public void setAge_PastDueDays_InputField(String setDays) {
-		Deprecated.locate(age_PastDueDays_InputField).sendKeys(setDays);
+		Legacy.locate(age_PastDueDays_InputField).sendKeys(setDays);
 	}
 
 	public void setMinimum_Balance(String minimumBalance) {
-		Deprecated.waitVisible(minimum_Balance);
-		Deprecated.locate(minimum_Balance).sendKeys(minimumBalance);
+		Legacy.waitVisible(minimum_Balance);
+		Legacy.locate(minimum_Balance).sendKeys(minimumBalance);
 		;
 	}
 
 	public void setMaximum_Balance(String maximumBalance) {
-		Deprecated.waitVisible(maximum_Balance);
-		Deprecated.locate(maximum_Balance).sendKeys(maximumBalance);
+		Legacy.waitVisible(maximum_Balance);
+		Legacy.locate(maximum_Balance).sendKeys(maximumBalance);
 		;
 	}
 
 	public void selectAgePastDue(String agePastDue) {
-		Deprecated.scrollToElementJS(agePastDueDropDown);
+		Legacy.scrollToElementJS(agePastDueDropDown);
 		Utilities.selectByText(agePastDueDropDown, agePastDue);
 	}
 
 	public void typeAgePastDueDays(String agePastDueDays) {
-		Deprecated.type(agePastDueDays, agePastDueDaysField);
+		type(agePastDueDaysField, agePastDueDays);
 	}
 
 	public boolean typeFlagToInclude(String flagCode) {
@@ -115,8 +115,8 @@ public class ARTab extends PreferencesPage {
 				return true;
 			}
 		}
-		Deprecated.scrollToElementJS(includeCustomerFlagsMultiField);
-		Deprecated.type(flagCode, includeCustomerFlagsMultiField);
+		Legacy.scrollToElementJS(includeCustomerFlagsMultiField);
+		Legacy.type(flagCode, includeCustomerFlagsMultiField);
 		System.out.println("Customer Flag: " + flagCode);
 		return false;
 	}
@@ -126,12 +126,12 @@ public class ARTab extends PreferencesPage {
 			case "Minimum Balance":
 				Utilities.locate(By.xpath(minimum_Balance)).clear();
 				Utilities.locate(By.xpath(maximum_Balance)).clear();
-				Deprecated.type("100", Utilities.locate(By.xpath(minimum_Balance)));
+				Legacy.type("100", Utilities.locate(By.xpath(minimum_Balance)));
 				break;
 			case "Maximum Balance":
 				Utilities.locate(By.xpath(minimum_Balance)).clear();
 				Utilities.locate(By.xpath(maximum_Balance)).clear();
-				Deprecated.type("1000", Utilities.locate(By.xpath(maximum_Balance)));
+				Legacy.type("1000", Utilities.locate(By.xpath(maximum_Balance)));
 				break;
 			default:
 				Utilities.locate(By.xpath(minimum_Balance)).clear();
@@ -148,28 +148,28 @@ public class ARTab extends PreferencesPage {
 	public void completeActionSendEmail(String emailType) {
 		if (emailType.equalsIgnoreCase("Email Statement")) {
 			Utilities.selectByText(emailTypeDropDown, emailType);
-			Deprecated.type("Automation Trigger Rule Test", emailTitleField);
+			type(emailTitleField, "Automation Trigger Rule Test");
 		} else if (emailType.equalsIgnoreCase("New Email Message")){
 			Utilities.selectByText(emailTypeDropDown, emailType);
-			Deprecated.type("Automation Trigger Rule Test", emailTitleField);
-			Deprecated.type("Email - AR Trigger Rules Test", textArea_Email_FreezeCustomer_Message);
+			type(emailTitleField, "Automation Trigger Rule Test");
+			type(textArea_Email_FreezeCustomer_Message, "Email - AR Trigger Rules Test");
 		}
 	}
 
 	public void completeActionSendSMS(String ignoreContactPrefs) {
 		waitVisible(smsIgnoreContactPrefsDropDown);
 		Utilities.selectByText(smsIgnoreContactPrefsDropDown, ignoreContactPrefs);
-		Deprecated.type("SMS - AR Trigger Rules Test", textArea_SMS_Voice_Message);
+		type(textArea_SMS_Voice_Message, "SMS - AR Trigger Rules Test");
 	}
 
 	public void completeActionSendVoice(String voiceType) {
 		String voiceMessage = "//select[@name='observerItemValue' and @data-observeritemtype='recordedMessages']";
 		if (voiceType.equalsIgnoreCase("New Message")) {
 			Utilities.selectByText(voiceTypeDropDown, voiceType);
-			Deprecated.type("Voice - AR Trigger Rules Test", textArea_SMS_Voice_Message);
+			type(textArea_SMS_Voice_Message, "Voice - AR Trigger Rules Test");
 		} else if (voiceType.equalsIgnoreCase("Pre-recorded Message")) {
 			Utilities.selectByText(voiceTypeDropDown, voiceType);
-			Deprecated.selectByIndex(voiceMessage, 0);
+			Legacy.selectByIndex(voiceMessage, 0);
 		}
 	}
 
@@ -180,16 +180,16 @@ public class ARTab extends PreferencesPage {
 		switch(action) {
 			case "Add Flags":
 				isVisible(flagsField);
-				Deprecated.type(details, Utilities.locate(flagsField));
+				Legacy.type(details, Utilities.locate(flagsField));
 				break;
 			case "Create Invoices":
 				Utilities.selectByText(createInvoicesValueTypeDropDown, "Fixed");
-				Deprecated.type("38.34", createInvoicesValueField);
+				type(createInvoicesValueField, "38.34");
 				Utilities.selectByText(createInvoicesServiceTypeDropDown, details);
 				break;
 			case "Freeze Customers":
 				Utilities.selectByText(freezeCustomersCancellationReasonDropDown, details);
-				Deprecated.type("Freeze Customers - AR Trigger Rules Test", textArea_Email_FreezeCustomer_Message);
+				type(textArea_Email_FreezeCustomer_Message, "Freeze Customers - AR Trigger Rules Test");
 				break;
 			case "Send Email":
 				completeActionSendEmail(details);
@@ -210,7 +210,7 @@ public class ARTab extends PreferencesPage {
 		switch (action1) {
 			case "Add Flags":
 				isVisible(flagsField);
-				Deprecated.type(details1, locate(flagsField));
+				Legacy.type(details1, locate(flagsField));
 				completeSecondAction(action2, details2);
 				break;
 			case "Create Invoices":
@@ -247,7 +247,7 @@ public class ARTab extends PreferencesPage {
 		switch (action2) {
 			case "Add Flags":
 				isVisible(flagsField);
-				Deprecated.type(details2, locate(flagsField));
+				Legacy.type(details2, locate(flagsField));
 				break;
 			case "Create Invoices":
 				selectByText(createInvoicesValueTypeDropDown, "Fixed");
@@ -271,7 +271,7 @@ public class ARTab extends PreferencesPage {
 	}
 
 	public void clickSaveButton() {
-		Deprecated.scrollToElementJS(saveTriggerButton);
+		Legacy.scrollToElementJS(saveTriggerButton);
 		click(saveTriggerButton);
 	}
 

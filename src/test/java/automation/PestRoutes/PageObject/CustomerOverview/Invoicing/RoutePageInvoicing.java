@@ -2,7 +2,7 @@ package automation.PestRoutes.PageObject.CustomerOverview.Invoicing;
 
 import automation.PestRoutes.PageObject.BasePage;
 import automation.PestRoutes.Utilities.*;
-import automation.PestRoutes.Utilities.Deprecated;
+import automation.PestRoutes.Utilities.Legacy;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
@@ -38,7 +38,7 @@ public class RoutePageInvoicing extends BasePage {
 	// Setter
 
 	public void clickAddNewInvoice(String needTab) {
-		Deprecated.clickElement(needTab);
+		Legacy.clickElement(needTab);
 	}
 
 	public void clickNewInvoice() {
@@ -47,8 +47,8 @@ public class RoutePageInvoicing extends BasePage {
 	}
 
 	public void clickAddPayment() {
-		Deprecated.waitVisible(addPayment);
-		Deprecated.clickElement(addPayment);
+		Legacy.waitVisible(addPayment);
+		Legacy.clickElement(addPayment);
 	}
 
 	public void addPayment() {
@@ -57,13 +57,13 @@ public class RoutePageInvoicing extends BasePage {
 	}
 
 	public void jsClickAddPayment() {
-		Deprecated.waitVisible(addPayment);
-		Deprecated.jsClickElement(addPayment);
+		Legacy.waitVisible(addPayment);
+		Legacy.jsClickElement(addPayment);
 	}
 
 	public void invoiceDetails() {
-		Deprecated.waitVisible(addTicketItem);
-		Deprecated.clickElement(addTicketItem);
+		Legacy.waitVisible(addTicketItem);
+		Legacy.clickElement(addTicketItem);
 	}
 
 	public void clickAddTicketItem(){
@@ -72,19 +72,19 @@ public class RoutePageInvoicing extends BasePage {
 	}
 
 	public void clickAddPartialPayments() {
-		Deprecated.waitVisible(clickAddPartialPayment);
-		Deprecated.clickElement(clickAddPartialPayment);
+		Legacy.waitVisible(clickAddPartialPayment);
+		Legacy.clickElement(clickAddPartialPayment);
 	}
 
 	public void selectAvailableItems() {
-		Deprecated.waitVisible(addAvailableTicket);
-		Deprecated.clickElement(addAvailableTicket);
+		Legacy.waitVisible(addAvailableTicket);
+		Legacy.clickElement(addAvailableTicket);
 	}
 
 	public void selectAvailableItems( String  addOnTicketItem) {
 		String strXpath = "//*[@id='availableItems']/li//span[contains(text(),'" + addOnTicketItem + "')]";
-		Deprecated.waitVisible(strXpath);
-		Deprecated.clickElement(strXpath);
+		Legacy.waitVisible(strXpath);
+		Legacy.clickElement(strXpath);
 	}//selectAvailableItems()
 
 	public boolean clickBackToAccountSummaryButton () {
@@ -125,11 +125,11 @@ public class RoutePageInvoicing extends BasePage {
 	}
 
 	public void typeServiceChargeAmount(String serviceCharge){
-		Deprecated.type(serviceCharge, serviceChargeField);
+		type(serviceChargeField, serviceCharge);
 	}
 
 	public void typeInitialDiscount(String initialDiscount){
-		Deprecated.type(initialDiscount, initialDiscountField);
+		type(initialDiscountField, initialDiscount);
 	}
 
 	public String getPaymentBalance(){

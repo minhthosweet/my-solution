@@ -5,7 +5,7 @@ import automation.PestRoutes.Utilities.*;
 
 import static automation.PestRoutes.Utilities.Utilities.*;
 
-import automation.PestRoutes.Utilities.Deprecated;
+import automation.PestRoutes.Utilities.Legacy;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
@@ -75,77 +75,77 @@ public class ReminderTab extends PreferencesPage {
 	private final String CUSTOM_VOICE_MESSAGE = "Hi {{fname}}! We will be servicing your home this {{serviceDate}}. \n Voice - Reminder Trigger Rules Test";
 
 	public void setdaysBefore_Reminder(String numberOfDays) {
-		Deprecated.waitVisible(daysBefore_Reminder);
-		Deprecated.locate(daysBefore_Reminder).clear();
-		Deprecated.locate(daysBefore_Reminder).sendKeys(numberOfDays);
+		Legacy.waitVisible(daysBefore_Reminder);
+		Legacy.locate(daysBefore_Reminder).clear();
+		Legacy.locate(daysBefore_Reminder).sendKeys(numberOfDays);
 	}
 
 	// Getters: get actual text value for action created(used for assertions)
 	public String getEmailActionTextValue() {
-		return Deprecated.getElementTextValue(emailAction_actual);
+		return Legacy.getElementTextValue(emailAction_actual);
 	}
 
 	public String getSMSActionTextValue() {
-		return Deprecated.getElementTextValue(SMSAction_actual);
+		return Legacy.getElementTextValue(SMSAction_actual);
 	}
 
 	public String getVoiceActionTextValue() {
-		return Deprecated.getElementTextValue(voiceAction_actual);
+		return Legacy.getElementTextValue(voiceAction_actual);
 	}
 
 	public String getAlertText_Notes() {
-		Deprecated.waitVisible(editNotes_Alert);
-		Deprecated.clickElement(editNotes_Alert);
+		Legacy.waitVisible(editNotes_Alert);
+		Legacy.clickElement(editNotes_Alert);
 		String editNote_AlertText = Utilities.getAlertText();
 		Utilities.acceptAlert();
 		return editNote_AlertText;
 	}
 
 	public String ConfirmationNote(String affirmation) {
-		return Deprecated.getElementTextValue("//div[contains(text(),'" + affirmation + "')]");
+		return Legacy.getElementTextValue("//div[contains(text(),'" + affirmation + "')]");
 
 	}
 
 	public String getEmailValue() {
-		return Deprecated.getElementTextValue(emailValue);
+		return Legacy.getElementTextValue(emailValue);
 	}
 
 	public String getVoiceText() {
-		return Deprecated.getElementTextValue(voiceValue);
+		return Legacy.getElementTextValue(voiceValue);
 	}
 
 	public String getSnailMailValue() {
-		return Deprecated.getElementTextValue(snailMailValue);
+		return Legacy.getElementTextValue(snailMailValue);
 	}
 
 	public String getEmployeeEMailValue(String employeeEmail) {
-		return Deprecated.getElementTextValue("//div[@sentto='" + employeeEmail + "']");
+		return Legacy.getElementTextValue("//div[@sentto='" + employeeEmail + "']");
 	}
 
 	public String getAlertValue() {
-		return Deprecated.getElementTextValue(alertLogValue);
+		return Legacy.getElementTextValue(alertLogValue);
 	}
 
 	public String getTaskValue() {
-		return Deprecated.getElementTextValue(taskLogValue);
+		return Legacy.getElementTextValue(taskLogValue);
 	}
 
 	public String customerNameinTask(String customerNameTask) {
-		Deprecated.scrollToElement("//td[@customerid]//p[text()='" + customerNameTask + "']");
-		return Deprecated.getElementTextValue("//td[@customerid]//p[text()='" + customerNameTask + "']"
+		Legacy.scrollToElement("//td[@customerid]//p[text()='" + customerNameTask + "']");
+		return Legacy.getElementTextValue("//td[@customerid]//p[text()='" + customerNameTask + "']"
         );
 	}
 
 	public String getEmployeeVoiceValue() {
-		return Deprecated.getElementTextValue(employeeVoiceValue).substring(0, 41);
+		return Legacy.getElementTextValue(employeeVoiceValue).substring(0, 41);
 	}
 
 	public String getRemovedPaymentValue() {
-		return Deprecated.getElementTextValue(removePaymentValue).substring(0, 41);
+		return Legacy.getElementTextValue(removePaymentValue).substring(0, 41);
 	}
 
 	public String getCCInfoBilling() {
-		return Deprecated.getElementTextValue(CCInfo);
+		return Legacy.getElementTextValue(CCInfo);
 	}
 
 	public void selectWhenToTrigger(String whenToTrigger) {
@@ -153,8 +153,8 @@ public class ReminderTab extends PreferencesPage {
 	}
 
 	public void typeDaysBefore(String numberOfDays) {
-		Deprecated.scrollToElementJS(daysBeforeField);
-		Deprecated.type(numberOfDays, daysBeforeField);
+		Legacy.scrollToElementJS(daysBeforeField);
+		type(daysBeforeField, numberOfDays);
 	}
 
 	public boolean typeFlagToInclude(String flagCode) {
@@ -166,8 +166,8 @@ public class ReminderTab extends PreferencesPage {
 				return true;
 			}
 		}
-		Deprecated.scrollToElementJS(includeCustomerFlagsMultiField);
-		Deprecated.type(flagCode, includeCustomerFlagsMultiField);
+		Legacy.scrollToElementJS(includeCustomerFlagsMultiField);
+		Legacy.type(flagCode, includeCustomerFlagsMultiField);
 		System.out.println("Customer Flag: " + flagCode);
 		return false;
 	}
@@ -188,7 +188,7 @@ public class ReminderTab extends PreferencesPage {
 			delay(1000);
 			Utilities.selectByText(emailTypeDropDown, emailType);
 			jsScrollTo(emailTextAreaMessage);
-			Deprecated.type(CUSTOM_EMAIL_MESSAGE, emailTextAreaMessage);
+			type(emailTextAreaMessage, CUSTOM_EMAIL_MESSAGE);
 		}
 	}
 
@@ -202,7 +202,7 @@ public class ReminderTab extends PreferencesPage {
 			delay(1000);
 			selectByText(smsTypeDropDown, smsType);
 			jsScrollTo(textAreaMessageVoiceSMS);
-			Deprecated.type(CUSTOM_SMS_MESSAGE, textAreaMessageVoiceSMS);
+			type(textAreaMessageVoiceSMS, CUSTOM_SMS_MESSAGE);
 		}
 	}
 
@@ -216,12 +216,12 @@ public class ReminderTab extends PreferencesPage {
 			Utilities.isVisible(voiceTypeDropDown);
 			delay(1000);
 			Utilities.selectByText(voiceTypeDropDown, voiceType);
-			Deprecated.type(CUSTOM_VOICE_MESSAGE, textAreaMessageVoiceSMS);
+			type(textAreaMessageVoiceSMS, CUSTOM_VOICE_MESSAGE);
 		} else if (voiceType.equalsIgnoreCase("Pre-recorded Message")) {
 			Utilities.isVisible(voiceTypeDropDown);
 			delay(1000);
 			Utilities.selectByText(voiceTypeDropDown, voiceType);
-			Deprecated.selectByIndex(voiceMessage, 0);
+			Legacy.selectByIndex(voiceMessage, 0);
 		}
 	}
 
@@ -243,7 +243,7 @@ public class ReminderTab extends PreferencesPage {
 	}
 
 	public void clickSaveButton() {
-		Deprecated.scrollToElementJS(saveTriggerButton);
+		Legacy.scrollToElementJS(saveTriggerButton);
 		click(saveTriggerButton);
 	}
 }

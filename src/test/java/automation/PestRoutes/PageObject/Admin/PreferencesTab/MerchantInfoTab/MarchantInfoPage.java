@@ -2,7 +2,7 @@ package automation.PestRoutes.PageObject.Admin.PreferencesTab.MerchantInfoTab;
 
 import automation.PestRoutes.PageObject.BasePage;
 import automation.PestRoutes.Utilities.*;
-import automation.PestRoutes.Utilities.Deprecated;
+import automation.PestRoutes.Utilities.Legacy;
 import org.openqa.selenium.By;
 
 import java.util.Locale;
@@ -32,11 +32,11 @@ public class MarchantInfoPage extends BasePage {
     public final String HDR_DEFAULT_VAULT_SETTINGS = "Default Vault Settings";
 
     public void select(String needDropdown, String needText){
-        Deprecated.selectByText(needDropdown, needText);
+        Legacy.selectByText(needDropdown, needText);
     }
 
     public void click(String needElement){
-        Deprecated.clickElement(needElement);
+        Legacy.clickElement(needElement);
     }
 
     public void clickEditForDefaultSettings(){

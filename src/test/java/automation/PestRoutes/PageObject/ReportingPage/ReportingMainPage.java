@@ -4,7 +4,7 @@ import automation.PestRoutes.PageObject.BasePage;
 import automation.PestRoutes.PageObject.ReportingPage.OfficePage.CustomerRestorePageObjects;
 import automation.PestRoutes.PageObject.ReportingPage.OfficePage.PaymentsByServiceTypeTab;
 import automation.PestRoutes.Utilities.*;
-import automation.PestRoutes.Utilities.Deprecated;
+import automation.PestRoutes.Utilities.Legacy;
 import org.openqa.selenium.By;
 
 public class ReportingMainPage extends BasePage {
@@ -14,17 +14,17 @@ public class ReportingMainPage extends BasePage {
 	private By lnkCustomerRestore = By.xpath("//ul[@id='oReportsMenu']/li[text()='Customer Restore']");
 
 	public void navigateTo(String needTab) {
-		Deprecated.clickElement("//p[text() = '"+needTab+"']");
+		Legacy.clickElement("//p[text() = '"+needTab+"']");
 	}
 
 	public PaymentsByServiceTypeTab clickPaymentsByServiceType() {
-		Deprecated.scrollToElementJS(Utilities.locate(paymentsByServiceType));
+		Legacy.scrollToElementJS(Utilities.locate(paymentsByServiceType));
 		Utilities.click(paymentsByServiceType);
 		return new PaymentsByServiceTypeTab();
 	}
 
 	public CustomerRestorePageObjects clickCustomerRestore() {
-		Deprecated.scrollToElementJS(Utilities.locate(lnkCustomerRestore));
+		Legacy.scrollToElementJS(Utilities.locate(lnkCustomerRestore));
 		Utilities.click(lnkCustomerRestore);
 		return new CustomerRestorePageObjects();
 	}//clickCustomerRestore()

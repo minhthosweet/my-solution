@@ -8,7 +8,7 @@ import automation.PestRoutes.Utilities.*;
 
 import static automation.PestRoutes.Utilities.Utilities.*;
 
-import automation.PestRoutes.Utilities.Deprecated;
+import automation.PestRoutes.Utilities.Legacy;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
@@ -129,8 +129,8 @@ public class BillingByServiceTypeTab {
     //Author: Aditya
     public void setGroupFilter(String group, String groupByType) {
         officeObjs = new OfficeObjects();
-        Deprecated.waitVisible(group);
-        Deprecated.selectByText(group, groupByType);
+        Legacy.waitVisible(group);
+        Legacy.selectByText(group, groupByType);
     }
 
     //Author: Aditya
@@ -163,103 +163,103 @@ public class BillingByServiceTypeTab {
     }
 
     public String get(String needIdentifier) {
-        return Deprecated.getElementTextValue(needIdentifier);
+        return Legacy.getElementTextValue(needIdentifier);
     }
 
     public String getBilledServices_MultiGroupReport(String needCustomerID) {
-        return Deprecated.getElementTextValue("//td[text()='" + needCustomerID + "']/parent::tr[@detailvalues]//td[4]");
+        return Legacy.getElementTextValue("//td[text()='" + needCustomerID + "']/parent::tr[@detailvalues]//td[4]");
     }
 
     public String getTaxRate_MultiGroupReport(String needCustomerID) {
-        return Deprecated.getElementTextValue("//td[text()='" + needCustomerID + "']/parent::tr[@detailvalues]//td[6]");
+        return Legacy.getElementTextValue("//td[text()='" + needCustomerID + "']/parent::tr[@detailvalues]//td[6]");
     }
 
     public String getBilledTaxValue_Customer() {
-        return Deprecated.getElementTextValue(tax_Customer).replace("\n", "");
+        return Legacy.getElementTextValue(tax_Customer).replace("\n", "");
     }
 
     public String getBilledServiceValue_Customer() {
-        return Deprecated.getElementTextValue(billedServices_Customer).replace("\n", "");
+        return Legacy.getElementTextValue(billedServices_Customer).replace("\n", "");
     }
 
     public String getAttributeValue(String needIdentifier, String needAttribute) {
-        return Deprecated.getAttribute(needIdentifier, needAttribute);
+        return Legacy.getAttribute(needIdentifier, needAttribute);
     }
 
     public void searchNewCustomer(String searchBox, String searchCustomerParameter) {
-        Deprecated.waitVisible(searchBox);
-        Deprecated.locate(searchBox).sendKeys(searchCustomerParameter);
+        Legacy.waitVisible(searchBox);
+        Legacy.locate(searchBox).sendKeys(searchCustomerParameter);
     }
 
     public void click(String needButton) {
         Utilities.waitClickable(By.xpath(needButton), 10);
-        Deprecated.scrollToElementJS(needButton);
-        Deprecated.jsClickElement(needButton);
+        Legacy.scrollToElementJS(needButton);
+        Legacy.jsClickElement(needButton);
     }
 
     public void clickAdvancedFilters() {
         waitClickable(By.xpath("//div[@id = 'advancedFilterToggleButton']"), 10);
-        Deprecated.clickElement("//div[@id = 'advancedFilterToggleButton']");
+        Legacy.clickElement("//div[@id = 'advancedFilterToggleButton']");
     }
 
     //Author: Aditya
     public void setType(String key, String type) {
-        Deprecated.locate(filterTypes_BST(key)).sendKeys(type);
-        Deprecated.clickElement("//span[text()='" + type + "']");
+        Legacy.locate(filterTypes_BST(key)).sendKeys(type);
+        Legacy.clickElement("//span[text()='" + type + "']");
     }
 
     public void setIncludeCollections(String includeCollections) {
-        Deprecated.locate(filterTypes_BST("inclCollections")).sendKeys(includeCollections);
+        Legacy.locate(filterTypes_BST("inclCollections")).sendKeys(includeCollections);
     }
 
     public void setSubscriptionSource(String subscriptionSource) {
-        Deprecated.locate(filterTypes_BST("subSource_bbst")).sendKeys(subscriptionSource);
+        Legacy.locate(filterTypes_BST("subSource_bbst")).sendKeys(subscriptionSource);
     }
 
     public void setRegions(String regions) {
-        Deprecated.locate(filterTypes_BST("regions_bbst")).sendKeys(regions);
+        Legacy.locate(filterTypes_BST("regions_bbst")).sendKeys(regions);
     }
 
     public void setOffice_bbst(String office) {
-        Deprecated.locate(filterTypes_BST("offices_bbst")).sendKeys(office);
+        Legacy.locate(filterTypes_BST("offices_bbst")).sendKeys(office);
     }
 
     public void setExcludeFlags(String excludeFlags) {
-        Deprecated.locate(filterTypes_BST("excludeFlags_bbst")).sendKeys(excludeFlags);
+        Legacy.locate(filterTypes_BST("excludeFlags_bbst")).sendKeys(excludeFlags);
     }
 
     public void setScheduledBy(String scheduledBy) {
-        Deprecated.locate(filterTypes_BST("scheduledBy_bbst")).sendKeys(scheduledBy);
+        Legacy.locate(filterTypes_BST("scheduledBy_bbst")).sendKeys(scheduledBy);
     }
 
     public void setSoldBy(String soldBy) {
-        Deprecated.locate(filterTypes_BST("soldByTeam_bbst")).sendKeys(soldBy);
+        Legacy.locate(filterTypes_BST("soldByTeam_bbst")).sendKeys(soldBy);
     }
 
     public void setSoldbySalesRep(String soldbySalesRep) {
-        Deprecated.locate(filterTypes_BST("soldbySalesRep_bbst")).sendKeys(soldbySalesRep);
+        Legacy.locate(filterTypes_BST("soldbySalesRep_bbst")).sendKeys(soldbySalesRep);
     }
 
     public void setSoldDateRange(String dateRange) {
-        Deprecated.waitVisible(soldDateRange);
-        Deprecated.locate(soldDateRange).sendKeys(dateRange);
+        Legacy.waitVisible(soldDateRange);
+        Legacy.locate(soldDateRange).sendKeys(dateRange);
     }
 
     public void clickDescription_reportDetails(String customerName) {
         delay(3000);
         Utilities.waitClickable(By.xpath("//tr[@detailvalues]//td[text()='" + customerName + "']"), 10);
-        Deprecated.scrollToElementJS("//tr[@detailvalues]//td[text()='" + customerName + "']");
-        Deprecated.jsClickElement("//tr[@detailvalues]//td[text()='" + customerName + "']");
+        Legacy.scrollToElementJS("//tr[@detailvalues]//td[text()='" + customerName + "']");
+        Legacy.jsClickElement("//tr[@detailvalues]//td[text()='" + customerName + "']");
     }
 
     //Author: Aditya
     public void customerDetails(String customerName) throws Exception {
         String customerName_detailed = "//tr[@onmouseup]//td[text()='" + customerName + "']";
         try {
-            WebElement elm = Deprecated.locate(customerName_detailed);
+            WebElement elm = Legacy.locate(customerName_detailed);
             if (elm.isDisplayed()) {
-                Deprecated.scrollToElementJS(customerName_detailed);
-                Deprecated.clickElement(customerName_detailed);
+                Legacy.scrollToElementJS(customerName_detailed);
+                Legacy.clickElement(customerName_detailed);
             }
         } catch (Exception e) {
             System.out.println("Customer Card doesn't open");
@@ -267,27 +267,27 @@ public class BillingByServiceTypeTab {
     }
 
     public void set(String needTag, String needType) {
-        Deprecated.waitVisible(needTag);
-        Deprecated.selectByText(needTag, needType);
+        Legacy.waitVisible(needTag);
+        Legacy.selectByText(needTag, needType);
     }
 
     public void setBalance_bbst(String balance) {
-        Deprecated.waitVisible(balance_bbst);
-        Deprecated.locate(balance_bbst).sendKeys(balance);
+        Legacy.waitVisible(balance_bbst);
+        Legacy.locate(balance_bbst).sendKeys(balance);
     }
 
     //Author: Aditya
     public void setDateRange(String type, String dateRange) {
-        Deprecated.waitVisible(type);
-        Deprecated.clickElement(type);
-        Deprecated.waitVisible("//div[contains(@style,'block')]//li[text()='" + dateRange + "']");
-        Deprecated.clickElement("//div[contains(@style,'block')]//li[text()='" + dateRange + "']");
+        Legacy.waitVisible(type);
+        Legacy.clickElement(type);
+        Legacy.waitVisible("//div[contains(@style,'block')]//li[text()='" + dateRange + "']");
+        Legacy.clickElement("//div[contains(@style,'block')]//li[text()='" + dateRange + "']");
     }
 
     //Author: Aditya
     public void setSalesRep(String salesRepTab, String salesRepType) {
-        Deprecated.waitVisible(filterTypes_BST(salesRepTab));
-        Deprecated.selectByText(filterTypes_BST(salesRepTab), salesRepType);
+        Legacy.waitVisible(filterTypes_BST(salesRepTab));
+        Legacy.selectByText(filterTypes_BST(salesRepTab), salesRepType);
     }
 
 }

@@ -1,6 +1,6 @@
 package automation.PestRoutes.PageObject.Admin.PreferencesTab.OfficeSettingsTab.TriggerTypes;
 
-import automation.PestRoutes.Utilities.Deprecated;
+import automation.PestRoutes.Utilities.Legacy;
 
 public class SubscriptionDueForServiceTab {
 
@@ -14,9 +14,9 @@ public class SubscriptionDueForServiceTab {
 
 	// Set days before after due date
 	public void setdays_before_afterDueDate_InputField(String setDays) {
-		Deprecated.waitVisible(days_before_afterDueDate);
-		Deprecated.locate(days_before_afterDueDate).clear();
-		Deprecated.waitVisible(days_before_afterDueDate);
-		Deprecated.locate(days_before_afterDueDate).sendKeys(setDays);
+		Legacy.waitVisible(days_before_afterDueDate);
+		Legacy.locate(days_before_afterDueDate).clear();
+		Legacy.waitVisible(days_before_afterDueDate);
+		Legacy.locate(days_before_afterDueDate).sendKeys(setDays);
 	}
 }

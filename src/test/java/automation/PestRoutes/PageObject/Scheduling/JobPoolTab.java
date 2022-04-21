@@ -1,7 +1,7 @@
 package automation.PestRoutes.PageObject.Scheduling;
 
 import automation.PestRoutes.Utilities.Data.*;
-import automation.PestRoutes.Utilities.Deprecated;
+import automation.PestRoutes.Utilities.Legacy;
 import org.openqa.selenium.Keys;
 
 import java.util.HashMap;
@@ -49,69 +49,69 @@ public class JobPoolTab extends AppData {
     }
 
     public void selectFilter(String needFilterType, String needValue) {
-        Deprecated.selectByText(needFilterType, needValue);
+        Legacy.selectByText(needFilterType, needValue);
     }
 
     public void clickRefreshButton() {
-        Deprecated.waitVisible(refreshButton);
-        Deprecated.clickElement(refreshButton);
+        Legacy.waitVisible(refreshButton);
+        Legacy.clickElement(refreshButton);
     }
 
     public void clickAdvanceFilterButton() {
-        Deprecated.waitVisible(advanceToggleButton);
-        Deprecated.clickElement(advanceToggleButton);
+        Legacy.waitVisible(advanceToggleButton);
+        Legacy.clickElement(advanceToggleButton);
     }
 
     public void clickPlayButton(String chooseNameFromConst) {
-        Deprecated.waitVisible("//tr[@customername='"+chooseNameFromConst+"']//td/div");
-        Deprecated.clickElement("//tr[@customername='"+chooseNameFromConst+"']//td/div");
+        Legacy.waitVisible("//tr[@customername='"+chooseNameFromConst+"']//td/div");
+        Legacy.clickElement("//tr[@customername='"+chooseNameFromConst+"']//td/div");
     }
 
 
     public void setDate(String needFilterType) {
         String todaysDate = GetDate.currentDate("MM/dd/yy");
-        Deprecated.clearField(needFilterType);
-        Deprecated.highLight(needFilterType);
-        Deprecated.locate(needFilterType).sendKeys(todaysDate);
-        Deprecated.locate(needFilterType).sendKeys(Keys.ENTER);
+        Legacy.clearField(needFilterType);
+        Legacy.highLight(needFilterType);
+        Legacy.locate(needFilterType).sendKeys(todaysDate);
+        Legacy.locate(needFilterType).sendKeys(Keys.ENTER);
     }
 
     public void setInputFilter(String needFilterType, String needValue) {
-        Deprecated.locate(needFilterType).sendKeys(needValue);
+        Legacy.locate(needFilterType).sendKeys(needValue);
     }
 
     public String getCustomerName(String chooseNameFromConst) {
-        String elm = Deprecated.getElementTextValue("//tr[@customername='"+chooseNameFromConst+"']//td/following-sibling::td[2]");
+        String elm = Legacy.getElementTextValue("//tr[@customername='"+chooseNameFromConst+"']//td/following-sibling::td[2]");
         return elm;
     }
 
     public String getCustomerPhone(String chooseNameFromConst) {
-        String elm = Deprecated.getElementTextValue("//tr[@customername='"+chooseNameFromConst+"']//td/following-sibling::td[6]");
+        String elm = Legacy.getElementTextValue("//tr[@customername='"+chooseNameFromConst+"']//td/following-sibling::td[6]");
         return elm;
     }
 
     public String getCustomerStreet(String chooseNameFromConst) {
-        String elm = Deprecated.getElementTextValue("//tr[@customername='"+chooseNameFromConst+"']//td/following-sibling::td[7]");
+        String elm = Legacy.getElementTextValue("//tr[@customername='"+chooseNameFromConst+"']//td/following-sibling::td[7]");
         return elm;
     }
 
     public String getCustomerCity(String chooseNameFromConst) {
-        String elm = Deprecated.getElementTextValue("//tr[@customername='"+chooseNameFromConst+"']//td/following-sibling::td[8]");
+        String elm = Legacy.getElementTextValue("//tr[@customername='"+chooseNameFromConst+"']//td/following-sibling::td[8]");
         return elm;
     }
 
     public String getCustomerZip(String chooseNameFromConst) {
-        String elm = Deprecated.getElementTextValue("//tr[@customername='"+chooseNameFromConst+"']//td/following-sibling::td[9]");
+        String elm = Legacy.getElementTextValue("//tr[@customername='"+chooseNameFromConst+"']//td/following-sibling::td[9]");
         return elm;
     }
 
     public String getCustomerRegion(String chooseNameFromConst) {
-        String elm = Deprecated.getElementTextValue("//tr[@customername='"+chooseNameFromConst+"']//td/following-sibling::td[12]");
+        String elm = Legacy.getElementTextValue("//tr[@customername='"+chooseNameFromConst+"']//td/following-sibling::td[12]");
         return elm;
     }
 
     public String getServiceType(String chooseNameFromConst) {
-        String elm = Deprecated.getElementTextValue("//tr[@customername='"+chooseNameFromConst+"']//td/following-sibling::td[13]");
+        String elm = Legacy.getElementTextValue("//tr[@customername='"+chooseNameFromConst+"']//td/following-sibling::td[13]");
         return elm;
     }
 

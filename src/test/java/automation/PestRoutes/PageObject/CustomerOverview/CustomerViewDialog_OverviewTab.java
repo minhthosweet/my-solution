@@ -2,7 +2,7 @@ package automation.PestRoutes.PageObject.CustomerOverview;
 
 import automation.PestRoutes.PageObject.BasePage;
 import automation.PestRoutes.Utilities.*;
-import automation.PestRoutes.Utilities.Deprecated;
+import automation.PestRoutes.Utilities.Legacy;
 import org.openqa.selenium.By;
 
 public class CustomerViewDialog_OverviewTab extends BasePage {
@@ -24,19 +24,19 @@ public class CustomerViewDialog_OverviewTab extends BasePage {
 	 */
 	
 	public String getCustomerNameFromHeader() {
-		return Deprecated.getElementTextValue(customerNameInDialogHeader);
+		return Legacy.getElementTextValue(customerNameInDialogHeader);
 	}
 	
 	public String getCustomerIDFromHeader() {
-		return Deprecated.getElementTextValue(customerID_InDialogHeader).replaceAll("[^a-zA-Z0-9]+", "");
+		return Legacy.getElementTextValue(customerID_InDialogHeader).replaceAll("[^a-zA-Z0-9]+", "");
 	}
 	
 	public String getFullAddress() {
-		return Deprecated.getElementTextValue(overviewTab_Address);
+		return Legacy.getElementTextValue(overviewTab_Address);
 	}
 
 	public String getCity(){
-		String str =  Deprecated.getElementTextValue(overviewTab_Address);
+		String str =  Legacy.getElementTextValue(overviewTab_Address);
 		return str.substring(str.indexOf(" ")+1, str.indexOf(","));
 	}
 

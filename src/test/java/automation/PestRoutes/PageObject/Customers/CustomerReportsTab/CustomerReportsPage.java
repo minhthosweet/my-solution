@@ -5,7 +5,7 @@ import automation.PestRoutes.Utilities.Element.WebSelect;
 import automation.PestRoutes.Utilities.Utilities;
 import static automation.PestRoutes.Utilities.Utilities.*;
 import automation.PestRoutes.Utilities.Data.AppData;
-import automation.PestRoutes.Utilities.Deprecated;
+import automation.PestRoutes.Utilities.Legacy;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
@@ -287,98 +287,98 @@ public class CustomerReportsPage extends BasePage {
 
     public String getTextValue(String needXpath) {
         Utilities.delay(3000);
-        Deprecated.waitVisible(needXpath);
-        Deprecated.scrollToElementJS(needXpath);
-        return Deprecated.getElementTextValue(needXpath);
+        Legacy.waitVisible(needXpath);
+        Legacy.scrollToElementJS(needXpath);
+        return Legacy.getElementTextValue(needXpath);
     }
 
     public String getTextValue(By locator) {
         delay(3000);
         Utilities.waitVisible(locator);
-        Deprecated.scrollToElementJS(locator);
+        Legacy.scrollToElementJS(locator);
         return Utilities.getText(locator);
     }
 
     public void click(String needButton) throws InterruptedException {
-        Deprecated.waitVisible(needButton);
-        Deprecated.clickElement(needButton);
+        Legacy.waitVisible(needButton);
+        Legacy.clickElement(needButton);
     }
 
     public void setValueFromDropdown(String needXpath, String needValue) {
-        Deprecated.waitVisible(needXpath);
-        Deprecated.scrollToElementJS(needXpath);
-        Deprecated.selectByText(needXpath, needValue);
+        Legacy.waitVisible(needXpath);
+        Legacy.scrollToElementJS(needXpath);
+        Legacy.selectByText(needXpath, needValue);
     }
 
     public void setType(String needXpath, String type) throws InterruptedException {
         Utilities.jsScrollToBottom();
-        Deprecated.locate(needXpath).sendKeys(type);
+        Legacy.locate(needXpath).sendKeys(type);
     }
 
     public void set(String needXpath, String needType) {
-        Deprecated.waitVisible(needXpath);
-        Deprecated.scrollToElementJS(needXpath);
-        Deprecated.waitVisible(needXpath);
-        Deprecated.selectByText(needXpath, needType);
+        Legacy.waitVisible(needXpath);
+        Legacy.scrollToElementJS(needXpath);
+        Legacy.waitVisible(needXpath);
+        Legacy.selectByText(needXpath, needType);
     }
 
     public void setProperty(String needXpath, String type) throws InterruptedException, IOException {
         Utilities.jsScrollToBottom();
-        Deprecated.clickElement(needXpath);
-        Deprecated.locate(needXpath).sendKeys(type);
-        Deprecated.clickElement("//span[text()='" + type + "']");
+        Legacy.clickElement(needXpath);
+        Legacy.locate(needXpath).sendKeys(type);
+        Legacy.clickElement("//span[text()='" + type + "']");
     }
 
     public void searchCustomer_CustomerReports(String needXpath, String customerName) throws InterruptedException {
         Utilities.jsScrollToBottom();
-        Deprecated.locate(needXpath).sendKeys(customerName);
+        Legacy.locate(needXpath).sendKeys(customerName);
     }
 
     public void clickCustomerReport() {
-        Deprecated.waitVisible(customerReportFirstEntry);
-        Deprecated.scrollToElementJS(searchBox);
-        Deprecated.clickElement(customerReportFirstEntry);
+        Legacy.waitVisible(customerReportFirstEntry);
+        Legacy.scrollToElementJS(searchBox);
+        Legacy.clickElement(customerReportFirstEntry);
     }
 
     public void clickActionType_action(String actionType) throws IOException {
-        Deprecated.waitVisible(actionsDropDown);
-        Deprecated.scrollToElementJS(actionsDropDown);
-        Deprecated.hoverElement(actionsDropDown, actionType);
+        Legacy.waitVisible(actionsDropDown);
+        Legacy.scrollToElementJS(actionsDropDown);
+        Legacy.hoverElement(actionsDropDown, actionType);
     }
 
     public void addFlag_action() throws IOException, InterruptedException {
         AppData appData = new AppData();
-        Deprecated.waitVisible("//span[text()='Add / Remove Flags']");
+        Legacy.waitVisible("//span[text()='Add / Remove Flags']");
         click(addFlags);
-        Deprecated.locate(addFlags).sendKeys(AppData.getData("flag", appData.generalData));
+        Legacy.locate(addFlags).sendKeys(AppData.getData("flag", appData.generalData));
         click("//div[@id='select2-drop']//span[text()='" + AppData.getData("flag", appData.generalData) + "']");
         click(applyButton_addRemoveFlags_CR);
     }
 
     public void sendMessage_action(String textMessage) throws InterruptedException {
-        Deprecated.waitVisible(textMessage_actions);
-        Deprecated.locate(textMessage_actions).clear();
-        Deprecated.locate(textMessage_actions).sendKeys(textMessage);
+        Legacy.waitVisible(textMessage_actions);
+        Legacy.locate(textMessage_actions).clear();
+        Legacy.locate(textMessage_actions).sendKeys(textMessage);
         click("//div[@id='showMessagePlaceholdersButton']");
         click(sendMessageButton);
         Utilities.acceptAlert();
     }
 
     public void setBulkFreezeNote(String textMessage) {
-        Deprecated.waitVisible(cancellationNotesTextBox);
-        Deprecated.locate(cancellationNotesTextBox).sendKeys(textMessage);
+        Legacy.waitVisible(cancellationNotesTextBox);
+        Legacy.locate(cancellationNotesTextBox).sendKeys(textMessage);
     }
 
     public void listBy(String listBy) {
-        Deprecated.selectByText("//label[text()='List By']/parent::div//select", listBy);
+        Legacy.selectByText("//label[text()='List By']/parent::div//select", listBy);
     }
 
     public void updateSubscriptionPrice_action(String priceChange) throws InterruptedException {
-        Deprecated.locate(fixedAmountTextBox_actions).clear();
-        Deprecated.locate(fixedAmountTextBox_actions).sendKeys(priceChange);
+        Legacy.locate(fixedAmountTextBox_actions).clear();
+        Legacy.locate(fixedAmountTextBox_actions).sendKeys(priceChange);
         click(proceedToVerificationButton);
-        Deprecated.waitVisible(confirmChangeButton_subscriptionPriceChange);
-        Deprecated.clickElement(confirmChangeButton_subscriptionPriceChange);
+        Legacy.waitVisible(confirmChangeButton_subscriptionPriceChange);
+        Legacy.clickElement(confirmChangeButton_subscriptionPriceChange);
         Utilities.acceptAlert();
     }
 
@@ -387,7 +387,7 @@ public class CustomerReportsPage extends BasePage {
     }//clickSelectColumnsToDisplayLink()
 
     public void displayColumnOnReport(String colName){
-        Deprecated.type(colName,inputSelectColumnsToDisplay);
+        type(inputSelectColumnsToDisplay, colName);
         Utilities.locate(inputSelectColumnsToDisplay).sendKeys(Keys.ENTER);
     }//clickSelectColumnsToDisplayLink()
 
@@ -397,13 +397,13 @@ public class CustomerReportsPage extends BasePage {
 
     public void clickSavedReports() {
         Utilities.delay(1000);
-        Deprecated.scrollToElementJS(savedReports);
+        Legacy.scrollToElementJS(savedReports);
         Utilities.click(By.xpath(savedReports));
         delay(1000);
     }
 
     public void clickRunReport() {
-        Deprecated.scrollToElementJS(refreshButton);
+        Legacy.scrollToElementJS(refreshButton);
         Utilities.click(By.xpath(refreshButton));
     }
 
@@ -436,28 +436,28 @@ public class CustomerReportsPage extends BasePage {
 
     public void clickCustomerReportsSection(String section) {
         By filterSection = By.xpath("//div[text()='" + section + "']");
-        Deprecated.scrollToElementJS(filterSection);
+        Legacy.scrollToElementJS(filterSection);
         Utilities.click(filterSection);
         delay(1000);
     }
 
     public void typeToScheduledForDate_ServiceAppointment(String date) {
-        Deprecated.scrollToElementJS(serviceAppointmentToScheduledForDateField);
-        Deprecated.type(date, serviceAppointmentToScheduledForDateField);
+        Legacy.scrollToElementJS(serviceAppointmentToScheduledForDateField);
+        type(serviceAppointmentToScheduledForDateField, date);
     }
 
     public void typeFromScheduledForDate_ServiceAppointment(String date) {
-        Deprecated.scrollToElementJS(serviceAppointmentFromScheduledForDateField);
-        Deprecated.type(date, serviceAppointmentFromScheduledForDateField);
+        Legacy.scrollToElementJS(serviceAppointmentFromScheduledForDateField);
+        type(serviceAppointmentFromScheduledForDateField, date);
     }
 
     public void serviceAppointment_TypeCategory(String category) {
-        Deprecated.scrollToElement(serviceAppointmentCategoryMultiField);
-        Deprecated.type(category, locate(serviceAppointmentCategoryMultiField));
+        Legacy.scrollToElement(serviceAppointmentCategoryMultiField);
+        Legacy.type(category, locate(serviceAppointmentCategoryMultiField));
     }
 
     public void selectFromShowTechNotes(String showTechNotes) {
-        Deprecated.scrollToElement(serviceAppointmentCategoryMultiField);
+        Legacy.scrollToElement(serviceAppointmentCategoryMultiField);
         WebSelect.selectByText(serviceAppointmentShowTechNotesDropDown, showTechNotes);
     }
 
@@ -474,14 +474,14 @@ public class CustomerReportsPage extends BasePage {
     }
 
     public void clickHeaderCustomerID() {
-        Deprecated.scrollToElement(tableHeaderCustomerID);
+        Legacy.scrollToElement(tableHeaderCustomerID);
         Utilities.click(tableHeaderCustomerID);
         delay(3000);
     }
 
     public void billingAccount_TypePaymentDaysPastDue(String operatorSign, String days) {
-        Deprecated.type(operatorSign, billingAccountPaymentDaysPastDueOperatorSign);
-        Deprecated.type(days, billingAccountPaymentDaysPastDueField);
+        type(billingAccountPaymentDaysPastDueOperatorSign, operatorSign);
+        type(billingAccountPaymentDaysPastDueField, days);
     }
 
     public String getValueAfterAddingOneColumn(String customerID) {
