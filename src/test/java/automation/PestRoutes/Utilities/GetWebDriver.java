@@ -16,22 +16,12 @@ public class GetWebDriver {
 
     public static WebDriver getInstance() {
 		if(driver == null) {
+            WebDriverManager.chromedriver().setup();
 			ChromeOptions options = new ChromeOptions();
 			options.addArguments("--window-size=1366,768","--ignore-certificate-errors");
-			//options.addArguments("headless");
-			WebDriverManager.chromedriver().setup();
-			if(SystemUtils.IS_OS_MAC_OSX) {
-				options.addArguments("--headless", "--disable-gpu");
-				driver = new ChromeDriver(options);
-				driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-			} else if(SystemUtils.IS_OS_WINDOWS) {
-				driver = new ChromeDriver(options);
-				driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-			} else if(SystemUtils.IS_OS_LINUX) {
-				options.addArguments("--headless", "--disable-gpu");
-				driver = new ChromeDriver(options);
-				driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-			}
+//            options.addArguments("--headless", "--disable-gpu");
+            driver = new ChromeDriver(options);
+            driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		}
 		return driver;
 	}
@@ -40,7 +30,8 @@ public class GetWebDriver {
 		driver.manage().deleteAllCookies();
 	}
 
-    public static void navigateToUrl(String needURL) { driver.get(needURL);
+    public static void navigateToUrl(String needURL) {
+        driver.get(needURL);
     }
 
     public static String getCurrentUrl(){

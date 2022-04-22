@@ -2,7 +2,6 @@ package automation.PestRoutes.Controller.Renewal;
 
 import java.text.DecimalFormat;
 
-import automation.PestRoutes.Controller.*;
 import automation.PestRoutes.Controller.CustomerCreation.CreateNewCustomer;
 import automation.PestRoutes.Utilities.Data.*;
 import automation.PestRoutes.Utilities.Legacy;
@@ -74,17 +73,17 @@ public class ValidateRenewal extends AppData {
         subscription.selectServiceType(serviceType);
         WebElement renewalDateField = Legacy.locate(subscription.renewalDateField);
         if (AssertException.conditionResult(renewalDateField).size() > 0) {
-            CucumberBaseClass.list.add(AssertException.conditionResult(renewalDateField));
+            AssertException.list.add(AssertException.conditionResult(renewalDateField));
         }
         Reporter.conditionStatus(renewalDateField, "renewal date field", "Renewal in subscription");
         WebElement setRenewalDate = Legacy.locate(subscription.setRenewalDateDropdown);
         if (AssertException.conditionResult(setRenewalDate).size() > 0) {
-            CucumberBaseClass.list.add(AssertException.conditionResult(setRenewalDate));
+            AssertException.list.add(AssertException.conditionResult(setRenewalDate));
         }
         Reporter.conditionStatus(setRenewalDate, "Set renewal date field", "Renewal in subscription");
         WebElement renewalFrequencyField = Legacy.locate(subscription.renewalFrequencyDropdown);
         if (AssertException.conditionResult(renewalFrequencyField).size() > 0) {
-            CucumberBaseClass.list.add(AssertException.conditionResult(renewalFrequencyField));
+            AssertException.list.add(AssertException.conditionResult(renewalFrequencyField));
         }
         Reporter.conditionStatus(renewalFrequencyField, "Renewal date field", "Renewal in subscription");
     }

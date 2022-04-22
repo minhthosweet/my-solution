@@ -151,7 +151,7 @@ public class BillingByServiceType extends AppData {
         header.searchCustomerWithName(customerName_BST);
         customerID_BST = customerViewDialog_overviewTab.getCustomerIDFromHeader();
         customerCardHeader.navigateTo(customerCardHeader.invoicesTabInDialog);
-        if (CucumberBaseClass.scenarioName().equals("Credit memo validation is BST")) {
+        if (RunCucumberTest.scenarioName().equals("Credit memo validation is BST")) {
             billingByServiceTypeTab.click(creditMemoTab.getTicketID());
             creditMemoTab.clickAppliedCharge_invoiceApplications();
         } else {
@@ -162,7 +162,7 @@ public class BillingByServiceType extends AppData {
         System.out.println(taxValue);
         totalCollected = billingByServiceTypeTab.get(invImplementation.paymentsInPayments);
 
-        if (CucumberBaseClass.scenarioName().equals("Credit memo validation is BST")) {
+        if (RunCucumberTest.scenarioName().equals("Credit memo validation is BST")) {
             result("$-" + totalCollected.substring(1), billingByServiceTypeTab.get(billingByServiceTypeTab.totalCollected_Report), "Total Collected in the report", "BBST Report Validation");
             result(billingByServiceTypeTab.get(billingByServiceTypeTab.billedServices_Report), "-" + (subTotalValue.substring(1)), "Sub Total Value Validation in report",
                     "BBST Report Validation");
@@ -170,7 +170,7 @@ public class BillingByServiceType extends AppData {
                     "BBST Report Validation");
 //            result(billingByServiceTypeTab.get(billingByServiceTypeTab.tax_Report), "$0.00", "Tax Value Validation in report",
 //                    "BBST Report Validation");
-        } else if (CucumberBaseClass.scenarioName().equals("Multi Group By filter validation in BST")) {
+        } else if (RunCucumberTest.scenarioName().equals("Multi Group By filter validation in BST")) {
             result(totalCollected, billingByServiceTypeTab.getBilledServices_MultiGroupReport(customerID_BST), "Total Collected in the report", "BBST Report Validation");
             result(billingByServiceTypeTab.getTaxRate_MultiGroupReport(customerID_BST), taxValue, "Tax Value Validation in report",
                     "BBST Report Validation");
@@ -186,7 +186,7 @@ public class BillingByServiceType extends AppData {
     //Author: Aditya
     @And("I validate line item data in Billing by service type report")
     public void validateLineItemValues_BillingReport() throws IOException {
-        if (CucumberBaseClass.scenarioName().equals("Credit memo validation is BST")) {
+        if (RunCucumberTest.scenarioName().equals("Credit memo validation is BST")) {
             result(GetDate.currentDate("MM-dd-yyyy"), billingByServiceTypeTab.get(billingByServiceTypeTab.paymentDate_lineItem), "Payment Date Validation in Detail Report", "BBST Report Validation");
             result(GetDate.currentDate("MM-dd-YYYY"), billingByServiceTypeTab.get(billingByServiceTypeTab.invoiceDate_lineItem), "Invoice Date Validation", "BBST Report Validation");
             result("$-" + totalCollected.substring(1), billingByServiceTypeTab.get(billingByServiceTypeTab.totalCollected_Customer), "Total Collected in the detail report", "BBST Report Validation");
@@ -196,7 +196,7 @@ public class BillingByServiceType extends AppData {
                     "BBST Report Validation");
 //            result(billingByServiceTypeTab.getBilledTaxValue_Customer(), "$0.00", "Tax Value Validation in detailed report",
 //                    "BBST Report Validation");
-        } else if (CucumberBaseClass.scenarioName().equals("Balance Age validation BST with StandAlone Invoices")) {
+        } else if (RunCucumberTest.scenarioName().equals("Balance Age validation BST with StandAlone Invoices")) {
             String expectedDateOfInvoice = dateOfInvoice.replaceAll("/", "-");
             String actualDateOfInvoice = billingByServiceTypeTab.get(billingByServiceTypeTab.invoiceDate_lineItem);
             if (actualDateOfInvoice.charAt(0) == '0') {
@@ -324,7 +324,7 @@ public class BillingByServiceType extends AppData {
         officeObjects.navigateToReportType(reportType);
         billingByServiceTypeTab.setGroupFilter(billingByServiceTypeTab.groupBy, "Customer Name");
         billingByServiceTypeTab.clickAdvancedFilters();
-        if (!CucumberBaseClass.scenarioName().equals("Prefer Paper and Property Type validation PST")) {
+        if (!RunCucumberTest.scenarioName().equals("Prefer Paper and Property Type validation PST")) {
             billingByServiceTypeTab.set(billingByServiceTypeTab.prefersPaper, "Yes");
         }
         billingByServiceTypeTab.set(billingByServiceTypeTab.propType_bbst, "Residential Only");
@@ -340,7 +340,7 @@ public class BillingByServiceType extends AppData {
         billingByServiceTypeTab.clickAdvancedFilters();
         billingByServiceTypeTab.set(billingByServiceTypeTab.propType_bbst, "Commercial Only");
         billingByServiceTypeTab.click(billingByServiceTypeTab.refresh_bbst);
-        if (!CucumberBaseClass.scenarioName().equals("Prefer Paper and Property Type validation PST")) {
+        if (!RunCucumberTest.scenarioName().equals("Prefer Paper and Property Type validation PST")) {
             billingByServiceTypeTab.set(billingByServiceTypeTab.prefersPaper, "No");
         }
         billingByServiceTypeTab.searchNewCustomer(billingByServiceTypeTab.search_bbst, billingByServiceTypeTab.getCustomerName_CustomerCard_InfoTab());
@@ -376,7 +376,7 @@ public class BillingByServiceType extends AppData {
             accountReceivable.createStandAloneServiceInvoice(amount, dateOfInvoice, getData("serviceDescription", generalData));
             customerCardHeader.navigateTo(customerCardHeader.adminTabInDialog);
             customerViewDialog_admin.changeAccountStatus_Active();
-            if (CucumberBaseClass.scenarioName().equals("Balance Age validation PST with StandAlone Invoices")) {
+            if (RunCucumberTest.scenarioName().equals("Balance Age validation PST with StandAlone Invoices")) {
                 billing = new Billing();
                 invoicingTab = new InvoicingTab();
                 billing.addPaymentCC("4111111111111111", "5412750109056250");
@@ -391,7 +391,7 @@ public class BillingByServiceType extends AppData {
             billingByServiceTypeTab.set(billingByServiceTypeTab.balanceAge_bbst, balanceAge[i]);
             int monthPastDue = currentMonth - monthOfInv;
             int yearsPastDue = currentYear - yearOfInv;
-            if (!CucumberBaseClass.scenarioName().equals("Balance Age validation PST with StandAlone Invoices")) {
+            if (!RunCucumberTest.scenarioName().equals("Balance Age validation PST with StandAlone Invoices")) {
                 if (monthPastDue == 0 && yearsPastDue == 0) {
                     billingByServiceTypeTab.setDateRange(billingByServiceTypeTab.dateParams, "Last Week");
                 } else if (monthPastDue == 1 && yearsPastDue == 0) {
@@ -503,7 +503,7 @@ public class BillingByServiceType extends AppData {
             WebElement elm = Legacy.locate("//tr//td[text()='" + customerID_BST + "']");
             if (elm.isDisplayed()) {
                 result(customerID_BST, customerID_BBSTReport, "Customer ID validation", "Report Validation");
-                if (CucumberBaseClass.scenarioName().equals("Multi Group By filter validation in PST")) {
+                if (RunCucumberTest.scenarioName().equals("Multi Group By filter validation in PST")) {
                     result("Billed After Service", billingFrequency_BBSTReport, "Billing Frequency Validation", "Report Validation");
                 } else {
                     result("After Service", billingFrequency_BBSTReport, "Billing Frequency Validation", "Report Validation");

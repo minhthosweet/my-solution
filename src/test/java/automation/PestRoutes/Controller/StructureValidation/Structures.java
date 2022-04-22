@@ -2,7 +2,6 @@ package automation.PestRoutes.Controller.StructureValidation;
 
 import java.io.IOException;
 
-import automation.PestRoutes.Controller.*;
 import automation.PestRoutes.Controller.CustomerCreation.CreateNewCustomer;
 import automation.PestRoutes.Utilities.Data.*;
 import automation.PestRoutes.Utilities.Report.*;
@@ -109,7 +108,7 @@ public class Structures extends AppData {
     @SuppressWarnings("unchecked")
     private void result(String expected, String actual, String stepName, String testName) {
         if (AssertException.result(expected, actual, stepName).size() > 0) {
-            CucumberBaseClass.list.add(AssertException.result(expected, actual, stepName));
+            AssertException.list.add(AssertException.result(expected, actual, stepName));
         }
         Reporter.status(stepName, expected, actual, testName);
     }

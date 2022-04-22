@@ -1,6 +1,5 @@
 package automation.PestRoutes.Utilities.Report;
 
-import static automation.PestRoutes.Controller.CucumberBaseClass.list;
 import static org.testng.Assert.assertTrue;
 
 import java.util.ArrayList;
@@ -13,6 +12,8 @@ import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 
 public class AssertException {
+	public static List list = new ArrayList<String>();
+
 	public static List<String> result(String expected, String actual, String testName) {
 		try {
 			assertTrue((actual.replaceAll("\\s", "")).equals(expected.replaceAll("\\s", "")));

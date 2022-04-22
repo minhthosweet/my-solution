@@ -1,6 +1,5 @@
 package automation.PestRoutes.Controller.CustomerCreation;
 
-import automation.PestRoutes.Controller.*;
 import automation.PestRoutes.Controller.Subscriptions.AddSubscription;
 import automation.PestRoutes.PageObject.CreateCustomer.CreateCustomerDialog;
 import automation.PestRoutes.PageObject.CustomerOverview.*;
@@ -526,7 +525,7 @@ public class CreateNewCustomer extends AppData {
         result(fName, customerNameInHeader, "Created customer ", "Structure Validation");
         String newId = overview.getCustomerIDFromHeader();
         addData("strutureUID", newId, generalData);
-        AssertException.assertFailure(CucumberBaseClass.list);
+        AssertException.assertFailure(AssertException.list);
     }
 
     @Then("I validate if customer name and address match in overview tab")
@@ -570,28 +569,15 @@ public class CreateNewCustomer extends AppData {
     }
 
     private void alertCondition() {
-        int i = 0;
-        while (i++ < 3) {
-            try {
-                Alert alert = Utilities.getAlert();
-                String actionAlert = Utilities.getAlertText();
-                String expected = "Action Required!";
-                if (actionAlert.contains(expected)) {
-                    alert.accept();
-                    Legacy.clickElement("//div[text()='Save Anyways']");
-                    break;
-                }
-                if (actionAlert.contains("This customer is closer to")) {
-                     alert.dismiss();
-                }
-            } catch (NoAlertPresentException e) {
-                try {
-                    Thread.sleep(1000);
-                    continue;
-                } catch (InterruptedException ex) {
-                    ex.printStackTrace();
-                }
-            }
+        if(getAlertText(2).contains("This customer is closer to")) {
+            dismissAlert();
+        }
+        if(getAlertText(2).contains("Action Required!")) {
+            acceptAlert();
+        }
+        By saveAnyWay = By.xpath("//div[text()='Save Anyways']");
+        if(isPresent(saveAnyWay)) {
+            click(saveAnyWay);
         }
     }
 
@@ -740,16 +726,7 @@ public class CreateNewCustomer extends AppData {
         userCreateNewCustomer.typeEmailAddress(email);
         emailAddress = userCreateNewCustomer.getEmailAddress();
         sameUser.clickSaveButton();
-        if(getAlertText(2).contains("This customer is closer to")) {
-            dismissAlert();
-        }
-        if(getAlertText(2).contains("Action Required!")) {
-            acceptAlert();
-        }
-        By saveAnyWay = By.xpath("//div[text()='Save Anyways']");
-        if(isPresent(saveAnyWay)) {
-            click(saveAnyWay);
-        }
+        alertCondition();
     }
 
     @Given("I Create A Customer With A Subscription")

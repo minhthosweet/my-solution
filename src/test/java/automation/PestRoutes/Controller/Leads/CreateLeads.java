@@ -1,6 +1,5 @@
 package automation.PestRoutes.Controller.Leads;
 
-import automation.PestRoutes.Controller.*;
 import automation.PestRoutes.Utilities.Data.*;
 import automation.PestRoutes.Utilities.Legacy;
 import automation.PestRoutes.Utilities.Report.*;
@@ -121,7 +120,7 @@ public class CreateLeads extends AppData {
 	@SuppressWarnings("unchecked")
 	private void result(String expected, String actual, String stepName, String testName) {
 		if(AssertException.result(expected, actual, stepName).size()>0) {
-			CucumberBaseClass.list.add(AssertException.result(expected, actual, stepName));
+			AssertException.list.add(AssertException.result(expected, actual, stepName));
 		}
 		Reporter.status(stepName,expected, actual, testName);
 	}

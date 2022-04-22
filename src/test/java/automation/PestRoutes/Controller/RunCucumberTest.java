@@ -12,14 +12,20 @@ import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
 import io.cucumber.java.en.Given;
+import org.junit.platform.suite.api.*;
 import org.openqa.selenium.*;
 
 import java.lang.*;
 import java.util.*;
 
-public class CucumberBaseClass extends AppData {
+import static io.cucumber.junit.platform.engine.Constants.PLUGIN_PROPERTY_NAME;
 
-    public static List list = new ArrayList<String>();
+@Suite
+@IncludeEngines("cucumber")
+@SelectClasspathResource("Features")
+@ConfigurationParameter(key = PLUGIN_PROPERTY_NAME, value = "pretty")
+public class RunCucumberTest extends AppData {
+
     static LoginPage login;
     static CustomerViewDialog_Header customerViewDialog_header;
     static CreateNewCustomer createNewCustomer;

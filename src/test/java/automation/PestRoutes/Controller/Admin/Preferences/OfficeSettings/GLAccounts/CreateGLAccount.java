@@ -1,6 +1,5 @@
 package automation.PestRoutes.Controller.Admin.Preferences.OfficeSettings.GLAccounts;
 
-import automation.PestRoutes.Controller.*;
 import automation.PestRoutes.Controller.Admin.Preferences.ServiceRelated.Service;
 import automation.PestRoutes.PageObject.Admin.AdminMainPage;
 import automation.PestRoutes.PageObject.Admin.PreferencesTab.OfficeSettingsTab.GLAccounts.GLAccountCreation;
@@ -100,7 +99,7 @@ public class CreateGLAccount extends AppData {
 
     private void result(String expected, String actual, String stepName, String testName) {
         if (AssertException.result(expected, actual, stepName).size() > 0) {
-            CucumberBaseClass.list.add(AssertException.result(expected, actual, stepName));
+            AssertException.list.add(AssertException.result(expected, actual, stepName));
         }
         Reporter.status(stepName, expected, actual, testName);
     }

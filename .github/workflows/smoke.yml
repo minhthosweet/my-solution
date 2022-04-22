@@ -1,0 +1,59 @@
+# This workflow will build a Java project with Maven
+# For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-maven
+
+name: Java CI with Maven
+
+on: workflow_dispatch
+
+jobs:
+  smoke-test:
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Set up JDK 8
+      uses: actions/setup-java@v3
+      with:
+        distribution: 'temurin'
+        java-version: '8'
+        cache: 'maven'
+
+    - name: Build with Maven
+      run: mvn --batch-mode --update-snapshots verify
+
+    - name: AccountReceivable
+      if: always()
+      run: mvn test `-Dcucumber.filter.tags="@AccountReceivable" `-DskipTests=false
+
+    - name: PaymentCC
+      if: always()
+      run: mvn test `-Dcucumber.filter.tags="@PaymentCC" `-DskipTests=false
+
+    - name: PaymentACH
+      if: always()
+      run: mvn test `-Dcucumber.filter.tags="@PaymentACH" `-DskipTests=false
+
+    - name: CustomerReports
+      if: always()
+      run: mvn test `-Dcucumber.filter.tags="@CustomerReports" `-DskipTests=false
+
+    - name: CustomAppointmentDate
+      if: always()
+      run: mvn test `-Dcucumber.filter.tags="@CustomAppointmentDate" `-DskipTests=false
+
+    - name: Equipment
+      if: always()
+      run: mvn test `-Dcucumber.filter.tags="@Equipment" `-DskipTests=false
+
+    - name: Transfer
+      if: always()
+      run: mvn test `-Dcucumber.filter.tags="@Transfer" `-DskipTests=false
+
+    - name: VerifyAppointmentInfoOnAppointmentsTab
+      if: always()
+      run: mvn test `-Dcucumber.filter.tags="@VerifyAppointmentInfoOnAppointmentsTab" `-DskipTests=false
+
+    - name: Renewal
+      if: always()
+      run: mvn test `-Dcucumber.filter.tags="@Renewal" `-DskipTests=false

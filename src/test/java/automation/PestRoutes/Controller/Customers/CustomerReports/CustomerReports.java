@@ -462,7 +462,7 @@ public class CustomerReports extends AppData {
 
     @When("I send message or password recovery to customer in customer report")
     public void sendMessage_passwordRecovery_customerReport() throws IOException, InterruptedException {
-        if (CucumberBaseClass.tagName().equals("ActionsValidations_SendMessage")) {
+        if (RunCucumberTest.tagName().equals("ActionsValidations_SendMessage")) {
             customerReportsPage.clickActionType_action(customerReportsPage.sendMessage_action);
         } else {
             customerReportsPage.clickActionType_action(customerReportsPage.sendPasswordRecovery_action);

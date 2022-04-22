@@ -2,7 +2,6 @@ package automation.PestRoutes.Controller.Documents;
 
 import java.io.IOException;
 
-import automation.PestRoutes.Controller.*;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_InfoTab;
 import automation.PestRoutes.Utilities.*;
 import automation.PestRoutes.Utilities.Data.*;
@@ -131,7 +130,7 @@ public class DocumentsValidations extends AppData {
 	@SuppressWarnings("unchecked")
 	private void result(String expected, String actual, String stepName, String testName) {
 		if (AssertException.result(expected, actual, stepName).size() > 0) {
-			CucumberBaseClass.list.add(AssertException.result(expected, actual, stepName));
+			AssertException.list.add(AssertException.result(expected, actual, stepName));
 		}
 		Reporter.status(stepName, expected, actual, testName);
 	}

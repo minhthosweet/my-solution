@@ -144,7 +144,7 @@ public class PaymentsByServiceType extends AppData {
         customerCardHeader.navigateTo(customerCardHeader.infoTabInDialog);
         double taxPercent = Double.parseDouble(billingByServiceTypeTab.getAttributeValue(createCustomerDialog.mainTaxPercentage, "value").replaceAll("%", "")) / 100;
         customerCardHeader.navigateTo(customerCardHeader.invoicesTabInDialog);
-        if (CucumberBaseClass.scenarioName().equals("Credit memo validation in PST")) {
+        if (RunCucumberTest.scenarioName().equals("Credit memo validation in PST")) {
             billingByServiceTypeTab.click(creditMemoTab.getTicketID());
             creditMemoTab.clickAppliedCharge_invoiceApplications();
         } else {
@@ -153,16 +153,16 @@ public class PaymentsByServiceType extends AppData {
         subTotalValue = invImplementation.getSubTotalValue();
         taxValue = invImplementation.getTaxValue();
         totalCollected = billingByServiceTypeTab.get(invImplementation.paymentsInPayments);
-        if (CucumberBaseClass.scenarioName().equals("Credit memo validation in PST")) {
+        if (RunCucumberTest.scenarioName().equals("Credit memo validation in PST")) {
             totalCollected = "$" + String.format("%.2f", Double.parseDouble(billingByServiceTypeTab.get(invImplementation.paymentsInPayments).substring(1)) / 10);
         }
-        if (CucumberBaseClass.scenarioName().equals("Balance Age validation PST with StandAlone Invoices")) {
+        if (RunCucumberTest.scenarioName().equals("Balance Age validation PST with StandAlone Invoices")) {
             subTotalValue = billingByServiceTypeTab.get(invImplementation.paymentsInPayments).substring(1);
             taxPercent = 1 + taxPercent;
             subTotalValue = "$" + String.format("%.2f", Double.parseDouble(subTotalValue) / (taxPercent));
             taxValue = "$" + String.format("%.2f", (Double.parseDouble(totalCollected.substring(1)) - Double.parseDouble(subTotalValue.substring(1))));
         }
-        if (CucumberBaseClass.scenarioName().equals("Credit memo validation in PST")) {
+        if (RunCucumberTest.scenarioName().equals("Credit memo validation in PST")) {
             subTotalValue = billingByServiceTypeTab.get(invImplementation.paymentsInPayments).substring(1);
             taxPercent = (1 + taxPercent) * 10;
             subTotalValue = "$" + String.format("%.2f", Double.parseDouble(subTotalValue) / (taxPercent));
@@ -294,7 +294,7 @@ public class PaymentsByServiceType extends AppData {
             customerID_PST = customerViewDialog_overviewTab.getCustomerIDFromHeader();
             customerCardHeader.navigateTo(customerCardHeader.adminTabInDialog);
             customerViewDialog_admin.changeAccountStatus_Active();
-            if (CucumberBaseClass.scenarioName().equals("Balance Age validation PST with StandAlone Invoices")) {
+            if (RunCucumberTest.scenarioName().equals("Balance Age validation PST with StandAlone Invoices")) {
                 billing = new Billing();
                 invoicingTab = new InvoicingTab();
                 billing.addPaymentCC("4111111111111111", "5412750109056250");
@@ -311,7 +311,7 @@ public class PaymentsByServiceType extends AppData {
             billingByServiceTypeTab.set(billingByServiceTypeTab.balanceAge_bbst, balanceAge[i]);
             int monthPastDue = currentMonth - monthOfInv;
             int yearsPastDue = currentYear - yearOfInv;
-            if (!CucumberBaseClass.scenarioName().equals("Balance Age validation PST with StandAlone Invoices")) {
+            if (!RunCucumberTest.scenarioName().equals("Balance Age validation PST with StandAlone Invoices")) {
                 if (monthPastDue == 0 && yearsPastDue == 0) {
                     billingByServiceTypeTab.setDateRange(billingByServiceTypeTab.dateParams, "Last Week");
                 } else if (monthPastDue == 1 && yearsPastDue == 0) {
@@ -340,7 +340,7 @@ public class PaymentsByServiceType extends AppData {
         result(totalCollected, billingByServiceTypeTab.get(paymentsByServiceTypeTab.totalCollected_Customer), "Total Collected in the detail report", "PST Report Validation");
         result(billingByServiceTypeTab.get(paymentsByServiceTypeTab.tax_Customer), taxValue, "Tax Value Validation in detailed report",
                 "PST Report Validation");
-        if (CucumberBaseClass.scenarioName().equals("Multi Group By filter validation in PST")) {
+        if (RunCucumberTest.scenarioName().equals("Multi Group By filter validation in PST")) {
             result(paymentsByServiceTypeTab.getAppliedPaymentsBeforeTax_MultiGroupReport(customerID_PST), billingByServiceTypeTab.get(paymentsByServiceTypeTab.appliedPaymentBeforeTax_Customer), "Applied Payment Validation in detail report",
                     "PST Report Validation");
         } else {
