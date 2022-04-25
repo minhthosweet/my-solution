@@ -1,10 +1,10 @@
 package automation.PestRoutes.PageObject.CustomerPortal;
 
 import automation.PestRoutes.PageObject.BasePage;
-import static automation.PestRoutes.Utilities.Utilities.*;
 
-import automation.PestRoutes.Utilities.*;
 import automation.PestRoutes.Utilities.Legacy;
+import static automation.PestRoutes.Utilities.GetWebDriver.*;
+import static automation.PestRoutes.Utilities.Utilities.*;
 import org.openqa.selenium.By;
 
 public class CustomerPortalBasePage extends BasePage {
@@ -14,6 +14,7 @@ public class CustomerPortalBasePage extends BasePage {
     private By summaryTab = By.xpath("//div[@id='myNavbar']//a[text()='Summary']");
     private By historyTab = By.xpath("//div[@id='myNavbar']//a[text()='History']");
     private By billingTab = By.xpath("//div[@id='myNavbar']//a[text()='Billing']");
+    private By productsTab = By.xpath("//div[@id='myNavbar']//a[text()='Products']");
     private By activeTab = By.xpath("//div[@id='myNavbar']//a[contains(@class,'active')]");
 
     public String getFirstNameFromWelcomeBanner(){
@@ -22,14 +23,14 @@ public class CustomerPortalBasePage extends BasePage {
 
     public String getResponsibleBalance(){
         delay(1000);
-        Legacy.scrollToElementJS(responsibleBalance);
+        jsScrollTo(responsibleBalance);
         return getText(responsibleBalance);
     }
 
     public CustomerPortalHistoryTabPage goToHistoryTab(){
         click(historyTab);
         while(!isHistoryTabActive()) {
-            GetWebDriver.refreshPage();
+            refreshPage();
         }
         return new CustomerPortalHistoryTabPage();
     }
@@ -37,13 +38,21 @@ public class CustomerPortalBasePage extends BasePage {
     public CustomerPortalBillingTabPage goToBillingTab() {
         click(billingTab);
         while(!isBillingTabActive()) {
-            GetWebDriver.refreshPage();
+            refreshPage();
         }
         return new CustomerPortalBillingTabPage();
     }
 
+    public CustomerPortalProductsTabPage goToProductsTab() {
+        click(productsTab);
+        while(!isProductsTabActive()) {
+            refreshPage();
+        }
+        return new CustomerPortalProductsTabPage();
+    }
+
     private boolean isTabActive(By locator){
-        if (Utilities.locate(activeTab).getText().equals(Utilities.locate(locator).getText())) {
+        if (locate(activeTab).getText().equals(locate(locator).getText())) {
             return true;
         }
         return false;
@@ -59,5 +68,9 @@ public class CustomerPortalBasePage extends BasePage {
 
     public boolean isSummaryTabDisplayed() {
         return isVisible(summaryTab);
+    }
+
+    public boolean isProductsTabActive(){
+        return isTabActive(productsTab);
     }
 }

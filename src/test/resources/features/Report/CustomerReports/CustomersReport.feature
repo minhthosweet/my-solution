@@ -318,7 +318,7 @@ Feature: Customer reports end to end validation
   @VerifyNegativeDaysPastDueOnCustomerReportsInverseToPositiveDaysToPayOnInvoicesTab
   Scenario: Verify Negative Days Past Due On Customer Reports Inverse To Positive Days To Pay On Invoices Tab
     Given I Create A Customer With A Subscription
-    When  I Generate A Stand Alone Invoice
+    When  I Generate A Stand Alone Invoice Using A Future Date
     And   I Add The "Days Past Due" Column To Customer Reports
     And   I Navigate To The "Billing Account" Section To Update Payment Days Past Due Filters "<" "0" Days
     Then  I Verify Days To Pay via Invoice Tab Inverses Days Past Due via Customer Reports

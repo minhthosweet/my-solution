@@ -149,6 +149,68 @@ public class GetDate {
 		return year;
 	}
 
+	public static String compareTwoDates(String strDate1, String dateFormat1 , String strDate2, String dateFormat2 ){
+		String CheckFormat = "MM/dd/yyyy";
+		String date1String;
+		String date2String;
+		Date D1 = new Date();
+		Date D2 = new Date();
+		int flagDate1=0;
+		int flagDate2 =0;
+
+		try {
+			DateFormat date1DF = new SimpleDateFormat(dateFormat1);
+			date1DF.setLenient(false);
+
+			Date date1 = date1DF.parse(strDate1);
+			date1String = new SimpleDateFormat(CheckFormat).format(date1);
+			DateFormat dateDF1 = new SimpleDateFormat(CheckFormat);
+			D1=dateDF1.parse(date1String);
+		} catch (ParseException | IllegalArgumentException e) {
+			flagDate1 = 1;
+		}
+
+		try {
+			DateFormat date2DF = new SimpleDateFormat(dateFormat2);
+			date2DF.setLenient(false);
+
+			Date date2 =date2DF.parse(strDate2);
+			date2String = new SimpleDateFormat(CheckFormat).format(date2);
+			DateFormat dateDF2 = new SimpleDateFormat(CheckFormat);
+			D2=dateDF2.parse(date2String);
+		} catch (ParseException | IllegalArgumentException e) {
+			flagDate2 = 1;
+		}
+
+		if((flagDate1 == 0) &&  (flagDate2==0)) {
+			if (D1.equals(D2)) {
+				return "0"; // Dates are sane
+			}
+			else if ( D1.before(D2))
+				return "-1";  //Before
+			else
+				return "1";  //After
+		}
+		return "";
+	}//compareTwoDates()
+
+	public static String formatDate(String strDate, String originalFormat ){
+		String CheckFormat = "MM/dd/yyyy";
+		String strFormattedDate = "";
+
+		try {
+			DateFormat dateDF = new SimpleDateFormat(originalFormat);
+			dateDF.setLenient(false);
+
+			Date date = dateDF.parse(strDate);
+			strFormattedDate = new SimpleDateFormat(CheckFormat).format(date);
+		} catch (ParseException | IllegalArgumentException e) {
+			e.printStackTrace();
+		}
+
+		return strFormattedDate ;
+	}//formatDate()
+
 	public static String convert_4DigitYear_2DigitMonth_2DigitDay(String date) {
 		// Incoming Date Is Formatted As YYYY-MM-DD
 		// Return Date Is Formatted As M/DD/YYYY
@@ -180,6 +242,17 @@ public class GetDate {
 		String day = separateYearMonthDay[1].replaceFirst("^0*", "");
 		String year = separateYearMonthDay[2];
 		return month + "/" + day + "/" + year;
+	}
+
+	public static String convertTo_4DigitYear_2DigitMonth_2DigitDay(String date) {
+		// Incoming Date Is Formatted As MM/dd/YYYY
+		// Return Date Is Formatted As YYYY-MM-DD
+
+		String[] separateYearMonthDay = date.split("/");
+		String month = separateYearMonthDay[0];
+		String day = separateYearMonthDay[1];
+		String year = separateYearMonthDay[2];
+		return year + "-" + month + "-" + day;
 	}
 
 	public static String display_DayOfWeek_Date(String date, String dateFormat) throws ParseException {

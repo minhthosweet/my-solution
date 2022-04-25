@@ -793,6 +793,23 @@ public class InvoicingTab extends AppData {
         invoicePaymentBalance = userOnInvoicesTab.getPaymentBalance();
     }
 
+    @When("I Generate A Stand Alone Invoice Using A Future Date")
+    public void automateGeneratingStandAloneInvoiceUsingFutureDate() {
+        RoutePageInvoicing userOnInvoicesTab = new RoutePageInvoicing();
+        CustomerViewDialog_Header sameUser = new CustomerViewDialog_Header();
+        CreateNewInvoicePopUp userOnNewInvoicePopUp = new CreateNewInvoicePopUp();
+        addSubscription = new AddSubscription();
+        String oneYearInTheFuture = GetDate.addYearstoCurrentYear("M/dd/yyyy", 1);
+
+        sameUser.goToInvoicesTab();
+        userOnInvoicesTab.clickNewInvoice();
+        userOnNewInvoicePopUp.typeInvoiceDate(oneYearInTheFuture);
+        userOnNewInvoicePopUp.typeSubTotal(AddSubscription.totalInitialInvoice);
+        invoiceSubTotal = userOnNewInvoicePopUp.getSubTotal();
+        userOnNewInvoicePopUp.clickCreateButton();
+        invoicePaymentBalance = userOnInvoicesTab.getPaymentBalance();
+    }
+
     @And("I Pay Off The Stand Alone Invoice")
     public void automatePayingOffStandAloneInvoice() {
         RoutePageInvoicing userOnInvoicesTab = new RoutePageInvoicing();

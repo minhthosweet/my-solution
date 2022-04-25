@@ -6,6 +6,7 @@ import automation.PestRoutes.Utilities.Utilities;
 import static automation.PestRoutes.Utilities.Utilities.*;
 import automation.PestRoutes.Utilities.Data.AppData;
 import automation.PestRoutes.Utilities.Legacy;
+import static automation.PestRoutes.Utilities.Legacy.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
@@ -403,7 +404,8 @@ public class CustomerReportsPage extends BasePage {
     }
 
     public void clickRunReport() {
-        Legacy.scrollToElementJS(refreshButton);
+        delay(2000);
+        scrollToElementJS(refreshButton);
         Utilities.click(By.xpath(refreshButton));
     }
 
@@ -436,28 +438,28 @@ public class CustomerReportsPage extends BasePage {
 
     public void clickCustomerReportsSection(String section) {
         By filterSection = By.xpath("//div[text()='" + section + "']");
-        Legacy.scrollToElementJS(filterSection);
+        scrollToElementJS(filterSection);
         Utilities.click(filterSection);
         delay(1000);
     }
 
     public void typeToScheduledForDate_ServiceAppointment(String date) {
-        Legacy.scrollToElementJS(serviceAppointmentToScheduledForDateField);
+        scrollToElementJS(serviceAppointmentToScheduledForDateField);
         type(serviceAppointmentToScheduledForDateField, date);
     }
 
     public void typeFromScheduledForDate_ServiceAppointment(String date) {
-        Legacy.scrollToElementJS(serviceAppointmentFromScheduledForDateField);
+        jsScrollTo(serviceAppointmentFromScheduledForDateField);
         type(serviceAppointmentFromScheduledForDateField, date);
     }
 
     public void serviceAppointment_TypeCategory(String category) {
-        Legacy.scrollToElement(serviceAppointmentCategoryMultiField);
-        Legacy.type(category, locate(serviceAppointmentCategoryMultiField));
+        jsScrollTo(serviceAppointmentCategoryMultiField);
+        type(serviceAppointmentCategoryMultiField, category);
     }
 
     public void selectFromShowTechNotes(String showTechNotes) {
-        Legacy.scrollToElement(serviceAppointmentCategoryMultiField);
+        jsScrollTo(serviceAppointmentCategoryMultiField);
         WebSelect.selectByText(serviceAppointmentShowTechNotesDropDown, showTechNotes);
     }
 
@@ -474,7 +476,7 @@ public class CustomerReportsPage extends BasePage {
     }
 
     public void clickHeaderCustomerID() {
-        Legacy.scrollToElement(tableHeaderCustomerID);
+        jsScrollTo(tableHeaderCustomerID);
         Utilities.click(tableHeaderCustomerID);
         delay(3000);
     }

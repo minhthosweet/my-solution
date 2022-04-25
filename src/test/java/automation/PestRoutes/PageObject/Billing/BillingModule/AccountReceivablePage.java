@@ -2,6 +2,8 @@ package automation.PestRoutes.PageObject.Billing.BillingModule;
 
 import automation.PestRoutes.Utilities.Legacy;
 
+import static automation.PestRoutes.Utilities.Utilities.delay;
+
 public class AccountReceivablePage {
 
     //Buttons
@@ -81,6 +83,7 @@ public class AccountReceivablePage {
         Legacy.waitVisible(needField);
         Legacy.highLight(needField);
         Legacy.waitVisible(needField);
+        delay(3000);
         Legacy.locate(needField).sendKeys(needValue);
     }
 
