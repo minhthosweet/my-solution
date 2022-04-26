@@ -1,12 +1,11 @@
 package automation.PestRoutes.PageObject.CustomerPortal;
 
-import automation.PestRoutes.Utilities.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-
 import java.util.List;
 
 import static automation.PestRoutes.Utilities.GetWebDriver.*;
+import static automation.PestRoutes.Utilities.Utilities.*;
 
 public class CustomerPortalSummaryTabPage extends CustomerPortalBasePage {
     private By propertyDetailsSection = By.xpath("//div[@id='content']//h3[text()='Property Details']/..");
@@ -22,17 +21,19 @@ public class CustomerPortalSummaryTabPage extends CustomerPortalBasePage {
     private By invoiceLink = By.xpath("//a[text() ='Invoice']");
     private By technicianReviewTextArea = By.xpath("//div[@id='content']//textarea[@name='feedback']");
     private By fiveStarRatings = By.xpath("//div[contains(@class,'star-rating')]");
+    private By facebookRecommendButton = By.xpath("//button[contains(@title,'Recommend')]");
+    private By facebookShareButton = By.xpath("//a[contains(@href,'share')]");
 
     public String getPropertyDetails() {
-        return Utilities.getText(propertyDetailsSection);
+        return getText(propertyDetailsSection);
     }
 
     public String getShareTheLoveInformation() {
-        return Utilities.getText(shareTheLove);
+        return getText(shareTheLove);
     }
 
     public String getServiceType() {
-        return Utilities.getText(serviceType);
+        return getText(serviceType);
     }
 
     public int numberOfServiceTypes() {
@@ -41,52 +42,52 @@ public class CustomerPortalSummaryTabPage extends CustomerPortalBasePage {
     }
 
     public String getMostRecentServiceSection(){
-        return Utilities.getText(mostRecentServiceSection);
+        return getText(mostRecentServiceSection);
     }
 
     public String getDate(){
-        return Utilities.getText(dateField);
+        return getText(dateField);
     }
 
     public String getTechnician(){
-        return Utilities.getText(technicianField);
+        return getText(technicianField);
     }
 
     public String getInvoiceNumber(){
-        return Utilities.getText(invoiceField);
+        return getText(invoiceField);
     }
 
     public String getTotalAmount(){
-        return Utilities.getText(totalField);
+        return getText(totalField);
     }
 
     public String getBalanceAmount(){
-        return Utilities.getText(balanceField);
+        return getText(balanceField);
     }
 
     public boolean isServiceNotificationLinkDisplayed(){
-        if (Utilities.locate(serviceNotificationLink).isDisplayed()) {
+        if (locate(serviceNotificationLink).isDisplayed()) {
             return true;
         }
         return false;
     }
 
     public boolean isInvoiceLinkDisplayed(){
-        if (Utilities.locate(invoiceLink).isDisplayed()) {
+        if (locate(invoiceLink).isDisplayed()) {
             return true;
         }
         return false;
     }
 
     public boolean isTechnicianReviewTextAreaDisplayed(){
-        if (Utilities.locate(technicianReviewTextArea).isDisplayed()) {
+        if (locate(technicianReviewTextArea).isDisplayed()) {
             return true;
         }
         return false;
     }
 
     public boolean isStarRatingsDisplayed(){
-        if (Utilities.locate(fiveStarRatings).isDisplayed()) {
+        if (locate(fiveStarRatings).isDisplayed()) {
             return true;
         }
         return false;
@@ -96,5 +97,23 @@ public class CustomerPortalSummaryTabPage extends CustomerPortalBasePage {
         String url = driver.getCurrentUrl();
         System.out.println("Portal URL: " + url);
         return url;
+    }
+
+    public String getFacebookButtonName(String button) {
+        delay(2000);
+        WebElement facebookFrame = locate(By.xpath("//iframe[@title='fb:like Facebook Social Plugin']"));
+        driver.switchTo().frame(facebookFrame);
+        switch(button) {
+            case "Recommend":
+                String facebookRecommendButtonName = getText(facebookRecommendButton);
+                System.out.println("Facebook Button Name: " + facebookRecommendButtonName);
+                return facebookRecommendButtonName;
+            case "Share":
+                String facebookShareButtonName = getText(facebookShareButton);
+                System.out.println("Facebook Button Name: " + facebookShareButtonName);
+                return facebookShareButtonName;
+            default:
+                return null;
+        }
     }
 }

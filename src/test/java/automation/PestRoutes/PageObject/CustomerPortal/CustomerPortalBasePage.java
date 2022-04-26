@@ -2,7 +2,6 @@ package automation.PestRoutes.PageObject.CustomerPortal;
 
 import automation.PestRoutes.PageObject.BasePage;
 
-import automation.PestRoutes.Utilities.Legacy;
 import static automation.PestRoutes.Utilities.GetWebDriver.*;
 import static automation.PestRoutes.Utilities.Utilities.*;
 import org.openqa.selenium.By;

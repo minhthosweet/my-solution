@@ -91,9 +91,24 @@ Feature: Customer Portal - Summary Tab Displays Accurate Information
     And   I Navigate To Customer Portal From Customer Card - Admin Tab
     Then  I Verify The URL Contains The Correct SubDomain
 
+# Ticket 132992: Facebook Text Box Is Cut Off
+# https://fieldroutes.freshdesk.com/a/tickets/132992
+# Note: Screenshots From The Ticket Reported 2 Issues
+    #1 FB Text Was Wider Than The iFrame Sidebar (Layout Changed To No Longer Include Text - Not Able To Automate)
+    #2 FB Buttons Was Not Visible (Below Scenario Automates The FB Recommend Button)
+  @VerifyFacebookRecommendButtonIsVisibleOnSummaryTab
+  Scenario: Verify Facebook Recommend Button Is Visible On The Customer Portal Summary Tab
+    Given I Create A Customer With Basic Information
+    And   I Navigate To Customer Portal From Customer Card - Admin Tab
+    Then  I Verify The Facebook "Recommend" Button Is Visible By Returning The Button Name
 
-
-
-
-
-
+# Ticket 132992: Facebook Text Box Is Cut Off
+# https://fieldroutes.freshdesk.com/a/tickets/132992
+# Note: Screenshots From The Ticket Reported 2 Issues
+    #1 FB Text Was Wider Than The iFrame Sidebar (Layout Changed To No Longer Include Text - Not Able To Automate)
+    #2 FB Buttons Was Not Visible (Below Scenario Automates The FB Share Button)
+    @VerifyFacebookShareButtonIsVisibleOnSummaryTab
+    Scenario: Verify Facebook Share Button Is Visible On The Customer Portal Summary Tab
+      Given I Create A Customer With Basic Information
+      And   I Navigate To Customer Portal From Customer Card - Admin Tab
+      Then  I Verify The Facebook "Share" Button Is Visible By Returning The Button Name

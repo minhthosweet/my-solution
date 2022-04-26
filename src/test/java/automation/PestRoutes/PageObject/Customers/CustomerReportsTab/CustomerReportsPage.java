@@ -75,7 +75,7 @@ public class CustomerReportsPage extends BasePage {
     // Service Appointment Fields
     private By serviceAppointmentFromScheduledForDateField = By.xpath("//div[@key='scheduledFor']/input[1]");
     private By serviceAppointmentToScheduledForDateField = By.xpath("//div[@key='scheduledFor']/input[2]");
-    private By serviceAppointmentCategoryMultiField = By.xpath("//input[@id='s2id_autogen46']");
+    private By serviceAppointmentCategoryMultiField = By.xpath("//div[text()='Service Appointment']//following::label[text()='Category']//following::input");
     private By serviceAppointmentShowTechNotesDropDown = By.xpath("//div[@key='showTechNotes']/select");
 
     // Billing Account Fields
@@ -388,6 +388,7 @@ public class CustomerReportsPage extends BasePage {
     }//clickSelectColumnsToDisplayLink()
 
     public void displayColumnOnReport(String colName){
+        delay(2000);
         type(inputSelectColumnsToDisplay, colName);
         Utilities.locate(inputSelectColumnsToDisplay).sendKeys(Keys.ENTER);
     }//clickSelectColumnsToDisplayLink()
@@ -446,16 +447,19 @@ public class CustomerReportsPage extends BasePage {
     public void typeToScheduledForDate_ServiceAppointment(String date) {
         scrollToElementJS(serviceAppointmentToScheduledForDateField);
         type(serviceAppointmentToScheduledForDateField, date);
+        type(serviceAppointmentToScheduledForDateField, Keys.ENTER);
     }
 
     public void typeFromScheduledForDate_ServiceAppointment(String date) {
         jsScrollTo(serviceAppointmentFromScheduledForDateField);
         type(serviceAppointmentFromScheduledForDateField, date);
+        type(serviceAppointmentFromScheduledForDateField, Keys.ENTER);
     }
 
     public void serviceAppointment_TypeCategory(String category) {
         jsScrollTo(serviceAppointmentCategoryMultiField);
         type(serviceAppointmentCategoryMultiField, category);
+        type(serviceAppointmentCategoryMultiField, Keys.ENTER);
     }
 
     public void selectFromShowTechNotes(String showTechNotes) {

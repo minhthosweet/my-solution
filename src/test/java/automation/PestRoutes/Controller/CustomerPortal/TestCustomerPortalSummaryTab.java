@@ -6,24 +6,15 @@ import automation.PestRoutes.Controller.Invoicing.InvoicingTab;
 import automation.PestRoutes.Controller.Subscriptions.AddSubscription;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_Admin;
 import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_Header;
-import automation.PestRoutes.PageObject.CustomerOverview.CustomerViewDialog_SubscriptionTab;
-import automation.PestRoutes.PageObject.CustomerOverview.CustomerviewDialog_AppointmentsTab;
 import automation.PestRoutes.PageObject.CustomerPortal.CustomerPortalSummaryTabPage;
-import automation.PestRoutes.PageObject.DashboardPage;
-import automation.PestRoutes.PageObject.RoutePage.RoutePage;
-import automation.PestRoutes.PageObject.Scheduling.SchedulingAppointmentDialog;
-import automation.PestRoutes.PageObject.Scheduling.SchedulingTab;
 import automation.PestRoutes.Utilities.Data.*;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.testng.asserts.SoftAssert;
-
 import java.math.BigDecimal;
 import java.util.List;
-
 import static automation.PestRoutes.Utilities.Data.AppData.*;
-import static automation.PestRoutes.Utilities.GetWebDriver.closeTab;
-import static automation.PestRoutes.Utilities.GetWebDriver.switchToOldWindowOpened;
+import static automation.PestRoutes.Utilities.GetWebDriver.*;
 
 public class TestCustomerPortalSummaryTab {
 
@@ -31,12 +22,6 @@ public class TestCustomerPortalSummaryTab {
     CustomerViewDialog_Header sameUser = new CustomerViewDialog_Header();
     CustomerViewDialog_Admin userOnAdminTab = new CustomerViewDialog_Admin();
     CustomerPortalSummaryTabPage userOnCustomerPortalSummaryTab = new CustomerPortalSummaryTabPage();
-    CustomerViewDialog_SubscriptionTab userOnSubscriptionTab = new CustomerViewDialog_SubscriptionTab();
-    DashboardPage userOnDashboard = new DashboardPage();
-    SchedulingTab userOnSchedulingComponent = new SchedulingTab();
-    RoutePage userOnRoutePage = new RoutePage();
-    SchedulingAppointmentDialog userOnSchedulingDialog = new SchedulingAppointmentDialog();
-    CustomerviewDialog_AppointmentsTab userOnAppointmentsTab = new CustomerviewDialog_AppointmentsTab();
     CreateNewCustomer testCustomer = new CreateNewCustomer();
     AddSubscription testSubscription = new AddSubscription();
     InvoicingTab testInvoice = new InvoicingTab();
@@ -226,6 +211,19 @@ public class TestCustomerPortalSummaryTab {
                 "\n Expected Sub Domain: " + expectedSubDomain + "\n");
         System.out.println("Actual Sub Domain:   " + actualSubDomain);
         System.out.println("Expected Sub Domain: " + expectedSubDomain);
+        closeTab();
+        switchToOldWindowOpened();
+        testCustomer.removeCustomer();
+        softAssert.assertAll();
+    }
+
+    @Then("I Verify The Facebook {string} Button Is Visible By Returning The Button Name")
+    public void testFacebookButtonIsVisibleByReturningButtonName(String recommend_share) {
+        String actualFacebookButtonName = userOnCustomerPortalSummaryTab.getFacebookButtonName(recommend_share);
+        softAssert.assertTrue(actualFacebookButtonName.contains(recommend_share),
+                "\n The Facebook Button Name Is Not Correct " +
+                        "\n Actual Button Name: " + actualFacebookButtonName +
+                        "\n Expected Button Name: " + recommend_share + "\n");
         closeTab();
         switchToOldWindowOpened();
         testCustomer.removeCustomer();
