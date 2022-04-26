@@ -7,12 +7,12 @@ import org.openqa.selenium.support.ui.*;
 import java.util.List;
 
 public class Utilities {
-    // WebAction
+    // Web Action
     public static void hoverClick(By hover, By click) {
         WebAction.hoverClick(hover, click);
     }
 
-    // WebAlert
+    // Web Alert
     public static Alert getAlert() {
         return WebAlert.getAlert(1);
     }
